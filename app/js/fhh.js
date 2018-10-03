@@ -138,11 +138,11 @@ function start()
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
-		width:['95%']
+		width:['98%']
 	});		
 	
 	// family_member_information_dialog
-	$("#update_family_member_health_history_dialog").load ("update_family_member_health_history_dialog.html", function () {
+	$("#update_family_member_health_history_dialog").load ("update_family_member_health_history_dialog_ja.html", function () {
 		build_family_health_information_section();
 		build_race_ethnicity_section($("#family_race_ethnicity"), false);
 		bind_family_member_submit_button_action();
@@ -209,6 +209,13 @@ function start()
 			$(".translate").i18n();
 		});
 
+		// Asian / Japanese default.
+		$("#selectedRaces-2").prop("checked", "true");
+		// Open Asian checkbox
+		$("#add_personal_information_dialog").find("#asian_checkboxes").show();
+		// Japanese checked
+		$("#selectedRaces-14").prop("checked", "true");
+
 	});
 
 	$("#update_family_member_health_history_dialog").dialog({
@@ -272,7 +279,8 @@ function start()
 		title:$.t("fhh_js.load_dialog_title"),
 		position:['middle',0],
 		autoOpen: false,
-		height:'auto',
+//		height:'auto',
+		height:1024,
 		width:800
 	});
 
@@ -442,8 +450,14 @@ function start()
 	
 	// Hide or show the right initial buttons
 	$("#create_new_personal_history_button").show().on("click", bind_create_new_personal_history_button_action);
-	$("#save_personal_history_button").show().on("click", bind_save_personal_history_button_action);
-	$("#add_another_family_member_button").show().on("click", bind_add_another_family_member_button_action);
+//	$("#save_personal_history_button").show().on("click", bind_save_personal_history_button_action);
+	$("#save_personal_history_button1").click(function(){
+		bind_save_personal_history_button_action();
+	});
+//	$("#add_another_family_member_button").show().on("click", bind_add_another_family_member_button_action);
+	$("#add_another_family_member_button1").click(function(){
+		bind_add_another_family_member_button_action();
+	});
 	$("#save_family_history_button").hide();
 //	$("#view_diagram_and_table_button").show().on("click", bind_view_diagram_and_table_button_action);
 //    $("#view_diagram_and_table_button").show().on("click",  readtable());
@@ -534,6 +548,10 @@ function bind_view_diagram_and_table_button_action () {
 
 function bind_save_personal_history_button_action () {
 	$("#firstVari").text("");
+	$("#firstVari").css("visibility","hidden");
+	$("#firstVari").removeClass("label_alert");
+	$("tt1").removeClass("red-text");
+	$("tt1").addClass("green-text");
 	$("#save_personal_history_button").css("background-color","#337AB7");
 	$( "#save_personal_history_dialog" ).dialog( "open" );	
 }
@@ -556,7 +574,7 @@ function bind_add_another_family_member_button_action() {
 			new_family_member_dialog.empty().dialog("open");
 		}
 		
-		new_family_member_dialog.append("<h3> " + $.t("fhh_js.add_relative_title") + " </h3>");
+		new_family_member_dialog.append("<div class='popup_title'> " + $.t("fhh_js.add_relative_title") + " </div>");
 		new_family_member_dialog.append("<P class='instructions'>" + $.t("fhh_js.add_relative_para") + "</P>");
 		new_family_member_dialog.append("<label for='new_family_member_relationship'> " + $.t("fhh_js.relationship_to_me") + " </label>");
 		new_family_member_select = 
@@ -901,7 +919,7 @@ function bind_personal_submit_button_action () {
 		personal_information['date_of_birth'] = $('#personal_info_form_date_of_birth').val();
 		personal_information['twin_status'] = $('input[name="person.twin_status"]:checked').val();
 		personal_information['adopted'] = $('input[name="person.adopted"]:checked').prop('checked');
-		
+
 		var height_inches = parseInt($('#personal_height_inches').val());
 		var height_feet = parseInt($('#personal_height_feet').val());
 		var height_centimeters = parseInt($('#personal_height_centimeters').val());
@@ -918,7 +936,8 @@ function bind_personal_submit_button_action () {
 			personal_information['height'] = "";
 			personal_information['height_unit'] = "";
 		}
-		
+
+		personal_information['prefectures'] = $('#personal_info_form_place_of_birth').val();
 		personal_information['weight'] = $('#personal_weight').val();
 		personal_information['weight_unit'] = $('#personal_weight_unit').val();
 
@@ -985,37 +1004,37 @@ function check_name_exists(name) {
 function check_date_of_birth_in_correct_format (date_of_birth) {
 	if (date_of_birth == null || date_of_birth.length == 0) return false;	
 
- 	re = /^\d{2}\/\d{2}\/\d{4}$/; 
+ 	re = /^\d{4}\/\d{2}\/\d{2}$/; 
  	if(!date_of_birth.match(re)) { 
  		return false; 
  	}	
 // 	date_info = date_of_birth.split(re);
   date_info = date_of_birth.split(/[.,\/ -]/);
   
-  if (date_info[0] > 12) return false
-  if (date_info[0] == 1 && date_info[1] > 31) return false;
-  if (date_info[0] == 2 && date_info[1] > 29) return false;
-  if (date_info[0] == 3 && date_info[1] > 31) return false;
-  if (date_info[0] == 4 && date_info[1] > 30) return false;
-  if (date_info[0] == 5 && date_info[1] > 31) return false;
-  if (date_info[0] == 6 && date_info[1] > 30) return false;
-  if (date_info[0] == 7 && date_info[1] > 31) return false;
-  if (date_info[0] == 8 && date_info[1] > 31) return false;
-  if (date_info[0] == 9 && date_info[1] > 30) return false;
-  if (date_info[0] == 10 && date_info[1] > 31) return false;
-  if (date_info[0] == 11 && date_info[1] > 30) return false;
-  if (date_info[0] == 12 && date_info[1] > 31) return false;
+  if (date_info[1] > 12) return false
+  if (date_info[1] == 1 && date_info[2] > 31) return false;
+  if (date_info[1] == 2 && date_info[2] > 29) return false;
+  if (date_info[1] == 3 && date_info[2] > 31) return false;
+  if (date_info[1] == 4 && date_info[2] > 30) return false;
+  if (date_info[1] == 5 && date_info[2] > 31) return false;
+  if (date_info[1] == 6 && date_info[2] > 30) return false;
+  if (date_info[1] == 7 && date_info[2] > 31) return false;
+  if (date_info[1] == 8 && date_info[2] > 31) return false;
+  if (date_info[1] == 9 && date_info[2] > 30) return false;
+  if (date_info[1] == 10 && date_info[2] > 31) return false;
+  if (date_info[1] == 11 && date_info[2] > 30) return false;
+  if (date_info[1] == 12 && date_info[2] > 31) return false;
   
   var today = new Date();
   var this_year = today.getFullYear();
   var this_month =  today.getMonth()+1;
   var this_day = today.getDate();
   
-  if (date_info[2] < 1890 || date_info[2] > this_year) return false;
-  if (date_info[2] == this_year && date_info[0] > this_month) return false;
-  if (date_info[2] == this_year && date_info[0] == this_month && date_info[1] > this_day) return false;
+  if (date_info[0] < 1890 || date_info[0] > this_year) return false;
+  if (date_info[0] == this_year && date_info[1] > this_month) return false;
+  if (date_info[0] == this_year && date_info[1] == this_month && date_info[1] > this_day) return false;
    
-  if (date_info[2] % 4 != 0 && date_info[0] == 2 && date_info[1] == 29) return false;
+  if (date_info[0] % 4 != 0 && date_info[1] == 2 && date_info[1] == 29) return false;
 	
 	return true;
 }
@@ -1183,6 +1202,7 @@ function bind_family_member_submit_button_action () {
 		family_member_information['gender'] = $('input[name="family.member.gender"]:checked').val();
 		family_member_information['twin_status'] = $('input[name="family.member.twin_status"]:checked').val();
 		family_member_information['adopted'] = $('input[name="family.member.adopted"]:checked').prop("checked");
+		family_member_information['prefectures'] = $('#family_member_info_form_place_of_birth').val();
 
 		
 		if (alive_flag == 'alive') {
@@ -1451,7 +1471,11 @@ function bind_add_all_family_members_submit_button_action() {
 		$("#add_another_family_member_button").show();
 		
 		// $("#firstVari").text("You have unsaved data!");
-		$("#firstVari").text("保存していないデータがあります！");
+		$("#firstVari").text("未保存のデータがあります！");
+		$("#firstVari").css("visibility","visible");
+		$("#firstVari").addClass("label_alert");
+		$("tt1").removeClass("green-text");
+		$("tt1").addClass("red-text");
 		$("#save_personal_history_button").css("background-color","red");
 		
 		$("#add_all_family_members_dialog").dialog("close");
@@ -1632,11 +1656,11 @@ function build_family_history_data_table () {
 
 function add_family_history_header_row(table) {
 	var header_row = $("<tr></tr>");
-	header_row.append("<th scope='col' class='nowrap'>" + $.t("fhh_js.name") + "</th>");	
-	header_row.append("<th scope='col' abbr='Relationship' class='nowrap'>" + $.t("fhh_js.relationship_to_me") + "</th>");
-	header_row.append("<th scope='col' abbr='Living' class='nowrap'>" + $.t("fhh_js.still_living_main") + "</th>");
-	header_row.append("<th scope='col' abbr='Update' class='nowrap'>" + $.t("fhh_js.update_history") + "</th>");
-	header_row.append("<th scope='col' abbr='Remove' class='nowrap'>" + $.t("fhh_js.remove_relative") + "</th>");
+	header_row.append("<th class='summary_th' scope='col' class='nowrap'>" + $.t("fhh_js.name") + "</th>");	
+	header_row.append("<th class='summary_th' scope='col' abbr='Relationship' class='nowrap'>" + $.t("fhh_js.relationship_to_me") + "</th>");
+	header_row.append("<th class='summary_th' scope='col' abbr='Living' class='nowrap'>" + $.t("fhh_js.still_living_main") + "</th>");
+	header_row.append("<th class='summary_th' scope='col' abbr='Update' class='nowrap'>" + $.t("fhh_js.update_history") + "</th>");
+	header_row.append("<th class='summary_th' scope='col' abbr='Remove' class='nowrap'>" + $.t("fhh_js.remove_relative") + "</th>");
 	header_row.append("");
 	table.empty().append(header_row);
 }
@@ -1645,20 +1669,21 @@ function add_personal_history_row(table) {
 	
 	// Html requires that all blank fields have at least 1 char or it will not show border
 	name = 'Self';	
-	var new_row = $("<tr id='self'></tr>");
+	var new_row = $("<tr class='summary_tr' id='self'></tr>");
 	new_row.addClass("proband");
-	var nameColumn_td = $("<td class='information' id='relatives_name'></td>")
-	var nameColumn_text = $("<a name=''>" + personal_information.name + "</a>");
+	var nameColumn_td = $("<td class='summary_td information' id='relatives_name'></td>")
+	var nameColumn_text = $("<a style='cursor:pointer;' name=''>" + personal_information.name + "</a>");
 	nameColumn_td.append(nameColumn_text);
 	new_row.append(nameColumn_td);
 
-	new_row.append("<td class='information'>" + $.t("fhh_js.self") + "</td>");
+	new_row.append("<td class='summary_td information'>" + $.t("fhh_js.self") + "</td>");
 
 //	new_row.append("<td class='information' id='still_living_main'>Yes</td>");
-	new_row.append("<td class='information' id='still_living_main'>"+ $.t("fhh_family_pedigree.alive") +"</td>");
+	new_row.append("<td class='summary_td information' id='still_living_main'>"+ $.t("fhh_family_pedigree.alive") +"</td>");
 	
-	var update_history_td = $("<td style='text-align:center;border:1px solid #888; padding:2px;'>");
-	var update_history = $("<A class='action update_history'><img style='border:0' src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
+	var update_history_td = $("<td class='summary_td' style='text-align:center;border:1px solid #888; padding:2px;'>");
+//	var update_history = $("<A class='action update_history'><img style='border:0' src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
+	var update_history = $("<A class='action update_history'><div class='material-icons center green-text'>edit</div></A>");
 	update_history_td.append(update_history);
 
 	update_history.on("click", function() { 
@@ -1667,19 +1692,19 @@ function add_personal_history_row(table) {
 
 	nameColumn_text.on("click", function() { 
 		updateHistoryDialog('self');
-	});			
+	});
 
 	new_row.append(update_history_td);
 	
-	new_row.append("<td class='action remove_history'>&nbsp;</td>");
+	new_row.append("<td class='summary_td action remove_history'>&nbsp;</td>");
 
 	table.append(new_row);
 }
 
 function add_new_family_history_row_title(table, name) {
-	var new_row = $("<tr></tr>");
+	var new_row = $("<tr class='summary_tr'></tr>");
 	new_row.addClass("summary_category_header_row");
-	new_row.append("<td colspan='5'>" + name + "</td>");
+	new_row.append("<td class='summary_td' colspan='5'>" + name + "</td>");
 	table.append(new_row);
 	
 }
@@ -1696,10 +1721,10 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	var is_already_defined = (family_member != null && !($.isEmptyObject(family_member)));
 	if (relationship == "") relationship = "&nbsp;";
 	
-	var new_row = $("<tr id='" + relationship_id + "'></tr>");
+	var new_row = $("<tr class='summary_tr' id='" + relationship_id + "'></tr>");
 	new_row.addClass("proband");
-	var nameColumn_td = $("<td class='information' id='relatives_name'></td>")
-	var nameColumn_text = $("<a name=''>" + name + "</a>");
+	var nameColumn_td = $("<td class='summary_td information' id='relatives_name'></td>")
+	var nameColumn_text = $("<a style='cursor:pointer;' name=''>" + name + "</a>");
 	nameColumn_td.append(nameColumn_text);
 	nameColumn_text.attr("relationship_id", relationship_id);
 	new_row.append(nameColumn_td);
@@ -1709,7 +1734,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		updateHistoryDialog(current_relationship,family_member);
 	});
 
-	new_row.append("<td class='information' >" + relationship + "</td>");
+	new_row.append("<td class='summary_td information' >" + relationship + "</td>");
 
 	if (family_member!=undefined) {
 
@@ -1728,13 +1753,14 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	
 	}
 
-	new_row.append("<td class='information' id='still_living_main'>" + status + "</td>");
+	new_row.append("<td class='summary_td information' id='still_living_main'>" + status + "</td>");
 
 	if (is_already_defined) {
 
-		var update_history_td = $("<td style='text-align:center;border:1px solid #888; padding:2px;'>");
+		var update_history_td = $("<td class='summary_td' style='text-align:center;border:1px solid #888; padding:2px;'>");
 
-		var update_history = $("<A class='action update_history'><img style='border:0px'  src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
+//		var update_history = $("<A class='action update_history'><img style='border:0px'  src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
+		var update_history = $("<A class='action update_history'><div class='material-icons center green-text'>edit</div></A>");
 		update_history_td.append(update_history);
 
 		update_history.attr("relationship_id", relationship_id);
@@ -1760,7 +1786,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		
 		
 	} else {
-		var add_history = $("<td class='action add_history'><img src='../images/icon_add.gif' alt='Add History' title='Add History'></td>")
+		var add_history = $("<td class='summary_td action add_history'><img src='../images/icon_add.gif' alt='Add History' title='Add History'></td>")
 
 		add_history.on("click", function() { 
 //			alert("Updating history for: " + relationship)
@@ -1772,12 +1798,13 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		});
 
 		
-		new_row.append("<td class='action update_history'>&nbsp;</td>");
+		new_row.append("<td class='summary_td action update_history'>&nbsp;</td>");
 	}
 	if (is_removeable) {
-		var remove_history_td = $("<td style='text-align:center;border:1px solid #888'>");
+		var remove_history_td = $("<td class='summary_td' style='text-align:center;border:1px solid #888'>");
 		
-		var remove_history = $("<A href='#' class='action remove_history'><img style='border:0px' src='../images/icon_trash.gif' alt='Remove History' title='Remove History'></A>")
+//		var remove_history = $("<A href='#' class='action remove_history'><img style='border:0px' src='../images/icon_trash.gif' alt='Remove History' title='Remove History'></A>")
+		var remove_history = $("<A href='#' class='action remove_history'><div class='material-icons center green-text'>delete</div></A>")
 		remove_history_td.append(remove_history);
 		remove_history.attr("relationship_id", relationship_id);
 		remove_history.on("click", function() { 
@@ -1785,7 +1812,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		});
 		
 		new_row.append(remove_history_td);
-	} else new_row.append("<td class='action remove_history'>&nbsp;</td>");
+	} else new_row.append("<td class='summary_td action remove_history'>&nbsp;</td>");
 
 	table.append(new_row);
 }
@@ -1807,7 +1834,11 @@ function remove_family_member(relationship_id, confirm_flag) {
 		delete personal_information[relationship_id];
 		$("#" + relationship_id).remove();
 //		$("#firstVari").text("You have unsaved data!");
-		$("#firstVari").text("保存していないデータがあります！");
+		$("#firstVari").text("未保存のデータがあります！");
+		$("#firstVari").css("visibility","visible");
+		$("#firstVari").addClass("label_alert");
+		$("tt1").removeClass("green-text");
+		$("tt1").addClass("red-text");
 		$("#save_personal_history_button").css("background-color","red");
 
 	} else {
@@ -1851,11 +1882,19 @@ function update_family_history_row(relationship_id, family_member_information) {
 
 	if (angular.equals(JSON.stringify(thirdVari),JSON.stringify(family_member_information))) {
 		$("#firstVari").text("");
+		$("#firstVari").css("visibility","hidden");
+		$("#firstVari").removeClass("label_alert");
+		$("tt1").removeClass("red-text");
+		$("tt1").addClass("green-text");
 		$("#save_personal_history_button").css("background-color","#337AB7");
 	}
 	else {
 //		$("#firstVari").text("You have unsaved data!");
-		$("#firstVari").text("保存していないデータがあります！");
+		$("#firstVari").text("未保存のデータがあります！");
+		$("#firstVari").css("visibility","visible");
+		$("#firstVari").addClass("label_alert");
+		$("tt1").removeClass("green-text");
+		$("tt1").addClass("red-text");
 		$("#save_personal_history_button").css("background-color","red");
 	}
 
@@ -1883,7 +1922,8 @@ function update_family_history_row(relationship_id, family_member_information) {
 //	var update_history = $("<td class='action update_history' relationship_id='" + relationship_id 
 //				+ "' ><img src='images/icon_edit.gif' alt='Update History' title='Update History'></td>");
 
-	$("#" + relationship_id).find(".update_history").html("<img src='../images/icon_edit.gif' alt='Update History' title='Update History'>");
+//	$("#" + relationship_id).find(".update_history").html("<img src='../images/icon_edit.gif' alt='Update History' title='Update History'>");
+	$("#" + relationship_id).find(".update_history").html("<div class='material-icons center red-text'>edit</div>");
 	$("#" + relationship_id).find(".update_history").attr("relationship_id", relationship_id);
 	$("#" + relationship_id).find(".add_history").html("&nbsp;");
 	
@@ -1916,11 +1956,15 @@ function update_personal_history_row() {
 	$("#self").find("#relatives_name").find("a").html(personal_information.name);
 	if (angular.equals(JSON.stringify(secondVari),JSON.stringify(personal_information))) {
 		$("#firstVari").text("");
+		$("#firstVari").css("visibility","hidden");
+		$("#firstVari").removeClass("label_alert");
+		$("tt1").removeClass("red-text");
+		$("tt1").addClass("green-text");
 		$("#save_personal_history_button").css("background-color","#337AB7");
 	}
 	else {
 //		$("#firstVari").text("You have unsaved data!");
-                $("#firstVari").text("保存していないデータがあります！");
+                $("#firstVari").text("未保存のデータがあります！");
 		$("#save_personal_history_button").css("background-color","red");
 	}
 
@@ -1946,12 +1990,12 @@ function build_family_health_information_section() {
 	information.append($("</ul></p>"))
 
 	var hi_health_history_table = $("<table class='disease_table'>");
-	var hi_header_row = $("<tr>");
-	hi_header_row.append("<th>" + $.t("fhh_js.disease_or_condition") + "</th>");
-	hi_header_row.append("<th>" + $.t("fhh_js.age_at_diagnosis") + "</th>");
-	hi_header_row.append("<th>" + $.t("fhh_js.action") + "</th>");
+	var hi_header_row = $("<tr class='md_tr'>");
+	hi_header_row.append("<th class='md_tr' style='width:350px;text-align:center'>" + $.t("fhh_js.disease_or_condition") + "</th>");
+	hi_header_row.append("<th class='md_tr' style='width:200px;text-align:center'>" + $.t("fhh_js.age_at_diagnosis") + "</th>");
+	hi_header_row.append("<th class='md_tr' style='width:100px;text-align:center'>" + $.t("fhh_js.action") + "</th>");
 	hi_health_history_table.append(hi_header_row);
-	var hi_data_entry_row = $("<tr id='health_data_entry_row'>");
+	var hi_data_entry_row = $("<tr class='md_tr' id='health_data_entry_row'>");
 	var disease_select_label = $("<label for='disease_choice_select'> &nbsp; </label>");
 	var disease_select = $("<select tabindex='17' id='disease_choice_select' name='disease_choice_select'></select>");
 	var detailed_disease_select_label = $("<label for='detailed_disease_choice_select'> &nbsp; </label>");
@@ -1959,23 +2003,26 @@ function build_family_health_information_section() {
 	
 	set_disease_choice_select(disease_select, detailed_disease_select);
 	hi_data_entry_row.append($("<td>").append(disease_select_label).append(disease_select)
-		.append("<br />&nbsp;&nbsp;")
+//		.append("<br />&nbsp;&nbsp;")
+		.append("<br />")
 		.append(detailed_disease_select_label).append(detailed_disease_select));
 	
 
 //	var disease_choices = get_disease_choice_select();
 //	hi_data_entry_row.append($("<td>").append(disease_choices).append("<br />&nbsp;&nbsp;"));
 	
-	var age_at_diagnosis_select_label = $("<label for='age_at_diagnosis_select'> &nbsp; </label>");
+//	var age_at_diagnosis_select_label = $("<label for='age_at_diagnosis_select'> &nbsp; </label>");
+	var age_at_diagnosis_select_label = $("");
 	var age_at_diagnosis_select = $("<select tabindex='19' name='age_at_diagnosis_select' id='age_at_diagnosis_select'></select>");
 	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);
 	hi_data_entry_row.append($("<td>").append(age_at_diagnosis_select_label).append(age_at_diagnosis_select));
 	
-	var add_new_disease_button = $("<button id='family_add_new_disease_button' name='Add' value'Add'>" + $.t("fhh_js.add") + "</button>");
+//	var add_new_disease_button = $("<button id='family_add_new_disease_button' name='Add' value='Add'>" + $.t("fhh_js.add") + "</button>");
+	var add_new_disease_button = $("<div class='inner cursor_pointer'><button style='display:none;' id='family_add_new_disease_button' name='Add' value='Add'></button><label for='family_add_new_disease_button'><div class='material-icons center green-text large-size'>add_box</div></label></div>");
 	add_new_disease_button.on('click', add_disease);
 
 	
-	hi_data_entry_row.append($("<td>").append(add_new_disease_button) );
+	hi_data_entry_row.append($("<td style='text-align:center;'>").append(add_new_disease_button) );
 	hi_health_history_table.append(hi_data_entry_row);
 	
 	
@@ -2000,10 +2047,10 @@ function build_personal_health_information_section() {
 
 	
 	var hi_health_history_table = $("<table class='disease_table'>");
-	var hi_header_row = $("<tr>");
-	hi_header_row.append("<th>" + $.t("fhh_js.disease_or_condition") + "</th>");
-	hi_header_row.append("<th>" + $.t("fhh_js.age_at_diagnosis") + "</th>");
-	hi_header_row.append("<th>" + $.t("fhh_js.action") + "</th>");
+	var hi_header_row = $("<tr class='md_tr'>");
+	hi_header_row.append("<th class='md_tr' style='width:350px;text-align:center'>" + $.t("fhh_js.disease_or_condition") + "</th>");
+	hi_header_row.append("<th class='md_tr' style='width:200px;text-align:center'>" + $.t("fhh_js.age_at_diagnosis") + "</th>");
+	hi_header_row.append("<th class='md_tr' style='width:100px;text-align:center'>" + $.t("fhh_js.action") + "</th>");
 	hi_health_history_table.append(hi_header_row);
 
 /*
@@ -2020,23 +2067,26 @@ function build_personal_health_information_section() {
 */	
 
 
-	var hi_data_entry_row = $("<tr id='health_data_entry_row'>");
+	var hi_data_entry_row = $("<tr class='md_tr' id='health_data_entry_row'>");
 
 	var disease_select = $("<select tabindex='17' id='disease_choice_select' name='disease_choice_select'></select>");
 	var	detailed_disease_select = $("<select tabindex='18' id='detailed_disease_choice_select' name='detailed_disease_choice_select'></select>");
 	
 	set_disease_choice_select(disease_select, detailed_disease_select);
-	hi_data_entry_row.append($("<td>").append(disease_select).append("<br />&nbsp;&nbsp;").append(detailed_disease_select));
+//	hi_data_entry_row.append($("<td>").append(disease_select).append("<br />&nbsp;&nbsp;").append(detailed_disease_select));
+	hi_data_entry_row.append($("<td>").append(disease_select).append("<br />").append(detailed_disease_select));
 	
 	var age_at_diagnosis_select = $("<select tabindex='19' name='age_at_diagnosis_select' id='age_at_diagnosis_select'></select>");
 	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);	
 	hi_data_entry_row.append($("<td>").append(age_at_diagnosis_select));
 	
-	var add_new_disease_button = $("<button id='add_new_disease_button' name='Add' value'Add'>" + $.t("fhh_js.add") + "</button>");
+//	var add_new_disease_button = $("<button id='add_new_disease_button' name='Add' value='Add'>" + $.t("fhh_js.add") + "</button>");
+	var add_new_disease_button = $("<div class='inner cursor_pointer'><button style='display:none;' id='add_new_disease_button' name='Add' value='Add'></button><label for='add_new_disease_button'><div class='material-icons center green-text large-size'>add_box</div></label></div>");
+
 	add_new_disease_button.on('click', add_disease);
 
 	
-	hi_data_entry_row.append($("<td>").append(add_new_disease_button) );
+	hi_data_entry_row.append($("<td style='text-align:center;'>").append(add_new_disease_button) );
 	hi_health_history_table.append(hi_data_entry_row);
 	
 	information.append(hi_health_history_table);
@@ -2257,7 +2307,7 @@ function add_disease() {
 }
 
 function create_disease_row(row_number, disease_name, disease_detail, age_at_diagnosis, code) {
-	var new_row=$("<tr class='disease_detail' row_number='" + (row_number+1) + "'>");
+	var new_row=$("<tr class='md_tr' class='disease_detail' row_number='" + (row_number+1) + "'>");
 	if (code != null) {
 		var translated_disease = $.t("diseases:" + code);
 		if (translated_disease.substr(0,9) == "diseases:") translated_disease = disease_detail;
@@ -2270,11 +2320,13 @@ function create_disease_row(row_number, disease_name, disease_detail, age_at_dia
 	new_row.append("<td class='age_at_diagnosis'>" + $.t("fhh_js." + age_at_diagnosis) + "</td>");
 //	new_row.append("<td>" +  age_at_diagnosis + "</td>");
 	
-	var remove_disease_button = $("<button id='remove_disease_button'>" + $.t("fhh_js.remove") + "</button>");
+//	var remove_disease_button = $("<button id='remove_disease_button'>" + $.t("fhh_js.remove") + "</button>");
+	var remove_disease_button = $("<div class='inner'><button style='display:none;' id='remove_disease_button' href='#'></button><div class='material-icons large-size green-text cursor_pointer'>delete</div></div>");
+
 	remove_disease_button.attr("row_number", row_number+1);
 	
 	remove_disease_button.on('click', remove_disease);
-	new_row.append($("<td>").append(remove_disease_button));
+	new_row.append($("<td style='text-align:center'>").append(remove_disease_button));
 	return new_row;
 }
 
@@ -2313,77 +2365,87 @@ function build_race_ethnicity_section(race_ethnicity, personal_flag) {
 	// First put up accordion entry
 	var bar = $("<div class='title-bar' id='bi-title'>" + $.t("fhh_js.race_ethnicity_title") + "</div>");
 	race_ethnicity.empty().append(bar);
-	
+
+	var id_text = "";
+
+	if(personal_flag === true){		// personal
+		races_id_text = "selectedRaces";
+		ethn_id_text = "selectedEthnicities";
+	}else{							// family
+		races_id_text = "selectedFamilyRaces";
+		ethn_id_text = "selectedFamilyEthnicities";
+	}
+
 	var race_checkboxes = $("<td class='race_checkbox'>" +
-			"<input tabindex='21' name='selectedRaces' value='1' id='selectedRaces-1'  type='checkbox'/>" +
-			"<label for='selectedRaces-1' class='checkboxLabel'>" + $.t("fhh_js.race_native_american") + "</label>" +
-			"<input tabindex='21' name='selectedRaces' value='2' id='selectedRaces-2' type='checkbox'/>" +
-			"<label for='selectedRaces-2' class='checkboxLabel'>" + $.t("fhh_js.race_asian") + "</label>" +
-			"<input tabindex='21' name='selectedRaces' value='3' id='selectedRaces-3' type='checkbox'/>" +
-			"<label for='selectedRaces-3' class='checkboxLabel'>" + $.t("fhh_js.race_black") + "</label>" +
+			"<input tabindex='21' name='selectedRaces' value='1' id='" + races_id_text + "-1'  type='checkbox'/>" +
+			"<label for='" + races_id_text + "-1' class='checkboxLabel'>" + $.t("fhh_js.race_native_american") + "</label>　" +
+			"<input tabindex='21' name='selectedRaces' value='2' id='" + races_id_text + "-2' type='checkbox'/>" +
+			"<label for='" + races_id_text + "-2' class='checkboxLabel'>" + $.t("fhh_js.race_asian") + "</label>　" +
+			"<input tabindex='21' name='selectedRaces' value='3' id='" + races_id_text + "-3' type='checkbox'/>" +
+			"<label for='" + races_id_text + "-3' class='checkboxLabel'>" + $.t("fhh_js.race_black") + "</label>" +
 		    "<br>" +
-			"<input tabindex='21' name='selectedRaces' value='4' id='selectedRaces-4'  type='checkbox'/>" +
-			"<label for='selectedRaces-4' class='checkboxLabel'>" + $.t("fhh_js.race_south_pacific") + "</label>" +
-			"<input tabindex='21' name='selectedRaces' value='5' id='selectedRaces-5'  type='checkbox'/>" +
-			"<label for='selectedRaces-5' class='checkboxLabel'>" + $.t("fhh_js.race_white") + "</label>" +
+			"<input tabindex='21' name='selectedRaces' value='4' id='" + races_id_text + "-4'  type='checkbox'/>" +
+			"<label for='" + races_id_text + "-4' class='checkboxLabel'>" + $.t("fhh_js.race_south_pacific") + "</label>　" +
+			"<input tabindex='21' name='selectedRaces' value='5' id='" + races_id_text + "-5'  type='checkbox'/>" +
+			"<label for='" + races_id_text + "-5' class='checkboxLabel'>" + $.t("fhh_js.race_white") + "</label>" +
 			"</td>");
 			
 	var asian_race_checkboxes = $("<td class='race_checkbox'>" +
-			"<input tabindex='22' name='selectedRaces' value='11' id='selectedRaces-11'  type='checkbox'/>" +
-			"<label for='selectedRaces-11' class='checkboxLabel'>" + $.t("fhh_js.race_asian_indian") + "</label>" +
-			"<input tabindex='22' name='selectedRaces' value='12' id='selectedRaces-12' type='checkbox'/>" +
-			"<label for='selectedRaces-12' class='checkboxLabel'>" + $.t("fhh_js.race_chinese") + "</label>" +
-			"<input tabindex='22' name='selectedRaces' value='13' id='selectedRaces-13' type='checkbox'/>" +
-			"<label for='selectedRaces-13' class='checkboxLabel'>" + $.t("fhh_js.race_filipino") + "</label>" +
-			"<input tabindex='22' name='selectedRaces' value='14' id='selectedRaces-14' type='checkbox'/>" +
-			"<label for='selectedRaces-14' class='checkboxLabel'>" + $.t("fhh_js.race_japanese") + "</label>" +
-			"<input tabindex='22' name='selectedRaces' value='15' id='selectedRaces-15' type='checkbox'/>" +
-			"<label for='selectedRaces-15' class='checkboxLabel'>" + $.t("fhh_js.race_korean") + "</label>" +
-			"<input tabindex='22' name='selectedRaces' value='16' id='selectedRaces-16' type='checkbox'/>" +
-			"<label for='selectedRaces-16' class='checkboxLabel'>" + $.t("fhh_js.race_vietnamese") + "</label>" +
-			"<input tabindex='22' name='selectedRaces' value='17' id='selectedRaces-17' type='checkbox'/>" +
-			"<label for='selectedRaces-17' class='checkboxLabel'>" + $.t("fhh_js.race_other_asian") + "</label>" +
-			"<input tabindex='22' name='selectedRaces' value='18' id='selectedRaces-18' type='checkbox'/>" +
-			"<label for='selectedRaces-18' class='checkboxLabel'>" + $.t("fhh_js.race_unknown_asian") + "</label>" +
+			"<input tabindex='22' name='selectedRaces' value='11' id='" + races_id_text + "-11'  type='checkbox'/>" +
+			"<label for='" + races_id_text + "-11' class='checkboxLabel'>" + $.t("fhh_js.race_asian_indian") + "</label>　" +
+			"<input tabindex='22' name='selectedRaces' value='12' id='" + races_id_text + "-12' type='checkbox'/>" +
+			"<label for='" + races_id_text + "-12' class='checkboxLabel'>" + $.t("fhh_js.race_chinese") + "</label>　" +
+			"<input tabindex='22' name='selectedRaces' value='13' id='" + races_id_text + "-13' type='checkbox'/>" +
+			"<label for='" + races_id_text + "-13' class='checkboxLabel'>" + $.t("fhh_js.race_filipino") + "</label>　" +
+			"<input tabindex='22' name='selectedRaces' value='14' id='" + races_id_text + "-14' type='checkbox'/>" +
+			"<label for='" + races_id_text + "-14' class='checkboxLabel'>" + $.t("fhh_js.race_japanese") + "</label>　" +
+			"<input tabindex='22' name='selectedRaces' value='15' id='" + races_id_text + "-15' type='checkbox'/>" +
+			"<label for='" + races_id_text + "-15' class='checkboxLabel'>" + $.t("fhh_js.race_korean") + "</label>　" +
+			"<input tabindex='22' name='selectedRaces' value='16' id='" + races_id_text + "-16' type='checkbox'/>" +
+			"<label for='" + races_id_text + "-16' class='checkboxLabel'>" + $.t("fhh_js.race_vietnamese") + "</label><br />" +
+			"<input tabindex='22' name='selectedRaces' value='17' id='" + races_id_text + "-17' type='checkbox'/>" +
+			"<label for='" + races_id_text + "-17' class='checkboxLabel'>" + $.t("fhh_js.race_other_asian") + "</label>　" +
+			"<input tabindex='22' name='selectedRaces' value='18' id='" + races_id_text + "-18' type='checkbox'/>" +
+			"<label for='" + races_id_text + "-18' class='checkboxLabel'>" + $.t("fhh_js.race_unknown_asian") + "</label>" +
 			"</td>");
 
 	var south_pacific_race_checkboxes = $("<td class='race_checkbox'>" +
-			"<input tabindex='23' name='selectedRaces' value='21' id='selectedRaces-21'  type='checkbox'>" +
-			"<label for='selectedRaces-21' class='checkboxLabel'>" + $.t("fhh_js.race_chamorro") + "</label>" +
-			"<input tabindex='23' name='selectedRaces' value='22' id='selectedRaces-22' type='checkbox'>" +
-			"<label for='selectedRaces-22' class='checkboxLabel'>" + $.t("fhh_js.race_guamanian") + "</label>" +
-			"<input tabindex='23' name='selectedRaces' value='23' id='selectedRaces-23' type='checkbox'>" +
-			"<label for='selectedRaces-23' class='checkboxLabel'>" + $.t("fhh_js.race_hawaiian") + "</label>" +
-			"<input tabindex='23' name='selectedRaces' value='24' id='selectedRaces-24' type='checkbox'>" +
-			"<label for='selectedRaces-24' class='checkboxLabel'>" + $.t("fhh_js.race_samoan") + "</label>" +
-			"<input tabindex='23' name='selectedRaces' value='25' id='selectedRaces-25' type='checkbox'>" +
-			"<label for='selectedRaces-25' class='checkboxLabel'>" + $.t("fhh_js.race_unknown_south_pacific") + "</label>" +
+			"<input tabindex='23' name='selectedRaces' value='21' id='" + races_id_text + "-21'  type='checkbox'>" +
+			"<label for='" + races_id_text + "-21' class='checkboxLabel'>" + $.t("fhh_js.race_chamorro") + "</label>　" +
+			"<input tabindex='23' name='selectedRaces' value='22' id='" + races_id_text + "-22' type='checkbox'>" +
+			"<label for='" + races_id_text + "-22' class='checkboxLabel'>" + $.t("fhh_js.race_guamanian") + "</label>　" +
+			"<input tabindex='23' name='selectedRaces' value='23' id='" + races_id_text + "-23' type='checkbox'>" +
+			"<label for='" + races_id_text + "-23' class='checkboxLabel'>" + $.t("fhh_js.race_hawaiian") + "</label>　" +
+			"<input tabindex='23' name='selectedRaces' value='24' id='" + races_id_text + "-24' type='checkbox'>" +
+			"<label for='" + races_id_text + "-24' class='checkboxLabel'>" + $.t("fhh_js.race_samoan") + "</label>　" +
+			"<input tabindex='23' name='selectedRaces' value='25' id='" + races_id_text + "-25' type='checkbox'>" +
+			"<label for='" + races_id_text + "-25' class='checkboxLabel'>" + $.t("fhh_js.race_unknown_south_pacific") + "</label>" +
 			"</td>");
 
 	var ethnicity_checkboxes = $("<td class='race_checkbox'>" +
-			"<input tabindex='24' name='selectedEthnicities' value='1' id='selectedEthnicities-1' type='checkbox'>" +
-			"<label for='selectedEthnicities-1' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_hispanic") + "</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='2' id='selectedEthnicities-2' type='checkbox'>" +
-			"<label for='selectedEthnicities-2' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_jewish") + "</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='3' id='selectedEthnicities-3' type='checkbox'>" +
-			"<label for='selectedEthnicities-3' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_nothispanic") + "</label>" +
+			"<input tabindex='24' name='selectedEthnicities' value='1' id='" + ethn_id_text + "-1' type='checkbox'>" +
+			"<label for='" + ethn_id_text + "-1' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_hispanic") + "</label>　" +
+			"<input tabindex='24' name='selectedEthnicities' value='2' id='" + ethn_id_text + "-2' type='checkbox'>" +
+			"<label for='" + ethn_id_text + "-2' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_jewish") + "</label>　" +
+			"<input tabindex='24' name='selectedEthnicities' value='3' id='" + ethn_id_text + "-3' type='checkbox'>" +
+			"<label for='" + ethn_id_text + "-3' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_nothispanic") + "</label>" +
 			"</td>");
 
 	var hispanic_ethnicity_checkboxes = $("<td class='race_checkbox'>" +
-			"<input tabindex='24' name='selectedEthnicities' value='11' id='selectedEthnicities-11' type='checkbox'>" +
-			"<label for='selectedEthnicities-11' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_central_american") + "</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='12' id='selectedEthnicities-12' type='checkbox'>" +
-			"<label for='selectedEthnicities-12' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_cuban") + "</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='13' id='selectedEthnicities-13' type='checkbox'>" +
-			"<label for='selectedEthnicities-13' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_dominican") + "</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='14' id='selectedEthnicities-14' type='checkbox'>" +
-			"<label for='selectedEthnicities-14' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_mexican") + "</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='15' id='selectedEthnicities-15' type='checkbox'>" +
-			"<label for='selectedEthnicities-15' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_other_hispanic") + "</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='16' id='selectedEthnicities-16' type='checkbox'>" +
-			"<label for='selectedEthnicities-16' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_puerto_rican") + "</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='17' id='selectedEthnicities-17' type='checkbox'>" +
-			"<label for='selectedEthnicities-17' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_south_american") + "</label>" +
+			"<input tabindex='24' name='selectedEthnicities' value='11' id='" + ethn_id_text + "-11' type='checkbox'>" +
+			"<label for='" + ethn_id_text + "-11' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_central_american") + "</label>　" +
+			"<input tabindex='24' name='selectedEthnicities' value='12' id='" + ethn_id_text + "-12' type='checkbox'>" +
+			"<label for='" + ethn_id_text + "-12' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_cuban") + "</label>　" +
+			"<input tabindex='24' name='selectedEthnicities' value='13' id='" + ethn_id_text + "-13' type='checkbox'>" +
+			"<label for='" + ethn_id_text + "-13' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_dominican") + "</label>　" +
+			"<input tabindex='24' name='selectedEthnicities' value='14' id='" + ethn_id_text + "-14' type='checkbox'>" +
+			"<label for='" + ethn_id_text + "-14' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_mexican") + "</label>　" +
+			"<input tabindex='24' name='selectedEthnicities' value='15' id='" + ethn_id_text + "-15' type='checkbox'>" +
+			"<label for='" + ethn_id_text + "-15' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_other_hispanic") + "</label>　" +
+			"<input tabindex='24' name='selectedEthnicities' value='16' id='" + ethn_id_text + "-16' type='checkbox'>" +
+			"<label for='" + ethn_id_text + "-16' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_puerto_rican") + "</label>　" +
+			"<input tabindex='24' name='selectedEthnicities' value='17' id='" + ethn_id_text + "-17' type='checkbox'>" +
+			"<label for='" + ethn_id_text + "-17' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_south_american") + "</label>" +
 			"</td>");
 
 	var table = $("<table>");
@@ -2391,32 +2453,33 @@ function build_race_ethnicity_section(race_ethnicity, personal_flag) {
 	
 	if (personal_flag) {
 		
-		table.append($("<tr>")
+		table.append($("<tr class='md_tr'>")
 						.append("<td colspan='3'><label for='person_consanguinity'>" + $.t("fhh_js.consanguinity") + "</label>"
 								+ "<input name='person.consanguinity' value='true' tabindex='20' id='person_consanguinity' type='checkbox'/></td>"));
 	}
-	table.append($("<tr>").append("<td colspan='2'>" + $.t("fhh_js.multiple_races_selectable") + "</td>") );
-	table.append($("<tr>")
+	table.append($("<tr class='md_tr'>").append("<td colspan='2'>" + $.t("fhh_js.multiple_races_selectable") + "</td>") );
+	table.append($("<tr class='md_tr'>")
 						.append("<td style='width:150px;'>" + $.t("fhh_js.race") + "</td>")
 						.append(race_checkboxes) );
-	table.append($("<tr id='asian_checkboxes'>")
+	table.append($("<tr class='md_tr' id='asian_checkboxes'>")
 						.append("<td>" + $.t("fhh_js.more_race") + "</td>")
 						.append(asian_race_checkboxes) );
-	table.append($("<tr id='south_pacific_checkboxes'>")
+	table.append($("<tr class='md_tr' id='south_pacific_checkboxes'>")
 						.append("<td>" + $.t("fhh_js.more_race") + "</td>")
 						.append(south_pacific_race_checkboxes) );
-	table.append($("<tr>")
+	table.append($("<tr class='md_tr'>")
 						.append("<td><br />" + $.t("fhh_js.ethnicity") + "</td>")
 						.append(ethnicity_checkboxes) );
-	table.append($("<tr id='hispanic_checkboxes'>")
+	table.append($("<tr class='md_tr' id='hispanic_checkboxes'>")
 						.append("<td>" + $.t("fhh_js.more_ethnicity") + "</td>")
 						.append(hispanic_ethnicity_checkboxes) );
 
-	var why_ask_ashkenazi_link = $("<td><a tabindex='29' href='#' id='why_ask_ashkenazi_link'>" + $.t("fhh_js.ashkezani_q") + "</a></td>");
+	var why_ask_ashkenazi_link = $("<div class='why_necessary'><a tabindex='29' href='#' id='why_ask_ashkenazi_link'>" + $.t("fhh_js.ashkezani_q") + "</a></div>");
 	why_ask_ashkenazi_link.click(function () {
 		$("#why_ask_ashkenazi_dialog").dialog("open");
 	});
-	race_ethnicity.append($("<tr>").append(why_ask_ashkenazi_link));
+//	race_ethnicity.append($("<tr class='md_tr'>").append(why_ask_ashkenazi_link));
+	race_ethnicity.append("<br />").append(why_ask_ashkenazi_link);
 	
 }
 
@@ -2473,18 +2536,39 @@ function clear_family_member_health_history_dialog() {
 	$("#family_race_ethnicity").find("#selectedRaces-23").prop('checked',false);	
 	$("#family_race_ethnicity").find("#selectedRaces-24").prop('checked',false);	
 	$("#family_race_ethnicity").find("#selectedRaces-25").prop('checked',false);	
-	
-	$("#family_race_ethnicity").find("#selectedEthnicities-1").prop('checked',false);
-	$("#family_race_ethnicity").find("#selectedEthnicities-2").prop('checked',false);
-	$("#family_race_ethnicity").find("#selectedEthnicities-3").prop('checked',false);
 
-	$("#family_race_ethnicity").find("#selectedEthnicities-11").prop('checked',false);
-	$("#family_race_ethnicity").find("#selectedEthnicities-12").prop('checked',false);
-	$("#family_race_ethnicity").find("#selectedEthnicities-13").prop('checked',false);
-	$("#family_race_ethnicity").find("#selectedEthnicities-14").prop('checked',false);
-	$("#family_race_ethnicity").find("#selectedEthnicities-15").prop('checked',false);
-	$("#family_race_ethnicity").find("#selectedEthnicities-16").prop('checked',false);
-	$("#family_race_ethnicity").find("#selectedEthnicities-17").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-1").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-2").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-3").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-4").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-5").prop('checked',false);
+	
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-11").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-12").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-13").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-14").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-15").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-16").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-17").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-18").prop('checked',false);	
+
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-21").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-22").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-23").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-24").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedFamilyRaces-25").prop('checked',false);	
+
+	$("#family_race_ethnicity").find("#selectedFamilyEthnicities-1").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedFamilyEthnicities-2").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedFamilyEthnicities-3").prop('checked',false);
+
+	$("#family_race_ethnicity").find("#selectedFamilyEthnicities-11").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedFamilyEthnicities-12").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedFamilyEthnicities-13").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedFamilyEthnicities-14").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedFamilyEthnicities-15").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedFamilyEthnicities-16").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedFamilyEthnicities-17").prop('checked',false);
 	
 }
 
@@ -2531,7 +2615,11 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	
 	$("#age_determination_text").val(family_member.date_of_birth);
 	$("#family_member_info_form_date_of_birth").val(family_member.date_of_birth);
-	
+
+	if (family_member.prefectures != null) {
+		$("#family_member_info_form_place_of_birth").val(family_member.prefectures);
+	}
+
 	if (family_member.twin_status == "NO") $("#family_member_info_form_twin_status_no").prop('checked',true);
 	else if (family_member.twin_status == "IDENTICAL") $("#family_member_info_form_twin_status_identical").prop('checked',true);
 	else if (family_member.twin_status == "FRATERNAL") $("#family_member_info_form_twin_status_fraternal").prop('checked',true);
@@ -2631,48 +2719,48 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 
 	
 	if (family_member.race != null) {
-		$("#family_race_ethnicity").find("#selectedRaces-1").prop('checked',family_member.race['American Indian or Alaska Native']);
-		$("#family_race_ethnicity").find("#selectedRaces-2").prop('checked',family_member.race['Asian']);
-		$("#family_race_ethnicity").find("#selectedRaces-3").prop('checked',family_member.race['Black or African-American']);
-		$("#family_race_ethnicity").find("#selectedRaces-4").prop('checked',family_member.race['Native Hawaiian or Other Pacific Islander']);
-		$("#family_race_ethnicity").find("#selectedRaces-5").prop('checked',family_member.race['White']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-1").prop('checked',family_member.race['American Indian or Alaska Native']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-2").prop('checked',family_member.race['Asian']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-3").prop('checked',family_member.race['Black or African-American']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-4").prop('checked',family_member.race['Native Hawaiian or Other Pacific Islander']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-5").prop('checked',family_member.race['White']);
 
-		$("#family_race_ethnicity").find("#selectedRaces-11").prop('checked',family_member.race['Asian Indian']);
-		$("#family_race_ethnicity").find("#selectedRaces-12").prop('checked',family_member.race['Chinese']);
-		$("#family_race_ethnicity").find("#selectedRaces-13").prop('checked',family_member.race['Filipino']);
-		$("#family_race_ethnicity").find("#selectedRaces-14").prop('checked',family_member.race['Japanese']);
-		$("#family_race_ethnicity").find("#selectedRaces-15").prop('checked',family_member.race['Korean']);
-		$("#family_race_ethnicity").find("#selectedRaces-16").prop('checked',family_member.race['Vietnamese']);
-		$("#family_race_ethnicity").find("#selectedRaces-17").prop('checked',family_member.race['Other Asian']);
-		$("#family_race_ethnicity").find("#selectedRaces-18").prop('checked',family_member.race['Unknonwn Asian']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-11").prop('checked',family_member.race['Asian Indian']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-12").prop('checked',family_member.race['Chinese']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-13").prop('checked',family_member.race['Filipino']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-14").prop('checked',family_member.race['Japanese']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-15").prop('checked',family_member.race['Korean']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-16").prop('checked',family_member.race['Vietnamese']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-17").prop('checked',family_member.race['Other Asian']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-18").prop('checked',family_member.race['Unknonwn Asian']);
 
-		$("#family_race_ethnicity").find("#selectedRaces-21").prop('checked',family_member.race['Chamorro']);
-		$("#family_race_ethnicity").find("#selectedRaces-22").prop('checked',family_member.race['Guamanian']);
-		$("#family_race_ethnicity").find("#selectedRaces-23").prop('checked',family_member.race['Native Hawaiian']);
-		$("#family_race_ethnicity").find("#selectedRaces-24").prop('checked',family_member.race['Samoan']);
-		$("#family_race_ethnicity").find("#selectedRaces-25").prop('checked',family_member.race['Unknown South Pacific Islander']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-21").prop('checked',family_member.race['Chamorro']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-22").prop('checked',family_member.race['Guamanian']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-23").prop('checked',family_member.race['Native Hawaiian']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-24").prop('checked',family_member.race['Samoan']);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-25").prop('checked',family_member.race['Unknown South Pacific Islander']);
 
 	} else {
-		$("#family_race_ethnicity").find("#selectedRaces-1").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-2").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-3").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-4").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-5").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-1").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-2").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-3").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-4").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-5").prop('checked',false);
 
-		$("#family_race_ethnicity").find("#selectedRaces-11").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-12").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-13").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-14").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-15").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-16").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-17").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-18").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-11").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-12").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-13").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-14").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-15").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-16").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-17").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-18").prop('checked',false);
 
-		$("#family_race_ethnicity").find("#selectedRaces-21").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-22").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-23").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-24").prop('checked',false);
-		$("#family_race_ethnicity").find("#selectedRaces-25").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-21").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-22").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-23").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-24").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedFamilyRaces-25").prop('checked',false);
 		
 	}
 
@@ -2684,30 +2772,30 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 
 	
 	if (family_member.ethnicity != null) {
-		$("#family_race_ethnicity").find("#selectedEthnicities-1").prop('checked',family_member.ethnicity['Hispanic or Latino']);
-		$("#family_race_ethnicity").find("#selectedEthnicities-2").prop('checked',family_member.ethnicity['Ashkenazi Jewish']);
-		$("#family_race_ethnicity").find("#selectedEthnicities-3").prop('checked',family_member.ethnicity['Not Hispanic or Latino']);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-1").prop('checked',family_member.ethnicity['Hispanic or Latino']);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-2").prop('checked',family_member.ethnicity['Ashkenazi Jewish']);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-3").prop('checked',family_member.ethnicity['Not Hispanic or Latino']);
 
-		$("#family_race_ethnicity").find("#selectedEthnicities-11").prop('checked',family_member.ethnicity['Central American']);
-		$("#family_race_ethnicity").find("#selectedEthnicities-12").prop('checked',family_member.ethnicity['Cuban']);
-		$("#family_race_ethnicity").find("#selectedEthnicities-13").prop('checked',family_member.ethnicity['Dominican']);
-		$("#family_race_ethnicity").find("#selectedEthnicities-14").prop('checked',family_member.ethnicity['Mexican']);
-		$("#family_race_ethnicity").find("#selectedEthnicities-15").prop('checked',family_member.ethnicity['Other Hispanic']);
-		$("#family_race_ethnicity").find("#selectedEthnicities-16").prop('checked',family_member.ethnicity['Puerto Rican']);
-		$("#family_race_ethnicity").find("#selectedEthnicities-17").prop('checked',family_member.ethnicity['South American']);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-11").prop('checked',family_member.ethnicity['Central American']);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-12").prop('checked',family_member.ethnicity['Cuban']);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-13").prop('checked',family_member.ethnicity['Dominican']);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-14").prop('checked',family_member.ethnicity['Mexican']);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-15").prop('checked',family_member.ethnicity['Other Hispanic']);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-16").prop('checked',family_member.ethnicity['Puerto Rican']);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-17").prop('checked',family_member.ethnicity['South American']);
 
 	} else {
-		$("#family_race_ethnicity").find("#selectedEthnicities-1").prop('checked', false);
-		$("#family_race_ethnicity").find("#selectedEthnicities-2").prop('checked', false);
-		$("#family_race_ethnicity").find("#selectedEthnicities-3").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-1").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-2").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-3").prop('checked', false);
 
-		$("#family_race_ethnicity").find("#selectedEthnicities-11").prop('checked', false);
-		$("#family_race_ethnicity").find("#selectedEthnicities-12").prop('checked', false);
-		$("#family_race_ethnicity").find("#selectedEthnicities-13").prop('checked', false);
-		$("#family_race_ethnicity").find("#selectedEthnicities-14").prop('checked', false);
-		$("#family_race_ethnicity").find("#selectedEthnicities-15").prop('checked', false);
-		$("#family_race_ethnicity").find("#selectedEthnicities-16").prop('checked', false);
-		$("#family_race_ethnicity").find("#selectedEthnicities-17").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-11").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-12").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-13").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-14").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-15").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-16").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedFamilyEthnicities-17").prop('checked', false);
 
 	}
 
@@ -2728,7 +2816,11 @@ function clear_and_set_personal_health_history_dialog() {
 	else $('#personal_info_form_gender_female').prop('checked',false);
 	
 	$("#personal_info_form_date_of_birth").val(personal_information.date_of_birth);
-	
+
+	if (personal_information.prefectures != null) {
+		$("#personal_info_form_place_of_birth").val(personal_information.prefectures);
+	}
+
 	if (personal_information.twin_status == "NO") $("#personal_info_form_twin_status_no").prop('checked',true);
 	else if (personal_information.twin_status == "IDENTICAL") $("#personal_info_form_twin_status_identical").prop('checked',true);
 	else if (personal_information.twin_status == "FRATERNAL") $("#personal_info_form_twin_status_fraternal").prop('checked',true);
@@ -2746,10 +2838,10 @@ function clear_and_set_personal_health_history_dialog() {
 		$("#personal_height_centimeters").val("");
 	}
 	$("#personal_weight").val(personal_information.weight);
-	if (personal_information.weight_unit == 'kgs' || personal_information.weight_unit == 'kilogram') {
-		$("#personal_weight_unit").val("kilogram");
-	} else {		
+	if (personal_information.weight_unit == 'lbs' || personal_information.weight_unit == 'pound') {
 		$("#personal_weight_unit").val("pound");
+	} else {		
+		$("#personal_weight_unit").val("kilogram");
 	}
 	
 	$(".disease_detail").each(function () {
@@ -3033,6 +3125,7 @@ function updateHistoryDialog(relationship, family_member) {
 			current_relationship = 'self';
 			clear_and_set_personal_health_history_dialog();
 			$( "#add_personal_information_dialog" ).dialog( "open" );
+
 		}
 	}
 	else {
@@ -3045,9 +3138,15 @@ function updateHistoryDialog(relationship, family_member) {
 			clear_and_set_current_family_member_health_history_dialog(family_member);
 
 			$( "#update_family_member_health_history_dialog" ).dialog( "open" );
+
+			// Asian / Japanese default.
+			$("#update_family_member_health_history_dialog").find("#selectedRaces-2").prop("checked", "true");
+			// Open Asian checkbox
+			$("#update_family_member_health_history_dialog").find("#asian_checkboxes").show();
+			// Japanese checked
+			$("#update_family_member_health_history_dialog").find("#selectedRaces-14").prop("checked", "true");
 		}		
 	}
-	
 }
 
 

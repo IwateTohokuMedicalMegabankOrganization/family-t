@@ -399,7 +399,10 @@ function parse_xml(data) {
 
 	var date_of_birth = $(data).find("patientPerson > birthTime").attr("value");
 	personal_information.date_of_birth = date_of_birth;
-		
+
+	var prefecturesCode = $(data).find("patientPerson > prefecturesCode").attr("value");
+	personal_information.prefectures = prefecturesCode;
+
 	personal_information.gender = $(data).find("patientPerson > administrativeGenderCode").attr("displayName").toUpperCase();
 	consanguity_flag = $(data).find('patientPerson > subjectOf2 > ClinicalObservation > code[originalText="Parental consanguinity indicated"]')
 	if (consanguity_flag && consanguity_flag.length > 0) personal_information.consanguinity = true;
@@ -478,7 +481,10 @@ function parse_xml(data) {
 			}
 		} 
 		relative.name = $(this).find("relationshipHolder > name").attr("formatted");
-				
+
+		var prefecturesCode = $(data).find("relationshipHolder > prefecturesCode").attr("value");
+		relative.prefectures = prefecturesCode;
+
 		if (relative.name == null || relative.name.length == 0) relative.name = "";
 		var alive_status_code = $(this).find("relationshipHolder > deceasedIndCode ").attr("value");
 		if (alive_status_code == "UNKNOWN") {
