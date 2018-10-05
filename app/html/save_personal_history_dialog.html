@@ -23,13 +23,14 @@ To respect individual privacy concerns, this website does not save your family h
 			<a id='download_xml' class='translate button_link' data-i18n='fhh_load_save.save_file_button'>Save Family History</a>
 			<div id='save_content' ></div>
 -->
-			<a id='download_xml'><div class="material-icons center green-text large-size">save</div></a>
+			<a id='download_xml'><div class="material-icons center green-text large-size cursor_pointer icon_shadow">save</div></a>
 			<form>
 				<p id="downloadify">You must have Flash 10 installed to download this file.</p>
 			</form>
 			<br /> 
 		</div>
 	</div>
+<!--
 	<div class="title-bar translate" data-i18n='fhh_load_save.save_health_vault'> Save Your Personal Information to Microsoft's Health Vault</div>
 	<div style="width:750px;display:inline-flex;height:150px;">
 		<div style='width:200px;text-align:center;padding-top:15px;'>
@@ -38,13 +39,14 @@ To respect individual privacy concerns, this website does not save your family h
 		<div style='vertical-align:top;width:550px;text-align:left;'>
 			<P class='translate' data-i18n='fhh_load_save.save_health_vault_instructions'>Microsoft HealthVault lets you gather, store, and share health information online. If you choose to copy your family health history information to HealthVault, this website will copy data to your HealthVault account and need you to sign in.</P>
 			<div class="inner">
-				<button style="display:none;" id='healthvault_load_button' href="javascript:;"></button><label for="healthvault_load_button"><div id="tt20" class="material-icons center green-text large-size">save</div></label>
+				<button style="display:none;" id='healthvault_load_button' href="javascript:;"></button><label for="healthvault_load_button"><div id="tt20" class="material-icons center green-text large-size cursor_pointer icon_shadow">save</div></label>
 				<div class="mdl-tooltip" for="tt20">HealthVaultに家族歴を保存します</div>
 			</div>
-<!--			<div id='save_to_healthvault'></div>-->
+			<div id='save_to_healthvault'></div>
 			<br />
 		</div>
 	</div>
+-->
 	<div class="title-bar translate" data-i18n='fhh_load_save.save_google_drive'> Save Your Personal Information to Google Drive</div>
 	<div style="width:750px;display:inline-flex;height:150px;">
 		<div style='width:200px;text-align:center;padding-top:15px;'>
@@ -53,7 +55,7 @@ To respect individual privacy concerns, this website does not save your family h
 		<div style='vertical-align:top;width:550px;text-align:left;'>
 			<P class='translate' data-i18n='fhh_load_save.save_google_drive_instructions' style="margin: 0px;">You can save a single file to Google Drive by signing into your google drive account.</P>
 			<div class="inner">
-				<button style="display:none;" id='dropbox_load_button' href="javascript:;"></button><label for="dropbox_load_button"><div id="tt21" class="material-icons center green-text large-size">save</div></label>
+				<button style="display:none;" id='dropbox_load_button' href="javascript:;"></button><label for="dropbox_load_button"><div id="tt21" class="material-icons center green-text large-size cursor_pointer icon_shadow">save</div></label>
 				<div class="mdl-tooltip" for="tt21">Googleドライブに家族歴を保存します</div>
 			</div>
 <!--			<div id='save_to_google_drive'></div>-->
@@ -68,10 +70,24 @@ To respect individual privacy concerns, this website does not save your family h
 		<div style='vertical-align:top;width:550px;text-align:left;'>
 			<P  class='translate' data-i18n='fhh_load_save.save_dropbox_instructions' style="margin: 0px;">You can save a file from Dropbox by signing into your dropbox account and picking a location to save and naming the file.</P>
 			<div class="inner">
-				<button style="display:none;" id='dropbox_load_button' href="javascript:;"></button><lable for="dropbox_load_button"><div id="tt22" class="material-icons center green-text large-size">save</div></label>
+				<button style="display:none;" id='dropbox_load_button' href="javascript:;"></button><lable for="dropbox_load_button"><div id="tt22" class="material-icons center green-text large-size cursor_pointer icon_shadow">save</div></label>
 				<div class="mdl-tooltip" for="tt22">Dropboxに家族歴を保存します</div>
 			</div>
 <!--			<div id='save_to_dropbox'></div>-->
+		</div>
+	</div>
+	<div class="title-bar translate" data-i18n='fhh_load_save.save_family_t'> Save Your Personal Information to Family-t Server</div>
+	<div style="width:750px;display:inline-flex;height:150px;">
+		<div style='width:200px;text-align:center;padding-top:15px;'>
+			<IMG src='../images/logo.png' width="107" alt='Save to Family-t Sever Icon'>
+		</div>
+		<div style='vertical-align:top;width:550px;text-align:left;'>
+			<P class='translate' data-i18n='fhh_load_save.save_family_t_instructions'>You can save the file to the Family-t server by signing in to Family-t and saving the file with a name.</P>
+			<div class="inner">
+				<button style="display:none;" id='family_t_load_button' href="javascript:;"></button>
+				<label for="family_t_load_button"><div id="tt20" class="material-icons center green-text large-size cursor_pointer icon_shadow">save</div></label>
+				<div class="mdl-tooltip" for="tt20">Family-tサーバに家族歴を保存します</div>
+			</div>
 		</div>
 	</div>
 <hr />

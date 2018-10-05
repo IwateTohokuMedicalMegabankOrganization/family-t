@@ -918,7 +918,8 @@ function bind_personal_submit_button_action () {
 			personal_information['height'] = "";
 			personal_information['height_unit'] = "";
 		}
-		
+
+		personal_information['prefectures'] = $('#personal_info_form_place_of_birth').val();
 		personal_information['weight'] = $('#personal_weight').val();
 		personal_information['weight_unit'] = $('#personal_weight_unit').val();
 
@@ -985,7 +986,7 @@ function check_name_exists(name) {
 function check_date_of_birth_in_correct_format (date_of_birth) {
 	if (date_of_birth == null || date_of_birth.length == 0) return false;	
 
- 	re = /^\d{2}\/\d{2}\/\d{4}$/; 
+ 	re = /^\d{4}\/\d{2}\/\d{2}$/; 
  	if(!date_of_birth.match(re)) { 
  		return false; 
  	}	
@@ -1183,6 +1184,7 @@ function bind_family_member_submit_button_action () {
 		family_member_information['gender'] = $('input[name="family.member.gender"]:checked').val();
 		family_member_information['twin_status'] = $('input[name="family.member.twin_status"]:checked').val();
 		family_member_information['adopted'] = $('input[name="family.member.adopted"]:checked').prop("checked");
+		family_member_information['prefectures'] = $('#family_member_info_form_place_of_birth').val();
 
 		
 		if (alive_flag == 'alive') {
@@ -2531,7 +2533,11 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	
 	$("#age_determination_text").val(family_member.date_of_birth);
 	$("#family_member_info_form_date_of_birth").val(family_member.date_of_birth);
-	
+
+	if (family_member.prefectures != null) {
+		$("#family_member_info_form_place_of_birth").val(family_member.prefectures);
+	}
+
 	if (family_member.twin_status == "NO") $("#family_member_info_form_twin_status_no").prop('checked',true);
 	else if (family_member.twin_status == "IDENTICAL") $("#family_member_info_form_twin_status_identical").prop('checked',true);
 	else if (family_member.twin_status == "FRATERNAL") $("#family_member_info_form_twin_status_fraternal").prop('checked',true);
@@ -2728,7 +2734,11 @@ function clear_and_set_personal_health_history_dialog() {
 	else $('#personal_info_form_gender_female').prop('checked',false);
 	
 	$("#personal_info_form_date_of_birth").val(personal_information.date_of_birth);
-	
+
+	if (personal_information.prefectures != null) {
+		$("#personal_info_form_place_of_birth").val(personal_information.prefectures);
+	}
+
 	if (personal_information.twin_status == "NO") $("#personal_info_form_twin_status_no").prop('checked',true);
 	else if (personal_information.twin_status == "IDENTICAL") $("#personal_info_form_twin_status_identical").prop('checked',true);
 	else if (personal_information.twin_status == "FRATERNAL") $("#personal_info_form_twin_status_fraternal").prop('checked',true);
@@ -2746,10 +2756,10 @@ function clear_and_set_personal_health_history_dialog() {
 		$("#personal_height_centimeters").val("");
 	}
 	$("#personal_weight").val(personal_information.weight);
-	if (personal_information.weight_unit == 'kgs' || personal_information.weight_unit == 'kilogram') {
-		$("#personal_weight_unit").val("kilogram");
-	} else {		
+	if (personal_information.weight_unit == 'lbs' || personal_information.weight_unit == 'pound') {
 		$("#personal_weight_unit").val("pound");
+	} else {		
+		$("#personal_weight_unit").val("kilogram");
 	}
 	
 	$(".disease_detail").each(function () {

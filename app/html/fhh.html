@@ -111,12 +111,21 @@
 		<a href="#skipNavEnd" accesskey="n">Skip navigation</a>
 	</div>
 	<div class="header_container">
-		<table class="banner">
-			<tr>
-				<td class="banner_left"><a id="warnAndGoHome" href="../../index.html"><img src="../themes/deploy/banner_left.png" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></a></td>
-				<td class="banner_right"><!-- <img height="60" width="326" src="../themes/deploy/banner_right.png" alt="Collection of family photos from diverse families." class="fhhBannerPhotos"> --></td>
-			</tr>
-		</table>
+		<div class="banner">
+			<div style="display:inline-flex;width:100%;height:100%;">
+				<div class="banner_left" style="width:30%;">
+					<a id="warnAndGoHome" href="../../index.html"><img src="../themes/deploy/banner_left.png" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></a>
+				</div>
+				<div class="banner_right" style="width:70%;padding-left:70px;">
+					<div style="height:25px;">
+						<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">edit</div> をクリックすると家族の情報を更新（修正）できます。</div>
+					</div>
+					<div class="translate homeIndentText" style="height:25px;">下の表の<div class="material-icons center green-text">delete</div> をクリックすると家族の情報を削除できます。</div>
+					<div class="translate homeText" style="height:25px;"><em>あとで家族歴を更新するためには、<div class="material-icons center green-text">save</div>アイコンをクリックしてください。</em></div>
+				<!-- <img height="60" width="326" src="../themes/deploy/banner_right.png" alt="Collection of family photos from diverse families." class="fhhBannerPhotos"> -->
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- END HEADER -->
 
@@ -131,61 +140,70 @@
 						<div class="inner">
 							<button class="button_hidden" id="save_personal_history_button1" href="#"></button>
 								<label for="save_personal_history_button1">
-								<div id="tt1" class="material-icons large-size green-text cursor_pointer">save</div>
+								<div id="tt1" class="material-icons large-size green-text cursor_pointer icon_shadow">save</div>
 								</label>
 							<div class="mdl-tooltip" for="tt1">データを保存します</div>
 						</div>
+						<div class="infomation_box">データを<br />保存します。</div>
 						<div class="inner">
 							<button style="display:none;" id="navCopyFamily" href="#"></button>
 								<label for="navCopyFamily">
-								<div id="tt2" class="material-icons large-size green-text cursor_pointer">share</div>
+								<div id="tt2" class="material-icons large-size green-text cursor_pointer icon_shadow">share</div>
 								</label>
 							<div class="mdl-tooltip" for="tt2">データを共有します</div>
 						</div>
+						<div class="infomation_box">データを共有<br />します。</div>
 						<div class="inner">
 							<a id="warnAndGoHome" href="index.html">
-								<div id="tt3" class="material-icons large-size green-text cursor_pointer">create_new_folder</div>
+								<div id="tt3" class="material-icons large-size green-text cursor_pointer icon_shadow">create_new_folder</div>
 							</a>
 							<div class="mdl-tooltip" for="tt3">新規登録します</div>
 						</div>
+						<div class="infomation_box">新規登録します。</div>
 						<div class="inner">
 							<button style="display:none;" id="nav_help" href="#"></button>
 								<label for="nav_help">
-								<div id="tt4" class="material-icons large-size green-text cursor_pointer">help</div>
+								<div id="tt4" class="material-icons large-size green-text cursor_pointer icon_shadow">help_outline</div>
 								</label>
 							<div class="mdl-tooltip" for="tt4">家族歴に関するヘルプを表示します</div>
 						</div>
+						<div class="infomation_box" style="height:55px;margin-bottom:3px;">家族歴に関する<br />ヘルプを表示<br />します。</div>
 						<div class="label_color label_position">家計図印刷</div>
 						<div class="inner">
 							<button style="display:none;" id="navViewDiagram" href="#" ng-click="openDiagramTable(true)" ng-controller="fhhController"></button>
 								<label for="navViewDiagram">
-								<div id="tt5" class="material-icons large-size green-text" cursor_pointer>print</div>
+								<div id="tt5" class="material-icons large-size green-text" cursor_pointer icon_shadow>print</div>
 								</label>
 							<div class="mdl-tooltip" for="tt5">家計図を印刷します</div>
 						</div>
+						<div class="infomation_box" style="margin-bottom:3px;">家計図を印刷<br />します。</div>
 						<div class="label_color label_position">家族歴から予測される</div>
 						<div class="label_color label_position">疾患リスク</div>
 						<div class="inner">
 							<button style="display:none;" id="navRiskCalculator" href="#"></button>
 								<label for="navRiskCalculator">
-								<div id="tt6" class="material-icons large-size green-text cursor_pointer">info</div>
+								<div id="tt6" class="material-icons large-size green-text cursor_pointer icon_shadow">info</div>
 								</label>
 							<div class="mdl-tooltip" for="tt6">家族歴から予測される疾患リスクを表示します</div>
 						</div>
+						<div class="infomation_box" style="height:55px;margin-bottom:3px;">家族歴から予測<br />される疾患リスク<br />を表示します。</div>
 						<div class="label_color label_position">家族歴の編集</div>
 
 						<div class="inner">
 							<a id="add_another_family_member_button1" href="">
-								<div class="material-icons large-size green-text cursor_pointer">group_add</div>
+								<div class="material-icons large-size green-text cursor_pointer icon_shadow">group_add</div>
 							</a>
 						</div>
+						<div class="infomation_box">家族歴の編集<br />をします。</div><br />
 					</div>
 					<div class="family_main_contents_area">
+<!--
 						<div>
 							<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">edit</div> をクリックすると家族の情報を更新（修正）できます。</div>
 						</div>
 						<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">delete</div> をクリックすると家族の情報を削除できます。</div>
 						<div class="translate homeText"><em>あとで家族歴を更新するためには、<div class="material-icons center green-text">save</div>アイコンをクリックしてください。</em></div>
+-->
 						<table id="history_summary_table" class="summary_table" summary="This table lists the members of your family and groups them based on how they are related to you and which side of the family they are on. You may add, update or remove family members from the links within the table.">
 							<tr class='summary_tr'>
 								<th width="150px" scope="col" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_name'>Name</th>
