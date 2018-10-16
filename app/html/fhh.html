@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<noscript><meta http-equiv="refresh" content="0; URL=./unsupported_browser.html"> </meta> </noscript>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
@@ -64,7 +64,7 @@
 	<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.amber-pink.min.css" />
 	<script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
 	<link rel="stylesheet" type="text/css" href="../static/css/jquery.svg.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/jquery.qtip.min.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css">
@@ -74,7 +74,7 @@
 	<link rel="stylesheet" type="text/css" href="../static/css/dataTables.fixedColumns.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/stickymenu.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
-	<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
 	<!--<link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
 	<script type="text/javascript" src="../js/keys.js"></script>
 	<!--	<script type="text/javascript" src="../js/materialize.min.js"></script>-->
@@ -102,37 +102,102 @@
 </head>
 
 <body ng-app="myApp">
+	<div class="container">
+		<header>
+			<nav class="nav-extended">
+				<div class="nav-wrapper white">
+					<a id="warnAndGoHome" class="brand-logo" href="../../index.html"><img src="../themes/deploy/banner_left.png" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></a>family-t</a>
+				</div>
+				<div class="nav-content light-green black-text ">
+					<ul class="tabs tabs-transparent">
+						<li class="tab"><a class="active" href="#test1"><span class="material-icons">input</span><span><b>「家族歴」の入力</b></span></a></li>
+						<li class="tab"><a href="#test3">				<span class="material-icons">warning</span><span><b>遺伝する病気のリスク判定</b></span></a></li>
+						<li class="tab"><a href="#test2">				<span class="material-icons">local_printshop</span><b>家族歴の印刷</b></a></li>
+						<li class="tab"><a href="#test4">				<span class="material-icons">input</span><b>家族歴の保存と更新</b></a></li>
+					</ul>
+				</div>
+			</nav>
+		</header>
 
-<div id="wrapper" class="main_container">
-	<!-- BEGIN HEADER -->
-	<div id="skipNavBegin" style="width: 0; height: 0; overflow: hidden;">
-		<a href="#skipNavEnd" accesskey="n">Skip navigation</a>
-	</div>
-	<div class="header_container">
-		<div class="banner">
-			<div style="display:inline-flex;">
-				<div class="banner_left">
-					<a id="warnAndGoHome" href="../../index.html"><img src="../themes/deploy/banner_left.png" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></a>
-				</div>
-				<div class="banner_right">
-					<div>
-						<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">edit</div> をクリックすると家族の情報を更新（修正）できます。</div>
-					</div>
-					<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">delete</div> をクリックすると家族の情報を削除できます。</div>
-					<div class="translate homeText"><em>あとで家族歴を更新するためには、<div class="material-icons center green-text">save</div>アイコンをクリックしてください。</em></div>
-				<!-- <img height="60" width="326" src="../themes/deploy/banner_right.png" alt="Collection of family photos from diverse families." class="fhhBannerPhotos"> -->
-				</div>
+		<main>
+			<div id="test1" class="col s12"></div>
+			<div id="test2" class="col s12"></div>
+			<div id="test3" class="col s12"></div>
+			<div id="test4" class="col s12"></div>
+			<table class="responsive-table striped">
+				<thead>
+					<tr class='summary_tr'>
+						<th scope="col">Name</th>
+						<th scope="col">Item Name</th>
+						<th scope="col">Item Price</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>Alvin</td>
+						<td>Eclair</td>
+						<td>$0.87</td>
+					</tr>
+					<tr>
+						<td>Alan</td>
+						<td>Jellybean</td>
+						<td>$3.76</td>
+					</tr>
+					<tr>
+						<td>Jonathan</td>
+						<td>Lollipop</td>
+						<td>$7.00</td>
+					</tr>
+				</tbody>
+			</table>
+			<table>
+				<tr>
+					<td>
+						a
+					</td>
+					<td>
+						a
+					</td>
+					<td>
+						a
+					</td>
+					<td>
+						a
+					</td>
+					<td>
+						a
+					</td>
+				</tr>
+
+			</table>
+			<table id="history_summary_table" class="summary_table striped" summary="This table lists the members of your family and groups them based on how they are related to you and which side of the family they are on. You may add, update or remove family members from the links within the table.">
+				<tr class='summary_tr'>
+					<th scope="col" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_name'>Name</th>
+					<th scope="col" abbr="Relationship" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_relation'>Relationship to Me</th>
+					<th scope="col" abbr="Update" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_upd_hist'>Update History</th>
+					<th scope="col" abbr="Remove" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_rem_rel'>Remove Relative</th>
+				</tr>
+				<tr class="person_row summary_tr">
+					<td class='summary_td information'></td>
+					<td class='summary_td information'>Self</td>
+					<td class="summary_td action">&nbsp;</td>
+					<td class="summary_td action">&nbsp;</td>
+				</tr>
+			</table>
+			<div>
+				<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">edit</div> をクリックすると家族の情報を更新（修正）できます。</div>
 			</div>
-		</div>
-	</div>
-	<!-- END HEADER -->
+			<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">delete</div> をクリックすると家族の情報を削除できます。</div>
+			<div class="translate homeText"><em>あとで家族歴を更新するためには、<div class="material-icons center green-text">save</div>アイコンをクリックしてください。</em></div>
+			<!-- <img height="60" width="326" src="../themes/deploy/banner_right.png" alt="Collection of family photos from diverse families." class="fhhBannerPhotos"> -->
 
-	<div id="main" class="content_container">
-		<div id="content">
-<!--			<form id="personForm" name="personForm" action="/fhh-web/familyHistory/start.action" method="post" class="form">-->
-<!--			<form id="personForm" name="personForm" action="" method="post" class="form">-->
-				<div class="family_frame_area">
-					<!-- <div class="family_side_menu_area">
+			<div id="main" class="content_container">
+				<div id="content">
+					<!--			<form id="personForm" name="personForm" action="/fhh-web/familyHistory/start.action" method="post" class="form">-->
+					<!--			<form id="personForm" name="personForm" action="" method="post" class="form">-->
+					<div class="family_frame_area">
+						<!-- <div class="family_side_menu_area">
 						<div class="label_color label_position">データの管理</div>
 						<div class="label_position" id="firstVari"></div>
 						<div class="inner">
@@ -194,88 +259,92 @@
 						</div>
 						<div class="infomation_box">家族歴の編集<br />をします。</div><br />
 					</div> -->
-					<div class="family_main_contents_area">
-<!--
-						<div>
-							<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">edit</div> をクリックすると家族の情報を更新（修正）できます。</div>
-						</div>
-						<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">delete</div> をクリックすると家族の情報を削除できます。</div>
-						<div class="translate homeText"><em>あとで家族歴を更新するためには、<div class="material-icons center green-text">save</div>アイコンをクリックしてください。</em></div>
--->
-						<table id="history_summary_table" class="summary_table striped" summary="This table lists the members of your family and groups them based on how they are related to you and which side of the family they are on. You may add, update or remove family members from the links within the table.">
-							<tr class='summary_tr'>
-								<th scope="col" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_name'>Name</th>
-								<th scope="col" abbr="Relationship" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_relation'>Relationship to Me</th>
-								<th scope="col" abbr="Update" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_upd_hist'>Update History</th>
-								<th scope="col" abbr="Remove" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_rem_rel'>Remove Relative</th>
-							</tr>
-							<tr class="person_row summary_tr">
-								<td class='summary_td information'></td>
-								<td class='summary_td information'>Self</td>
-								<td class="summary_td action">&nbsp;</td>
-								<td class="summary_td action">&nbsp;</td>
-							</tr>
-						</table>
-						<div class="buttonContainer"> </div>
-						<!--  All Dialog Boxes will load at the start of the page, but will be kept in seperate html files for easy understanding -->
-						<div id='new_diagram_dialog' > </div>
-						<div id='copy_for_family_member' > </div>
-						<div id='add_personal_information_dialog'> </div>
-						<div id='update_family_member_health_history_dialog'> </div>
-						<div id='add_all_family_members_dialog' > </div>
-						<div id='load_personal_history_dialog' > </div>
-						<div id='save_personal_history_dialog' > </div>
-						<div id='view_diagram_and_table_dialog' > </div>
-						<div id='family_pedigree' > </div>
-						<div id="update_help_dialog"></div>
-						<div id="personal_help_dialog"></div>
-						<div id="load_help_dialog"></div>
-						<div id="immediate_help_dialog"></div>
-						<div id='why_ask_ashkenazi_dialog' > </div>
-						<div id='debug' style='display:none;'></div>
-						<div id='disease_risk_calculator' >
-							<div id='risk_section'> <i>Loading Risk Assessment Tools...</i> </div>
-							<div id='help_dialog' >
-								<div id='help_main_page' class='help'>
-									<h2 class='translate' data-i18n='fhh_fhh.h2_update_fhh'>Update My Family History</h2>
-									<p class='translate instructions' data-i18n='fhh_fhh.p_update_my_history'>On this screen you can:</p>
-									<ul>
-										<li>
-											<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_before'>Change your information or a family member's information by pressing</span><span class="translate instructions" data-i18n="fhh_fhh.th_upd_hist" style="font-weight:bold;"><B>Update History</B></span>
-											<IMG src='../images/icon_edit.gif' alt= 'Update History' height='16'/>
-											<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_after'> next to the name in the list.</span>
-										</li>
-										<li>
-											<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_before'>Remove a family member from your history by pressing</span><span class='translate instructions' data-i18n='fhh_fhh.th_remove_hist' style="font-weight:Bold;"><B>Remove</B></span>
-											<IMG src='../images/icon_trash.gif' alt= 'Remove History' height='16'/>
-											<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_after'>  next to the name in the list. (You cannot remove yourself, your parents, or grandparents.)</span>
-										</li>
-									</ul>
-									<p class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2'>You can Also:</p>
-									<ul>
-										<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b1'>Restart your family history by clicking on the 'Start Over' button </li>
-										<span class="computerOnly">
-										<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b2'>Save your history to a file on your computer or into the cloud by clicking on 'Save Data' button</li>
-										</span>
-										<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b3'>Add another family member to your family history by clicking 'Add a family member' button</li>
-										<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b4'>View a diagram of your family tree by clicking on 'Pedigree drawing' button. Alternatively, you can click the 'Family Health table' button to navigate to the table directly</li>
-										<span class="computerOnly">
-										<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b5'>Export your family information to give a close relative a headstart on his/her family tree by clicking on the 'Share Data' button</li>
-										</span>
-										<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b6'>Use one of the Disease Risk Calculators to determine if you are at increased risk of a disease based on your family history by clicking on the 'Check your risk' button</li>
-										<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b7'>Get additional Help by clicking on the 'Get Help For This Page' button</li>
-									</ul>
+						<div class="family_main_contents_area">
+							<!--
+												<div>
+													<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">edit</div> をクリックすると家族の情報を更新（修正）できます。</div>
+												</div>
+												<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">delete</div> をクリックすると家族の情報を削除できます。</div>
+												<div class="translate homeText"><em>あとで家族歴を更新するためには、<div class="material-icons center green-text">save</div>アイコンをクリックしてください。</em></div>
+						-->
+							<table id="history_summary_table" class="summary_table striped" summary="This table lists the members of your family and groups them based on how they are related to you and which side of the family they are on. You may add, update or remove family members from the links within the table.">
+								<tr class='summary_tr'>
+									<th scope="col" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_name'>Name</th>
+									<th scope="col" abbr="Relationship" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_relation'>Relationship to Me</th>
+									<th scope="col" abbr="Update" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_upd_hist'>Update History</th>
+									<th scope="col" abbr="Remove" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_rem_rel'>Remove Relative</th>
+								</tr>
+								<tr class="person_row summary_tr">
+									<td class='summary_td information'></td>
+									<td class='summary_td information'>Self</td>
+									<td class="summary_td action">&nbsp;</td>
+									<td class="summary_td action">&nbsp;</td>
+								</tr>
+							</table>
+							<div class="buttonContainer"> </div>
+							<!--  All Dialog Boxes will load at the start of the page, but will be kept in seperate html files for easy understanding -->
+							<div id='new_diagram_dialog'> </div>
+							<div id='copy_for_family_member'> </div>
+							<div id='add_personal_information_dialog'> </div>
+							<div id='update_family_member_health_history_dialog'> </div>
+							<div id='add_all_family_members_dialog'> </div>
+							<div id='load_personal_history_dialog'> </div>
+							<div id='save_personal_history_dialog'> </div>
+							<div id='view_diagram_and_table_dialog'> </div>
+							<div id='family_pedigree'> </div>
+							<div id="update_help_dialog"></div>
+							<div id="personal_help_dialog"></div>
+							<div id="load_help_dialog"></div>
+							<div id="immediate_help_dialog"></div>
+							<div id='why_ask_ashkenazi_dialog'> </div>
+							<div id='debug' style='display:none;'></div>
+							<div id='disease_risk_calculator'>
+								<div id='risk_section'> <i>Loading Risk Assessment Tools...</i> </div>
+								<div id='help_dialog'>
+									<div id='help_main_page' class='help'>
+										<h2 class='translate' data-i18n='fhh_fhh.h2_update_fhh'>Update My Family History</h2>
+										<p class='translate instructions' data-i18n='fhh_fhh.p_update_my_history'>On this screen you can:</p>
+										<ul>
+											<li>
+												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_before'>Change your information or a family member's information by pressing</span><span class="translate instructions" data-i18n="fhh_fhh.th_upd_hist" style="font-weight:bold;"><B>Update History</B></span>
+												<IMG src='../images/icon_edit.gif' alt='Update History' height='16' />
+												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_after'> next to the name in the list.</span>
+											</li>
+											<li>
+												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_before'>Remove a family member from your history by pressing</span><span class='translate instructions' data-i18n='fhh_fhh.th_remove_hist' style="font-weight:Bold;"><B>Remove</B></span>
+												<IMG src='../images/icon_trash.gif' alt='Remove History' height='16' />
+												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_after'>  next to the name in the list. (You cannot remove yourself, your parents, or grandparents.)</span>
+											</li>
+										</ul>
+										<p class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2'>You can Also:</p>
+										<ul>
+											<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b1'>Restart your family history by clicking on the 'Start Over' button </li>
+											<span class="computerOnly">
+												<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b2'>Save your history to a file on your computer or into the cloud by clicking on 'Save Data' button</li>
+											</span>
+											<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b3'>Add another family member to your family history by clicking 'Add a family member' button</li>
+											<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b4'>View a diagram of your family tree by clicking on 'Pedigree drawing' button. Alternatively, you can click the 'Family Health table' button to navigate to the table directly</li>
+											<span class="computerOnly">
+												<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b5'>Export your family information to give a close relative a headstart on his/her family tree by clicking on the 'Share Data' button</li>
+											</span>
+											<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b6'>Use one of the Disease Risk Calculators to determine if you are at increased risk of a disease based on your family history by clicking on the 'Check your risk' button</li>
+											<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b7'>Get additional Help by clicking on the 'Get Help For This Page' button</li>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
 			</div>
-		</div>
+		</main>
+		<footer class="page-footer docs-footer"></footer>
 	</div>
-</div>
+
+
 </body>
 
-<script type='text/javascript' >
+<script type='text/javascript'>
 // Static links need to know what language
 
 function get_help() {
