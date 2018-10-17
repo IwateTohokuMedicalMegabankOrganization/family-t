@@ -55,7 +55,7 @@
 							</div>
 							<center>
 								<div class='row'>
-									<button style="margin-left:65px;" type='submit' name='btn_login' class='col s6 btn btn-large waves-effect waves-light lime accent-5 black-text waves-effect z-depth-1 y-depth-1'>ログイン</button>
+									<button id="login" style="margin-left:65px;" type='submit' name='btn_login' class='col s6 btn btn-large waves-effect waves-light lime accent-5 black-text waves-effect z-depth-1 y-depth-1'>ログイン</button>
 								</div>
 							</center>
 						</div>
@@ -68,6 +68,12 @@
 	<!-- scripts -->
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="../js/materialize.js"></script>
-	<script src="../js/init.js"></script>
+	<script src="../../js/init.js"></script>
+	<script type="text/javascript">
+		$("#login").on("click", function(){
+			location.href('fhh.html');
+		});
+
+	</script>
 </body>
 </html>
