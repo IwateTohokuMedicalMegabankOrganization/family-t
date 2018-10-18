@@ -62,8 +62,10 @@ $(document).ready(function() {
 	if (lng=='en-US') {
 		$(".language").val("en");	
 		$(".language_fhh").val("en");	
-	}
-	else {
+	}else if( lng == 'ja-JP')  {
+	    $(".language").val("ja");	
+        $(".language_fhh").val("ja");	
+	} else {
 		$(".language").val(lng);
 		$(".language_fhh").val(lng);
 	}

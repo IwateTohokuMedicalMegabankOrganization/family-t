@@ -31,6 +31,38 @@
 	  "link": "crca/crca.html",
 	  "status": "active"
 	},
+	"atherosclerotic": {
+	  "name.en": "Calculate your Gastric Cancer Risk",
+	  "name.es": "Calcula tu riesgo de cáncer colorrectal",
+	  "name.pt": "Calcule o risco de câncer colorretal",
+	  "name.it": "Calcola il tuo rischio cancro colorettale",
+	  "name.ja": "あなたの冠動脈疾患リスクを計算する",
+	  "name.ja-JP": "あなたの冠動脈疾患のリスクを計算する",
+	  "description.en": "The Colorectal Risk Calculator",
+	  "description.es": "La Calculadora de Riesgo colorrectal",
+	  "description.pt": "A Calculadora de Risco Colorretal",
+	  "description.it": "Il Risk Calculator Colorectal",
+	  "description.ja": "冠動脈疾患リスク計算",
+	  "description.ja-JP": "冠動脈疾患リスク計算",
+	  "link": "atherosclerotic/atherosclerotic.html",
+	  "status": "active"
+	},
+	"gastriccancer": {
+	  "name.en": "Calculate your Gastric Cancer Risk",
+	  "name.es": "Calcula tu riesgo de cáncer colorrectal",
+	  "name.pt": "Calcule o risco de câncer colorretal",
+	  "name.it": "Calcola il tuo rischio cancro colorettale",
+	  "name.ja": "あなたの胃がんリスクを計算する",
+	  "name.ja-JP": "あなたの胃がんのリスクを計算する",
+	  "description.en": "The Colorectal Risk Calculator",
+	  "description.es": "La Calculadora de Riesgo colorrectal",
+	  "description.pt": "A Calculadora de Risco Colorretal",
+	  "description.it": "Il Risk Calculator Colorectal",
+	  "description.ja": "胃がんリスク計算",
+	  "description.ja-JP": "胃がんリスク計算",
+	  "link": "gastric/gastric.html",
+	  "status": "active"
+	},
 	"lung": {
 	  "name": "Calculate your Lung Cancer Risk",
 	  "description": "The Lung Risk Calculator",
