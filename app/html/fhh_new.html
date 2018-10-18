@@ -1,10 +1,14 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
+﻿<!DOCTYPE html>
+<html lang="ja">
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<noscript><meta http-equiv="refresh" content="0; URL=./unsupported_browser.html"> </meta> </noscript>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+	<meta name="msapplication-tap-highlight" content="no">
+
 	<meta http-equiv="cache-control" content="max-age=0">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">
@@ -15,15 +19,18 @@
 	<!--[if lt IE 8 ]--> <!-- <html class="ie8"> <![endif]-->
 	<!--[if lt IE 9 ]--> <!-- <html class="ie9"> <![endif]-->
 	<!--[if (gt IE 9)|!(IE)]><!--> <!--<html class=""> --> <!--<![endif]-->
-
 	<title>family-t</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
 
 	<script src="../js/angular.min.js"></script>
 	<script src="../js/fhhController.js"></script>
 	<script type="text/javascript" src="../plugins/bootstrap/ui-bootstrap-tpls-0.13.0.min.js"></script>
 	<script type="text/javascript" src="../jquery/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="../jquery/jquery-ui-1.10.4.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="../jquery/jquery-ui-1.10.4.css">
+
 	<script type="text/javascript" src="../jquery/datepicker-ja.js"></script>
 	<script type="text/javascript" src="../js/config.js"></script>
 	<script type="text/javascript" src="../js/go-debug.js"></script>
@@ -34,24 +41,15 @@
 	<script type="text/javascript" src="../js/load_xml.js"></script>
 	<script type="text/javascript" src="../js/save_xml.js"></script>
 
-
-
-
-	<!-- Themes go here -->
-	<!--
-		<link rel="stylesheet" type="text/css" href="../themes/deploy/fhh.css">
-	-->
 	<link rel="shortcut icon" href="../themes/deploy/favicon.ico" type="image/x-icon">
-	<!-- Also includes images banner_left.png and banner_right.png -->
+
 	<!-- For language translation -->
 	<script type="text/javascript" src="../js/i18next-1.7.4.js"></script>
 
 	<!-- Pedigree SVG scripts -->
-
 	<script type="text/javascript" src="../js/family_pivot.js"></script>
 
 	<!--<script type="text/javascript" src="../js/family_pedigree_default.js"></script>-->
-
 	<script type="text/javascript" src="../js/bmi.js"></script>
 
 	<script type="text/javascript" src="../static/js/jquery.svg.js"></script>
@@ -66,7 +64,6 @@
 	<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.amber-pink.min.css" />
 	<script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
 	<link rel="stylesheet" type="text/css" href="../static/css/jquery.svg.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/jquery.qtip.min.css">
 	<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css">
@@ -80,91 +77,209 @@
 	<!--<link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>-->
 	<script type="text/javascript" src="../js/keys.js"></script>
 	<!--	<script type="text/javascript" src="../js/materialize.min.js"></script>-->
+
 	<script type="text/javascript">
 	$(function() {
-		// datepicker初期化
 		$('#personal_info_form_date_of_birth').datepicker();
 	});
 	</script>
-</head>
-<body ng-app="myApp">
 	<!-- Dropbox Integration -->
 	<!-- Need to dynamically create the script tag as the data-app-key comes from the keys.js file -->
 	<script type="text/javascript">
-			if (typeof DROPBOX_APP_KEY != 'undefined')  {
-			  var s = document.createElement( 'script' );
-			  s.setAttribute( 'src', "../static/js/dropbox_dropins.js" );
-			  s.setAttribute( 'id', "dropboxjs" );
-			  s.setAttribute( 'data-app-key', DROPBOX_APP_KEY );
-			  document.body.appendChild( s );
-			}
+		if (typeof DROPBOX_APP_KEY != 'undefined')  {
+			var s = document.createElement( 'script' );
+			s.setAttribute( 'src', "../static/js/dropbox_dropins.js" );
+			s.setAttribute( 'id', "dropboxjs" );
+			s.setAttribute( 'data-app-key', DROPBOX_APP_KEY );
+			document.body.appendChild( s );
+		}
 	</script>
 
 	<!-- Google Drive Integration -->
 	<script type="text/javascript" src="https://apis.google.com/js/client.js"></script>
 
+</head>
 
+<body ng-app="myApp">
 	<div class="container">
 		<header>
 			<nav class="nav-extended">
-				<div class="white black-text row center">
-					<div class="nav-title s12">
-						<a id="warnAndGoHome" class="" href="../../index.html"><img src="../themes/deploy/banner_left.png" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></a>
-					</div>
-					<div class="col s10 m10 l10 left">
-						<a id="warnAndGoHome" class="material-icons large-size green-text cursor_pointer icon_shadow" href="index.html">create_new_folder</a>新規作成
-						<span id="save_personal_history_button1" class="material-icons large-size green-text cursor_pointer icon_shadow">save</span>家族歴の保存
-						<span id="navCopyFamily" class="material-icons large-size green-text cursor_pointer icon_shadow">share</span>家族歴の共有
-						<span id="navRiskCalculator" class="material-icons large-size green-text cursor_pointer icon_shadow">report_problem</span>リスク判定
-						<span id="navViewDiagram" class="material-icons large-size green-text cursor_pointer icon_shadow" ng-click="openDiagramTable(true)" ng-controller="fhhController">print</span>家計図印刷
-					</div>
-					<div class="col s2 m2 l2 center">
-						<span id="nav_help" class="material-icons large-size green-text cursor_pointer icon_shadow">help_outline</span>
-					</div>
+				<div class="nav-wrapper white">
+					<a id="warnAndGoHome" class="brand-logo" href="../../index.html"><img src="../themes/deploy/banner_left.png" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></a>family-t</a>
 				</div>
-
+				<div class="nav-content light-green black-text ">
+					<ul class="tabs tabs-transparent">
+						<li class="tab"><a class="active" href="#test1"><span class="material-icons">input</span><span><b>「家族歴」の入力</b></span></a></li>
+						<li class="tab"><a href="#test3">				<span class="material-icons">report_problem</span><span><b>遺伝する病気のリスク判定</b></span></a></li>
+						<li class="tab"><a href="#test2">				<span class="material-icons">local_printshop</span><b>家族歴の印刷</b></a></li>
+						<li class="tab"><a href="#test4">				<span class="material-icons">input</span><b>家族歴の保存と更新</b></a></li>
+					</ul>
+				</div>
 			</nav>
 		</header>
+
 		<main>
-			<div class="white black-text left" style="margin-left:2em;">
-				<div class="row">
-					<div class="col s12">
-						<div class="translate homeText" style="height:25px;"><em>あとで家族歴を更新するためには、<span class="material-icons center green-text">save</span>家族歴の保存をクリックしてください。</em></div>
-					</div>
-				</div>
+			<div id="test1" class="col s12"></div>
+			<div id="test2" class="col s12"></div>
+			<div id="test3" class="col s12"></div>
+			<div id="test4" class="col s12"></div>
+			<table class="responsive-table striped">
+				<thead>
+					<tr class='summary_tr'>
+						<th scope="col">Name</th>
+						<th scope="col">Item Name</th>
+						<th scope="col">Item Price</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>Alvin</td>
+						<td>Eclair</td>
+						<td>$0.87</td>
+					</tr>
+					<tr>
+						<td>Alan</td>
+						<td>Jellybean</td>
+						<td>$3.76</td>
+					</tr>
+					<tr>
+						<td>Jonathan</td>
+						<td>Lollipop</td>
+						<td>$7.00</td>
+					</tr>
+				</tbody>
+			</table>
+			<table>
+				<tr>
+					<td>
+						a
+					</td>
+					<td>
+						a
+					</td>
+					<td>
+						a
+					</td>
+					<td>
+						a
+					</td>
+					<td>
+						a
+					</td>
+				</tr>
+
+			</table>
+			<table id="history_summary_table" class="summary_table striped" summary="This table lists the members of your family and groups them based on how they are related to you and which side of the family they are on. You may add, update or remove family members from the links within the table.">
+				<tr class='summary_tr'>
+					<th scope="col" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_name'>Name</th>
+					<th scope="col" abbr="Relationship" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_relation'>Relationship to Me</th>
+					<th scope="col" abbr="Update" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_upd_hist'>Update History</th>
+					<th scope="col" abbr="Remove" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_rem_rel'>Remove Relative</th>
+				</tr>
+				<tr class="person_row summary_tr">
+					<td class='summary_td information'></td>
+					<td class='summary_td information'>Self</td>
+					<td class="summary_td action">&nbsp;</td>
+					<td class="summary_td action">&nbsp;</td>
+				</tr>
+			</table>
+			<div>
+				<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">edit</div> をクリックすると家族の情報を更新（修正）できます。</div>
 			</div>
-			<div class="row">
-				<div class="col s10">
-					<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">edit</div> をクリックすると家族の情報を更新（修正）できます。</div>
-					<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">delete</div> をクリックすると家族の情報を削除できます。</div>
-				</div>
-				<div class="col s2 right">
-					<div id="add_another_family_member_button1" class="material-icons large-size green-text cursor_pointer icon_shadow">group_add</div>家族歴を追加
-				</div>
-			</div>
-			<div class="row">
-				<div class="s12">
-					<table id="history_summary_table" class="summary_table striped">
-						<tr class='summary_tr'>
-							<th width="150px" scope="col" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_name'>Name</th>
-							<th width="150px" scope="col" abbr="Relationship" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_relation'>Relationship to Me</th>
-							<th width="445px" scope="col" abbr="Update" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_upd_hist'>Update History</th>
-							<th width="90px" scope="col" abbr="Remove" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_rem_rel'>Remove Relative</th>
-						</tr>
-						<tr class="person_row summary_tr">
-							<td width="150px" class='summary_td information'></td>
-							<td width="150px" class='summary_td information'>Self</td>
-							<td width="445px" class="summary_td action">&nbsp;</td>
-							<td width="90px" class="summary_td action">&nbsp;</td>
-						</tr>
-					</table>
-				</div>
-			</div>
+			<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">delete</div> をクリックすると家族の情報を削除できます。</div>
+			<div class="translate homeText"><em>あとで家族歴を更新するためには、<div class="material-icons center green-text">save</div>アイコンをクリックしてください。</em></div>
+			<!-- <img height="60" width="326" src="../themes/deploy/banner_right.png" alt="Collection of family photos from diverse families." class="fhhBannerPhotos"> -->
 
 			<div id="main" class="content_container">
 				<div id="content">
+					<!--			<form id="personForm" name="personForm" action="/fhh-web/familyHistory/start.action" method="post" class="form">-->
+					<!--			<form id="personForm" name="personForm" action="" method="post" class="form">-->
 					<div class="family_frame_area">
+						<!-- <div class="family_side_menu_area">
+						<div class="label_color label_position">データの管理</div>
+						<div class="label_position" id="firstVari"></div>
+						<div class="inner">
+							<button class="button_hidden" id="save_personal_history_button1" href="#"></button>
+								<label for="save_personal_history_button1">
+								<div id="tt1" class="material-icons large-size green-text cursor_pointer icon_shadow">save</div>
+								</label>
+							<div class="mdl-tooltip" for="tt1">データを保存します</div>
+						</div>
+						<div class="infomation_box">データを<br />保存します。</div>
+						<div class="inner">
+							<button style="display:none;" id="navCopyFamily" href="#"></button>
+								<label for="navCopyFamily">
+								<div id="tt2" class="material-icons large-size green-text cursor_pointer icon_shadow">share</div>
+								</label>
+							<div class="mdl-tooltip" for="tt2">データを共有します</div>
+						</div>
+						<div class="infomation_box">データを共有<br />します。</div>
+						<div class="inner">
+							<a id="warnAndGoHome" href="index.html">
+								<div id="tt3" class="material-icons large-size green-text cursor_pointer icon_shadow">create_new_folder</div>
+							</a>
+							<div class="mdl-tooltip" for="tt3">新規登録します</div>
+						</div>
+						<div class="infomation_box">新規登録します。</div>
+						<div class="inner">
+							<button style="display:none;" id="nav_help" href="#"></button>
+								<label for="nav_help">
+								<div id="tt4" class="material-icons large-size green-text cursor_pointer icon_shadow">help_outline</div>
+								</label>
+							<div class="mdl-tooltip" for="tt4">家族歴に関するヘルプを表示します</div>
+						</div>
+						<div class="infomation_box" style="height:55px;margin-bottom:3px;">家族歴に関する<br />ヘルプを表示<br />します。</div>
+						<div class="label_color label_position">家計図印刷</div>
+						<div class="inner">
+							<button style="display:none;" id="navViewDiagram" href="#" ng-click="openDiagramTable(true)" ng-controller="fhhController"></button>
+								<label for="navViewDiagram">
+								<div id="tt5" class="material-icons large-size green-text" cursor_pointer icon_shadow>print</div>
+								</label>
+							<div class="mdl-tooltip" for="tt5">家計図を印刷します</div>
+						</div>
+						<div class="infomation_box" style="margin-bottom:3px;">家計図を印刷<br />します。</div>
+						<div class="label_color label_position">家族歴から予測される</div>
+						<div class="label_color label_position">疾患リスク</div>
+						<div class="inner">
+							<button style="display:none;" id="navRiskCalculator" href="#"></button>
+								<label for="navRiskCalculator">
+								<div id="tt6" class="material-icons large-size green-text cursor_pointer icon_shadow">info</div>
+								</label>
+							<div class="mdl-tooltip" for="tt6">家族歴から予測される疾患リスクを表示します</div>
+						</div>
+						<div class="infomation_box" style="height:55px;margin-bottom:3px;">家族歴から予測<br />される疾患リスク<br />を表示します。</div>
+						<div class="label_color label_position">家族歴の編集</div>
+
+						<div class="inner">
+							<a id="add_another_family_member_button1" href="">
+								<div class="material-icons large-size green-text cursor_pointer icon_shadow">group_add</div>
+							</a>
+						</div>
+						<div class="infomation_box">家族歴の編集<br />をします。</div><br />
+					</div> -->
 						<div class="family_main_contents_area">
+							<!--
+												<div>
+													<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">edit</div> をクリックすると家族の情報を更新（修正）できます。</div>
+												</div>
+												<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">delete</div> をクリックすると家族の情報を削除できます。</div>
+												<div class="translate homeText"><em>あとで家族歴を更新するためには、<div class="material-icons center green-text">save</div>アイコンをクリックしてください。</em></div>
+						-->
+							<table id="history_summary_table" class="summary_table striped" summary="This table lists the members of your family and groups them based on how they are related to you and which side of the family they are on. You may add, update or remove family members from the links within the table.">
+								<tr class='summary_tr'>
+									<th scope="col" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_name'>Name</th>
+									<th scope="col" abbr="Relationship" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_relation'>Relationship to Me</th>
+									<th scope="col" abbr="Update" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_upd_hist'>Update History</th>
+									<th scope="col" abbr="Remove" class="summary_th nowrap translate" data-i18n='fhh_fhh.th_rem_rel'>Remove Relative</th>
+								</tr>
+								<tr class="person_row summary_tr">
+									<td class='summary_td information'></td>
+									<td class='summary_td information'>Self</td>
+									<td class="summary_td action">&nbsp;</td>
+									<td class="summary_td action">&nbsp;</td>
+								</tr>
+							</table>
 							<div class="buttonContainer"> </div>
 							<!--  All Dialog Boxes will load at the start of the page, but will be kept in seperate html files for easy understanding -->
 							<div id='new_diagram_dialog'> </div>
@@ -222,35 +337,10 @@
 				</div>
 			</div>
 		</main>
+		<footer class="page-footer docs-footer"></footer>
 	</div>
-	<div class="container">
-		<footer class="page-footer teal">
-			<div class="container">
-				<div class="row">
-					<div class="col l6 s12">
-						<ul>
-							<li><a class="white-text" href="#!">東北メディカル・メガバンク計画について </a></li>
-							<li><a class="white-text" href="#!">個人情報について </a></li>
-							<li><a class="white-text" href="#!">family-tについて </a></li>
-						</ul>
-					</div>
-					<div class="col l3 s12">
-						<ul>
-							<li><a class="white-text" href="#!">お問合せ </a></li>
-							<li><a class="white-text" href="#!">更新履歴 </a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="footer-copyright">
-				<div class="container">
-					<a class="brown-text text-lighten-3" href="http://iwate-megabank.org/" target="_blank">
-						<img src="http://iwate-megabank.org/wp-content/themes/immo/images/logo-header-ja.png" title="いわて東北メディカル・メガバンク機構">
-					</a>
-				</div>
-			</div>
-		</footer>
-	</div>
+
+
 </body>
 
 <script type='text/javascript'>
@@ -280,6 +370,7 @@ function site_updates() {
 	window.open("./static/site_update_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
 }
 </script>
+
 <script src="../js/materialize.js"></script>
 
 </html>
