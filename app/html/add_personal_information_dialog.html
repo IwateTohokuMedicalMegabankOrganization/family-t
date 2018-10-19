@@ -1,185 +1,249 @@
-			<div class="title-bar translate" data-i18n='info_dialog.div_personal_info' id="personalInfo"> Your Personal Information </div>
-			<div style="width:100%;display:inline-flex;">
-				<div style="width:92%;">
-					<div class="colOneSimple instructions">
-						<span class='translate' data-i18n='info_dialog.instructions'></span>
-					</div>
-				</div>
-				<div style="width:8%;">
-					<div class="inner">
-						<button style="display:none;" id="add-help" href="#"></button>
-							<label for="add-help">
-							<div id="tt0" class="material-icons large-size green-text cursor_pointer icon_shadow">help_outline</div>
-							</label>
-						<div class="mdl-tooltip" for="tt0">本人情報の入力に関するヘルプを表示します</div>
-					</div>
-				</div>
-			</div>
+<div class="title-bar translate" data-i18n='info_dialog.div_personal_info' id="personalInfo"> Your Personal Information </div>
+<div style="width:100%;display:inline-flex;">
+	<div style="width:92%;">
+		<div class="colOneSimple instructions">
+			<span class='translate' data-i18n='info_dialog.instructions'></span>
+		</div>
+	</div>
+	<div style="width:8%;">
+		<div class="inner">
+			<button style="display:none;" id="add-help" href="#"></button>
+			<label for="add-help">
+				<div id="tt0" class="material-icons large-size green-text cursor_pointer icon_shadow">help_outline</div>
+			</label>
+			<div class="mdl-tooltip" for="tt0">本人情報の入力に関するヘルプを表示します</div>
+		</div>
+	</div>
+</div>
 <!--
 			<table>
 				 <tbody><tr>
-					<td valign="top" class="colOneSimple instructions"> 
+					<td valign="top" class="colOneSimple instructions">
 						<br /><span class='translate' data-i18n='info_dialog.instructions'></span>
 					</td>
 				</tr></tbody>
 			</table>
 -->
-			<p class='instructions'><span class="required">*</span>
-				<span class='translate' data-i18n='info_dialog.required'>
-			</p>
+<p class='instructions'>
+	<span class="required">*</span>
+	<span class='translate' data-i18n='info_dialog.required'>
+</p>
 
-			<div class="form edit_form" summary="Enter personal information.">
-				<div class="edit_form_tr">
-					<div class="edit_form_label_area">
-						<label for="personal_info_form_name" class="label">
-							<span class="required">*</span><span class='translate' data-i18n='info_dialog.name'></span>
-						</label>
-					</div>
-					<div class="edit_form_input_area">
-						<input name="person.name" size="30" maxlength="255" value="" tabindex="1" id="personal_info_form_name" type="text">
-					</div>
-				</div>
-				<div class="edit_form_tr">
-					<div class="edit_form_label_area">
-						<span class="required">*</span><span class='translate' data-i18n='info_dialog.gender'></span>
-					</div>
-					<div class="edit_form_input_area">
-						<input name="person.gender" id="personal_info_form_gender_male" value="MALE" tabindex="2" type="radio">
-						<label for="personal_info_form_gender_male" class='translate' data-i18n='info_dialog.male'>Male</label>
-						<input name="person.gender" id="personal_info_form_gender_female" value="FEMALE" tabindex="2" type="radio">
-						<label for="personal_info_form_gender_female" class='translate' data-i18n='info_dialog.female'>Female</label>
-					</div>
-				</div>
-				<div class="edit_form_tr" style="height: 57px;">
-					<div class="edit_form_label_area" style="height: 57px; padding-top: 5px;">
-						<span class="required">*</span><label for="personal_info_form_date_of_birth"><span class='translate' data-i18n='info_dialog.dob'>Date of Birth</span>:</label>
-					</div>
-					<div class="edit_form_input_area" style="height: 57px; padding-top: 5px;">
-						<input name="person.date_of_birth" size="20" maxlength="255" value="" tabindex="10" id="personal_info_form_date_of_birth" type="text">
-						<div class='instructions'>yyyy/mm/dd</div>
-					</div>
-				</div>
-<script>
+<div class="form edit_form" summary="Enter personal information.">
+	<div class="edit_form_tr">
+		<div class="edit_form_label_area">
+			<label for="personal_info_form_name" class="label">
+				<span class="required">*</span><span class='translate' data-i18n='info_dialog.name'></span>
+			</label>
+		</div>
+		<div class="edit_form_input_area">
+			<input name="person.name" size="30" maxlength="255" value="" tabindex="1" id="personal_info_form_name" type="text">
+		</div>
+	</div>
+	<div class="edit_form_tr">
+		<div class="edit_form_label_area">
+			<span class="required">*</span><span class='translate' data-i18n='info_dialog.gender'></span>
+		</div>
+		<div class="edit_form_input_area">
+			<input name="person.gender" id="personal_info_form_gender_male" value="MALE" tabindex="2" type="radio">
+			<label for="personal_info_form_gender_male" class='translate' data-i18n='info_dialog.male'>Male</label>
+			<input name="person.gender" id="personal_info_form_gender_female" value="FEMALE" tabindex="2" type="radio">
+			<label for="personal_info_form_gender_female" class='translate' data-i18n='info_dialog.female'>Female</label>
+		</div>
+	</div>
+	<div class="edit_form_tr" style="height: 57px;">
+		<div class="edit_form_label_area" style="height: 57px; padding-top: 5px;">
+			<span class="required">*</span><label for="personal_info_form_date_of_birth"><span class='translate' data-i18n='info_dialog.dob'>Date of Birth</span>:</label>
+		</div>
+		<div class="edit_form_input_area" style="height: 57px; padding-top: 5px;">
+			<input name="person.date_of_birth" size="20" maxlength="255" value="" tabindex="10" id="personal_info_form_date_of_birth" type="text">
+			<div class='instructions'>yyyy/mm/dd</div>
+		</div>
+	</div>
+	<script>
 	/* Datepiker 初期化 */
-	$('#personal_info_form_date_of_birth').datepicker();
-</script>
-				<div class="edit_form_tr">
-					<div class="edit_form_label_area" style="padding-top: 5px;">
-						<label for="personal_info_form_place_of_birth"><span class='translate' data-i18n='info_dialog.pob'>都道府県</span>:</label>
-					</div>
-					<div class="edit_form_input_area">
-						<select name="person.prefectures" id="personal_info_form_place_of_birth" style="width: 100px;height: 34px;">
-							<option value="0001">北海道</option>
-							<option value="0002">青森県</option>
-							<option value="0003">岩手県</option>
-							<option value="0004">宮城県</option>
-							<option value="0005">秋田県</option>
-							<option value="0006">山形県</option>
-							<option value="0007">福島県</option>
-							<option value="0008">茨城県</option>
-							<option value="0009">栃木県</option>
-							<option value="0010">群馬県</option>
-							<option value="0011">埼玉県</option>
-							<option value="0012">千葉県</option>
-							<option value="0013">東京都</option>
-							<option value="0014">神奈川県</option>
-							<option value="0015">新潟県</option>
-							<option value="0016">富山県</option>
-							<option value="0017">石川県</option>
-							<option value="0018">福井県</option>
-							<option value="0019">山梨県</option>
-							<option value="0020">長野県</option>
-							<option value="0021">岐阜県</option>
-							<option value="0022">静岡県</option>
-							<option value="0023">愛知県</option>
-							<option value="0024">三重県</option>
-							<option value="0025">滋賀県</option>
-							<option value="0026">京都府</option>
-							<option value="0027">大阪府</option>
-							<option value="0028">兵庫県</option>
-							<option value="0029">奈良県</option>
-							<option value="0030">和歌山県</option>
-							<option value="0031">鳥取県</option>
-							<option value="0032">島根県</option>
-							<option value="0033">岡山県</option>
-							<option value="0034">広島県</option>
-							<option value="0035">山口県</option>
-							<option value="0036">徳島県</option>
-							<option value="0037">香川県</option>
-							<option value="0038">愛媛県</option>
-							<option value="0039">高知県</option>
-							<option value="0040">福岡県</option>
-							<option value="0041">佐賀県</option>
-							<option value="0042">長崎県</option>
-							<option value="0043">熊本県</option>
-							<option value="0044">大分県</option>
-							<option value="0045">宮崎県</option>
-							<option value="0046">鹿児島県</option>
-							<option value="0047">沖縄県</option>
-						</select>　出身都道府県を選んでください。
-					</div>
-				</div>
-				<div class="edit_form_tr">
-					<div class="edit_form_label_area">
-						<p class='translate label' data-i18n='info_dialog.twin_status'> Were you born a twin?</p>
-					</div>
-					<div class="edit_form_input_area">
-						<p class="twin_status">
-							<input name="person.twin_status" id="personal_info_form_twin_status_no" checked="checked" value="NO" tabindex="11" type="radio">
-							<label for="personal_info_form_twin_status_no" class="translate" data-i18n='info_dialog.no'>No</label>
-							<input name="person.twin_status" id="personal_info_form_twin_status_identical" value="IDENTICAL" tabindex="11" type="radio">
-							<label for="personal_info_form_twin_status_identical"	class="translate" data-i18n='info_dialog.identical'>Yes - Identical (Same)</label>
-							<input name="person.twin_status" id="personal_info_form_twin_status_fraternal" value="FRATERNAL" tabindex="11" type="radio">
-							<label for="personal_info_form_twin_status_fraternal" class="translate" data-i18n='info_dialog.fraternal'>Yes - Not Identical (Fraternal)</label>
-						</p>
-					</div>
-				</div>
-				<div class="edit_form_tr">
-					<div class="edit_form_label_area">
-						<p class="translate label" data-i18n="info_dialog.adopted"> Were you adopted?</p>
-					</div>
-					<div class="edit_form_input_area">
-						<input id="personal_info_form_adopted_yes" name="person.adopted" type='checkbox' checked='false'>
-						<label class='translate' for="personal_info_form_adopted_yes" data-i18n='info_dialog.yes'>Yes</label>
-					</div>
-				</div>
-				<div class="edit_form_tr">
-					<div class="edit_form_label_area">
-						<p class="label translate" data-i18n='info_dialog.height' >Height:</p>
-					</div>
-					<div class="edit_form_input_area">
-						<input class='numeric' name="personal_height_centimeters" size="3" maxlength='3' value="" tabindex="14" id="personal_height_centimeters" type="text" style="width:60px; height:31px;"> 
-						<label class='translate' for="personal_height_centimeters" data-i18n='info_dialog.centimeters'>Centimeters</label>
-					</div>
-				</div>
-				<div class="edit_form_tr">
-					<div class="edit_form_label_area">
-						<label for="personal_weight"><span class="translate" data-i18n='info_dialog.weight'>Weight:</span></label>
-					</div>
-					<div class="edit_form_input_area" style="display: inline-flex;">
-						<input name="personal_weight" size="5" maxlength="4" value="" tabindex="15" id="personal_weight" type="text" style="width:60px; height:31px;"> 
-						<label for="personal_weight_unit">&nbsp;</label>
-						<select name="personal_weight_unit" tabindex="15" id="personal_weight_unit" style="width: 150px;height: 34px;">
-							<option value="kilogram" class="translate" data-i18n='info_dialog.kgs' selected>kgs</option>
-							<option value="pound" class="translate" data-i18n='info_dialog.lbs'>lbs</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<br />
-			<div id='personal_health_information' > health info </div>
-			<div id='personal_race_ethnicity' > family background info </div>
-			<br/>
-			<table width="100%" cellspacing="0" cellpadding="0" border="0">
-			<tr>
-				<td style="text-align:center;">
-					<button id='addPersonInformationCancelButton' class="md_button button_color_normal translate" data-i18n='info_dialog.btn2_fam_hist'>Cancel</button>
-					<button id='addPersonInformationSubmitButton' class="md_button button_color_normal translate" data-i18n='info_dialog.btn1_fam_hist' style="text-align:right;font-size:110% !important">Next </button>
-				</td>
-			</tr>
-		</table>
+		$('#personal_info_form_date_of_birth').datepicker();
+	</script>
+	<div class="edit_form_tr">
+		<div class="edit_form_label_area" style="padding-top: 5px;">
+			<label for="personal_info_form_place_of_birth"><span class='translate' data-i18n='info_dialog.pob'>都道府県</span>:</label>
+		</div>
+		<div class="edit_form_input_area">
+			<select name="person.prefectures" id="personal_info_form_place_of_birth" style="width: 100px;height: 34px;">
+				<option value="0001">北海道</option>
+				<option value="0002">青森県</option>
+				<option value="0003">岩手県</option>
+				<option value="0004">宮城県</option>
+				<option value="0005">秋田県</option>
+				<option value="0006">山形県</option>
+				<option value="0007">福島県</option>
+				<option value="0008">茨城県</option>
+				<option value="0009">栃木県</option>
+				<option value="0010">群馬県</option>
+				<option value="0011">埼玉県</option>
+				<option value="0012">千葉県</option>
+				<option value="0013">東京都</option>
+				<option value="0014">神奈川県</option>
+				<option value="0015">新潟県</option>
+				<option value="0016">富山県</option>
+				<option value="0017">石川県</option>
+				<option value="0018">福井県</option>
+				<option value="0019">山梨県</option>
+				<option value="0020">長野県</option>
+				<option value="0021">岐阜県</option>
+				<option value="0022">静岡県</option>
+				<option value="0023">愛知県</option>
+				<option value="0024">三重県</option>
+				<option value="0025">滋賀県</option>
+				<option value="0026">京都府</option>
+				<option value="0027">大阪府</option>
+				<option value="0028">兵庫県</option>
+				<option value="0029">奈良県</option>
+				<option value="0030">和歌山県</option>
+				<option value="0031">鳥取県</option>
+				<option value="0032">島根県</option>
+				<option value="0033">岡山県</option>
+				<option value="0034">広島県</option>
+				<option value="0035">山口県</option>
+				<option value="0036">徳島県</option>
+				<option value="0037">香川県</option>
+				<option value="0038">愛媛県</option>
+				<option value="0039">高知県</option>
+				<option value="0040">福岡県</option>
+				<option value="0041">佐賀県</option>
+				<option value="0042">長崎県</option>
+				<option value="0043">熊本県</option>
+				<option value="0044">大分県</option>
+				<option value="0045">宮崎県</option>
+				<option value="0046">鹿児島県</option>
+				<option value="0047">沖縄県</option>
+			</select>　出身都道府県を選んでください。
+		</div>
+	</div>
+	<div class="edit_form_tr">
+		<div class="edit_form_label_area">
+			<p class='translate label' data-i18n='info_dialog.twin_status'> Were you born a twin?</p>
+		</div>
+		<div class="edit_form_input_area">
+			<p class="twin_status">
+				<input name="person.twin_status" id="personal_info_form_twin_status_no" checked="checked" value="NO" tabindex="11" type="radio">
+				<label for="personal_info_form_twin_status_no" class="translate" data-i18n='info_dialog.no'>No</label>
+				<input name="person.twin_status" id="personal_info_form_twin_status_identical" value="IDENTICAL" tabindex="11" type="radio">
+				<label for="personal_info_form_twin_status_identical" class="translate" data-i18n='info_dialog.identical'>Yes - Identical (Same)</label>
+				<input name="person.twin_status" id="personal_info_form_twin_status_fraternal" value="FRATERNAL" tabindex="11" type="radio">
+				<label for="personal_info_form_twin_status_fraternal" class="translate" data-i18n='info_dialog.fraternal'>Yes - Not Identical (Fraternal)</label>
+			</p>
+		</div>
+	</div>
+	<div class="edit_form_tr">
+		<div class="edit_form_label_area">
+			<p class="translate label" data-i18n="info_dialog.adopted"> Were you adopted?</p>
+		</div>
+		<div class="edit_form_input_area">
+			<input id="personal_info_form_adopted_yes" name="person.adopted" type='checkbox' checked='false'>
+			<label class='translate' for="personal_info_form_adopted_yes" data-i18n='info_dialog.yes'>Yes</label>
+		</div>
+	</div>
+	<div class="edit_form_tr">
+		<div class="edit_form_label_area">
+			<p class="label translate" data-i18n='info_dialog.height'>Height:</p>
+		</div>
+		<div class="edit_form_input_area">
+			<input class='numeric' name="personal_height_centimeters" size="3" maxlength='3' value="" tabindex="14" id="personal_height_centimeters" type="text" style="width:60px; height:31px;">
+			<label class='translate' for="personal_height_centimeters" data-i18n='info_dialog.centimeters'>Centimeters</label>
+		</div>
+	</div>
+	<div class="edit_form_tr">
+		<div class="edit_form_label_area">
+			<label for="personal_weight"><span class="translate" data-i18n='info_dialog.weight'>Weight:</span></label>
+		</div>
+		<div class="edit_form_input_area" style="display: inline-flex;">
+			<input name="personal_weight" size="5" maxlength="4" value="" tabindex="15" id="personal_weight" type="text" style="width:60px; height:31px;">
+			<label for="personal_weight_unit">&nbsp;</label>
+			<select name="personal_weight_unit" tabindex="15" id="personal_weight_unit" style="width: 150px;height: 34px;">
+				<option value="kilogram" class="translate" data-i18n='info_dialog.kgs' selected>kgs</option>
+				<option value="pound" class="translate" data-i18n='info_dialog.lbs'>lbs</option>
+			</select>
+		</div>
+	</div>
+	<div class="edit_form_tr">
+		<div class="edit_form_label_area">
+			<label for="personal_bmi"><span class="">BMI:</span></label>
+		</div>
+		<div class="edit_form_input_area" style="display: inline-flex;">
+			<input name="personal_bmi" size="5" maxlength="4" value="" tabindex="15" id="personal_bmi" type="text" style="width:60px; height:31px;" readonly>
+		</div>
+	</div>
+</div>
 
-<script type='text/javascript' >
+<br />
+<div class="title-bar translate">喫煙状況</div>
+<div class="row">
+	<div class="col s12 left">
+		冠動脈疾患のリスクは、禁煙後1年でほぼ半減し、禁煙後15年で非喫煙者と同等になることが知られています。<br />
+		ご自身の状況にあてはまるものを選択してください。
+		<div>
+			<input id="smoker1" name="smoker" value="1" type="radio" />
+			<label for="smoker1" class='translate'>喫煙したことがない</label>
+		</div>
+
+		<div>
+			<input id="smoker2" name="smoker" value="2" type="radio" />
+			<label for="smoker2" class='translate'>禁煙して、15年以上経過している</label>
+		</div>
+
+		<div>
+			<input id="smoker3" name="smoker" value="3" type="radio" />
+			<label for="smoker3" class='translate'>禁煙して、1年以上15年未満経過している</label>
+		</div>
+
+		<div>
+			<input id="smoker4" name="smoker" value="4" type="radio" />
+			<label for="smoker4" class='translate'>禁煙して、1年未満である</label>
+		</div>
+
+		<div>
+			<input id="smoker5" name="smoker" value="5" type="radio" />
+			<label for="smoker5" class='translate'>現在も喫煙している</label>
+		</div>
+	</div>
+</div>
+<div class="title-bar translate">運動状況</div>
+<div class="row">
+	<div class="col s12 left">
+		定期的な運動をしていますか？
+		<div class="row">
+			<div class="col s3">
+				<input id="training1" name="training" value="1" type="radio" />
+				<label for="training1">はい</label>
+				<select>
+					<option value="中程度">中程度</option>
+					<option value="重度">重度</option>
+				</select>
+				<input type="text" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s12">
+				<input id="training0" name="training" value="0" type="radio" />
+				<label for="training0">いいえ</label>
+			</div>
+		</div>
+	</div>
+</div>
+<div id='personal_health_information'> health info </div>
+<div id='personal_race_ethnicity'> family background info </div>
+<br />
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td style="text-align:center;">
+			<button id='addPersonInformationCancelButton' class="md_button button_color_normal translate" data-i18n='info_dialog.btn2_fam_hist'>Cancel</button>
+			<button id='addPersonInformationSubmitButton' class="md_button button_color_normal translate" data-i18n='info_dialog.btn1_fam_hist' style="text-align:right;font-size:110% !important">Next </button>
+		</td>
+	</tr>
+</table>
+
+<script type='text/javascript'>
 
 function health_vault() {
 	window.open("./static/health_vault_en.html", "", "width=800, height=600, scrollbars=yes");
