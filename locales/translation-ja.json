@@ -273,7 +273,6 @@
 "btn_save_my_history":"0",
 "btn_add_a_family_mbr":"0",
 "btn_save_fam_hist":"0",
-"btn_save_fam_hist":"0",
 "btn_view_dia_n_table":"0",
 "btn_risk_assess":"0",
 "th_name":"氏名",
@@ -299,7 +298,7 @@
 "done":"0"
 },
 "info_dialog": {
-"div_personal_info":"あなたの情報",
+"div_personal_info":"基本情報",
 "div_family_info":"0",
 "your":"あなたの",
 "personal_information_for":"個人情報",
@@ -484,9 +483,6 @@
 "question_gestational":"3. （女性のみ）妊娠糖尿病と診断されたことはありますか？",
 "answer_gestational_yes":"はい（1点）",
 "answer_gestational_no":"いいえ（0点）",
-"question_family_diabetes":"4.あなたの両親やきょうだいに糖尿病の方がいますか？",
-"answer_family_diabetes_yes":"はい（1点）",
-"answer_family_diabetes_no":"いいえ（0点）",
 "question_family_diabetes":"4.あなたの両親やきょうだいに糖尿病の方がいますか？",
 "answer_family_diabetes_yes":"はい（1点）",
 "answer_family_diabetes_no":"いいえ（0点）",
