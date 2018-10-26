@@ -1777,7 +1777,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		new_row.append("<td class='action update_history'>&nbsp;</td>");
 	}
 	if (is_removeable) {
-		var remove_history_td = $("<td style='text-align:center;border:1px solid #888'>");
+	    var remove_history_td = $("<td style='text-align:center;border:1px;solid #888;padding:2px;'>");
 		
 		var remove_history = $("<A href='#' class='action remove_history'><img style='border:0px' src='../images/icon_trash.gif' alt='Remove History' title='Remove History'></A>")
 		remove_history_td.append(remove_history);

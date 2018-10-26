@@ -470,6 +470,11 @@ function start()
 			$("#load_personal_history_dialog").dialog("open");
 	}	else if (getParameterByName("action") == 'create') {
 			personal_information = new Object();
+//	    personal_information = { "id": "c501199e-7ffa-45c0-b435-eee30356ee43", "name": "藤田 祐司", "gender": "MALE", "date_of_birth": "1981/10/18", "twin_status": "NO", "height": "", "height_unit": "", "prefectures": "0001", "weight": "", "weight_unit": "kilogram", "Health History": [], "race" : {
+//"American Indian or Alaska Native": false, "Asian" : true, "Black or African-American": false, "Native Hawaiian or Other Pacific Islander": false, "White": false, "Asian Indian": false, "Chinese": false, "Filipino": false, "Japanese": true, "Korean" : false, "Vietnamese": false, "Other Asian": false, "Unknown Asian" : false, "Chamorro" : false, "Guamanian": false, "Native Hawaiian": false, "Samoan": false, "Unknown South Pacific Islander": false
+//	    }, "ethnicity": { "Hispanic or Latino": false, "Ashkenazi Jewish": false, "Not Hispanic or Latino": false, "Central American": false, "Cuban" : false, "Dominican": false, "Mexican": false, "Other Hispanic": false, "Puerto Rican": false, "South American": false }, "father": { "gender": "MALE", "id": "0c1286f3-4b2c-4217-aa0c-baeeb38e353a", "Health History": [], "relationship": "father" }, "mother": { "gender": "FEMALE", "id": "ab289cb0-5724-425a-9a41-1b88a875045d", "Health History": [], "relationship": "mother" }, "maternal_grandfather": { "gender": "MALE", "id": "64f6757f-e538-447a-ad75-45c529c1c1bd", "Health History" : [], "relationship" : "maternal_grandfather" }, "maternal_grandmother": { "gender" : "FEMALE", "id": "d81bc1c9-88b6-4279-83dc-02261a0176bb", "Health History": [], "relationship" : "maternal_grandmother" }, "paternal_grandfather" : { "gender": "MALE", "id": "ed7ad816-b322-4ff6-82f3-24c5ceda69ec", "Health History": [], "relationship": "paternal_grandfather" }, "paternal_grandmother": { "gender": "FEMALE", "id": "5c340973-1dd9-43a6-932a-502c7d3c26e1", "Health History": [], "relationship": "paternal_grandmother" }, "brother_0": { "gender": "MALE", "id": "85a92985-c49f-4e4c-9fc3-b0edd2a4e988", "Health History": [], "relationship": "brother" }, "sister_0": { "gender": "FEMALE", "id": "c2030cad-d4e8-4f8c-9584-13e59e4e3cd2", "Health History": [], "relationship": "sister" }, "son_0": { "gender": "MALE", "id": "0285fef5-d713-44d2-92e6-316739b86d13", "Health History": [], "relationship": "son" }, "daughter_0": { "gender": "FEMALE", "id": "05965d04-da7b-4fae-8a33-534dac8667e1", "Health History": [], "relationship": "daughter" }, "maternal_uncle_0": { "gender": "MALE", "id": "0a5d5811-90c5-42bb-87cf-6c5b249c7d78", "Health History": [], "relationship": "uncle" }, "maternal_aunt_0": { "gender": "FEMALE", "id": "e6eb5259-5c1f-4901-b512-eeda5d7a8c59", "Health History": [], "relationship": "aunt" }, "paternal_uncle_0": { "gender": "MALE", "id": "96b0b70d-3080-4cf1-ada1-93faef343be2", "Health History": [], "relationship": "uncle"
+//	    }, "paternal_aunt_0": {
+//"gender": "FEMALE", "id": "f83c8c06-0bf3-44d1-a0b3-d39546093429", "Health History": [], "relationship" : "aunt" } };
 			build_family_history_data_table();
 			$("#add_personal_information_dialog").dialog("open");
 	} else if (getParameterByName("action") == 'save') {
@@ -1698,7 +1703,7 @@ function add_personal_history_row(table) {
 
 	new_row.append(update_history_td);
 	
-	new_row.append("<td class='summary_td action remove_history'>&nbsp;</td>");
+	new_row.append("<td class='summary_td action remove_history' style='text-align:center;border:1px solid #888'>&nbsp;</td>");
 
 	table.append(new_row);
 }
@@ -1814,7 +1819,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		});
 		
 		new_row.append(remove_history_td);
-	} else new_row.append("<td class='summary_td action remove_history'>&nbsp;</td>");
+	} else new_row.append("<td class='summary_td action remove_history' style='text-align:center;border:1px solid #888'>&nbsp;</td>");
 
 	table.append(new_row);
 }
@@ -1925,7 +1930,7 @@ function update_family_history_row(relationship_id, family_member_information) {
 //				+ "' ><img src='images/icon_edit.gif' alt='Update History' title='Update History'></td>");
 
 //	$("#" + relationship_id).find(".update_history").html("<img src='../images/icon_edit.gif' alt='Update History' title='Update History'>");
-	$("#" + relationship_id).find(".update_history").html("<div class='material-icons center red-text icon_shadow2'>edit</div>");
+	$("#" + relationship_id).find(".update_history").html("<div class='material-icons center green-text icon_shadow2'>edit</div>");
 	$("#" + relationship_id).find(".update_history").attr("relationship_id", relationship_id);
 	$("#" + relationship_id).find(".add_history").html("&nbsp;");
 	
@@ -1945,7 +1950,8 @@ function update_family_history_row(relationship_id, family_member_information) {
 			relationship_id != 'paternal_grandmother' &&	relationship_id != 'paternal_grandfather') 
 	{
 		remove_history = $("#" + relationship_id).find(".remove_history");
-		remove_history.html("<img src='../images/icon_trash.gif' alt='Remove History' title='Remove History'>");
+		//remove_history.html("<img src='../images/icon_trash.gif' alt='Remove History' title='Remove History'>");
+		remove_history.html("<A href='#' class='action remove_history'><div class='material-icons center green-text icon_shadow2'>delete</div></A>");
 		remove_history.attr("relationship_id", relationship_id);
 		remove_history.unbind().on("click", function() { 
 			remove_family_member( $(this).attr('relationship_id'), true);
