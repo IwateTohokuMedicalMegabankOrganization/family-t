@@ -10,8 +10,8 @@
 	  "description.es": "La calculadora de riesgo de diabetes",
 	  "description.pt": "A Calculadora de Risco Diabetes",
 	  "description.it": "Il Risk Calculator diabete",
-	  "description.ja": "糖尿病発症リスク計算",
-	  "description.ja-JP": "糖尿病発症リスク計算",
+	  "description.ja": "",
+	  "description.ja-JP": "",
 	  "link": "drc/diabetes.html",
 	  "status": "active"
 	},
@@ -26,8 +26,8 @@
 	  "description.es": "La Calculadora de Riesgo colorrectal",
 	  "description.pt": "A Calculadora de Risco Colorretal",
 	  "description.it": "Il Risk Calculator Colorectal",
-	  "description.ja": "大腸がん発症リスク計算",
-	  "description.ja-JP": "大腸がん発症リスク計算",
+	  "description.ja": "",
+	  "description.ja-JP": "",
 	  "link": "crca/crca.html",
 	  "status": "active"
 	},
@@ -42,8 +42,8 @@
 	  "description.es": "La Calculadora de Riesgo colorrectal",
 	  "description.pt": "A Calculadora de Risco Colorretal",
 	  "description.it": "Il Risk Calculator Colorectal",
-	  "description.ja": "冠動脈疾患リスク計算",
-	  "description.ja-JP": "冠動脈疾患リスク計算",
+	  "description.ja": "",
+	  "description.ja-JP": "",
 	  "link": "atherosclerotic/atherosclerotic.html",
 	  "status": "active"
 	},
@@ -58,8 +58,8 @@
 	  "description.es": "La Calculadora de Riesgo colorrectal",
 	  "description.pt": "A Calculadora de Risco Colorretal",
 	  "description.it": "Il Risk Calculator Colorectal",
-	  "description.ja": "胃がんリスク計算",
-	  "description.ja-JP": "胃がんリスク計算",
+	  "description.ja": "",
+	  "description.ja-JP": "",
 	  "link": "gastric/gastric.html",
 	  "status": "active"
 	},

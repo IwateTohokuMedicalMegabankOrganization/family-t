@@ -366,7 +366,7 @@ function createDiagramDialog() {
 
 	var allnames = new Array();
 	var array = new Array();
-        array.push("<option value='0'>Don’t highlight a disease</option>")
+        array.push("<option value='0'>強調しない</option>")
 
 		$.each(personal_information['Health History'], function (k, data) {
 
