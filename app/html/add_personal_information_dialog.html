@@ -133,7 +133,7 @@
 			<p class="translate label" data-i18n="info_dialog.adopted"> Were you adopted?</p>
 		</div>
 		<div class="edit_form_input_area">
-			<input id="personal_info_form_adopted_yes" name="person.adopted" type='checkbox' checked='false'>
+			<input id="personal_info_form_adopted_yes" name="person.adopted" type='checkbox'>
 			<label class='translate' for="personal_info_form_adopted_yes" data-i18n='info_dialog.yes'>Yes</label>
 		</div>
 	</div>
@@ -368,4 +368,35 @@
 function health_vault() {
 	window.open("./static/health_vault_en.html", "", "width=800, height=600, scrollbars=yes");
 }
+
+$(function() {
+	$('#personal_height_centimeters, #personal_weight, #personal_weight_unit').change(function(){
+		var height = $('#personal_height_centimeters').val();
+		var height_unit = 'centimeters';
+		var weight = $('#personal_weight').val();
+		var weight_unit = $('#personal_weight_unit').val();
+		if ( $.isNumeric(height) && height_unit && $.isNumeric(weight) && weight_unit ) {
+			var height_meters = 0;
+			var weight_kg = 0;
+			if (height_unit=='inches') {
+				height_meters = height*.0254;
+			} else if (height_unit=='centimeters') {
+				height_meters = height*.010;
+			}
+			if (weight_unit=='pound') {
+				weight_kg = weight*.453592;
+			}
+			else if (weight_unit=='kilogram') {
+				weight_kg = weight;
+			}
+			if (height_meters!=0) {
+				$('#personal_bmi').val((weight_kg/(height_meters*height_meters)).toFixed(2));
+			}
+		}
+		else{
+			$('#personal_bmi').val('');
+		}
+	});
+});
+
 </script>
