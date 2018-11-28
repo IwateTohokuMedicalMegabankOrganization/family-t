@@ -3,6 +3,28 @@
 
 <script>
  load_downloadify();
+
+	$(function(){
+		$('#saveToServer').on('click', function(){
+			$('#personal_information_text').val(JSON.stringify(personal_information));
+
+			$.post("../../operation/save"
+					, $('#personal_information_text') )
+					.done(function(data, textStatus, jqXHR){
+						if( data == 'true' ) {
+							alert('family-tサーバに保存しました。');
+							$("#save_personal_history_dialog").dialog("close");
+						}else{
+							alert('family-tサーバへの保存に失敗しました。');
+							$("#save_personal_history_dialog").dialog("close");
+						}
+					})
+					.fail(function(){
+						alert('family-tサーバへの保存に失敗しました。');
+						$("#save_personal_history_dialog").dialog("close");
+					});
+		});
+	});
 </script>
 
 <div class="savePersonalInfoFromFile">
@@ -33,10 +55,16 @@
 			<div class="inner">
 				<button style="display:none;" id='family_t_load_button' href="javascript:;"></button>
 				<label for="family_t_load_button">
-					<img class="icon_shadow2 bordered" src='../images/logo.png' width="200" alt='Save to family-t Sever Icon'>
+					<img id="saveToServer" class="icon_shadow2 bordered" src='../images/logo.png' width="200" alt='Save to family-t Sever Icon'>
 				</label>
 				<div class="mdl-tooltip" for="tt20">family-tサーバに家族歴を保存します</div>
 			</div>
 		</div>
 	</div>
+	<form action="../../operation/save" method="post">
+		<div class="container" style="display: none;">
+			<textarea id="personal_information_text" class="materialize-textarea" name="personal_information"></textarea>
+		</div>
+	</form>
+
 </div>

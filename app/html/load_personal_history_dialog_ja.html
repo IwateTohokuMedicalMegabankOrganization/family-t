@@ -31,68 +31,12 @@
 				</div>
 			</div>
 		</div>
-		<!-- End PL Uploader -->
-		<div class="load_google_area">
-			<div class="title-bar translate">Googleドライブから家族歴を読み込む</div>
-			<div style="width:750px;height:156px;display:inline-flex;">
-				<div style='padding-top:15px;width:200px;text-align:center;'>
-					<IMG src='../images/google_drive_icon.png' alt='Open from Google Drive'>
-				</div>
-				<div style='vertical-align:top;width:550px;text-align:left;'>
-					<P id='load_google_drive_instructions' class='translate' style="margin: 0px;">保存済みの家族歴ファイルをGoogleドライブから読み込みます。</P>
-					<P id='load_google_drive_instructions' class='translate' style="margin: 0px;">続けるにはGoogleアカウントにログインする必要があります。</p>
-					<div class="inner">
-						<button style="display:none;" id='dropbox_load_button' href="javascript:;"></button><label for="dropbox_load_button"><div id="tt11" class="material-icons center green-text large-size cursor_pointer icon_shadow">folder_open</div></label>
-						<div class="mdl-tooltip" for="tt11">Googleドライブから家族歴を読み込みます</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="load_dropbox_area">
-			<div class="title-bar translate">Dropboxから家族歴を読み込む</div>
-			<div style="width:750px;height:156px;display:inline-flex;">
-				<div style='padding-top:15px;width:200px;text-align:center;'>
-					<IMG src='../images/dropbox_icon.png' alt='Open from Dropbox' width='48' height='48'>
-				</div>
-				<div style='vertical-align:top;width:550px;text-align:left;'>
-					<P id='load_dropbox_instructions'  class='translate' style="margin: 0px;">保存済みの家族歴ファイルをDropboxから読み込みます。</P>
-					<P id='load_dropbox_instructions'  class='translate' style="margin: 0px;">Dropboxアカウントにサインインする必要があります。</p>
-					<div class="inner">
-						<button style="display:none;" id='dropbox_load_button' href="javascript:;"></button><lable for="dropbox_load_button"><div id="tt12" class="material-icons center green-text large-size cursor_pointer icon_shadow">folder_open</div></label>
-						<div class="mdl-tooltip" for="tt12">Dropboxから家族歴を読み込みます</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="load_mshv_area">
-			<div class="title-bar translate">Microsoft HealthVaultから家族歴を読み込む</div>
-			<div style="width:750px;height:156px;display:inline-flex;">
-				<div style='padding-top:15px;width:200px;text-align:center;'>
-					<IMG src='../images/tile_HealthVaultBlue_h_rgb_147width.png' alt='Open from Health Vault Icon'>
-				</div>
-				<div style='vertical-align:top;width:550px;text-align:left;'>
-					<P class='translate' style="margin: 0px;">HealthVaultアカウントから家族の健康情報をコピーします。</P>
-					<P class='translate' style="margin: 0px;">Microsoft HealthVaultでは、オンラインで健康情報を収集、保存、および共有することができます。</p>
-					<P class='translate' style="margin: 0px;">続けるには、HealthVaultアカウントにサインインする必要があります。</p>
-					<div class="inner">
-						<button style="display:none;" id='healthvault_load_button' href="javascript:;"></button><label for="healthvault_load_button"><div id="tt13" class="material-icons center green-text large-size cursor_pointer icon_shadow">folder_open</div></label>
-						<div class="mdl-tooltip" for="tt13">HealthVaultから家族歴を読み込みます</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="load_infomation_area">
-			<hr />
-			<P class='translate instructions'>
-			注：家族の健康情報をGoogleやDropboxなどのサードパーティ製システムと共有すると、情報はそのシステムに保持されます。 お客様の情報が安全であることを確認するために、サードパーティの利用規約およびプライバシーポリシーをご確認ください。
-			</P>
-		</div>
 	</div>
 </div>
 
 
 <script type='text/javascript' >
-	
+
 function health_vault() {
 	window.open("./static/health_vault_en.html", "", "width=800, height=600, scrollbars=yes");
 }
