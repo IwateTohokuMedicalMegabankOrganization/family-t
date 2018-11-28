@@ -450,6 +450,8 @@ function start()
 		}
 	});
 
+
+
 	// Hide or show the right initial buttons
 	$("#create_new_personal_history_button").show().on("click", bind_create_new_personal_history_button_action);
 //	$("#save_personal_history_button").show().on("click", bind_save_personal_history_button_action);
