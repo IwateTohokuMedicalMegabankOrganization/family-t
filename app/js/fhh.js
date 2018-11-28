@@ -522,6 +522,12 @@ function start()
 		});
 
 	});
+
+
+	// logout
+	$('#logout').on('click', function(){
+		location.href='../../logout';
+	});
 }
 
 function bind_load_personal_history_button() {
