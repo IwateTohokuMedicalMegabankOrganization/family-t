@@ -85,14 +85,24 @@ function is_age_before(age_to_check, age_at_diagnosis) {
 			if (age_at_diagnosis == 'senior') return true;
 		case 'Under50':
 			if (age_at_diagnosis == 'fifties') return true;
+			if (age_at_diagnosis == 'early_fifties') return true;
+			if (age_at_diagnosis == 'late_fifties') return true;
 		case 'Under40':
 			if (age_at_diagnosis == 'fourties') return true;
+			if (age_at_diagnosis == 'early_fourties') return true;
+			if (age_at_diagnosis == 'late_fourties') return true;
 		case 'Under30':
 			if (age_at_diagnosis == 'thirties') return true;
+			if (age_at_diagnosis == 'early_thirties') return true;
+			if (age_at_diagnosis == 'late_thirties') return true;
 		case 'Under20':
 			if (age_at_diagnosis == 'twenties') return true;
+			if (age_at_diagnosis == 'early_twenties') return true;
+			if (age_at_diagnosis == 'late_twenties') return true;
 		case 'Under10':
 			if (age_at_diagnosis == 'teen') return true;
+			if (age_at_diagnosis == 'early_teen') return true;
+			if (age_at_diagnosis == 'late_teen') return true;
 			if (age_at_diagnosis == 'child') return true;
 			if (age_at_diagnosis == 'infant') return true;
 			if (age_at_diagnosis == 'newborn') return true;

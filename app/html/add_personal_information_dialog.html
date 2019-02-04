@@ -50,12 +50,15 @@
 		</div>
 		<div class="edit_form_input_area" style="height: 57px; padding-top: 5px;">
 			<input name="person.date_of_birth" size="20" maxlength="255" value="" tabindex="10" id="personal_info_form_date_of_birth" type="text">
-			<div class='instructions'>yyyy/mm/dd</div>
+<!-- 			<div class='instructions'>yyyy/mm/dd</div> -->
 		</div>
 	</div>
 	<script>
 	/* Datepiker 初期化 */
-		$('#personal_info_form_date_of_birth').datepicker();
+		$('#personal_info_form_date_of_birth').datepicker({
+		changeYear: true,	// 年選択をプルダウン化
+		changeMonth: true	// 月選択をプルダウン化
+		});
 	</script>
 	<div class="edit_form_tr">
 		<div class="edit_form_label_area" style="padding-top: 5px;">

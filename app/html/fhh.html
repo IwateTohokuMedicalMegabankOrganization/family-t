@@ -81,7 +81,10 @@
 	<script type="text/javascript">
 	$(function() {
 		// datepicker初期化
-		$('#personal_info_form_date_of_birth').datepicker();
+		$('#personal_info_form_date_of_birth').datepicker({
+			changeYear: true,	// 年選択をプルダウン化
+			changeMonth: true	// 月選択をプルダウン化
+			});
 	});
 	</script>
 </head>
@@ -133,14 +136,12 @@
 				<div class="row">
 					<div class="col s12">
 						<div class="translate homeText" style="height:25px;"><em>あとで家族歴を更新するためには、<span class="material-icons center green-text">save</span>家族歴の保存をクリックしてください。</em></div>
+						<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">edit</div> をクリックすると家族の情報を更新（修正）できます。</div>
+						<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">delete</div> をクリックすると家族の情報を削除できます。</div>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col s10">
-					<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">edit</div> をクリックすると家族の情報を更新（修正）できます。</div>
-					<div class="translate homeIndentText">下の表の<div class="material-icons center green-text">delete</div> をクリックすると家族の情報を削除できます。</div>
-				</div>
 				<div class="col s2 right">
 					<span id="add_another_family_member_button1" class="nowrap"><span class="material-icons large-size green-text cursor_pointer icon_shadow">group_add</span>家族歴を追加 </span>
 				</div>

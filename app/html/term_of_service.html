@@ -133,8 +133,9 @@
 				<input type="checkbox" id="agree" value="1" /><label for="agree">上記の利用規約に同意し、family-tを利用します。
 			</div>
 			<div style="text-align:center;margin-top: 2em;margin-bottom: 2em;">
-				<BUTTON id="create" class="btn-large waves-effect waves-light translate black-text" data-i18n='fhh_index.create' onclick="goto_create()"><i class="material-icons">fiber_new</i>Create a Family Health History</BUTTON>
-				<BUTTON id="load" class='btn-large waves-effect waves-light translate black-text' data-i18n='fhh_index.load' onclick="goto_load()">Use a Saved History</BUTTON>
+				<button id="user_reg" class="btn-large waves-effect waves-light black-text" onclick="goto_user_reg()">ユーザ登録</button>
+<!--				<BUTTON id="create" class="btn-large waves-effect waves-light translate black-text" data-i18n='fhh_index.create' onclick="goto_create()"><i class="material-icons">fiber_new</i>Create a Family Health History</BUTTON>
+				<BUTTON id="load" class='btn-large waves-effect waves-light translate black-text' data-i18n='fhh_index.load' onclick="goto_load()">Use a Saved History</BUTTON>  -->
 			</div>
 		</div>
 	</div>
@@ -162,9 +163,11 @@ function isAgree(){
 function changeButtonColor(){
 
 	if( isAgree() ) {
+		$("#user_reg").css("background-color", "rgba(208, 223, 66, 1)");
 		$("#create").css("background-color", "rgba(208, 223, 66, 1)");
 		$("#load").css("background-color", "rgba(208, 223, 66, 1)");
 	} else {
+		$("#user_reg").css("background-color", "gray");
 		$("#create").css("background-color", "gray");
 		$("#load").css("background-color", "gray");
 	}
@@ -172,12 +175,19 @@ function changeButtonColor(){
 
 function toggleButtons(){
 	var setDisabled = !isAgree();
+	$("#user_reg").prop("disabled", setDisabled );
 	$("#create").prop("disabled", setDisabled );
 	$("#load").prop("disabled", setDisabled );
 
 	changeButtonColor();
 }
 
+
+function goto_user_reg() {
+	if ( !isAgree() ) return ;
+
+	location.href='useradd.html'
+}
 
 function goto_create() {
 	if ( !isAgree() ) return ;
