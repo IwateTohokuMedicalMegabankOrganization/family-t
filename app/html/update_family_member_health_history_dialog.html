@@ -1,195 +1,188 @@
 <div class="top_instructions">
-  <div class="left">
-    <ul>
-      <li>
-        <span class='instructions translate' data-i18n='info_dialog.family_instructions1'>
-          Enter personal, health history, and background information for this family member.
-        </span>
-        <span class="required">*</span><span class='instructions translate' data-i18n='info_dialog.required'>Indicates Required Information
-        </span>
-      </li>
-      <li>
-        <span class='instructions translate' data-i18n='info_dialog.family_instructions2'>
-          When done, press “Next” at the bottom to return to the main screen (scroll down if needed). 
-        </span> 
-      </li>
-      <li>
-        <span class='instructions translate' data-i18n='info_dialog.family_instructions3'>
-          This information is not saved until the “Save Data” button is pressed on the main screen. 
-        </span>
-      </li>
-    </ul>
-  </div>
+	<div class="left">
+		<ul>
+			<li>
+				<p class='instructions translate' data-i18n='info_dialog.family_instructions1'>
+					Enter personal, health history, and background information for this family member.
+				</p>
+				<p class="required">*</p><p class='instructions translate' data-i18n='info_dialog.required'>Indicates Required Information</p>
+			</li>
+			<li>
+				<p class='instructions translate' data-i18n='info_dialog.family_instructions2'>
+					When done, press “Next” at the bottom to return to the main screen (scroll down if needed).
+				</p>
+			</li>
+			<li>
+				<p class='instructions translate' data-i18n='info_dialog.family_instructions3'>
+					This information is not saved until the “Save Data” button is pressed on the main screen.
+				</p>
+			</li>
+		</ul>
+	</div>
 
-  <div class="right" style="text-align:right;font-size:110%">
-    <button id="update-help" class="translate" data-i18n="fhh_js.help">Help</button>
-  </div>
+	<div class="right" style="text-align:right;font-size:110%">
+		<button id="update-help" class="translate" data-i18n="fhh_js.help">Help</button>
+	</div>
 </div>
-      <div class="title-bar translate" data-i18n='info_dialog.div_family_info' id="family-title"> Your Family Member's Personal Information </div>
-
-
-    <table class="form" summary="Enter family member health information.">
-    	<input id="family_member_parent_id" type="hidden" value="">
-        <tr>
-      		<th class="label translate" data-i18n='info_dialog.relationship'>Relationship:</label></th>
-      		<td id='family_member_relationship' ></td>
-		    </tr>
-        <tr>
-      		<th class="label"><label for="family_member_info_form_name" class="label">
-      			<span class='translate' data-i18n='info_dialog.name'>Name:</span></label>
-      		</th>
-      		<td>
-            <input name="family.member.name" size="30" maxlength="255" value="" tabindex="2" id="family_member_info_form_name" type="text">
-          </td>
-		    </tr>
-        <tr>
-          <th class="label">
-						<span class="required">*</span><span class='translate' data-i18n='info_dialog.gender'>Gender:</span>
-          </th>
-          <td>
-            <input name="family.member.gender" id="family_member_info_form_gender_male" value="MALE" tabindex="2" type="radio">
-          	<label for="family_member_info_form_gender_male" class='translate' data-i18n='info_dialog.male'>Male</label>
-			      <input name="family.member.gender" id="family_member_info_form_gender_female" value="FEMALE" tabindex="2" type="radio">
-            <label for="family_member_info_form_gender_female" class='translate' data-i18n='info_dialog.female'>Female</label>
-    			</td>
-        </tr>
-      </table>
-      
-<table class="form" summary="Enter personal information.">
-	<th class="label">
-		<label for="personal_info_form_place_of_birth">
-			<span class='translate' data-i18n='info_dialog.pob'>都道府県</span>:
-		</label>
-	</th>
-	<td>
-		<select name="person.date_of_birth" id="personal_info_form_place_of_birth">
-			<option>北海道</option>
-			<option>青森県</option>
-			<option>岩手県</option>
-			<option>宮城県</option>
-			<option>秋田県</option>
-			<option>山形県</option>
-			<option>福島県</option>
-			<option>茨城県</option>
-			<option>栃木県</option>
-			<option>群馬県</option>
-			<option>埼玉県</option>
-			<option>千葉県</option>
-			<option>東京都</option>
-			<option>神奈川県</option>
-			<option>新潟県</option>
-			<option>富山県</option>
-			<option>石川県</option>
-			<option>福井県</option>
-			<option>山梨県</option>
-			<option>長野県</option>
-			<option>岐阜県</option>
-			<option>静岡県</option>
-			<option>愛知県</option>
-			<option>三重県</option>
-			<option>滋賀県</option>
-			<option>京都府</option>
-			<option>大阪府</option>
-			<option>兵庫県</option>
-			<option>奈良県</option>
-			<option>和歌山県</option>
-			<option>鳥取県</option>
-			<option>島根県</option>
-			<option>岡山県</option>
-			<option>広島県</option>
-			<option>山口県</option>
-			<option>徳島県</option>
-			<option>香川県</option>
-			<option>愛媛県</option>
-			<option>高知県</option>
-			<option>福岡県</option>
-			<option>佐賀県</option>
-			<option>長崎県</option>
-			<option>熊本県</option>
-			<option>大分県</option>
-			<option>宮崎県</option>
-			<option>鹿児島県</option>
-			<option>沖縄県</option>
-		</select>
-		<div class='instructions'>出身都道府県を選んでください。</div>
-	</td>
-	</tr>
-</table>
-      <table class="form" summary="Enter family member health information.">
-
-        <tr>
-					<th class="label translate" data-i18n='info_dialog.alive' style='vertical-align:top;'> Is this person still alive </th>
-					<td><label for='is_person_alive'> &nbsp; </label></label><select id='is_person_alive'>
-						<option></option>
-						<option value='alive' class='translate' data-i18n='info_dialog.yes'>Yes</option>
-						<option value='dead' class='translate' data-i18n='info_dialog.no'>No</option>
-						<option value='unknown' class='translate' data-i18n='info_dialog.unknown'>Unknown</option>
-						</select>
-						<div id='person_is_alive'>
-							<label for='age_determination'> &nbsp; </label>
-							<select id='age_determination'>
-								<option value='date_of_birth' class='translate' data-i18n='info_dialog.dob'>Date of Birth</option>
-								<option value='age' class='translate' data-i18n='info_dialog.age'>Age</option>
-								<option value='estimated_age' class='translate' data-i18n='info_dialog.estimated_age'>Estimated Age</option>
-							</select>
-							<label for='age_determination_text'> &nbsp; </label>
-							<INPUT id='age_determination_text' type='text' />
-							<label for='estimated_age_select'> &nbsp; </label>
-							<select id='estimated_age_select' ></select>
-						</div>
-						<div id='person_is_not_alive'>
-									<label for='cause_of_death_select'><span class='translate' data-i18n='info_dialog.cause_of_death'>Cause of Death</span></label>
-									<select id='cause_of_death_select' ></select>
-									<label for='detailed_cause_of_death_select'> &nbsp; </label>
-									<select id='detailed_cause_of_death_select' ></select><br/>
-									<label for='estimated_death_age_select'><span class='translate' data-i18n='info_dialog.age_at_death'>Age at Death</span> </label>
-									<select id='estimated_death_age_select' ></select>
-						</div>
-					</td>
-        </tr>
-        <tr>
-            <th class='translate label' data-i18n='info_dialog.family_twin_status'> Was this person born a twin?</th>
-            <td class="twin_status"><input name="family.member.twin_status" id="family_member_info_form_twin_status_no" checked="checked" value="NO" tabindex="11" type="radio">
-            		<label for="family_member_info_form_twin_status_no" class="translate" data-i18n='info_dialog.no'>No</label>
-								<input name="family.member.twin_status" id="family_member_info_form_twin_status_identical" value="IDENTICAL" tabindex="11" type="radio">
-								<label for="family_member_info_form_twin_status_identical" class="translate" data-i18n='info_dialog.identical'>Yes - Identical (Same)</label>
-								<input name="family.member.twin_status" id="family_member_info_form_twin_status_fraternal" value="FRATERNAL" tabindex="11" type="radio">
-								<label for="family_member_info_form_twin_status_fraternal" class="translate" data-i18n='info_dialog.fraternal'>Yes - Not Identical (Fraternal)</label>
-						</td>
-        </tr>
-        <tr>
-            <th class="label">
-            	<label data-i18n='info_dialog.family_adopted' class='label translate' for="family_member_info_form_adopted_yes">  
-                Was this person adopted?
-            	</label>
-            </th>
-            <td><input id="family_member_info_form_adopted_yes" type='checkbox' name="family.member.adopted" checked='false'> 
-            		<span class="translate" data-i18n='info_dialog.yes'>Yes</span>
-            </td>
-        </tr>
-
-     </tbody></table>
-
-    <div id='family_health_information'> health info </div>
-    <div id='family_race_ethnicity'> Race and Ethnicity Information </div>
+<div class="title-bar translate" data-i18n='info_dialog.div_family_info' id="family-title"> Your Family Member's Personal Information </div>
+<div class="form" summary="Enter family member health information.">
+	<div class="">
+		<input id="family_member_parent_id" type="hidden" value="">
+		<div class="label translate" data-i18n='info_dialog.relationship'>Relationship:</label></div>
+		<div id='family_member_relationship' ></div>
+	</div>
+	<div class="">
+		<div class="label">
+			<label for="family_member_info_form_name" class="label">
+			<span class='translate' data-i18n='info_dialog.name'>Name:</span>
+			</label>
+		</div>
+		<div>
+			<input name="family.member.name" size="30" maxlength="255" value="" tabindex="2" id="family_member_info_form_name" type="text">
+		</div>
+	</div>
+	<div>
+		<div class="label">
+			<span class="required">*</span><span class='translate' data-i18n='info_dialog.gender'>Gender:</span>
+		</div>
+		<div>
+			<input name="family.member.gender" id="family_member_info_form_gender_male" value="MALE" tabindex="2" type="radio">
+			<label for="family_member_info_form_gender_male" class='translate' data-i18n='info_dialog.male'>Male</label>
+			<input name="family.member.gender" id="family_member_info_form_gender_female" value="FEMALE" tabindex="2" type="radio">
+			<label for="family_member_info_form_gender_female" class='translate' data-i18n='info_dialog.female'>Female</label>
+		</div>
+	</div>
+</div>
+<div class="form" summary="Enter personal information.">
+	<div class="">
+		<div class="label">
+			<label for="personal_info_form_place_of_birth">
+				<span class='translate' data-i18n='info_dialog.pob'>都道府県</span>:
+			</label>
+		</div>
+		<div>
+			<select name="family.member.prefectures" id="family_member_info_form_place_of_birth">
+				<option value="0001">北海道</option>
+				<option value="0002">青森県</option>
+				<option value="0003">岩手県</option>
+				<option value="0004">宮城県</option>
+				<option value="0005">秋田県</option>
+				<option value="0006">山形県</option>
+				<option value="0007">福島県</option>
+				<option value="0008">茨城県</option>
+				<option value="0009">栃木県</option>
+				<option value="0010">群馬県</option>
+				<option value="0011">埼玉県</option>
+				<option value="0012">千葉県</option>
+				<option value="0013">東京都</option>
+				<option value="0014">神奈川県</option>
+				<option value="0015">新潟県</option>
+				<option value="0016">富山県</option>
+				<option value="0017">石川県</option>
+				<option value="0018">福井県</option>
+				<option value="0019">山梨県</option>
+				<option value="0020">長野県</option>
+				<option value="0021">岐阜県</option>
+				<option value="0022">静岡県</option>
+				<option value="0023">愛知県</option>
+				<option value="0024">三重県</option>
+				<option value="0025">滋賀県</option>
+				<option value="0026">京都府</option>
+				<option value="0027">大阪府</option>
+				<option value="0028">兵庫県</option>
+				<option value="0029">奈良県</option>
+				<option value="0030">和歌山県</option>
+				<option value="0031">鳥取県</option>
+				<option value="0032">島根県</option>
+				<option value="0033">岡山県</option>
+				<option value="0034">広島県</option>
+				<option value="0035">山口県</option>
+				<option value="0036">徳島県</option>
+				<option value="0037">香川県</option>
+				<option value="0038">愛媛県</option>
+				<option value="0039">高知県</option>
+				<option value="0040">福岡県</option>
+				<option value="0041">佐賀県</option>
+				<option value="0042">長崎県</option>
+				<option value="0043">熊本県</option>
+				<option value="0044">大分県</option>
+				<option value="0045">宮崎県</option>
+				<option value="0046">鹿児島県</option>
+				<option value="0047">沖縄県</option>
+			</select>
+			<div class='instructions'>出身都道府県を選んでください。</div>
+		</div>
+	</div>
+</div>
+<div class="form" summary="Enter family member health information.">
+	<div>
+		<div class="label translate" data-i18n='info_dialog.alive' style='vertical-align:top;'> Is this person still alive </div>
+		<div>
+			<label for='is_person_alive'> &nbsp; </label>
+			<select id='is_person_alive'>
+				<option></option>
+				<option value='alive' class='translate' data-i18n='info_dialog.yes'>Yes</option>
+				<option value='dead' class='translate' data-i18n='info_dialog.no'>No</option>
+				<option value='unknown' class='translate' data-i18n='info_dialog.unknown'>Unknown</option>
+			</select>
+			<div id='person_is_alive'>
+				<label for='age_determination'> &nbsp; </label>
+				<select id='age_determination'>
+					<option value='date_of_birth' class='translate' data-i18n='info_dialog.dob'>Date of Birth</option>
+					<option value='age' class='translate' data-i18n='info_dialog.age'>Age</option>
+					<option value='estimated_age' class='translate' data-i18n='info_dialog.estimated_age'>Estimated Age</option>
+				</select>
+				<label for='age_determination_text'> &nbsp; </label>
+				<INPUT id='age_determination_text' type='text' />
+				<label for='estimated_age_select'> &nbsp; </label>
+				<select id='estimated_age_select' ></select>
+			</div>
+			<div id='person_is_not_alive'>
+				<label for='cause_of_death_select'><span class='translate' data-i18n='info_dialog.cause_of_death'>Cause of Death</span></label>
+				<select id='cause_of_death_select' ></select>
+				<label for='detailed_cause_of_death_select'> &nbsp; </label>
+				<select id='detailed_cause_of_death_select' ></select><br/>
+				<label for='estimated_death_age_select'><span class='translate' data-i18n='info_dialog.age_at_death'>Age at Death</span> </label>
+				<select id='estimated_death_age_select' ></select>
+			</div>
+		</div>
+		<div class='translate label' data-i18n='info_dialog.family_twin_status'> Was this person born a twin?</div>
+		<div class="twin_status">
+			<input name="family.member.twin_status" id="family_member_info_form_twin_status_no" checked="checked" value="NO" tabindex="11" type="radio">
+			<label for="family_member_info_form_twin_status_no" class="translate" data-i18n='info_dialog.no'>No</label>
+			<input name="family.member.twin_status" id="family_member_info_form_twin_status_identical" value="IDENTICAL" tabindex="11" type="radio">
+			<label for="family_member_info_form_twin_status_identical" class="translate" data-i18n='info_dialog.identical'>Yes - Identical (Same)</label>
+			<input name="family.member.twin_status" id="family_member_info_form_twin_status_fraternal" value="FRATERNAL" tabindex="11" type="radio">
+			<label for="family_member_info_form_twin_status_fraternal" class="translate" data-i18n='info_dialog.fraternal'>Yes - Not Identical (Fraternal)</label>
+		</div>
+	</div>
+	<div>
+		<div class="label">
+			<label data-i18n='info_dialog.family_adopted' class='label translate' for="family_member_info_form_adopted_yes">Was this person adopted?</label>
+		</div>
+		<div>
+			<input id="family_member_info_form_adopted_yes" type='checkbox' name="family.member.adopted">
+			<span class="translate" data-i18n='info_dialog.yes'>Yes</span>
+		</div>
+	</div>
+</div>
+<div id='family_health_information'> health info </div>
+<div id='family_race_ethnicity'> Race and Ethnicity Information </div>
 <br />
- <table width="100%" cellspacing="0" cellpadding="0" border="0">
-  <tr><td style="text-align:center;">
-	<button id='addFamilyMemberCancelButton' class='translate' data-i18n='fhh_js.cancel'>Cancel </button>
-    <button id='addFamilyMemberSubmitButton' style="font-size:110% !important" class='translate' data-i18n='fhh_js.save'>Next </button>
+<div width="100%" cellspacing="0" cellpadding="0" border="0">
+	<div style="text-align:center;">
+		<button id='addFamilyMemberCancelButton' class='translate' data-i18n='fhh_js.cancel'>Cancel </button>
+		<button id='addFamilyMemberSubmitButton' style="font-size:110% !important" class='translate' data-i18n='fhh_js.save'>Next </button>
+	</div>
+</div>
 
-  </td>
-</tr>
-</table>
-	
-	
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-84860122-1', 'auto');
-  ga('send', 'pageview');
+	ga('create', 'UA-84860122-1', 'auto');
+	ga('send', 'pageview');
 
 </script>

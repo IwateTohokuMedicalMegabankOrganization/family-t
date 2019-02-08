@@ -71,7 +71,7 @@ function test_past_cancer() {
 				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk8") + "<br />";
 				risk=true;
 		}
-		if (h[i]['Disease Code'] == 'SNOMED_CT-126952004') { 
+		if (h[i]['Disease Code'] == 'SNOMED_CT-126952004') {
 			// This code comes from the old system
 				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk9") + "<br />";
 				risk=true;
@@ -178,7 +178,7 @@ function test_any_family_members_fap_hnpcc() {
 			}
 
 			var h = item['Health History'];
-			
+
 			if (h != null) {
 				for (i=0;i<h.length;i++) {
 					if (h[i]['Disease Code'] == 'SNOMED_CT-315058005') {
@@ -195,7 +195,7 @@ function test_any_family_members_fap_hnpcc() {
 			}
 		}
 	});
-	
+
 	if (risk) {
 		set_icon($("#any_family_members_fap_hnpcc"), 'positive');
 		set_reason($("#any_family_members_fap_hnpcc"), risk_reason);
@@ -203,7 +203,7 @@ function test_any_family_members_fap_hnpcc() {
 		set_icon($("#any_family_members_fap_hnpcc"), 'negative');
 		set_reason($("#any_family_members_fap_hnpcc"), $.t("fhh_colorectal_calculator.fap_hnpcc_negative"));
 	}
-	
+
 	final_risk |= risk;
 	// Goto Next test
 	set_icon($("#immediate_family_members_cancer"), 'calculating');
@@ -217,7 +217,7 @@ function test_immediate_family_members_cancer() {
   $.each(personal_information, function (key, item) {
   	if (item != null) {
 			var h = item['Health History'];
-			
+
 			if (h != null) {
 				var temp = key.substring(0,4);
 				if(temp == 'fath' || temp == 'moth' || temp == 'brot' || temp == 'sist' || temp == 'daug' || temp == 'son_') {
@@ -248,15 +248,15 @@ function test_immediate_family_members_cancer() {
 			}
 		}
 	});
-	
+
 	if (risk) {
 		set_icon($("#immediate_family_members_cancer"), 'positive');
 		set_reason($("#immediate_family_members_cancer"), risk_reason);
 	} else {
 		set_icon($("#immediate_family_members_cancer"), 'negative');
-		set_reason($("#immediate_family_members_cancer"),$.t("fhh_colorectal_calculator.family_members_cancer_negative"));		
+		set_reason($("#immediate_family_members_cancer"),$.t("fhh_colorectal_calculator.family_members_cancer_negative"));
 		}
-	
+
 	final_risk |= risk;
 	// Goto Next test
 	set_icon($("#immediate_family_members_polyps"), 'calculating');
@@ -285,7 +285,7 @@ function test_immediate_family_members_polyps() {
 			}
 		}
 	});
-	
+
 	if (risk) {
 		set_icon($("#immediate_family_members_polyps"), 'positive');
 		set_reason($("#immediate_family_members_polyps"), risk_reason);
@@ -293,7 +293,7 @@ function test_immediate_family_members_polyps() {
 		set_icon($("#immediate_family_members_polyps"), 'negative');
 		set_reason($("#immediate_family_members_polyps"),$.t("fhh_colorectal_calculator.family_members_polyps_negative"));
 	}
-	
+
 
 	final_risk |= risk;
 	// Goto Next test
@@ -313,7 +313,7 @@ function test_secondary_family_members_cancer() {
 
 				var temp8 = key.substring(0,8);
 				var temp13 = key.substring(0,13);
-				if(temp13 == 'maternal_uncl' || temp13 == 'paternal_uncl' || 
+				if(temp13 == 'maternal_uncl' || temp13 == 'paternal_uncl' ||
 					 temp13 == 'maternal_aunt' || temp13 == 'paternal_aunt' ||
 					 temp13 == 'maternal_gran' || temp13 == 'paternal_gran' ||
 					 temp13 == 'maternal_half' || temp13 == 'paternal_half' ||
@@ -345,16 +345,16 @@ function test_secondary_family_members_cancer() {
 	});
 	if (count == 0) {
 		risk = false;
-		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk4");		
+		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk4");
 	} else if (count == 1) {
 		risk = false;
 		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk5") +  "<br />" + risk_reason;
-		
+
 	} else {
 		risk = true;
 		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk6") +  "<br />" + risk_reason;
-	} 
-	
+	}
+
 	if (risk) {
 		set_icon($("#secondary_family_members_cancer"), 'positive');
 		set_reason($("#secondary_family_members_cancer"), risk_reason);
@@ -362,7 +362,7 @@ function test_secondary_family_members_cancer() {
 		set_icon($("#secondary_family_members_cancer"), 'negative');
 		set_reason($("#secondary_family_members_cancer"), risk_reason);
 	}
-	
+
 	final_risk |= risk;
 	// Goto Next test
 	set_icon($("#secondary_family_members_colon_cancer_before_60"), 'calculating');
@@ -380,7 +380,7 @@ function test_secondary_family_members_colon_cancer_before_60() {
 
 				var temp8 = key.substring(0,8);
 				var temp13 = key.substring(0,13);
-				if(temp13 == 'maternal_uncl' || temp13 == 'paternal_uncl' || 
+				if(temp13 == 'maternal_uncl' || temp13 == 'paternal_uncl' ||
 					 temp13 == 'maternal_aunt' || temp13 == 'paternal_aunt' ||
 					 temp13 == 'maternal_gran' || temp13 == 'paternal_gran' ||
 					 temp13 == 'maternal_half' || temp13 == 'paternal_half' ||
@@ -410,7 +410,7 @@ function test_secondary_family_members_colon_cancer_before_60() {
 			}
 		}
 	});
-	
+
 	if (risk) {
 		set_icon($("#secondary_family_members_colon_cancer_before_60"), 'positive');
 		set_reason($("#secondary_family_members_colon_cancer_before_60"), risk_reason);
@@ -453,7 +453,7 @@ function test_secondary_family_members_uterine_cancer_before_50() {
 			}
 		}
 	});
-	
+
 	if (risk) {
 		set_icon($("#secondary_family_members_uterine_cancer_before_50"), 'positive');
 		set_reason($("#secondary_family_members_uterine_cancer_before_50"), risk_reason);
@@ -481,7 +481,7 @@ function test_secondary_family_members_uterine_cancer() {
 
 				var temp8 = key.substring(0,8);
 				var temp13 = key.substring(0,13);
-				if(temp13 == 'maternal_uncl' || temp13 == 'paternal_uncl' || 
+				if(temp13 == 'maternal_uncl' || temp13 == 'paternal_uncl' ||
 					 temp13 == 'maternal_aunt' || temp13 == 'paternal_aunt' ||
 					 temp13 == 'maternal_gran' || temp13 == 'paternal_gran' ||
 					 temp13 == 'maternal_half' || temp13 == 'paternal_half' ||
@@ -501,16 +501,16 @@ function test_secondary_family_members_uterine_cancer() {
 	if (count == 0) {
 		risk = false;
 		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_uterine_cancer_risk2");
-		
+
 	} else if (count == 1) {
 		risk = false;
 		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_uterine_cancer_risk3") + "<br />" + risk_reason;
-		
+
 	} else {
 		risk = true;
 		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_uterine_cancer_risk4") + "<br />" + risk_reason;
-	} 
-	
+	}
+
 	if (risk) {
 		set_icon($("#multiple_secondary_family_members_uterine_cancer"), 'positive');
 		set_reason($("#multiple_secondary_family_members_uterine_cancer"), risk_reason);
@@ -518,7 +518,7 @@ function test_secondary_family_members_uterine_cancer() {
 		set_icon($("#multiple_secondary_family_members_uterine_cancer"), 'negative');
 		set_reason($("#multiple_secondary_family_members_uterine_cancer"), risk_reason);
 	}
-	
+
 	final_risk |= risk;
 	// Goto Next test
 	set_icon($("#final"), 'calculating');
@@ -539,26 +539,36 @@ function test_final() {
 		$("#explanation_low_risk").show();
 	}
 }
-///  Support functions 
+///  Support functions
 
 // Basically a lookup table
 // Note as 60 and older includes 60 we need to be consevative and say that they are 60 or under
 // Same with 50,40,30,20,10
- 
+
 function is_age_before(age_to_check, age_at_diagnosis) {
 	switch(age_to_check) {
 		case 'Under60':
 			if (age_at_diagnosis == 'senior') return true;
 		case 'Under50':
 			if (age_at_diagnosis == 'fifties') return true;
+			if (age_at_diagnosis == 'early_fifties') return true;
+			if (age_at_diagnosis == 'late_fifties') return true;
 		case 'Under40':
-			if (age_at_diagnosis == 'fourties') return true; 
+			if (age_at_diagnosis == 'fourties') return true;
+			if (age_at_diagnosis == 'early_fourties') return true;
+			if (age_at_diagnosis == 'late_fourties') return true;
 		case 'Under30':
 			if (age_at_diagnosis == 'thirties') return true;
+			if (age_at_diagnosis == 'early_thirties') return true;
+			if (age_at_diagnosis == 'late_thirties') return true;
 		case 'Under20':
 			if (age_at_diagnosis == 'twenties') return true;
+			if (age_at_diagnosis == 'early_twenties') return true;
+			if (age_at_diagnosis == 'late_twenties') return true;
 		case 'Under10':
 			if (age_at_diagnosis == 'teen') return true;
+			if (age_at_diagnosis == 'early_teen') return true;
+			if (age_at_diagnosis == 'late_teen') return true;
 			if (age_at_diagnosis == 'child') return true;
 			if (age_at_diagnosis == 'infant') return true;
 			if (age_at_diagnosis == 'newborn') return true;
@@ -583,7 +593,7 @@ function set_icon(field, state) {
 		case 'positive':
 			$(field).find("#test").empty().append("<IMG alt='bad_because_positive' src='../risk/crca/red_check.png' height='40'/>");
 			break;
-			
+
 	}
 }
 
@@ -622,12 +632,12 @@ function get_relative_by_id(id) {
 function check_blood_relative(relative) {
 	// If the proband is adopted, then only son,daughter, grandson, granddaughter could possibly be blood
 	if (personal_information.adopted == true) {
-		if (! (relative.substring(0,3) == 'son'     || relative.substring(0,8) == 'daughter' 
+		if (! (relative.substring(0,3) == 'son'     || relative.substring(0,8) == 'daughter'
 		 || relative.substring(0,8) == 'grandson' || relative.substring(0,13) == 'granddaughter')) {
 			return false;
 		}
 	}
-	
+
 	// All cases check if that person is adopted, if they are, they are not blood relative
 	if (typeof personal_information[relative] != 'undefined')
 	{
@@ -639,18 +649,18 @@ function check_blood_relative(relative) {
 		 || relative.substring(0,20) == 'paternal_grandfather' || relative.substring(0,20) == 'paternal_grandmother' ) ) return false;
 	}
 // Primary, no other tests required
-	if (relative.substring(0,7) == 'brother' || relative.substring(0,6) == 'sister' 
+	if (relative.substring(0,7) == 'brother' || relative.substring(0,6) == 'sister'
 	 || relative.substring(0,6) == 'mother'  || relative.substring(0,6) == 'father'
 	 || relative.substring(0,3) == 'son'     || relative.substring(0,8) == 'daughter') {
 		return true;
 	}
 
 // Half-siblings also do not need another test
-	if (relative.substring(0,20) == 'maternal_halfbrother' || relative.substring(0,19) == 'maternal_halfsister' 
+	if (relative.substring(0,20) == 'maternal_halfbrother' || relative.substring(0,19) == 'maternal_halfsister'
 	 || relative.substring(0,20) == 'paternal_halfbrother' || relative.substring(0,19) == 'paternal_halfsister') {
-	 	return true;	
+	 	return true;
 	}
-	
+
 // For 2nd degree relatives, check mother or father as well
 	if (relative.substring(0,13) == 'maternal_aunt' || relative.substring(0,14) == 'maternal_uncle'
 	 || relative.substring(0,20) == 'maternal_grandfather' || relative.substring(0,20) == 'maternal_grandmother') {
@@ -663,7 +673,7 @@ function check_blood_relative(relative) {
 	 	if (typeof personal_information['father'] != 'undefined'  && personal_information['father'].adopted == true) return false;
 	 	else return true;
 	}
-	
+
 // Grandchildren need to check the child as well
 	if (relative.substring(0,8) == 'grandson' || relative.substring(0,13) == 'granddaughter') {
 	 var parent_of_relative = get_relative_by_id(personal_information[relative].parent_id);
@@ -671,7 +681,7 @@ function check_blood_relative(relative) {
 	 return true;
 	}
 
-	
+
 // For 3rd degree relatives, check parent of the person and the mother or father as well
 	if (relative.substring(0,15) == 'maternal_cousin' ) {
 	 if (typeof personal_information['mother'] != 'undefined'  && personal_information['mother'].adopted == 'true') return false;
@@ -680,20 +690,20 @@ function check_blood_relative(relative) {
 	 	if (typeof personal_information[parent_of_relative] != 'undefined'  &&  personal_information[parent_of_relative].adopted == true) return false;
 	 return true;
 	}
-	
+
 	if (relative.substring(0,15) == 'paternal_cousin') {
 	 if (typeof personal_information['father'] != 'undefined'  && personal_information['father'].adopted == 'true') return false;
 	 var parent_of_relative = get_relative_by_id(personal_information[relative].parent_id);
 	 	if (typeof personal_information[parent_of_relative] != 'undefined'  && personal_information[parent_of_relative].adopted == true) return false;
 	 return true;
 	}
-	
+
 	if (relative.substring(0,5) == 'niece' || relative.substring(0,6) == 'nephew' ) {
 		var parent_of_relative = get_relative_by_id(personal_information[relative].parent_id);
 //		alert (personal_information[parent_of_relative].name + ":" + personal_information[parent_of_relative].adopted);
 	 	if (typeof personal_information[parent_of_relative] != 'undefined'  &&  personal_information[parent_of_relative].adopted == true) return false;
 		return true;
 	}
-	
+
 	return true; // Non-relative entries should be ignored
 }

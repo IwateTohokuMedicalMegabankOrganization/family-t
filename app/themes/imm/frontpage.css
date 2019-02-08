@@ -7,7 +7,7 @@
 body
 {  
      /*background-color:#ddd;*/
-	background: url('page_background.jpg') repeat-x scroll center top #ECE0D3
+	background: url('../page_background.jpg') repeat-x scroll center top #ECE0D3
 }
 
 div.main_container

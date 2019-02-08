@@ -7,17 +7,20 @@
 body
 {  
      /*background-color:#ddd;*/
-	background: url('page_background.jpg') repeat-x scroll center top #ECE0D3
+	background: url('../page_background.jpg') repeat-x scroll center top #ECE0D3
 }
 
 div.main_container
 {  background-color: #FFF;
   border: 1px solid black;
-  margin: 0px auto 0px auto;
+  margin: 0px auto 20px auto;
   padding: 0px;
   text-align: left;
   vertical-align: top;
-  width: 858px;
+  width: 88%;
+  height: auto;
+  overflow-y: hidden;
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2);
 }
 
     div.main_container table.homepage
@@ -41,7 +44,7 @@ div.main_container
 
 div.nav
 {  margin: 0px auto 0px auto;
-  width: 858px;
+  width: 90%;
   padding: 0px;
 }
 

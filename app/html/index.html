@@ -1,276 +1,107 @@
-<html>
+﻿<!DOCTYPE html>
+<html lang="ja">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		
-	<noscript><meta http-equiv="refresh" content="0; URL=./unsupported_browser.html"/> </noscript>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>family-t</title>
 
-	<title>My Family Health Portrait</title>
-	<script type="text/javascript" src="../jquery/jquery-1.11.1.js"></script>
-	<script type="text/javascript" src="../jquery/jquery-ui-1.10.4.js"></script>
-	<link rel="stylesheet" type="text/css" href="../jquery/jquery-ui-1.10.4.css">
-	<script type="text/javascript" src="../js/fhh.js"></script>
-
-	<!-- Themes go here -->
-	<link rel="stylesheet" type="text/css" href="../themes/deploy/frontpage.css">    
-	<link rel="shortcut icon" href="../themes/deploy/favicon.ico" type="image/x-icon">
-	<!-- Also includes images banner_left.png and banner_right.png -->
-
-	<!-- For language translation -->
-	<script type="text/javascript" src="../js/i18next-1.7.4.js"></script>
-	<script type="text/javascript" src="../js/imm.js"></script>
-
+	<!-- CSS	-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+	<link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
+<body>
+	<div id="index-banner" class="parallax-container">
+		<div class="section no-pad-bot">
+			<div class="container">
+				<h1 class="header center teal-text text-lighten-2">
+					<img src="../themes/deploy/photos_frontpage_logo.png" alt="family-t" class="fhhBannerTitle">
+				</h1>
 
-<body>   
-	<div class="nav" align="right">
-		<BUTTON id="nav_help" class="help_item translate" data-i18n="fhh_fhh.a_get_help" onclick="get_help()">Get Help</BUTTON>
+				<div class="row center">
+					<h5 class="header col s12 light">ファミリーティー（family-t）を使ってできること</h5>
+				</div>
+
+				<!--	 Icon Section	 -->
+				<div class="row">
+					<div class="col s12 m3">
+						<div class="icon-block">
+							<h2 class="center green-text"><i class="material-icons">input</i></h2>
+							<h5 class="center">入力</h5>
+							<p class="light font_size_normal">家族の健康に関する情報「家族歴」の入力</p>
+						</div>
+					</div>
+
+					<div class="col s12 m3">
+						<div class="icon-block">
+							<h2 class="center green-text"><i class="material-icons">report_problem</i></h2>
+							<h5 class="center">リスク判定</h5>
+							<p class="light font_size_normal">疾患発症のリスク判定</p>
+						</div>
+					</div>
+
+					<div class="col s12 m3">
+						<div class="icon-block">
+							<h2 class="center green-text"><i class="material-icons">print</i></h2>
+							<h5 class="center">印刷</h5>
+							<p class="light font_size_normal">家族歴の印刷（家族や「かかりつけ医」と共有）</p>
+						</div>
+					</div>
+
+					<div class="col s12 m3">
+						<div class="icon-block">
+							<h2 class="center green-text"><i class="material-icons">save</i></h2>
+							<h5 class="center">保存</h5>
+							<p class="light font_size_normal">家族歴の保存と更新</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
-<!-- 		<div id="button">
-			<a href="javascript://nop/" id="nav_help" class='help_item translate' data-i18n='fhh_fhh.a_get_help' onclick="get_help()">Get Help</a>
-		</div> -->
-
-<div id="wrapper" class="main_container" style='border:1px solid black;'>
-	<!-- BEGIN HEADER -->
-	<div id="skipNavBegin" style="width: 0; height: 0; overflow: hidden;">
-	    <a href="#skipNavEnd" accesskey="n">Skip navigation</a>
-	</div>
-	
-	<div>
-	    <table class="homepage" border="0" cellpadding="0" cellspacing="0">
-			<tr>
-	            <td colspan='2' class="logo" valign="top">
-	            	<img src="../themes/deploy/photos_frontpage_logo.png" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle">
-	            	<div id="languageSelect">Language&nbsp;
-	            		<select class="language">
-	            			<option value="en">English</option>
-	            			<option value="es">Español</option>
-	            			<option value="pt">Português</option>
-	            			<option value="it">Italiano</option>
-	            			<option value="ja">日本語</option>
-	            		</select>
-	            	</div>
-	            </td>
-	        </tr>
-			<tr>
-	            <td style='width:50%' class="maintext" valign="top">
-	            <div class='translate' data-i18n='fhh_index.usage' > Using My Family Health Portrait you can:</div>
-				<UL>
-					<LI class='translate' data-i18n='fhh_index.li1' >Enter your family health history.</LI>
-					<LI class='translate' data-i18n='fhh_index.li2' >Learn about your risk for conditions that can run in families.</LI>
-					<LI class='translate' data-i18n='fhh_index.li3' >Print your family health history to share with family or your health care provider</LI>
-					<LI class='translate' data-i18n='fhh_index.li4' >Save your family health history so you can update it over time.</LI>
-				</UL>
-				
-				<div class='translate' data-i18n='fhh_index.talking' >Talking with your health care provider about your family health history can help you stay healthy!</div>
-				<br />
-				<a href='#' class='translate' data-i18n='fhh_index.learn_more' onclick="learn_more()" >Learn more about <em> My Family Health Portrait </em></a>
-				<br /><br />
-<div style="background-color:#e6e9ef;">
-<h2>利用規約</h2>
-
-この利用規約（以下，「本利用規約」といいます。）は，いわて東北メディカル・メガバンク機構（以下，「当機構」といいます。）がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。
-ユーザーの皆さま（以下，「ユーザー」といいます。）には，本利用規約に従って，本サービスをご利用いただきます。
-<br />
-
-<div id="read_continue">
- <a href="#" onclick="javascript:$('#term_of_service_body').toggle();">利用規約をすべて表示</a>
-</div>
-
-<div id="term_of_service_body">
-
-<h3>第1条（適用）</h3>
-本利用規約は，ユーザーと当機構との間の本サービスの利用に関わる一切の関係に適用されるものとします。
-
-<h3>第2条（利用登録）</h3>
-登録希望者が当機構の定める方法によって利用登録を申請し，当機構がこれを承認することによって，利用登録が完了するものとします。
-当機構は，利用登録の申請者に以下の事由があると判断した場合，利用登録の申請を承認しないことがあり，その理由については一切の開示義務を負わないものとします。
-（1）利用登録の申請に際して虚偽の事項を届け出た場合
-（2）本利用規約に違反したことがある者からの申請である場合
-（3）その他，当機構が利用登録を相当でないと判断した場合
-
-<h3>第3条（ユーザーIDおよびパスワードの管理）</h3>
-
-ユーザーは，自己の責任において，本サービスのユーザーIDおよびパスワードを管理するものとします。
-ユーザーは，いかなる場合にも，ユーザーIDおよびパスワードを第三者に譲渡または貸与することはできません。当機構は，ユーザーIDとパスワードの組み合わせが登録情報と一致してログインされた場合には，そのユーザーIDを登録しているユーザー自身による利用とみなします。
-
-<h3>第4条（禁止事項）</h3>
-ユーザーは，本サービスの利用にあたり，以下の行為をしてはなりません。
-
-（1）法令または公序良俗に違反する行為
-（2）犯罪行為に関連する行為
-（3）当機構のサーバーまたはネットワークの機能を破壊したり，妨害したりする行為
-（4）当機構のサービスの運営を妨害するおそれのある行為
-（5）他のユーザーに関する個人情報等を収集または蓄積する行為
-（6）他のユーザーに成りすます行為
-（7）当機構のサービスに関連して，反社会的勢力に対して直接または間接に利益を供与する行為
-（8）その他，当機構が不適切と判断する行為
-
-<h3>第5条（本サービスの提供の停止等）</h3>
-
-当機構は，以下のいずれかの事由があると判断した場合，ユーザーに事前に通知することなく本サービスの全部または一部の提供を停止または中断することができるものとします。
-（1）本サービスにかかるコンピュータシステムの保守点検または更新を行う場合
-（2）地震，落雷，火災，停電または天災などの不可抗力により，本サービスの提供が困難となった場合
-（3）コンピュータまたは通信回線等が事故により停止した場合
-（4）その他，当機構が本サービスの提供が困難と判断した場合
-当機構は，本サービスの提供の停止または中断により，ユーザーまたは第三者が被ったいかなる不利益または損害について，理由を問わず一切の責任を負わないものとします。
-
-<h3>第6条（利用制限および登録抹消）</h3>
-
-当機構は，以下の場合には，事前の通知なく，ユーザーに対して，本サービスの全部もしくは一部の利用を制限し，またはユーザーとしての登録を抹消することができるものとします。
-（1）本利用規約のいずれかの条項に違反した場合
-（2）登録事項に虚偽の事実があることが判明した場合
-（3）その他，当機構が本サービスの利用を適当でないと判断した場合
-
-当機構は，本条に基づき当機構が行った行為によりユーザーに生じた損害について，一切の責任を負いません。
-
-<h3>第7条（免責事項）</h3>
-
-当機構の債務不履行責任は，当機構の故意または重過失によらない場合には免責されるものとします。
-当機構は，本サービスの利用により発生した利用者の損害に対し、いかなる責任も負わず、一切の損害賠償をする義務はないものとします。
-当機構は，本サービスに関して，ユーザーと他のユーザーまたは第三者との間において生じた取引，連絡または紛争等について一切責任を負いません。
-利用者が当サービスの利用により第三者または当機構に対して損害を与えた場合は、利用者の責任と費用をもって解決し、当機構に一切の損害を与えず、何らの負担もさせないものとします。
-
-<h3>第8条（サービス内容の変更等）</h3>
-当機構は，ユーザーに通知することなく，本サービスの内容を変更しまたは本サービスの提供を中止することができるものとし，これによってユーザーに生じた損害について一切の責任を負いません。
-
-<h3>第9条（利用規約の変更）</h3>
-当機構は，必要と判断した場合には，ユーザーに通知することなくいつでも本利用規約を変更することができるものとします。
-
-<h3>第10条（通知または連絡）</h3>
-ユーザーと当機構との間の通知または連絡は，当機構の定める方法によって行うものとします。
-
-<h3>第11条（権利義務の譲渡の禁止）</h3>
-ユーザーは，当機構の書面による事前の承諾なく，利用契約上の地位または本利用規約に基づく権利もしくは義務を第三者に譲渡し，または担保に供することはできません。
-
-<h3>第12条（準拠法・裁判管轄）</h3>
-本利用規約の解釈にあたっては，日本法を準拠法とします。
-本サービスに関して紛争が生じた場合には，当機構の所在地を管轄する裁判所を専属的合意管轄とします。
-
-<h3>第13条（個人情報の収集と取り扱い）</h3>
-本サービスは個人情報を収集することはありません。
-ユーザーからのお問い合わせおよびその内容に応じて個人情報をご提供いただくことがあります。
-
-
-以上
-</div>
-
-</div>
-<TABLE>
-				<TR>
- 				<TD valign="top">
-                                <BUTTON class='frontpage create' onclick="goto_create()">利用規約を確認し家族歴を作成</BUTTON>
-				</TD>
-				</TR>
-				</TABLE>
-				 
-				</td>
-				<td align="right" valign="top" style='vertical-align:bottom; padding:0px;'><img  src="../themes/deploy/photos_frontpage_main.jpg" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></td>
-	        </tr>
-	        <tr>
-	        	<td colspan="2" id="separatorBox">
-	        		<!-- color separator -->
-	        	</td>
-	        </tr>
-	        <tr>
-	        	<td colspan="2" id="separatorBox">
-	        		<!-- color separator -->
-	        	</td>
-	        </tr>
-			<tr>
-	            <td colspan='2'><img src="../themes/deploy/photos_frontpage_bottom.jpg" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></td>
-	        </tr>
-	    </table>
+	<div class="container">
+		<div class="section no-pad-bot">
+			<div class="container">
+				<div class="row center">
+					<h5 class="header col s12 light">
+						自ら集めた家族の健康に関する情報を家族や自分のために活用してください
+					</h5>
+					<a href="login.html" id="login-button" class="btn-large waves-effect waves-light button_color_normal black-text">ログイン</a>
+					<a href="term_of_service.html" id="term_of_service-button" class="btn-large waves-effect waves-light button_color_normal black-text">新規ユーザ登録</a>
+				</div>
+			</div>
+		</div>
 	</div>
 
-</div>
-<!-- BEGIN FOOTER -->
-
-<table class="footerTable">
-    <tbody><tr>
-    	<td class="footerTdLogos">
-            &nbsp;<a href="http://www.hhs.gov/" target="_blank"><img src="../images/logo_hhs.gif" alt="HHS Logo"></a>&nbsp;&nbsp;
-        </td>
-        <td class="footerTdLogos">
-            <a href="http://www.cancer.gov/" target="_blank"><img src="../images/logo_nci.png" alt="NCI Logo"></a>&nbsp;
-        </td>
-        <td class="footerTdLinks">
-            
-            <a href="javascript://nop/" onclick="glossary()" class='translate' data-i18n='fhh_index.glossary'>Glossary</a> | 
-            
-            <a href="javascript://nop/" onclick="faq()"  class='translate' data-i18n='fhh_index.faq'>FAQ</a> | 
-            <a href="http://www.hhs.gov/Accessibility.html" target="_blank"  class='translate' data-i18n='fhh_index.accessability'>Accessibility</a> | 
-            <a href="http://www.hhs.gov/Privacy.html" target="_blank"  class='translate' data-i18n='fhh_index.privacy'>Privacy &amp; Security Policy</a> | 
-            
-            <a href="javascript://nop/" onclick="about()"  class='translate' data-i18n='fhh_index.about'>About This Site</a> | 
-            
-            <a href="javascript://nop/" onclick="contact()"  class='translate' data-i18n='fhh_index.contact'>Contact Us</a> | 
-            
-            <a href="javascript://nop/" onclick="site_updates()"  class='translate' data-i18n='fhh_index.updates'>Site Updates</a> | 
-
-            <a href="https://www.nih.gov/" target="_blank">U.S. National Institutes of Health</a>
-        </td>
-        <td class="footerTdLogos">
-            &nbsp;<a href="http://www.usphs.gov/" target="_blank"><img src="../images/logo_phs.gif" alt="PHS Logo"></a>&nbsp;&nbsp;
-        </td>
-        <td class="footerTdLogos">
-            <a href="https://www.genome.gov/" target="_blank"><img src="../images/logo_nhgri.png" height="50" alt="NHGRI Logo"></a>
-        </td>
-    </tr>
-</tbody></table>
-
-<!-- END FOOTER -->
-<script>
-var language = /[&?]setLng=([^&]+)/.exec(location.search);
-
-function goto_create() {
-	location.href='term_of_service.html';
-}
-
-function goto_load() {
-	if (language && language[1]) location.href='fhh.html?action=load&setLng=' + language[1];
-	else location.href='fhh.html?action=load'
-}
+	<div class="container">
+		<footer class="page-footer teal">
+			<div class="container">
+				<div class="row">
+					<div class="col l6 s12">
+						<ul>
+							<li><a class="white-text" href="#!">東北メディカル・メガバンク計画について </a></li>
+							<li><a class="white-text" href="http://iwate-megabank.org/">いわて東北メディカル・メガバンク機構 </a></li>
+							<li><a class="white-text" href="#!">個人情報について </a></li>
+							<li>family-tについて</li>
+						</ul>
+					</div>
+					<div class="col l3 s12">
+						<ul>
+							<li>お問合せ</li>
+							<li>更新履歴</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
 
 
-// Static links need to know what language
+	<!--	Scripts-->
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="./js/materialize.js"></script>
+	<script src="./js/init.js"></script>
 
-function get_help() {
-	window.open("./static/help_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
-}
-
-function learn_more() {
-	window.open("./static/learn_more_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
-}
-
-function glossary() {
-	window.open("./static/glossary_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
-}
-function faq() {
-	window.open("./static/faq_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
-}
-function about() {
-	window.open("./static/about_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
-}
-function contact() {
-	window.open("./static/contact_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
-}
-function site_updates() {
-	window.open("./static/site_update_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
-}
-
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-84860122-1', 'auto');
-  ga('send', 'pageview');
-$('#term_of_service_body').toggle();
-
-</script>
 </body>
-<!-- Need to set the language on the links out to create or load -->
-
-
 </html>

@@ -315,6 +315,7 @@ function add_personal_information(patient_tag, pi) {
 	add_id(patient_tag, pi.id);
 	add_name(patient_tag, pi.name);
 	add_birthday(patient_tag, pi.date_of_birth);
+	add_prefectures(patient_tag, pi.prefectures);
 	add_gender(patient_tag, pi.gender);
 	add_all_ethnic_groups(patient_tag, pi.ethnicity);
 	add_all_races(patient_tag, pi.race);	
@@ -537,6 +538,14 @@ function add_clinical_observations(tag,
 	add_consanguinity(subjectOfTwo_tag, consanguinity);
 	add_diseases(subjectOfTwo_tag, diseases);
 	add_cause_of_death(subjectOfTwo_tag, cause_of_death_code, cause_of_death);
+}
+
+function add_prefectures(tag, prefectures)
+{
+	prefectures_tag = doc.createElement("prefecturesCode");
+	prefectures_tag.setAttribute("value", prefectures);
+
+	tag.appendChild(prefectures_tag);
 }
 
 function add_twin_tag(tag, twin_status) {
@@ -924,7 +933,7 @@ function add_individual_relative(tag, relative_type, code, relative) {
 	
 	var relationshipHolder_tag = doc.createElement("relationshipHolder");
 	relative_tag.appendChild(relationshipHolder_tag);
-	
+	add_prefectures(relationshipHolder_tag, relative.prefectures);
 	add_parent(relationshipHolder_tag, relative.parent_id);
 	add_gender(relationshipHolder_tag, relative.gender);
 	add_all_ethnic_groups(relationshipHolder_tag, relative.ethnicity);

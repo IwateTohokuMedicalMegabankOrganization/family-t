@@ -2,97 +2,69 @@
 <script type="text/javascript" src="../downloadify/js/downloadify.min.js"></script>
 
 <script>
- load_downloadify();	
+ load_downloadify();
+
+	$(function(){
+		$('#saveToServer').on('click', function(){
+			$('#personal_information_text').val(JSON.stringify(personal_information));
+
+			$.post("../../operation/save"
+					, $('#personal_information_text') )
+					.done(function(data, textStatus, jqXHR){
+						if( data == 'true' ) {
+							alert('family-tサーバに保存しました。');
+							$("#save_personal_history_dialog").dialog("close");
+						}else{
+							alert('family-tサーバへの保存に失敗しました。');
+							$("#save_personal_history_dialog").dialog("close");
+						}
+					})
+					.fail(function(){
+						alert('family-tサーバへの保存に失敗しました。');
+						$("#save_personal_history_dialog").dialog("close");
+					});
+		});
+	});
 </script>
 
-
-<P class='instructions translate' data-i18n='fhh_load_save.save_instructions_title' style='font-weight:bold'>Why save your family health history file?</P>
-<P class='instructions translate' data-i18n='fhh_load_save.save_instructions'>
-To respect individual privacy concerns, this website does not save your family health history information. However, you can save your family health history to your own local storage area (such as your computer's hard drive, a CD-ROM, or USB thumb drive). In addition, you can save to a third-party system such as Microsoft® HealthVault, Google Drive, and Dropbox (other third party systems will be added in the future). Some hospitals and doctors' offices will be able to obtain this family health history information stored with a third party system, if you grant them permission, and directly incorporate your family health history into an electronic medical record.
-</P>
 <div class="savePersonalInfoFromFile">
-<div class="title-bar translate" data-i18n='fhh_load_save.save_to_file'> Save Your Personal Information to a File</div>
-<TABLE>
-<TR>
-<TD style='width:200px;text-align:center;'>
-	<IMG src='../images/ico_open_local.gif' alt='Open from Computer Icon'>
-</TD>
-<TD style='vertical-align:top;width:600px;'>
-	<P class='translate' data-i18n='fhh_load_save.save_file_instructions1'>In this step, you can save your family health history to your computer or portable storage device as an XML data file. This data file can be opened in this website later to update your family health history.</P>
-	<P class='translate' data-i18n='fhh_load_save.save_file_instructions2'>Press 'Save to Computer' and your browser will put the file in your preferred download location</P>
+	<div class="title-bar translate" data-i18n='fhh_load_save.save_to_file'> Save Your Personal Information to a File</div>
+	<div style="width:750px;display:inline-flex;">
+		<div style='width:200px;text-align:center;padding-top:15px;'>
 
-  <a id='download_xml' class='translate button_link' data-i18n='fhh_load_save.save_file_button'>Save Family History</a>
-  <div id='save_content' ></div>
-  
+		</div>
+		<div style='vertical-align:top;width:550px;text-align:left;'>
+			<P class='translate' data-i18n='fhh_load_save.save_file_instructions1'>In this step, you can save your family health history to your computer or portable storage device as an XML data file. This data file can be opened in this website later to update your family health history.</P>
+			<P class='translate' data-i18n='fhh_load_save.save_file_instructions2'>Press 'Save to Computer' and your browser will put the file in your preferred download location</P>
+			<a id='download_xml'>
+				<img class="icon_shadow2" width="200" src='../images/ico_open_local.gif' alt='Open from Computer Icon'>
+			</a>
+			<form>
+				<p id="downloadify">You must have Flash 10 installed to download this file.</p>
+			</form>
+			<br />
+		</div>
+	</div>
+	<div class="title-bar translate" data-i18n='fhh_load_save.save_family_t'> Save Your Personal Information to family-t Server</div>
+	<div style="width:750px;display:inline-flex;height:150px;">
+		<div style='width:200px;text-align:center;padding-top:15px;'>
 
-		<form>
-			<p id="downloadify">
-				You must have Flash 10 installed to download this file.
-			</p>
-		</form>
+		</div>
+		<div style='vertical-align:top;width:550px;text-align:left;'>
+			<P class='translate' data-i18n='fhh_load_save.save_family_t_instructions'>You can save the file to the family-t server by signing in to family-t and saving the file with a name.</P>
+			<div class="inner">
+				<button style="display:none;" id='family_t_load_button' href="javascript:;"></button>
+				<label for="family_t_load_button">
+					<img id="saveToServer" class="icon_shadow2 bordered" src='../images/logo.png' width="200" alt='Save to family-t Sever Icon'>
+				</label>
+				<div class="mdl-tooltip" for="tt20">family-tサーバに家族歴を保存します</div>
+			</div>
+		</div>
+	</div>
+	<form action="../../operation/save" method="post">
+		<div class="container" style="display: none;">
+			<textarea id="personal_information_text" class="materialize-textarea" name="personal_information"></textarea>
+		</div>
+	</form>
 
-
-
-
-
-
-
-
-
-</TD>
-</TR>	
-</TABLE>
-<br /> 
 </div>
-<div class="title-bar translate" data-i18n='fhh_load_save.save_health_vault'> Save Your Personal Information to Microsoft's Health Vault</div>
-<TABLE>
-<TR>
-<TD style='width:200px;text-align:center;'>
-	<IMG src='../images/tile_HealthVaultBlue_h_rgb_147width.png' alt='Save to Health Vault Icon'>
-</TD>
-<TD style='vertical-align:top;width:600px;'>
-	<P class='translate' data-i18n='fhh_load_save.save_health_vault_instructions'>Microsoft HealthVault lets you gather, store, and share health information online. If you choose to copy your family health history information to HealthVault, this website will copy data to your HealthVault account and need you to sign in.</P>
-	<div id='save_to_healthvault'></div>
-	<br />
-</TD>
-</TR>	
-</TABLE>
-<div class="title-bar translate" data-i18n='fhh_load_save.save_google_drive'> Save Your Personal Information to Google Drive</div>
-<TABLE>
-<TR>
-<TD style='width:200px;text-align:center;'>
-	<IMG src='../images/google_drive_icon.png' alt='Save to Google Drive'>
-</TD>
-<TD style='vertical-align:top;width:600px;'>
-	<P class='translate' data-i18n='fhh_load_save.save_google_drive_instructions'>You can save a single file to Google Drive by signing into your google drive account.</P>
-	<div id='save_to_google_drive'></div>
-	<br />
-</TD>
-</TR>	
-</TABLE>
-<div class="title-bar translate" data-i18n='fhh_load_save.save_dropbox'> Save Your Personal Information to Dropbox</div>
-<TABLE>
-<TR>
-<TD style='width:200px;text-align:center;'>
-	<IMG src='../images/dropbox_icon.png' alt='Save to Dropbox' width='48' height='48'>
-</TD>
-<TD style='vertical-align:top;width:600px;'>
-	<P  class='translate' data-i18n='fhh_load_save.save_dropbox_instructions'>You can save a file from Dropbox by signing into your dropbox account and picking a location to save and naming the file.</P>
-	<div id='save_to_dropbox'></div>
-</TD>
-</TR>	
-</TABLE>
-<hr />
-<P class='translate instructions' data-i18n='fhh_load_save.disclaimer'>
-When you choose to copy your family health history information to any third party system, please note that your information will be retained in that system, and will be subject to the terms of use and privacy policy of that system.	
-</P>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-84860122-1', 'auto');
-  ga('send', 'pageview');
-
-</script>

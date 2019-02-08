@@ -303,7 +303,7 @@ function get_required_info_dialog(valid) {
 					.append("<OPTION value='true'>" + $.t("fhh_diabetes_calculator.initial_popup_yes_value") + "</OPTION>"))));
 	}
 	
-	var continue_button = $("<BUTTON> " + $.t("fhh_diabetes_calculator.initial_popup_continue_button") + " </BUTTON>");
+	var continue_button = $("<div class='row' style='margin-top:1em;'><div class='col s12 center'><BUTTON class='btn waves-effect waves-light teal lighten-1' > " + $.t("fhh_diabetes_calculator.initial_popup_continue_button") + " </BUTTON></div></div>");
 	continue_button.click( apply_required_additional_data_entry_button );
 
 	$("#extra_info_dialog").append(continue_button);

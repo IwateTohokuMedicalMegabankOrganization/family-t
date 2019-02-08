@@ -6,7 +6,7 @@ $(document).ready(function() {
 		.attr('target','_blank');
 	$('a[href="https://www.nih.gov/"]').remove();
 	$('.footerTdLogos').remove();
-	$('title').text('IMM Portrait');
+	$('title').text('family-t');
 
 });
 

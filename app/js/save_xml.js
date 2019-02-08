@@ -31,7 +31,7 @@ var isHealthVaultSave; // determine if saving to healthvault to set death diseas
 						filename = get_filename(personal_information)
 						return filename;
 					},
-					data: function(){ 
+					data: function(){
 						return get_xml_string();
 					},
 					onComplete: function(){ alert('Your File Has Been Saved!'); },
@@ -54,7 +54,7 @@ function bind_save_xml() {
 		doc = new ActiveXObject("msxml2.DOMDocument.6.0");
 	}
 
-	
+
 	bind_save_download();
 	bind_save_dropbox ();
 	bind_save_google_drive ();
@@ -66,8 +66,8 @@ function get_filename(pi) {
 	var filename = "family_health_history.xml";
 	if (pi && pi.name) {
 		filename = pi.name.replace(/ /g,"_") + "_Health_History.xml";
-	} 
-	return filename;	
+	}
+	return filename;
 }
 
 function get_xml_string() {
@@ -75,7 +75,7 @@ function get_xml_string() {
 		var root = doc.createElement("FamilyHistory");
 		add_root_information(root);
 		root.appendChild(add_personal_history(personal_information));
-				
+
 		var str = serializeXmlNode(root);
 		return(str);
 }
@@ -97,15 +97,15 @@ function bind_save_download() {
 	} else {
 		$("#download_xml").hide();
 	}
-	
+
 	$("#download_xml").on("click", function () {
-		isHealthVaultSave = false; // not healthvault save		
+		isHealthVaultSave = false; // not healthvault save
 		output_string = get_xml_string();
 		filename = get_filename(personal_information);
 
 		save_document($(this), output_string, filename);
-		$("#save_personal_history_dialog").dialog("close");		
-	});	
+		$("#save_personal_history_dialog").dialog("close");
+	});
 }
 
 function bind_save_dropbox () {
@@ -113,18 +113,18 @@ function bind_save_dropbox () {
 		$("#save_to_dropbox").append("<I>This feature has been tested and is supported in the following browsers - Internet Explorer 10 and recent versions, Firefox, Chrome, Safari.</I>");
 		return;
 	}
-	
-	
+
+
 	if (typeof DROPBOX_APP_KEY == 'undefined') {
-		if (typeof DEBUG != 'undefined' && DEBUG) $("#save_to_dropbox").append("No Dropbox App Key Defined");				
-		else $("#save_to_dropbox").append("Coming Soon");	
+		if (typeof DEBUG != 'undefined' && DEBUG) $("#save_to_dropbox").append("No Dropbox App Key Defined");
+		else $("#save_to_dropbox").append("Coming Soon");
 		return;
 	}
 
 	var button = $("<BUTTON id='dropbox_save_button'>" + $.t("fhh_load_save.save_dropbox_button") + "</BUTTON>");
-	
+
 	button.on("click", function () {
-		isHealthVaultSave = false; // not healthvault save		
+		isHealthVaultSave = false; // not healthvault save
 		output_string = get_xml_string();
 		filename = get_filename(personal_information);
 		Dropbox.save({
@@ -141,27 +141,27 @@ function bind_save_google_drive () {
 		$("#save_to_google_drive").append("<I>This feature has been tested and is supported in the following browsers - Internet Explorer 10 and recent versions, Firefox, Chrome, Safari.</I>");
 		return;
 	}
-	
-	
+
+
 	if (typeof GOOGLE_CLIENT_ID == 'undefined') {
-		if (typeof DEBUG != 'undefined' && DEBUG) $("#save_to_google_drive").append("No Google Drive App Key Defined");				
-		else $("#save_to_google_drive").append("Coming Soon");	
+		if (typeof DEBUG != 'undefined' && DEBUG) $("#save_to_google_drive").append("No Google Drive App Key Defined");
+		else $("#save_to_google_drive").append("Coming Soon");
 		return;
 	}
 	var button = $("<BUTTON id='google_drive_save_button'>" + $.t("fhh_load_save.save_google_drive_button") + "</BUTTON>");
 	button.on("click", function () {
-		isHealthVaultSave = false; // not healthvault save		
+		isHealthVaultSave = false; // not healthvault save
 		output_string = get_xml_string();
 		filename = get_filename(personal_information);
 		// this is an aysncronous call, we need to improve the user experience here somehow.
 		gapi.auth.authorize( {'client_id': GOOGLE_CLIENT_ID, 'scope': GOOGLE_SCOPES, 'immediate': false}, googlePostAuthSave);
 	});
 	$("#save_to_google_drive").append(button);
-		
+
 }
 
 function googlePostAuthSave(authResult) {
-	// output_string is a global 
+	// output_string is a global
 
 	if (authResult && !authResult.error) {
 	///  See google examples for how this works
@@ -177,18 +177,18 @@ function googlePostAuthSave(authResult) {
 				file_id = items[0].id;
 				request_type = 'PUT'
 			}
-			
+
 			var boundary = '-------314159265358979323846';
 			var delimiter = "\r\n--" + boundary + "\r\n";
 			var close_delim = "\r\n--" + boundary + "--";
-		
+
 			var content_type ='text/plain';
 			var string_data = $("#input").val();
 		  var metadata = {
 		    'title': filename,
 		    'mimeType': content_type
 		  };
-			window.base64Data = output_string;		
+			window.base64Data = output_string;
 			var base64Data = btoa(output_string);
 			var multipartRequestBody =
 				delimiter +
@@ -200,7 +200,7 @@ function googlePostAuthSave(authResult) {
 				'\r\n' +
 				base64Data +
 				close_delim;
-			
+
 			var request = gapi.client.request({
 					'path': '/upload/drive/v2/files/' + file_id,
 					'method': request_type,
@@ -210,7 +210,7 @@ function googlePostAuthSave(authResult) {
 					},
 					'body': multipartRequestBody
 			});
-		
+
 			var	callback = function(file) {
 				$("#save_personal_history_dialog").dialog("close");
 			};
@@ -225,37 +225,37 @@ function bind_save_heath_vault() {
 	var button = $("<BUTTON id='health_vault_save_button'>" + $.t("fhh_load_save.save_health_vault_button") + "</BUTTON>");
 
 	button.on("click", function () {
-		isHealthVaultSave = true; // is healthvault save		
+		isHealthVaultSave = true; // is healthvault save
 		var protocol = window.location.protocol;
 		var hostname = window.location.hostname;
-		
+
 		output_string = get_xml_string();
 		window.localStorage.setItem("outputString", output_string);
 		window.localStorage.setItem("HV Status", "");
-		
+
 
 		var url_w_params;
 		re = /ppe/;
-		match = re.exec(HEATH_VAULT_PROXY_SERVER);		
+		match = re.exec(HEATH_VAULT_PROXY_SERVER);
 		if (match) {
 			if (FHH_SITE_PORT > 0) {
-				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
-					+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE%26redirect=" 
+				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid="
+					+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE%26redirect="
 					+ protocol + "//" + hostname + ":" + FHH_SITE_PORT + "/FHH/html/fhh_save_healthvault.html"
 			} else {
-				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
-					+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE%26redirect=" 
-					+ protocol + "//" + hostname + "/FHH/html/fhh_save_healthvault.html"			
-			}			
+				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid="
+					+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE%26redirect="
+					+ protocol + "//" + hostname + "/FHH/html/fhh_save_healthvault.html"
+			}
 		}
 		else {
 			if (FHH_SITE_PORT > 0) {
-				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=appid=" 
+				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=appid="
 					+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE";
 			} else {
-				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=appid=" 
-					+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE";			
-			}			
+				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=appid="
+					+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE";
+			}
 		}
 
 		window.open(url_w_params, "", "width=1000, height=600, scrollbars=yes");
@@ -265,9 +265,9 @@ function bind_save_heath_vault() {
 				$("#save_personal_history_dialog").dialog("close");
 				if (st == "Failed") {
 					alert($.t("fhh_load_save.fail_to_save"));
-				} 
+				}
 				clearInterval(timer);
-			} 
+			}
 		},2000);
 
 
@@ -291,34 +291,35 @@ function add_root_information(root) {
 	methodCode_tag = doc.createElement("methodCode");
 	methodCode_tag.setAttribute("displayName", TOOL_NAME);
 	root.appendChild(methodCode_tag);
-	
+
 }
 
 function add_personal_history(pi) {
 	subject_tag = doc.createElement("subject");
 	subject_tag.setAttribute("typeCode", "SBJ");
-	
+
 	patient_tag = doc.createElement("patient");
 	patient_tag.setAttribute("classCode", "PAT");
 	subject_tag.appendChild(patient_tag);
-	
+
 	patientPerson_tag = doc.createElement("patientPerson");
 	patient_tag.appendChild(patientPerson_tag);
-	
+
 	add_personal_information (patientPerson_tag, pi);
 	return subject_tag;
 }
 
 function add_personal_information(patient_tag, pi) {
 	if (personal_information == null) return;
-	
+
 	add_id(patient_tag, pi.id);
 	add_name(patient_tag, pi.name);
 	add_birthday(patient_tag, pi.date_of_birth);
+	add_prefectures(patient_tag, pi.prefectures);
 	add_gender(patient_tag, pi.gender);
 	add_all_ethnic_groups(patient_tag, pi.ethnicity);
-	add_all_races(patient_tag, pi.race);	
-	add_clinical_observations(patient_tag, 
+	add_all_races(patient_tag, pi.race);
+	add_clinical_observations(patient_tag,
 			pi.height,
 			pi.height_unit,
 			pi.weight,
@@ -329,7 +330,7 @@ function add_personal_information(patient_tag, pi) {
 			pi.twin_status,
 			pi.adopted,
 			pi.physically_active
-	); 
+	);
 	add_relatives(patient_tag, pi);
 }
 
@@ -344,10 +345,10 @@ function add_id(tag, id_text) {
 function add_alive_status(tag, alive_text) {
 	if (alive_text == null) return;
 	desceased_tag = doc.createElement("deceasedIndCode");
-	
+
 	if (alive_text == 'dead') {
 		desceased_tag.setAttribute("value", "true");
-	} 
+	}
 
 	else if (alive_text == 'alive') {
 		desceased_tag.setAttribute("value", "alive");
@@ -358,7 +359,7 @@ function add_alive_status(tag, alive_text) {
 	}
 
 	tag.appendChild(desceased_tag);
-	
+
 }
 
 function add_name(tag, personal_name) {
@@ -383,10 +384,10 @@ function add_relative_estimated_age_tag(relationship_tag, estimated_age) {
 
 function add_relative_age_tag(relationship_tag, age) {
 	if (age == null) return;
-	
+
 	var d = new Date();
 	var n = d.getFullYear();
-	
+
 	birthday_tag = doc.createElement("birthTime");
 	birthday_tag.setAttribute("value", (n-parseInt(age)));
 
@@ -403,7 +404,7 @@ function add_birthday(tag, birthday) {
 }
 
 function add_parent(tag, parent_id) {
-	
+
 	var relative_tag = doc.createElement("relative");
 	tag.appendChild(relative_tag);
 
@@ -430,7 +431,7 @@ function add_gender(tag, gender) {
 	if (gender == "MALE") {
 		gender_tag.setAttribute("displayName", "male");
 		gender_tag.setAttribute("code", SNOMED_CODE.MALE);
-		
+
 	} else 	if (gender == "FEMALE") {
 		gender_tag.setAttribute("displayName", "female");
 		gender_tag.setAttribute("code", SNOMED_CODE.FEMALE);
@@ -461,7 +462,7 @@ function add_all_ethnic_groups(tag, ethnic_group_list) {
 	if (ethnic_group_list["Other Hispanic"] == true) add_individual_ethnic_group(tag, "Other Hispanic");
 	if (ethnic_group_list["Puerto Rican"]	== true) add_individual_ethnic_group(tag, "Puerto Rican");
 	if (ethnic_group_list["South American"]	== true) add_individual_ethnic_group(tag, "South American");
-	
+
 }
 
 function add_individual_ethnic_group(tag, ethnic_group) {
@@ -473,7 +474,7 @@ function add_individual_ethnic_group(tag, ethnic_group) {
 	if (cv.id) ethnic_group_tag.setAttribute("id", cv.id);
 	if (cv.xsi_type) ethnic_group_tag.setAttribute("xsi:type", cv.xsi_type);
 	if (cv.ns) ethnic_group_tag.setAttribute("xmlns:xsi", cv.ns);
-	
+
 	tag.appendChild(ethnic_group_tag);
 }
 
@@ -511,19 +512,19 @@ function add_individual_race(tag, race) {
 	if (cv.id) race_tag.setAttribute("id", cv.id);
 	if (cv.xsi_type) race_tag.setAttribute("xsi:type", cv.xsi_type);
 	if (cv.ns) race_tag.setAttribute("xmlns:xsi", cv.ns);
-	
+
 	tag.appendChild(race_tag);
 }
 
-function add_clinical_observations(tag, 
-		height, height_unit, 
-		weight, weight_unit, 
-		consanguinity, 
-		diseases, 
+function add_clinical_observations(tag,
+		height, height_unit,
+		weight, weight_unit,
+		consanguinity,
+		diseases,
 		cause_of_death_code, cause_of_death,
 		twin_status,
-		adopted_flag, 
-		active_flag) 
+		adopted_flag,
+		active_flag)
 {
 	var subjectOfTwo_tag = doc.createElement("subjectOf2");
 	tag.appendChild(subjectOfTwo_tag);
@@ -531,7 +532,7 @@ function add_clinical_observations(tag,
 	add_twin_tag(subjectOfTwo_tag, twin_status);
 	add_adopted_tag(subjectOfTwo_tag, adopted_flag);
 	add_active_tag(subjectOfTwo_tag, active_flag);
-	
+
 	add_height(subjectOfTwo_tag, height, height_unit);
 	add_weight(subjectOfTwo_tag, weight, weight_unit);
 	add_consanguinity(subjectOfTwo_tag, consanguinity);
@@ -539,13 +540,21 @@ function add_clinical_observations(tag,
 	add_cause_of_death(subjectOfTwo_tag, cause_of_death_code, cause_of_death);
 }
 
+function add_prefectures(tag, prefectures)
+{
+	prefectures_tag = doc.createElement("prefecturesCode");
+	prefectures_tag.setAttribute("value", prefectures);
+
+	tag.appendChild(prefectures_tag);
+}
+
 function add_twin_tag(tag, twin_status) {
 	if (twin_status == null || twin_status == "") return;
 	if (!(twin_status == "IDENTICAL" || twin_status == "FRATERNAL")) return;
-	
+
 	var observation_tag = doc.createElement("clinicalObservation");
 	tag.appendChild(observation_tag);
-	
+
 	var code_tag = doc.createElement("code");
 	if (twin_status == "IDENTICAL") {
 		code_tag.setAttribute("displayName", "Identical twin (person)");
@@ -584,7 +593,7 @@ function add_active_tag(tag, active_tag) {
 	code_tag.setAttribute("codeSystemName", "SNOMED_CT");
 	code_tag.setAttribute("code", SNOMED_CODE.PHYSICALLY_ACTIVE);
 	observation_tag.appendChild(code_tag);
-	
+
 	var value_tag = doc.createElement("value");
 	value_tag.setAttribute("value", active_tag);
 	observation_tag.appendChild(value_tag);
@@ -594,7 +603,7 @@ function add_height(tag, height, height_unit) {
 	if (height == null || height == "") return;
 	var observation_tag = doc.createElement("clinicalObservation");
 	tag.appendChild(observation_tag);
-	
+
 	var code_tag = doc.createElement("code");
 	code_tag.setAttribute("displayName", "height");
 	code_tag.setAttribute("codeSystemName", "SNOMED_CT");
@@ -611,7 +620,7 @@ function add_weight(tag, weight, weight_unit) {
 	if (weight == null || weight == "") return;
 	var observation_tag = doc.createElement("clinicalObservation");
 	tag.appendChild(observation_tag);
-	
+
 	var code_tag = doc.createElement("code");
 	code_tag.setAttribute("displayName", "weight");
 	code_tag.setAttribute("codeSystemName", "SNOMED_CT");
@@ -635,7 +644,7 @@ function add_diseases(tag, diseases) {
 		}
 		if (!detailed_disease_name) detailed_disease_name = disease_name;
 		var age_at_diagnosis = diseases[i]["Age At Diagnosis"];
-		
+
 		var observation_tag = doc.createElement("clinicalObservation");
 		tag.appendChild(observation_tag);
 		var code_tag = doc.createElement("code");
@@ -643,7 +652,7 @@ function add_diseases(tag, diseases) {
 			var dcas =  disease_code_and_system.split("-");
 			var disease_code_system = dcas[0];
 			var disease_code = dcas[1];
-			code_tag.setAttribute("codeSystemName", disease_code_system);  
+			code_tag.setAttribute("codeSystemName", disease_code_system);
 			code_tag.setAttribute("code", disease_code);
 			var potential_detailed_disease_name = get_detailed_disease_name_from_code(disease_code);
 			if (potential_detailed_disease_name != null) detailed_disease_name = potential_detailed_disease_name;
@@ -651,22 +660,22 @@ function add_diseases(tag, diseases) {
 		}
 		code_tag.setAttribute("displayName", detailed_disease_name);
 		code_tag.setAttribute("originalText", detailed_disease_name);
-		
-//		code_tag.setAttribute("codeSystemName", "SNOMED COMPLETE"); // 
+
+//		code_tag.setAttribute("codeSystemName", "SNOMED COMPLETE"); //
 		observation_tag.appendChild(code_tag);
-		
+
 		var subject_tag = doc.createElement("subject");
 		observation_tag.appendChild(subject_tag);
 
 		var dataEstimatedAge_tag = doc.createElement("dataEstimatedAge");
 		subject_tag.appendChild(dataEstimatedAge_tag);
-		
+
 		var new_code_tag = doc.createElement("code");
 		new_code_tag.setAttribute("displayName", "Estimated Age");
 		new_code_tag.setAttribute("codeSystemName", "LOINC");
 		new_code_tag.setAttribute("code", LOINC_CODE.ESTIMATED_AGE);
-		dataEstimatedAge_tag.appendChild(new_code_tag);		
-		
+		dataEstimatedAge_tag.appendChild(new_code_tag);
+
 		add_estimated_age_tag(dataEstimatedAge_tag, new_code_tag, age_at_diagnosis);
 		}
 }
@@ -678,7 +687,7 @@ function add_estimated_age_tag(tag, code_tag, estimated_age) {
 	} else if (estimated_age == "Unknown" || estimated_age == "unknown") {
 		code_tag.setAttribute("originalText", "unknown");
 	} else {
-		
+
 		// These estimates ages have high, low, and unit tags/attr
 
 		var new_value_tag = doc.createElement("value");
@@ -692,14 +701,14 @@ function add_estimated_age_tag(tag, code_tag, estimated_age) {
 			var low_tag = doc.createElement("low");
 			low_tag.setAttribute("value", av.low);
 			new_value_tag.appendChild(low_tag);
-		}		
+		}
 
 		if (av && av.high) {
 			var high_tag = doc.createElement("high");
 			high_tag.setAttribute("value", av.high);
 			new_value_tag.appendChild(high_tag);
-		}		
-	}	
+		}
+	}
 }
 
 
@@ -712,7 +721,7 @@ function add_death_status (tag, cause_of_death) {
 
 function add_death_age(tag, estimated_death_age) {
 	if (estimated_death_age == null) return;
-	
+
 	var subjectOfOne_tag = doc.createElement("subjectOf1");
 	tag.appendChild(subjectOfOne_tag);
 	var deceasedEstimatedAge_tag = doc.createElement("deceasedEstimatedAge");
@@ -723,9 +732,9 @@ function add_death_age(tag, estimated_death_age) {
 	code_tag.setAttribute("code", LOINC_CODE.AGE_AT_DEATH);
 	deceasedEstimatedAge_tag.appendChild(code_tag);
 	var value_tag = doc.createElement("value");
-	
+
 	add_estimated_age_tag(deceasedEstimatedAge_tag, code_tag, estimated_death_age);
-	
+
 }
 
 function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
@@ -748,18 +757,18 @@ function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
 		}
 		else {
 			code_tag.setAttribute("displayName", cause_of_death);
-			code_tag.setAttribute("originalText", cause_of_death);			
+			code_tag.setAttribute("originalText", cause_of_death);
 			code_system = "SNOMED_CT";
 		}
 
 
 		// code_tag.setAttribute("displayName", get_detailed_disease_name_from_code(cause_of_death_code.replace("SNOMED_CT-","")));
-		// code_tag.setAttribute("originalText", get_detailed_disease_name_from_code(cause_of_death_code.replace("SNOMED_CT-","")));		
+		// code_tag.setAttribute("originalText", get_detailed_disease_name_from_code(cause_of_death_code.replace("SNOMED_CT-","")));
 	}
 	else {
 		code_tag.setAttribute("displayName", cause_of_death);
 		code_tag.setAttribute("originalText", cause_of_death);
-	}	
+	}
 	code_tag.setAttribute("codeSystemName", code_system);
 
 //	var cause_of_death_code = get_disease_code_from_detailed_disease(cause_of_death);
@@ -774,10 +783,10 @@ function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
 		code_tag.setAttribute("code", "OTHER");
 	}
 	else {
-		code_tag.setAttribute("code", cause_of_death_code);		
+		code_tag.setAttribute("code", cause_of_death_code);
 	}
 	observation_tag.appendChild(code_tag);
-	
+
 	var sourceOf_tag = doc.createElement("sourceOf");
 	observation_tag.appendChild(sourceOf_tag);
 	var newcode_tag = doc.createElement("code");
@@ -808,7 +817,7 @@ function add_relatives(tag, pi) {
 		add_individual_relative(tag, "Brother", "NBRO", pi['brother_' + i]);
 		i++;
 	}
-	
+
 	var i = 0;
 	while (pi['sister_' + i] != null) {
 		add_individual_relative(tag, "Sister", "NSIS", pi['sister_' + i]);
@@ -886,7 +895,7 @@ function add_relatives(tag, pi) {
 		add_individual_relative(tag, "GrandDaughter", "GRNDAU", pi['granddaughter_' + i]);
 		i++;
 	}
-	
+
 	var i = 0;
 	while (pi['maternal_halfbrother_' + i] != null) {
 		add_individual_relative(tag, "Maternal Halfbrother", "MHBRO", pi['maternal_halfbrother_' + i]);
@@ -919,18 +928,18 @@ function add_individual_relative(tag, relative_type, code, relative) {
 	var code_tag = doc.createElement("code");
 	code_tag.setAttribute("displayName", relative_type);
 	code_tag.setAttribute("codeSystemName", "HL7 Family History Model");
-	code_tag.setAttribute("code", code);	
+	code_tag.setAttribute("code", code);
 	relative_tag.appendChild(code_tag);
-	
+
 	var relationshipHolder_tag = doc.createElement("relationshipHolder");
 	relative_tag.appendChild(relationshipHolder_tag);
-	
+	add_prefectures(relationshipHolder_tag, relative.prefectures);
 	add_parent(relationshipHolder_tag, relative.parent_id);
 	add_gender(relationshipHolder_tag, relative.gender);
 	add_all_ethnic_groups(relationshipHolder_tag, relative.ethnicity);
-	add_all_races(relationshipHolder_tag, relative.race);	
+	add_all_races(relationshipHolder_tag, relative.race);
 	add_death_age(relationshipHolder_tag, relative.estimated_death_age);
-	add_clinical_observations(relationshipHolder_tag, 
+	add_clinical_observations(relationshipHolder_tag,
 			null, null,
 			null, null,
 			null,
@@ -939,7 +948,7 @@ function add_individual_relative(tag, relative_type, code, relative) {
 			relative.twin_status,
 			relative.adopted,
 			null
-	); 
+	);
 	add_id(relationshipHolder_tag, relative.id);
 	add_name(relationshipHolder_tag, relative.name);
 	add_alive_status(relationshipHolder_tag, relative.is_alive);
@@ -951,7 +960,7 @@ function add_individual_relative(tag, relative_type, code, relative) {
 	add_birthday(relationshipHolder_tag, relative.date_of_birth);
 	add_relative_estimated_age_tag(relationshipHolder_tag, relative.estimated_age);
 	add_relative_age_tag(relationshipHolder_tag,relative.age);
-		 
+
 //	add_death_status(relationshipHolder_tag, relative.cause_of_death);
 
 }
@@ -996,19 +1005,29 @@ function get_code_for_race(str) {
 		case "Unknown South Pacific Islander": return {code:"2076-8", code_system:"HL7", id:"25"};
 	}
 	return null;
-}	
+}
 
 function get_age_values_from_estimated_age(age_at_diagnosis) {
 	switch (age_at_diagnosis) {
 		case "prebirth": return null;
 		case "newborn": return {unit:"day", low:"0", high:"28"};
 		case "infant": return {unit:"day", low:"29", high:"729"};
-		case "child": return {unit:"year", low:"2", high:"10"};
+		case "child": return {unit:"year", low:"2", high:"9"};
 		case "teen": return {unit:"year", low:"10", high:"19"};
+		case "early_teen": return {unit:"year", low:"10", high:"14"};
+		case "late_teen": return {unit:"year", low:"15", high:"19"};
 		case "twenties": return {unit:"year", low:"20", high:"29"};
+		case "early_twenties": return {unit:"year", low:"20", high:"24"};
+		case "late_twenties": return {unit:"year", low:"25", high:"29"};
 		case "thirties": return {unit:"year", low:"30", high:"39"};
+		case "early_thirties": return {unit:"year", low:"30", high:"34"};
+		case "late_thirties": return {unit:"year", low:"35", high:"39"};
 		case "fourties": return {unit:"year", low:"40", high:"49"};
+		case "early_fourties": return {unit:"year", low:"40", high:"44"};
+		case "late_fourties": return {unit:"year", low:"45", high:"49"};
 		case "fifties": return {unit:"year", low:"50", high:"59"};
+		case "early_fifties": return {unit:"year", low:"50", high:"54"};
+		case "late_fifties": return {unit:"year", low:"55", high:"59"};
 		case "senior": return {unit:"year", low:"60", high:null};
 		case "unknown": return null;
 	}
@@ -1028,22 +1047,22 @@ function save_document(save_link, output_string, filename) {
 	str = str + output_string;
 
 	if (DownloadAttributeSupport) {
-			save_link.attr("download", filename).attr("href", "data:application/force-download," + encodeURIComponent(str) ).attr("target", "download");		
+			save_link.attr("download", filename).attr("href", "data:application/force-download," + encodeURIComponent(str) ).attr("target", "download");
 	} else {
-	    var blobObject = new Blob([str]); 
-	    window.navigator.msSaveBlob(blobObject, filename); // The user only has the option of clicking the Save button.		
+	    var blobObject = new Blob([str]);
+	    window.navigator.msSaveBlob(blobObject, filename); // The user only has the option of clicking the Save button.
 	}
 
 /*
 		if (isIE10) {
-	    var blobObject = new Blob([output_string]); 
+	    var blobObject = new Blob([output_string]);
 	    window.navigator.msSaveBlob(blobObject, filename); // The user only has the option of clicking the Save button.
 		} else {
 //			save_link.attr("href", "data:application/xml," + output_string ).attr("download", filename);
 			save_link.attr("download", filename).attr("href", "data:application/force-download," + encodeURIComponent(output_string) ).attr("target", "download");
 		}
 */
-		
+
 }
 
 
