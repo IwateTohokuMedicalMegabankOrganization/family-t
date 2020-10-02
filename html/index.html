@@ -1,109 +1,132 @@
 ﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>family-t</title>
 
-	<!-- CSS -->
+	<script type="text/javascript" src="../jquery/jquery-1.11.1.js"></script>
+	<!-- For language translation -->
+	<script type="text/javascript" src="../js/i18next-1.7.4.js"></script>
+	
+	<!-- CSS	-->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-	<link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+	<link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+
+	<script type='text/javascript'>
+		$(document).ready(function() {
+			// get language //	
+			var lng = window.i18n.lng();
+			if (typeof i18n != "undefined") {
+				var option = {
+					resGetPath: '../locales/__ns__-__lng__.json',
+					ns: {
+					namespaces: ['translation'],
+					defaultNs: 'translation'
+				  }
+				};
+				i18n.init(option, function () {
+					$(".translate").i18n();
+				});
+			};
+		});
+		function term_of_service(){
+			location.href= "term_of_service.html?setLng=" + window.i18n.lng();
+		}
+	</script>
 </head>
 <body>
 	<div id="index-banner" class="parallax-container">
-
 		<div class="section no-pad-bot">
 			<div class="container">
 				<h1 class="header center teal-text text-lighten-2">
 					<img src="../themes/deploy/photos_frontpage_logo.png" alt="family-t" class="fhhBannerTitle">
 				</h1>
-
+				
 				<div class="row center">
-					<h5 class="header col s12 light">ファミリーティー（family-t）を使ってできること</h5>
+					<h5 class="header col s12 light">
+						<span class='translate' data-i18n='fhh_index.usage'>ファミリーティー（family-t）を使ってできること</span>
+					</h5>
 				</div>
 
-				<!-- Icon Section -->
+				<!--	 Icon Section	 -->
 				<div class="row">
-					<div class="col l3 m12 s6">
+					<div class="col s12 m3">
 						<div class="icon-block">
-							<h2 class="center green-text"><i class="material-icons">note_add</i></h2>
-							<h5 class="center">入力</h5>
-							<p class="light">家族の健康に関する情報「家族歴」の入力</p>
+							<h2 class="center green-text"><i class="material-icons">input</i></h2>
+							<h5 class="center"><span class='translate' data-i18n='fhh_index.input'>入力</span>	</h5>
+							<p class="light font_size_normal">
+								<span class='translate' data-i18n='fhh_index.li1'>家族の健康に関する情報「家族歴」の入力</span>
+							</p>
 						</div>
 					</div>
 
-					<div class="col l3 m12 s6">
+					<div class="col s12 m3">
 						<div class="icon-block">
 							<h2 class="center green-text"><i class="material-icons">report_problem</i></h2>
-							<h5 class="center">リスク判定</h5>
-							<p class="light">遺伝する病気のリスク判定</p>
+							<h5 class="center"><span class='translate' data-i18n='fhh_index.calc_riskscore'>リスク判定</span></h5>
+							<p class="light font_size_normal"><span class='translate' data-i18n='fhh_index.li2'>疾患発症のリスク判定</span></p>
 						</div>
 					</div>
 
-					<div class="col l3 m12 s6">
+					<div class="col s12 m3">
 						<div class="icon-block">
 							<h2 class="center green-text"><i class="material-icons">print</i></h2>
-							<h5 class="center">印刷</h5>
-							<p class="light">家族歴の印刷（家族や「かかりつけ医」と共有）</p>
+							<h5 class="center"><span class='translate' data-i18n='fhh_index.print'>印刷</span></h5>
+							<p class="light font_size_normal"><span class='translate' data-i18n='fhh_index.li3'>家族歴の印刷（家族や「かかりつけ医」と共有）</span></p>
 						</div>
 					</div>
-					<div class="col l3 m12 s6">
+
+					<div class="col s12 m3">
 						<div class="icon-block">
 							<h2 class="center green-text"><i class="material-icons">save</i></h2>
-							<h5 class="center">保存</h5>
-							<p class="light">家族歴の保存と更新</p>
+							<h5 class="center"><span class='translate' data-i18n='fhh_index.save'>保存</span></h5>
+							<p class="light font_size_normal"><span class='translate' data-i18n='fhh_index.li4'>家族歴の保存と更新</span></p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="section no-pad-bot">
-		<div class="container">
-			<div class="row center">
-				<h5 class="col s12">
-					自ら集めた家族の健康に関する情報を家族や自分のために活用してください
-				</h5>
-				<a href="../app/html/term_of_service.html" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">利用規約を確認し、家族歴を作成</a>
+
+	<div class="container">
+		<div class="section no-pad-bot">
+			<div class="container">
+				<div class="row center">
+					<h5 class="header col s12 light">
+						<span class='translate' data-i18n='fhh_index.talking'>自ら集めた家族の健康に関する情報を家族や自分のために活用してください</span>
+					</h5>
+					<a href="#" id="download-button" class="btn-large waves-effect waves-light button_color_normal lime black-text" onclick="term_of_service();">
+						<span class='translate' data-i18n='fhh_index.create'>利用規約を確認し、家族歴を作成</span>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<footer class="page-footer teal">
-		<div class="container">
-			<div class="row">
-
-				<div class="col l6 m6 s12">
-					<ul>
-						<li><a class="white-text" href="#!">お問合せ </a></li>
-						<li><a class="white-text" href="#!">更新履歴 </a></li>
-						<li><a class="white-text" href="#!">family-tについて </a></li>
-					</ul>
-				</div>
-				<div class="col l6 m6 s12">
-					<ul>
-						<li><a class="white-text" href="#!">個人情報について </a></li>
-						<li><a class="white-text" href="#!">東北メディカル・メガバンク計画について </a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
-		<div class="footer-copyright">
+	<div class="container">
+		<footer class="page-footer">
 			<div class="container">
-				<a class="brown-text text-lighten-3" href="http://iwate-megabank.org/" target="_blank">
-					<img src="http://iwate-megabank.org/wp-content/themes/immo/images/logo-header-ja.png" title="いわて東北メディカル・メガバンク機構">
-				</a>
+				<div class="row">
+					<div class="col l12 m12 s12" style="padding-bottom:1em;">
+						<ul>
+							<li><a class="white-text" href="https://www.amed.go.jp/program/list/04/01/001.html" target="_blank">
+								<span class='translate' data-i18n='fhh_index.link_tmm'>東北メディカル・メガバンク計画について</span>
+							</a></li>
+							<li><a class="white-text translate" href="http://iwate-megabank.org/" data-i18n='fhh_index.link_imm' target="_blank">
+								いわて東北メディカル・メガバンク機構
+							</a></li>
+						</ul>
+					</div>
+				</div>
 			</div>
-		</div>
+		</footer>
+	</div>
 
-	</footer>
-
-	<!-- Scripts -->
-	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<!--	Scripts-->
 	<script src="../js/materialize.js"></script>
 	<script src="../js/init.js"></script>
 
-	</body>
+</body>
 </html>

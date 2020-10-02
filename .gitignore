@@ -1,5 +1,7 @@
 .DS_Store
+.history
 data/.DS_Store
 images/.DS_Store
 static/.DS_Store
 static/images/.DS_Store
+js/package-lock.json
