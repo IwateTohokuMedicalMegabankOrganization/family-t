@@ -1,0 +1,401 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<noscript><meta http-equiv="refresh" content="0; URL=./unsupported_browser.html"> </meta> </noscript>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="cache-control" content="max-age=0">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="pragma" content="no-cache">
+
+	<title id="title_for_print">family-t 整理番号：</title>
+
+	<script src="../js/angular.min.js"></script>
+	<script src="../js/fhhController.js"></script>
+	<script type="text/javascript" src="../plugins/bootstrap/ui-bootstrap-tpls-0.13.0.min.js"></script>
+	<script type="text/javascript" src="../jquery/jquery-1.11.1.js"></script>
+	<script type="text/javascript" src="../jquery/jquery-ui-1.10.4.js"></script>
+	<link rel="stylesheet" type="text/css" href="../jquery/jquery-ui-1.10.4.css">
+	<script type="text/javascript" src="../js/fhh.js"></script>
+
+	<!-- Themes go here -->
+	<!--
+		<link rel="stylesheet" type="text/css" href="../themes/deploy/fhh.css">
+	-->
+	<link rel="shortcut icon" href="../themes/deploy/favicon.ico" type="image/x-icon">
+	<!-- Also includes images banner_left.png and banner_right.png -->
+	<!-- For language translation -->
+	<script type="text/javascript" src="../js/i18next-1.7.4.js"></script>
+
+	<script type="text/javascript" src="../risk/atherosclerotic/atherosclerotic.js"></script>
+	<script type="text/javascript" src="../risk/drc/diabetes.js"></script>
+	<script type="text/javascript" src="../risk/stroke/stroke.js"></script>
+	<script type="text/javascript" src="../risk/lifestyle/lifestyle.js"></script>
+
+	<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.amber-pink.min.css" />
+	<script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection,print" />
+	<link rel="stylesheet" type="text/css" href="../static/css/jquery.svg.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/jquery.qtip.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css">
+	<!--
+	<link rel="stylesheet" type="text/css" href="../static/css/jquery.dataTables.css">
+	 -->
+	<link rel="stylesheet" type="text/css" href="../static/css/dataTables.colReorder.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/dataTables.tableTools.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/dataTables.fixedColumns.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/stickymenu.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+	<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection,print" />
+	<link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection,print"/>
+	<script type="text/javascript" src="../js/keys.js"></script>
+
+</head>
+
+<body>
+
+<div class="for_print">
+	<div class="popup_title_color ui-dialog-titlebar ui-widget-header ui-corner-all" style="padding: auto;">
+		<div style="margin-left: 1%; color: #ffffff !important;">疾患発症リスク計算</div>
+	</div>
+
+	<div class="row risk_caution" style="margin-top: 20px;">
+		<div>整理番号： <span id="userID"></span></div>
+		<div class="col s12">
+			　ここで算出される判定結果は、これまでに報告された研究成果を参考にしたものです。全ての個人に当てはまるかについては確定的とはいえません。また今後の研究によって、判定方法が変更される可能性があり、判定結果が変わることがあります。<br>
+			　ご希望の方には、岩手医科大学附属病院臨床遺伝科を通じて専門診療科に紹介いたします。かかりつけ医や専門医への情報提供、ご家族を含めたフォローアップ、必要に応じた遺伝カウンセリングが可能です。
+		</div>
+	</div>
+
+	<div class="row risk_box">
+		<div class="col s12 risk_title">2型糖尿病</div>
+		<div class="col s12 risk_container">
+			<div id="diabetes_ok_mode">
+				<div class="col s12 risk_result">5年以内の発症率： <span class="risk_parcentile" id="risk_parcentile_diabetes">8.6%</span> </div>
+				<div id="disp_toggle_diabetes" style="height: auto;">
+					<div class="col s12 risk_description" id="">
+						あなたと同性・同年代の集団の発症率は<br>
+						<span id="risk_range_diabetes">最低4.9％ ～ 最高17.9%</span>です
+					</div>
+					<div class="risk_comparison_graph" id="">
+						<img id="risk_image_diabetes" src="../images/190411-1_mockimage1.png" height="320px">
+					</div>
+					<div class="col s10 offset-s1 risk_warning" style="display: block;">
+						確定的ではありませんが、発症率10％以上は2型糖尿病発症の高リスク群の可能性があります。該当する場合は、血液検査の必要性も含めて医師へ相談することをお勧めします。
+					</div>
+					<div class="col s12 risk_reference">
+						今回使用した糖尿病発症リスクスコアは日本人を対象にした久山町研究のデータを元にしています
+						（Doi Y. et al. Two risk score models for predicting incident Type 2 diabetes in Japan. Diabet Med. 2012;29:107-14）。
+					</div>
+				</div>
+			</div>
+			<div id="diabetes_ng_mode">
+				<div class="col s10 offset-s1 risk_warning">
+					糖尿病疾患の服薬治療をされている方、過去に糖尿病を発症された方、または血糖値が「糖尿病型」の方の2型糖尿病発症リスクは計算できません。
+				</div>
+				<div class="col s10 offset-s1 risk_warning diabetes_chd_recommendation">
+					日本糖尿病学会「糖尿病治療ガイド2018-2019」によると、
+					<span class="diabetes_chd_reason" style="color: red;"></span>の場合、「糖尿病型」と判定されます。
+					これを以って診断とはなりませんが、糖尿病である可能性が高く、医師へのご相談をお勧めします。
+				</div>
+				<div class="col s12 risk_reference">
+					今回使用した糖尿病発症リスクスコアは日本人を対象にした久山町研究のデータを元にしています
+					（Doi Y. et al. Two risk score models for predicting incident Type 2 diabetes in Japan. Diabet Med. 2012;29:107-14）。
+				</div>
+			</div>
+			<div id="diabetes_calc_ng">
+				<div class="col s10 offset-s1 risk_warning">
+					糖尿病の発症リスク計算に必要な項目が登録されていません。
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row risk_box">
+		<div class="col s12 risk_title">冠動脈疾患</div>
+		<div class="col s12 risk_container">
+			<div id="chd_ok_mode">
+				<div class="col s12 risk_result">10年以内の発症率： <span class="risk_parcentile" id="risk_parcentile_chd">14%</span> </div>
+				<div id="disp_toggle_chd" style="height: auto;">
+					<div class="col s12 risk_description">
+						あなたと同性・同年代の集団の発症率は<br>
+						<span id="risk_range_chd">最低1％ ～ 最高28%以上</span>です
+					</div>
+					<div class="risk_comparison_graph">
+						<img id="risk_image_chd" src="../images/190411-2_mockimage2.png" height="320px">
+					</div>
+					<div class="col s10 offset-s1 risk_warning" style="display: block;">
+						確定的ではありませんが、発症率2％以上は冠動脈疾患発症の中リスク群、9％以上は高リスク群の可能性があります。該当する場合は、リスクに応じた一次予防のため、医師へ相談することをお勧めします。
+					</div>
+					<div class="col s12 risk_reference">
+						今回使用した冠動脈疾患発症リスク（吹田スコア）は日本人を対象にした吹田研究のデータを元にしています
+						（Nishimura K. et al. Predicting coronary heart disease using risk factor categories for a Japanese urban population, and comparison with the Framingham risk score:
+						the suita study. J Atheroscler Thromb. 2014;21:784-98）。
+					</div>
+				</div>
+			</div>
+			<div id="chd_ng_mode">
+				<div class="col s10 offset-s1 risk_warning">
+					糖尿病疾患の服薬治療をされている方、または血糖値が「糖尿病型」の方の冠動脈疾患発症リスクは計算できません。
+				</div>
+				<div class="col s10 offset-s1 risk_warning diabetes_chd_recommendation">
+					日本糖尿病学会「糖尿病治療ガイド2018-2019」によると、
+					<span class="diabetes_chd_reason" style="color: red;"></span>の場合、「糖尿病型」と判定されます。
+					これを以って診断とはなりませんが、糖尿病である可能性が高く、医師へのご相談をお勧めします。
+				</div>
+			</div>
+			<div class="col s10 offset-s1 risk_warning" id ="chd_ng_mode2">
+				以下の疾患を発症したことがある場合、発症リスクは計算できません。<br>
+				　　・冠動脈疾患の既往のある方<br>
+				　　・糖尿病<br>
+				　　・慢性腎臓病<br>
+				　　・非心原性脳梗塞<br>
+				　　・末梢動脈疾患<br>
+			</div>
+			<div class="col s12 risk_reference" id="chd_ng_ref" style="display: none;">
+					今回使用した冠動脈疾患発症リスク（吹田スコア）は日本人を対象にした吹田研究のデータを元にしています
+					（Nishimura K. et al. Predicting coronary heart disease using risk factor categories for a Japanese urban population, and comparison with the Framingham risk score:
+					the suita study. J Atheroscler Thromb. 2014;21:784-98）。
+			</div>
+			<div id="chd_calc_ng">
+				<div class="col s10 offset-s1 risk_warning">
+					冠動脈疾患の発症リスク計算に必要な項目が登録されていません。
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="page_breaker_for_print"></div>
+
+	<div class="row risk_box">
+		<div class="col s12 risk_title">脳卒中</div>
+		<div class="col s12 risk_container">
+			<div id="stroke_ok_mode">
+				<div class="col s12 risk_result">10年以内の発症率： <span class="risk_parcentile" id="risk_parcentile_stroke">4.4%</span></div>
+				<div id="disp_toggle_stroke" style="height: auto;">
+					<div class="col s12 risk_description">
+						あなたと同性・同年代の集団の発症率は<br>
+						<span id="risk_range_stroke">最低1～2％ ～ 最高15～20%以上</span>です
+					</div>
+					<div class="risk_comparison_graph">
+						<img id="risk_image_stroke" src="../images/190411-3_mockimage3.png" height="280px">
+					</div>
+					<div class="col s10 offset-s1 risk_warning" style="display: block;">
+						確定的ではありませんが、発症率10%以上は脳卒中発症の中リスク群、20%以上は高リスク群の可能性があります。該当する場合は、一度医師へ相談することをお勧めします。
+					</div>
+					<div class="col s12 risk_reference">
+						今回使用した発症予測モデルは日本人を対象にした多目的コホート研究（JPHC研究）のデータを元にしています
+						（Yatsuya H. et al. Development of a point-based prediction model for the incidence of total stroke: Japan public health center study. Stroke. 2013;44:1295-302）。
+						なお本予測モデルには脳卒中の家族歴は含まれていません。
+						ご家族に脳卒中の方がいると、発症リスクが増加するとされる米国の研究がありますが、日本人に当てはまるかについては確定的とはいえません
+						（Flossmann E. et al., Systematic review of methods and results of studies of the genetic epidemiology of ischemic stroke. Stroke. 2004;35:212-27）。
+					</div>
+				</div>
+			</div>
+			<div id="stroke_ng_mode">
+				<div class="col s10 offset-s1 risk_warning" style="display: block;">
+					脳卒中の既往のある方、年齢40歳未満または70歳以上の方の脳卒中発症リスクは計算できません。
+				</div>
+				<div class="col s12 risk_reference">
+					今回使用した発症予測モデルは日本人を対象にした多目的コホート研究（JPHC研究）のデータを元にしています
+					（Yatsuya H. et al. Development of a point-based prediction model for the incidence of total stroke: Japan public health center study. Stroke. 2013;44:1295-302）。
+					なお本予測モデルには脳卒中の家族歴は含まれていません。
+					ご家族に脳卒中の方がいると、発症リスクが増加するとされる米国の研究がありますが、日本人に当てはまるかについては確定的とはいえません
+					（Flossmann E. et al., Systematic review of methods and results of studies of the genetic epidemiology of ischemic stroke. Stroke. 2004;35:212-27）。
+				</div>
+			</div>
+			<div id="stroke_calc_ng">
+				<div class="col s10 offset-s1 risk_warning">
+					脳卒中の発症リスク計算に必要な項目が登録されていません。
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row risk_box">
+		<div class="col s12 risk_title">リスク計算内訳</div>
+		<div class="col s12 risk_container center">
+			<div id="disp_toggle_scoreDetail" style="height: auto;">
+				<table class="score_detail_style">
+					<tr>
+						<th colspan="2">2型糖尿病</th>
+					</tr>
+					<tr>
+						<th width="70%">項目</th>
+						<th width="30%">スコア</th>
+					</tr>
+					<tr>
+						<td>年齢</td>
+						<td id="drc_score_age"></td>
+					</tr>
+					<tr>
+						<td>性別</td>
+						<td id="drc_score_gender"></td>
+					</tr>
+					<tr>
+						<td>第一度近親または第二度近親までの糖尿病家族歴</td>
+						<td id="drc_score_family"></td>
+					</tr>
+					<tr>
+						<td>中心性肥満</td>
+						<td id="drc_score_obese"></td>
+					</tr>
+					<tr>
+						<td>BMI</td>
+						<td id="drc_score_bmi"></td>
+					</tr>
+					<tr>
+						<td>高血圧</td>
+						<td id="drc_score_bp"></td>
+					</tr>
+					<tr>
+						<td>喫煙</td>
+						<td id="drc_score_smoke"></td>
+					</tr>
+					<tr>
+						<td>定期的の運動</td>
+						<td id="drc_score_activity"></td>
+					</tr>
+					<tr>
+						<td>合計</td>
+						<td id="drc_score_total"></td>
+					</tr>
+				</table>
+
+				<table class="score_detail_style">
+					<tr>
+						<th colspan="2">冠動脈疾患</th>
+					</tr>
+					<tr>
+						<th width="70%">項目</th>
+						<th width="30%">スコア</th>
+					</tr>
+					<tr>
+						<td>年齢</td>
+						<td id="chd_score_age"></td>
+					</tr>
+					<tr>
+						<td>性別</td>
+						<td id="chd_score_gender"></td>
+					</tr>
+					<tr>
+						<td>喫煙</td>
+						<td id="chd_score_isSmoker"></td>
+					</tr>
+					<tr>
+						<td>血圧</td>
+						<td id="chd_score_bloodPressure"></td>
+					</tr>
+					<tr>
+						<td>耐糖能異常</td>
+						<td id="chd_score_suger"></td>
+					</tr>
+					<tr>
+						<td>早発性冠動脈疾患</td>
+						<td id="chd_score_chd"></td>
+					</tr>
+					<tr>
+						<td>HDL-C</td>
+						<td id="chd_score_hdlValue"></td>
+					</tr>
+					<tr>
+						<td>LDL-C</td>
+						<td id="chd_score_ldlValue"></td>
+					</tr>
+					<tr>
+						<td>合計</td>
+						<td id="chd_score_total"></td>
+					</tr>
+				</table>
+
+				<table class="score_detail_style" style="margin-bottom: 5px;">
+					<tr>
+						<th colspan="2">脳卒中</th>
+					</tr>
+					<tr>
+						<th width="70%">項目</th>
+						<th width="30%">スコア</th>
+					</tr>
+					<tr>
+						<td>年齢</td>
+						<td id="stroke_score_age"></td>
+					</tr>
+					<tr>
+						<td>性別</td>
+						<td id="stroke_score_gender"></td>
+					</tr>
+					<tr>
+						<td>喫煙</td>
+						<td id="stroke_score_isSmoker"></td>
+					</tr>
+					<tr>
+						<td>BMI</td>
+						<td id="stroke_score_bmi"></td>
+					</tr>
+					<tr>
+						<td>血圧</td>
+						<td id="stroke_score_blood_pressure"></td>
+					</tr>
+					<tr>
+						<td>糖尿病</td>
+						<td id="stroke_score_diabetes"></td>
+					</tr>
+					<tr>
+						<td>合計</td>
+						<td id="stroke_score_total"></td>
+					</tr>
+				</table>
+
+
+				<table class="score_detail_style" style="margin-bottom: 5px;">
+					<tr>
+						<th colspan="2">ライフスタイルスコア</th>
+					</tr>
+					<tr>
+						<th width="70%">項目</th>
+						<th width="30%">スコア</th>
+					</tr>
+					<tr>
+						<td>喫煙</td>
+						<td id="lifestyle_score_isSmoker"></td>
+					</tr>
+					<tr>
+						<td>BMI</td>
+						<td id="lifestyle_score_bmi"></td>
+					</tr>
+					<tr>
+						<td>週1回以上の定期的な運動</td>
+						<td id="lifestyle_score_blood_pressure"></td>
+					</tr>
+					<tr>
+						<td>健康的な食習慣</td>
+						<td id="lifestyle_score_diabetes"></td>
+					</tr>
+					<tr>
+						<td>合計</td>
+						<td id="lifestyle_score_total"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script>
+$('#userID').load( "../../operation/getuserid" , function(data){
+	$('title').text("family-t 整理番号： " + data);
+});
+personal_information = window.opener.personal_information;
+riskCalcAndShow();
+
+$(document).ready(function(){
+	print();
+});
+</script>
+
+</body>
+</html>

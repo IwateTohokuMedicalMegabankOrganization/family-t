@@ -347,9 +347,17 @@ button.ui-button::-moz-focus-inner {
 	font-size: 1em;
 	margin: 1px 0;
 }
-.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-month{
+  height: 2em!important;      /* 高さ調整 */
+  margin-left:5px!important;  /* 「年」との余白設定 */
+  width:70px!important;       /* 幅調整 */
+  background-color: #f3b950;
+}
 .ui-datepicker select.ui-datepicker-year {
-	width: 49%;
+  height: 2em!important;      /* 高さ調整 */
+  margin-right:5px!important; /* 「年」との余白設定 */
+  width:70px!important;       /* 幅調整 */
+  background-color: #f3b950;
 }
 .ui-datepicker table {
 	width: 100%;
@@ -469,6 +477,7 @@ button.ui-button::-moz-focus-inner {
 	left: 0;
 	padding: .2em;
 	outline: 0;
+	box-shadow: 2px 2px 4px gray;
 }
 .ui-dialog .ui-dialog-titlebar {
 	padding: .4em 1em;

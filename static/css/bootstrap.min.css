@@ -157,7 +157,7 @@ th {
   a[href^="#"]:after {
     content: "";
   }
-  
+
   blockquote {
     border: 1px solid #999;
 
@@ -4871,7 +4871,7 @@ button.close {
   border: 1px solid rgba(0, 0, 0, .2);
   border-radius: 6px;
   outline: none;
-  overflow:scroll;  
+  overflow:scroll;
   -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
           box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
 }
@@ -5531,4 +5531,13 @@ button.close {
     display: none !important;
   }
 }
+/*.col-lg-8.pull-right {
+	padding-top: 2em;
+}
+*/
+.spanheight {
+	padding-top: -2em;
+	padding-bottom: 6em;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */

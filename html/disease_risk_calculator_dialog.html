@@ -1,0 +1,816 @@
+<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection,print" />
+<link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection,print"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="row risk_caution">
+	<div class="col s11">
+
+		<span class='translate' data-i18n='family-t_risk.exp1'>
+		　ここで算出される判定結果は、これまでに報告された研究成果を参考にしたものです。
+		</span>
+
+		<span class='translate' data-i18n='family-t_risk.exp2'>
+			全ての個人に当てはまるかについては確定的とはいえません。
+		</span>
+
+		<span class='translate' data-i18n='family-t_risk.exp3'>
+			また今後の研究によって、判定方法が変更される可能性があり、判定結果が変わることがあります。
+		</span>
+
+		<br />
+
+		<span class='translate' data-i18n='family-t_risk.exp4'>
+		　ご希望の方には、岩手医科大学附属病院臨床遺伝科を通じて専門診療科に紹介いたします。
+		</span>
+
+		<span class='translate' data-i18n='family-t_risk.exp5'>
+		かかりつけ医や専門医への情報提供、ご家族を含めたフォローアップ、必要に応じた遺伝カウンセリングが可能です。
+		</span>
+	</div>
+	<div class="col s1 center" style="margin-top: 2em; padding-left: 2em;" id="risk_printer">
+		<span class="material-icons large-size green-text cursor_pointer icon_shadow">print</span><div class="col s12"style="white-space: nowrap;">
+		<span class='translate' data-i18n='fhh_family_pedigree.print'>印刷</span></div>
+	</div>
+</div>
+
+<div class="row compensational_block" id="compensational_block">
+	<div class="col s12 compensation_start">
+		<div class="col s12 left">
+			<span class='translate' data-i18n='family-t_risk.exp6'>
+				リスク計算に必要な以下の項目が未入力です。（）内はその項目の情報が計算に必要となる病名です。
+			</span>
+			<br>
+			<span class='translate' data-i18n='family-t_risk.exp7'>
+				各項目の情報を入力することで、より精度の高い計算を行います。<br>
+			</span>
+		</div>
+	</div>
+
+	<div id="compensate_gender" class="col s12 compensation">
+		<div class="col s5">
+		<span class='translate' data-i18n='family-t.gender'>性別</span>
+
+
+			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.disease_guide_p1'>（糖尿病、冠動脈疾患、脳卒中）</span></div>
+		</div>
+		<div class="col s7">
+			<div class="col s12">
+				<input name="compensation_gender" id="compensation_gender_male" value="MALE" type="radio">
+				<label for="compensation_gender_male" class='translate' data-i18n='info_dialog.male'>Male</label>
+				<input name="compensation_gender" id="compensation_gender_female" value="FEMALE" type="radio">
+				<label for="compensation_gender_female" class='translate' data-i18n='info_dialog.female'>Female</label>
+			</div>
+		</div>
+	</div>
+
+	<div id="compensate_birth" class="col s12 compensation">
+		<div class="col s5">
+			<span class='translate' data-i18n='info_dialog.dob'>生年月</span>
+			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.disease_guide_p1'>（糖尿病、冠動脈疾患、脳卒中）</span></div>
+		</div>
+		<div class="col s7">
+			<div class="col s12">
+				<select name="compensation_year_of_birth" id="compensation_year_of_birth" style="width: auto; height:80%;">
+					<option value="" selected disabled> </option>
+					<option value="1950">1950</option>
+					<option value="1951">1951</option>
+					<option value="1952">1952</option>
+					<option value="1953">1953</option>
+					<option value="1954">1954</option>
+					<option value="1955">1955</option>
+					<option value="1956">1956</option>
+					<option value="1957">1957</option>
+					<option value="1958">1958</option>
+					<option value="1959">1959</option>
+					<option value="1960">1960</option>
+					<option value="1961">1961</option>
+					<option value="1962">1962</option>
+					<option value="1963">1963</option>
+					<option value="1964">1964</option>
+					<option value="1965">1965</option>
+					<option value="1966">1966</option>
+					<option value="1967">1967</option>
+					<option value="1968">1968</option>
+					<option value="1969">1969</option>
+					<option value="1970">1970</option>
+					<option value="1971">1971</option>
+					<option value="1972">1972</option>
+					<option value="1973">1973</option>
+					<option value="1974">1974</option>
+					<option value="1975">1975</option>
+					<option value="1976">1976</option>
+					<option value="1977">1977</option>
+					<option value="1978">1978</option>
+					<option value="1979">1979</option>
+				</select> 年
+				<select name="compensation_month_of_birth" id="compensation_month_of_birth" style="width: auto; height:80%;">
+					<option value="" selected disabled> </option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+				</select> 月
+			</div>
+		</div>
+	</div>
+
+	<div id="compensate_height" class="col s12 compensation">
+		<div class="col s5">
+			<span class='translate' data-i18n='info_dialog.height'>身長</span>
+			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.disease_guide_p2'>（糖尿病、脳卒中）</span></div>
+		</div>
+		<div class="col s7">
+			<div class="col s12">
+				<input class='number' name="compensation_height" size="3" maxlength='3' value="" max="300" id="compensation_height_centimeters" type="text"
+				onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" style="width:60px; height:85%;">
+				cm
+			</div>
+		</div>
+	</div>
+
+	<div id="compensate_weight" class="col s12 compensation">
+		<div class="col s5">
+			<span class='translate' data-i18n='info_dialog.weight'>体重</span>
+			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.disease_guide_p2'>（糖尿病、脳卒中）</span></div>
+		</div>
+		<div class="col s7">
+			<div class="col s12">
+				<input class='number' name="compensation_weight" size="3" maxlength='3' value="" max="300" id="compensation_weight" type="text"
+				onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" style="width:60px; height:85%;">
+				kg
+			</div>
+		</div>
+	</div>
+
+	<div id="compensate_waist" class="col s12 compensation">
+		<div class="col s5">
+			<span class='translate' data-i18n='family-t.waist_circumference'>腹囲</span>
+			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.disease_guide_type2'>（糖尿病）</span></div>
+		</div>
+		<div class="col s7">
+			<div class="col s12">
+				<input class='number' name="compensation_waist" size="3" maxlength='3' value="" max="300" id="compensation_waist" type="text"
+				onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" style="width:60px; height:85%;">
+				cm
+			</div>
+		</div>
+	</div>
+
+	<div id="compensate_smoker" class="col s12 compensation">
+		<div class="col s5" style="padding-bottom: 5px;">
+			<span class='translate' data-i18n='family-t.smoking_status'>喫煙状況</span>
+			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.disease_guide_p1'>（糖尿病、冠動脈疾患、脳卒中）</span></div>
+		</div>
+		<div class="col s7" style="padding-bottom: 5px;">
+			<div class="col s12">
+				<input id="compensation_smoker1" name="compensation_smoker" value="1" type="radio" />
+				<label for="compensation_smoker1">
+					<span class='translate' data-i18n="family-t.select_your_current_smoking_status" >Never smoked</span>
+				</label>
+			</div>
+
+			<div class="col s12">
+				<input id="compensation_smoker2" name="compensation_smoker" value="2" type="radio" />
+				<label for="compensation_smoker2">
+					<span class='translate' data-i18n="family-t.former_smoker_quit_more_than_fifteen_years_ago." >Former smoker: quit more than fifteen years ago.</span>
+				</label>
+			</div>
+
+			<div class="col s12">
+				<input id="compensation_smoker3" name="compensation_smoker" value="3" type="radio" />
+				<label for="compensation_smoker3">
+					<span class='translate' data-i18n="family-t.former_smoker_quit_between_one_and_fifteen_years_ago." >
+						Former smoker: quit between one and fifteen years ago.
+					</span>
+				</label>
+			</div>
+
+			<div class="col s12">
+				<input id="compensation_smoker4" name="compensation_smoker" value="4" type="radio" />
+				<label for="compensation_smoker4">
+				<span class='translate' data-i18n="family-t.former_smoker_quit_less_than_one_year_ago" >
+					Former smoker: quit less than one year ago
+				</span>
+				</label>
+			</div>
+
+			<div class="col s12">
+				<input id="compensation_smoker5" name="compensation_smoker" value="5" type="radio" />
+				<label for="compensation_smoker5">
+				<span class='translate' data-i18n="family-t.current_smoker" >Current smoker</span></label>
+			</div>
+		</div>
+		<div class="col s5">
+			<span class='translate' data-i18n="family-t.select_the_number_of_cigarettes_you_smoke_per_day_on_average" >
+			Select the number of cigarettes you smoke per day (on average).
+			</span>
+		</div>
+		<div class="col s7">
+			<div class="col s6">
+				<input id="compensation_number_of_cigarettes_per_day_1_to_9" name="compensation_number_of_cigarettes_per_day" value="1_to_9" type="radio" disabled/>
+				<label for="compensation_number_of_cigarettes_per_day_1_to_9">
+					<span class='translate' data-i18n="family-t.1_-_9_cigarettes_per_day" >1 - 9 cigarettes per day</span>
+				</label>
+			</div>
+			<div class="col s6">
+				<input id="compensation_number_of_cigarettes_per_day_10_or_more" name="compensation_number_of_cigarettes_per_day" value="10_or_more" type="radio" disabled/>
+				<label for="compensation_number_of_cigarettes_per_day_10_or_more">
+					<span class='translate' data-i18n="family-t.more_than_10_cigarettes_per_day" >More than 10 cigarettes per day</span>
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<div id="compensate_training" class="col s12 compensation">
+		<div class="col s5" style="padding-bottom: 5px;">
+			<span class='translate' data-i18n="family-t.do_you_exercise_regularly">
+				Do you exercise regularly?
+			</span>
+			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.disease_guide_type2'>（糖尿病）</span></div>
+		</div>
+		<div class="col s7" style="padding-bottom: 5px;">
+			<div class="col s4">
+				<input id="compensation_training_yes" name="compensation_training" value="1" type="radio" />
+				<label for="compensation_training_yes"><span class='translate' data-i18n="family-t.yes">Yes</span></label>
+			</div>
+			<div class="col s4">
+				<input id="compensation_training_no" name="compensation_training" value="0" type="radio" />
+				<label for="compensation_training_no"><span class='translate' data-i18n="family-t.no">No</span></label>
+			</div>
+		</div>
+
+		<div class="col s5" style="padding-bottom: 5px;">
+		</div>
+		<div class="col s7" style="padding-bottom: 5px;">
+			<div class="col s3">
+				<select name="compensation_training_status1" id="compensation_training_strength" disabled>
+						<option value="空欄"></option>
+						<option value="中程度"><span class='translate' data-i18n="family-t.moderate">Moderate</span></option>
+						<option value="重度"><span class='translate' data-i18n="family-t.intensive">Intensive</span></option>
+				</select>
+			</div>
+		</div>
+
+		<div class="col s5" style="padding-bottom: 5px;">
+			<span class='translate' data-i18n="family-t.moderate">Number of times you exercise per week</span>
+		</div>
+		<div class="col s7" style="padding-bottom: 5px;">
+			<div class="col s12">
+				<input class="number" id="compensation_count_for_training_at_week" min="1" max="30" maxlength="2" name="compensation_training_status2"
+				style="width:60px; height:85%;" type="number" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" disabled/>
+				回
+			</div>
+		</div>
+
+		<div class="col s5">
+			<span class='translate' data-i18n="family-t.total_minutes_per_week">
+			Total minutes per week:
+			</span>
+		</div>
+		<div class="col s7">
+			<div class="col s12">
+				<input class="number" id="compensation_time_for_training_at_week" min="10" max="10000" maxlength="5" name="compensation_training_status3"
+				style="width:90px; height:85%;" type="number" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" disabled/>
+				分
+			</div>
+		</div>
+	</div>
+
+	<div id="compensate_antihypertensive" class="col s12 compensation">
+		<div class="col s5">
+			降圧剤（血圧を下げる薬）を服用していますか？
+			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.disease_guide_p3'>（冠動脈疾患、脳卒中）</span></div>
+		</div>
+		<div class="col s7">
+			<div class="col s4"><input id="compensation_take_antihypertensive_TRUE" name="compensation_take_antihypertensive" value="true" type="radio" />
+				<label for="compensation_take_antihypertensive_TRUE"><span class='translate' data-i18n='family-t.yes'>Yes</span></label>
+			</div>
+			<div class="col s4"><input id="compensation_take_antihypertensive_FALSE" name="compensation_take_antihypertensive" value="false" type="radio" />
+				<label for="compensation_take_antihypertensive_FALSE"><span class='translate' data-i18n='family-t.no'>No</span></label>
+			</div>
+		</div>
+	</div>
+
+	<div id="compensate_bpmax" class="col s12 compensation">
+		<div class="col s5">
+			最高血圧（mmHg）
+			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.disease_guide_p1'>（糖尿病、冠動脈疾患、脳卒中）</span></div>
+		</div>
+		<div class="col s7">
+			<div class="col s5">
+				<select id='compensation_systolic_blood_pressure' name='compensation_systolic_blood_pressure'>
+					<option value="" selected>選択してください</option>
+					<option value='under_119'>119以下</option>
+					<option value='120-129'>120～129</option>
+					<option value='130-139'>130～139</option>
+					<option value='140-159'>140～159</option>
+					<option value='160-179'>160～179</option>
+					<option value='over180'>180以上</option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<div id="compensate_bpmin" class="col s12 compensation">
+		<div class="col s5">
+			最低血圧（mmHg）
+			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.disease_guide_p1'>（糖尿病、冠動脈疾患、脳卒中）</span></div>
+		</div>
+		<div class="col s7">
+			<div class="col s5">
+				<select id='compensation_diastolic_blood_pressure' name='compensation_diastolic_blood_pressure'>
+					<option value="" selected>選択してください</option>
+					<option value='79_or_less'>79以下</option>
+					<option value='80-84'>80～84</option>
+					<option value='85-89'>85～89</option>
+					<option value='90-99'>90～99</option>
+					<option value='100-109'>100～109</option>
+					<option value='over110'>110以上</option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<div id="compensate_hdl" class="col s12 compensation">
+		<div class="col s5">
+			<span class='translate' data-i18n='family-t.hdl_cholesterol_(mg/dl)'>HDL cholesterol (mg/dL)</span>
+			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.heart'>（冠動脈疾患）</span></div>
+		</div>
+		<div class="col s7">
+			<div class="col s5">
+				<select id='compensation_hdl_cholesterol' name='compensation_hdl_cholesterol'>
+					<option value="" selected>選択してください</option>
+					<option value='less_than_40'>40未満</option>
+					<option value='40-59'>40～59</option>
+					<option value='over60'>60以上  </option>
+					<option value='unknown'>分からない</option>
+					<option value='not_inspected'>検査していない</option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<div id="compensate_ldl" class="col s12 compensation">
+		<div class="col s5">
+			<span class='translate' data-i18n='family-t.ldl_cholesterol_(mg/dl)'>LDL cholesterol (mg/dL)</span>
+			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.heart'>（冠動脈疾患）</span></div>
+		</div>
+		<div class="col s7">
+			<div class="col s5">
+				<select id='compensation_ldl_cholesterol' name='compensation_ldl_cholesterol'>
+					<option value="" selected>選択してください</option>
+					<option value='less_than_100'>100未満</option>
+					<option value='100-139'>100～139</option>
+					<option value='140-159'>140～159</option>
+					<option value='160-179'>160～179</option>
+					<option value='over180'>180以上  </option>
+					<option value='unknown'>分からない</option>
+					<option value='not_inspected'>検査していない</option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<div id="compensate_bloodglucose" class="col s12 compensation">
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.are_you_currently_taking_a_hypoglycemic_agent?'>Are you currently taking a hypoglycemic agent?</span>
+				<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.stroke'>（脳卒中）</span></div>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="compensation_take_hypoglycemic_TRUE" name="compensation_take_hypoglycemic" value="true" type="radio" />
+					<label for="compensation_take_hypoglycemic_TRUE"><span class='translate' data-i18n='family-t.yes'>Yes</span></label>
+				</div>
+				<div class="col s4"><input id="compensation_take_hypoglycemic_FALSE" name="compensation_take_hypoglycemic" value="false" type="radio" />
+					<label for="compensation_take_hypoglycemic_FALSE"><span class='translate' data-i18n='family-t.no'>No</span></label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.fasting_blood_glucose_(mg/dl)'>Fasting blood glucose (mg/dL)</span>
+				<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.stroke'>（脳卒中）</span></div>
+			</div>
+			<div class="col s7">
+				<div class="col s5">
+					<select id='compensation_fasting_blood_glucose_lebel' name='compensation_fasting_blood_glucose_lebel'>
+						<option value="" selected>選択してください</option>
+						<option value='99_or_less'>99以下</option>
+						<option value='100-129'>100～109</option>
+						<option value='110-125'>110～125</option>
+						<option value='over126'>126以上 </option>
+						<option value='unknown'>分からない</option>
+						<option value='not_inspected'>検査していない</option>
+					</select>
+				</div>
+			</div>
+	 	</div>
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.casual_blood_glucose_(mg/dl)_(blood_glucose_tested_at_any_time_of_the_day)'>Casual blood glucose (mg/dL) (blood glucose tested at any time of the day)</span>
+				<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.stroke'>（脳卒中）</span></div>
+			</div>
+			<div class="col s7">
+				<div class="col s5">
+					<select id='compensation_occasionally_blood_glucose_lebel' name='compensation_occasionally_blood_glucose_lebel'>
+						<option value="" selected>選択してください</option>
+						<option value='139_or_less'>139以下</option>
+						<option value='140-199'>140～199</option>
+						<option value='over200'>200以上 </option>
+						<option value='unknown'>分からない</option>
+						<option value='not_inspected'>検査していない</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.oral_glucose_tolerance_test_(ogtt)_two-hour_blood_glucose_(mg/dl)'>Oral glucose tolerance test (OGTT) two-hour blood glucose (mg/dL)</span>
+				<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.stroke'>（脳卒中）</span></div>
+			</div>
+			<div class="col s7">
+				<div class="col s5">
+					<select id='compensation_ogtt_blood_glucose_lebel' name='compensation_ogtt_blood_glucose_lebel'>
+						<option value="" selected>選択してください</option>
+						<option value='139_or_less'>139以下</option>
+						<option value='140-199'>140～199</option>
+						<option value='over200'>200以上 </option>
+						<option value='unknown'>分からない</option>
+						<option value='not_inspected'>検査していない</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.hba1c_(%)'>HbA1c (%)</span>
+				<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.stroke'>（脳卒中）</span></div>
+			</div>
+			<div class="col s7">
+				<div class="col s5">
+					<select id='compensation_hba1c' name='compensation_hba1c'>
+						<option value="" selected>選択してください</option>
+						<option value='under65'>6.5未満</option>
+						<option value='over65'>6.5以上</option>
+						<option value='unknown'>分からない</option>
+						<option value='not_inspected'>検査していない</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col s12 compensation">
+		<div class="col s12 center">
+			<button id='reCalculate' class="btn-small waves-effect waves-light teal lighten-1">
+				<i class="material-icons left">refresh</i>
+				<span class='translate' data-i18n='family-t_risk.recalculate'>再計算</span>
+			</button>
+		</div>
+	</div>
+</div>
+
+<div class="row risk_box">
+	<div class="col s12 risk_title">
+		<span class='translate' data-i18n='family-t_risk.type2diabates'>2型糖尿病</span>
+	</div>
+	<div class="col s12 risk_container">
+		<div id="diabetes_ok_mode">
+			<div class="col s12 risk_result">
+			<span class='translate' data-i18n='family-t_risk.predicted_probability_in_5_years'>5年以内の発症率：</span>
+			 <span class="risk_parcentile" id="risk_parcentile_diabetes">8.6%</span> </div>
+			<div id="disp_toggle_diabetes" style="height: 700px;">
+				<div class="col s12 risk_description" id="">
+				<span class='translate' data-i18n='family-t_risk.type2_result_exp1'>あなたと同性・同年代の集団の発症率は</span>
+					<br>
+					<span id="risk_range_diabetes">最低4.9％ ～ 最高17.9%</span>です
+				</div>
+				<div class="risk_comparison_graph" id="">
+					<img id="risk_image_diabetes" src="../images/190411-1_mockimage1.png" height="320px">
+				</div>
+				<div class="col s10 offset-s1 risk_warning" style="display: block;">
+				<span class='translate' data-i18n='family-t_risk.type2_result_exp2'>
+				確定的ではありませんが、発症率10％以上は2型糖尿病発症の高リスク群の可能性があります。
+				<span class='translate' data-i18n='family-t_risk.type2_result_exp3'>
+				該当する場合は、血液検査の必要性も含めて医師へ相談することをお勧めします。
+				</span>
+				</span>
+				</div>
+				<div class="col s12 risk_reference">
+				<span class='translate' data-i18n='family-t_risk.type2_result_exp4'>
+					今回使用した2型糖尿病発症リスクスコアは日本人を対象にした久山町研究のデータを元にしています
+					（Doi Y. et al. Two risk score models for predicting incident Type 2 diabetes in Japan. Diabet Med. 2012;29:107-14）。
+				</span>
+				</div>
+			</div>
+			<div class="col s12 center"><span id="btn_toggle_diabetes" class="material-icons large-size orange-text cursor_pointer icon_shadow_o">swap_vertical_circle</span></div>
+		</div>
+		<div id="diabetes_ng_mode">
+			<div class="col s10 offset-s1 risk_warning">
+				<span class='translate' data-i18n='family-t_risk.stroke_result_exp4'>
+				糖尿病疾患の服薬治療をされている方、過去に糖尿病を発症された方、または血糖値が「糖尿病型」の方の2型糖尿病発症リスクは計算できません。
+				</span>
+			</div>
+			<div class="col s10 offset-s1 risk_warning diabetes_chd_recommendation">
+				日本糖尿病学会「糖尿病治療ガイド2018-2019」によると、
+				<span class="diabetes_chd_reason" style="color: red;"></span>の場合、「糖尿病型」と判定されます。
+				これを以って診断とはなりませんが、糖尿病である可能性が高く、医師へのご相談をお勧めします。
+			</div>
+			<div class="col s12 risk_reference">
+				今回使用した2型糖尿病発症リスクスコアは日本人を対象にした久山町研究のデータを元にしています
+				（Doi Y. et al. Two risk score models for predicting incident Type 2 diabetes in Japan. Diabet Med. 2012;29:107-14）。
+			</div>
+		</div>
+		<div id="diabetes_calc_ng">
+			<div class="col s10 offset-s1 risk_warning">
+				2型糖尿病の発症リスク計算に必要な項目が登録されていません。
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row risk_box">
+	<div class="col s12 risk_title">
+		<span class='translate' data-i18n='family-t_risk.cdh'>冠動脈疾患</span>
+	</div>
+	<div class="col s12 risk_title"></div>
+	<div class="col s12 risk_container">
+		<div id="chd_ok_mode">
+			<div class="col s12 risk_result">
+				<span class='translate' data-i18n='family-t_risk.predicted_probability_in_10_years'>10年以内の発症率：</span>
+				<span class="risk_parcentile" id="risk_parcentile_chd">14%</span> </div>
+			<div id="disp_toggle_chd" style="height: 800px;">
+				<div class="col s12 risk_description">
+					<span class='translate' data-i18n='family-t_risk.type2_result_exp1'>あなたと同性・同年代の集団の発症率は</span>
+					<br>
+					<span id="risk_range_chd">最低1％ ～ 最高28%以上</span>です
+				</div>
+				<div class="risk_comparison_graph">
+					<img id="risk_image_chd" src="../images/190411-2_mockimage2.png" height="320px">
+				</div>
+				<div class="col s10 offset-s1 risk_warning" style="display: block;">
+				<span class='translate' data-i18n='family-t_risk.hdc_result_exp1'>
+					確定的ではありませんが、発症率2％以上は冠動脈疾患発症の中リスク群、9％以上は高リスク群の可能性があります。該当する場合は、リスクに応じた一次予防のため、医師へ相談することをお勧めします。
+				</span>
+				</div>
+				<div class="col s12 risk_reference">
+				<span class='translate' data-i18n='family-t_risk.hdc_result_exp2'>
+					今回使用した冠動脈疾患発症リスク（吹田スコア）は日本人を対象にした吹田研究のデータを元にしています
+					（Nishimura K. et al. Predicting coronary heart disease using risk factor categories for a Japanese urban population, and comparison with the Framingham risk score:
+					the suita study. J Atheroscler Thromb. 2014;21:784-98）。
+				</span>
+				</div>
+			</div>
+			<div class="col s12 center"><span id="btn_toggle_chd" class="material-icons large-size orange-text cursor_pointer icon_shadow_o">swap_vertical_circle</span></div>
+		</div>
+		<div id="chd_ng_mode">
+			<div class="col s10 offset-s1 risk_warning">
+				<span class='translate' data-i18n='family-t_risk.stroke_result_exp5'>
+				糖尿病疾患の服薬治療をされている方、または血糖値が「糖尿病型」の方の冠動脈疾患発症リスクは計算できません。
+				</span>
+			</div>
+			<div class="col s10 offset-s1 risk_warning diabetes_chd_recommendation">
+				日本糖尿病学会「糖尿病治療ガイド2018-2019」によると、
+				<span class="diabetes_chd_reason" style="color: red;"></span>の場合、「糖尿病型」と判定されます。
+				これを以って診断とはなりませんが、糖尿病である可能性が高く、医師へのご相談をお勧めします。
+			</div>
+		</div>
+		<div class="col s10 offset-s1 risk_warning" id ="chd_ng_mode2">
+			以下の疾患を発症したことがある場合、発症リスクは計算できません。<br>
+			　　・冠動脈疾患の既往のある方<br>
+			　　・糖尿病<br>
+			　　・慢性腎臓病<br>
+			　　・非心原性脳梗塞<br>
+			　　・末梢動脈疾患<br>
+		</div>
+		<div class="col s12 risk_reference" id="chd_ng_ref" style="display: none;">
+				今回使用した冠動脈疾患発症リスク（吹田スコア）は日本人を対象にした吹田研究のデータを元にしています
+				（Nishimura K. et al. Predicting coronary heart disease using risk factor categories for a Japanese urban population, and comparison with the Framingham risk score:
+				the suita study. J Atheroscler Thromb. 2014;21:784-98）。
+		</div>
+		<div id="chd_calc_ng">
+			<div class="col s10 offset-s1 risk_warning">
+				冠動脈疾患の発症リスク計算に必要な項目が登録されていません。
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row risk_box">
+	<div class="col s12 risk_title">
+		<span class='translate' data-i18n='family-t_risk.stroke'>脳卒中</span>
+	</div>
+	<div class="col s12 risk_container">
+		<div id="stroke_ok_mode">
+			<div class="col s12 risk_result">
+				<span class='translate' data-i18n='family-t_risk.predicted_probability_in_10_years'>10年以内の発症率：</span>
+				<span class="risk_parcentile" id="risk_parcentile_stroke">4.4%</span></div>
+			<div id="disp_toggle_stroke" style="height: 750px;">
+				<div class="col s12 risk_description">
+					<span class='translate' data-i18n='family-t_risk.type2_result_exp1'>あなたと同性・同年代の集団の発症率は</span>
+					<br />
+					<span id="risk_range_stroke">最低1～2％ ～ 最高15～20%以上</span>です
+				</div>
+				<div class="risk_comparison_graph">
+					<img id="risk_image_stroke" src="../images/190411-3_mockimage3.png" height="280px">
+				</div>
+				<div class="col s10 offset-s1 risk_warning" style="display: block;">
+				<span class='translate' data-i18n='family-t_risk.stroke_result_exp1'>
+					確定的ではありませんが、発症率10%以上は脳卒中発症の中リスク群、20%以上は高リスク群の可能性があります。該当する場合は、一度医師へ相談することをお勧めします。
+				</span>
+				</div>
+				<div class="col s12 risk_reference">
+				<span class='translate' data-i18n='family-t_risk.stroke_result_exp2'>
+					今回使用した発症予測モデルは日本人を対象にした多目的コホート研究（JPHC研究）のデータを元にしています
+					（Yatsuya H. et al. Development of a point-based prediction model for the incidence of total stroke: Japan public health center study. Stroke. 2013;44:1295-302）。
+				</span>
+				<span class='translate' data-i18n='family-t_risk.stroke_result_exp3'>
+					なお本予測モデルには脳卒中の家族歴は含まれていません。
+					ご家族に脳卒中の方がいると、発症リスクが増加するとされる米国の研究がありますが、日本人に当てはまるかについては確定的とはいえません
+					（Flossmann E. et al., Systematic review of methods and results of studies of the genetic epidemiology of ischemic stroke. Stroke. 2004;35:212-27）。
+				</span>
+				</div>
+			</div>
+			<div class="col s12 center"><span id="btn_toggle_stroke" class="material-icons large-size orange-text cursor_pointer icon_shadow_o">swap_vertical_circle</span></div>
+		</div>
+		<div id="stroke_ng_mode">
+			<div class="col s10 offset-s1 risk_warning" style="display: block;">
+				<span class='translate' data-i18n='family-t_risk.stroke_result_exp6'>
+				脳卒中の既往のある方、年齢40歳未満または70歳以上の方の脳卒中発症リスクは計算できません。
+				</span>
+			</div>
+			<div class="col s12 risk_reference">
+				今回使用した発症予測モデルは日本人を対象にした多目的コホート研究（JPHC研究）のデータを元にしています
+				（Yatsuya H. et al. Development of a point-based prediction model for the incidence of total stroke: Japan public health center study. Stroke. 2013;44:1295-302）。
+				なお本予測モデルには脳卒中の家族歴は含まれていません。
+				ご家族に脳卒中の方がいると、発症リスクが増加するとされる米国の研究がありますが、日本人に当てはまるかについては確定的とはいえません
+				（Flossmann E. et al., Systematic review of methods and results of studies of the genetic epidemiology of ischemic stroke. Stroke. 2004;35:212-27）。
+			</div>
+		</div>
+		<div id="stroke_calc_ng">
+			<div class="col s10 offset-s1 risk_warning">
+				脳卒中の発症リスク計算に必要な項目が登録されていません。
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row risk_box">
+	<div class="col s12 risk_title">リスク計算内訳</div>
+	<div class="col s12 risk_container center">
+		<div id="disp_toggle_scoreDetail" style="height: 1200px;">
+			<table class="score_detail_style">
+				<tr>
+					<th colspan="2">
+					<span class='translate' data-i18n='family-t_risk.type2diabates'>2型糖尿病</span>
+					</th>
+				</tr>
+				<tr>
+					<th width="70%">項目</th>
+					<th width="30%">スコア</th>
+				</tr>
+				<tr>
+					<td><span class='translate' data-i18n='info_dialog.age'>年齢</span></td>
+					<td id="drc_score_age"></td>
+				</tr>
+				<tr>
+					<td>
+					<span class='translate' data-i18n='info_dialog.gender'>性別</span></td>
+					<td id="drc_score_gender"></td>
+				</tr>
+				<tr>
+					<td>
+					<span class='translate' data-i18n='family-t_risk.fd_or_sd_fhd'>第一度近親または第二度近親までの糖尿病家族歴</span>
+					</td>
+					<td id="drc_score_family"></td>
+				</tr>
+				<tr>
+					<td>中心性肥満</td>
+					<td id="drc_score_obese"></td>
+				</tr>
+				<tr>
+					<td>BMI</td>
+					<td id="drc_score_bmi"></td>
+				</tr>
+				<tr>
+					<td>高血圧</td>
+					<td id="drc_score_bp"></td>
+				</tr>
+				<tr>
+					<td>喫煙</td>
+					<td id="drc_score_smoke"></td>
+				</tr>
+				<tr>
+					<td>定期的の運動</td>
+					<td id="drc_score_activity"></td>
+				</tr>
+				<tr>
+					<td><span class='translate' data-i18n='fhh_diabetes_calculator.total_points'>合計</span></td>
+					<td id="drc_score_total"></td>
+				</tr>
+			</table>
+
+			<table class="score_detail_style">
+				<tr>
+					<th colspan="2">
+						<span class='translate' data-i18n='family-t_risk.cdh'>冠動脈疾患</span>
+					</th>
+				</tr>
+				<tr>
+					<th width="70%">項目</th>
+					<th width="30%">スコア</th>
+				</tr>
+				<tr>
+					<td><span class='translate' data-i18n='info_dialog.age'>年齢</span></td>
+					<td id="chd_score_age"></td>
+				</tr>
+				<tr>
+					<td><span class='translate' data-i18n='info_dialog.gender'>性別</span></td>
+					<td id="chd_score_gender"></td>
+				</tr>
+				<tr>
+					<td>喫煙</td>
+					<td id="chd_score_isSmoker"></td>
+				</tr>
+				<tr>
+					<td>血圧</td>
+					<td id="chd_score_bloodPressure"></td>
+				</tr>
+				<tr>
+					<td>耐糖能異常</td>
+					<td id="chd_score_suger"></td>
+				</tr>
+				<tr>
+					<td>早発性冠動脈疾患</td>
+					<td id="chd_score_chd"></td>
+				</tr>
+				<tr>
+					<td>HDL-C</td>
+					<td id="chd_score_hdlValue"></td>
+				</tr>
+				<tr>
+					<td>LDL-C</td>
+					<td id="chd_score_ldlValue"></td>
+				</tr>
+				<tr>
+					<td><span class='translate' data-i18n='fhh_diabetes_calculator.total_points'>合計</span></td>
+					<td id="chd_score_total"></td>
+				</tr>
+			</table>
+
+			<table class="score_detail_style">
+				<tr>
+					<th colspan="2">
+						<span class='translate' data-i18n='family-t_risk.stroke'>脳卒中</span>
+					</th>
+				</tr>
+				<tr>
+					<th width="70%">項目</th>
+					<th width="30%">スコア</th>
+				</tr>
+				<tr>
+					<td><span class='translate' data-i18n='info_dialog.age'>年齢</span></td>
+					<td id="stroke_score_age"></td>
+				</tr>
+				<tr>
+					<td><span class='translate' data-i18n='info_dialog.gender'>性別</span></td>
+					<td id="stroke_score_gender"></td>
+				</tr>
+				<tr>
+					<td>喫煙</td>
+					<td id="stroke_score_isSmoker"></td>
+				</tr>
+				<tr>
+					<td>BMI</td>
+					<td id="stroke_score_bmi"></td>
+				</tr>
+				<tr>
+					<td>血圧</td>
+					<td id="stroke_score_blood_pressure"></td>
+				</tr>
+				<tr>
+					<td>糖尿病</td>
+					<td id="stroke_score_diabetes"></td>
+				</tr>
+				<tr>
+					<td><span class='translate' data-i18n='fhh_diabetes_calculator.total_points'>合計</span></td>
+					<td id="stroke_score_total"></td>
+				</tr>
+			</table>
+		</div>
+		<div class="col s12 center"><span id="btn_toggle_scoreDetail" class="material-icons large-size orange-text cursor_pointer icon_shadow_o">swap_vertical_circle</span></div>
+	</div>
+</div>
+
+

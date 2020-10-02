@@ -25,7 +25,7 @@ app.controller('fhhController', ['$rootScope', '$scope', '$window', '$timeout', 
         modalInstance.opened.then(function() {
             $scope.$watch($(".modal-body"), function() {
                 $timeout(function() {
-                    load_diagram();
+                    // load_diagram();
                 });
             })
         });
@@ -47,7 +47,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
         }
         if (tableOptions.showNames=='') {
             $(".health_table_name").hide();
-        }                       
+        }
     });
 
     if (!$rootScope.isPedigree) {
@@ -72,14 +72,14 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
             }
             if (height_unit=='centimeters') {
                 height_in_meters = height*.010;
-            }    
+            }
             if (weight_unit=='pound') {
                 weight_in_kg = weight*.453592;
-            }  
+            }
 
             return (weight_in_kg/(height_in_meters*height_in_meters)).toFixed(2);
         }
-        
+
         else {
             return "0.0";
         }
@@ -212,7 +212,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
         return today
     };
 
-    // creates javascript object of static diseases, including their translated names // 
+    // creates javascript object of static diseases, including their translated names //
     var getDiseases = function() {
         var dl = [];
         var otherDiseases = false;
@@ -226,9 +226,9 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
                         'code': d,
                         'translatedDiseaseName': $scope.translate("diseases", d).replace("diseases:",""),
                         'show': true
-                    })                        
-                    
- 
+                    })
+
+
                 } else {
                     if (!otherDiseases) {
                         dl.push({
@@ -247,15 +247,15 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
                         'code': d,
                         'translatedDiseaseName':  d,
                         'show': true
-                    })                
-                }  
+                    })
+                }
                 else {
                     dl.push({
                         'code': d,
                         'translatedDiseaseName': $scope.translate("diseases", d).replace("diseases:",""),
                         'show': true
-                    })                    
-                }              
+                    })
+                }
 
             }
         }
@@ -294,7 +294,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
                         person_dict["relationship"] = $scope.translate("fhh_js", match[1]);
                     }
                     else {
-                        person_dict["relationship"] = $scope.translate("fhh_js", o.relationship);                        
+                        person_dict["relationship"] = $scope.translate("fhh_js", o.relationship);
                     }
                     // person_dict["relationship"] = $scope.translate("fhh_js", o.relationship);
                     if (o.cause_of_death_code) {
@@ -334,12 +334,12 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
                     health_history_entry["translatedDiseaseName"] = $scope.translate("diseases", history[x]['Disease Code']).replace("diseases:","");
                     STATICDISEASES.push(history[x]['Disease Code'])
                     health_history_entry["isOther"] = true;
-                    health_code_lookup.push(history[x]['Disease Code']);                    
-                }  
+                    health_code_lookup.push(history[x]['Disease Code']);
+                }
                 else {
                     health_history_entry["translatedDiseaseName"] = $scope.translate("diseases", history[x]['Disease Code']).replace("diseases:","");
-                    health_code_lookup.push(history[x]['Disease Code']);                    
-                }                                
+                    health_code_lookup.push(history[x]['Disease Code']);
+                }
             }
 
             health_history.push(health_history_entry)
@@ -382,7 +382,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
     // print table using gojs and converting to an image //
     $scope.print = function(print) {
         if (WindowObject) {
-            WindowObject.close();            
+            WindowObject.close();
         }
 
         $scope.diagram_show = true;
@@ -423,11 +423,11 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
             header+='</head>'
 
             if (tableOptions.personal_info) {
-                var personal_info = '<div style="padding-left:10px;font-weight:bold;"><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title_table") + '</h2></div>' + $("div#personal_info").html() + '</div>'                
+                var personal_info = '<div style="padding-left:10px;font-weight:bold;"><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title_table") + '</h2></div>' + $("div#personal_info").html() + '</div>'
             }
             else {
-                var personal_info = ''                
-            }            
+                var personal_info = ''
+            }
     if (print) {
             WindowObject = window.open("", "Table",
                 "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
@@ -436,8 +436,8 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
         $timeout(function() {
             WindowObject.focus();
             WindowObject.print();
-            // WindowObject.close(); 
-        });               
+            // WindowObject.close();
+        });
     }
     else {
             if (window.chrome) {
@@ -511,7 +511,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
                         var name = $scope.filteredItems[key].name + "\n(" + $scope.filteredItems[key].relationship + ")"
                     }
                     else {
-                        var name = $scope.filteredItems[key].relationship                
+                        var name = $scope.filteredItems[key].relationship
                     }
                 }
                 else {
@@ -544,7 +544,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
                                 // dl_string+='\n'+$scope.filteredItems[key]['Health History'][d]['Disease Code']
                                 if ($scope.filteredItems[key]['Health History'][d]['isOther']) {
                                 dl_string+='\n'+$scope.filteredItems[key]['Health History'][d]['translatedDiseaseName']
-                                dl_string+='\n'+$scope.filteredItems[key]['Health History'][d]['Age At Diagnosis']+'\n';                                    
+                                dl_string+='\n'+$scope.filteredItems[key]['Health History'][d]['Age At Diagnosis']+'\n';
                                 }
 
                         }
@@ -554,7 +554,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
                         font: "bold 10pt sans-serif",
                         margin: 4,
                         textAlign: "left"
-                    }));                        
+                    }));
                     }
                     else {
                     row.add($(go.TextBlock, $scope.lookupDisease($scope.filteredItems[key], $scope.disease_list[col].code, true), {
@@ -595,5 +595,10 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
     $scope.close = function() {
         $modalInstance.close();
         $("#optionsPanelMain").dialog('destroy').remove();
+    };
+
+    $scope.bindDownloadCSV = function() {
+    	//alert("asd");
+    	make_csv();
     };
 }]);

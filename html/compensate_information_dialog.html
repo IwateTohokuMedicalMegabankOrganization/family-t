@@ -1,0 +1,234 @@
+<div class="row compensation">
+	<div class="col s12 left">
+		リスク計算に必要な以下の項目が未入力です。<br>
+		各項目の情報を入力し、「計算」ボタンをクリックしてください。<br>
+	</div>
+</div>
+
+
+<div id="compensate_height" class="row compensation">
+	<div class="col s5">
+		身長
+	</div>
+	<div class="col s7">
+		<div class="col s12">
+			<input class='number' name="compensation_height" size="3" maxlength='3' value="" max="300" id="personal_height_centimeters" type="text" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" style="width:60px; height:85%;">
+			cm
+		</div>
+	</div>
+</div>
+
+<div id="compensate_weight" class="row compensation">
+	<div class="col s5">
+		体重
+	</div>
+	<div class="col s7">
+		<div class="col s12">
+			<input class='number' name="compensation_weight" size="3" maxlength='3' value="" max="300" id="personal_weight" type="text" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" style="width:60px; height:85%;">
+			kg
+		</div>
+	</div>
+</div>
+
+<div id="compensate_waist" class="row compensation">
+	<div class="col s5">
+		腹囲
+	</div>
+	<div class="col s7">
+		<div class="col s12">
+			<input class='number' name="compensation_waist" size="3" maxlength='3' value="" max="300" id="additional_information_waist" type="text" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" style="width:60px; height:85%;">
+			cm
+		</div>
+	</div>
+</div>
+
+<div id="compensate_smoker" class="row compensation">
+	<div class="col s5" style="padding-bottom: 5px;">
+		喫煙状況
+	</div>
+	<div class="col s7" style="padding-bottom: 5px;">
+		<div class="col s12">
+			<input id="compensation_smoker1" name="compensation_smoker" value="1" type="radio" />
+			<label for="compensation_smoker1">喫煙したことがない</label>
+		</div>
+
+		<div class="col s12">
+			<input id="compensation_smoker2" name="compensation_smoker" value="2" type="radio" />
+			<label for="compensation_smoker2">禁煙して、15年以上経過している</label>
+		</div>
+
+		<div class="col s12">
+			<input id="compensation_smoker3" name="compensation_smoker" value="3" type="radio" />
+			<label for="compensation_smoker3">禁煙して、1年以上15年未満経過している</label>
+		</div>
+
+		<div class="col s12">
+			<input id="compensation_smoker4" name="compensation_smoker" value="4" type="radio" />
+			<label for="compensation_smoker4">禁煙して、1年未満である</label>
+		</div>
+
+		<div class="col s12">
+			<input id="compensation_smoker5" name="compensation_smoker" value="5" type="radio" />
+			<label for="compensation_smoker5">現在も喫煙している</label>
+		</div>
+	</div>
+	<div class="col s5">
+		1日の本数を選択してください。
+	</div>
+	<div class="col s7">
+		<div class="col s6">
+			<input id="compensation_number_of_cigarettes_per_day_1_to_9" name="compensation_number_of_cigarettes_per_day" value="1_to_9" type="radio" disabled/>
+			<label for="compensation_number_of_cigarettes_per_day_1_to_9">1日1～9本</label>
+		</div>
+		<div class="col s6">
+			<input id="compensation_number_of_cigarettes_per_day_10_or_more" name="compensation_number_of_cigarettes_per_day" value="10_or_more" type="radio" disabled/>
+			<label for="compensation_number_of_cigarettes_per_day_10_or_more">1日10本以上</label>
+		</div>
+	</div>
+</div>
+
+<div id="compensate_training" class="row compensation">
+	<div class="col s5" style="padding-bottom: 5px;">
+		定期的な運動をしていますか？
+	</div>
+	<div class="col s7" style="padding-bottom: 5px;">
+		<div class="col s4">
+			<input id="compensation_training_yes" name="compensation_training" value="1" type="radio" />
+			<label for="compensation_training_yes">はい</label>
+		</div>
+		<div class="col s4">
+			<input id="compensation_training_no" name="compensation_training" value="0" type="radio" />
+			<label for="compensation_training_no">いいえ</label>
+		</div>
+	</div>
+
+	<div class="col s5" style="padding-bottom: 5px;">
+	</div>
+	<div class="col s7" style="padding-bottom: 5px;">
+		<div class="col s3">
+			<select name="compensation_training_status1" id="compensation_training_strength" disabled>
+				<option value="空欄"></option>
+				<option value="中程度">中程度</option>
+				<option value="重度">重度</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="col s5" style="padding-bottom: 5px;">
+		1週間で行う運動の回数
+	</div>
+	<div class="col s7" style="padding-bottom: 5px;">
+		<div class="col s12">
+			<input class="number" id="compensation_count_for_training_at_week" min="1" max="30" maxlength="2" name="compensation_training_status2" style="width:60px; height:85%;" type="number" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" disabled/>
+			回
+		</div>
+	</div>
+
+	<div class="col s5">
+		1週間で行う運動の合計時間
+	</div>
+	<div class="col s7">
+		<div class="col s12">
+			<input class="number" id="compensation_time_for_training_at_week" min="10" max="10000" maxlength="5" name="compensation_training_status3" style="width:90px; height:85%;" type="number" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" disabled/>
+			分
+		</div>
+	</div>
+</div>
+
+<div id="compensate_antihypertensive" class="row compensation">
+	<div class="col s5">
+		降圧剤（血圧を下げる薬）を服用していますか？
+	</div>
+	<div class="col s7">
+		<div class="col s4"><input id="compensation_take_antihypertensive_TRUE" name="compensation_take_antihypertensive" value="true" type="radio" />
+			<label for="compensation_take_antihypertensive_TRUE">はい</label>
+		</div>
+		<div class="col s4"><input id="compensation_take_antihypertensive_FALSE" name="compensation_take_antihypertensive" value="false" type="radio" />
+			<label for="compensation_take_antihypertensive_FALSE">いいえ</label>
+		</div>
+	</div>
+</div>
+
+<div id="compensate_bpmax" class="row compensation">
+	<div class="col s5">
+		最高血圧（mmHg）
+	</div>
+	<div class="col s7">
+		<div class="col s5">
+			<select id='compensation_systolic_blood_pressure' name='compensation_systolic_blood_pressure'>
+				<option value="" disabled selected>選択してください</option>
+				<option value='under_119'>119以下</option>
+				<option value='120-129'>120～129</option>
+				<option value='130-139'>130～139</option>
+				<option value='140-159'>140～159</option>
+				<option value='160-179'>160～179</option>
+				<option value='over180'>180以上</option>
+			</select>
+		</div>
+	</div>
+</div>
+
+<div id="compensate_bpmin" class="row compensation">
+	<div class="col s5">
+		最低血圧（mmHg）
+	</div>
+	<div class="col s7">
+		<div class="col s5">
+			<select id='compensation_diastolic_blood_pressure' name='compensation_diastolic_blood_pressure'>
+				<option value="" disabled selected>選択してください</option>
+				<option value='79_or_less'>79以下</option>
+				<option value='80-84'>80～84</option>
+				<option value='85-89'>85～89</option>
+				<option value='90-99'>90～99</option>
+				<option value='100-109'>100～109</option>
+				<option value='over110'>110以上</option>
+			</select>
+		</div>
+	</div>
+</div>
+
+<div id="compensate_hdl" class="row compensation">
+	<div class="col s5">
+		HDLコレステロール（mg/dL）
+	</div>
+	<div class="col s7">
+		<div class="col s5">
+			<select id='compensation_hdl_cholesterol' name='compensation_hdl_cholesterol'>
+				<option value="" disabled selected>選択してください</option>
+				<option value='less_than_40'>40未満</option>
+				<option value='40-59'>40~59</option>
+				<option value='over60'>60以上  </option>
+				<option value='unknown'>分からない</option>
+				<option value='not_inspected'>検査していない</option>
+			</select>
+		</div>
+	</div>
+</div>
+
+<div id="compensate_ldl" class="row compensation">
+	<div class="col s5">
+		LDLコレステロール（mg/dL）
+	</div>
+	<div class="col s7">
+		<div class="col s5">
+			<select id='compensation_ldl_cholesterol' name='compensation_ldl_cholesterol'>
+				<option value="" disabled selected>選択してください</option>
+				<option value='less_than_100'>100未満</option>
+				<option value='100-139'>100～139</option>
+				<option value='140-159'>140～159</option>
+				<option value='160-179'>160～179</option>
+				<option value='over180'>180以上  </option>
+				<option value='unknown'>分からない</option>
+				<option value='not_inspected'>検査していない</option>
+			</select>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col s12 center">
+		<button id='compensateAndStartRiskCalc' class="btn-large waves-effect waves-light teal lighten-1 translate" style="font-size: 120% !important;">
+			計算
+		</button>
+	</div>
+</div>

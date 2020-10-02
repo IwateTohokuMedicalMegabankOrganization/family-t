@@ -1,0 +1,54 @@
+
+
+<div style="margin-top:2em;margin-bottom:2em;">
+	<div class="title-bar"> アンケートについて </div>
+	<div>
+		<div style="text-align:left;">この度は、family-tをご利用いただき、誠にありがとうございました。</div>
+		<div style="text-align:left;">東北メディカル・メガバンク機構（ToMMo）では、family-tをご利用いただいた皆様にご意見やご感想をお伺いするためのアンケートを実施しております。</div>
+		<div style="text-align:left;">ご回答いただきました内容は、今後のfamily-t開発のご参考とさせていただきますので、ご協力を願いいたします。</div>
+		<div style="text-align:left;">所要時間の目安：5～10分（ご回答いただいた内容によって設問数は異なります）</div>
+	</div>
+</div>
+
+<div style="margin-top:2em;margin-bottom:2em;">
+	<div class="title-bar"> 個人情報の使用目的について </div>
+		<div style="text-align:left;">
+			<div>ご記入された個人情報等は以下の目的にのみ使用します。以下の場合を除いて、ご利用者様の同意なくして第三者に提供いたしません。</div>
+			<div>
+				<ul>
+					<li>統計データを作成し、family-tの開発をするため。</li>
+					<li>統計データの作業を外部へ委託する場合。ただし、当該業務委託先と当機構の間で秘密保持契約を締結し、ご利用者様の個人情報を保護します。</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div style="margin-top:2em;margin-bottom:2em;">
+	<div class="title-bar"> アンケートの実施について </div>
+		<div style="text-align:left;">
+			<div>アンケートはfamily-tと別のサイトで行います。</div>
+			<div>family-tとは異なり、入力した内容をサーバに保管します。</div>
+		</div>
+	</div>
+</div>
+
+
+<div style="margin-top:2em;margin-bottom:2em;text-align:center;">
+    <button id='questionnaireCancelButton'>同意しません</button>    
+   	<button id='questionnaireNextButton' class="translate" style="text-align:right;font-size:110% !important">上記内容に同意し、アンケートに回答する</button>
+</div>
+
+<script>
+$(document).ready(function(){
+    
+    $("#questionnaireNextButton").on('click',function(){
+    	// open questionnire url
+    	// window.open("https://www.google.co.jp/","_blank");
+    	
+    	alert('外部アンケートサイトを開きます');
+    	return false;
+    });
+});
+
+</script>

@@ -79,7 +79,7 @@ function IEload() {
 //    alert(navigator.userAgent)
 //}
 
-    
+
 
     /*
      Get Date
@@ -239,7 +239,7 @@ alert("raphael 0")
     // var circle3 = svg.circle(13, 13, 10.5);
     alert("raphael 0a")
 
-    svg.rect(200,100,90,40).attr({fill: "red"}); 
+    svg.rect(200,100,90,40).attr({fill: "red"});
     svg.text(masterleft - 120, 30, "Paternal").attr({fontWeight: 'bold', fontSize: '14.5', fill: 'gray'});
     svg.text(masterleft + 120, 30, "Maternal").attr({fontWeight: 'bold', fontSize: '14.5', fill: 'gray'});
 
@@ -248,7 +248,7 @@ alert("raphael 0")
     // svg.line(LINEGROUP, masterleft + 25, 220, masterleft + 25, top, {id: 'grmei', stroke: 'black', strokeWidth: 3});
     // svg.line(LINEGROUP, masterleft - 140, 220, masterleft + 180, 220, {id: 'grmei1', stroke: 'black', strokeWidth: 3});
     // svg.line(LINEGROUP, masterleft - 140, 200, masterleft - 140, 70, {id: 'grmei2', stroke: 'black', strokeWidth: 3});
-    // svg.line(LINEGROUP, masterleft + 180, 200, masterleft + 180, 70, {id: 'grmei3', stroke: 'black', strokeWidth: 3});    
+    // svg.line(LINEGROUP, masterleft + 180, 200, masterleft + 180, 70, {id: 'grmei3', stroke: 'black', strokeWidth: 3});
 
 
 
@@ -260,10 +260,10 @@ alert("raphael 0")
 
 
         //Center Me
-         var bar = svg.rect(masterleft+5, top, rr, rr).attr({fill: "slateblue"}); 
+         var bar = svg.rect(masterleft+5, top, rr, rr).attr({fill: "slateblue"});
          bar.node.id = "me";
          bar.node.gender = "MALE";
-         
+
         // svg.rect(masterleft+5, top, rr, rr, 1, 1, {
         //     id: 'me',
         //     genders: 'male',
@@ -276,7 +276,7 @@ alert("raphael 0")
         mastery = parseInt($('#me').attr('y'));
     }
     else if (personal_information.gender == 'FEMALE') {
-        var bar = svg.circle(masterleft + 25, Ftop, cr).attr({fill: "slateblue"}); 
+        var bar = svg.circle(masterleft + 25, Ftop, cr).attr({fill: "slateblue"});
          bar.node.id = "me";
          bar.node.gender = "FEMALE";
 
@@ -335,7 +335,7 @@ alert("raphael 0")
         // });
 
 
-        
+
 
 // alert ("diseasearray ARRAY Information:" + JSON.stringify(diseasearray, null, 2) );
 
@@ -496,7 +496,7 @@ alert("raphael 0")
 
     //mdialog.dialog({ position: ['top', 20] });
 
-    
+
 
 
 
@@ -506,9 +506,9 @@ alert("raphael 0")
 //     // var circle3 = svg.circle(13, 13, 10.5);
 //     alert("raphael 0a")
 
-//     svg.rect(200,100,90,40).attr({fill: "#4422ff"}); 
+//     svg.rect(200,100,90,40).attr({fill: "#4422ff"});
 // alert("raphael 1")
-//     // svg.rect(200,100,90,40).attr({fill: "#4422ff"}); 
+//     // svg.rect(200,100,90,40).attr({fill: "#4422ff"});
 
     ToTop_Ie();
     setTimeout(
@@ -527,7 +527,7 @@ alert("raphael 0")
      */
 
 
-    
+
 
     // $('#svgframe').svg();
     // svg = $('#svgframe').svg('get');
@@ -545,7 +545,7 @@ $(document).ready(function() {
     // var circle3 = svg.circle(13, 13, 10.5);
     alert("raphael 0a")
 
-    svg.rect(200,100,90,40).attr({fill: "red"}); 
+    svg.rect(200,100,90,40).attr({fill: "red"});
 
 
 alert("RAPHAEL 1")
@@ -694,7 +694,7 @@ alert("$$$ "+personal_information.gender)
 HEALTHARRAY.push(ids);
     DISEASELISTARRAY.push(dis);
 
-   
+
 alert("11")
 
 }
@@ -703,7 +703,7 @@ alert("11")
 
 /***********************/
 
-    
+
 
     //alert ("HEALTHARRAY ARRAY Information:" + JSON.stringify(HEALTHARRAY, null, 2) );
 
@@ -3068,7 +3068,7 @@ var ME = document.getElementById('me');
     //    svg.polyline(xl, {id: 'Tm_' + pid, fill: 'none', stroke: 'black', strokeWidth: 3});
     //
     //}
-  
+
     /*
      * These functions load the x and y values for lines on objects
      */
@@ -6336,10 +6336,10 @@ function createDialog_Ie() {
         + "</tr>"
         + "<tr>"
         + "<td>"
-        + "<input id='bmi' type='checkbox' name='chk_group' value='bmi' onclick='HideInfo_Ie()' checked /> Show my personal information (age, height, weight, and body mass index) at the top of the diagram and table.<br />"
-        + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfo_Ie()' checked /> Show the names of family members in the diagram and table.<br />"
-        + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfo_Ie()' checked/> Show drawing (the tree diagram of your family's health history)<br />"
-        + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfo_Ie()' checked/> Show table (your family's health history displayed as a listing table)<br />"
+        + "<input id='bmi' class='filled-in' type='checkbox' name='chk_group' value='bmi' onclick='HideInfo_Ie()' checked /> Show my personal information (age, height, weight, and body mass index) at the top of the diagram and table.<br />"
+        + "<input id='names' class='filled-in' type='checkbox' name='chk_group' value='names' onclick='HideInfo_Ie()' checked /> Show the names of family members in the diagram and table.<br />"
+        + "<input id='diagram' class='filled-in' type='checkbox' name='chk_group' value='diagram' onclick='HideInfo_Ie()' checked/> Show drawing (the tree diagram of your family's health history)<br />"
+        + "<input id='table' class='filled-in' type='checkbox' name='chk_group' value='table' onclick='HideInfo_Ie()' checked/> Show table (your family's health history displayed as a listing table)<br />"
         + "</td>"
         + "</tr></table>"
 
