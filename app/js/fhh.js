@@ -174,8 +174,6 @@ function start()
 
 		$("#person_is_alive").hide();
 		$("#person_is_not_alive").hide();
-		$("#age_determination_date_of_birth").hide();
-		$("#age_determination_text").hide();
 		$("#estimated_age_select").hide();
 
 		set_age_at_diagnosis_pulldown( $.t("fhh_js.select_age"), $("#estimated_age_select"));
@@ -186,22 +184,12 @@ function start()
 
 
 		$("#age_determination").on("change", function () {
-			if ($("#age_determination").val() == 'date_of_birth') {
-				$("#age_determination_date_of_birth").show();
-				$("#age_determination_text").hide();
-				$("#estimated_age_select").hide();
-			} else if ($("#age_determination").val() == 'age') {
-				$("#age_determination_date_of_birth").hide();
+			if ($("#age_determination").val() == 'date_of_birth' || $("#age_determination").val() == 'age') {
 				$("#age_determination_text").show();
 				$("#estimated_age_select").hide();
 			} else if ($("#age_determination").val() == 'estimated_age') {
-				$("#age_determination_date_of_birth").hide();
 				$("#age_determination_text").hide();
 				$("#estimated_age_select").show();
-			} else {
-				$("#age_determination_date_of_birth").hide();
-				$("#age_determination_text").hide();
-				$("#estimated_age_select").hide();
 			}
 		});
 
@@ -213,9 +201,6 @@ function start()
 				$("#person_is_alive").hide();
 				$("#person_is_not_alive").show();
 			} else if ($("#is_person_alive").val() == 'unknown') {
-				$("#person_is_alive").hide();
-				$("#person_is_not_alive").hide();
-			} else {
 				$("#person_is_alive").hide();
 				$("#person_is_not_alive").hide();
 			}
@@ -491,20 +476,20 @@ function start()
 					personal_information = data;
 					build_family_history_data_table();
 				}else{
-					reset_personal_information();
+					personal_information = new Object();
 					build_family_history_data_table();
 					$("#add_personal_information_dialog").dialog("open");
 //					$("#load_personal_history_dialog").dialog("open");
 				}
 			})
 			.fail(function(){
-				reset_personal_information();
+				personal_information = new Object();
 				build_family_history_data_table();
 				$("#add_personal_information_dialog").dialog("open");
 //				$("#load_personal_history_dialog").dialog("open");
 			});
 	}	else if (getParameterByName("action") == 'create') {
-		reset_personal_information();
+			personal_information = new Object();
 			build_family_history_data_table();
 			$("#add_personal_information_dialog").dialog("open");
 	} else if (getParameterByName("action") == 'save') {
@@ -563,7 +548,7 @@ function bind_create_new_personal_history_button_action () {
 			$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
 		if (personal_information != null) {
 		    if (confirm($.t("fhh_js.confirm_delete")) == true) {
-		    	reset_personal_information();
+		    	personal_information = new Object();
 		    	build_family_history_data_table();
 		    } else {
 		        return false;
@@ -863,7 +848,6 @@ function create_new_family_member(current_relationship, relationship, parent_id)
 		family_member_information.parent_id = parent_id;
 	}
 	family_member_information.gender = get_gender(relationship);
-	family_member_information.name = get_defaultname(relationship);
 	personal_information[current_relationship] = family_member_information;
 
 	var table = $("#history_summary_table");
@@ -912,8 +896,8 @@ function bind_personal_submit_button_action () {
 		var errors = false;
 		if (!check_name_exists($('#personal_info_form_name').val())) {
 			if (!$("#invalid_name_warning").length) {
-				$('#personal_info_form_name').after(
-						$("<span id='invalid_name_warning'> " + $.t("fhh_js.invalid_name") + " </span>").css("color","red"));
+			$('#personal_info_form_name').after(
+				$("<span id='invalid_name_warning'> " + $.t("fhh_js.invalid_name") + " </span>").css("color","red"));
 			}
 			errors = true;
 		}
@@ -955,7 +939,7 @@ function bind_personal_submit_button_action () {
 		}
 
 		// Determine the values from the form
-		if (personal_information == null) reset_personal_information();
+		if (personal_information == null) personal_information = new Object();
 		if (personal_information.id == null) personal_information['id'] = guid();
 		personal_information['name'] = $("#personal_info_form_name").val();
 		personal_information['gender'] = $('input[name="person.gender"]:checked').val();
@@ -1128,7 +1112,6 @@ function bind_family_member_submit_button_action () {
 		// Cause of Death or Age/Estimated-Age variables
 		var alive_flag = $("#is_person_alive").val();
 		var age_determination_flag = $('#age_determination').val();
-		var age_determination_date_of_birth = $('#age_determination_date_of_birth').val();
 		var age_determination_text = $('#age_determination_text').val();
 		var estimated_age = $('#estimated_age_select').val();
 		var cause_of_death = $('#cause_of_death_select').val();
@@ -1140,9 +1123,9 @@ function bind_family_member_submit_button_action () {
 		var errors = false;
 //		 alert("AF:["+alive_flag+"]ADF:["+(age_determination_flag=='date_of_birth')+"]ADT:["+age_determination_text+"]");
 		if (alive_flag == 'alive') {
-			if (age_determination_flag == 'date_of_birth'  && !check_date_of_birth_in_correct_format(age_determination_date_of_birth)) {
+			if (age_determination_flag == 'date_of_birth'  && !check_date_of_birth_in_correct_format(age_determination_text)) {
 				errors = true;
-				$('#age_determination_date_of_birth').after(
+				$('#age_determination_text').after(
 					$("<span id='invalid_date_of_birth_warning'> " + $.t("fhh_js.invalid_data_of_birth") + " </span>").css("color","red"));
 			} else if (age_determination_flag == 'age'
 					&& !(parseInt(age_determination_text) > 0
@@ -1251,13 +1234,13 @@ function bind_family_member_submit_button_action () {
 
 		if (alive_flag == 'alive') {
 			family_member_information['is_alive'] = 'alive';
-			if (family_member_information['cause_of_death']) delete family_member_information['cause_of_death'];
-			if (family_member_information['detailed_cause_of_death']) delete family_member_information['detailed_cause_of_death'];
-			if (family_member_information['estimated_death_age']) delete family_member_information['estimated_death_age'];
-			if (family_member_information['cause_of_death_code']) delete family_member_information['cause_of_death_code'];
-
 			if (age_determination_flag == 'date_of_birth') {
-				family_member_information['date_of_birth'] = age_determination_date_of_birth;
+				if (family_member_information['cause_of_death']) delete family_member_information['cause_of_death'];
+				if (family_member_information['detailed_cause_of_death']) delete family_member_information['detailed_cause_of_death'];
+				if (family_member_information['estimated_death_age']) delete family_member_information['estimated_death_age'];
+				if (family_member_information['cause_of_death_code']) delete family_member_information['cause_of_death_code'];
+
+				family_member_information['date_of_birth'] = age_determination_text;
 				if (family_member_information['estimated_age'] != null) delete family_member_information['estimated_age'];
 				if (family_member_information['age'] != null) delete family_member_information['age'];
 
@@ -1270,8 +1253,6 @@ function bind_family_member_submit_button_action () {
 				family_member_information['estimated_age'] = estimated_age;
 				if (family_member_information['date_of_birth'] != null) delete family_member_information['date_of_birth'];
 				if (family_member_information['age'] != null) delete family_member_information['age'];
-			}	else {
-				family_member_information['is_alive'] = 'unknown';
 			}
 		} else if (alive_flag == 'dead') {
 
@@ -1366,6 +1347,9 @@ function bind_family_member_submit_button_action () {
 			family_member_information['is_alive'] = 'unknown';
 		}
 
+		if ($('#age_determinion').val() == 'Age') family_member_information['age'] = $('#age_determinion_text').val();
+		var date_of_birth = $('#age_determinion_text').val();
+
 		family_member_information['Health History'] = current_health_history;
 
 		family_member_information['race'] = new Object();
@@ -1448,80 +1432,66 @@ function bind_add_all_family_members_submit_button_action() {
 		personal_information['father'] = {'gender':'MALE'};
 		personal_information['father'].id = guid();
 		personal_information['father']['Health History'] = [];
-		personal_information['father'].name = 'あなたの父';
 
 		personal_information['mother'] = {'gender':'FEMALE'};
 		personal_information['mother'].id = guid();
 		personal_information['mother']['Health History'] = [];
-		personal_information['mother'].name = 'あなたの母';
 
 		personal_information['maternal_grandfather'] = {'gender':'MALE'};
 		personal_information['maternal_grandfather'].id = guid();
 		personal_information['maternal_grandfather']['Health History'] = [];
-		personal_information['maternal_grandfather'].name = 'あなたの母方の祖父';
 
 		personal_information['maternal_grandmother'] = {'gender':'FEMALE'};
 		personal_information['maternal_grandmother'].id = guid();
 		personal_information['maternal_grandmother']['Health History'] = [];
-		personal_information['maternal_grandmother'].name = 'あなたの母方の祖母';
 
 		personal_information['paternal_grandfather'] = {'gender':'MALE'};
 		personal_information['paternal_grandfather'].id = guid();
 		personal_information['paternal_grandfather']['Health History'] = [];
-		personal_information['paternal_grandfather'].name = 'あなたの父方の祖父';
 
 		personal_information['paternal_grandmother'] = {'gender':'FEMALE'};
 		personal_information['paternal_grandmother'].id = guid();
 		personal_information['paternal_grandmother']['Health History'] = [];
-		personal_information['paternal_grandmother'].name = 'あなたの父方の祖母';
 
 		for (var i=0; i<number_brothers;i++) {
 			personal_information['brother_' + i] = {'gender':'MALE'};
 			personal_information['brother_' + i].id = guid();
 			personal_information['brother_' + i]['Health History'] = [];
-			personal_information['brother_' + i].name = 'あなたの兄弟';
 		}
 		for (var i=0; i<number_sisters;i++) {
 			personal_information['sister_' + i] = {'gender':'FEMALE'};
 			personal_information['sister_' + i].id = guid();
 			personal_information['sister_' + i]['Health History'] = [];
-			personal_information['sister_' + i].name = 'あなたの姉妹';
 		}
 		for (var i=0; i<number_sons;i++) {
 			personal_information['son_' + i] = {'gender':'MALE'};
 			personal_information['son_' + i].id = guid();
 			personal_information['son_' + i]['Health History'] = [];
-			personal_information['son_' + i].name = 'あなたの息子';
 		}
 		for (var i=0; i<number_daughters;i++) {
 			personal_information['daughter_' + i] = {'gender':'FEMALE'};
 			personal_information['daughter_' + i].id = guid();
 			personal_information['daughter_' + i]['Health History'] = [];
-			personal_information['daughter_' + i].name = 'あなたの娘';
 		}
 		for (var i=0; i<number_maternal_uncles;i++) {
 			personal_information['maternal_uncle_' + i] = {'gender':'MALE'};
 			personal_information['maternal_uncle_' + i].id = guid();
 			personal_information['maternal_uncle_' + i]['Health History'] = [];
-			personal_information['maternal_uncle_' + i].name = 'あなたの母方のおじ';
 		}
 		for (var i=0; i<number_maternal_aunts;i++) {
 			personal_information['maternal_aunt_' + i] = {'gender':'FEMALE'};
 			personal_information['maternal_aunt_' + i].id = guid();
 			personal_information['maternal_aunt_' + i]['Health History'] = [];
-			personal_information['maternal_aunt_' + i].name = 'あなたの母方のおば';
 		}
 		for (var i=0; i<number_paternal_uncles;i++) {
 			personal_information['paternal_uncle_' + i] = {'gender':'MALE'};
 			personal_information['paternal_uncle_' + i].id = guid();
 			personal_information['paternal_uncle_' + i]['Health History'] = [];
-			personal_information['paternal_uncle_' + i].name = 'あなたの父方のおじ';
 		}
 		for (var i=0; i<number_paternal_aunts;i++) {
 			personal_information['paternal_aunt_' + i] = {'gender':'FEMALE'};
 			personal_information['paternal_aunt_' + i].id = guid();
 			personal_information['paternal_aunt_' + i]['Health History'] = [];
-			personal_information['paternal_aunt_' + i].name = 'あなたの父方のおば';
 		}
 		build_family_history_data_table();
 
@@ -2234,21 +2204,11 @@ function set_age_at_diagnosis_pulldown(instructions, age_at_diagnosis_select) {
 	age_at_diagnosis_select.append("<option value='newborn'>" + $.t("fhh_js.newborn") + "</option>");
 	age_at_diagnosis_select.append("<option value='infant'>" + $.t("fhh_js.infant") + "</option>");
 	age_at_diagnosis_select.append("<option value='child'>" + $.t("fhh_js.child") + "</option>");
-//	age_at_diagnosis_select.append("<option value='teen'>" + $.t("fhh_js.teen") + "</option>");
-	age_at_diagnosis_select.append("<option value='early_teens'>" + $.t("fhh_js.early_teens") + "</option>");
-	age_at_diagnosis_select.append("<option value='late_teens'>" + $.t("fhh_js.late_teens") + "</option>");
-//	age_at_diagnosis_select.append("<option value='twenties'>" + $.t("fhh_js.twenties") + "</option>");
-	age_at_diagnosis_select.append("<option value='early_twenties'>" + $.t("fhh_js.early_twenties") + "</option>");
-	age_at_diagnosis_select.append("<option value='late_twenties'>" + $.t("fhh_js.late_twenties") + "</option>");
-//	age_at_diagnosis_select.append("<option value='thirties'>" + $.t("fhh_js.thirties") + "</option>");
-	age_at_diagnosis_select.append("<option value='early_thirties'>" + $.t("fhh_js.early_thirties") + "</option>");
-	age_at_diagnosis_select.append("<option value='late_thirties'>" + $.t("fhh_js.late_thirties") + "</option>");
-//	age_at_diagnosis_select.append("<option value='fourties'>" + $.t("fhh_js.fourties") + "</option>");
-	age_at_diagnosis_select.append("<option value='early_fourties'>" + $.t("fhh_js.early_fourties") + "</option>");
-	age_at_diagnosis_select.append("<option value='late_fourties'>" + $.t("fhh_js.late_fourties") + "</option>");
-//	age_at_diagnosis_select.append("<option value='fifties'>" + $.t("fhh_js.fifties") + "</option>");
-	age_at_diagnosis_select.append("<option value='early_fifties'>" + $.t("fhh_js.early_fifties") + "</option>");
-	age_at_diagnosis_select.append("<option value='late_fifties'>" + $.t("fhh_js.late_fifties") + "</option>");
+	age_at_diagnosis_select.append("<option value='teen'>" + $.t("fhh_js.teen") + "</option>");
+	age_at_diagnosis_select.append("<option value='twenties'>" + $.t("fhh_js.twenties") + "</option>");
+	age_at_diagnosis_select.append("<option value='thirties'>" + $.t("fhh_js.thirties") + "</option>");
+	age_at_diagnosis_select.append("<option value='fourties'>" + $.t("fhh_js.fourties") + "</option>");
+	age_at_diagnosis_select.append("<option value='fifties'>" + $.t("fhh_js.fifties") + "</option>");
 	age_at_diagnosis_select.append("<option value='senior'>" + $.t("fhh_js.senior") + "</option>");
 	age_at_diagnosis_select.append("<option value='Unknown'>" + $.t("fhh_js.unknown") + "</option>");
 
@@ -2571,7 +2531,7 @@ function clear_family_member_health_history_dialog() {
 	$("#family_member_info_form_name").val("");
 	$('#family_member_info_form_gender_male').prop('checked',false);
 	$('#family_member_info_form_gender_female').prop('checked',false);
-	$("#family_member_info_form_place_of_birth").val("");
+	$("#family_member_info_form_date_of_birth").val("");
 	$("#family_member_info_form_twin_status_no").prop('checked',true);
 	$("#family_member_info_form_twin_status_identical").prop('checked',false);
 	$("#family_member_info_form_twin_status_fraternal").prop('checked',false);
@@ -2683,9 +2643,12 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 		$('#family_member_info_form_gender_female').prop('disabled',true);
 	}
 
+	$("#age_determination_text").val(family_member.date_of_birth);
+	$("#family_member_info_form_date_of_birth").val(family_member.date_of_birth);
+
 	if (family_member.prefectures != null) {
 		$("#family_member_info_form_place_of_birth").val(family_member.prefectures);
-	}else 	$("#family_member_info_form_place_of_birth").val("");
+	}
 
 	if (family_member.twin_status == "NO") $("#family_member_info_form_twin_status_no").prop('checked',true);
 	else if (family_member.twin_status == "IDENTICAL") $("#family_member_info_form_twin_status_identical").prop('checked',true);
@@ -2697,9 +2660,6 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	$("#cause_of_death_select").val("");
 	$("#detailed_cause_of_death_select").empty().hide();
 	$('#estimated_death_age_select').val("");
-	$('#age_determination_date_of_birth').val("");
-	$('#age_determination_text').val("");
-	$('#estimated_age_select').val("");
 	if (family_member.is_alive == 'dead') {
 		$("#is_person_alive").val('dead');
 		var cause_of_death = get_high_level_disease_name_from_disease_code(family_member.cause_of_death_code.split('-')[1]);
@@ -2720,31 +2680,25 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	} else if (family_member.is_alive == 'alive') {
 		if (family_member.date_of_birth) {
 			$("#is_person_alive").val('alive');
+			$("#age_determination").val('date_of_birth');
+			$('#age_determination_text').show().val(family_member.date_of_birth);
+			$('#estimated_age_select').hide();
 			$("#person_is_alive").show();
 			$("#person_is_not_alive").hide();
-			$("#age_determination").val('date_of_birth');
-
-			$('#age_determination_date_of_birth').show().val(family_member.date_of_birth);
-			$('#age_determination_text').hide();
-			$('#estimated_age_select').hide();
 		} else if (family_member.age) {
 			$("#is_person_alive").val('alive');
-			$("#person_is_alive").show();
-			$("#person_is_not_alive").hide();
 			$("#age_determination").val('age');
-
-			$('#age_determination_date_of_birth').hide();
 			$('#age_determination_text').show().val(family_member.age);
 			$('#estimated_age_select').hide();
-		} else if (family_member.estimated_age) {
-			$("#is_person_alive").val('alive');
 			$("#person_is_alive").show();
 			$("#person_is_not_alive").hide();
+		} else if (family_member.estimated_age) {
+			$("#is_person_alive").val('alive');
 			$("#age_determination").val('estimated_age');
-
-			$('#age_determination_date_of_birth').hide();
-			$('#age_determination_text').hide();
 			$('#estimated_age_select').show().val(family_member.estimated_age);
+			$('#age_determination_text').hide();
+			$("#person_is_alive").show();
+			$("#person_is_not_alive").hide();
 		} else {
 			$("#is_person_alive").val('unknown');
 			$("#person_is_alive").hide();
@@ -2881,7 +2835,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 var secondVari;
 
 function clear_and_set_personal_health_history_dialog() {
-	if (personal_information == null) reset_personal_information();
+	if (personal_information == null) personal_information = new Object();
 	if (personal_information.name != null) $("#personal_info_form_name").val(personal_information.name);
 	else $("#personal_info_form_name").val("");
 
@@ -2912,7 +2866,6 @@ function clear_and_set_personal_health_history_dialog() {
 		$("#personal_height_feet").val("");
 		$("#personal_height_inches").val("");
 		$("#personal_height_centimeters").val("");
-		$("#personal_bmi").val("");
 	}
 	$("#personal_weight").val(personal_information.weight);
 	if (personal_information.weight_unit == 'lbs' || personal_information.weight_unit == 'pound') {
@@ -3232,67 +3185,8 @@ function updateHistoryDialog(relationship, family_member) {
 	}
 }
 
-function reset_personal_information() {
-	personal_information = new Object();
-	personal_information['name']="あなた";
-	personal_information['twin_status']="NO";
-	personal_information['prefectures']="";
-}
 
-function get_defaultname(relationship) {
-	switch(relationship) {
-	case 'maternal_grandfather':
-		return "あなたの母方の祖父";
-	case 'paternal_grandfather':
-		return "あなたの父方の祖父";
-	case 'father':
-		return "あなたの父";
-	case 'brother':
-		return "あなたの兄弟";
-	case 'son':
-		return "あなたの息子";
-	case 'maternal_uncle':
-		return "あなたの母方のおじ";
-	case 'paternal_uncle':
-		return "あなたの父方のおじ";
-	case 'nephew':
-		return "あなたのおい";
-	case 'grandson':
-		return "あなたの孫息子";
-	case 'maternal_halfbrother':
-		return "あなたの異父兄弟";
-	case 'paternal_halfbrother':
-		return "あなたの異母兄弟";
-	case 'maternal_grandmother':
-		return "あなたの母方の祖母";
-	case 'paternal_grandmother':
-		return "あなたの父方の祖母";
-	case 'mother':
-		return "あなたの母";
-	case 'sister':
-		return "あなたの姉妹";
-	case 'daughter':
-		return "あなたの娘";
-	case 'maternal_aunt':
-		return "あなたの母方のおば";
-	case 'paternal_aunt':
-		return "あなたの父方のおば";
-	case 'niece':
-		return "あなたのめい";
-	case 'granddaughter':
-		return "あなたの孫娘";
-	case 'maternal_halfsister':
-		return "あなたの異父姉妹";
-	case 'paternal_halfsister':
-		return "あなたの異母姉妹";
-	case 'maternal_cousin':
-		return "あなたの母方のいとこ";
-	case 'paternal_cousin':
-		return "あなたの父方のいとこ";
-	default:
-		return "";
-	}
-}
+
 
 window.onbeforeunload = closeEditorWarning;
 

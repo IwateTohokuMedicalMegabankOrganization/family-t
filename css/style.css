@@ -60,3 +60,8 @@ footer.page-footer {
 .teal.lighten-1 {
     background-color: #04B404 !important;
 }
+
+.page-footer {
+//	background-color: #548235;
+	background-color: #8ec31f;
+}
