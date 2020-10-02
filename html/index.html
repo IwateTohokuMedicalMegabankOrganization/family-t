@@ -31,6 +31,9 @@
 				});
 			};
 		});
+		function term_of_service(){
+			location.href= "term_of_service.html?setLng=" + window.i18n.lng();
+		}
 	</script>
 </head>
 <body>
@@ -94,7 +97,7 @@
 					<h5 class="header col s12 light">
 						<span class='translate' data-i18n='fhh_index.talking'>自ら集めた家族の健康に関する情報を家族や自分のために活用してください</span>
 					</h5>
-					<a href="term_of_service.html" id="download-button" class="btn-large waves-effect waves-light button_color_normal lime black-text">
+					<a href="#" id="download-button" class="btn-large waves-effect waves-light button_color_normal lime black-text" onclick="term_of_service();">
 						<span class='translate' data-i18n='fhh_index.create'>利用規約を確認し、家族歴を作成</span>
 					</a>
 				</div>
