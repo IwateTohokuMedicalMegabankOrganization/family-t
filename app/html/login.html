@@ -46,17 +46,18 @@
 							</div>
 							<div class='row'>
 								<div class='input-field col m12'>
-									<label for='password'>パスワード</label>
 									<input class='validate' type='password' name='password' id='password' required />
+									<label for='password'>パスワード</label>
 								</div>
 								<!--<label style='float: right;'>
 									<a><b>パスワードをお忘れですか?</b></a>
 								</label>-->
 							</div>
-							<div class="row center">
-								<button id="create" class="btn-large waves-effect waves-light black-text" type='submit' style="background-color:rgba(208,223,66,1);">家族歴の新規作成</button>
-								<button id="load" class="btn-large waves-effect waves-light black-text" type='submit' style="background-color:rgba(208,223,66,1);">家族歴の読み込み</button>
-							</div>
+							<center>
+								<div class='row'>
+									<button id="login" style="margin-left:65px;" type='submit' name='btn_login' class='col s6 btn btn-large waves-effect waves-light lime accent-5 black-text waves-effect z-depth-1 y-depth-1'>ログイン</button>
+								</div>
+							</center>
 						</div>
 					</div>
 				</center>
@@ -69,14 +70,8 @@
 	<script src="../js/materialize.js"></script>
 	<script src="../../js/init.js"></script>
 	<script type="text/javascript">
-		$("#create").on("click", function(){
+		$("#login").on("click", function(){
 			location.href('fhh.html?lng=ja&action=create');
-		});
-
-	</script>
-	<script type="text/javascript">
-		$("#load").on("click", function(){
-			location.href('fhh.html?lng=ja&action=load');
 		});
 
 	</script>
