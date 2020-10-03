@@ -1,0 +1,207 @@
+<script src="http://gojs.net/latest/intro/goIntro.js"></script>
+
+<table class="infolayer">
+	<tr>
+		<td style="padding-left:5px;background-color:#dfdddd;width:1%;border-style:solid;border-width:1px;">
+			<h1>{{translate("fhh_family_pedigree","title")}}</h1>
+			<ul style="list-style-type:square;">
+				<li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line1")}}</li>
+				<li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line2_before_anchor1")}} <a href="#diagram_head">{{translate("fhh_family_pedigree","desc_line2_anchor1")}}</a> {{translate("fhh_family_pedigree","desc_line2_before_anchor2")}} <a id="tableAnchor" href="#table_head">{{translate("fhh_family_pedigree","desc_line2_anchor2")}}</a> {{translate("fhh_family_pedigree","desc_line2_after_anchor2")}}</li>
+				<li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line3")}}</li>
+<!-- 				<li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line4")}}</li> -->
+			</ul>
+<!-- 			<ul style="list-style-type:none;padding-left:20px;"> -->
+<!-- 				<li>オプション:</li> -->
+<!-- 				<ul style="list-style-type:none;padding-left:60px;"> -->
+<!-- 					<li> -->
+<!-- 						<input id='bmi' type='checkbox' class='filled-in' name='bmi' value='bmi' onclick='HidePersonalInfo()' checked /> {{translate("fhh_family_pedigree","diagram_options_checkbox1")}}<br /> -->
+<!-- 					</li> -->
+<!-- 					<li> -->
+<!-- 						<input id='names' type='checkbox' class='filled-in' name='names' value='names' onclick='HideNames()' checked /> {{translate("fhh_family_pedigree","diagram_options_checkbox2")}}<br /> -->
+<!-- 					</li> -->
+<!-- 					<li> -->
+<!-- 						<label for='diseaseopts'>家系図で強調する疾患または状態を選択:  </label> -->
+<!-- 						<select id='diseaseopts' onchange='DiseaseDna()'></select> -->
+<!-- 					</li> -->
+<!-- 				</ul> -->
+<!-- 			</ul> -->
+		</td>
+	</tr>
+</table>
+<br />
+<div class="row">
+	<div class="col s6">
+		<h2 id="diagram_head">家系図</h2>
+	</div>
+	<div class="col s6 right-align">
+		<button class="btn-small waves-effect waves-light teal lighten-1" ng-click="close()">{{translate("fhh_family_pedigree","close")}}</button>
+		<a href="#close"><button class="btn-small waves-effect waves-light teal lighten-1">トップ</button></a>
+	</div>
+</div>
+
+<div id="pedigree">
+	<div class="row">
+		<div class="col s6">
+			<table width="100%" id="personal_info_diagram">
+				<tr>
+					<td>
+						<div id="personal_info" style="padding-left:20px;">
+							<table style="border: 1px solid; padding: 2px;">
+								<tr style="border: 1px solid; padding: 2px;">
+									<td colspan="4" style="border: 1px solid; padding: 2px;">
+										<div>{{translate("fhh_family_pedigree","personal_info")}}</div>
+									</td>
+								</tr>
+								<tr style="border: 1px solid; padding: 2px;">
+									<td style="border: 1px solid; padding: 2px;">
+										<div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
+									</td>
+									<td style="border: 1px solid; padding: 2px;">
+										<div>{{translate("fhh_family_pedigree","height")}} {{self_history.height}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.height_unit)}}</span></div>
+									</td>
+									<td style="border: 1px solid; padding: 2px;">
+										<div>{{translate("fhh_family_pedigree","weight")}} {{self_history.weight}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.weight_unit+"s")}}</span></div>
+									</td>
+									<td style="border: 1px solid; padding: 2px;">
+										<div>{{translate("fhh_family_pedigree","bmi")}} {{calculateBMI(self_history.height,self_history.height_unit,self_history.weight,self_history.weight_unit)}}</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4" style="border: 1px solid; padding: 2px;">
+										<div>{{calculcate_report_date()}}</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col s6 row">
+			<div class="row">
+				f-treeをダウンロードし、下のボタンでダウンロードしたCSVファイルをf-treeに読み込ませて、家系図を表示します。
+			</div>
+			<div class="row center" style="">
+				<button class="btn-small waves-effect waves-light teal lighten-1" id="download_csv" ng-click="bindDownloadCSV()"><i class="material-icons left">file_download</i>CSVをダウンロード</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<hr id="health_table">
+<div class="modal-body">
+	<a name="#personal_info_table"></a>
+	<div id="bottom_table">
+		<div class="row">
+			<div class="col s8">
+				<h2 id="table_head">家族の疾患や健康状態の一覧表</h2>
+			</div>
+			<div class="col s4 right-align">
+				<button class="btn-small waves-effect waves-light teal lighten-1" ng-click="close()">{{translate("fhh_family_pedigree","close")}}</button>
+				<a href="#close"><button class="btn-small waves-effect waves-light teal lighten-1">トップ</button></a>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s6">
+				<table width="100%" id="personal_info_table">
+					<tr>
+						<td>
+							<div id="personal_info" style="padding-left:10px;">
+								<table style="border: 1px solid; padding: 2px;">
+									<tr style="border: 1px solid; padding: 2px;">
+										<td colspan="4" style="border: 1px solid; padding: 2px;">
+											<div>{{translate("fhh_family_pedigree","personal_info")}}</div>
+										</td>
+									</tr>
+									<tr style="border: 1px solid; padding: 2px;">
+										<td style="border: 1px solid; padding: 2px;">
+											<div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
+										</td>
+										<td style="border: 1px solid; padding: 2px;">
+											<div>{{translate("fhh_family_pedigree","height")}} {{self_history.height}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.height_unit)}}</span></div>
+										</td>
+										<td style="border: 1px solid; padding: 2px;">
+											<div>{{translate("fhh_family_pedigree","weight")}} {{self_history.weight}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.weight_unit+"s")}}</span></div>
+										</td>
+										<td style="border: 1px solid; padding: 2px;">
+											<div>{{translate("fhh_family_pedigree","bmi")}} {{calculateBMI(self_history.height,self_history.height_unit,self_history.weight,self_history.weight_unit)}}</div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="4" style="border: 1px solid; padding: 2px;">
+											<div>{{calculcate_report_date()}}</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="health_table_action_buttons">
+				<div class="col s6">
+<!-- 					<button class="translate btn-small waves-effect waves-light teal lighten-1" ng-click="print(true)">{{translate("fhh_family_pedigree","print")}}</button> -->
+<!-- 					<button class="translate btn-small waves-effect waves-light teal lighten-1" ng-click="print()">{{translate("fhh_family_pedigree","save_image")}}</button> -->
+				</div>
+			</div>
+
+		</div>
+		<button class=" btn-small waves-effect waves-light teal lighten-1" ng-click="collapseTable()">{{collapse_status.collapse_text}}</button>
+		<span >&nbsp;&nbsp;（かかりつけ医が把握しておくべき6つの一般的な疾患については常時表示しています）</span>
+		<br />
+		<ul id="disease_list">
+			<li ng-repeat="d in disease_list" ng-if="!d.show">
+				<a href="" ng-click="showDisease(d)"><img src="../static/images/open.gif"></a>{{d.translatedDiseaseName}}
+			</li>
+		</ul>
+		<table class="health_table" width="100%" style="border: solid 1px #bbf;">
+			<tr style="border: solid 1px #bbf;">
+				<th style="border: solid 1px #bbf;">
+					{{translate("fhh_js","name_relationship")}}
+				</th>
+				<th style="border: solid 1px #bbf;">
+					{{translate("fhh_js","still_living")}}
+				</th>
+				<th ng-repeat="d in disease_list track by $index" ng-show="d.show" style="border: solid 1px #bbf;">
+					<a href="" ng-click="removeDisease(d)"><img src="../static/images/close.png" height="16"></a><br />
+					{{d.translatedDiseaseName}}
+				</th>
+			</tr>
+			<tr ng-repeat="person in (filteredItems = (pi | filter:filterText))" ng-class="{'self_row':person.relationship=='Self'}" style="border: solid 1px #bbf;">
+				<td style="border: solid 1px #bbf;">
+					<span ng-if="person.name">
+						<span class="health_table_name">{{person.name}}<br /></span>
+						<span class="health_table_relationship">
+							<span class="health_table_name">(</span>
+							{{person.relationship}}
+							<span class="health_table_name">)</span>
+						</span>
+					</span>
+					<span ng-if="!person.name">{{person.relationship}}</span>
+				</td>
+				<td style="border: solid 1px #bbf;">{{person.is_alive}}<span ng-if="person.cause_of_death">,<br /> {{person.cause_of_death}}<br />({{person.estimated_death_age}})</span></td>
+				<td ng-repeat="d in disease_list" ng-show="d.show" style="border: solid 1px #bbf;">
+					<span ng-if="d.code=='1'">
+						<div class="other_disease" ng-repeat="od in person['Health History'] track by $index" ng-if="od.isOther">
+
+							<!--{{od['Disease Code']}}<br />({{od['Age At Diagnosis']}})-->
+							{{od['translatedDiseaseName']}}<<br />({{od['Age At Diagnosis']}})
+						</div>
+					</span>
+					{{lookupDisease(person,d['code'])['Age At Diagnosis']}}
+					</span>
+				</td>
+			</tr>
+		</table>
+		<div id="health_table_filter" style="margin-top: 10px;">Filter:<input type="text" ng-model="filterText"></div>
+	</div>
+</div>
+<div id="#diagram_image"></div>
+<div class="modal-footer">
+	<button class="btn-small waves-effect waves-light teal lighten-1" ng-click="close()">{{translate("fhh_family_pedigree","close")}}</button>
+	<a href="#close"><button class="btn-small waves-effect waves-light teal lighten-1">トップ</button></a>
+</div>
+<div id="diagram_container">
+	<div ng-show="diagram_show" id="print_diagram" style="width:auto; height:{{getTableHeight()}}px; background-color: #fff;"></div>
+</div>

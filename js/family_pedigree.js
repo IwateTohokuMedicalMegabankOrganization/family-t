@@ -73,7 +73,7 @@ function xmlload() {
     var lng = window.i18n.lng();
     if (lng=='en-US') {
         lng = 'en';
-    };  
+    };
 
     //IE 8
     if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
@@ -102,7 +102,7 @@ function xmlload() {
     /*
      Get Date
      */
-    var options = {weekday: "long", year: "numeric", month: "long", day: "numeric", hour:"numeric",minute:"numeric",hour12:"true"};             
+    var options = {weekday: "long", year: "numeric", month: "long", day: "numeric", hour:"numeric",minute:"numeric",hour12:"true"};
     var today = $.t("fhh_family_pedigree.date_of_report") + ": " + new Date().toLocaleString(lng, options);
 
 
@@ -139,7 +139,7 @@ function xmlload() {
         '<div class="info"></div>' +
         '</div>' +
 
-        // '<div id="p_dialog"></div>' + 
+        // '<div id="p_dialog"></div>' +
 
         '<div id="family_pedigree_info" class="brk">' +
         '<div>' +
@@ -176,9 +176,9 @@ function xmlload() {
             $("#topsvg").hide();
             // $("#p_dialog").load ("new_diagram_dialog.html", function () {
             //     open_new_diagram_dialog();
-            // });                     
+            // });
 
-            
+
             var ex = document.getElementById('health_table');
 
 // oTable.fnDestroy();
@@ -218,7 +218,7 @@ function xmlload() {
                   "oPaginate": {
                     "sPrevious": $.t("fhh_family_pedigree.previous"),
                     "sNext": $.t("fhh_family_pedigree.next")
-                  }                  
+                  }
                 }
 
             });
@@ -315,7 +315,7 @@ function xmlload() {
                 'SNOMED_CT-363406005',
                 'SNOMED_CT-254837009',
                 'SNOMED_CT-363443007'
-            ]; 
+            ];
 
 
         $.each(personal_information['Health History'], function (key, item) {
@@ -378,7 +378,7 @@ function xmlload() {
             });
         }
 
-        
+
         for (var i = 0; i < diseasearray.length; i++) {
             var NAME = diseasearray[i][1];
 
@@ -652,15 +652,15 @@ function xmlload() {
     var t = {"id": [personal_information['father'].id], "name": [personal_information['father'].name], "gender": ["MALE"],
         key: ['father']};
     NAMEARRAY.push(t);
-    
+
     MotherArray.push({"key": 'mother',  "id": personal_information['mother'].id, "gender":'FEMALE'});
     var t = {"id": [personal_information['mother'].id], "name": [personal_information['mother'].name], "gender": ["FEMALE"],
         key: ['mother']};
     NAMEARRAY.push(t);
-    
-        
 
-    
+
+
+
     $.each(personal_information, function (key, item) {
 
 
@@ -6890,10 +6890,10 @@ function createDialogMain() {
         + "</tr>"
         + "<tr>"
         + "<td>"
-        + "<input id='bmi' type='checkbox' name='chk_group' value='bmi' onclick='HideInfoMain()' checked />" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox1") + "<br />"
-        + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfoMain()' checked />" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox2") + "<br />"
-        + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfoMain()' checked/>" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox3") + "<br />"
-        + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfoMain()' checked/>" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox4") + "<br />"
+        + "<input id='bmi' class='filled-in' type='checkbox' name='chk_group' value='bmi' onclick='HideInfoMain()' checked />" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox1") + "<br />"
+        + "<input id='names' class='filled-in' type='checkbox' name='chk_group' value='names' onclick='HideInfoMain()' checked />" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox2") + "<br />"
+        + "<input id='diagram' class='filled-in' type='checkbox' name='chk_group' value='diagram' onclick='HideInfoMain()' checked/>" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox3") + "<br />"
+        + "<input id='table' class='filled-in' type='checkbox' name='chk_group' value='table' onclick='HideInfoMain()' checked/>" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox4") + "<br />"
         + "<br /><button onclick='CloseInfoMain()'>" + $.t("fhh_family_pedigree.close") + "</button>"
         + "</td>"
         + "</tr></table>"
@@ -6968,11 +6968,11 @@ function DiseaseDna(){
                                 var hh = item['Health History'];
                                 $.each(hh, function (health_key, disease) {
 //                                  console.log("Testing["+item.name+"]: " + disease["Disease Code"] + "==" + selectedValue);
-                                    
+
                                     if (selectedValue == disease["Disease Code"]) {
 //                                      console.log("HIT: " + ID);
                                         found = true;
-                                        $('#' + ID).attr({fill: 'yellow', stroke: 'black'});            
+                                        $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
                                     }
                                 });
                                 if (found != true) {

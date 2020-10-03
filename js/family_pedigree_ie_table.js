@@ -71,7 +71,7 @@ var STATICDISEASES = [
     'SNOMED_CT-363406005',
     'SNOMED_CT-254837009',
     'SNOMED_CT-363443007'
-]; 
+];
 
 function IEloadTable() {
 
@@ -80,12 +80,12 @@ function IEloadTable() {
 
 
     /**
-    * CLEAN RESTART 
+    * CLEAN RESTART
     **/
     if( mdialog != null) {
         oTable.fnDraw(true);
         // $(mdialog).dialog('destroy').remove();
-         mdialog = null;         
+         mdialog = null;
     }
 
 
@@ -101,8 +101,8 @@ function IEloadTable() {
     var lng = window.i18n.lng();
     if (lng=='en-US') {
         lng = 'en';
-    };      
-    var options = {weekday: "long", year: "numeric", month: "long", day: "numeric", hour:"numeric",minute:"numeric",hour12:"true"};             
+    };
+    var options = {weekday: "long", year: "numeric", month: "long", day: "numeric", hour:"numeric",minute:"numeric",hour12:"true"};
     var today = $.t("fhh_family_pedigree.date_of_report") + ": " + new Date().toLocaleString(lng, options);
     mdialog = $(
         '<div id="family_pedigree" style="background-color:white;">' +
@@ -191,8 +191,8 @@ function IEloadTable() {
                   "oPaginate": {
                     "sPrevious": $.t("fhh_family_pedigree.previous"),
                     "sNext": $.t("fhh_family_pedigree.next")
-                  }                  
-                }                
+                  }
+                }
 
             });
 
@@ -215,7 +215,7 @@ function IEloadTable() {
                 '</div>'
             );
             $('#health_table').css('width',masterRight);
-            
+
             var target = $(this);
             $(this).dialog("open");
             $(this).load(LOAD_HEALTH_TABLE());
@@ -414,7 +414,7 @@ function IEloadTable() {
             mdialog.dialog('open');
         }, 500);
 
-    
+
 
      weight, height,age,weight_unit,height_unit;
      BMI;
@@ -463,13 +463,13 @@ $('#age').text = age;
     if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + $.t("fhh_diabetes_calculator."+height_unit)));
     if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + $.t("fhh_diabetes_calculator."+weight_unit)));
     $('#abmi').append($("<span><b></b></span>").text( BMI));
-    
+
 // }
 
 
-    
 
-   
+
+
 
 
 //PRINTER
@@ -507,7 +507,7 @@ $('#age').text = age;
         // $('#legendtag').css('height','50px');
         $(healthtable).css('width','100%');
         $(healthtable).css('font-size','12px');
-       
+
 
             $('#dialogtext').hide();
             var DocumentContainer = $(mdialog);
@@ -544,8 +544,8 @@ $('#age').text = age;
 
              WindowObject.close();
         }
-       
-        
+
+
         else {
             var myWindow=null;
             var prand = Math.floor((Math.random() * 10000) + 1);
@@ -560,7 +560,7 @@ $('#age').text = age;
             $('.closeimg').css('visibility', 'hidden');
             $('#health_table_filter').hide();
             $('#health_table_info').hide();
-            $('#health_table_paginate').hide();            
+            $('#health_table_paginate').hide();
             $('#svgframe').draggable('disable');
             $('.sticky').hide();
             $('#legendtag').css('width','300px');
@@ -579,7 +579,7 @@ $('#age').text = age;
 
             if( DISPLAY != 'none' ) {
                 fitSVGinPrint();
-                
+
                 // var bb=mySVG.getBBox()
                 // orgwidth=bb.width;
                 // orgheight=bb.height;
@@ -590,8 +590,8 @@ $('#age').text = age;
                 // mySVG.setAttribute("transform","rotate("+angle+" "+bbw+" "+bbh+")")
             }
 
-/**** ***/            
-            
+/**** ***/
+
 
             <!-- PRINT STARTS HERE -->
              if(DISPLAY != 'none' ) {
@@ -634,7 +634,7 @@ $('#age').text = age;
             if(DISPLAY != 'none' ) {
                 var mySVG=document.getElementById('svgframe')
                 var bb=mySVG.getBBox()
-                
+
                 var bbw=orgwidth*5;
                 var bbh=orgheight*2;
                 var angle  = 180;
@@ -654,7 +654,7 @@ $('#age').text = age;
                     $('#legendtag').css('width','');
                     $('#legendtag').css('height','');
 
-            
+
 
                 }
             }, 1000);
@@ -721,13 +721,13 @@ function LOAD_HEALTH_TABLE(){
     mystatics = $.merge( $.merge( [], temp1 ), MYSTART_COD );
 
     if(myhealth.length>0) {
-         if (myhealth && myhealth.length > 0){  
+         if (myhealth && myhealth.length > 0){
         $.each(myhealth, function (key, item) {
             var tmp = item['Disease Name'];
             var details = item['Disease Code'];
             var diagage =  item['Age At Diagnosis'] ;
             if (diagage == null) diagage = 'unknown';
-            
+
             if(tmp)tmp = tmp.toLowerCase();
             if(details)details=details;
             if(details=='diseases:null') details = "";
@@ -904,7 +904,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                 if (typeof item['Health History'] != 'undefined') {
                     var temp_stat = new Array();
 
-                    if (item['Health History'] && item['Health History'].length > 0){  
+                    if (item['Health History'] && item['Health History'].length > 0){
                         $.each(item['Health History'], function (key, item) {
                             var tmp = item['Disease Name'];
                             var details =  item['Disease Code'] ;
@@ -1004,7 +1004,7 @@ SetPersonalInfo();
 }
 
 
-/** 
+/**
 * END OF xmlload()
 **/
 
@@ -1096,7 +1096,7 @@ function createDialog() {
         /**
          * Me values
          */
-if (personal_information['Health History'] && personal_information['Health History'].length > 0){         
+if (personal_information['Health History'] && personal_information['Health History'].length > 0){
         $.each(personal_information['Health History'], function (k, data) {
 
             //var health = new Array();
@@ -1119,14 +1119,14 @@ if (personal_information['Health History'] && personal_information['Health Histo
         /**
          * family Values
          */
-if (personal_information && personal_information.length > 0){         
+if (personal_information && personal_information.length > 0){
         $.each(personal_information, function (key, item) {
             if(item) {
                 if (typeof item.id != 'undefined') {
                     if (item['Health History']) {
                         var health = new Array();
 
-                         if (item['Health History'] && item['Health History'].length > 0){  
+                         if (item['Health History'] && item['Health History'].length > 0){
                             health = item['Health History'];
 
                             $.each(health, function (k, data) {
@@ -1166,8 +1166,8 @@ if (personal_information && personal_information.length > 0){
         + "</tr>"
             + "<tr>"
             + "<td>"
-            + "<input id='bmi' type='checkbox' name='chk_group' value='bmi' onclick='HideInfo()' checked />Show my personal information in the report (such as Date of Birth, Height, or Weight)<br />"
-            + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfo()' checked />Show names of family members in the report<br />"
+            + "<input id='bmi' class='filled-in' type='checkbox' name='chk_group' value='bmi' onclick='HideInfo()' checked />Show my personal information in the report (such as Date of Birth, Height, or Weight)<br />"
+            + "<input id='names' class='filled-in' type='checkbox' name='chk_group' value='names' onclick='HideInfo()' checked />Show names of family members in the report<br />"
             // + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfo()' checked/>Show drawing (the tree diagram of your family's health history)<br />"
             // + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfo()' checked/>Show table (your family's health history displayed as a listing table)<br />"
             + "<input type='button' onclick='CloseInfo()' value='close'></button>"
@@ -1196,7 +1196,7 @@ if (personal_information && personal_information.length > 0){
 
 
 function ClearDna(){
-    if (personal_information && personal_information.length > 0){ 
+    if (personal_information && personal_information.length > 0){
         $.each(personal_information, function (key, item) {
             if (typeof item != 'undefined'){
                 var ID = item.id;
@@ -1545,14 +1545,14 @@ function closedialog(){
 //     }
 // }
 
-   
+
 
 var SVGId
 function fitSVGinDiv(mySVG){
 
     var divWH=parseInt(masterRight)
 
-     
+
 
     // svgDiv.style.width=divWH+"px"
     // svgDiv.style.height=divWH+"px"
@@ -1570,7 +1570,7 @@ function fitSVGinDiv(mySVG){
         // alert(masterRight + "pop =" + FRAMEWIDTH)
     }
     else{
-        
+
         var factor=bbh/divWH
     }
 
@@ -1585,8 +1585,8 @@ function fitSVGinDiv(mySVG){
      mySVG.setAttribute('height','1500')
      mySVG.setAttribute("viewBox", "-100 0 3000 500");//Small
      mySVG.setAttribute("preserveAspectRatio", "xMinYMin slice");
-     
-    
+
+
 
     //--requred for FF/CH---
     if(isIE==0)
@@ -1613,7 +1613,7 @@ function fitSVGinPrint(){
 
 
     var mySVG=document.getElementById('svgframe')
-   
+
 
 
 
@@ -1637,7 +1637,7 @@ function fitSVGinPrint(){
 
     var vbX=(bbw-vbWH)/2
     var vbY=(bbh-vbWH)/2
-    
+
     var angle=90;
      // mySVG.setAttribute("transform","rotate("+angle+" "+cx+" "+cy+")")
 

@@ -5,7 +5,7 @@
  *
  * Made By MaterializeCSS.com
  */
-
+/*
 nav ul a,
 nav .brand-logo {
   color: #444;
@@ -55,13 +55,221 @@ p {
 footer.page-footer {
   margin: 0;
 }
-
+*/
 /*media screen,projection*/
+/*
 .teal.lighten-1 {
     background-color: #04B404 !important;
 }
 
+.banner {
+	width: 100%;
+	height: 61px;
+}
+.banner_left {
+	width: 100%;
+	height: 61px;
+}
+.banner_right {
+	width: 0px;
+	height: 0px;
+}
+
+*/
+
+
+.container {
+	width: 90%;
+}
+.race_checkbox {
+	padding-top: 5px;
+}
+
+#ui-id-7.ui-dialog-title {
+	padding-left: 13%;
+	text-align: center;
+}
+
+.risk_title {
+	font-size: 1.4em;
+	font-weight: bold;
+	color: #fff !important;
+	background-color: #04b404 !important;
+	text-align: center;
+	margin: 0.2em 0em;
+}
+
+.risk_caution {
+	padding-left: 3%;
+	padding-right: 3%;
+}
+
+.risk_result {
+	text-align: center;
+	font-size: 2.1em;
+	padding: 5px;
+}
+
+.risk_parcentile {
+	font-size: 1.6em;
+}
+
+.risk_description {
+	text-align: center;
+	font-size: 1.6em;
+	margin: 1 0 14 0;
+}
+
+.risk_warning {
+	font-size: 1.6em;
+	margin: 1em 0;
+}
+
+.risk_reference {
+	font-size: 0.9em;
+	margin: 1 0 14 0;
+}
+
+.risk_box {
+/*	background: #8ec31f; */
+/*	border: solid 1px #8ec31f; */
+	background-color: #04b404 !important;
+	border-right: 1px solid #26a69a !important;
+	border-bottom: 1px solid #26a69a !important;
+	border-radius: 2px;
+	padding: 0em 0.5em 0.5em 0.5em;
+}
+
+.risk_container {
+	padding: 1em;
+	color: #000;
+	background: #ffffff !important;
+}
+
+.risk_comparison_title {
+	padding: 0.3em 0em;
+	text-align: center;
+	font-size: 1.4em;
+	font-weight: bold;
+	color: #000;
+}
+
+.risk_comparison_graph {
+	padding-bottom: 1em;
+	text-align: center;
+}
+
+.risk_exception{
+	border: solid 2px #000;
+	margin-bottom: 2em;
+}
+
+.form_error {
+	background: #ffbfdf;
+}
+
+.instruction_box {
+	padding: 10px;
+}
+
+/* risk */
+
+.risk_graph_area {
+	position: relative;
+	background: url(../images/190425-1_diabetes_back.png) no-repeat;
+	-webkit-background-size: cover;
+	background-size: cover;
+	padding: 0px 10px;
+	height: 360px;
+}
+
+.graph_area_point {
+	background-color: #fff;
+	position: relative;
+	padding: 2px;
+	border: solid 2px #000;
+	margin-top: 148px;
+	width: 7em;
+	font-size: 2rem;
+	line-height: 1.2;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.graph_area_point::before {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -15px;
+	border: 15px solid transparent;
+	border-top: 20px solid #000;
+}
+
+table th{
+	font-size: large;
+	vertical-align: top !important;
+}
+
+table td{
+	font-size: large;
+	vertical-align: middle;
+}
+
+.subsection{
+	vertical-align: bottom !important;
+}
+
+/* 印刷用 */
+.print-off {
+    display: none;
+}
+
+.for_print {
+	font-size: 200%;
+	size: A4;
+	margin: auto;
+}
+
+.score_detail_style {
+	margin: auto;
+	margin-top: 5px;
+	border: solid 1px #777;
+	width: 60%;
+}
+
+.score_detail_style tr, .score_detail_style td, .score_detail_style th {
+	border: dashed 1px #777;
+	padding-left: 10px;
+}
+
+.page_breaker_for_print {
+	page-break-before:always;
+}
+
+/* 不足入力用 */
+.compensation {
+	padding-bottom: 4px !important;
+	padding-top: 7px !important;
+	border-top: dotted 2px #999;
+}
+
+.compensation_start {
+	padding-bottom: 4px !important;
+	padding-top: 3px !important;
+}
+
+.disease_guide {
+	color: red;
+	font-size: 0.8em;
+}
+
+.compensational_block {
+	border: dotted 2px red;
+	background-color: #ffffee;
+	padding: 6px;
+}
+
 .page-footer {
-//	background-color: #548235;
 	background-color: #8ec31f;
 }

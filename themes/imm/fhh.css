@@ -25,7 +25,7 @@
 
 
 body {
-    background: url('page_background.jpg') repeat-x scroll center top #ECE0D3;
+    background: url('../page_background.jpg') repeat-x scroll center top #ECE0D3;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 75%;
     padding: 10px;
@@ -333,8 +333,7 @@ table.disease_table td {
   text-align:left;
   font-weight:bold; 
   color: #fff;
-//  background-color: #109DBA; 
-  background-color: rgba(193, 212, 0, 1); 
+  background-color: #109DBA; 
   border-top: 1px solid #003366;
   border-bottom: 1px solid #003366;
   padding-left:10px;
@@ -352,8 +351,7 @@ table.disease_table td {
 }
 
 .ui-widget-header {
-//  background-color: #FFE060; color:#000;
-  background-color: rgba(193, 212, 0, 1); color:#000;
+  background-color: #FFE060; color:#000;
   background-image:none;
   border:1px solid rgba(53, 6, 2, 1);
 }

@@ -1,0 +1,256 @@
+<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection,print" />
+<link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection,print"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<div class="row">
+	<div class="col s12 text-right">
+	<button id='closeLifestyleScoreButton' class="btn-large waves-effect waves-light teal lighten-1 translate" data-i18n='fhh_family_pedigree.close' style="text-align:right;font-size:110% !important">Close</button>
+	</div>
+</div>
+
+<div class="row risk_caution">
+	<div class="col s11">
+		<span class='translate' data-i18n='family-t_risk.exp1'>
+		　ここで算出される判定結果は、これまでに報告された研究成果を参考にしたものです。
+		</span>
+
+		<span class='translate' data-i18n='family-t_risk.exp2'>
+			全ての個人に当てはまるかについては確定的とはいえません。
+		</span>
+
+		<span class='translate' data-i18n='family-t_risk.exp3'>
+			また今後の研究によって、判定方法が変更される可能性があり、判定結果が変わることがあります。
+		</span>
+
+		<br />
+
+		<span class='translate' data-i18n='family-t_risk.exp4'>
+		　ご希望の方には、岩手医科大学附属病院臨床遺伝科を通じて専門診療科に紹介いたします。
+		</span>
+
+		<span class='translate' data-i18n='family-t_risk.exp5'>
+		かかりつけ医や専門医への情報提供、ご家族を含めたフォローアップ、必要に応じた遺伝カウンセリングが可能です。
+		</span>
+	</div>
+</div>
+
+<div class="row compensational_block" id="lifestylescore_compensational_block">
+
+	<div class="col s12 compensation_start">
+		<div class="col s12 left">
+			ライフスタイルスコア計算に必要な以下の項目が未入力です。
+		</div>
+	</div>
+
+	<div id="lifestylescore__height" class="col s12 compensation">
+		<div class="col s5">
+			<span class='translate' data-i18n='info_dialog.height'>身長</span>
+		</div>
+		<div class="col s7">
+			<div class="col s12">
+				<input class='number' name="compensation_height" size="3" maxlength='3' value="" max="300" id="compensation_height_centimeters" type="text"
+				onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" style="width:60px; height:85%;">
+				cm
+			</div>
+		</div>
+	</div>
+
+	<div id="lifestylescore__weight" class="col s12 compensation">
+		<div class="col s5">
+			<span class='translate' data-i18n='info_dialog.weight'>体重</span>
+		</div>
+		<div class="col s7">
+			<div class="col s12">
+				<input class='number' name="lifestylescore_lifestylescore__weight" size="3" maxlength='3' value="" max="300" id="lifestylescore__weight" type="text"
+				onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" style="width:60px; height:85%;">
+				kg
+			</div>
+		</div>
+	</div>
+
+	<div id="lifestylescore__smoker" class="col s12 compensation">
+		<div class="col s5" style="padding-bottom: 5px;">
+			<span class='translate' data-i18n='family-t.smoking_status'>喫煙状況</span>
+		</div>
+		<div class="col s7" style="padding-bottom: 5px;">
+			<div class="col s12">
+				<input id="lifestylescore_compensation_smoker1" name="lifestylescore_compensation_smoker" value="1" type="radio" />
+				<label for="lifestylescore_compensation_smoker1">
+					<span class='translate' data-i18n="family-t.select_your_current_smoking_status" >Never smoked</span>
+				</label>
+			</div>
+
+			<div class="col s12">
+				<input id="lifestylescore_compensation_smoker2" name="lifestylescore_compensation_smoker" value="2" type="radio" />
+				<label for="lifestylescore_compensation_smoker2">
+					<span class='translate' data-i18n="family-t.former_smoker_quit_more_than_fifteen_years_ago." >Former smoker: quit more than fifteen years ago.</span>
+				</label>
+			</div>
+
+			<div class="col s12">
+				<input id="lifestylescore_compensation_smoker3" name="lifestylescore_compensation_smoker" value="3" type="radio" />
+				<label for="lifestylescore_compensation_smoker3">
+					<span class='translate' data-i18n="family-t.former_smoker_quit_between_one_and_fifteen_years_ago." >
+						Former smoker: quit between one and fifteen years ago.
+					</span>
+				</label>
+			</div>
+
+			<div class="col s12">
+				<input id="lifestylescore_compensation_smoker4" name="lifestylescore_compensation_smoker" value="4" type="radio" />
+				<label for="lifestylescore_compensation_smoker4">
+					<span class='translate' data-i18n="family-t.former_smoker_quit_less_than_one_year_ago" >
+						Former smoker: quit less than one year ago
+					</span>
+				</label>
+			</div>
+
+			<div class="col s12">
+				<input id="lifestylescore_compensation_smoker5" name="lifestylescore_compensation_smoker" value="5" type="radio" />
+				<label for="lifestylescore_compensation_smoker5">
+					<span class='translate' data-i18n="family-t.current_smoker" >Current smoker</span>
+				</label>
+			</div>
+		</div>
+		<div class="col s5">
+			<span class='translate' data-i18n="family-t.select_the_number_of_cigarettes_you_smoke_per_day_on_average" >
+			Select the number of cigarettes you smoke per day (on average).
+			</span>
+		</div>
+		<div class="col s7">
+			<div class="col s6">
+				<input id="lifestylescore_compensation_number_of_cigarettes_per_day_1_to_9" name="lifestylescore_compensation_number_of_cigarettes_per_day" value="1_to_9" type="radio" disabled/>
+				<label for="lifestylescore_compensation_number_of_cigarettes_per_day_1_to_9">
+					<span class='translate' data-i18n="family-t.1_-_9_cigarettes_per_day" >1 - 9 cigarettes per day</span>
+				</label>
+			</div>
+			<div class="col s6">
+				<input id="lifestylescore_compensation_number_of_cigarettes_per_day_10_or_more" name="lifestylescore_compensation_number_of_cigarettes_per_day" value="10_or_more" type="radio" disabled/>
+				<label for="lifestylescore_compensation_number_of_cigarettes_per_day_10_or_more">
+					<span class='translate' data-i18n="family-t.more_than_10_cigarettes_per_day" >More than 10 cigarettes per day</span>
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<div id="compensate_training" class="col s12 compensation">
+		<div class="col s5" style="padding-bottom: 5px;">
+			<span class='translate' data-i18n="family-t.do_you_exercise_regularly">
+				Do you exercise regularly?
+			</span>
+		</div>
+		<div class="col s7" style="padding-bottom: 5px;">
+			<div class="col s4">
+				<input id="lifestylescore_compensation_training_yes" name="lifestylescore_compensation_training" value="1" type="radio" />
+				<label for="lifestylescore_compensation_training_yes">はい</label>
+			</div>
+			<div class="col s4">
+				<input id="lifestylescore_compensation_training_no" name="lifestylescore_compensation_training" value="0" type="radio" />
+				<label for="lifestylescore_compensation_training_no">いいえ</label>
+			</div>
+		</div>
+
+		<div class="col s5" style="padding-bottom: 5px;">
+		</div>
+		<div class="col s7" style="padding-bottom: 5px;">
+			<div class="col s3">
+				<select name="lifestylescore_compensation_training_status1" id="lifestylescore_compensation_training_strength" disabled>
+					<option value="空欄"></option>
+					<option value="中程度">
+						<span class='translate' data-i18n="family-t.moderate">Moderate</span>
+					</option>
+					<option value="重度">
+						<span class='translate' data-i18n="family-t.intensive">Intensive</span>
+					</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="col s5" style="padding-bottom: 5px;">
+			<span class='translate' data-i18n="family-t.moderate">Number of times you exercise per week</span>
+		</div>
+		<div class="col s7" style="padding-bottom: 5px;">
+			<div class="col s12">
+				<input class="number" id="lifestylescore_compensation_count_for_training_at_week" min="1" max="30" maxlength="2" name="lifestylescore_compensation_training_status2"
+				style="width:60px; height:85%;" type="number" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" disabled/>
+				回
+			</div>
+		</div>
+
+		<div class="col s5">
+			<span class='translate' data-i18n="family-t.total_minutes_per_week">
+			Total minutes per week:
+			</span>
+		</div>
+		<div class="col s7">
+			<div class="col s12">
+				<input class="number" id="lifestylescore_compensation_time_for_training_at_week" min="10" max="10000" maxlength="5" name="lifestylescore_compensation_training_status3"
+				style="width:90px; height:85%;" type="number" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" disabled/>
+				分
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col s12 compensation">
+		<div class="col s12 center">
+			<button id='reCalculateLifestyleScore' class="btn-small waves-effect waves-light teal lighten-1"><i class="material-icons left">refresh</i>再計算</button>
+		</div>
+	</div>
+
+</div>
+
+<div class="row risk_box">
+	<div class="col s12 risk_title">ライフスタイルスコア</div>
+	<div class="col s12 risk_container">
+		<div id="lifestylescore_ok_mode">
+			<div class="col s12 risk_result">ライフスタイルスコア： <span class="risk_parcentile" id="risk_parcentile_lifestylescore">3点</span> </div>
+			<div id="disp_toggle_lifestylescore">
+				<div class="col s12 risk_description">
+					好ましい生活習慣は<br>
+					<span>3～4点</span>です
+				</div>
+				<div class="col s12 risk_description">
+					好ましくない生活習慣は<br>
+					<span>0～1点</span>です
+				</div>
+			</div>
+			<div id="disp_toggle_scoreDetail">
+				<table class="score_detail_style" style="margin-bottom: 5px;">
+					<tr>
+						<th colspan="2">内訳</th>
+					</tr>
+					<tr>
+						<th width="70%">項目</th>
+						<th width="30%">スコア</th>
+					</tr>
+					<tr>
+						<td>非喫煙</td>
+						<td id="lifestyle_score_isSmoker"></td>
+					</tr>
+					<tr>
+						<td>BMI 30未満</td>
+						<td id="lifestyle_score_bmi"></td>
+					</tr>
+					<tr>
+						<td>週1回以上の定期的な運動</td>
+						<td id="lifestyle_score_training"></td>
+					</tr>
+					<tr>
+						<td>健康的な食習慣</td>
+						<td id="lifestyle_score_diabetes"></td>
+					</tr>
+					<tr>
+						<td><span class='translate' data-i18n='fhh_diabetes_calculator.total_points'>合計</span></td>
+						<td id="lifestyle_score_total"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div id="lifestylescore_calc_ng">
+			<div class="col s10 offset-s1 risk_warning">
+				ライフスタイルスコア計算に必要な項目が登録されていません。
+			</div>
+		</div>
+	</div>
+</div>

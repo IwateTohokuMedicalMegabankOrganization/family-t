@@ -1,0 +1,1170 @@
+<div class="row" style="width: 100%; display:inline-flex;">
+	<div class="col s10" style="width:92%; margin-top: 4px;">
+		<div class="colOneSimple instructions">
+			<div class='translate' data-i18n='info_dialog.instructions'></div>
+			<div class='translate' data-i18n='info_dialog.instructions1'></div>
+			<div class='translate' data-i18n='info_dialog.instructions2'></div>
+		</div>
+	</div>
+	<div class="col s2" style="width:8%;">
+		<div class="inner">
+			<button style="display:none;" id="add-help" href="#"></button>
+			<label for="add-help">
+				<div id="tt000" class="material-icons large-size green-text cursor_pointer icon_shadow">help_outline</div>
+			</label>
+			<div class="mdl-tooltip" for="tt000">本人情報の入力に関するヘルプを表示します</div>
+		</div>
+	</div>
+</div>
+
+<!--
+<p class='instructions'>
+	<span class='translate' data-i18n='info_dialog.required'></span>
+</p>
+-->
+
+<div class="title-bar translate" data-i18n='info_dialog.div_personal_info' id="personalInfo"> Your Personal Information </div>
+
+<div class="row" style="padding-top: 10px;">
+
+	<div class="col s12 m12 l6 pull-left form edit_form" summary="Enter personal information." style="padding-top: 1em; padding-bottom:1em;">
+		<div class="edit_form_tr">
+			<div class="edit_form_label_area" style="white-space: nowrap; padding-right: 1em;">
+				<label for="personal_info_form_name" class="label">
+					<span class='translate' data-i18n='info_dialog.name'></span>
+				</label>
+			</div>
+			<div class="edit_form_input_area">
+				<input name="person.name" size="25" maxlength="255" value="" id="personal_info_form_name" type="text">
+			</div>
+		</div>
+		<div class="edit_form_tr">
+			<div class="edit_form_label_area">
+				<label>
+					<span class='translate' data-i18n='info_dialog.gender'></span>
+				</label>
+			</div>
+			<div class="edit_form_input_area">
+				<input name="person.gender" id="personal_info_form_gender_male" value="MALE" type="radio">
+				<label for="personal_info_form_gender_male" class='translate' data-i18n='info_dialog.male'>Male</label>
+				<input name="person.gender" id="personal_info_form_gender_female" value="FEMALE" type="radio">
+				<label for="personal_info_form_gender_female" class='translate' data-i18n='info_dialog.female'>Female</label>
+			</div>
+		</div>
+		<div class="edit_form_tr">
+			<div class="edit_form_label_area">
+				<label for="personal_info_form_date_of_birth"><span class='translate' data-i18n='info_dialog.dob'>Date of Birth</span></label>
+			</div>
+			<div class="edit_form_input_area">
+				<select name="person.year_of_birth" id="personal_info_form_year_of_birth" style="width: auto; height:80%;">
+					<option value="1950">昭和25（1950）</option>
+					<option value="1951">昭和26（1951）</option>
+					<option value="1952">昭和27（1952）</option>
+					<option value="1953">昭和28（1953）</option>
+					<option value="1954">昭和29（1954）</option>
+					<option value="1955">昭和30（1955）</option>
+					<option value="1956">昭和31（1956）</option>
+					<option value="1957">昭和32（1957）</option>
+					<option value="1958">昭和33（1958）</option>
+					<option value="1959">昭和34（1959）</option>
+					<option value="1960">昭和35（1960）</option>
+					<option value="1961">昭和36（1961）</option>
+					<option value="1962">昭和37（1962）</option>
+					<option value="1963">昭和38（1963）</option>
+					<option value="1964">昭和39（1964）</option>
+					<option value="1965">昭和40（1965）</option>
+					<option value="1966">昭和41（1966）</option>
+					<option value="1967">昭和42（1967）</option>
+					<option value="1968">昭和43（1968）</option>
+					<option value="1969">昭和44（1969）</option>
+					<option value="1970">昭和45（1970）</option>
+					<option value="1971">昭和46（1971）</option>
+					<option value="1972">昭和47（1972）</option>
+					<option value="1973">昭和48（1973）</option>
+					<option value="1974">昭和49（1974）</option>
+					<option value="1975">昭和50（1975）</option>
+					<option value="1976">昭和51（1976）</option>
+					<option value="1977">昭和52（1977）</option>
+					<option value="1978">昭和53（1978）</option>
+					<option value="1979">昭和54（1979）</option>
+				</select> 年
+				<select name="person.month_of_birth" id="personal_info_form_month_of_birth" style="width: auto; height:80%;">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+				</select> 月
+				<input name="person.date_of_birth" size="20" maxlength="255" value="" id="personal_info_form_date_of_birth" type="text" style="display: none;">
+			</div>
+		</div>
+		<div class="edit_form_tr">
+			<div class="edit_form_label_area">
+				<label for="birth_order"><span class="translate" data-i18n="family-t.birth_order">Birth order</span></label>
+			</div>
+			<div class="edit_form_input_area">
+				<input class='number' name="birth_order" size="2" maxlength='2' value="" id="birth_order" type="text" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" style="width:40px; height:80%;">
+				 番目
+			</div>
+		</div>
+		<script>
+			$(function() {
+				$('#personal_info_form_year_of_birth, #personal_info_form_month_of_birth').change(function(){
+					$('#personal_info_form_date_of_birth').val(
+							$('#personal_info_form_year_of_birth').val()
+							+ '/'
+							+ ('00' + $('#personal_info_form_month_of_birth').val() ).slice(-2)
+							+ '/01'
+					);
+				});
+			});
+		</script>
+
+		<div class="edit_form_tr">
+			<div class="edit_form_label_area">
+				<label for="personal_info_form_place_of_birth"><span class='translate' data-i18n='family-t.birthplace'>Birthplace</span></label>
+			</div>
+			<div class="edit_form_input_area">
+				<select name="person.prefectures" id="personal_info_form_place_of_birth" style="width: 100px; height:80%;">
+					<option value="0000" selected></option>
+					<option value="0001">北海道</option>
+					<option value="0002">青森県</option>
+					<option value="0003">岩手県</option>
+					<option value="0004">宮城県</option>
+					<option value="0005">秋田県</option>
+					<option value="0006">山形県</option>
+					<option value="0007">福島県</option>
+					<option value="0008">茨城県</option>
+					<option value="0009">栃木県</option>
+					<option value="0010">群馬県</option>
+					<option value="0011">埼玉県</option>
+					<option value="0012">千葉県</option>
+					<option value="0013">東京都</option>
+					<option value="0014">神奈川県</option>
+					<option value="0015">新潟県</option>
+					<option value="0016">富山県</option>
+					<option value="0017">石川県</option>
+					<option value="0018">福井県</option>
+					<option value="0019">山梨県</option>
+					<option value="0020">長野県</option>
+					<option value="0021">岐阜県</option>
+					<option value="0022">静岡県</option>
+					<option value="0023">愛知県</option>
+					<option value="0024">三重県</option>
+					<option value="0025">滋賀県</option>
+					<option value="0026">京都府</option>
+					<option value="0027">大阪府</option>
+					<option value="0028">兵庫県</option>
+					<option value="0029">奈良県</option>
+					<option value="0030">和歌山県</option>
+					<option value="0031">鳥取県</option>
+					<option value="0032">島根県</option>
+					<option value="0033">岡山県</option>
+					<option value="0034">広島県</option>
+					<option value="0035">山口県</option>
+					<option value="0036">徳島県</option>
+					<option value="0037">香川県</option>
+					<option value="0038">愛媛県</option>
+					<option value="0039">高知県</option>
+					<option value="0040">福岡県</option>
+					<option value="0041">佐賀県</option>
+					<option value="0042">長崎県</option>
+					<option value="0043">熊本県</option>
+					<option value="0044">大分県</option>
+					<option value="0045">宮崎県</option>
+					<option value="0046">鹿児島県</option>
+					<option value="0047">沖縄県</option>
+					<option value="0048">日本国外</option>
+					<option value="0049">不明</option>
+				</select>
+			</div>
+		</div>
+			<div class="edit_form_tr">
+			<div class="edit_form_label_area">
+				<label for="personal_info_form_current_place"><span class="translate" data-i18n="family-t.current_place_of_residence">Current place of residence</span></label>
+			</div>
+			<div class="edit_form_input_area">
+				<select name="person.current_place" id="personal_info_form_current_place" style="width: 100px; height:80%;">
+					<option value="0000" selected></option>
+					<option value="0001">北海道</option>
+					<option value="0002">青森県</option>
+					<option value="0003">岩手県</option>
+					<option value="0004">宮城県</option>
+					<option value="0005">秋田県</option>
+					<option value="0006">山形県</option>
+					<option value="0007">福島県</option>
+					<option value="0008">茨城県</option>
+					<option value="0009">栃木県</option>
+					<option value="0010">群馬県</option>
+					<option value="0011">埼玉県</option>
+					<option value="0012">千葉県</option>
+					<option value="0013">東京都</option>
+					<option value="0014">神奈川県</option>
+					<option value="0015">新潟県</option>
+					<option value="0016">富山県</option>
+					<option value="0017">石川県</option>
+					<option value="0018">福井県</option>
+					<option value="0019">山梨県</option>
+					<option value="0020">長野県</option>
+					<option value="0021">岐阜県</option>
+					<option value="0022">静岡県</option>
+					<option value="0023">愛知県</option>
+					<option value="0024">三重県</option>
+					<option value="0025">滋賀県</option>
+					<option value="0026">京都府</option>
+					<option value="0027">大阪府</option>
+					<option value="0028">兵庫県</option>
+					<option value="0029">奈良県</option>
+					<option value="0030">和歌山県</option>
+					<option value="0031">鳥取県</option>
+					<option value="0032">島根県</option>
+					<option value="0033">岡山県</option>
+					<option value="0034">広島県</option>
+					<option value="0035">山口県</option>
+					<option value="0036">徳島県</option>
+					<option value="0037">香川県</option>
+					<option value="0038">愛媛県</option>
+					<option value="0039">高知県</option>
+					<option value="0040">福岡県</option>
+					<option value="0041">佐賀県</option>
+					<option value="0042">長崎県</option>
+					<option value="0043">熊本県</option>
+					<option value="0044">大分県</option>
+					<option value="0045">宮崎県</option>
+					<option value="0046">鹿児島県</option>
+					<option value="0047">沖縄県</option>
+					<option value="0048">日本国外</option>
+					<option value="0049">不明</option>
+				</select>
+			</div>
+		</div>
+		<div class="edit_form_tr">
+			<div class="edit_form_label_area">
+				<label>
+					<span class='translate label' data-i18n='info_dialog.twin_status'> Were you born a twin?</span>
+				</label>
+			</div>
+			<div class="edit_form_input_area">
+				<p class="twin_status">
+					<input name="person.twin_status" id="personal_info_form_twin_status_no" checked="checked" value="NO" type="radio">
+					<label for="personal_info_form_twin_status_no" class="translate" data-i18n='info_dialog.no'>No</label>
+					<input name="person.twin_status" id="personal_info_form_twin_status_identical" value="IDENTICAL" type="radio">
+					<label for="personal_info_form_twin_status_identical" class="translate" data-i18n='info_dialog.identical'>Yes - Identical (Same)</label>
+					<input name="person.twin_status" id="personal_info_form_twin_status_fraternal" value="FRATERNAL" type="radio">
+					<label for="personal_info_form_twin_status_fraternal" class="translate" data-i18n='info_dialog.fraternal'>Yes - Not Identical (Fraternal)</label>
+				</p>
+			</div>
+		</div>
+		<div class="edit_form_tr" style="display: none;">
+			<div class="edit_form_label_area">
+				<label>
+					<span class="translate label" data-i18n="info_dialog.adopted"> Were you adopted?</span>
+				</label>
+			</div>
+			<div class="edit_form_input_area">
+				<input id="personal_info_form_adopted_yes" name="person.adopted" type='checkbox' class='filled-in' >
+				<label class='translate' for="personal_info_form_adopted_yes" data-i18n='info_dialog.yes'>Yes</label>
+			</div>
+		</div>
+		<div class="edit_form_tr">
+			<div class="edit_form_label_area">
+				<label for="personal_height_centimeters">
+					<span class="label translate" data-i18n='info_dialog.height'>Height:</span>
+				</label>
+			</div>
+			<div class="edit_form_input_area">
+				<input class='number' name="personal_height_centimeters" size="3" maxlength='3' value="" id="personal_height_centimeters" type="text" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" style="width:60px; height:80%;">
+				<label class='translate' for="personal_height_centimeters" data-i18n='info_dialog.centimeters'>Centimeters</label>
+				<span class="left" id='alert_personal_height_centimeters' style="display:none; color:red;">300cm以下で入力してください。</span>
+			</div>
+
+		</div>
+		<div class="edit_form_tr">
+			<div class="edit_form_label_area">
+				<label for="personal_weight">
+					<span class="translate" data-i18n='info_dialog.weight'>Weight:</span>
+				</label>
+			</div>
+			<div class="edit_form_input_area">
+				<input class='number' name="personal_weight" size="3" maxlength="3" value="" id="personal_weight" type="text" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" style="width:60px; height:80%;">
+				<label for='personal_weight'>
+				<span class='translate' data-i18n='family-t.kg'>kilograms</span></label>
+				<span class="left" id='alert_personal_weight' style="display:none; color:red;">300kg以下で入力してください。</span>
+				<div style="display: none;">
+				<label for="personal_weight_unit">&nbsp;</label>
+					<select name="personal_weight_unit" id="personal_weight_unit" style="width: 150px;">
+						<option value="kilogram" class="translate" data-i18n='info_dialog.kgs' selected>kgs</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="edit_form_tr">
+			<div class="edit_form_label_area">
+				<label><span class="label">BMI</span></label>
+			</div>
+			<div class="edit_form_input_area" style="display: inline-flex;">
+				<span id="personal_bmi"></span>
+			</div>
+
+
+		</div>
+
+		<div class='edit_form_tr'>
+			<div class='edit_form_label_area'>
+				<label for='additional_information_waist'>
+					<span class="label translate" data-i18n="family-t.waist_circumference">Waist circumference</span>
+				</label>
+			</div>
+			<div class='edit_form_input_area'>
+				<input class='number' name='additional_information_waist' size='3' maxlength='3' value='' id='additional_information_waist' type='text' onKeyup="this.value=this.value.replace(/[^0-9]+/i,'')" style='width:60px; height:80%;'>
+				<label for='additional_information_waist' ><span class='translate' data-i18n='info_dialog.centimeters'>Centimeters</span></label>
+				<span class="left" id='alert_personal_waist' style="display:none; color:red;">300cm以下で入力してください。</span>
+			</div>
+		</div>
+		<div class='edit_form_tr'>
+			<div class='edit_form_label_area'>
+				<label for='additional_information_hip'>
+					<span class='label translate' data-i18n="family-t.hip_circumference" >Hip circumference</span>
+				</label>
+			</div>
+			<div class='edit_form_input_area'>
+				<input class='number' name='additional_information_hip' size='3' maxlength='3' value='' id='additional_information_hip' type='text' onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" style='width:60px; height:80%;'>
+<!-- 				<input class='number' name='additional_information_hip' value='' id='additional_information_hip' type='number' style='width:60px; height:80%;'> -->
+				<label for='additional_information_hip' ><span class='translate' data-i18n='info_dialog.centimeters'>Centimeters</span></label>
+				<span class="left" id='alert_personal_hip' style="display:none; color:red;">300cm以下で入力してください。</span>
+			</div>
+		</div>
+
+		<div class='edit_form_tr'>
+			<div class='edit_form_label_area'>
+				<label><span class='label'>WHR</span></label>
+			</div>
+			<div class='edit_form_input_area' style='display: inline-flex;'>
+				<span id='additional_information_wh_ratio'></span>
+				<span class='label translate' data-i18n="family-t.waist–hip_ratio" >(Waist–Hip Ratio)</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="col s12 m12 l6">
+    	<div class="spanheight box">
+			<span class="box-title">BMI</span>
+			<p>
+				<span class='label translate' data-i18n="family-t.explain_bmi" >
+					Clinical diagnosis of obesity is based on the Body Mass Index (BMI) calculated from an individual’s height and weight. BMI is calculated using the formula “weight (kg) ÷ height (m)².” According to the criteria set by the Japan Society for the Study of Obesity , a BMI of 22 is standard and statistically least susceptible to illness, while obesity is defined as having a BMI of 25 or higher.
+				</span>
+			</p>
+		</div>
+
+   		<div class="box box-title">
+			<span class="box-title">WHR</span>
+			<p>
+			<span class='label translate' data-i18n="family-t.explain_whr" >
+				The waist-to-hip ratio (W/H ratio) is used as a physical index of obesity. It is calculated as “abdominal circumference (cm) ÷ hip circumference (cm).” This measurement is used to determine an individual’s obesity subclass with respect to body type, which can be either “pear-shaped obesity” or “apple-shaped obesity.” A large W/H ratio indicates apple-shaped obesity (abdominal obesity) with fat accumulation in the upper body (abdomen), which is associated with a greater risk of various health complications. In the United States and Europe, the standard BMI is 1.0 for men and 0.9 for women. For obese people exclusively, W/H ratio seems to be a more robust index for assessing obesity than BMI, which is used internationally. However, W/H ratio is not as frequently measured in non-obese people with less subcutaneous fat, since W/H ratio is a relative ratio and is therefore not an appropriate index to infer body type. Therefore, the actual measured value of the waist circumference is used instead (Ministry of Health, Labour and Welfare  e-HealthNet ).
+			</span>
+			</p>
+	    </div>
+	</div>
+
+</div>
+
+
+<div class="title-bar"><span class="translate" data-i18n="family-t.smoking_status">Smoking status</span></div>
+<div class="row smoking_checked">
+	<div class="col s12 left checked_search">
+		<span class='label translate' data-i18n="family-t.explain_coronary" ></span>
+		<span class='label translate' data-i18n="family-t.select_your_current_smoking_status" >Select your current smoking status.</span>
+
+		<div>
+			<input id="smoker1" name="smoker" value="1" type="radio" />
+			<label for="smoker1"><span class='translate' data-i18n="family-t.select_your_current_smoking_status" >Never smoked</span></label>
+		</div>
+
+		<div>
+			<input id="smoker2" name="smoker" value="2" type="radio" />
+			<label for="smoker2"><span class='translate' data-i18n="family-t.former_smoker_quit_more_than_fifteen_years_ago." >Former smoker: quit more than fifteen years ago.</span></label>
+		</div>
+
+		<div>
+			<input id="smoker3" name="smoker" value="3" type="radio" />
+			<label for="smoker3"><span class='translate' data-i18n="family-t.former_smoker_quit_between_one_and_fifteen_years_ago." >
+			Former smoker: quit between one and fifteen years ago.
+			</span>
+			</label>
+		</div>
+
+		<div>
+			<input id="smoker4" name="smoker" value="4" type="radio" />
+			<label for="smoker4"><span class='translate' data-i18n="family-t.former_smoker_quit_less_than_one_year_ago" >
+			Former smoker: quit less than one year ago
+			</span></label>
+		</div>
+
+		<div>
+			<input id="smoker5" name="smoker" value="5" type="radio" />
+			<label for="smoker5"><span class='translate' data-i18n="family-t.current_smoker" >Current smoker</span></label>
+		</div>
+
+		<div class="row">
+			<div class="col s5">
+			<span class='translate' data-i18n="family-t.select_the_number_of_cigarettes_you_smoke_per_day_on_average" >
+			Select the number of cigarettes you smoke per day (on average).
+			</span>
+
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_number_of_cigarettes_per_day_1_to_9" name="additional_information_number_of_cigarettes_per_day" value="1_to_9" type="radio" disabled/>
+					<label for="additional_information_number_of_cigarettes_per_day_1_to_9">
+						<span class='translate' data-i18n="family-t.1_-_9_cigarettes_per_day" >1 - 9 cigarettes per day</span>
+					</label>
+				</div>
+				<div class="col s4"><input id="additional_information_number_of_cigarettes_per_day_10_or_more" name="additional_information_number_of_cigarettes_per_day" value="10_or_more" type="radio" disabled/>
+					<label for="additional_information_number_of_cigarettes_per_day_10_or_more">
+						<span class='translate' data-i18n="family-t.more_than_10_cigarettes_per_day" >More than 10 cigarettes per day</span>
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="title-bar">
+	<span class='translate' data-i18n="family-t.physical_activity">
+	Physical activity
+	</span>
+</div>
+<div class="row">
+	<div class="col s12 left">
+		<span class='translate' data-i18n="family-t.describe_your_exercise_habits.">
+			Describe your exercise habits.
+		</span>
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n="family-t.do_you_exercise_regularly">
+					Do you exercise regularly?
+				</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="training_yes" name="training" value="1" type="radio" />
+					<label for="training_yes"><span class='translate' data-i18n="family-t.yes">Yes</span></label>
+				</div>
+				<div class="col s4"><input id="training_no" name="training" value="0" type="radio" />
+					<label for="training_no"><span class='translate' data-i18n="family-t.no">No</span></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s5"></div>
+			<div class="col s7">
+				<div class="col s3">
+					<select name="training_status1" id="training_strength" disabled>
+						<option value="空欄"></option>
+						<option value="中程度"><span class='translate' data-i18n="family-t.moderate">Moderate</span></option>
+						<option value="重度"><span class='translate' data-i18n="family-t.intensive">Intensive</span></option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s5"></div>
+			<div class="col s7">
+				<div class="col s12">
+					<span class='translate' data-i18n="family-t.moderate">Number of times you exercise per week</span>
+					<input type="number" id="count_for_training_at_week" min="1" max="30" name="training_status2" disabled/>回
+				</div>
+				<span class="left col s12" id='alert_count_for_training_at_week' style="display:none; color:red;">
+					<span class='translate' data-i18n="family-t.select_a_number_between_1_and_30.">
+					Select a number between 1 and 30.
+					</span>
+				</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s5"></div>
+			<div class="col s7">
+				<div class="col s12">
+					<span class='translate' data-i18n="family-t.total_minutes_per_week">
+					Total minutes per week:
+					</span>
+					<input type="number" id="time_for_training_at_week" min="10" max="10000" name="training_status3" disabled/>分
+				</div>
+				<span class="left col s12" id='alert_time_for_training_at_week' style="display:none; color:red;">
+					<span class='translate' data-i18n="family-t.total_minutes_per_week">
+						Enter a value between 10 and 10000.
+					</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n="family-t.do_you_walk_more_than_60_minutes">
+					Do you walk more than 60 minutes (6,000 steps) a day on average when considering housework, commuting, work, and/or exercise?
+				</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_frequency_to_walk_in_week_over_6000" name="additional_information.frequency_to_walk_in_week" value="over_6000" type="radio" />
+					<label for="additional_information_frequency_to_walk_in_week_over_6000"><span class='translate' data-i18n='family-t.yes'>Yes</span></label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_walk_in_week_under_6000" name="additional_information.frequency_to_walk_in_week" value="under_6000" type="radio" />
+					<label for="additional_information_frequency_to_walk_in_week_under_6000"><span class='translate' data-i18n='family-t.no'>No</span></label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n="family-t.do_you_perform_the_light_exercise_causing">
+					Do you perform the light exercise causing a small amount of sweat for a total of 60 minutes or more per week?
+				</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_frequency_to_exercise_in_week_over_60_minutes" name="additional_information.frequency_to_exercise_in_week" value="over_60_minutes" type="radio" />
+					<label for="additional_information_frequency_to_exercise_in_week_over_60_minutes"><span class='translate' data-i18n="family-t.yes">Yes</span></label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_exercise_in_week_under_60_minutes" name="additional_information.frequency_to_exercise_in_week" value="under_60_minutes" type="radio" />
+					<label for="additional_information_frequency_to_exercise_in_week_under_60_minutes"><span class='translate' data-i18n="family-t.no">No</span></label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n="family-t.is_your_walking_speed_faster">
+					Is your walking speed faster than the average speed of those of your age and gender?
+				</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_fast_walker_TRUE" name="additional_information.fast_walker" value="true" type="radio" />
+					<label for="additional_information_fast_walker_TRUE"><span class='translate' data-i18n="family-t.yes">Yes</span></label>
+				</div>
+				<div class="col s4"><input id="additional_information_fast_walker_FALSE" name="additional_information.fast_walker" value="false" type="radio" />
+					<label for="additional_information_fast_walker_FALSE"><span class='translate' data-i18n="family-t.no">No</span></label>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div class="title-bar">
+	<span class='translate' data-i18n="family-t.eating_habits">Eating habits</span></div>
+<div class="row">
+	<div class="col s12 left">
+	<span class='translate' data-i18n='family-t.describe_your_eating_habits.'>Describe your eating habits.</span>
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.do_you_eat_more_than_3_servings_of_fruits_a_day?'>Do you eat more than 3 servings of fruits a day?</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_frequency_to_eat_fruits_in_day_TRUE" name="additional_information.frequency_to_eat_fruits_in_day" value="true" type="radio" />
+					<label for="additional_information_frequency_to_eat_fruits_in_day_TRUE"><span class='translate' data-i18n='family-t.yes'>Yes</span></label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_eat_fruits_in_day_FALSE" name="additional_information.frequency_to_eat_fruits_in_day" value="false" type="radio" />
+					<label for="additional_information_frequency_to_eat_fruits_in_day_FALSE"><span class='translate' data-i18n='family-t.no'>No</span></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.how_many_times_a_day_do_you_eat_vegetables?'>How many times a day do you eat vegetables?</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_frequency_to_eat_vegetables_in_day_1-2_times" name="additional_information.frequency_to_eat_vegetables_in_day" value="1-2_times" type="radio" />
+					<label for="additional_information_frequency_to_eat_vegetables_in_day_1-2_times">1～2回</label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_eat_vegetables_in_day_2times" name="additional_information.frequency_to_eat_vegetables_in_day" value="2times" type="radio" />
+					<label for="additional_information_frequency_to_eat_vegetables_in_day_2times">2回</label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_eat_vegetables_in_day_over_3times" name="additional_information.frequency_to_eat_vegetables_in_day" value="3times" type="radio" />
+					<label for="additional_information_frequency_to_eat_vegetables_in_day_over_3times">3回以上</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.do_you_eat_more_than_5_servings_of_nuts_per_week?'>Do you eat more than 5 servings of nuts per week?</span>
+			</div>
+			<div class="col s7">
+				<div class="col s3"><input id="additional_information_frequency_to_eat_nuts_in_week_zero" name="additional_information.frequency_to_eat_nuts_in_week" value="zero" type="radio" />
+					<label for="additional_information_frequency_to_eat_nuts_in_week_1time_or_less">0回</label>
+				</div>
+				<div class="col s3"><input id="additional_information_frequency_to_eat_nuts_in_week_1time_or_less" name="additional_information.frequency_to_eat_nuts_in_week" value="1time_or_less" type="radio" />
+					<label for="additional_information_frequency_to_eat_nuts_in_week_1time_or_less">1回</label>
+				</div>
+				<div class="col s3"><input id="additional_information_frequency_to_eat_nuts_in_week_2-4times" name="additional_information.frequency_to_eat_nuts_in_week" value="2-4times" type="radio" />
+					<label for="additional_information_frequency_to_eat_nuts_in_week_2-4times">2～4回</label>
+				</div>
+				<div class="col s3"><input id="additional_information_frequency_to_eat_nuts_in_week_over_5times" name="additional_information.frequency_to_eat_nuts_in_week" value="5times" type="radio" />
+					<label for="additional_information_frequency_to_eat_nuts_in_week_over_5times">5回以上</label>
+				</div>
+		</div>
+		</div>
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.do_you_eat_more_than_3_servings_of_whole_grains_foods_per_day?'>Do you eat more than 3 servings of whole grains foods per day?</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_frequency_to_eat_whole_grains_in_day_TRUE" name="additional_information.frequency_to_eat_whole_grains_in_day" value="true" type="radio" />
+					<label for="additional_information_frequency_to_eat_whole_grains_in_day_TRUE"><span class='translate' data-i18n='family-t.yes'>Yes</span></label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_eat_whole_grains_in_day_FALSE" name="additional_information.frequency_to_eat_whole_grains_in_day" value="false" type="radio" />
+					<label for="additional_information_frequency_to_eat_whole_grains_in_day_FALSE"><span class='translate' data-i18n='family-t.no'>No</span></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.do_you_eat_fish_more_than_twice_per_week?'>Do you eat fish more than twice per week?</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_frequency_to_eat_fishes_in_week_TRUE" name="additional_information.frequency_to_eat_fishes_in_week" value="true" type="radio" />
+					<label for="additional_information_frequency_to_eat_fishes_in_week_TRUE"><span class='translate' data-i18n='family-t.yes'>Yes</span></label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_eat_fishes_in_week_FALSE" name="additional_information.frequency_to_eat_fishes_in_week" value="false" type="radio" />
+					<label for="additional_information_frequency_to_eat_fishes_in_week_FALSE"><span class='translate' data-i18n='family-t.no'>No</span></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.do_you_eat_2_to_3_servings_a_day_of_dairy?'>Do you eat 2 to 3 servings a day of dairy?</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_frequency_to_eat_dairy_products_in_day_TRUE" name="additional_information.frequency_to_eat_dairy_products_in_day" value="true" type="radio" />
+					<label for="additional_information_frequency_to_eat_dairy_products_in_day_TRUE"><span class='translate' data-i18n='family-t.yes'>Yes</span></label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_eat_dairy_products_in_day_FALSE" name="additional_information.frequency_to_eat_dairy_products_in_day" value="false" type="radio" />
+					<label for="additional_information_frequency_to_eat_dairy_products_in_day_FALSE"><span class='translate' data-i18n='family-t.no'>No</span></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.do_you_eat_less_than_1_serving_of_refined_grains_per_week?'>Do you eat less than 1 serving of refined grains per week?</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_frequency_to_eat_processed_meat_in_week_TRUE" name="additional_information.frequency_to_eat_processed_meat_in_week" value="true" type="radio" />
+					<label for="additional_information_frequency_to_eat_processed_meat_in_week_TRUE"><span class='translate' data-i18n='family-t.yes'>Yes</span></label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_eat_processed_meat_in_week_FALSE" name="additional_information.frequency_to_eat_processed_meat_in_week" value="false" type="radio" />
+					<label for="additional_information_frequency_to_eat_processed_meat_in_week_FALSE"><span class='translate' data-i18n='family-t.no'>No</span></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.do_you_eat_less_than_1_to_2_servings_of_unprocessed_red_meat_per_week?'>Do you eat less than 1 to 2 servings of unprocessed red meat per week?</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_frequency_to_eat_unprocessed_meat_in_week_TRUE" name="additional_information.frequency_to_eat_unprocessed_meat_in_week" value="true" type="radio" />
+					<label for="additional_information_frequency_to_eat_unprocessed_meat_in_week_TRUE"><span class='translate' data-i18n='family-t.yes'>Yes</span></label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_eat_unprocessed_meat_in_week_FALSE" name="additional_information.frequency_to_eat_unprocessed_meat_in_week" value="false" type="radio" />
+					<label for="additional_information_frequency_to_eat_unprocessed_meat_in_week_FALSE"><span class='translate' data-i18n='family-t.no'>No</span></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.do_you_drink_less_than_1_serving_of_sugar-sweetened_beverages_per_week?'>Do you drink less than 1 serving of sugar-sweetened beverages per week?</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_frequency_to_drink_suger_drin_in_week_TRUE" name="additional_information.frequency_to_drink_suger_drin_in_week" value="true" type="radio" />
+					<label for="additional_information_frequency_to_drink_suger_drin_in_week_TRUE"><span class='translate' data-i18n='family-t.yes'>Yes</span></label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_drink_suger_drin_in_week_FALSE" name="additional_information.frequency_to_drink_suger_drin_in_week" value="false" type="radio" />
+					<label for="additional_information_frequency_to_drink_suger_drin_in_week_FALSE"><span class='translate' data-i18n='family-t.no'>No</span></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.which_do_you_eat_more_often?'>Which do you eat more often?</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_usual_meal_fish" name="additional_information.usual_meal" value="fish" type="radio" />
+					<label for="additional_information_usual_meal_fish"><span class='translate' data-i18n='family-t.fish'>Fish</span></label>
+				</div>
+				<div class="col s4"><input id="additional_information_usual_meal_meat" name="additional_information.usual_meal" value="meat" type="radio" />
+					<label for="additional_information_usual_meal_meat"><span class='translate' data-i18n='family-t.meat'>Meat</span></label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.how_many_cups_of_miso_soup_do_you_drink_per_day?_'>How many cups of miso soup do you drink per day? </span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_frequency_to_eat_miso_soup_in_day_0-2_cups" name="additional_information.frequency_to_eat_miso_soup_in_day" value="0-2_cups" type="radio" />
+					<label for="additional_information_frequency_to_eat_miso_soup_in_day_0-2_cups">
+					<span class='translate' data-i18n='family-t.0_-_2_cups'>0 - 2 cups</span>
+				</label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_eat_miso_soup_in_day_3-4_cups" name="additional_information.frequency_to_eat_miso_soup_in_day" value="3-4_cups" type="radio" />
+					<label for="additional_information_frequency_to_eat_miso_soup_in_day_3-4_cups">
+					<span class='translate' data-i18n='family-t.3_-_4_cups'>3 - 4 cups</span>
+					</label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_eat_miso_soup_in_day_over_5cups" name="additional_information.frequency_to_eat_miso_soup_in_day" value="over_5cups" type="radio" />
+					<label for="additional_information_frequency_to_eat_miso_soup_in_day_over_5cups">
+						<span class='translate' data-i18n='family-t.more_than_5_cups'>More than 5 cups</span>
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.how_strongly_do_you_season_home-cooking_compared_to_eating-out?'>How strongly do you season home-cooking compared to eating-out?</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_seasoning_of_meals_light" name="additional_information.seasoning_of_meals" value="light" type="radio" />
+					<label for="additional_information_seasoning_of_meals_light">
+					<span class='translate' data-i18n='family-t.more_lightly'>More lightly</span>
+				</label>
+				</div>
+				<div class="col s4"><input id="additional_information_seasoning_of_meals_same" name="additional_information.seasoning_of_meals" value="same" type="radio" />
+					<label for="additional_information_seasoning_of_meals_same">
+						<span class='translate' data-i18n='family-t.same'>Same</span>
+					</label>
+				</div>
+				<div class="col s4"><input id="additional_information_seasoning_of_meals_dense" name="additional_information.seasoning_of_meals" value="dense" type="radio" />
+					<label for="additional_information_seasoning_of_meals_dense">
+						<span class='translate' data-i18n='family-t.more_strongly'>More strongly</span>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.how_many_times_do_you_eat_breakfast_per_week?_'>How many times do you eat breakfast per week? </span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_frequency_to_eat_breakfast_in_week_0-2times" name="additional_information.frequency_to_eat_breakfast_in_week" value="0-2_times" type="radio" />
+					<label for="additional_information_frequency_to_eat_breakfast_in_week_0-2times">
+						<span class='translate' data-i18n='family-t.0_-_2_times'>0 - 2 times</span>
+					</label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_eat_breakfast_in_week_3-5times" name="additional_information.frequency_to_eat_breakfast_in_week" value="3-5_times" type="radio" />
+					<label for="additional_information_frequency_to_eat_breakfast_in_week_3-5times">
+						<span class='translate' data-i18n='family-t.3_-_5_times'>3 - 5 times</span>
+					</label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_eat_breakfast_in_week_over_6times" name="additional_information.frequency_to_eat_breakfast_in_week" value="over_6times" type="radio" />
+					<label for="additional_information_frequency_to_eat_breakfast_in_week_over_6times">
+						<span class='translate' data-i18n='family-t.more_than_6_times'>More than 6 times</span>
+					</label>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.do_you_eat_faster_than_other_people?'>Do you eat faster than other people?</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_eating_speed_slow" name="additional_information.eating_speed" value="slow" type="radio" />
+					<label for="additional_information_eating_speed_slow">
+						<span class='translate' data-i18n='family-t.slower'>Slower</span>
+					</label>
+				</div>
+				<div class="col s4"><input id="additional_information_eating_speed_medium" name="additional_information.eating_speed" value="medium" type="radio" />
+					<label for="additional_information_eating_speed_medium">
+						<span class='translate' data-i18n='family-t.the_same'>The Same</span>
+					</label>
+				</div>
+				<div class="col s4"><input id="additional_information_eating_speed_fast" name="additional_information.eating_speed" value="fast" type="radio" />
+					<label for="additional_information_eating_speed_fast">
+						<span class='translate' data-i18n='family-t.faster'>Faster</span>
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.how_many_times_do_you_drink_alcoholic_beverages_in_a_week?'>How many times do you drink alcoholic beverages in a week?</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_frequency_to_drink_in_week_0-2_times_or_less" name="additional_information.frequency_to_drink_in_week" value="0-2_times_or_less" type="radio" />
+					<label for="additional_information_frequency_to_drink_in_week_0-2_times_or_less">
+					<span class='translate' data-i18n='family-t.0_-_2_times'>0 - 2 times</span>
+					</label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_drink_in_week_3-5_times" name="additional_information.frequency_to_drink_in_week" value="3-5_times" type="radio" />
+					<label for="additional_information_frequency_to_drink_in_week_3-5_times">
+						<span class='translate' data-i18n='family-t.3_-_5_times'>3 - 5 times</span>
+					</label>
+				</div>
+				<div class="col s4"><input id="additional_information_frequency_to_drink_in_week_over_6times" name="additional_information.frequency_to_drink_in_week" value="over_6times" type="radio" />
+					<label for="additional_information_frequency_to_drink_in_week_over_6times">
+					<span class='translate' data-i18n='family-t.more_than_6_times'>More than 6 times</span>
+					</label>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.how_much_do_you_drink,_on_average,_when_you_consume_alcohol?_'>How much do you drink, on average, when you consume alcohol? </span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_amount_to_drink_conversion_0_to_1_in_japanese_liquor" name="additional_information.amount_to_drink" value="conversion_0_to_1_in_japanese_liquor" type="radio" />
+					<label for="additional_information_amount_to_drink_conversion_0_to_1_in_japanese_liquor">
+					<span class='translate' data-i18n='family-t.0_-_1_go_(180_ml)_as_converted_to_sake_'>0 - 1 go (180 ml) as converted to sake </span>
+					</label>
+				</div>
+				<div class="col s4"><input id="additional_information_amount_to_drink_conversion_1_to_2_in_japanese_liquor" name="additional_information.amount_to_drink" value="conversion_1_to_2_in_japanese_liquor" type="radio" />
+					<label for="additional_information_amount_to_drink_conversion_1_to_2_in_japanese_liquor">
+					<span class='translate' data-i18n='family-t.1_-_2_go_(180_ml)_as_converted_to_sake_'>1 - 2 go (180 ml) as converted to sake </span>
+					</label>
+				</div>
+				<div class="col s4"><input id="additional_information_amount_to_drink_conversion_more_than_2_in_japanese_liquor" name="additional_information.amount_to_drink" value="conversion_more_than_2_in_japanese_liquor" type="radio" />
+					<label for="additional_information_amount_to_drink_conversion_more_than_2_in_japanese_liquor"><span class='translate' data-i18n='family-t.more_than_2_go_(180_ml)_as_converted_to_sake_'>More than 2 go (180 ml) as converted to sake </span>
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="title-bar">
+	<span class='translate' data-i18n='family-t.blood_glucose,_hba1c'>Blood glucose, HbA1c</span>
+</div>
+<div class="row">
+	<div class="col s12 left">
+
+		<div class="row">
+			<div class="col s5">降圧剤（血圧を下げる薬）を服用していますか？</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_take_antihypertensive_TRUE" name="additional_information.take_antihypertensive" value="true" type="radio" />
+					<label for="additional_information_take_antihypertensive_TRUE"><span class='translate' data-i18n='family-t.yes'>Yes</span></label>
+				</div>
+				<div class="col s4"><input id="additional_information_take_antihypertensive_FALSE" name="additional_information.take_antihypertensive" value="false" type="radio" />
+					<label for="additional_information_take_antihypertensive_FALSE"><span class='translate' data-i18n='family-t.no'>No</span></label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">最高血圧（mmHg）</div>
+			<div class="col s7">
+				<div class="col s5">
+					<select id='additional_information_systolic_blood_pressure' name='additional_information.systolic_blood_pressure'>
+						<option value="" disabled selected>選択してください</option>
+						<option value='under_119'>119以下</option>
+						<option value='120-129'>120～129</option>
+						<option value='130-139'>130～139</option>
+						<option value='140-159'>140～159</option>
+						<option value='160-179'>160～179</option>
+						<option value='over180'>180以上</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">最低血圧（mmHg）</div>
+			<div class="col s7">
+				<div class="col s5">
+					<select id='additional_information_diastolic_blood_pressure' name='additional_information.diastolic_blood_pressure'>
+						<option value="" disabled selected>選択してください</option>
+						<option value='79_or_less'>79以下</option>
+						<option value='80-84'>80～84</option>
+						<option value='85-89'>85～89</option>
+						<option value='90-99'>90～99</option>
+						<option value='100-109'>100～109</option>
+						<option value='over110'>110以上</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="title-bar">
+	<span class='translate' data-i18n='family-t.blood_glucose,_hba1c'>Blood glucose, HbA1c</span>
+</div>
+<div class="row">
+	<div class="col s12 left">
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.are_you_currently_taking_a_hypoglycemic_agent?'>Are you currently taking a hypoglycemic agent?</span>
+			</div>
+			<div class="col s7">
+				<div class="col s4"><input id="additional_information_take_hypoglycemic_TRUE" name="additional_information.take_hypoglycemic" value="true" type="radio" />
+					<label for="additional_information_take_hypoglycemic_TRUE"><span class='translate' data-i18n='family-t.yes'>Yes</span></label>
+				</div>
+				<div class="col s4"><input id="additional_information_take_hypoglycemic_FALSE" name="additional_information.take_hypoglycemic" value="false" type="radio" />
+					<label for="additional_information_take_hypoglycemic_FALSE"><span class='translate' data-i18n='family-t.no'>No</span></label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.fasting_blood_glucose_(mg/dl)'>Fasting blood glucose (mg/dL)</span>
+			</div>
+			<div class="col s7">
+				<div class="col s5">
+					<select id='additional_information_fasting_blood_glucose_lebel' name='additional_information.fasting_blood_glucose_lebel'>
+						<option value="" disabled selected>選択してください</option>
+						<option value='99_or_less'>99以下</option>
+						<option value='100-129'>100～109</option>
+						<option value='110-125'>110～125</option>
+						<option value='over126'>126以上 </option>
+						<option value='unknown'>分からない</option>
+						<option value='not_inspected'>検査していない</option>
+					</select>
+				</div>
+				<span class="left col s12" id='alert_fasting_warning' style="display:none; color:red;">
+					<span class='translate' data-i18n='family-t.a_blood_glucose_level_of_126_or_higher_is_regarded_as_“diabetic”'>A blood glucose level of 126 or higher is regarded as “diabetic”</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.casual_blood_glucose_(mg/dl)_(blood_glucose_tested_at_any_time_of_the_day)'>Casual blood glucose (mg/dL) (blood glucose tested at any time of the day)</span>
+			</div>
+			<div class="col s7">
+				<div class="col s5">
+					<select id='additional_information_occasionally_blood_glucose_lebel' name='additional_information.occasionally_blood_glucose_lebel'>
+						<option value="" disabled selected>選択してください</option>
+						<option value='139_or_less'>139以下</option>
+						<option value='140-199'>140～199</option>
+						<option value='over200'>200以上 </option>
+						<option value='unknown'>分からない</option>
+						<option value='not_inspected'>検査していない</option>
+					</select>
+				</div>
+				<span class="left col s12" id='alert_occasionally_warning' style="display:none; color:red;">
+				<span class='translate' data-i18n='family-t.a_casual_blood_glucose_level_of_200_or_higher_is_regarded_as_“diabetic”.'>A casual blood glucose level of 200 or higher is regarded as “diabetic”.</span>
+				</span>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.oral_glucose_tolerance_test_(ogtt)_two-hour_blood_glucose_(mg/dl)'>Oral glucose tolerance test (OGTT) two-hour blood glucose (mg/dL)</span>
+			</div>
+			<div class="col s7">
+				<div class="col s5">
+					<select id='additional_information_ogtt_blood_glucose_lebel' name='additional_information.ogtt_blood_glucose_lebel'>
+						<option value="" disabled selected>選択してください</option>
+						<option value='139_or_less'>139以下</option>
+						<option value='140-199'>140～199</option>
+						<option value='over200'>200以上 </option>
+						<option value='unknown'>分からない</option>
+						<option value='not_inspected'>検査していない</option>
+					</select>
+				</div>
+				<span class="left col s12" id='alert_ogtt_warning' style="display:none; color:red;">
+				<span class='translate' data-i18n='family-t.ogtt_two-hour_blood_glucose_level_of_200_or_higher_is_regarded_as_“diabetic”'>OGTT two-hour blood glucose level of 200 or higher is regarded as “diabetic”</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.hba1c_(%)'>HbA1c (%)</span>
+			</div>
+			<div class="col s7">
+				<div class="col s5">
+					<select id='additional_information_hba1c' name='additional_information.hba1c'>
+						<option value="" disabled selected>選択してください</option>
+						<option value='under65'>6.5未満</option>
+						<option value='over65'>6.5以上</option>
+						<option value='unknown'>分からない</option>
+						<option value='not_inspected'>検査していない</option>
+					</select>
+				</div>
+				<span class="left col s12" id='alert_hba1c_warning' style="display:none; color:red;">
+					<span class='translate' data-i18n='family-t.an_hba1c_level_of_6.5_or_higher_is_regarded_as_“diabetic”'>An HbA1c level of 6.5 or higher is regarded as “diabetic”</span>
+				</span>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<div class="title-bar">
+	<span class='translate' data-i18n='family-t.cholesterol'>Cholesterol</span></div>
+<div class="row">
+	<div class="col s12 left">
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.hdl_cholesterol_(mg/dl)'>HDL cholesterol (mg/dL)</span>
+			</div>
+			<div class="col s7">
+				<div class="col s5">
+					<select id='additional_information_hdl_cholesterol' name='additional_information.hdl_cholesterol'>
+						<option value="" disabled selected>選択してください</option>
+						<option value='less_than_40'>40未満</option>
+						<option value='40-59'>40～59</option>
+						<option value='over60'>60以上  </option>
+						<option value='unknown'>分からない</option>
+						<option value='not_inspected'>検査していない</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5">
+				<span class='translate' data-i18n='family-t.ldl_cholesterol_(mg/dl)'>LDL cholesterol (mg/dL)</span>
+			</div>
+			<div class="col s7">
+				<div class="col s5">
+					<select id='additional_information_ldl_cholesterol' name='additional_information.ldl_cholesterol'>
+						<option value="" disabled selected>選択してください</option>
+						<option value='less_than_100'>100未満</option>
+						<option value='100-139'>100～139</option>
+						<option value='140-159'>140～159</option>
+						<option value='160-179'>160～179</option>
+						<option value='over180'>180以上  </option>
+						<option value='unknown'>分からない</option>
+						<option value='not_inspected'>検査していない</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+<div id='personal_health_information' class="row"> health info </div>
+
+<div id='personal_race_ethnicity'> family background info </div>
+
+<div class="title-bar">
+	<span class='translate' data-i18n='family-t.medical_examination'>Medical examination</span>
+</div>
+
+<div class="row">
+	<div class="col s4">
+		<span class='translate' data-i18n='family-t.date_of_the_most_recent_medical_check-up_or_hospital_admission'>Date of the most recent medical check-up or hospital admission</span>
+	</div>
+	<div class="col s4">
+		<select id="last_diagnosis_year">
+			<option value="" disabled selected>
+			<span class='translate' data-i18n='family-t.select_the_year.'>Select the year.</span>
+			</option>
+		</select>
+	</div>
+	<div class="col s4">
+		<select id="last_diagnosis_month">
+			<option value="" disabled selected><span class='translate' data-i18n='family-t.select_the__month.'>Select the month.</span></option>
+			<option value="1">1月</option>
+			<option value="2">2月</option>
+			<option value="3">3月</option>
+			<option value="4">4月</option>
+			<option value="5">5月</option>
+			<option value="6">6月</option>
+			<option value="7">7月</option>
+			<option value="8">8月</option>
+			<option value="9">9月</option>
+			<option value="10">10月</option>
+			<option value="11">11月</option>
+			<option value="12">12月</option>
+			<option value="-1"><span class='translate' data-i18n='family-t.unknown'>Unknown</span></option>
+		</select>
+	</div>
+</div>
+<br />
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td style="text-align:center;">
+			<button id='addPersonInformationCancelButton' class="btn-large waves-effect waves-light teal lighten-1 translate" data-i18n='info_dialog.btn2_fam_hist'>Cancel</button>
+			<button id='addPersonInformationSubmitButton' class="btn-large waves-effect waves-light teal lighten-1 translate" data-i18n='info_dialog.btn1_fam_hist' style="text-align:right;font-size:110% !important">Next </button>
+		</td>
+	</tr>
+</table>
+
+<script type='text/javascript'>
+
+function health_vault() {
+	window.open("./static/health_vault_en.html", "", "width=800, height=600, scrollbars=yes");
+}
+
+function update_bmi(){
+	var height = $('#personal_height_centimeters').val();
+	var height_unit = 'centimeters';
+	var weight = $('#personal_weight').val();
+	var weight_unit = $('#personal_weight_unit').val();
+
+	if ( $.isNumeric(height) && height_unit && $.isNumeric(weight) && weight_unit ) {
+		var height_meters = 0;
+		var weight_kg = 0;
+		if (height_unit=='inches') {
+			height_meters = height*.0254;
+		} else if (height_unit=='centimeters') {
+			height_meters = height*.010;
+		}
+		if (weight_unit=='pound') {
+			weight_kg = weight*.453592;
+		}
+		else if (weight_unit=='kilogram') {
+			weight_kg = weight;
+		}
+		if (height_meters!=0) {
+			$('#personal_bmi').text((weight_kg/(height_meters*height_meters)).toFixed(2));
+		}
+	}
+	else{
+		$('#personal_bmi').text('');
+	}
+}
+
+function update_whr(){
+	var waist = $('#additional_information_waist').val();
+	var hip = $('#additional_information_hip').val();
+
+	if ( $.isNumeric(waist) && $.isNumeric(hip) ) {
+		$('#additional_information_wh_ratio').text((waist/hip).toFixed(2));
+		return;
+	}
+	$('#additional_information_wh_ratio').text('');
+}
+
+$(function() {
+	$('#personal_height_centimeters, #personal_weight, #personal_weight_unit').change(update_bmi);
+	$('#additional_information_waist, #additional_information_hip').change(update_whr);
+});
+
+$(document).ready(function(){
+	var birth = new Date( $('#personal_info_form_date_of_birth').val());
+
+	if( 1950 <= birth.getFullYear() && birth.getFullYear() <= 1979  )
+		$('#personal_info_form_year_of_birth').val(birth.getFullYear());
+
+	$('#personal_info_form_month_of_birth').val(birth.getMonth() + 1);
+
+	var thisdate = new Date();
+	var thisyear = thisdate.getFullYear();
+
+	for (var i=0; i<3; i++) {
+		$('#last_diagnosis_year').append($('<option>').val(thisyear-i).text(thisyear-i+"年"));
+	}
+	$('#last_diagnosis_year').append($('<option>').val("-1").text("わからない"));
+});
+
+</script>
