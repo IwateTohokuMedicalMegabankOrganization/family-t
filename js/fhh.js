@@ -6184,7 +6184,7 @@ function updateHistoryDialog(relationship, family_member) {
 
 function reset_personal_information() {
 	personal_information = new Object();
-	personal_information['name']="あなた";
+	personal_information['name']= $.t("fhh_js.self")
 	personal_information['twin_status']="NO";
 	personal_information['prefectures']="";
 	personal_information['Health History']=[];
