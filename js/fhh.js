@@ -703,6 +703,34 @@ function start()
 		load_risk_links();
 	});
 
+	// 家族歴の質ダイアログ
+	$("#quality_of_family_history_score_dialog").load("quality_of_family_history_score_dialog.html",function(){
+		QualityOfFamilyHistoryScoreController.refresh()
+		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
+		
+		// 閉じるボタン
+		$('#closeQofhScoreButton').on('click', function(){
+			$("#quality_of_family_history_score_dialog").dialog('close');
+		});
+	});
+
+	// 家族歴の質
+	$("#quality_of_family_history_score_dialog").dialog({
+		title:$.t("family-t_qof_history_score.title"),
+		position:['top',0],
+		resizable: false,
+		autoOpen: false,
+		height:'auto',
+		width:['95%']
+	});
+
+	$("#showQofhScoreDetail").on("click", function() {
+		$("#quality_of_family_history_score_dialog").dialog('open').position("center top");
+	});
+
 	// ライフスタイルスコア計算ダイアログ
 	$("#lifestyle_score_calculator_dialog").load("lifestyle_score_calculator_dialog.html",function(){
 		preparate_lifestyle_score_dialog();
@@ -2808,6 +2836,34 @@ class LifeStyleScoreDetailDialogController{
 
 }
 
+
+class QualityOfFamilyHistoryScoreController{
+
+	// 再計算
+	static refresh(){
+
+		this.calculator = new QualityOfFamilyHistoryCalculator( personal_information );
+
+		// サマリ
+		QualityOfFamilyHistoryScoreController._showScore();
+
+		// ダイアログ
+		QualityOfFamilyHistoryScoreController._showDetail();
+	}
+
+	static _showScore(){
+		ScoreCardController._qualityOfFamilyHistoryScore();
+	}
+
+	static _showDetail(){
+		$('#lifestyle_score_isSmoker').text(this.calculator.score.smoker);
+		$('#lifestyle_score_bmi').text(this.calculator.score.bmi);
+		$('#lifestyle_score_training').text(this.calculator.score.trainingFamily);
+		$('#lifestyle_score_diabetes').text(this.calculator.score.dietary);
+		$('#lifestyle_score_total').text(this.calculator.totalScore);
+	}
+
+}
 class ScoreCardController{
 
 	static refresh(){

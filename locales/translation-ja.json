@@ -890,5 +890,8 @@
     ,"healthy_eating_habits":"健康的な食習慣"
     ,"items_required_for_lifestyle_score_calculation_are_not_registered":"ライフスタイルスコア計算に必要な項目が登録されていません。"
     ,"items":"項目"
+  },
+  "family-t_qof_history_score" : {
+    "title": "家族歴の質"
   }
 }
