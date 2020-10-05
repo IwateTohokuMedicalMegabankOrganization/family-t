@@ -928,25 +928,32 @@ function start()
 
 // Check to see if there are any specific actions
 	if (getParameterByName("action") == 'load') {
-		// DBの情報を読み込み
-		$.get("../../operation/load")
-			.done(function(data, textStatus, jqXHR){
-				if( data === jqXHR.responseJSON ){
-					personal_information = data;
-					build_family_history_data_table();
-				}else{
-					reset_personal_information();
-					build_family_history_data_table();
-					$("#add_personal_information_dialog").dialog("open");
-//					$("#load_personal_history_dialog").dialog("open");
-				}
-			})
-			.fail(function(){
-				reset_personal_information();
-				build_family_history_data_table();
-				$("#add_personal_information_dialog").dialog("open");
-//				$("#load_personal_history_dialog").dialog("open");
-			});
+
+		personal_information = {"name":"あなた","twin_status":"NO","prefectures":null,"Health History":[],"flg_race_ethnic":1,"id":"a8b86875-9e48-4048-acd9-33b68400de59","gender":"MALE","date_of_birth":"1962/04/01","adopted":false,"height":180,"height_unit":"centimeters","weight":"70","weight_unit":"kilogram","month_of_birth":"4","year_of_birth":"1962","birth_order":1,"living_prefectures":"0000","waist":"66","waist_unit":"centimeters","hip":"","hip_unit":"centimeters","training_strength":"中程度","training_count_for_training_at_week":"1","training_time_for_training_at_week":"10","systolic_blood_pressure":"under_119","diastolic_blood_pressure":"79_or_less","fasting_blood_glucose_lebel":"99_or_less","occasionally_blood_glucose_lebel":"139_or_less","ogtt_blood_glucose_lebel":"139_or_less","hba1c":"under65","hdl_cholesterol":"less_than_40","ldl_cholesterol":"less_than_100","last_diagnosis_year":null,"last_diagnosis_month":null,"race":{"American Indian or Alaska Native":false,"Asian":true,"Black or African-American":false,"Native Hawaiian or Other Pacific Islander":false,"White":false,"Asian Indian":false,"Chinese":false,"Filipino":false,"Japanese":true,"Korean":false,"Vietnamese":false,"Other Asian":false,"Unknown Asian":false,"Chamorro":false,"Guamanian":false,"Native Hawaiian":false,"Samoan":false,"Unknown South Pacific Islander":false},"ethnicity":{"Hispanic or Latino":false,"Ashkenazi Jewish":false,"Not Hispanic or Latino":false,"Central American":false,"Cuban":false,"Dominican":false,"Mexican":false,"Other Hispanic":false,"Puerto Rican":false,"South American":false},"father":{"gender":"MALE","id":"da79a12a-84ea-4e5b-8e04-e3c4abd881ca","Health History":[],"name":"あなたの父","relationship":"father"},"mother":{"gender":"FEMALE","id":"b65ed6b8-0ce4-4dc5-ac05-aadb472bb14d","Health History":[],"name":"あなたの母","relationship":"mother","birth_order":1},"maternal_grandfather":{"gender":"MALE","id":"321b373f-7cfb-4cfc-869f-89d0ce436d14","Health History":[],"name":"あなたの母方の祖父","relationship":"maternal_grandfather"},"maternal_grandmother":{"gender":"FEMALE","id":"1abfa341-73a2-4445-ab84-a05b7b062f9d","Health History":[],"name":"あなたの母方の祖母","relationship":"maternal_grandmother"},"paternal_grandfather":{"gender":"MALE","id":"30ed578d-ebee-4643-9b82-78e15e5c902e","Health History":[],"name":"あなたの父方の祖父","relationship":"paternal_grandfather"},"paternal_grandmother":{"gender":"FEMALE","id":"e7c4a26c-92b3-4732-83eb-11645d886b32","Health History":[],"name":"あなたの父方の祖母","relationship":"paternal_grandmother"},"created_date":"2020/04/28 21:27:19","smoker":"1","training_family":"1","take_antihypertensive":"false","take_hypoglycemic":"false","maternal_aunt_0":{"gender":"FEMALE","name":"あなたの母方のおば","relationship":"aunt","flg_race_ethnic":1,"id":"be5ea431-4bb4-4f2e-bf0b-805be86a6dea","parent_id":"","adopted":false,"prefectures":"0001","living_prefectures":null,"birth_order":2,"is_alive":"unknown","training_strength":null,"training_count_for_training_at_week":"","training_time_for_training_at_week":"","Health History":[],"race":{"American Indian or Alaska Native":false,"Asian":true,"Black or African-American":false,"Native Hawaiian or Other Pacific Islander":false,"White":false,"Asian Indian":false,"Chinese":false,"Filipino":false,"Japanese":true,"Korean":false,"Vietnamese":false,"Other Asian":false,"Unknown Asian":false,"Chamorro":false,"Guamanian":false,"Native Hawaiian":false,"Samoan":false,"Unknown South Pacific Islander":false},"ethnicity":{"Hispanic or Latino":false,"Ashkenazi Jewish":false,"Not Hispanic or Latino":false,"Central American":false,"Cuban":false,"Dominican":false,"Mexican":false,"Other Hispanic":false,"Puerto Rican":false,"South American":false}}};
+		build_family_history_data_table();
+		// TODO Load From XML File Dialog
+
+
+		// 		// DBの情報を読み込み
+// 		$.get("../../operation/load")
+// 			.done(function(data, textStatus, jqXHR){
+// 				if( data === jqXHR.responseJSON ){
+// 					personal_information = data;
+// 					build_family_history_data_table();
+// 				}else{
+// 					reset_personal_information();
+// 					build_family_history_data_table();
+// 					$("#add_personal_information_dialog").dialog("open");
+// //					$("#load_personal_history_dialog").dialog("open");
+// 				}
+// 			})
+// 			.fail(function(){
+// 				reset_personal_information();
+// 				build_family_history_data_table();
+// 				$("#add_personal_information_dialog").dialog("open");
+// //				$("#load_personal_history_dialog").dialog("open");
+// 			});
+
 	}	else if (getParameterByName("action") == 'create') {
 		reset_personal_information();
 			build_family_history_data_table();
