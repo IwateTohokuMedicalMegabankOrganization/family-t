@@ -707,9 +707,15 @@ function start()
 	$("#lifestyle_score_calculator_dialog").load("lifestyle_score_calculator_dialog.html",function(){
 		preparate_lifestyle_score_dialog();
 		// bind_lifestyle_score_submit_button_action();
+		LifeStyleScoreDetailDialogController.refresh();
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
 		i18n.init(option, function () {
 			$(".translate").i18n();
+		});
+		
+		// 閉じるボタン
+		$('#closeLifestyleScoreButton').on('click', function(){
+			$("#lifestyle_score_calculator_dialog").dialog('close');
 		});
 	});
 
@@ -2760,7 +2766,7 @@ function load_risk_links() {
 class LifeStyleScoreDetailDialogController{
 
 	// 再計算
-	static refresh(calculator){
+	static refresh(){
 
 		this.calculator = new LifeStyleScoreCalculator( personal_information );
 

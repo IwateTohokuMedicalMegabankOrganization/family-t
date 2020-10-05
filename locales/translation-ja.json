@@ -874,6 +874,21 @@
     ,"select_the_year.":"年を選択してください"
     ,"unknown":"わからない"
     ,"select_the__month.":"月を選択してください"
-    }
-    }
-    
+    },
+  "family-t_lifestylescore": {
+    "title":"ライフスタイルスコア"
+    ,"points":"点"
+    ,"preferred_lifestyle_is":"好ましい生活習慣は"
+    ,"unfavorable_lifestyle_is":"好ましくない生活習慣は"
+    ,"points_3_4":"3～4点です"
+    ,"points_0_1":"0～1点です"
+    ,"breakdown":"内訳"
+    ,"score":"スコア"
+    ,"non_smoking":"非喫煙"
+    ,"bmi_less_than_30":"BMI 30未満"
+    ,"regular_exercise_at_least_once_a_week":"週1回以上の定期的な運動"
+    ,"healthy_eating_habits":"健康的な食習慣"
+    ,"items_required_for_lifestyle_score_calculation_are_not_registered":"ライフスタイルスコア計算に必要な項目が登録されていません。"
+    ,"items":"項目"
+  }
+}

@@ -842,5 +842,22 @@
 		,"stroke_result_exp4":"We cannot calculate your risk of developing type 2 diabetes if you are currently taking medication for diabetes, have been diagnosed with diabetes in the past, or have a “diabetic type” blood sugar level."
 		,"stroke_result_exp5":"The risk of developing coronary artery disease cannot be calculated for those currently taking medication for diabetes or those with a “diabetic-like” blood sugar level."
 		,"stroke_result_exp6":"Your risk of suffering a stroke cannot be calculated if you have a history of stroke, or if you are under 40 or over 70 years of age."
+	},
+
+	"family-t_lifestylescore": {
+		"title":"Lifestyle Score"
+		,"points":"Points"
+		,"preferred_lifestyle_is":"Preferred lifestyle is "
+		,"unfavorable_lifestyle_is":"Unfavorable lifestyle is "
+		,"points_3_4":"3 - 4 points"
+		,"points_0_1":"0 - 1 points"
+		,"breakdown":"Breakdown"
+		,"score":"Score"
+		,"non_smoking":"Non-smoking"
+		,"bmi_less_than_30":"BMI less than 30"
+		,"regular_exercise_at_least_once_a_week":"Regular exercise at least once a week"
+		,"healthy_eating_habits":"Healthy eating habits"
+		,"items_required_for_lifestyle_score_calculation_are_not_registered":"Items required for lifestyle score calculation are not registered."
+		,"items":"Items"
 	}
 }
