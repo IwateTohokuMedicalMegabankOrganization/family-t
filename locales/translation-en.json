@@ -49,11 +49,11 @@
 		"li31":"Read family history"
 	},
 	"fhh_js": {
-		"invalid_cause_of_death" : "Please Select Cause of Death",	
+		"invalid_cause_of_death" : "Please Select Cause of Death",
 		"ashkenazi" : "Why Ask About Ashkenazi?",
 		"pi":"Enter Personal Information",
 		"select_age": "Select Estimated Age",
-		"family_subtitle":"Your Family Member's Health Information",		
+		"family_subtitle":"Your Family Member's Health Information",
 		"select_age_death": "Select Estimated Age at Death",
 		"family_health_history_title":"Enter Family Member's Information",
 		"load_dialog_title": "Load Your Family Health History",
@@ -77,7 +77,7 @@
 		"update_help_dialog_l4_l7":"A &#34;Remove&#34; button will also appear in case you want to delete items already added",
 		"update_help_dialog_l5":"Enter other, optional information, where asked",
 		"update_help_dialog_l5_l1":"Indicate if your parents are related to each other in any way other than being married",
-		"update_help_dialog_l5_l2":"Select each race and ethic background that applies. You can select more than one of each",		
+		"update_help_dialog_l5_l2":"Select each race and ethic background that applies. You can select more than one of each",
 		"personal_help_dialog_title":"Enter Personal Information Help",
 		"personal_help_dialog_h1":"Enter Personal Information",
 		"personal_help_dialog_p":"When creating your personal information you will be asked to:",
@@ -112,7 +112,7 @@
 		"file_save":"Saving File",
 		"add_relative_title":"Who would you like to add to your history?",
 		"add_relative_para":"Relatives in your immediate family who aren't listed here are probably on the previous page and can be reached by closing this window and selecting the plus sign image ('Add History') next to the relative's name. Spouses and second cousins are not listed because they don't impact your family health history.",
-						
+
 		"select_relationship":"Select Relationship",
 		"please_specify":"Please Specify",
 
@@ -120,9 +120,9 @@
 		"mother":"Mother",
 		"father":"Father",
 		"grandmother":"Grandmother",
-		"grandfather":"Grandfather",	
-		"name_relationship":"Name & Relationship",	
-		"still_living":"Still Living, cause of death (age)",	
+		"grandfather":"Grandfather",
+		"name_relationship":"Name & Relationship",
+		"still_living":"Still Living, cause of death (age)",
 		"maternal_grandmother":"Maternal Grandmother",
 		"maternal_grandfather":"Maternal Grandfather",
 		"paternal_grandmother":"Paternal Grandmother",
@@ -165,13 +165,13 @@
 		"grandson_parent_q" : "Who is the parent of your grandson:",
 		"halfbrother_parent_q" : "Who is the parent of your half brother:",
 		"halfsister_parent_q" : "Who is the parent of your half sister:",
-		"digits_only":"Digits Only",		
+		"digits_only":"Digits Only",
 		"invalid_name" : "Invalid Name",
 		"invalid_data_of_birth" : "Invalid Date of Birth",
 		"invalid_gender" : "Invalid Gender Selection",
 		"invalid_data_alert" : "Some of the data you entered was invalid, please fix your errors and try again.",
 		"halfway_through_adding_disease" : "You have not saved the new disease information, please click 'Add' to add the disease first.",
-		
+
 		"my_family" : "My Family",
 		"fathers_side" : "My Father's Side of the Family",
 		"mothers_side" : "My Mother's Side of the Family",
@@ -206,7 +206,7 @@
 		"senior" : "60 years or older",
 		"unknown" : "Unknown",
 		"Unknown" : "Unknown",
-		
+
 		"race": "Race:",
 		"more_race": "More Race Options:",
 		"ethnicity": "Ethnicity:",
@@ -246,31 +246,31 @@
 		"ethnicity_other_hispanic" : "Other Hispanic",
 		"ethnicity_puerto_rican" : "Puerto Rican",
 		"ethnicity_south_american" : "South American",
-		
+
 		"consanguinity": "Check here if your parents are related to each other in any way other than marriage.",
 		"multiple_races_selectable" : "Multiple races and ethnicities may be selected.",
 		"ashkezani_q": "Why are we asking about Ashkenazi Jewish heritage?",
-		
+
 		"personal_health_subtitle" : "Your Health Information",
 
 		"disease_select" : "Please Select a Disease",
 		"add_new" : "Other - Add New",
 		"disease_subtype_select" : "Please Select a Specific Subtype",
 		"disease_name_enter": "Please Enter a Disease Name",
-		
+
 		"add" : "Add",
 		"remove" : "Remove",
 		"next" : "Next",
 		"cancel" : "Cancel",
 		"save" : "Next",
-		
+
 		"export_instructions":"You may make your father, mother, brothers, sisters, and children be the center person of the family health history. This person can then add relatives from their families to create a new family health history without having to start from the very beginning.",
 		"export_instructions2":"Your family health history is not saved on this website or any other system. You must save your family health history to your own local storage area (such as your computer's hard drive, a CD-ROM, or USB thumb drive), whether you are saving your own history or saving a copy for a family member.",
 		"export_instructions3":"To copy for another family member, select the person to copy and click 'Copy and Save History.'",
 		"choose_relative":"Choose a Relative",
 		"please_select_relative":"Please make a selection",
 		"export":"Copy and Save History",
-		
+
 		"leave_page_warning": "If you leave before saving your changes will be lost.",
 
 		"done" : "done",
@@ -278,9 +278,12 @@
 		"no":"No",
 		"unknown":"Unknown",
 		"android":"This Feature is not supported on the Android Browser"
+		,"MALE" : "Male"
+		,"FEMALE" : "Famale"
 
+		,"lifestyle_score_calculator_dialog_title": "Lifestyle Score"
 	},
-	
+
 	"fhh_fhh": {
 		"a_Home" : "Home",
 		"a_myfhh" : "My Family Health History",
@@ -313,7 +316,7 @@
 		"p_update_my_history2_b5" : "Export your family information to give a close relative a headstart on his/her family tree by clicking on the 'Share Data' button",
 		"p_update_my_history2_b6" : "Use one of the Disease Risk Calculators to determine if you are at increased risk of a disease based on your family history by clicking on the 'Check Your Risk' button",
 		"p_update_my_history2_b7" : "Get additional Help by clicking on the 'Get Help For This Page' button",
-		
+
 		"btn_create_my_history" : "Delete all Data and Restart",
 		"btn_save_my_history" : "Save Family History for Later Re-use",
 		"btn_add_a_family_mbr" : "Add Another Family Member",
@@ -341,10 +344,9 @@
 		"li2_3_help_main_page" : "Make a copy of your family health history for a family member by pressing 'Copy for Family Member.'",
 		"li2_4_help_main_page" : "View a diagram of your family tree and a table of your family health history by pressing 'View Diagram & Table.'",
 		"li2_5_help_main_page" : "Get extra help by pressing 'Get Help.'",
-	
 		"done" : "done"
 	},
-	
+
 	"info_dialog": {
 		"div_personal_info" : "Your Personal Information",
 		"div_family_info" : "Your Family Member's Personal Information",
@@ -352,7 +354,7 @@
 		"personal_information_for" : "Personal Information for ",
 		"health_information_for" : "Health Information for ",
 		"race_ethnicity_information_for":"Race and Ethnicity Information for",
-		
+
 		"instructions" : "We start the family health history with you. Enter the required personal information and your health history information. At the bottom of the page (you may need to scroll), press the 'Next' button. You will then be asked to tell the system which family members you would like to add to the health history.",
 		"health_vault" : "If you have a Microsoft HealthVault account, you can choose to copy your HealthVault family history information into this website.  Press 'Copy from HealthVault' to get started.",
 		"family_instructions1":"Enter personal, health history, and background information for this family member.",
@@ -370,7 +372,7 @@
 		"family_twin_status" : "Born a twin?",
 		"adopted" : "Adopted?",
 		"family_adopted" : "Adopted?",
-		
+
 		"yes": "Yes",
 		"no":"No",
 		"unknown":"Unknown",
@@ -388,16 +390,16 @@
 		"centimeters": "Centimeters",
 		"lbs": "lbs",
 		"kgs": "kgs",
-		
-		
+
+
 		"di3_fam_hist" : "health info",
 		"di4_fam_hist" : "family background info",
 		"btn1_fam_hist" : "Next",
 		"btn2_fam_hist" : "Cancel",
-		
+
 		"done" : "done"
 	},
-	
+
 	"fhh_add_family": {
 		"instructions" : "Now we will build your family.",
 		"li1" : "We automatically add your parents and grandparents for you.",
@@ -420,7 +422,7 @@
 	},
 
 	"fhh_load_save": {
-		"browse":"Open",		
+		"browse":"Open",
 		"open_from_computer":"Open From Computer",
 		"no_file_chosen_error1":"Please click ",
 		"no_file_chosen_error2":"and choose a file to upload.",
@@ -455,7 +457,7 @@
 		"save_dropbox" : "Save Your Personal Information to Dropbox",
 		"save_dropbox_instructions" : "You can save a file to Dropbox by signing into your dropbox account and picking a location to save and naming the file.",
 		"save_dropbox_button" : "Save to Dropbox",
-		"fail_to_save":"Failed to save to Health Vault. Please save locally and try again.",		
+		"fail_to_save":"Failed to save to Health Vault. Please save locally and try again.",
 		"disclaimer" : "When you choose to copy your family health history information to any third party system, please note that your information will be retained in that system, and will be subject to the terms of use and privacy policy of that system.",
 
 		"detailed_instructions":"Detailed file opening instructions",
@@ -470,11 +472,11 @@
 		"detailed_instructions_li2":"In the section above marked 'Open From Computer' - press the Browse... button",
 		"detailed_instructions_li3":"A file selection box will be displayed - locate and select the previously-saved family health history XML file you wish to open, and press OK or Open on the file selection box (depending on the type of computer or web browser you are using)",
 		"detailed_instructions_li4":"If you are opening a file from a portable storage device, you will need to locate the device in the file selection box to view its contents and then select the file to be opened",
-		"detailed_instructions_li5":"Press the button marked 'Open From Computer' on this screen",		
+		"detailed_instructions_li5":"Press the button marked 'Open From Computer' on this screen",
 
 		"done" : "done"
 	},
-	
+
 	"fhh_why_ask_ashkenazi": {
 		"help_title" : "Help for Ashkenazi Jew",
 		"help_para" : "For certain conditions, such as ovarian and breast cancer, it is important to know if a person has Ashkenazi Jewish heritage for risk assessment purposes.",
@@ -482,11 +484,11 @@
 	},
 	"fhh_diabetes_calculator":  {
 		"points":"points",
-		"pounds":"pounds",	
+		"pounds":"pounds",
 		"feet":"feet",
-		"inches":"inches",	
-		"centimeters":"centimeters",	
-		"kilograms":"kilograms",	
+		"inches":"inches",
+		"centimeters":"centimeters",
+		"kilograms":"kilograms",
 		"height":"Height",
 		"weight":"Weight",
 		"lbs":"lbs",
@@ -500,7 +502,7 @@
 		"button_patient_line1":"Get Personal",
 		"button_provider_line1":"Get Provider",
 		"button_lower_risk":"Lower Risk Letter",
-		"button_elevated_risk":"Elevated Risk Letter",	
+		"button_elevated_risk":"Elevated Risk Letter",
 		"elevated_popup_title":"You are at an Elevated Risk for Diabetes",
 		"elevated_popup_instructions_line1":"You have indicated in your personal health history",
 		"elevated_popup_instructions_line2":"Due to this indicator, you are at an elevated risk for Diabetes",
@@ -509,7 +511,7 @@
 		"initial_popup_yes_value":"Yes",
 		"initial_popup_continue_button":"Continue",
 		"initial_popup_desc_line1":"Please check that the information you have added about you and your relatives is complete and correct",
-		"initial_popup_desc_line2":"In order to calculate your diabetes risk, we need some additonal information",		
+		"initial_popup_desc_line2":"In order to calculate your diabetes risk, we need some additonal information",
 		"initial_popup_date_of_birth_description":"Please enter your date of birth:",
 		"initial_popup_gender_description":"Please enter your gender:",
 		"initial_popup_gender_value1":"MALE",
@@ -581,11 +583,11 @@
 		"button1_line1":"Get",
 		"button1_line2":"Risk Letter",
 		"button2_line1":"Get Risk",
-		"button2_line2":"Provider Letter",		
+		"button2_line2":"Provider Letter",
 		"button3_line1":"Get Increased",
-		"button3_line2":"Risk Letter",		
+		"button3_line2":"Risk Letter",
 		"button4_line1":"Get Increased",
-		"button4_line2":"Risk Provider Letter",		
+		"button4_line2":"Risk Provider Letter",
 		"table_key":"Table Key:",
 		"no_history_found":"No personal or family history with this test",
 		"history_found":"There was personal or family history with this test",
@@ -612,17 +614,17 @@
 
 		"past_cancer_negative":"You have never had any of the following cancer types: colon, colorectal, rectal, Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC), uterine, pancreatic, ovarian, gastric, brain, liver, or kidney cancer.",
 		"polyps_negative":"You have never had any polyps or Familial adnenomatous polyposis (FAP).",
-		"polyps_risk1":"You have had colon polyps in the past.",		
+		"polyps_risk1":"You have had colon polyps in the past.",
 		"polyps_risk2":"You have had familial adnenomatous polyposis (FAP) in the past.",
 		"ibd_negative":"You have never had inflammatory bowel disease (either ulcerative colitis or crohn's disease).",
-		"ibd_risk1":"You have had crohn's disease in the past.",		
+		"ibd_risk1":"You have had crohn's disease in the past.",
 		"ibd_risk2":"You have had ulcerative colitis in the past.",
 		"fap_hnpcc_negative":"None of your family members have had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) or Familial adnenomatous polyposis (FAP)",
-		"fap_hnpcc_risk1":"has had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) in the past.",		
+		"fap_hnpcc_risk1":"has had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) in the past.",
 		"fap_hnpcc_risk2":"has had familial adnenomatous polyposis (FAP) in the past.",
-		"family_members_cancer_risk1":"has had colon cancer in the past.",		
+		"family_members_cancer_risk1":"has had colon cancer in the past.",
 		"family_members_cancer_risk2":"has had colorectal cancer in the past.",
-		"family_members_cancer_risk3":"has had rectal cancer in the past",		
+		"family_members_cancer_risk3":"has had rectal cancer in the past",
 		"family_members_cancer_risk4":"has had gastric cancer in the past.",
 		"family_members_cancer_negative":"None of your immediate relatives (father, mother, brothers, sisters, children) have had colon, colorectal, rectal, or gastric cancer.",
 		"family_members_polyps_risk1":"has had colon polyps in the past.",
@@ -654,8 +656,6 @@
 		"final_risk1":"You have at least one of the above risk factors.  Based on this your risk of colorectal cancer is increased.",
 		"final_risk2":"You have none of the above risks.  Therefore your risk of colorectal cancer is average",
 		"additional_info":"Additional information about the test can be found in: Feero WG et al. Preliminary validation of a consumer-oriented colorectal cancer risk assessment tool compatible with the US Surgeon General's My Family Health Portrait. Genet Med. 2014 Dec 18. doi: 10.1038/gim.2014.179. http://www.ncbi.nlm.nih.gov/pubmed/25521335"
-		
-
 	},
 	"fhh_family_pedigree": {
 		"title":"View Diagram & Table",
@@ -671,16 +671,16 @@
 		"desc_line2_anchor2":"table",
 		"desc_line2_after_anchor2":"(below the diagram).  Scroll up and down to see both.",
 		"desc_line3":"Print them to share with your healthcare provider.  Click the ‘Print’ buttons just above the diagram and the table, then follow the instructions.",
-		"desc_line4":"Use the bottom and right scroll bars to view larger tables and diagrams.",		
+		"desc_line4":"Use the bottom and right scroll bars to view larger tables and diagrams.",
 		"go_to_diagram":"Go To Diagram",
 		"go_to_table":"Go To Table",
 		"print":"Print",
 		"zoom_in":"Zoom In",
-		"zoom_out":"Zoom Out",		
+		"zoom_out":"Zoom Out",
 		"save_image":"Save To Image",
-		"page_title":"My Family Health Portrait-Diagram",		
+		"page_title":"My Family Health Portrait-Diagram",
 		"close":"Close",
-		"ie_disclaimer":"This feature has been tested and is supported in the following browsers - Internet Explorer 10 and recent versions, Firefox, Chrome, Safari.",		
+		"ie_disclaimer":"This feature has been tested and is supported in the following browsers - Internet Explorer 10 and recent versions, Firefox, Chrome, Safari.",
 		"diagram_options":"Diagram & Table Options",
 		"diagram_options_desc":"You can view, save or print your family health history to share with your health care provider. They can assess your risk for certain diseases, and develop disease prevention strategies that are right for you. You can also share the table with other family members to your your family's disease history. You can change what is shown in the table yourself by selecting from the options below. Please select from the options below what you would like to show on your table.",
 		"diagram_options_disease":"Choose a disease or condition to highlight in the diagram: ",
@@ -747,13 +747,100 @@
 		"csv_line4":"From the File menu, choose Import",
 		"csv_line5":"Select CSV file",
 		"csv_line6":"Click Import",
-		"csv_line7":"Choose the filename saved from step 1"				
+		"csv_line7":"Choose the filename saved from step 1"
 	},
 	"fhh_export": {
 		"relative_no_name":"This relative does not have a name.  In order to export, the relative needs to have a name.  Please add a name and try again",
 		"relative_no_gender":"This relative does not have a gender.  In order to export, the relative needs to have a gender.  Please add a gender and try again",
 		"relative_no_dob":"This relative does not have a Date of Birth.  In order to export, the relative needs to be listed as alive and have a valid Date of Birth.  Please add a Date of Birth and try again"
-	}	
+	},
 
+	"family-t": {
+		"logout": "logout"
+		,"save_data":"Save Data"
+		,"share_data":"Share Data"
+		,"check_your_score":"Lifestyle Score"
+		,"check_your_risk":"Check Your Risk"
+		,"export_pedigree":"Export Pedigree"
+		,"questionnaire":"Questionnaire"
+		,"start_over":"Start Over"
+		,"save_note1":"Remember to click the “Save Data”"
+		,"save_note2":"button above if you want to save your changes for future use."
+		,"click":"Click"
+		,"edit_note":"in the table below to make changes to a family member’s information and health history."
+		,"delete_note":"in the table below to remove a family member and their data."
+		,"blood_relationship":"Enter only those who have blood relationships."
+		,"add_a_family_member":"Add a Family Member"
+		,"bo":"Birth order"
+		,"name":"Name, nickname, or the relationship to you, etc"
+		,"gender":"Gender"
+		,"still_living":"Still living"
+		,"age":"Age"
+		,"health_information":"Health Information"
+		,"self":"Self"
+		,"your_siblings":"Enter your birth order, including your siblings."
+		,"male":"Male"
+		,"female":"Female"
+		,"sibling":"Sibling"
+		,"parents":"Parents"
+		,"child":"Child"
+		,"paternal_uncle_and_aunt":"Paternal Uncle and Aunt"
+		,"maternal_uncle_and_aunt":"Maternal Uncle and Aunt"
+		,"paternal_grandparents":"Paternal Grandparents"
+		,"maternal_grandparents":"Maternal Grandparents"
+		,"about":"About the Tohoku Medical Megabank Project"
+		,"imm":"Iwate Tohoku Medical Megabank Organization"
+		,"bo_you":"Enter the birth orders, including you."
+		,"bo_parent_brother":"Enter the birth orders of your parents, including their siblings (your uncles or aunts)."
+		,"bo_father":"Enter the birth orders, including your father."
+		,"bo_mother":"Enter the birth orders, including your mother."
+		,"birth_order_annotation":""
+	},
 
-}	
+	"family-t_risk":{
+		"exp1":"The results calculated herein are based on research findings reported to date."
+		,"exp2":"It is not definitive whether conclusions drawn from these results are applicable to all individuals. "
+		,"exp3":"In addition, future research may result in a change of the method used to determine obesity, leading to different conclusions. "
+		,"exp4":"We will introduce individuals to medical specialists at the Department of Clinical Genetics  at Iwate Medical University Hospital ."
+		,"exp5":"Information can be provided as needed to primary care physicians and specialists, in addition to a follow-up that would include family members and genetic counseling."
+		,"exp6":"The following parameters required for risk calculation have not yet been entered. The names in parentheses represent conditions for which information required for the calculation is needed."
+		,"exp7":"By entering the required information for each parameter, more accurate calculations can be performed."
+		,"recalculate":"Recalculate"
+		,"disease_guide_p1":"(type 2 diabetes, coronary heart diseas, stroke)"
+		,"disease_guide_p2":"(type 2 diabetes, stroke)"
+		,"disease_guide_p3":"(coronary heart diseas, stroke)"
+		,"disease_guide_type2":"(type 2 diabetes)"
+		,"disease_guide_stroke":"(stroke)"
+		,"close_bracket":")"
+		,"type2_required":"The parameters necessary for calculating the risk of developing type 2 diabetes are not registered."
+		,"heart_required":"The parameters necessary for calculating the risk of developing coronary heart disease are not registered."
+		,"stroke_required":"The parameters necessary for calculating the risk of suffering a stroke have not been registered."
+		,"score_sheet":"Score sheet"
+		,"risk_factor":"Risk factor"
+		,"score":"Score"
+		,"fd_or_sd_fhd":"First-degree or second-degree family history of diabetes"
+		,"central_obesity":"Central obesity"
+		,"hypertension":"Hypertension"
+		,"smoking":"Smoking"
+		,"regular_exercise":"Regular exercise"
+		,"impaired_glucose_tolerance":"impaired glucose tolerance"
+		,"early-onset_coronary_heart_disease":"Early-onset coronary heart disease"
+		,"predicted_probability_in_5_years":"Predicted probability in 5 years"
+		,"predicted_probability_in_10_years":"Predicted probability in 10 years"
+		,"type2diabates":"Type 2 Diabetes"
+		,"cdh":"Coronary Heart Disease"
+		,"stroke":"Stroke"
+		,"type2_result_exp1":"The incidence among study populations of the same gender and age as you ranges from "
+		,"type2_result_exp2":"Although results are not conclusive, an incidence of 10% or higher could place you in a high-risk group for developing type 2 diabetes."
+		,"type2_result_exp3":" If applicable, we recommend that you consult your doctor and undergo a blood test. "
+		,"type2_result_exp4":"The type 2 diabetes risk score used in this study is based on data from the Hisayama studyStudy  in ethnic Japanese subjects."
+		,"hdc_result_exp1":"Although results are not conclusive, an incidence of 2% or higher may place you in the moderate-risk group for developing coronary artery disease, and an incidence of 9% or higher may place you in the high-risk group. If either description applies to you, consulting a physician for primary preventive care based on your individual risk is advisable. "
+		,"hdc_result_exp2":"The coronary artery disease risk (Suita score ) used in this study is based on data from the Suita study  in ethnic Japanese subjects."
+		,"stroke_result_exp1":"Although results are not conclusive, an incidence of 10% or higher may place you in the moderate-risk group for stroke, and an incidence of 20% or higher may place you in the high-risk group. If either description applies to you, we recommend that you consult your physician. "
+		,"stroke_result_exp2":"The model used in this study is based on data from a multipurpose cohort study (JPHC studyStudy ) in ethnic Japanese subjects. "
+		,"stroke_result_exp3":"This prediction model does not include the subject’s family history of stroke. Some studies conducted in the United States suggest that having a family member that has suffered a stroke indicates an increased susceptibility for the condition, but results have been inconclusive as to whether this applies to Japanese people."
+		,"stroke_result_exp4":"We cannot calculate your risk of developing type 2 diabetes if you are currently taking medication for diabetes, have been diagnosed with diabetes in the past, or have a “diabetic type” blood sugar level."
+		,"stroke_result_exp5":"The risk of developing coronary artery disease cannot be calculated for those currently taking medication for diabetes or those with a “diabetic-like” blood sugar level."
+		,"stroke_result_exp6":"Your risk of suffering a stroke cannot be calculated if you have a history of stroke, or if you are under 40 or over 70 years of age."
+	}
+}
