@@ -266,7 +266,7 @@ class LifeStyleScoreCalculator extends RiskCalculatorBase{
 
 		// 一つでも入力されていない項目があればfalse
 		Object.keys(validatedEntries).forEach(function( entry ){
-			if( validatedEntries[ entry ] == false ) retval = false;
+			if( validatedEntries[ entry ] == false ) ret = false;
 		});
 
 		return ret;
