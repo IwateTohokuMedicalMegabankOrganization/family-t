@@ -706,7 +706,7 @@ function start()
 	// ライフスタイルスコア計算ダイアログ
 	$("#lifestyle_score_calculator_dialog").load("lifestyle_score_calculator_dialog.html",function(){
 		preparate_lifestyle_score_dialog();
-		bind_lifestyle_score_submit_button_action();
+		// bind_lifestyle_score_submit_button_action();
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
 		i18n.init(option, function () {
 			$(".translate").i18n();
@@ -2806,7 +2806,7 @@ class ScoreCardController{
 		ScoreCardController._lifeStyleScore();
 
 		// 疾患発症リスク
-		// 糖尿病
+		// 糖尿病	
 		ScoreCardController._diababatesRiskScore();
 
 		// 冠動脈疾患（10年間）
