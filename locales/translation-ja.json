@@ -893,5 +893,9 @@
   },
   "family-t_qof_history_score" : {
     "title": "家族歴の質"
+  },
+  "family-t_score_summary" : {
+    "disease_risk" : "疾患発症リスク"
+    ,"": "糖尿病（5年間）"
   }
 }

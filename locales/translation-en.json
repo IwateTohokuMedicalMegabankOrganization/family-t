@@ -843,10 +843,9 @@
 		,"stroke_result_exp5":"The risk of developing coronary artery disease cannot be calculated for those currently taking medication for diabetes or those with a “diabetic-like” blood sugar level."
 		,"stroke_result_exp6":"Your risk of suffering a stroke cannot be calculated if you have a history of stroke, or if you are under 40 or over 70 years of age."
 	},
-
 	"family-t_lifestylescore": {
 		"title":"Lifestyle Score"
-		,"points":"Points"
+		,"points":"points"
 		,"preferred_lifestyle_is":"Preferred lifestyle is "
 		,"unfavorable_lifestyle_is":"Unfavorable lifestyle is "
 		,"points_3_4":"3 - 4 points"
@@ -859,5 +858,8 @@
 		,"healthy_eating_habits":"Healthy eating habits"
 		,"items_required_for_lifestyle_score_calculation_are_not_registered":"Items required for lifestyle score calculation are not registered."
 		,"items":"Items"
+	},
+	"family-t_score_summary" : {
+		"disease_risk" : "Disease Risk"
 	}
 }
