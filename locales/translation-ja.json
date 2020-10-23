@@ -249,13 +249,14 @@
     "ethnicity_south_american":"南アメリカ人",
     "consanguinity":"あなたのご両親についての結婚以外のことについて確認してください。",
     "multiple_races_selectable":"複数の人種や民族を選ぶことができます。",
+    "default_is_japanese_asia":"日本人アジアにチェックが入っています。異なる場合はチェックを外してください。",
     "ashkezani_q":"アシュケナージのユダヤ系の入力がなぜ必要でしょうか？",
     "personal_health_subtitle":"あなたの健康情報",
     "disease_select":"病気を選択してください",
     "add_new":"その他",
     "disease_subtype_select":"詳細を選択してください",
     "disease_name_enter":"病名を入力してください",
-    "add":"追加",
+    "add":"登録",
     "remove":"削除",
     "next":"次へ",
     "cancel":"キャンセル",
@@ -791,11 +792,11 @@
             ,"explain_bmi":"肥満の判定は、身長と体重から計算されるBMI（Body Mass Index：体格指数）という数値で行われています。これは、「体重（kg）÷身長（m）²」で計算されます。日本肥満学会が決めた判定基準では、統計的にもっとも病気にかかりにくいBMI 22を標準とし、25以上を肥満としています。"
             ,"explain_whr":"WHR (Waist to Hip Ratio：腹囲臀囲比)は、肥満の体型指標として用いられています。これは「腹囲（cm）÷臀囲（cm）」で計算されます。肥満者の体型を表す「洋なし型肥満」と「リンゴ型肥満」のどちらのタイプの肥満かは、このW/H比で判断します。W/H比の値が大きいと、上半身（腹部）に脂肪が蓄積しているリンゴ型肥満（腹部肥満）であり、種々の合併症をきたしやすい肥満体型と言えます。欧米では、男性は1.0以上、女性は0.9以上が目安とされています。肥満者に限っては国際的な肥満判定指標であるBMIよりも肥満体型を表すためのある程度有効な指標であると思われますが、皮下脂肪の少ない非肥満者ではW/H比が相対比であるため体型を表す指標としては適切でないことからあまり使われておらず、ウエスト周囲径の実測値が用いられています（厚生労働省 e-ヘルスネット）。"
             ,"smoking_status":"喫煙状況"
-            ,"explain_coronary":"冠動脈疾患のリスクは、禁煙後1年でほぼ半減し、禁煙後15年で非喫煙者と同等になることが知られています。<br />"
+            ,"explain_coronary":"冠動脈疾患のリスクは、禁煙後1年でほぼ半減し、禁煙後15年で非喫煙者と同等になることが知られています。"
         ,"select_your_current_smoking_status":"ご自身の状況にあてはまるものを選択してください。"
         ,"never_smoked":"喫煙したことがない"
-        ,"former_smoker_quit_more_than_fifteen_years_ago.":"禁煙して、15年以上経過している"
-        ,"former_smoker_quit_between_one_and_fifteen_years_ago.":"禁煙して、1年以上15年未満経過している"
+        ,"former_smoker_quit_more_than_fifteen_years_ago":"禁煙して、15年以上経過している"
+        ,"former_smoker_quit_between_one_and_fifteen_years_ago":"禁煙して、1年以上15年未満経過している"
         ,"former_smoker_quit_less_than_one_year_ago":"禁煙して、1年未満である"
         ,"current_smoker":"現在も喫煙している"
         ,"select_the_number_of_cigarettes_you_smoke_per_day_on_average":"1日の本数を選択してください。"
@@ -874,6 +875,9 @@
     ,"select_the_year.":"年を選択してください"
     ,"unknown":"わからない"
     ,"select_the__month.":"月を選択してください"
+    ,"year" : {
+      "1950" : "昭和25（1950）"
+    }
     },
   "family-t_lifestylescore": {
     "title":"ライフスタイルスコア"
@@ -897,5 +901,8 @@
   "family-t_score_summary" : {
     "disease_risk" : "疾患発症リスク"
     ,"": "糖尿病（5年間）"
+  },
+  "year" : {
+    "1950" : "昭和25（1950）"
   }
 }

@@ -57,8 +57,8 @@
 			</div>
 			<div class="edit_form_input_area">
 				<select name="person.year_of_birth" id="personal_info_form_year_of_birth" style="width: auto; height:80%;">
-					<option value="1950">昭和25（1950）</option>
-					<option value="1951">昭和26（1951）</option>
+					<option value="1950"><span class='translate' data-i18n='year.1950'>昭和25（1950）aaaa</span></option>
+					<option value="1951">昭和26（1951）<span class='translate' data-i18n="family-t.moderate">Moderate</span></option>
 					<option value="1952">昭和27（1952）</option>
 					<option value="1953">昭和28（1953）</option>
 					<option value="1954">昭和29（1954）</option>
@@ -380,21 +380,20 @@
 <div class="row smoking_checked">
 	<div class="col s12 left checked_search">
 		<span class='label translate' data-i18n="family-t.explain_coronary" ></span>
-		<span class='label translate' data-i18n="family-t.select_your_current_smoking_status" >Select your current smoking status.</span>
 
 		<div>
 			<input id="smoker1" name="smoker" value="1" type="radio" />
-			<label for="smoker1"><span class='translate' data-i18n="family-t.select_your_current_smoking_status" >Never smoked</span></label>
+			<label for="smoker1"><span class='translate' data-i18n="family-t.never_smoked" >Never smoked</span></label>
 		</div>
 
 		<div>
 			<input id="smoker2" name="smoker" value="2" type="radio" />
-			<label for="smoker2"><span class='translate' data-i18n="family-t.former_smoker_quit_more_than_fifteen_years_ago." >Former smoker: quit more than fifteen years ago.</span></label>
+			<label for="smoker2"><span class='translate' data-i18n="family-t.former_smoker_quit_more_than_fifteen_years_ago" >Former smoker: quit more than fifteen years ago.</span></label>
 		</div>
 
 		<div>
 			<input id="smoker3" name="smoker" value="3" type="radio" />
-			<label for="smoker3"><span class='translate' data-i18n="family-t.former_smoker_quit_between_one_and_fifteen_years_ago." >
+			<label for="smoker3"><span class='translate' data-i18n="family-t.former_smoker_quit_between_one_and_fifteen_years_ago" >
 			Former smoker: quit between one and fifteen years ago.
 			</span>
 			</label>
@@ -593,17 +592,20 @@
 				<span class='translate' data-i18n='family-t.do_you_eat_more_than_5_servings_of_nuts_per_week?'>Do you eat more than 5 servings of nuts per week?</span>
 			</div>
 			<div class="col s7">
-				<div class="col s3"><input id="additional_information_frequency_to_eat_nuts_in_week_zero" name="additional_information.frequency_to_eat_nuts_in_week" value="zero" type="radio" />
-					<label for="additional_information_frequency_to_eat_nuts_in_week_1time_or_less">0回</label>
-				</div>
-				<div class="col s3"><input id="additional_information_frequency_to_eat_nuts_in_week_1time_or_less" name="additional_information.frequency_to_eat_nuts_in_week" value="1time_or_less" type="radio" />
-					<label for="additional_information_frequency_to_eat_nuts_in_week_1time_or_less">1回</label>
-				</div>
-				<div class="col s3"><input id="additional_information_frequency_to_eat_nuts_in_week_2-4times" name="additional_information.frequency_to_eat_nuts_in_week" value="2-4times" type="radio" />
-					<label for="additional_information_frequency_to_eat_nuts_in_week_2-4times">2～4回</label>
-				</div>
-				<div class="col s3"><input id="additional_information_frequency_to_eat_nuts_in_week_over_5times" name="additional_information.frequency_to_eat_nuts_in_week" value="5times" type="radio" />
-					<label for="additional_information_frequency_to_eat_nuts_in_week_over_5times">5回以上</label>
+				<div class="row">
+					<div class="col s3">
+						<input id="additional_information_frequency_to_eat_nuts_in_week_zero" name="additional_information.frequency_to_eat_nuts_in_week" value="zero" type="radio" />
+						<label for="additional_information_frequency_to_eat_nuts_in_week_zero">0回</label>
+					</div>
+					<div class="col s3"><input id="additional_information_frequency_to_eat_nuts_in_week_1time_or_less" name="additional_information.frequency_to_eat_nuts_in_week" value="1time_or_less" type="radio" />
+						<label for="additional_information_frequency_to_eat_nuts_in_week_1time_or_less">1回</label>
+					</div>
+					<div class="col s3"><input id="additional_information_frequency_to_eat_nuts_in_week_2-4times" name="additional_information.frequency_to_eat_nuts_in_week" value="2-4times" type="radio" />
+						<label for="additional_information_frequency_to_eat_nuts_in_week_2-4times">2～4回</label>
+					</div>
+					<div class="col s3"><input id="additional_information_frequency_to_eat_nuts_in_week_over_5times" name="additional_information.frequency_to_eat_nuts_in_week" value="5times" type="radio" />
+						<label for="additional_information_frequency_to_eat_nuts_in_week_over_5times">5回以上</label>
+					</div>
 				</div>
 		</div>
 		</div>

@@ -186,9 +186,9 @@
 
 
 		"family_health_subtitle" : "Your Family's Health Information",
-		"add_disease_instructions_1" : "In the list below, select a <B>Disease or Condition</B> (if any) from the dropdown box. Then select the <B>Age at Diagnosis</B> and press the <B>Add</B> button. You may repeat this process as necessary.",
-		"add_disease_instructions_2" : "In the list below, select a <B>Disease or Condition</B> (if any) from the dropdown box. Then select the <B>Age at Diagnosis</B> and press the <B>Add</B> button. You may repeat this process as necessary.",
-		"add_disease_instructions_3" : "In the list below, select a <B>Disease or Condition</B> (if any) from the dropdown box. Then select the <B>Age at Diagnosis</B> and press the <B>Add</B> button. You may repeat this process as necessary.",
+		"add_disease_instructions_1" : "In the list below, select a <B>Disease or Condition</B> (if any) from the dropdown box. ",
+		"add_disease_instructions_2" : "Then select the <B>Age at Diagnosis</B> and press the <B>Add</B> button.",
+		"add_disease_instructions_3" : "You may repeat this process as necessary.",
 		"disease_or_condition" : "Disease or Condition",
 		"age_at_diagnosis" : "Age at Diagnosis",
 		"action" : "Action",
@@ -249,6 +249,7 @@
 
 		"consanguinity": "Check here if your parents are related to each other in any way other than marriage.",
 		"multiple_races_selectable" : "Multiple races and ethnicities may be selected.",
+		"default_is_japanese_asia":"Japanese Asia is checked. If they are different, uncheck them.",
 		"ashkezani_q": "Why are we asking about Ashkenazi Jewish heritage?",
 
 		"personal_health_subtitle" : "Your Health Information",
@@ -795,6 +796,9 @@
 		,"bo_father":"Enter the birth orders, including your father."
 		,"bo_mother":"Enter the birth orders, including your mother."
 		,"birth_order_annotation":""
+		,"year" : {
+		  "1950" : "1950"
+		}
 	},
 
 	"family-t_risk":{
@@ -861,5 +865,8 @@
 	},
 	"family-t_score_summary" : {
 		"disease_risk" : "Disease Risk"
+	},
+	"year" : {
+	  "1950" : "1950"
 	}
 }

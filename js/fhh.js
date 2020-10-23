@@ -2969,13 +2969,6 @@ class ScoreCardController{
 
 }
 
-function calcLifestyleScoreAndShow() {
-	// ライフスタイルスコア
-	var lifestyle_score_class = showLifeStyleScore();
-
-	showScoreDetail(stroke_score_class, lifestyle_score_class);
-}
-
 function riskCalcAndShow() {
 	// 糖尿病
 	var drc_calcflag = drc_checkNecessaryItems();
@@ -3006,10 +2999,11 @@ function riskCalcAndShow() {
 
 	// 脳卒中リスクスコア
 	var stroke_score_class = showStrokeRisk();
+	showScoreDetail(stroke_score_class);
 }
 
 // リスク計算内訳反映
-function showScoreDetail(stroke_score_class, lifestyle_score_class) {
+function showScoreDetail(stroke_score_class) {
 
 	// リスク計算内訳表示
 
@@ -3045,13 +3039,6 @@ function showScoreDetail(stroke_score_class, lifestyle_score_class) {
 	$("#stroke_score_diabetes").text(stroke_score.diabetes);
 	$("#stroke_score_total").text(stroke_score_class.totalScore);
 
-	// ライフスタイルスコア
-	var lifestyle_score = lifestyle_score_class.score;
-	$("#lifestyle_score_isSmoker").text(lifestyle_score.smoker);
-	$("#lifestyle_score_bmi").text(lifestyle_score.bmi);
-	$("#lifestyle_score_training").text(lifestyle_score.trainingFamily);
-	$("#lifestyle_score_diabetes").text(lifestyle_score.dietary);
-	$("#lifestyle_score_total").text(lifestyle_score_class.toatalScore);
 }
 
 //  Need to do a deep copy of the PI data to support IE10 dropping data when window closes
@@ -3730,7 +3717,7 @@ function build_family_health_information_section() {
 	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);
 	hi_data_entry_row.append($("<td>").append(age_at_diagnosis_select_label).append(age_at_diagnosis_select));
 
-	var add_new_disease_button = $("<button id='family_add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1 '>登録</button>");
+	var add_new_disease_button = $("<button id='family_add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1 '>" + $.t("fhh_js.add")  + "</button>");
 	add_new_disease_button.on('click', add_disease);
 
 	hi_data_entry_row.append($("<td style='text-align:center;'>").append(add_new_disease_button) );
@@ -3819,8 +3806,7 @@ function build_personal_health_information_section() {
 
 	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);
 	hi_data_entry_row.append($("<td></td>").append(age_at_diagnosis_select));
-
-	var add_new_disease_button = $("<button id='add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1'>登録</button>");
+	var add_new_disease_button = $("<button id='add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1'>" + $.t("fhh_js.add")  + "</button>");
 
 	add_new_disease_button.on('click', add_disease);
 
@@ -4269,7 +4255,7 @@ function build_race_ethnicity_section(race_ethnicity, personal_flag) {
 	*							+ "<input name='person.consanguinity' value='true' tabindex='20' id='person_consanguinity' type='checkbox' class='filled-in' /></td>"));
 	*}
 	*/
-	table.append($("<tr class='md_tr'>").append("<td colspan='2'>" + $.t("fhh_js.multiple_races_selectable") + "<span id='warn_japanese' style='display:none;'>日本人アジアにチェックが入っています。異なる場合はチェックを外してください。</span></td>") );
+	table.append($("<tr class='md_tr'>").append("<td colspan='2'>" + $.t("fhh_js.multiple_races_selectable") + "<span id='warn_japanese' style='display:none;'>" + $.t( "fhh_js.default_is_japanese_asia" ) + "</span></td>") );
 	table.append($("<tr class='md_tr'>")
 						.append("<td style='width:150px;'>" + $.t("fhh_js.race") + "</td>")
 						.append(race_checkboxes) );
