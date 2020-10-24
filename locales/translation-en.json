@@ -800,7 +800,7 @@
 			"year" : "/"
 			,"month" : ""
 			,"ordinal_label" : ""
-			,"times" : "times"
+			,"times" : "time(s)"
 			,"between" : " - "
 			,"prefix_over" : "Mote than "
 			,"suffix_over" : ""
