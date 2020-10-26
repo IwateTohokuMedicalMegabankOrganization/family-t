@@ -130,6 +130,8 @@ class QualityOfFamilyHistoryCalculator extends RiskCalculatorBase{
 		var pi = this.pi;
 		var retval = 0;
 		ids.forEach( function(id){
+			if(typeof pi[id]["Health History"] == 'undefined' ) return ;
+
 			if(pi[id]["Health History"].length <= 0 ) return;
 
 			if(pi[id]["Health History"].length >= 2 ){
@@ -153,6 +155,8 @@ class QualityOfFamilyHistoryCalculator extends RiskCalculatorBase{
 		var retval = 0;
 		ids.forEach( function(id){
 
+			if(typeof pi[id]["Health History"] == 'undefined' ) return ;
+			
 			if(pi[id]["Health History"].length <= 0 ) return;
 
 			pi[id]['Health History'].forEach( function(healthHistory){
