@@ -99,12 +99,15 @@ function bind_save_download() {
 	}
 
 	$("#download_xml").on("click", function () {
-		isHealthVaultSave = false; // not healthvault save
-		output_string = get_xml_string();
-		filename = get_filename(personal_information);
+		saveToPCPost();
+		// saveToServerPost();
+		// isHealthVaultSave = false; // not healthvault save
+		// output_string = get_xml_string();
+		// filename = get_filename(personal_information);
 
-		save_document($(this), output_string, filename);
-		$("#save_personal_history_dialog").dialog("close");
+		// save_document($(this), output_string, filename);
+		// $("#save_personal_history_dialog").dialog("close");
+		
 	});
 }
 

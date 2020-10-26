@@ -414,6 +414,8 @@ function load_diabetes_status(hypoglycemic, fasting, occasional, ogtt, hba1c) {
 function load_diabetes_experience(history) {
 	var experience = false;
 
+	if(typeof history == "undefined") return false;
+
 	// 糖尿病リスト
 	const diabetesSnomedCodes = [
 		'SNOMED_CT-73211009',

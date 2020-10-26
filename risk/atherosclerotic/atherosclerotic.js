@@ -313,6 +313,9 @@ function load_dl(hdl, ldl){
 
 function load_suger(){
 	var isIGT = false;
+
+	if( typeof personal_information['Health History'] == "undefined" ) return false;
+
 	for (var i=0; i<personal_information['Health History'].length; i++) {
 		if (personal_information['Health History'][i]['Disease Code'] == "SNOMED_CT-9414007") {
 			isIGT = true;
