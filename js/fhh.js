@@ -3104,7 +3104,7 @@ function build_family_history_data_table () {
 	// Self title
 	var tbody = $('<tbody>');
 	add_new_family_history_row_title(tbody, $.t("family-t.self") + " <span class='small'>* " + $.t("family-t.your_siblings") + "</span>");
-	add_personal_history_row(tbody, personal_information['name'], $.t("fhh_js.self"), "self", true, false);
+	add_personal_history_row(tbody, false);
 	table.append(tbody);
 
 	// Brother and sister
