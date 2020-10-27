@@ -203,7 +203,21 @@
 		"thirties" : "30-39 years",
 		"fourties" : "40-49 years",
 		"fifties" : "50-59 years",
-		"senior" : "60 years or older",
+
+		"early_teens":"10 - 14 years",
+		"late_teens":"15 - 19 years",
+		"early_twenties":"20 - 24 years",
+		"late_twenties":"25 - 29 years",
+		"early_thirties":"30 - 34 years",
+		"late_thirties":"35 - 39 years",
+		"early_fourties":"40 - 44 years",
+		"late_fourties":"45 - 49 years",
+		"early_fifties":"50 - 54 years",
+		"late_fifties":"55 - 59 years",
+		"early_sixties":"60 - 64 years",
+		"late_sixties":"65 - 69 years",
+		"senior":"More than 70 years",
+	
 		"unknown" : "Unknown",
 		"Unknown" : "Unknown",
 
