@@ -187,7 +187,6 @@ class StrokeRiskCalculator extends RiskCalculatorBase{
 	hasDiabetes( h, fasting_blood_glucose_lebel, occasionally_blood_glucose_lebel, ogtt_blood_glucose_lebel, take_hypoglycemic ){
 
 		if( typeof h == "undefined") return false;
-
 		// 既往歴に糖尿病疾患がある場合は糖尿病として扱う
 		const diabatesSnomedCodes = [
 			'SNOMED_CT-73211009',
@@ -227,8 +226,8 @@ class StrokeRiskCalculator extends RiskCalculatorBase{
 	// 脳卒中疾患の有無を確認
 	hasStroke( h ){
 
-		if( typeof h == "undefined" ) return false;
 
+		if( typeof h == "undefined" ) return false;
 		const strokeSnomedCodes = [
 			'SNOMED_CT-116288000',
 			'SNOMED_CT-230690007',

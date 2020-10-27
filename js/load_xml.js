@@ -91,20 +91,11 @@ function bind_uploader() {
 				document.getElementById('console').innerHTML = "\nPlease select a valid xml history file"
 			},
 			FileUploaded: function(upldr, file, obj) {
-				// if(file.getNative() !== null) {
-				// 	load_family_history(file.getNative());
-				// } else {
-					//We do not have a getNative object so send response from upload2.php.
-//					var decoded = $("<div/>").html(obj.response).text();
-//          load_xml(decoded);
-//					alert(obj.response);
 					var pi = $.parseJSON(obj.response);
 //					alert(JSON.stringify(pi,null, 2));
 					personal_information=pi;
 					build_family_history_data_table();
 					$("#add_another_family_member_button").show();
-
-				// }
 
 				$("#load_personal_history_dialog").dialog("close");
 			}

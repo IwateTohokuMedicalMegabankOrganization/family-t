@@ -142,14 +142,11 @@
 					</span>
 
 					<div class="col s10 m11 l11 center">
-						<span id="saveToServer" class="cursor_pointer">
-							<span class="material-icons large-size green-text cursor_pointer icon_shadow">save</span>
-							<span class="translate" data-i18n="family-t.save_data">家族歴の保存</span>
-						</span>
 						<span id="saveToPC" class="cursor_pointer">
 							<span class="material-icons large-size green-text cursor_pointer icon_shadow">save</span>
 							<span class="translate" data-i18n="family-t.save_data">家族歴の保存</span>
 						</span>
+
 						<!--
 						<span id="navCopyFamily" class="cursor_pointer">
 							<span class="material-icons large-size green-text cursor_pointer icon_shadow">share</span>
@@ -506,7 +503,7 @@
 		</footer>
 	</div>
 
-<form id="personal_information_form" action="https://27.133.130.34/familyt_api/getxml" method="post">
+<form id="personal_information_form" action="../../operation/save" method="post">
 	<div class="container" style="display: none;">
 		<textarea id="personal_information_text" class="materialize-textarea" name="personal_information"></textarea>
 	</div>

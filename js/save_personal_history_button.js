@@ -1,6 +1,5 @@
 
 function saveToServer(){
-
 	$("#save_personal_history_dialog" ).dialog( "open" );
 
 	if( created_datetime === null ){
@@ -15,6 +14,7 @@ function saveToServer(){
 	$('#updatedTime').val( getNowTime() );
 }
 
+
 function saveToPCPost(){
 	$('#personal_information_text').val(JSON.stringify(personal_information));
 	$.post("https://27.133.130.34/familyt_api/getxml"
@@ -23,16 +23,17 @@ function saveToPCPost(){
 				downloadXML( jqXHR.responseText );
 			})
 			.fail(function(jqXHR, textStatus, errorThrown){
+				alert('family-tサーバへの保存に失敗しました。\n code: ' + jqXHR.status + '\n status: ' + textStatus + '\n error: ' + errorThrown);
 				$("#save_personal_history_dialog").dialog("close");
 			});
 }
+
 
 function downloadXML(content) {
 	const filename = "family-t.xml";
 	const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
 	var blob = new Blob([ bom, content ], { "type" : "text/xml" });
 
-	var blog = content;
 
 	const aTag = document.createElement('a');
 	aTag.download = filename;
@@ -62,6 +63,8 @@ function downloadXML(content) {
 	  );
 	}
 }
+
+
 function saveToServerPost(){
 		$('#personal_information_text').val(JSON.stringify(personal_information));
 
@@ -93,6 +96,7 @@ function saveToServerWithDate( createdDatetime,  updatedDatetime){
 }
 
 $(function(){
+
 	$('#saveToPC').on('click', function(){
 		$("#save_personal_history_dialog" ).dialog( "open" );
 	});

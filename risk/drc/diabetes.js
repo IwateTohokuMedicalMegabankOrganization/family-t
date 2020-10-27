@@ -416,6 +416,7 @@ function load_diabetes_experience(history) {
 
 	if(typeof history == "undefined") return false;
 
+
 	// 糖尿病リスト
 	const diabetesSnomedCodes = [
 		'SNOMED_CT-73211009',
