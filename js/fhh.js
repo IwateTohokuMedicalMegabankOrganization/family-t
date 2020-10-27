@@ -3072,16 +3072,25 @@ function getRelationshipIds( relations, pi ) {
 
 	return relationships;
 }
-
 function displayRelationships(table, relations, pi ){
+	displayRelationships(table, relations, pi, false );
+}
+
+function displayRelationships(table, relations, pi, is_sortable ){
 	// get relation id
 	var displayRelationshipIds = getRelationshipIds( relations, pi );
 	// display
 	displayRelationshipIds.forEach( function( tr ) {
-		add_new_family_history_row(table, pi[tr], $.t("fhh_js." + pi[tr].relationship), tr, true);
+		add_new_family_history_row(table, pi[tr], $.t("fhh_js." + pi[tr].relationship), tr, true, is_sortable);
 	});
 }
 
+function getSortableTbody(){
+	var tbody = $('<tbody>');
+	$(tbody).sortable();
+	$(tbody).disableSelection();
+	return tbody;
+}
 
 function build_family_history_data_table () {
 
@@ -3093,87 +3102,114 @@ function build_family_history_data_table () {
 	add_family_history_header_row(table);
 
 	// Self title
-	add_new_family_history_row_title(table, $.t("family-t.self") + " <span class='small'>* " + $.t("family-t.your_siblings") + "</span>");
-	add_personal_history_row(table, personal_information['name'], $.t("fhh_js.self"), "self", true, false);
-
+	var tbody = $('<tbody>');
+	add_new_family_history_row_title(tbody, $.t("family-t.self") + " <span class='small'>* " + $.t("family-t.your_siblings") + "</span>");
+	add_personal_history_row(tbody, personal_information['name'], $.t("fhh_js.self"), "self", true, false);
+	table.append(tbody);
 
 	// Brother and sister
 	if( hasRelations( [ 'brother', 'sister' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.sibling") + " <span class='small'>* " + $.t("family-t.bo_you") + "</span>");
-		displayRelationships(table, [ 'brother', 'sister' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, $.t("family-t.sibling") + " <span class='small'>* " + $.t("family-t.bo_you") + "</span>");
+		displayRelationships(tbody, [ 'brother', 'sister' ], personal_information, true );
+		add_personal_history_row(tbody, true);
+		table.append(tbody);
 	}
 
 	// parents
-	add_new_family_history_row_title(table, $.t("family-t.parents") + " <span class='small'>* " + $.t("family-t.bo_parent_brother") + "</span>");
+	var tbody = $('<tbody>');
+	add_new_family_history_row_title(tbody, $.t("family-t.parents") + " <span class='small'>* " + $.t("family-t.bo_parent_brother") + "</span>");
 
 	if( typeof personal_information.father != "undefined")
-		add_new_family_history_row(table, personal_information.father, $.t("fhh_js.father"), "father", false);
+		add_new_family_history_row(tbody, personal_information.father, $.t("fhh_js.father"), "father", false);
 
 	if( typeof personal_information.mother != "undefined")
-		add_new_family_history_row(table, personal_information.mother, $.t("fhh_js.mother"), "mother", false);
+		add_new_family_history_row(tbody, personal_information.mother, $.t("fhh_js.mother"), "mother", false);
+
+	table.append(tbody);
 
 	// children
 	if( hasRelations( [ 'son', 'daughter' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.child"));
-		displayRelationships(table, [ 'son', 'daughter' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, $.t("family-t.child"));
+		displayRelationships(tbody, [ 'son', 'daughter' ], personal_information, true );
+		table.append(tbody);
 	}
 
 	// おい（甥）・めい（姪）
 	if( hasRelations( [ 'niece', 'nephew' ], personal_information ) ){
-		add_new_family_history_row_title(table, "おい（甥）・めい（姪） <span class='small'>* 親（あなたの兄弟姉妹）の出生順も書いてください。</span>");
-		displayRelationships(table, [ 'niece', 'nephew' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, "おい（甥）・めい（姪） <span class='small'>* 親（あなたの兄弟姉妹）の出生順も書いてください。</span>");
+		displayRelationships(tbody, [ 'niece', 'nephew' ], personal_information, true );
+		table.append(tbody);
 	}
 
 	// 父方 おじ・おば
 	if( hasRelations( [ 'paternal_uncle', 'paternal_aunt' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.paternal_uncle_and_aunt") + " <span class='small'>* " + $.t("family-t.bo_father") + "</span>");
-		displayRelationships(table, [ 'paternal_uncle', 'paternal_aunt' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, $.t("family-t.paternal_uncle_and_aunt") + " <span class='small'>* " + $.t("family-t.bo_father") + "</span>");
+		displayRelationships(tbody, [ 'paternal_uncle', 'paternal_aunt' ], personal_information, true );
+		table.append(tbody);
 	}
 
 	// 母方 おじ・おば
 	if( hasRelations( [ 'maternal_uncle', 'maternal_aunt' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.maternal_uncle_and_aunt") + " <span class='small'>* " + $.t("family-t.bo_mother") + "</span>");
-		displayRelationships(table, [ 'maternal_uncle', 'maternal_aunt' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, $.t("family-t.maternal_uncle_and_aunt") + " <span class='small'>* " + $.t("family-t.bo_mother") + "</span>");
+		displayRelationships(tbody, [ 'maternal_uncle', 'maternal_aunt' ], personal_information, true );
+		table.append(tbody);
 	}
 
 	// 父方 祖父母
 	if( hasRelations( [ 'paternal_grandfather', 'paternal_grandmother' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.paternal_grandparents"));
-		add_new_family_history_row(table, personal_information.paternal_grandfather, $.t("fhh_js.paternal_grandfather"), "paternal_grandfather", false);
-		add_new_family_history_row(table, personal_information.paternal_grandmother, $.t("fhh_js.paternal_grandmother"), "paternal_grandmother", false);
+		var tbody = $('<tbody>');
+		add_new_family_history_row_title(tbody, $.t("family-t.paternal_grandparents"));
+		add_new_family_history_row(tbody, personal_information.paternal_grandfather, $.t("fhh_js.paternal_grandfather"), "paternal_grandfather", false);
+		add_new_family_history_row(tbody, personal_information.paternal_grandmother, $.t("fhh_js.paternal_grandmother"), "paternal_grandmother", false);
+		table.append(tbody);
 	}
 
 	// 母方 祖父母
 	if( hasRelations( [ 'maternal_grandfather', 'maternal_grandmother' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.maternal_grandparents"));
-		add_new_family_history_row(table, personal_information.maternal_grandfather, $.t("fhh_js.maternal_grandfather"), "maternal_grandfather", false);
-		add_new_family_history_row(table, personal_information.maternal_grandmother, $.t("fhh_js.maternal_grandmother"), "maternal_grandmother", false);
+		var tbody = $('<tbody>');
+		add_new_family_history_row_title(tbody, $.t("family-t.maternal_grandparents"));
+		add_new_family_history_row(tbody, personal_information.maternal_grandfather, $.t("fhh_js.maternal_grandfather"), "maternal_grandfather", false);
+		add_new_family_history_row(tbody, personal_information.maternal_grandmother, $.t("fhh_js.maternal_grandmother"), "maternal_grandmother", false);
+		table.append(tbody);
 	}
 
 	// 父方 いとこ
 	if( hasRelations( [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.maternal_uncle_and_aunt"));
-		displayRelationships(table, [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, $.t("family-t.maternal_uncle_and_aunt"));
+		displayRelationships(tbody, [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information, true );
+		table.append(tbody);
 	}
 
 	// 母方 いとこ
 	if( hasRelations( [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.maternal_uncle_and_aunt"));
-		displayRelationships(table, [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, $.t("family-t.maternal_uncle_and_aunt"));
+		displayRelationships(tbody, [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information, true );
+		table.append(tbody);
 	}
 
 	// 孫
 	if( hasRelations( [ 'grandson', 'granddaughter' ], personal_information ) ){
-		add_new_family_history_row_title(table, "孫");
-		displayRelationships(table, [ 'grandson', 'granddaughter' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, "孫");
+		displayRelationships(tbody, [ 'grandson', 'granddaughter' ], personal_information, true );
+		table.append(tbody);
 	}
 	// 書ききれなかった方
-	add_new_family_history_row_title(table, $.t("fhh_js.recently_added"));
+	var tbody = $('<tbody>');
+	add_new_family_history_row_title(tbody, $.t("fhh_js.recently_added"));
+	table.append(tbody);
 
-	$("#history_summary_table").find('tbody').addClass('list-group ui-sortable')
-	$("#history_summary_table").find('tbody').attr( 'id', 'list01');
-	$('#list01').sortable();
-	$( "#list01" ).disableSelection();
+	// $("#history_summary_table").find('tbody').addClass('list-group ui-sortable')
+	// $("#history_summary_table").find('tbody').attr( 'id', 'list01');
+	// $('#list01').sortable();
+	// $( "#list01" ).disableSelection();
 
 	ScoreCardController.refresh();
 }
@@ -3197,11 +3233,22 @@ function add_family_history_header_row(table) {
 	table.empty().append(head);
 }
 
-
 function getBirthOrderElement(pi){
+	return getBirthOrderElement(pi, false );
+}
+function getBirthOrderElement(pi, sortable){
 	var retval = $("<td class='inforamtion center birthOrder'>");
 	retval.text(getDisplayBirthOrder(pi));
+	if( sortable ){
+		$(retval).append(getSortableIcon());
+	}
 	return retval ;
+}
+
+function getSortableIcon(){
+	var retval = $("<span class='material-icons small-size green-text cursor_pointer '>");
+	retval.text('sort');
+	return retval;
 }
 
 function getDisplayBirthOrder( pi ){
@@ -3285,16 +3332,24 @@ function getDisplayAge(pi){
 }
 
 function add_personal_history_row(table) {
+	add_personal_history_row(table, false);
+}
+
+function add_personal_history_row(table, is_sort_only) {
 
 	// Html requires that all blank fields have at least 1 char or it will not show border
 	name = 'Self';
 	var new_row = $("<tr class='center information' id='self'></tr>");
 	new_row.addClass("proband");
 
-	new_row.append(getBirthOrderElement(personal_information));
+	new_row.append(getBirthOrderElement(personal_information, is_sort_only));
 
 	var nameColumn_td = $("<td class='center information' id='relatives_name'></td>")
-	var nameColumn_text = $("<a style='cursor:pointer;' name=''>" + escape_html(personal_information.name) + "</a>");
+
+	var nameColumn_text = (is_sort_only) 
+						? escape_html(personal_information.name) 
+						: $("<a style='cursor:pointer;' name=''>" + escape_html(personal_information.name) + "</a>");
+
 	nameColumn_td.append(nameColumn_text);
 	new_row.append(nameColumn_td);
 
@@ -3312,17 +3367,20 @@ function add_personal_history_row(table) {
 	new_row.append(getHealthHistoriesCol(personal_information["Health History"]));
 
 	var update_history_td = $("<td class='information center'>");
-//	var update_history = $("<A class='action update_history'><img style='border:0' src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
-	var update_history = $("<A class='action update_history'><div class='material-icons center green-text icon_shadow2'>edit</div></A>");
-	update_history_td.append(update_history);
 
-	update_history.on("click", function() {
-		updateHistoryDialog('self');
-	});
+	if(!is_sort_only) {
+	//	var update_history = $("<A class='action update_history'><img style='border:0' src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
+		var update_history = $("<A class='action update_history'><div class='material-icons center green-text icon_shadow2'>edit</div></A>");
+		update_history_td.append(update_history);
 
-	nameColumn_text.on("click", function() {
-		updateHistoryDialog('self');
-	});
+		update_history.on("click", function() {
+			updateHistoryDialog('self');
+		});
+
+		nameColumn_text.on("click", function() {
+			updateHistoryDialog('self');
+		});
+	}
 
 	new_row.append(update_history_td);
 
@@ -3340,8 +3398,10 @@ function add_new_family_history_row_title(table, name) {
 }
 
 function add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable) {
+	add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable, false);
+}
 
-
+function add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable, is_sortable) {
 
 	// Html requires that all blank fields have at least 1 char or it will not show border
 
@@ -3361,7 +3421,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	nameColumn_text.attr("relationship_id", relationship_id);
 
 
-	new_row.append(getBirthOrderElement(family_member));
+	new_row.append(getBirthOrderElement(family_member, is_sortable));
 
 	new_row.append(nameColumn_td);
 
