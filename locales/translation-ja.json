@@ -850,9 +850,6 @@
     ,"the_same":"変わらない"
     ,"faster":"速い"
     ,"how_many_times_do_you_drink_alcoholic_beverages_in_a_week?":"アルコールは1週間のうち、何回くらいとっていますか？"
-    ,"0_-_2_times":"0～2回以下"
-    ,"3_-_5_times":"3～5回"
-    ,"more_than_6_times":"6回以上"
     ,"how_much_do_you_drink,_on_average,_when_you_consume_alcohol?_":"1回のアルコール量はどのくらいですか？"
     ,"0_-_1_go_(180_ml)_as_converted_to_sake_":"日本酒換算0～1合以内"
     ,"1_-_2_go_(180_ml)_as_converted_to_sake_":"日本酒換算1～2合"
@@ -996,6 +993,25 @@
         }
       }
     },
+    "family-t_risk_range":{
+			"pattern1":"最低1%未満 ～ 最高10-12%です",
+      "pattern2":"最低1-2% ～ 最高15-20%です",
+      "pattern3":"最低2-3% ～ 最高20%以上です",
+      "pattern4":"最低3-4% ～ 最高20%以上です",
+      "pattern5":"最低1%未満 ～ 最高8-9%です",
+      "pattern6":"最低1%未満 ～ 最高12-15%です",
+      "pattern7":"最低1-2% ～ 最高20%以上です"
+    },
+    "family-t_risk_range_chd":{
+      "pattern1":"最低0.5% ～ 最高17.3%"
+      ,"pattern2":"最低0.5% ～ 最高24.6%"
+      ,"pattern3":"最低0.5% ～ 最高28.1%"
+      ,"pattern4":"最低1.6% ～ 最高28.1%"
+      ,"pattern5":"最低0.5% ～ 最高6.6%"
+	  },
+    "family-t_risk_range_diabetes":{
+		  "pattern1":"最低2.2% ～ 最高17.9%"
+	  },
   "family-t_lifestylescore": {
     "title":"ライフスタイルスコア"
     ,"points":"点"
@@ -1025,6 +1041,7 @@
     ,"type_2_diabetes_5_years":"糖尿病（5年以内）"
     ,"coronary_heart_disease_10_years":"冠動脈疾患（10年以内）"
     ,"stroke_10_years":"脳卒中（10年以内）"
+    ,"score_sheet" : "リスク計算内訳"
   },
   "year" : {
     "1950" : "昭和25（1950）"

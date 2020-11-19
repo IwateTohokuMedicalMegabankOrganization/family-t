@@ -265,7 +265,7 @@
 			<div class="col s12">
 				<input class="number" id="compensation_count_for_training_at_week" min="1" max="30" maxlength="2" name="compensation_training_status2"
 				style="width:60px; height:85%;" type="number" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" disabled/>
-				回
+				<span class='translate' data-i18n='family-t.label.times'> times </span>
 			</div>
 		</div>
 
@@ -278,14 +278,16 @@
 			<div class="col s12">
 				<input class="number" id="compensation_time_for_training_at_week" min="10" max="10000" maxlength="5" name="compensation_training_status3"
 				style="width:90px; height:85%;" type="number" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" disabled/>
-				分
+				<span class='translate' data-i18n="family-t.label.minutes">分</span>
 			</div>
 		</div>
 	</div>
 
 	<div id="compensate_antihypertensive" class="col s12 compensation">
 		<div class="col s5">
-			降圧剤（血圧を下げる薬）を服用していますか？
+			<span class='translate' data-i18n='family-t.are_you_taking_antihypertensive_drugs'>
+				降圧剤（血圧を下げる薬）を服用していますか？
+			</span>
 			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.disease_guide_p3'>（冠動脈疾患、脳卒中）</span></div>
 		</div>
 		<div class="col s7">
@@ -300,19 +302,21 @@
 
 	<div id="compensate_bpmax" class="col s12 compensation">
 		<div class="col s5">
-			最高血圧（mmHg）
+			<span class='translate' data-i18n='family-t.maximum_blood_pressure'>
+				最高血圧（mmHg）
+			</span>
 			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.disease_guide_p1'>（糖尿病、冠動脈疾患、脳卒中）</span></div>
 		</div>
 		<div class="col s7">
 			<div class="col s5">
 				<select id='compensation_systolic_blood_pressure' name='compensation_systolic_blood_pressure'>
-					<option value="" selected>選択してください</option>
-					<option value='under_119'>119以下</option>
-					<option value='120-129'>120～129</option>
-					<option value='130-139'>130～139</option>
-					<option value='140-159'>140～159</option>
-					<option value='160-179'>160～179</option>
-					<option value='over180'>180以上</option>
+					<option value="" disabled selected class='translate' data-i18n='family-t.optionlabel.pleaseselect'></option>
+					<option value='under_119' class='translate' data-i18n='family-t.optionlabel.under119'>119以下</option>
+					<option value='120-129' class='translate' data-i18n='family-t.optionlabel.120_129'>120～129</option>
+					<option value='130-139' class='translate' data-i18n='family-t.optionlabel.130_139'>130～139</option>
+					<option value='140-159' class='translate' data-i18n='family-t.optionlabel.140_159'>140～159</option>
+					<option value='160-179' class='translate' data-i18n='family-t.optionlabel.160_179'>160～179</option>
+					<option value='over180' class='translate' data-i18n='family-t.optionlabel.over180'>180以上</option>
 				</select>
 			</div>
 		</div>
@@ -320,19 +324,21 @@
 
 	<div id="compensate_bpmin" class="col s12 compensation">
 		<div class="col s5">
-			最低血圧（mmHg）
+			<span class='translate' data-i18n='family-t.minimum_blood_pressure'>
+				最低血圧（mmHg）
+			</span>
 			<div class="disease_guide"><span class='translate' data-i18n='family-t_risk.disease_guide_p1'>（糖尿病、冠動脈疾患、脳卒中）</span></div>
 		</div>
 		<div class="col s7">
 			<div class="col s5">
 				<select id='compensation_diastolic_blood_pressure' name='compensation_diastolic_blood_pressure'>
-					<option value="" selected>選択してください</option>
-					<option value='79_or_less'>79以下</option>
-					<option value='80-84'>80～84</option>
-					<option value='85-89'>85～89</option>
-					<option value='90-99'>90～99</option>
-					<option value='100-109'>100～109</option>
-					<option value='over110'>110以上</option>
+					<option value="" disabled selected class='translate' data-i18n='family-t.optionlabel.pleaseselect'></option>
+					<option value='79_or_less' class='translate' data-i18n='family-t.optionlabel.under79'>79以下</option>
+					<option value='80-84' class='translate' data-i18n='family-t.optionlabel.80_84'>80～84</option>
+					<option value='85-89' class='translate' data-i18n='family-t.optionlabel.85_89'>85～89</option>
+					<option value='90-99' class='translate' data-i18n='family-t.optionlabel.90_99'>90～99</option>
+					<option value='100-109' class='translate' data-i18n='family-t.optionlabel.100_109'>100～109</option>
+					<option value='over110' class='translate' data-i18n='family-t.optionlabel.over110'>110以上</option>
 				</select>
 			</div>
 		</div>
@@ -346,12 +352,12 @@
 		<div class="col s7">
 			<div class="col s5">
 				<select id='compensation_hdl_cholesterol' name='compensation_hdl_cholesterol'>
-					<option value="" selected>選択してください</option>
-					<option value='less_than_40'>40未満</option>
-					<option value='40-59'>40～59</option>
-					<option value='over60'>60以上  </option>
-					<option value='unknown'>分からない</option>
-					<option value='not_inspected'>検査していない</option>
+					<option value="" disabled selected class='translate' data-i18n='family-t.optionlabel.pleaseselect'></option>
+					<option value='less_than_40' class='translate' data-i18n='family-t.optionlabel.under40'>40未満</option>
+					<option value='40-59' class='translate' data-i18n='family-t.optionlabel.40_59'>40～59</option>
+					<option value='over60' class='translate' data-i18n='family-t.optionlabel.over60'>60以上  </option>
+					<option value='unknown' class='translate' data-i18n='family-t.optionlabel.unknown'>分からない</option>
+					<option value='not_inspected' class='translate' data-i18n='family-t.optionlabel.not_inspected'>検査していない</option>
 				</select>
 			</div>
 		</div>
@@ -365,14 +371,14 @@
 		<div class="col s7">
 			<div class="col s5">
 				<select id='compensation_ldl_cholesterol' name='compensation_ldl_cholesterol'>
-					<option value="" selected>選択してください</option>
-					<option value='less_than_100'>100未満</option>
-					<option value='100-139'>100～139</option>
-					<option value='140-159'>140～159</option>
-					<option value='160-179'>160～179</option>
-					<option value='over180'>180以上  </option>
-					<option value='unknown'>分からない</option>
-					<option value='not_inspected'>検査していない</option>
+					<option value="" disabled selected class='translate' data-i18n='family-t.optionlabel.pleaseselect'></option>
+					<option value='less_than_100' class='translate' data-i18n='family-t.optionlabel.under100'>100未満</option>
+					<option value='100-139' class='translate' data-i18n='family-t.optionlabel.100_139'>100～139</option>
+					<option value='140-159' class='translate' data-i18n='family-t.optionlabel.140_159'>140～159</option>
+					<option value='160-179' class='translate' data-i18n='family-t.optionlabel.160_179'>160～179</option>
+					<option value='over180' class='translate' data-i18n='family-t.optionlabel.over180'>180以上  </option>
+					<option value='unknown' class='translate' data-i18n='family-t.optionlabel.unknown'>分からない</option>
+					<option value='not_inspected' class='translate' data-i18n='family-t.optionlabel.not_inspected'>検査していない</option>
 				</select>
 			</div>
 		</div>
@@ -402,13 +408,13 @@
 			<div class="col s7">
 				<div class="col s5">
 					<select id='compensation_fasting_blood_glucose_lebel' name='compensation_fasting_blood_glucose_lebel'>
-						<option value="" selected>選択してください</option>
-						<option value='99_or_less'>99以下</option>
-						<option value='100-129'>100～109</option>
-						<option value='110-125'>110～125</option>
-						<option value='over126'>126以上 </option>
-						<option value='unknown'>分からない</option>
-						<option value='not_inspected'>検査していない</option>
+						<option value="" disabled selected class='translate' data-i18n='family-t.optionlabel.pleaseselect'></option>
+						<option value='99_or_less' class='translate' data-i18n='family-t.optionlabel.under99'>99以下</option>
+						<option value='100-129' class='translate' data-i18n='family-t.optionlabel.100_109'>100～109</option>
+						<option value='110-125' class='translate' data-i18n='family-t.optionlabel.110_125'>110～125</option>
+						<option value='over126' class='translate' data-i18n='family-t.optionlabel.over126'>126以上 </option>
+						<option value='unknown' class='translate' data-i18n='family-t.optionlabel.unknown'>分からない</option>
+						<option value='not_inspected' class='translate' data-i18n='family-t.optionlabel.not_inspected'>検査していない</option>
 					</select>
 				</div>
 			</div>
@@ -422,12 +428,12 @@
 			<div class="col s7">
 				<div class="col s5">
 					<select id='compensation_occasionally_blood_glucose_lebel' name='compensation_occasionally_blood_glucose_lebel'>
-						<option value="" selected>選択してください</option>
-						<option value='139_or_less'>139以下</option>
-						<option value='140-199'>140～199</option>
-						<option value='over200'>200以上 </option>
-						<option value='unknown'>分からない</option>
-						<option value='not_inspected'>検査していない</option>
+						<option value="" disabled selected class='translate' data-i18n='family-t.optionlabel.pleaseselect'></option>
+						<option value='139_or_less' class='translate' data-i18n='family-t.optionlabel.under139'>139以下</option>
+						<option value='140-199' class='translate' data-i18n='family-t.optionlabel.140_199'>140～199</option>
+						<option value='over200' class='translate' data-i18n='family-t.optionlabel.over200'>200以上 </option>
+						<option value='unknown' class='translate' data-i18n='family-t.optionlabel.unknown'>分からない</option>
+						<option value='not_inspected' class='translate' data-i18n='family-t.optionlabel.not_inspected'>検査していない</option>
 					</select>
 				</div>
 			</div>
@@ -441,12 +447,12 @@
 			<div class="col s7">
 				<div class="col s5">
 					<select id='compensation_ogtt_blood_glucose_lebel' name='compensation_ogtt_blood_glucose_lebel'>
-						<option value="" selected>選択してください</option>
-						<option value='139_or_less'>139以下</option>
-						<option value='140-199'>140～199</option>
-						<option value='over200'>200以上 </option>
-						<option value='unknown'>分からない</option>
-						<option value='not_inspected'>検査していない</option>
+						<option value="" disabled selected class='translate' data-i18n='family-t.optionlabel.pleaseselect'></option>
+						<option value='139_or_less' class='translate' data-i18n='family-t.optionlabel.under139'>139以下</option>
+						<option value='140-199' class='translate' data-i18n='family-t.optionlabel.140_199'>140～199</option>
+						<option value='over200' class='translate' data-i18n='family-t.optionlabel.over200'>200以上 </option>
+						<option value='unknown' class='translate' data-i18n='family-t.optionlabel.unknown'>分からない</option>
+						<option value='not_inspected' class='translate' data-i18n='family-t.optionlabel.not_inspected'>検査していない</option>
 					</select>
 				</div>
 			</div>
@@ -460,11 +466,11 @@
 			<div class="col s7">
 				<div class="col s5">
 					<select id='compensation_hba1c' name='compensation_hba1c'>
-						<option value="" selected>選択してください</option>
-						<option value='under65'>6.5未満</option>
-						<option value='over65'>6.5以上</option>
-						<option value='unknown'>分からない</option>
-						<option value='not_inspected'>検査していない</option>
+						<option value="" disabled selected class='translate' data-i18n='family-t.optionlabel.pleaseselect'></option>
+						<option value='under65' class='translate' data-i18n='family-t.optionlabel.under65'>6.5未満</option>
+						<option value='over65' class='translate' data-i18n='family-t.optionlabel.over65'>6.5以上</option>
+						<option value='unknown' class='translate' data-i18n='family-t.optionlabel.unknown'>分からない</option>
+						<option value='not_inspected' class='translate' data-i18n='family-t.optionlabel.not_inspected'>検査していない</option>
 					</select>
 				</div>
 			</div>
@@ -494,7 +500,7 @@
 				<div class="col s12 risk_description" id="">
 				<span class='translate' data-i18n='family-t_risk.type2_result_exp1'>あなたと同性・同年代の集団の発症率は</span>
 					<br>
-					<span id="risk_range_diabetes">最低4.9％ ～ 最高17.9%</span>です
+					<span id="risk_range_diabetes">最低4.9％ ～ 最高17.9%</span>
 				</div>
 				<div class="risk_comparison_graph" id="">
 					<img id="risk_image_diabetes" src="../images/190411-1_mockimage1.png" height="320px">
@@ -528,13 +534,15 @@
 				これを以って診断とはなりませんが、糖尿病である可能性が高く、医師へのご相談をお勧めします。
 			</div>
 			<div class="col s12 risk_reference">
+				<span class='translate' data-i18n='family-t_risk.type2_result_exp4'>
 				今回使用した2型糖尿病発症リスクスコアは日本人を対象にした久山町研究のデータを元にしています
 				（Doi Y. et al. Two risk score models for predicting incident Type 2 diabetes in Japan. Diabet Med. 2012;29:107-14）。
+				</span>
 			</div>
 		</div>
 		<div id="diabetes_calc_ng">
 			<div class="col s10 offset-s1 risk_warning">
-				2型糖尿病の発症リスク計算に必要な項目が登録されていません。
+				<span class='translate' data-i18n='family-t_risk.type2_required'>2型糖尿病の発症リスク計算に必要な項目が登録されていません。</span>
 			</div>
 		</div>
 	</div>
@@ -595,13 +603,15 @@
 			　　・末梢動脈疾患<br>
 		</div>
 		<div class="col s12 risk_reference" id="chd_ng_ref" style="display: none;">
+			<span class='translate' data-i18n='family-t_risk.hdc_result_exp2'>
 				今回使用した冠動脈疾患発症リスク（吹田スコア）は日本人を対象にした吹田研究のデータを元にしています
 				（Nishimura K. et al. Predicting coronary heart disease using risk factor categories for a Japanese urban population, and comparison with the Framingham risk score:
 				the suita study. J Atheroscler Thromb. 2014;21:784-98）。
+			</span>
 		</div>
 		<div id="chd_calc_ng">
 			<div class="col s10 offset-s1 risk_warning">
-				冠動脈疾患の発症リスク計算に必要な項目が登録されていません。
+				<span class='translate' data-i18n='family-t_risk.heart_required'>冠動脈疾患の発症リスク計算に必要な項目が登録されていません。</span>
 			</div>
 		</div>
 	</div>
@@ -620,7 +630,7 @@
 				<div class="col s12 risk_description">
 					<span class='translate' data-i18n='family-t_risk.type2_result_exp1'>あなたと同性・同年代の集団の発症率は</span>
 					<br />
-					<span id="risk_range_stroke">最低1～2％ ～ 最高15～20%以上</span>です
+					<span id="risk_range_stroke">最低1～2％ ～ 最高15～20%以上</span>
 				</div>
 				<div class="risk_comparison_graph">
 					<img id="risk_image_stroke" src="../images/190411-3_mockimage3.png" height="280px">
@@ -651,23 +661,29 @@
 				</span>
 			</div>
 			<div class="col s12 risk_reference">
-				今回使用した発症予測モデルは日本人を対象にした多目的コホート研究（JPHC研究）のデータを元にしています
-				（Yatsuya H. et al. Development of a point-based prediction model for the incidence of total stroke: Japan public health center study. Stroke. 2013;44:1295-302）。
-				なお本予測モデルには脳卒中の家族歴は含まれていません。
-				ご家族に脳卒中の方がいると、発症リスクが増加するとされる米国の研究がありますが、日本人に当てはまるかについては確定的とはいえません
-				（Flossmann E. et al., Systematic review of methods and results of studies of the genetic epidemiology of ischemic stroke. Stroke. 2004;35:212-27）。
+				<span class='translate' data-i18n='family-t_risk.stroke_result_exp2'>
+					今回使用した発症予測モデルは日本人を対象にした多目的コホート研究（JPHC研究）のデータを元にしています
+					（Yatsuya H. et al. Development of a point-based prediction model for the incidence of total stroke: Japan public health center study. Stroke. 2013;44:1295-302）。
+				</span>
+				<span class='translate' data-i18n='family-t_risk.stroke_result_exp3'>
+					なお本予測モデルには脳卒中の家族歴は含まれていません。
+					ご家族に脳卒中の方がいると、発症リスクが増加するとされる米国の研究がありますが、日本人に当てはまるかについては確定的とはいえません
+					（Flossmann E. et al., Systematic review of methods and results of studies of the genetic epidemiology of ischemic stroke. Stroke. 2004;35:212-27）。
+				</span>
 			</div>
 		</div>
 		<div id="stroke_calc_ng">
 			<div class="col s10 offset-s1 risk_warning">
-				脳卒中の発症リスク計算に必要な項目が登録されていません。
+				<span class='translate' data-i18n='family-t_risk.stroke_required'>脳卒中の発症リスク計算に必要な項目が登録されていません。</span>
 			</div>
 		</div>
 	</div>
 </div>
 
 <div class="row risk_box">
-	<div class="col s12 risk_title">リスク計算内訳</div>
+	<div class="col s12 risk_title">
+		<span class='translate' data-i18n='family-t_score_summary.score_sheet'>リスク計算内訳</span>
+		</div>
 	<div class="col s12 risk_container center">
 		<div id="disp_toggle_scoreDetail" style="height: 1200px;">
 			<table class="score_detail_style">
@@ -677,8 +693,8 @@
 					</th>
 				</tr>
 				<tr>
-					<th width="70%">項目</th>
-					<th width="30%">スコア</th>
+					<th width="70%"><span class='translate' data-i18n='family-t_risk.risk_factor'>項目</span></th>
+					<th width="30%"><span class='translate' data-i18n='family-t_risk.score'>スコア</span></th>
 				</tr>
 				<tr>
 					<td><span class='translate' data-i18n='info_dialog.age'>年齢</span></td>
@@ -696,7 +712,7 @@
 					<td id="drc_score_family"></td>
 				</tr>
 				<tr>
-					<td>中心性肥満</td>
+					<td><span class='translate' data-i18n='family-t_risk.central_obesity'>中心性肥満</span></td>
 					<td id="drc_score_obese"></td>
 				</tr>
 				<tr>
@@ -704,15 +720,15 @@
 					<td id="drc_score_bmi"></td>
 				</tr>
 				<tr>
-					<td>高血圧</td>
+					<td><span class='translate' data-i18n='family-t_risk.hypertension'>高血圧</span></td>
 					<td id="drc_score_bp"></td>
 				</tr>
 				<tr>
-					<td>喫煙</td>
+					<td><span class='translate' data-i18n='family-t_risk.smoking'>喫煙</span></td>
 					<td id="drc_score_smoke"></td>
 				</tr>
 				<tr>
-					<td>定期的の運動</td>
+					<td><span class='translate' data-i18n='family-t_risk.regular_exercise'>定期的の運動</span></td>
 					<td id="drc_score_activity"></td>
 				</tr>
 				<tr>
@@ -728,8 +744,8 @@
 					</th>
 				</tr>
 				<tr>
-					<th width="70%">項目</th>
-					<th width="30%">スコア</th>
+					<th width="70%"><span class='translate' data-i18n='family-t_risk.risk_factor'>項目</span></th>
+					<th width="30%"><span class='translate' data-i18n='family-t_risk.score'>スコア</span></th>
 				</tr>
 				<tr>
 					<td><span class='translate' data-i18n='info_dialog.age'>年齢</span></td>
@@ -740,19 +756,19 @@
 					<td id="chd_score_gender"></td>
 				</tr>
 				<tr>
-					<td>喫煙</td>
+					<td><span class='translate' data-i18n='family-t_risk.smoking'>喫煙</span></td>
 					<td id="chd_score_isSmoker"></td>
 				</tr>
 				<tr>
-					<td>血圧</td>
+					<td><span class='translate' data-i18n='family-t_risk.blood_pressure'>血圧</span></td>
 					<td id="chd_score_bloodPressure"></td>
 				</tr>
 				<tr>
-					<td>耐糖能異常</td>
+					<td><span class='translate' data-i18n='family-t_risk.impaired_glucose_tolerance'>耐糖能異常</span></td>
 					<td id="chd_score_suger"></td>
 				</tr>
 				<tr>
-					<td>早発性冠動脈疾患</td>
+					<td><span class='translate' data-i18n='family-t_risk.early-onset_coronary_heart_disease'>早発性冠動脈疾患</span></td>
 					<td id="chd_score_chd"></td>
 				</tr>
 				<tr>
@@ -776,8 +792,8 @@
 					</th>
 				</tr>
 				<tr>
-					<th width="70%">項目</th>
-					<th width="30%">スコア</th>
+					<th width="70%"><span class='translate' data-i18n='family-t_risk.risk_factor'>項目</span></th>
+					<th width="30%"><span class='translate' data-i18n='family-t_risk.score'>スコア</span></th>
 				</tr>
 				<tr>
 					<td><span class='translate' data-i18n='info_dialog.age'>年齢</span></td>
@@ -788,7 +804,7 @@
 					<td id="stroke_score_gender"></td>
 				</tr>
 				<tr>
-					<td>喫煙</td>
+					<td><span class='translate' data-i18n='family-t_risk.smoking'>喫煙</span></td>
 					<td id="stroke_score_isSmoker"></td>
 				</tr>
 				<tr>
@@ -796,11 +812,11 @@
 					<td id="stroke_score_bmi"></td>
 				</tr>
 				<tr>
-					<td>血圧</td>
+					<td><span class='translate' data-i18n='family-t_risk.blood_pressure'>血圧</span></td>
 					<td id="stroke_score_blood_pressure"></td>
 				</tr>
 				<tr>
-					<td>糖尿病</td>
+					<td><span class='translate' data-i18n='family-t_risk.diabetes'>糖尿病</span></td>
 					<td id="stroke_score_diabetes"></td>
 				</tr>
 				<tr>

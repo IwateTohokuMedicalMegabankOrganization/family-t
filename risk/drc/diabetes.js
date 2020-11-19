@@ -113,7 +113,7 @@ function showDiabetesRisk(totalscore) {
 		filename = "score19";
 	}
 
-	$('#risk_range_diabetes').text("最低2.2% ～ 最高17.9%");
+	$('#risk_range_diabetes').text($.t('family-t_risk_range_diabetes.pattern1'));
 	$('#risk_parcentile_diabetes').text(percentile);
 	$('#risk_image_diabetes').attr('src', filepath + filename + extension);
 

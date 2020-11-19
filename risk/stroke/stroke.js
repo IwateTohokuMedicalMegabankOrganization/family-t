@@ -506,14 +506,14 @@ class StrokeRiskCalculator extends RiskCalculatorBase{
 	// 同性、同年代の発症率を求める
 	getRiskRange(){
 
-		const dicPatternRange = {
-			'pattern1':'最低1%未満 ～ 最高10-12%',
-			'pattern2':'最低1-2% ～ 最高15-20%',
-			'pattern3':'最低2-3% ～ 最高20%以上',
-			'pattern4':'最低3-4% ～ 最高20%以上',
-			'pattern5':'最低1%未満 ～ 最高8-9%',
-			'pattern6':'最低1%未満 ～ 最高12-15%',
-			'pattern7':'最低1-2% ～ 最高20%以上',
+		var dicPatternRange = {
+			'pattern1': $.t("family-t_risk_range.pattern1"),
+			'pattern2': $.t("family-t_risk_range.pattern2"),
+			'pattern3': $.t("family-t_risk_range.pattern3"),
+			'pattern4': $.t("family-t_risk_range.pattern4"),
+			'pattern5': $.t("family-t_risk_range.pattern5"),
+			'pattern6': $.t("family-t_risk_range.pattern6"),
+			'pattern7': $.t("family-t_risk_range.pattern7")
 		};
 
 		return dicPatternRange[this.getColorImagePatternPrefix()];
