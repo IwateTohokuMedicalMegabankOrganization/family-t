@@ -766,6 +766,7 @@ function start()
 		// ダイアログを開く前に、リスク計算に最低限必要な情報が登録されているかチェック
 		var checkResult = checkNecessaryItemsForLifestyleScore();
 
+		LifeStyleScoreDetailDialogController.refresh();
 		// 不足していれば(=false)、その項目の入力フォームを表示
 		if(checkResult) {
 			$("#lifestylescore_compensational_block").hide();
@@ -1281,7 +1282,7 @@ function bind_compensate_information_submit_button_action(){
 function preparate_lifestyle_score_dialog(){
 
 	// 喫煙状況
-	$('input[name="compensation_smoker"]').change(function() {
+	$('input[name="lifestylescore_compensation_smoker"]').change(function() {
  	if ($('input[name="lifestylescore_compensation_smoker"]:checked').val() != "5") {
  		$('input[name="lifestylescore_compensation_number_of_cigarettes_per_day"]').prop('checked',false);
  		$('input[name="lifestylescore_compensation_number_of_cigarettes_per_day"]').prop('disabled',true);
@@ -1313,8 +1314,8 @@ function preparate_lifestyle_score_dialog(){
 
 
 	// 身長
-	$("#compensate_height").change(function() {
-		var hgt = parseInt( $('#compensation_height_centimeters').val() );
+	$("#lifestylescore__height").change(function() {
+		var hgt = parseInt( $('#lifestylescore_compensation_height_centimeters').val() );
 		if (isNaN(hgt)) hgt = 0;
 
 		personal_information['height'] = hgt;
@@ -1322,22 +1323,22 @@ function preparate_lifestyle_score_dialog(){
  });
 
 	// 体重
-	$("#compensate_weight").change(function() {
-		personal_information['weight'] = $('#compensation_weight').val();
+	$("#lifestylescore__weight").change(function() {
+		personal_information['weight'] = $('#lifestylescore_compensation_weight').val();
 	});
 
 	// 喫煙
-	$("#compensate_smoker").change(function() {
-		personal_information['smoker'] = $('input[name="compensation_smoker"]:checked').val();
-		personal_information['number_of_cigarettes_per_day'] = $('input[name="compensation_number_of_cigarettes_per_day"]:checked').val();
+	$("#lifestylescore__smoker").change(function() {
+		personal_information['smoker'] = $('input[name="lifestylescore_compensation_smoker"]:checked').val();
+		personal_information['number_of_cigarettes_per_day'] = $('input[name="lifestylescore_compensation_number_of_cigarettes_per_day"]:checked').val();
 	});
 
 	// 運動
-	$("#compensate_training").change(function() {
-		personal_information['training_family'] = $('input[name="compensation_training"]:checked').val();
-		personal_information['training_strength'] = $('#compensation_training_strength').val();
-		personal_information['training_count_for_training_at_week'] = $('#compensation_count_for_training_at_week').val();
-		personal_information['training_time_for_training_at_week'] = $('#compensation_time_for_training_at_week').val();
+	$("#lifestylescore_compensate_training").change(function() {
+		personal_information['training_family'] = $('input[name="lifestylescore_compensation_training"]:checked').val();
+		personal_information['training_strength'] = $('#lifestylescore_compensation_training_strength').val();
+		personal_information['training_count_for_training_at_week'] = $('#lifestylescore_compensation_count_for_training_at_week').val();
+		personal_information['training_time_for_training_at_week'] = $('#lifestylescore_compensation_time_for_training_at_week').val();
 	});
 
 }
@@ -2991,6 +2992,10 @@ function riskCalcAndShow() {
 	// 脳卒中リスクスコア
 	var stroke_score_class = showStrokeRisk();
 	showScoreDetail(stroke_score_class);
+}
+
+function calcLifestyleScoreAndShow() {
+	LifeStyleScoreDetailDialogController.refresh();
 }
 
 // リスク計算内訳反映

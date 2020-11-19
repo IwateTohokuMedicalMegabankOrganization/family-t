@@ -263,7 +263,7 @@
 
 		"consanguinity": "Check here if your parents are related to each other in any way other than marriage.",
 		"multiple_races_selectable" : "Multiple races and ethnicities may be selected.",
-		"default_is_japanese_asia":"Japanese Asia is checked. If they are different, uncheck them.",
+		"default_is_japanese_asia":"quot;Asianquot; and quot;Japanesequot; is already checked. Please uncheck if you are not Asian or Japanese.",
 		"ashkezani_q": "Why are we asking about Ashkenazi Jewish heritage?",
 
 		"personal_health_subtitle" : "Your Health Information",
@@ -1105,7 +1105,7 @@
 	},
 	"family-t_lifestylescore": {
 		"title":"Lifestyle Score"
-		,"points":"points"
+		,"points":"Points"
 		,"preferred_lifestyle_is":"Preferred lifestyle is "
 		,"unfavorable_lifestyle_is":"Unfavorable lifestyle is "
 		,"points_3_4":"3 - 4 points"
