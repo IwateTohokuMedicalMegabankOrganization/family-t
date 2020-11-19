@@ -1013,11 +1013,18 @@
     ,"items":"項目"
   },
   "family-t_qof_history_score" : {
-    "title": "家族歴の質"
+    "title":"家族歴の質"
+    ,"medical_history_formula":"病歴（％）= 病名の記入がある家系構成員数 ÷ 全家系構成人数（本人は含まない）"
+    ,"age_of_onset_formula":"発症年齢（％）= 発症年齢の記入がある疾患数 ÷ 家系内の疾患数（本人は含まない）"
+    ,"cause_of_death_formula":"死因（％）= 死因となった疾患の記入がある死者数 ÷ 家系内の死者数"
+    ,"age_of_death_formula":"死亡年齢（％）= 死亡年齢の記入がある死者数 ÷ 家系内の死者数"
+    ,"explain1":"家族歴の質を高めるために、下記についてご確認ください。"
   },
   "family-t_score_summary" : {
-    "disease_risk" : "疾患発症リスク"
-    ,"": "糖尿病（5年間）"
+    "disease_risk":"疾患発症リスク"
+    ,"type_2_diabetes_5_years":"糖尿病（5年以内）"
+    ,"coronary_heart_disease_10_years":"冠動脈疾患（10年以内）"
+    ,"stroke_10_years":"脳卒中（10年以内）"
   },
   "year" : {
     "1950" : "昭和25（1950）"

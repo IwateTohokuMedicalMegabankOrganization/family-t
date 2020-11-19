@@ -810,6 +810,9 @@
 		,"bo_father":"Enter the birth orders, including your father."
 		,"bo_mother":"Enter the birth orders, including your mother."
 		,"birth_order_annotation":""
+		,"family_explain1":"- Enter information about the medical history and ethnic background of the family member. *Required item"
+		,"family_explain2":"- Click the “NEXT” button to return to the main screen. (You may need to scroll down.)"
+		,"family_explain3":"- The information entered on this screen is not saved until you press the “Save Data” button on the main screen."
 		,"label" : {
 			"year" : "/"
 			,"month" : ""
@@ -1000,7 +1003,19 @@
 		,"items_required_for_lifestyle_score_calculation_are_not_registered":"Items required for lifestyle score calculation are not registered."
 		,"items":"Items"
 	},
-	"family-t_score_summary" : {
-		"disease_risk" : "Disease Risk"
-	}
+	
+	"family-t_qof_history_score" : {
+		"title":"Quality of family health history"
+		,"medical_history_formula":"Medical history (%) = Number of family members with the disease/Number of family members (excluding you)"
+		,"age_of_onset_formula":"Age of onset (%) = Number of diseases with age of onset/Number of diseases in the family (excluding you)"
+		,"cause_of_death_formula":"Cause of death (%) = Number of deceased relatives with a cause of death/Number of deceased relatives in the family"
+		,"age_of_death_formula":"Age of death (%) = Number of deceased relatives with age of death/Number of deceased relatives in the family"
+		,"explain1":"Check the following to improve the quality of your family history:"
+	  },
+	  "family-t_score_summary" : {
+		"disease_risk":"Disease Risk"
+		,"type_2_diabetes_5_years":"Type 2 Diabetes (within 5 years)"
+		,"coronary_heart_disease_10_years":"Coronary Heart Disease (within 10 years)"
+		,"stroke_10_years":"Stroke (within 10 years)"
+	  }
 }
