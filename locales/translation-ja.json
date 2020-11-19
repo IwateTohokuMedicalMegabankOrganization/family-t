@@ -1028,5 +1028,13 @@
   },
   "year" : {
     "1950" : "昭和25（1950）"
+  },
+	"family-t_pedigree" : {
+		"diagram" : "家系図"
+		,"download_f-tree":"f-treeをダウンロードし、下のボタンでダウンロードしたCSVファイルをf-treeに読み込ませて、家系図を表示します。"
+    ,"csv_download":"CSVをダウンロード"
+    ,"table_of_family_deseases_and_conditions":"家族の疾患や健康状態の一覧表"
+    ,"always_shown":"（かかりつけ医が把握しておくべき6つの一般的な疾患については常時表示しています）"
+    ,"top":"トップ"
   }
 }

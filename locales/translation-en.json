@@ -1017,5 +1017,13 @@
 		,"type_2_diabetes_5_years":"Type 2 Diabetes (within 5 years)"
 		,"coronary_heart_disease_10_years":"Coronary Heart Disease (within 10 years)"
 		,"stroke_10_years":"Stroke (within 10 years)"
+	  },
+	  "family-t_pedigree" : {
+		"diagram" : "Diagram"
+		,"download_f-tree":"Download f-tree, load the downloaded CSV file into f-tree with the button below, and display the family tree."
+		,"csv_download":"Download CSV file"
+		,"table_of_family_deseases_and_conditions":"Table of Family Diseases and Conditions"
+		,"always_shown":"(Six common conditions your doctor should know about are always shown)"
+		,"top":"Top"
 	  }
 }
