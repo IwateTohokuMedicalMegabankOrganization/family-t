@@ -877,6 +877,7 @@
     ,"unknown":"わからない"
     ,"select_the__month.":"月を選択してください"
     ,"click_here" : "喫煙情報以下、何も分からない場合はここをクリック"
+    ,"select_your_family_smoking_status":"ご家族の状況にあてはまるものを選択してください。"
     ,"label" : {
       "year" : "年"
       ,"month" : "月"
