@@ -263,7 +263,7 @@
 
 		"consanguinity": "Check here if your parents are related to each other in any way other than marriage.",
 		"multiple_races_selectable" : "Multiple races and ethnicities may be selected.",
-		"default_is_japanese_asia":"quot;Asianquot; and quot;Japanesequot; is already checked. Please uncheck if you are not Asian or Japanese.",
+		"default_is_japanese_asia":"&quot;Asian&quot; and &quot;Japanese&quot; is already checked. Please uncheck if you are not Asian or Japanese.",
 		"ashkezani_q": "Why are we asking about Ashkenazi Jewish heritage?",
 
 		"personal_health_subtitle" : "Your Health Information",

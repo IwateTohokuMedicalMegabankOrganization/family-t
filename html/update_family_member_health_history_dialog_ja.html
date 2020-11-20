@@ -105,7 +105,7 @@
 					<option value="0047" class='translate' data-i18n='family-t.optionlabel.prefecture.0047'>沖縄県</option>
 					<option value="0048" class='translate' data-i18n='family-t.optionlabel.prefecture.0048'>日本国外</option>
 					<option value="0049" class='translate' data-i18n='family-t.optionlabel.prefecture.0049'>不明</option>
-				</select>　出身都道府県を選んでください。
+				</select>　<span class="translate" data-i18n="family-t.birthplace">出身地</span>
 			</div>
 		</div>
 		<div class="col s12 edit_form_tr">
@@ -164,7 +164,7 @@
 					<option value="0047" class='translate' data-i18n='family-t.optionlabel.prefecture.0047'>沖縄県</option>
 					<option value="0048" class='translate' data-i18n='family-t.optionlabel.prefecture.0048'>日本国外</option>
 					<option value="0049" class='translate' data-i18n='family-t.optionlabel.prefecture.0049'>不明</option>
-				</select>　現在の居住地を選んでください。
+				</select>　<span class="translate" data-i18n="family-t.current_place_of_residence">居住地</span>
 			</div>
 		</div>
 
@@ -397,7 +397,7 @@
 	<div class="title-bar"><span class="translate" data-i18n="family-t.smoking_status">Smoking status</span></div>
 	<div class="row">
 		<div class="col s12 left">
-			冠動脈疾患のリスクは、禁煙後1年でほぼ半減し、禁煙後15年で非喫煙者と同等になることが知られています。<br />
+			<span class='label translate' data-i18n="family-t.explain_coronary" ></span>
 			ご家族の状況にあてはまるものを選択してください。
 			<div>
 				<input id="smoker6" name="smoker_family" value="6" type="radio" />
@@ -431,14 +431,20 @@
 
 			<div class="row">
 				<div class="col s5">
-				1日の本数を選択してください。
+					<span class='translate' data-i18n="family-t.select_the_number_of_cigarettes_you_smoke_per_day_on_average" >
+						Select the number of cigarettes you smoke per day (on average).
+						</span>
 				</div>
 				<div class="col s7">
 					<div class="col s4"><input id="additional_information_number_of_cigarettes_per_day_1_to_9_2" name="additional_information_number_of_cigarettes_per_day_family" value="1_to_9" type="radio" disabled/>
-						<label for="additional_information_number_of_cigarettes_per_day_1_to_9_2">1日1～9本</label>
+						<label for="additional_information_number_of_cigarettes_per_day_1_to_9_2">
+							<span class='translate' data-i18n="family-t.1_-_9_cigarettes_per_day" >1 - 9 cigarettes per day</span>
+						</label>
 					</div>
 					<div class="col s4"><input id="additional_information_number_of_cigarettes_per_day_10_or_more_2" name="additional_information_number_of_cigarettes_per_day_family" value="10_or_more" type="radio" disabled/>
-						<label for="additional_information_number_of_cigarettes_per_day_10_or_more_2">1日10本以上</label>
+						<label for="additional_information_number_of_cigarettes_per_day_10_or_more_2">
+							<span class='translate' data-i18n="family-t.more_than_10_cigarettes_per_day" >More than 10 cigarettes per day</span>
+						</label>
 					</div>
 				</div>
 			</div>
@@ -450,21 +456,31 @@
 		</div>
 	</div>
 
-	<div class="title-bar">運動状況</div>
+	<div class="title-bar">
+		<span class='translate' data-i18n="family-t.physical_activity">
+		Physical activity
+		</span>
+	</div>
 	<div class="row">
 		<div class="col s12 left">
-			運動習慣についてお伺いします。
+			<span class='translate' data-i18n="family-t.describe_your_exercise_habits">
+				Describe your exercise habits.
+			</span>
 			<div class="row">
-				<div class="col s5">定期的な運動をしていますか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n="family-t.do_you_exercise_regularly">
+						Do you exercise regularly?
+					</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="training_yes_family" name="training_family" value="1" type="radio" />
-						<label for="training_yes_family">はい</label>
+						<label for="training_yes_family"><span class='translate' data-i18n="family-t.yes">Yes</span></label>
 					</div>
 					<div class="col s3-2"><input id="training_no_family" name="training_family" value="0" type="radio" />
-						<label for="training_no_family">いいえ</label>
+						<label for="training_no_family"><span class='translate' data-i18n="family-t.no">No</span></label>
 					</div>
 					<div class="col s3-2"><input id="training_unknown" name="training_family" value="-1" type="radio" />
-						<label for="training_unknown">わからない</label>
+						<label for="training_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
@@ -472,68 +488,94 @@
 				<div class="col s5"></div>
 				<div class="col s3">
 					<select name="training_status1" id="training_strength_family" disabled>
-						<option value="空欄" selected></option>
-						<option value="中程度">中程度</option>
-						<option value="重度">重度</option>
+						<option value="空欄" selected  class='translate' data-i18n='family-t.label.blank'></option>
+						<option value="中程度" class='translate' data-i18n="family-t.moderate">Moderate</option>
+						<option value="重度" class='translate' data-i18n="family-t.intensive">Intensive</option>
 					</select>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col s5"></div>
 				<div class="col s7">
-					1週間で行う運動の回数：<input type="number" id="count_for_training_at_week_family" min="1" max="30" name="training_status2" disabled/>回
+					<span class='translate' data-i18n="family-t.number_of_times_you_exercise_per_week">Number of times you exercise per week</span>
+					<input type="number" id="count_for_training_at_week_family" min="1" max="30" name="training_status2" disabled/>
+					<span class='translate' data-i18n='family-t.label.times'> times </span>
 				</div>
-				<span class="left col s7 offset-s5" id='alert_count_for_training_at_week_family' style="display:none; color:red;">1回以上、30回以下で入力してください。</span>
+				<span class="left col s7 offset-s5" id='alert_count_for_training_at_week_family' style="display:none; color:red;">
+					<span class='translate' data-i18n="family-t.select_a_number_between_1_and_30.">
+						Select a number between 1 and 30.
+					</span>
+				</span>
 			</div>
 			<div class="row">
 				<div class="col s5"></div>
 				<div class="col s7">
-					1週間で行う運動の合計時間：<input type="number" id="time_for_training_at_week_family" min="10" max="10000"  name="training_status3" disabled/>分
+					<span class='translate' data-i18n="family-t.total_minutes_per_week">
+						Total minutes per week:
+					</span>
+					<input type="number" id="time_for_training_at_week_family" min="10" max="10000"  name="training_status3" disabled/>
+					<span class='translate' data-i18n="family-t.label.minutes">分</span>
 				</div>
-				<span class="left col s7 offset-s5" id='alert_time_for_training_at_week_family' style="display:none; color:red;">10分以上、10000分以下で入力してください。</span>
+				<span class="left col s7 offset-s5" id='alert_time_for_training_at_week_family' style="display:none; color:red;">
+					<span class='translate' data-i18n="family-t.total_minutes_per_week">
+						Enter a value between 10 and 10000.
+					</span>
+				</span>
 			</div>
 
 			<div class="row">
-				<div class="col s5">1日のうち、家事、通勤、仕事や運動などで平均60分（6,000歩）以上歩いていますか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n="family-t.do_you_walk_more_than_60_minutes">
+						Do you walk more than 60 minutes (6,000 steps) a day on average when considering housework, commuting, work, and/or exercise?
+					</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_frequency_to_walk_in_week_over_6000_family" name="additional_information.frequency_to_walk_in_week_family" value="over_6000" type="radio" />
-						<label for="additional_information_frequency_to_walk_in_week_over_6000_family">はい</label>
+						<label for="additional_information_frequency_to_walk_in_week_over_6000_family"><span class='translate' data-i18n='family-t.yes'>Yes</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_walk_in_week_under_6000_family" name="additional_information.frequency_to_walk_in_week_family" value="under_6000" type="radio" />
-						<label for="additional_information_frequency_to_walk_in_week_under_6000_family">いいえ</label>
+						<label for="additional_information_frequency_to_walk_in_week_under_6000_family"><span class='translate' data-i18n='family-t.no'>No</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_walk_unknown" name="additional_information.frequency_to_walk_in_week_family" value="unknown" type="radio" />
-						<label for="additional_information_frequency_to_walk_unknown">わからない</label>
+						<label for="additional_information_frequency_to_walk_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col s5">1週間のうち、軽く汗をかくような運動を合計60分以上、行っていますか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n="family-t.do_you_perform_the_light_exercise_causing">
+						Do you perform the light exercise causing a small amount of sweat for a total of 60 minutes or more per week?
+					</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_frequency_to_exercise_in_week_over_60_minutes_family" name="additional_information.frequency_to_exercise_in_week_family" value="over_60_minutes" type="radio" />
-						<label for="additional_information_frequency_to_exercise_in_week_over_60_minutes_family">はい</label>
+						<label for="additional_information_frequency_to_exercise_in_week_over_60_minutes_family"><span class='translate' data-i18n="family-t.yes">Yes</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_exercise_in_week_under_60_minutes_family" name="additional_information.frequency_to_exercise_in_week_family" value="under_60_minutes" type="radio" />
-						<label for="additional_information_frequency_to_exercise_in_week_under_60_minutes_family">いいえ</label>
+						<label for="additional_information_frequency_to_exercise_in_week_under_60_minutes_family"><span class='translate' data-i18n="family-t.no">No</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_exercise_in_week_unknown" name="additional_information.frequency_to_exercise_in_week_family" value="unknown" type="radio" />
-						<label for="additional_information_frequency_to_exercise_in_week_unknown">わからない</label>
+						<label for="additional_information_frequency_to_exercise_in_week_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col s5">同世代、同性の人と比較して、歩く速度が速いほうですか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n="family-t.is_your_walking_speed_faster">
+						Is your walking speed faster than the average speed of those of your age and gender?
+					</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_fast_walker_TRUE_family" name="additional_information.fast_walker_family" value="true" type="radio" />
-						<label for="additional_information_fast_walker_TRUE_family">はい</label>
+						<label for="additional_information_fast_walker_TRUE_family"><span class='translate' data-i18n="family-t.yes">Yes</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_fast_walker_FALSE_family" name="additional_information.fast_walker_family" value="false" type="radio" />
-						<label for="additional_information_fast_walker_FALSE_family">いいえ</label>
+						<label for="additional_information_fast_walker_FALSE_family"><span class='translate' data-i18n="family-t.no">No</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_fast_walker_unknown" name="additional_information.fast_walker_family" value="unknown" type="radio" />
-						<label for="additional_information_fast_walker_unknown">わからない</label>
+						<label for="additional_information_fast_walker_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
@@ -541,267 +583,357 @@
 		</div>
 	</div>
 
-	<div class="title-bar">食習慣</div>
+	<div class="title-bar">
+		<span class='translate' data-i18n="family-t.eating_habits">Eating habits</span>
+	</div>
 	<div class="row">
 		<div class="col s12 left">
-			食習慣についてお伺いします。
+			<span class='translate' data-i18n='family-t.describe_your_eating_habits.'>Describe your eating habits.</span>
 			<div class="row">
-				<div class="col s5">果物を毎日3回以上食べますか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.do_you_eat_more_than_3_servings_of_fruits_a_day?'>Do you eat more than 3 servings of fruits a day?</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_fruits_in_day_TRUE_family" name="additional_information.frequency_to_eat_fruits_in_day_family" value="true" type="radio" />
-						<label for="additional_information_frequency_to_eat_fruits_in_day_TRUE_family">はい</label>
+						<label for="additional_information_frequency_to_eat_fruits_in_day_TRUE_family"><span class='translate' data-i18n="family-t.yes">Yes</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_fruits_in_day_FALSE_family" name="additional_information.frequency_to_eat_fruits_in_day_family" value="false" type="radio" />
-						<label for="additional_information_frequency_to_eat_fruits_in_day_FALSE_family">いいえ</label>
+						<label for="additional_information_frequency_to_eat_fruits_in_day_FALSE_family"><span class='translate' data-i18n="family-t.no">No</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_fruits_in_day_unknown" name="additional_information.frequency_to_eat_fruits_in_day_family" value="unknown" type="radio" />
-						<label for="additional_information_frequency_to_eat_fruits_in_day_unknown">わからない</label>
+						<label for="additional_information_frequency_to_eat_fruits_in_day_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col s5">野菜を毎日何回食べますか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.how_many_times_a_day_do_you_eat_vegetables?'>How many times a day do you eat vegetables?</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_vegetables_in_day_1-2_times_family" name="additional_information.frequency_to_eat_vegetables_in_day_family" value="1-2_times" type="radio" />
-						<label for="additional_information_frequency_to_eat_vegetables_in_day_1-2_times_family">1～2回</label>
+						<label for="additional_information_frequency_to_eat_vegetables_in_day_1-2_times_family">
+							1 <span class='translate' data-i18n='family-t.label.between'>-</span> 2 <span class='translate' data-i18n='family-t.label.times'>times</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_vegetables_in_day_2times_family" name="additional_information.frequency_to_eat_vegetables_in_day_family" value="2times" type="radio" />
-						<label for="additional_information_frequency_to_eat_vegetables_in_day_2times_family">2回</label>
+						<label for="additional_information_frequency_to_eat_vegetables_in_day_2times_family">2
+							<span class='translate' data-i18n='family-t.label.times'>times</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_vegetables_in_day_over_3times_family" name="additional_information.frequency_to_eat_vegetables_in_day_family" value="3times" type="radio" />
-						<label for="additional_information_frequency_to_eat_vegetables_in_day_over_3times_family">3回以上</label>
+						<label for="additional_information_frequency_to_eat_vegetables_in_day_over_3times_family">
+							<span class='translate' data-i18n='family-t.label.prefix_over'></span>
+							3 <span class='translate' data-i18n='family-t.label.times'>times</span>
+							<span class='translate' data-i18n='family-t.label.suffix_over'></span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_vegetables_in_day_unknown" name="additional_information.frequency_to_eat_vegetables_in_day_family" value="unknown" type="radio" />
-						<label for="additional_information_frequency_to_eat_vegetables_in_day_unknown">わからない</label>
+						<label for="additional_information_frequency_to_eat_vegetables_in_day_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col s5">ナッツ類を週に5回以上食べますか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.do_you_eat_more_than_5_servings_of_nuts_per_week?'>Do you eat more than 5 servings of nuts per week?</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_nuts_in_week_zero" name="additional_information.frequency_to_eat_nuts_in_week" value="zero" type="radio" />
-						<label for="additional_information_frequency_to_eat_nuts_in_week_1time_or_less">0回</label>
+						<label for="additional_information_frequency_to_eat_nuts_in_week_1time_or_less">0
+							<span class='translate' data-i18n='family-t.label.times'>times</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_nuts_in_week_1time_or_less_family" name="additional_information.frequency_to_eat_nuts_in_week_family" value="1time_or_less" type="radio" />
-						<label for="additional_information_frequency_to_eat_nuts_in_week_1time_or_less_family">1回</label>
+						<label for="additional_information_frequency_to_eat_nuts_in_week_1time_or_less_family">1
+							<span class='translate' data-i18n='family-t.label.times'>times</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_nuts_in_week_2-4times_family" name="additional_information.frequency_to_eat_nuts_in_week_family" value="2-4times" type="radio" />
-						<label for="additional_information_frequency_to_eat_nuts_in_week_2-4times_family">2～4回</label>
+						<label for="additional_information_frequency_to_eat_nuts_in_week_2-4times_family">2
+							<span class='translate' data-i18n='family-t.label.between'>-</span>
+							4
+							<span class='translate' data-i18n='family-t.label.times'>times</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_nuts_in_week_over_5times_family" name="additional_information.frequency_to_eat_nuts_in_week_family" value="5times" type="radio" />
-						<label for="additional_information_frequency_to_eat_nuts_in_week_over_5times_family">5回以上</label>
+						<label for="additional_information_frequency_to_eat_nuts_in_week_over_5times_family">
+							<span class='translate' data-i18n='family-t.label.prefix_over'></span>
+							5 <span class='translate' data-i18n='family-t.label.times'>times</span>
+							<span class='translate' data-i18n='family-t.label.suffix_over'></span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_nuts_in_week_unknown" name="additional_information.frequency_to_eat_nuts_in_week_family" value="unknown" type="radio" />
-						<label for="additional_information_frequency_to_eat_nuts_in_week_unknown">わからない</label>
+						<label for="additional_information_frequency_to_eat_nuts_in_week_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 			</div>
 			</div>
 			<div class="row">
-				<div class="col s5">全粒穀物を毎日3回以上食べますか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.do_you_eat_more_than_3_servings_of_whole_grains_foods_per_day?'>Do you eat more than 3 servings of whole grains foods per day?</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_whole_grains_in_day_TRUE_family" name="additional_information.frequency_to_eat_whole_grains_in_day_family" value="true" type="radio" />
-						<label for="additional_information_frequency_to_eat_whole_grains_in_day_TRUE_family">はい</label>
+						<label for="additional_information_frequency_to_eat_whole_grains_in_day_TRUE_family"><span class='translate' data-i18n="family-t.yes">Yes</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_whole_grains_in_day_FALSE_family" name="additional_information.frequency_to_eat_whole_grains_in_day_family" value="false" type="radio" />
-						<label for="additional_information_frequency_to_eat_whole_grains_in_day_FALSE_family">いいえ</label>
+						<label for="additional_information_frequency_to_eat_whole_grains_in_day_FALSE_family"><span class='translate' data-i18n="family-t.no">No</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_whole_grains_in_day_unknown" name="additional_information.frequency_to_eat_whole_grains_in_day_family" value="unknown" type="radio" />
-						<label for="additional_information_frequency_to_eat_whole_grains_in_day_unknown">わからない</label>
+						<label for="additional_information_frequency_to_eat_whole_grains_in_day_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col s5">魚を週に2回以上食べますか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.do_you_eat_fish_more_than_twice_per_week?'>Do you eat fish more than twice per week?</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_fishes_in_week_TRUE_family" name="additional_information.frequency_to_eat_fishes_in_week_family" value="true" type="radio" />
-						<label for="additional_information_frequency_to_eat_fishes_in_week_TRUE_family">はい</label>
+						<label for="additional_information_frequency_to_eat_fishes_in_week_TRUE_family"><span class='translate' data-i18n="family-t.yes">Yes</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_fishes_in_week_FALSE_family" name="additional_information.frequency_to_eat_fishes_in_week_family" value="false" type="radio" />
-						<label for="additional_information_frequency_to_eat_fishes_in_week_FALSE_family">いいえ</label>
+						<label for="additional_information_frequency_to_eat_fishes_in_week_FALSE_family"><span class='translate' data-i18n="family-t.no">No</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_fishes_in_week_unknown" name="additional_information.frequency_to_eat_fishes_in_week_family" value="unknown" type="radio" />
-						<label for="additional_information_frequency_to_eat_fishes_in_week_unknown">わからない</label>
+						<label for="additional_information_frequency_to_eat_fishes_in_week_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col s5">乳製品を毎日2～3回食べますか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.do_you_eat_2_to_3_servings_a_day_of_dairy?'>Do you eat 2 to 3 servings a day of dairy?</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_dairy_products_in_day_TRUE_family" name="additional_information.frequency_to_eat_dairy_products_in_day_family" value="true" type="radio" />
-						<label for="additional_information_frequency_to_eat_dairy_products_in_day_TRUE_family">はい</label>
+						<label for="additional_information_frequency_to_eat_dairy_products_in_day_TRUE_family"><span class='translate' data-i18n="family-t.yes">Yes</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_dairy_products_in_day_FALSE_family" name="additional_information.frequency_to_eat_dairy_products_in_day_family" value="false" type="radio" />
-						<label for="additional_information_frequency_to_eat_dairy_products_in_day_FALSE_family">いいえ</label>
+						<label for="additional_information_frequency_to_eat_dairy_products_in_day_FALSE_family"><span class='translate' data-i18n="family-t.no">No</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_dairy_products_in_day_unknown" name="additional_information.frequency_to_eat_dairy_products_in_day_family" value="unknown" type="radio" />
-						<label for="additional_information_frequency_to_eat_dairy_products_in_day_unknown">わからない</label>
+						<label for="additional_information_frequency_to_eat_dairy_products_in_day_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col s5">加工肉を食べるのは週に1回以下ですか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.do_you_eat_less_than_1_serving_of_refined_grains_per_week?'>Do you eat less than 1 serving of refined grains per week?</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_processed_meat_in_week_TRUE_family" name="additional_information.frequency_to_eat_processed_meat_in_week_family" value="true" type="radio" />
-						<label for="additional_information_frequency_to_eat_processed_meat_in_week_TRUE_family">はい</label>
+						<label for="additional_information_frequency_to_eat_processed_meat_in_week_TRUE_family"><span class='translate' data-i18n="family-t.yes">Yes</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_processed_meat_in_week_FALSE_family" name="additional_information.frequency_to_eat_processed_meat_in_week_family" value="false" type="radio" />
-						<label for="additional_information_frequency_to_eat_processed_meat_in_week_FALSE_family">いいえ</label>
+						<label for="additional_information_frequency_to_eat_processed_meat_in_week_FALSE_family"><span class='translate' data-i18n="family-t.no">No</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_processed_meat_in_week_unknown" name="additional_information.frequency_to_eat_processed_meat_in_week_family" value="unknown" type="radio" />
-						<label for="additional_information_frequency_to_eat_processed_meat_in_week_unknown">わからない</label>
+						<label for="additional_information_frequency_to_eat_processed_meat_in_week_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col s5">非加工の赤身肉を食べるのは週に1～2回以下ですか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.do_you_eat_less_than_1_to_2_servings_of_unprocessed_red_meat_per_week?'>Do you eat less than 1 to 2 servings of unprocessed red meat per week?</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_unprocessed_meat_in_week_TRUE_family" name="additional_information.frequency_to_eat_unprocessed_meat_in_week_family" value="true" type="radio" />
-						<label for="additional_information_frequency_to_eat_unprocessed_meat_in_week_TRUE_family">はい</label>
+						<label for="additional_information_frequency_to_eat_unprocessed_meat_in_week_TRUE_family"><span class='translate' data-i18n="family-t.yes">Yes</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_unprocessed_meat_in_week_FALSE_family" name="additional_information.frequency_to_eat_unprocessed_meat_in_week_family" value="false" type="radio" />
-						<label for="additional_information_frequency_to_eat_unprocessed_meat_in_week_FALSE_family">いいえ</label>
+						<label for="additional_information_frequency_to_eat_unprocessed_meat_in_week_FALSE_family"><span class='translate' data-i18n="family-t.no">No</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_unprocessed_meat_in_week_unknown" name="additional_information.frequency_to_eat_unprocessed_meat_in_week_family" value="unknown" type="radio" />
-						<label for="additional_information_frequency_to_eat_unprocessed_meat_in_week_unknown">わからない</label>
+						<label for="additional_information_frequency_to_eat_unprocessed_meat_in_week_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col s5">砂糖入り飲料を飲むのは週に1回以下ですか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.do_you_drink_less_than_1_serving_of_sugar-sweetened_beverages_per_week?'>Do you drink less than 1 serving of sugar-sweetened beverages per week?</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_frequency_to_drink_suger_drin_in_week_TRUE_family" name="additional_information.frequency_to_drink_suger_drin_in_week_family" value="true" type="radio" />
-						<label for="additional_information_frequency_to_drink_suger_drin_in_week_TRUE_family">はい</label>
+						<label for="additional_information_frequency_to_drink_suger_drin_in_week_TRUE_family"><span class='translate' data-i18n="family-t.yes">Yes</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_drink_suger_drin_in_week_FALSE_family" name="additional_information.frequency_to_drink_suger_drin_in_week_family" value="false" type="radio" />
-						<label for="additional_information_frequency_to_drink_suger_drin_in_week_FALSE_family">いいえ</label>
+						<label for="additional_information_frequency_to_drink_suger_drin_in_week_FALSE_family"><span class='translate' data-i18n="family-t.no">No</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_drink_suger_drin_in_week_unknown" name="additional_information.frequency_to_drink_suger_drin_in_week_family" value="unknown" type="radio" />
-						<label for="additional_information_frequency_to_drink_suger_drin_in_week_unknown">わからない</label>
+						<label for="additional_information_frequency_to_drink_suger_drin_in_week_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col s5">普段の食事はどちらが多いですか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.which_do_you_eat_more_often?'>Which do you eat more often?</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_usual_meal_fish_family" name="additional_information.usual_meal_family" value="fish" type="radio" />
-						<label for="additional_information_usual_meal_fish_family">魚</label>
+						<label for="additional_information_usual_meal_fish_family"><span class='translate' data-i18n='family-t.fish'>Fish</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_usual_meal_meat_family" name="additional_information.usual_meal_family" value="meat" type="radio" />
-						<label for="additional_information_usual_meal_meat_family">肉</label>
+						<label for="additional_information_usual_meal_meat_family"><span class='translate' data-i18n='family-t.meat'>Meat</span></label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_usual_meal_unknown" name="additional_information.usual_meal_family" value="unknown" type="radio" />
-						<label for="additional_information_usual_meal_unknown">わからない</label>
+						<label for="additional_information_usual_meal_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col s5">1日にみそ汁を何杯とっていますか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.how_many_cups_of_miso_soup_do_you_drink_per_day?_'>How many cups of miso soup do you drink per day? </span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_miso_soup_in_day_0-2_cups_family" name="additional_information.frequency_to_eat_miso_soup_in_day_family" value="0-2_cups" type="radio" />
-						<label for="additional_information_frequency_to_eat_miso_soup_in_day_0-2_cups_family">0～2杯</label>
+						<label for="additional_information_frequency_to_eat_miso_soup_in_day_0-2_cups_family">
+							<span class='translate' data-i18n='family-t.0_-_2_cups'>0 - 2 cups</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_miso_soup_in_day_3-4_cups_family" name="additional_information.frequency_to_eat_miso_soup_in_day_family" value="3-4_cups" type="radio" />
-						<label for="additional_information_frequency_to_eat_miso_soup_in_day_3-4_cups_family">3～4杯</label>
+						<label for="additional_information_frequency_to_eat_miso_soup_in_day_3-4_cups_family">
+							<span class='translate' data-i18n='family-t.3_-_4_cups'>3 - 4 cups</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_miso_soup_in_day_over_5cups_family" name="additional_information.frequency_to_eat_miso_soup_in_day_family" value="over_5cups" type="radio" />
-						<label for="additional_information_frequency_to_eat_miso_soup_in_day_over_5cups_family">5杯以上</label>
+						<label for="additional_information_frequency_to_eat_miso_soup_in_day_over_5cups_family">
+							<span class='translate' data-i18n='family-t.more_than_5_cups'>More than 5 cups</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_miso_soup_in_unknown" name="additional_information.frequency_to_eat_miso_soup_in_day_family" value="unknown" type="radio" />
-						<label for="additional_information_frequency_to_eat_miso_soup_in_unknown">わからない</label>
+						<label for="additional_information_frequency_to_eat_miso_soup_in_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col s5">外食に比べて家庭の食事の味付けは、濃いほうですか。薄いほうですか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.how_strongly_do_you_season_home-cooking_compared_to_eating-out?'>How strongly do you season home-cooking compared to eating-out?</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_seasoning_of_meals_light_family" name="additional_information.seasoning_of_meals_family" value="light" type="radio" />
-						<label for="additional_information_seasoning_of_meals_light_family">薄い</label>
+						<label for="additional_information_seasoning_of_meals_light_family">
+							<span class='translate' data-i18n='family-t.more_lightly'>More lightly</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_seasoning_of_meals_same_family" name="additional_information.seasoning_of_meals_family" value="same" type="radio" />
-						<label for="additional_information_seasoning_of_meals_same_family">変わらない</label>
+						<label for="additional_information_seasoning_of_meals_same_family">
+							<span class='translate' data-i18n='family-t.same'>Same</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_seasoning_of_meals_dense_family" name="additional_information.seasoning_of_meals_family" value="dense" type="radio" />
-						<label for="additional_information_seasoning_of_meals_dense_family">濃い</label>
+						<label for="additional_information_seasoning_of_meals_dense_family">
+							<span class='translate' data-i18n='family-t.more_strongly'>More strongly</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_seasoning_of_meals_unknown" name="additional_information.seasoning_of_meals_family" value="unknown" type="radio" />
-						<label for="additional_information_seasoning_of_meals_unknown">わからない</label>
+						<label for="additional_information_seasoning_of_meals_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col s5">1週間のうち、朝食は何回とりますか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.how_many_times_do_you_eat_breakfast_per_week?_'>How many times do you eat breakfast per week? </span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_breakfast_in_week_0-2times_family" name="additional_information.frequency_to_eat_breakfast_in_week_family" value="0-2_times" type="radio" />
-						<label for="additional_information_frequency_to_eat_breakfast_in_week_0-2times_family">0～2回</label>
+						<label for="additional_information_frequency_to_eat_breakfast_in_week_0-2times_family">
+							<span class='translate' data-i18n='family-t.0_-_2_times'>0 - 2 times</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_breakfast_in_week_3-5times_family" name="additional_information.frequency_to_eat_breakfast_in_week_family" value="3-5_times" type="radio" />
-						<label for="additional_information_frequency_to_eat_breakfast_in_week_3-5times_family">3～5回</label>
+						<label for="additional_information_frequency_to_eat_breakfast_in_week_3-5times_family">
+							<span class='translate' data-i18n='family-t.3_-_5_times'>3 - 5 times</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_breakfast_in_week_over_6times_family" name="additional_information.frequency_to_eat_breakfast_in_week_family" value="ovar_6times" type="radio" />
-						<label for="additional_information_frequency_to_eat_breakfast_in_week_over_6times_family">6回以上</label>
+						<label for="additional_information_frequency_to_eat_breakfast_in_week_over_6times_family">
+							<span class='translate' data-i18n='family-t.more_than_6_times'>More than 6 times</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_eat_breakfast_in_week_unknown" name="additional_information.frequency_to_eat_breakfast_in_week_family" value="unknown" type="radio" />
-						<label for="additional_information_frequency_to_eat_breakfast_in_week_unknown">わからない</label>
+						<label for="additional_information_frequency_to_eat_breakfast_in_week_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 
 
 			<div class="row">
-				<div class="col s5">食べる速さは周りの人と比べて遅いほうですか、早いほうですか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.do_you_eat_faster_than_other_people?'>Do you eat faster than other people?</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_eating_speed_slow_family" name="additional_information.eating_speed_family" value="slow" type="radio" />
-						<label for="additional_information_eating_speed_slow_family">遅い</label>
+						<label for="additional_information_eating_speed_slow_family">
+							<span class='translate' data-i18n='family-t.slower'>Slower</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_eating_speed_medium_family" name="additional_information.eating_speed_family" value="medium" type="radio" />
-						<label for="additional_information_eating_speed_medium_family">変わらない</label>
+						<label for="additional_information_eating_speed_medium_family">
+							<span class='translate' data-i18n='family-t.the_same'>The Same</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_eating_speed_fast_family" name="additional_information.eating_speed_family" value="fast" type="radio" />
-						<label for="additional_information_eating_speed_fast_family">速い</label>
+						<label for="additional_information_eating_speed_fast_family">
+							<span class='translate' data-i18n='family-t.faster'>Faster</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_eating_speed_unknown" name="additional_information.eating_speed_family" value="unknown" type="radio" />
-						<label for="additional_information_eating_speed_unknown">わからない</label>
+						<label for="additional_information_eating_speed_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col s5">アルコールは1週間のうち、何回くらいとっていますか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.how_many_times_do_you_drink_alcoholic_beverages_in_a_week?'>How many times do you drink alcoholic beverages in a week?</span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_frequency_to_drink_in_week_0-2_times_or_less_family" name="additional_information.frequency_to_drink_in_week_family" value="0-2_times_or_less" type="radio" />
-						<label for="additional_information_frequency_to_drink_in_week_0-2_times_or_less_family">0～2回以下</label>
+						<label for="additional_information_frequency_to_drink_in_week_0-2_times_or_less_family">
+							<span class='translate' data-i18n='family-t.0_-_2_times'>0 - 2 times</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_drink_in_week_3-5_times_family" name="additional_information.frequency_to_drink_in_week_family" value="3-5_times" type="radio" />
-						<label for="additional_information_frequency_to_drink_in_week_3-5_times_family">3～5回</label>
+						<label for="additional_information_frequency_to_drink_in_week_3-5_times_family">
+							<span class='translate' data-i18n='family-t.3_-_5_times'>3 - 5 times</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_drink_in_week_over_6times_family" name="additional_information.frequency_to_drink_in_week_family" value="over_6times" type="radio" />
-						<label for="additional_information_frequency_to_drink_in_week_over_6times_family">6回以上</label>
+						<label for="additional_information_frequency_to_drink_in_week_over_6times_family">
+							<span class='translate' data-i18n='family-t.more_than_6_times'>More than 6 times</span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_frequency_to_drink_in_week_unknown" name="additional_information.frequency_to_drink_in_week_family" value="unknown" type="radio" />
-						<label for="additional_information_frequency_to_drink_in_week_unknown">わからない</label>
+						<label for="additional_information_frequency_to_drink_in_week_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
 
 
 			<div class="row">
-				<div class="col s5">1回のアルコール量はどのくらいですか？</div>
+				<div class="col s5">
+					<span class='translate' data-i18n='family-t.how_much_do_you_drink,_on_average,_when_you_consume_alcohol?_'>How much do you drink, on average, when you consume alcohol? </span>
+				</div>
 				<div class="col s7">
 					<div class="col s3-2"><input id="additional_information_amount_to_drink_conversion_0_to_1_in_japanese_liquor_family" name="additional_information.amount_to_drink_family" value="conversion_0_to_1_in_japanese_liquor" type="radio" />
-						<label for="additional_information_amount_to_drink_conversion_0_to_1_in_japanese_liquor_family">日本酒換算0～1合以内</label>
+						<label for="additional_information_amount_to_drink_conversion_0_to_1_in_japanese_liquor_family">
+							<span class='translate' data-i18n='family-t.0_-_1_go_(180_ml)_as_converted_to_sake_'>0 - 1 go (180 ml) as converted to sake </span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_amount_to_drink_conversion_1_to_2_in_japanese_liquor_family" name="additional_information.amount_to_drink_family" value="conversion_1_to_2_in_japanese_liquor" type="radio" />
-						<label for="additional_information_amount_to_drink_conversion_1_to_2_in_japanese_liquor_family">日本酒換算1～2合</label>
+						<label for="additional_information_amount_to_drink_conversion_1_to_2_in_japanese_liquor_family">
+							<span class='translate' data-i18n='family-t.1_-_2_go_(180_ml)_as_converted_to_sake_'>1 - 2 go (180 ml) as converted to sake </span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_amount_to_drink_conversion_more_than_2_in_japanese_liquor_family" name="additional_information.amount_to_drink_family" value="conversion_more_than_2_in_japanese_liquor" type="radio" />
-						<label for="additional_information_amount_to_drink_conversion_more_than_2_in_japanese_liquor_family">日本酒換算2合以上</label>
+						<label for="additional_information_amount_to_drink_conversion_more_than_2_in_japanese_liquor_family">
+							<span class='translate' data-i18n='family-t.more_than_2_go_(180_ml)_as_converted_to_sake_'>More than 2 go (180 ml) as converted to sake </span>
+						</label>
 					</div>
 					<div class="col s3-2"><input id="additional_information_amount_to_drink_conversion_unknown" name="additional_information.amount_to_drink_family" value="unknown" type="radio" />
-						<label for="additional_information_amount_to_drink_conversion_unknown">わからない</label>
+						<label for="additional_information_amount_to_drink_conversion_unknown"><span class='translate' data-i18n="family-t.unknown">Unknown</span></label>
 					</div>
 				</div>
 			</div>
