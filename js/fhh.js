@@ -660,6 +660,8 @@ function start()
 		if (isiPad) {
 			$(".savePersonalInfoFromFile").remove();
 		};
+		preparate_compensation_dialog();
+		bind_compensate_information_submit_button_action();
 
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
 		i18n.init(option, function () {
@@ -792,14 +794,14 @@ function start()
 	});
 
 	// リスク計算不足要素入力ダイアログ
-	$("#compensate_information_dialog").load ("compensate_information_dialog.html", function () {
-		preparate_compensation_dialog();
-		bind_compensate_information_submit_button_action();
-		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
-		i18n.init(option, function () {
-			$(".translate").i18n();
-		});
-	});
+	// $("#compensate_information_dialog").load ("compensate_information_dialog.html", function () {
+	// 	preparate_compensation_dialog();
+	// 	bind_compensate_information_submit_button_action();
+	// 	var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+	// 	i18n.init(option, function () {
+	// 		$(".translate").i18n();
+	// 	});
+	// });
 
 	// 家系図印刷
 	$("#familyTable").dialog({
@@ -828,14 +830,14 @@ function start()
 	});
 
 	// compensation dialog
-	$("#compensate_information_dialog").dialog({
-		title: "リスク計算不足項目入力",
-		position: ['top',0],
-		autoOpen: false,
-		resizable: false,
-		height: 'auto',
-		width: ['96%']
-	});
+	// $("#compensate_information_dialog").dialog({
+	// 	title: "リスク計算不足項目入力",
+	// 	position: ['top',0],
+	// 	autoOpen: false,
+	// 	resizable: false,
+	// 	height: 'auto',
+	// 	width: ['96%']
+	// });
 
 //	 Dead Code
 //     family pedigree diagram dialog
@@ -1320,7 +1322,7 @@ function preparate_lifestyle_score_dialog(){
 
 		personal_information['height'] = hgt;
 		personal_information['height_unit'] = "centimeters";
- });
+ 	});
 
 	// 体重
 	$("#lifestylescore__weight").change(function() {

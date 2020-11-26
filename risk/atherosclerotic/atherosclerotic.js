@@ -138,19 +138,19 @@ function checkCHDRisk(hypo, fasting, occasional, ogtt, hba1c){
 		// 糖尿病型の判定要因を列挙
 		$(".diabetes_chd_reason").empty();
 		if(fasting){
-			$(".diabetes_chd_reason").append("空腹時血糖値が126以上");
+			$(".diabetes_chd_reason").append($.t("family-t_risk.fasting_blood_glucose_level_is126"));
 		}
 		if(occasional){
 			appendComma();
-			$(".diabetes_chd_reason").append("随時血糖値が200以上");
+			$(".diabetes_chd_reason").append($.t("family-t_risk.blood_glucose_level_is_200"));
 		}
 		if(ogtt){
 			appendComma();
-			$(".diabetes_chd_reason").append("75g OGTT 2時間値が200以上");
+			$(".diabetes_chd_reason").append($.t("family-t_risk.ogtt_two-hour"));
 		}
 		if(hba1c){
 			appendComma();
-			$(".diabetes_chd_reason").append("HbA1cの値が6.5以上");
+			$(".diabetes_chd_reason").append($.t("family-t_risk.HbA1c_value_is_65"));
 		}
 
 	}

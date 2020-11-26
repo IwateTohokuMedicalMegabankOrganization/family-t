@@ -878,6 +878,7 @@
     ,"select_the__month.":"月を選択してください"
     ,"click_here" : "喫煙情報以下、何も分からない場合はここをクリック"
     ,"select_your_family_smoking_status":"ご家族の状況にあてはまるものを選択してください。"
+    ,"show_detail":"詳細へ"
     ,"label" : {
       "year" : "年"
       ,"month" : "月"
@@ -994,6 +995,15 @@
         }
       }
     },
+	"family-t_risk":{
+    "fasting_blood_glucose_level_is126":"空腹時血糖値が126以上"
+    ,"ogtt_two-hour":"75g OGTT 2時間値が200以上"
+    ,"blood_glucose_level_is_200 ":"随時血糖値が200以上"
+    ,"HbA1c_value_is_65":"HbA1cの値が6.5以上"
+    ,"if_your" : "日本糖尿病学会「糖尿病治療ガイド2018-2019」によると、"
+    ,"type2_recommend_consult_a_doctor":"の場合、「糖尿病型」と判定されます。これを以って診断とはなりませんが、糖尿病である可能性が高く、医師へのご相談をお勧めします。"
+    ,"chd_recommend_consult_a_doctor":"の場合、「糖尿病型」と判定されます。 これを以って診断とはなりませんが、糖尿病である可能性が高く、医師へのご相談をお勧めします。"
+  },
     "family-t_risk_range":{
 			"pattern1":"最低1%未満 ～ 最高10-12%です",
       "pattern2":"最低1-2% ～ 最高15-20%です",

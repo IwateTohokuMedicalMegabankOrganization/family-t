@@ -263,7 +263,7 @@
 
 		"consanguinity": "Check here if your parents are related to each other in any way other than marriage.",
 		"multiple_races_selectable" : "Multiple races and ethnicities may be selected.",
-		"default_is_japanese_asia":"&quot;Asian&quot; and &quot;Japanese&quot; is already checked. Please uncheck if you are not Asian or Japanese.",
+		"default_is_japanese_asia":"“Asian” and “Japanese” is already checked. Please uncheck if you are not Asian or Japanese.",
 		"ashkezani_q": "Why are we asking about Ashkenazi Jewish heritage?",
 
 		"personal_health_subtitle" : "Your Health Information",
@@ -824,8 +824,8 @@
 ,"explain_bmi":"Clinical diagnosis of obesity is based on the Body Mass Index (BMI) calculated from an individual’s height and weight. BMI is calculated using the formula “weight (kg) ÷ height (m)².” According to the criteria set by the Japan Society for the Study of Obesity , a BMI of 22 is standard and statistically least susceptible to illness, while obesity is defined as having a BMI of 25 or higher."
 ,"explain_whr":"The waist-to-hip ratio (W/H ratio) is used as a physical index of obesity. It is calculated as “abdominal circumference (cm) ÷ hip circumference (cm).” This measurement is used to determine an individual’s obesity subclass with respect to body type, which can be either “pear-shaped obesity” or “apple-shaped obesity.” A large W/H ratio indicates apple-shaped obesity (abdominal obesity) with fat accumulation in the upper body (abdomen), which is associated with a greater risk of various health complications. In the United States and Europe, the standard BMI is 1.0 for men and 0.9 for women. For obese people exclusively, W/H ratio seems to be a more robust index for assessing obesity than BMI, which is used internationally. However, W/H ratio is not as frequently measured in non-obese people with less subcutaneous fat, since W/H ratio is a relative ratio and is therefore not an appropriate index to infer body type. Therefore, the actual measured value of the waist circumference is used instead (Ministry of Health, Labour and Welfare  e-HealthNet )."
 ,"smoking_status":"Smoking status"
-,"explain_coronary":""
-,"select_your_current_smoking_status.":"Select your current smoking status."
+,"explain_coronary":"It is known that the risk of coronary artery disease is almost halved one year after quitting smoking, and 15 years after, it is going to be comparable to nonsmokers."
+,"select_your_current_smoking_status":"Select your current smoking status."
 ,"never_smoked":"Never smoked"
 ,"former_smoker_quit_more_than_fifteen_years_ago.":"Former smoker: quit more than fifteen years ago."
 ,"former_smoker_quit_between_one_and_fifteen_years_ago.":"Former smoker: quit between one and fifteen years ago."
@@ -900,13 +900,14 @@
 ,"cholesterol":"Cholesterol"
 ,"ldl_cholesterol_(mg/dl)":"LDL cholesterol (mg/dL)"
 ,"hdl_cholesterol_(mg/dl)":"HDL cholesterol (mg/dL)"
-,"asian_and_japanese_is_already_checked._please_uncheck_if_you_are_not_asian_or_japanese.":"&quot;Asian&quot; and &quot;Japanese&quot; is already checked. Please uncheck if you are not Asian or Japanese."
+,"asian_and_japanese_is_already_checked._please_uncheck_if_you_are_not_asian_or_japanese.":"“Asian” and “Japanese” is already checked. Please uncheck if you are not Asian or Japanese."
 ,"medical_examination":"Medical examination"
 ,"date_of_the_most_recent_medical_check-up_or_hospital_admission":"Date of the most recent medical check-up or hospital admission"
 ,"select_the_year.":"Select the year."
 ,"unknown":"Unknown"
 ,"select_the__month.":"Select the  month."
 ,"select_your_family_smoking_status":"Select your family smoking status."
+,"show_detail":"Show detail"
 		,"label" : {
 			"year" : "/"
 			,"month" : ""
@@ -1083,6 +1084,13 @@
 		,"heart":"Coronary Heart Disease"
 		,"blood_pressure" : "Blood pressure"
 		,"diabetes" : "Diabetes"
+		,"fasting_blood_glucose_level_is126":"fasting blood glucose level is 126 or hight "
+		,"ogtt_two-hour":"75g OGTT two-hour blood glucose level is 200 or hight "
+		,"blood_glucose_level_is_200":"blood glucose level is 200 or hight  "
+		,"HbA1c_value_is_65":"HbA1c value is 6.5 or hight "
+		,"if_your" : "If your"
+		,"type2_recommend_consult_a_doctor":", it is classified as “diabetic type” according to “Treatment Guide for Diabetes 2018-2019” published by the Japan Diabetes Society. This is not a definitive diagnosis, but it is possible that you have diabetes, and we recommend that you consult your doctor."
+		,"chd_recommend_consult_a_doctor":", it is classified as “diabetic type” according to “Treatment Guide for Diabetes 2018-2019” published by the Japan Diabetes Society. This is not a definitive diagnosis, but it is possible that you have diabetes, and we recommend that you consult your doctor."
 	},
     "family-t_risk_range":{
 		"pattern1":"1% to 10-12%",
