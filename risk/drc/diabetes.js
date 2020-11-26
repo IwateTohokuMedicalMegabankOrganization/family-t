@@ -92,7 +92,7 @@ function calcHisayamaScore() {
 function showDiabetesRisk(totalscore) {
 
 	var percentile = "";
-	var filepath = "../risk/result_image/diabetes/";
+	var filepath = "../risk/result_image/diabetes_" + getLang() + "/";
 	var filename = "";
 	var extension = ".png";
 

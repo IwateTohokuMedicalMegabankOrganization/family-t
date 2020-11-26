@@ -224,7 +224,16 @@ class BirthOrderUtil {
 	}
 }
 
+function getLang(){
 
+	if( 'en' == getParameterByName('setLng') ) return 'en';
+	if( 'ja' == getParameterByName('setLng') ) return 'ja';
+
+	if( 'en' == window.i18n.lng() ) return 'en';
+	if( 'en-US' == window.i18n.lng() ) return 'en';
+
+	return 'ja';
+}
 
 $(document).ready(function() {
 

@@ -539,7 +539,7 @@ class StrokeRiskCalculator extends RiskCalculatorBase{
 
 	// 画像ファイルパス
 	getColorImagePatternPath(){
-		return '../risk/result_image/stroke/' + this.getColorImagePatternPrefix() + '_' + this.getColorImagePatternSuffix();
+		return '../risk/result_image/stroke_' + getLang() + "/" + this.getColorImagePatternPrefix() + '_' + this.getColorImagePatternSuffix();
 	}
 }
 

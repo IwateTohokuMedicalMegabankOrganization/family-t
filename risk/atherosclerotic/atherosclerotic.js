@@ -54,7 +54,7 @@ function showCHDRisk(pi_age, pi_gender, pi_chdscore) {
 	var pattern = getPattern(pi_age, pi_gender);
 	var rangetext = getRange(pattern);
 	var filename = getFileName(pi_chdscore);
-	const filepath = "../risk/result_image/coronary/";
+	const filepath = "../risk/result_image/coronary_" + getLang() + "/";
 	const connector = "_score";
 	const extension = ".png";
 	var filefullpath = filepath + pattern + connector + filename + extension;
@@ -82,7 +82,7 @@ function getPattern(pi_age, pi_gender) {
 }
 
 function getRange(pat) {
-	return $.t( "t_risk_range_chd." + pat );
+	return $.t( "family-t_risk_range_chd." + pat );
 	// if (pat == "pattern1") return "最低0.5% ～ 最高17.3%";
 	// if (pat == "pattern2") return "最低0.5% ～ 最高24.6%";
 	// if (pat == "pattern3") return "最低0.5% ～ 最高28.1%";
