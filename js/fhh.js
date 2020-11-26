@@ -3302,14 +3302,10 @@ function getHealthHistories( histories ){
 
 	histories.forEach( function( h ){
 		var row = $('<div>');
-		var text = h["Detailed Disease Name"];
 
-//		if( !( typeof text == "undfined") ){
-//
-//		}
-//		if( text.length > 20 )
-//			text = text.substr( 0, 10 ) + "...";
-
+		var text = $.t("diseases:" + h["Disease Code"]);
+		if( text.length == 0 ) text = h["Detailed Disease Name"];
+		
 		text += "(" + $.t("fhh_js." + h["Age At Diagnosis"] ) + ")" ;
 
 		row.text(text);
