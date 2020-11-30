@@ -931,7 +931,7 @@
         ,"140_149":"140～159"
         ,"160_179":"160～179"
         ,"over180":"180以上"
-        ,"under79" : "119以下"
+        ,"under79" : "79以下"
         ,"80_84":"80～84"
         ,"85_89":"85～89"
         ,"90_99":"90～99"
@@ -1008,6 +1008,7 @@
     ,"cannnot_calculate_the_risk3":"・慢性腎臓病"
     ,"cannnot_calculate_the_risk4":"・非心原性脳梗塞"
     ,"cannnot_calculate_the_risk5":"・末梢動脈疾患"
+		,"blood_pressure" : "血圧"
   },
     "family-t_risk_range":{
 			"pattern1":"最低1%未満 ～ 最高10-12%です",
