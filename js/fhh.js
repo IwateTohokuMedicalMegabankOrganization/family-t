@@ -744,6 +744,7 @@ function start()
 	});
 
 	$("#showQofhScoreDetail").on("click", function() {
+		build_qof_family_history_data_table();
 		$("#quality_of_family_history_score_dialog").dialog('open').position("center top");
 	});
 
@@ -3101,6 +3102,7 @@ function displayRelationships(table, relations, pi, is_sortable ){
 	});
 }
 
+
 function getSortableTbody(){
 	var tbody = $('<tbody>');
 	$(tbody).sortable();
@@ -3229,6 +3231,139 @@ function build_family_history_data_table () {
 
 	ScoreCardController.refresh();
 }
+
+
+function build_qof_family_history_data_table () {
+
+	var tbody = $("#qofList");
+	tbody.empty();
+
+	// Self 
+	tbody.append(getQofListRow(personal_information));
+
+	// Brother and sister
+	if( hasRelations( [ 'brother', 'sister' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'brother', 'sister' ], personal_information);
+	}
+
+	// parents
+	if( typeof personal_information.father != "undefined")
+		displayRelationshipsForQof(tbody, [ 'father' ], personal_information);
+
+	if( typeof personal_information.mother != "undefined")
+		displayRelationshipsForQof(tbody, [ 'mother' ], personal_information);
+
+	// children
+	if( hasRelations( [ 'son', 'daughter' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'son', 'daughter' ], personal_information);
+	}
+
+	// おい（甥）・めい（姪）
+	if( hasRelations( [ 'niece', 'nephew' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'niece', 'nephew' ], personal_information);
+	}
+
+	// 父方 おじ・おば
+	if( hasRelations( [ 'paternal_uncle', 'paternal_aunt' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'paternal_uncle', 'paternal_aunt' ], personal_information);
+	}
+
+	// 母方 おじ・おば
+	if( hasRelations( [ 'maternal_uncle', 'maternal_aunt' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'maternal_uncle', 'maternal_aunt' ], personal_information);
+	}
+
+	// 父方 祖父母
+	if( hasRelations( [ 'paternal_grandfather', 'paternal_grandmother' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'paternal_grandfather' ], personal_information );
+		displayRelationshipsForQof(tbody, [ 'paternal_grandmother' ], personal_information );
+	}
+
+	// 母方 祖父母
+	if( hasRelations( [ 'maternal_grandfather', 'maternal_grandmother' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'maternal_grandfather' ], personal_information );
+		displayRelationshipsForQof(tbody, [ 'maternal_grandmother' ], personal_information );
+	}
+
+	// 父方 いとこ
+	if( hasRelations( [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information);
+	}
+
+	// 母方 いとこ
+	if( hasRelations( [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information);
+	}
+
+	// 孫
+	if( hasRelations( [ 'grandson', 'granddaughter' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'grandson', 'granddaughter' ], personal_information);
+	}
+}
+
+function displayRelationshipsForQof(table, relations, pi ){
+	// get relation id
+	var displayRelationshipIds = getRelationshipIds( relations, pi );
+
+	// display
+	displayRelationshipIds.forEach( function( tr ) {
+		add_new_qof_row(table, pi[tr]);
+	});
+}
+
+function add_new_qof_row(table, family_member ) {
+	table.append( getQofListRow(family_member) );
+}
+function getQofList_is_alive( id, is_alive ){
+
+	var radio_id = 'qof_radio_id_' + id;
+	var radio_name = 'qof_radio_name_' + id;
+
+	var ret = "<span>";
+	ret += '<input id="' + radio_id + '_alive" ' + 'name="' + radio_name + '" value="alive" type="radio" />';
+	ret += '<label for="' + radio_id + '_alive"' + ">" + $.t("info_dialog.yes") + "</label>";
+	ret += "</span>";
+
+	ret += '<span>'
+	ret += '<input id="' + radio_id + '_dead" ' + 'name="' + radio_name + '" value="dead" type="radio" />';
+	ret += '<label for="' + radio_id + '_dead"' + ">" + $.t("info_dialog.no") + "</label>";
+	ret += '</label>'
+	ret += "</span>";
+	
+	ret += '<span>'
+	ret += '<input id="' + radio_id + '_unknown" ' + 'name="' + radio_name + '" value="unknown" type="radio" />';
+	ret += '<label for="' + radio_id + '_unknown"' + ">" + $.t("info_dialog.unknown") + "</label>";
+	ret += '</label>'
+	ret += "</span>";
+
+	return ret;
+}
+
+function getQofListRow(pi){
+	var row = $("<tr>");
+
+	// 	お名前
+	row.append("<td class='center nowrap'>" + pi.name + "</td>");
+	// 存命
+	row.append("<td class='center nowrap'>" + getQofList_is_alive(pi.id, pi.is_alive) + "</td>");
+	// 死亡年齢
+	row.append("<td class='center nowrap'>-</td>");
+	// 死因
+	row.append("<td class='center nowrap'>-</td>");
+	// 疾患有無
+	row.append("<td class='center nowrap'>-</td>");
+	// 病気
+	row.append("<td class='center nowrap'>-</td>");
+
+	// 病気詳細
+	row.append("<td class='center nowrap'>-</td>");
+
+	// 発症年齢
+	row.append("<td class='center nowrap'>-</td>");
+
+	return row;
+}
+
 
 function add_family_history_header_row(table) {
 	var header_row = $("<tr>");
