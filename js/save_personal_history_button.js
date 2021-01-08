@@ -14,6 +14,57 @@ function saveToServer(){
 	$('#updatedTime').val( getNowTime() );
 }
 
+
+function saveToPCPost(){
+	$('#personal_information_text').val(JSON.stringify(personal_information));
+	$.post("https://27.133.130.34/familyt_api/getxml"
+			, $('#personal_information_form').serialize() )
+			.done(function(data, textStatus, jqXHR){
+				downloadXML( jqXHR.responseText );
+			})
+			.fail(function(jqXHR, textStatus, errorThrown){
+				alert('family-tサーバへの保存に失敗しました。\n code: ' + jqXHR.status + '\n status: ' + textStatus + '\n error: ' + errorThrown);
+				$("#save_personal_history_dialog").dialog("close");
+			});
+}
+
+
+function downloadXML(content) {
+	const filename = "family-t.xml";
+	const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+	var blob = new Blob([ bom, content ], { "type" : "text/xml" });
+
+
+	const aTag = document.createElement('a');
+	aTag.download = filename;
+
+	if (window.navigator.msSaveBlob) {
+	  // for IE
+	  window.navigator.msSaveBlob(blob, aTag.download);
+	} else if (window.URL && window.URL.createObjectURL) {
+	  // for Firefox / chrome
+	  aTag.href = window.URL.createObjectURL(blob);
+
+	  document.body.appendChild(aTag);
+
+	  aTag.click();
+
+	  document.body.removeChild(aTag);
+	} else if (window.webkitURL && window.webkitURL.createObject) {
+	  // for Chrome?
+	  aTag.href = (window.URL || window.webkitURL).createObjectURL(blob);
+
+	  aTag.click();
+	} else {
+	  // for Safari
+	  window.open(
+	    `data:type/csv;base64,${window.Base64.encode(this.state.content)}`,
+	    '_blank'
+	  );
+	}
+}
+
+
 function saveToServerPost(){
 		$('#personal_information_text').val(JSON.stringify(personal_information));
 
@@ -45,6 +96,10 @@ function saveToServerWithDate( createdDatetime,  updatedDatetime){
 }
 
 $(function(){
+
+	$('#saveToPC').on('click', function(){
+		$("#save_personal_history_dialog" ).dialog( "open" );
+	});
 	$('#saveToServer').on('click', function(){
 		saveToServer();
 	});

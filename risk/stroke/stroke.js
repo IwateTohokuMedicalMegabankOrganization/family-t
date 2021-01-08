@@ -186,6 +186,7 @@ class StrokeRiskCalculator extends RiskCalculatorBase{
 	// 糖尿病疾患の有無を確認
 	hasDiabetes( h, fasting_blood_glucose_lebel, occasionally_blood_glucose_lebel, ogtt_blood_glucose_lebel, take_hypoglycemic ){
 
+		if( typeof h == "undefined") return false;
 		// 既往歴に糖尿病疾患がある場合は糖尿病として扱う
 		const diabatesSnomedCodes = [
 			'SNOMED_CT-73211009',
@@ -225,6 +226,8 @@ class StrokeRiskCalculator extends RiskCalculatorBase{
 	// 脳卒中疾患の有無を確認
 	hasStroke( h ){
 
+
+		if( typeof h == "undefined" ) return false;
 		const strokeSnomedCodes = [
 			'SNOMED_CT-116288000',
 			'SNOMED_CT-230690007',
@@ -503,14 +506,14 @@ class StrokeRiskCalculator extends RiskCalculatorBase{
 	// 同性、同年代の発症率を求める
 	getRiskRange(){
 
-		const dicPatternRange = {
-			'pattern1':'最低1%未満 ～ 最高10-12%',
-			'pattern2':'最低1-2% ～ 最高15-20%',
-			'pattern3':'最低2-3% ～ 最高20%以上',
-			'pattern4':'最低3-4% ～ 最高20%以上',
-			'pattern5':'最低1%未満 ～ 最高8-9%',
-			'pattern6':'最低1%未満 ～ 最高12-15%',
-			'pattern7':'最低1-2% ～ 最高20%以上',
+		var dicPatternRange = {
+			'pattern1': $.t("family-t_risk_range.pattern1"),
+			'pattern2': $.t("family-t_risk_range.pattern2"),
+			'pattern3': $.t("family-t_risk_range.pattern3"),
+			'pattern4': $.t("family-t_risk_range.pattern4"),
+			'pattern5': $.t("family-t_risk_range.pattern5"),
+			'pattern6': $.t("family-t_risk_range.pattern6"),
+			'pattern7': $.t("family-t_risk_range.pattern7")
 		};
 
 		return dicPatternRange[this.getColorImagePatternPrefix()];
@@ -536,7 +539,7 @@ class StrokeRiskCalculator extends RiskCalculatorBase{
 
 	// 画像ファイルパス
 	getColorImagePatternPath(){
-		return '../risk/result_image/stroke/' + this.getColorImagePatternPrefix() + '_' + this.getColorImagePatternSuffix();
+		return '../risk/result_image/stroke_' + getLang() + "/" + this.getColorImagePatternPrefix() + '_' + this.getColorImagePatternSuffix();
 	}
 }
 

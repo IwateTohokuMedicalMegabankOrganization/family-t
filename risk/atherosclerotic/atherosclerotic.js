@@ -54,7 +54,7 @@ function showCHDRisk(pi_age, pi_gender, pi_chdscore) {
 	var pattern = getPattern(pi_age, pi_gender);
 	var rangetext = getRange(pattern);
 	var filename = getFileName(pi_chdscore);
-	const filepath = "../risk/result_image/coronary/";
+	const filepath = "../risk/result_image/coronary_" + getLang() + "/";
 	const connector = "_score";
 	const extension = ".png";
 	var filefullpath = filepath + pattern + connector + filename + extension;
@@ -82,11 +82,12 @@ function getPattern(pi_age, pi_gender) {
 }
 
 function getRange(pat) {
-	if (pat == "pattern1") return "最低0.5% ～ 最高17.3%";
-	if (pat == "pattern2") return "最低0.5% ～ 最高24.6%";
-	if (pat == "pattern3") return "最低0.5% ～ 最高28.1%";
-	if (pat == "pattern4") return "最低1.6% ～ 最高28.1%";
-	if (pat == "pattern5") return "最低0.5% ～ 最高6.6%";
+	return $.t( "family-t_risk_range_chd." + pat );
+	// if (pat == "pattern1") return "最低0.5% ～ 最高17.3%";
+	// if (pat == "pattern2") return "最低0.5% ～ 最高24.6%";
+	// if (pat == "pattern3") return "最低0.5% ～ 最高28.1%";
+	// if (pat == "pattern4") return "最低1.6% ～ 最高28.1%";
+	// if (pat == "pattern5") return "最低0.5% ～ 最高6.6%";
 }
 
 function getPercentile(score){
@@ -137,19 +138,19 @@ function checkCHDRisk(hypo, fasting, occasional, ogtt, hba1c){
 		// 糖尿病型の判定要因を列挙
 		$(".diabetes_chd_reason").empty();
 		if(fasting){
-			$(".diabetes_chd_reason").append("空腹時血糖値が126以上");
+			$(".diabetes_chd_reason").append($.t("family-t_risk.fasting_blood_glucose_level_is126"));
 		}
 		if(occasional){
 			appendComma();
-			$(".diabetes_chd_reason").append("随時血糖値が200以上");
+			$(".diabetes_chd_reason").append($.t("family-t_risk.blood_glucose_level_is_200"));
 		}
 		if(ogtt){
 			appendComma();
-			$(".diabetes_chd_reason").append("75g OGTT 2時間値が200以上");
+			$(".diabetes_chd_reason").append($.t("family-t_risk.ogtt_two-hour"));
 		}
 		if(hba1c){
 			appendComma();
-			$(".diabetes_chd_reason").append("HbA1cの値が6.5以上");
+			$(".diabetes_chd_reason").append($.t("family-t_risk.HbA1c_value_is_65"));
 		}
 
 	}
@@ -313,6 +314,7 @@ function load_dl(hdl, ldl){
 
 function load_suger(){
 	var isIGT = false;
+	if( typeof personal_information['Health History'] == "undefined" ) return false;
 	for (var i=0; i<personal_information['Health History'].length; i++) {
 		if (personal_information['Health History'][i]['Disease Code'] == "SNOMED_CT-9414007") {
 			isIGT = true;

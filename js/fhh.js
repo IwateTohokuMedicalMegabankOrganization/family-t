@@ -224,7 +224,16 @@ class BirthOrderUtil {
 	}
 }
 
+function getLang(){
 
+	if( 'en' == getParameterByName('setLng') ) return 'en';
+	if( 'ja' == getParameterByName('setLng') ) return 'ja';
+
+	if( 'en' == window.i18n.lng() ) return 'en';
+	if( 'en-US' == window.i18n.lng() ) return 'en';
+
+	return 'ja';
+}
 
 $(document).ready(function() {
 
@@ -573,9 +582,7 @@ function start()
 	if (lng=='it'||lng=='pt'||lng=='es') {
 		history_dialog = "load_personal_history_dialog_backup.html";
 	}
-	if (lng=='ja') {
-		history_dialog = "load_personal_history_dialog_ja.html";
-	}
+	history_dialog = "load_personal_history_dialog_ja.html";
 
 	$("#load_personal_history_dialog").load (history_dialog, function () {
 		bind_load_personal_history_button();
@@ -597,10 +604,17 @@ function start()
 	$("#load_personal_history_dialog").dialog({
 		title:$.t("fhh_js.load_dialog_title"),
 		position:['middle',0],
+		closeOnEscape: true,
 		autoOpen: false,
-//		height:'auto',
-		height:1024,
-		width:800
+		resizable: false,
+		height:'auto',
+		width:"100%",
+		open : function( event , ui ){
+			$("#main_contents").hide();
+		},
+		close : function( event , ui ){
+			$("#main_contents").show();
+		}
 	});
 
 	// This page lets you save a history
@@ -655,6 +669,8 @@ function start()
 		if (isiPad) {
 			$(".savePersonalInfoFromFile").remove();
 		};
+		preparate_compensation_dialog();
+		bind_compensate_information_submit_button_action();
 
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
 		i18n.init(option, function () {
@@ -728,6 +744,7 @@ function start()
 	});
 
 	$("#showQofhScoreDetail").on("click", function() {
+		build_qof_family_history_data_table();
 		$("#quality_of_family_history_score_dialog").dialog('open').position("center top");
 	});
 
@@ -761,6 +778,7 @@ function start()
 		// ダイアログを開く前に、リスク計算に最低限必要な情報が登録されているかチェック
 		var checkResult = checkNecessaryItemsForLifestyleScore();
 
+		LifeStyleScoreDetailDialogController.refresh();
 		// 不足していれば(=false)、その項目の入力フォームを表示
 		if(checkResult) {
 			$("#lifestylescore_compensational_block").hide();
@@ -786,14 +804,14 @@ function start()
 	});
 
 	// リスク計算不足要素入力ダイアログ
-	$("#compensate_information_dialog").load ("compensate_information_dialog.html", function () {
-		preparate_compensation_dialog();
-		bind_compensate_information_submit_button_action();
-		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
-		i18n.init(option, function () {
-			$(".translate").i18n();
-		});
-	});
+	// $("#compensate_information_dialog").load ("compensate_information_dialog.html", function () {
+	// 	preparate_compensation_dialog();
+	// 	bind_compensate_information_submit_button_action();
+	// 	var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+	// 	i18n.init(option, function () {
+	// 		$(".translate").i18n();
+	// 	});
+	// });
 
 	// 家系図印刷
 	$("#familyTable").dialog({
@@ -822,14 +840,14 @@ function start()
 	});
 
 	// compensation dialog
-	$("#compensate_information_dialog").dialog({
-		title: "リスク計算不足項目入力",
-		position: ['top',0],
-		autoOpen: false,
-		resizable: false,
-		height: 'auto',
-		width: ['96%']
-	});
+	// $("#compensate_information_dialog").dialog({
+	// 	title: "リスク計算不足項目入力",
+	// 	position: ['top',0],
+	// 	autoOpen: false,
+	// 	resizable: false,
+	// 	height: 'auto',
+	// 	width: ['96%']
+	// });
 
 //	 Dead Code
 //     family pedigree diagram dialog
@@ -940,8 +958,6 @@ function start()
 		}
 	});
 
-
-
 	// Hide or show the right initial buttons
 	$("#create_new_personal_history_button").show().on("click", bind_create_new_personal_history_button_action);
 //	$("#save_personal_history_button").show().on("click", bind_save_personal_history_button_action);
@@ -963,31 +979,19 @@ function start()
 // Check to see if there are any specific actions
 	if (getParameterByName("action") == 'load') {
 
-		personal_information = {"name":"あなた","twin_status":"NO","prefectures":null,"Health History":[],"flg_race_ethnic":1,"id":"a8b86875-9e48-4048-acd9-33b68400de59","gender":"MALE","date_of_birth":"1962/04/01","adopted":false,"height":180,"height_unit":"centimeters","weight":"70","weight_unit":"kilogram","month_of_birth":"4","year_of_birth":"1962","birth_order":1,"living_prefectures":"0000","waist":"66","waist_unit":"centimeters","hip":"","hip_unit":"centimeters","training_strength":"中程度","training_count_for_training_at_week":"1","training_time_for_training_at_week":"10","systolic_blood_pressure":"under_119","diastolic_blood_pressure":"79_or_less","fasting_blood_glucose_lebel":"99_or_less","occasionally_blood_glucose_lebel":"139_or_less","ogtt_blood_glucose_lebel":"139_or_less","hba1c":"under65","hdl_cholesterol":"less_than_40","ldl_cholesterol":"less_than_100","last_diagnosis_year":null,"last_diagnosis_month":null,"race":{"American Indian or Alaska Native":false,"Asian":true,"Black or African-American":false,"Native Hawaiian or Other Pacific Islander":false,"White":false,"Asian Indian":false,"Chinese":false,"Filipino":false,"Japanese":true,"Korean":false,"Vietnamese":false,"Other Asian":false,"Unknown Asian":false,"Chamorro":false,"Guamanian":false,"Native Hawaiian":false,"Samoan":false,"Unknown South Pacific Islander":false},"ethnicity":{"Hispanic or Latino":false,"Ashkenazi Jewish":false,"Not Hispanic or Latino":false,"Central American":false,"Cuban":false,"Dominican":false,"Mexican":false,"Other Hispanic":false,"Puerto Rican":false,"South American":false},"father":{"gender":"MALE","id":"da79a12a-84ea-4e5b-8e04-e3c4abd881ca","Health History":[],"name":"あなたの父","relationship":"father"},"mother":{"gender":"FEMALE","id":"b65ed6b8-0ce4-4dc5-ac05-aadb472bb14d","Health History":[],"name":"あなたの母","relationship":"mother","birth_order":1},"maternal_grandfather":{"gender":"MALE","id":"321b373f-7cfb-4cfc-869f-89d0ce436d14","Health History":[],"name":"あなたの母方の祖父","relationship":"maternal_grandfather"},"maternal_grandmother":{"gender":"FEMALE","id":"1abfa341-73a2-4445-ab84-a05b7b062f9d","Health History":[],"name":"あなたの母方の祖母","relationship":"maternal_grandmother"},"paternal_grandfather":{"gender":"MALE","id":"30ed578d-ebee-4643-9b82-78e15e5c902e","Health History":[],"name":"あなたの父方の祖父","relationship":"paternal_grandfather"},"paternal_grandmother":{"gender":"FEMALE","id":"e7c4a26c-92b3-4732-83eb-11645d886b32","Health History":[],"name":"あなたの父方の祖母","relationship":"paternal_grandmother"},"created_date":"2020/04/28 21:27:19","smoker":"1","training_family":"1","take_antihypertensive":"false","take_hypoglycemic":"false","maternal_aunt_0":{"gender":"FEMALE","name":"あなたの母方のおば","relationship":"aunt","flg_race_ethnic":1,"id":"be5ea431-4bb4-4f2e-bf0b-805be86a6dea","parent_id":"","adopted":false,"prefectures":"0001","living_prefectures":null,"birth_order":2,"is_alive":"unknown","training_strength":null,"training_count_for_training_at_week":"","training_time_for_training_at_week":"","Health History":[],"race":{"American Indian or Alaska Native":false,"Asian":true,"Black or African-American":false,"Native Hawaiian or Other Pacific Islander":false,"White":false,"Asian Indian":false,"Chinese":false,"Filipino":false,"Japanese":true,"Korean":false,"Vietnamese":false,"Other Asian":false,"Unknown Asian":false,"Chamorro":false,"Guamanian":false,"Native Hawaiian":false,"Samoan":false,"Unknown South Pacific Islander":false},"ethnicity":{"Hispanic or Latino":false,"Ashkenazi Jewish":false,"Not Hispanic or Latino":false,"Central American":false,"Cuban":false,"Dominican":false,"Mexican":false,"Other Hispanic":false,"Puerto Rican":false,"South American":false}}};
+		reset_personal_information();
+
+		if( location.hostname == "localhost" ){
+			// personal_information = {"name":"あなた","twin_status":"NO","prefectures":null,"Health History":[],"flg_race_ethnic":1,"id":"a8b86875-9e48-4048-acd9-33b68400de59","gender":"MALE","date_of_birth":"1962/04/01","adopted":false,"height":180,"height_unit":"centimeters","weight":"70","weight_unit":"kilogram","month_of_birth":"4","year_of_birth":"1962","birth_order":1,"living_prefectures":"0000","waist":"66","waist_unit":"centimeters","hip":"","hip_unit":"centimeters","training_strength":"中程度","training_count_for_training_at_week":"1","training_time_for_training_at_week":"10","systolic_blood_pressure":"under_119","diastolic_blood_pressure":"79_or_less","fasting_blood_glucose_lebel":"99_or_less","occasionally_blood_glucose_lebel":"139_or_less","ogtt_blood_glucose_lebel":"139_or_less","hba1c":"under65","hdl_cholesterol":"less_than_40","ldl_cholesterol":"less_than_100","last_diagnosis_year":null,"last_diagnosis_month":null,"race":{"American Indian or Alaska Native":false,"Asian":true,"Black or African-American":false,"Native Hawaiian or Other Pacific Islander":false,"White":false,"Asian Indian":false,"Chinese":false,"Filipino":false,"Japanese":true,"Korean":false,"Vietnamese":false,"Other Asian":false,"Unknown Asian":false,"Chamorro":false,"Guamanian":false,"Native Hawaiian":false,"Samoan":false,"Unknown South Pacific Islander":false},"ethnicity":{"Hispanic or Latino":false,"Ashkenazi Jewish":false,"Not Hispanic or Latino":false,"Central American":false,"Cuban":false,"Dominican":false,"Mexican":false,"Other Hispanic":false,"Puerto Rican":false,"South American":false},"father":{"gender":"MALE","id":"da79a12a-84ea-4e5b-8e04-e3c4abd881ca","Health History":[],"name":"あなたの父","relationship":"father"},"mother":{"gender":"FEMALE","id":"b65ed6b8-0ce4-4dc5-ac05-aadb472bb14d","Health History":[],"name":"あなたの母","relationship":"mother","birth_order":1},"maternal_grandfather":{"gender":"MALE","id":"321b373f-7cfb-4cfc-869f-89d0ce436d14","Health History":[],"name":"あなたの母方の祖父","relationship":"maternal_grandfather"},"maternal_grandmother":{"gender":"FEMALE","id":"1abfa341-73a2-4445-ab84-a05b7b062f9d","Health History":[],"name":"あなたの母方の祖母","relationship":"maternal_grandmother"},"paternal_grandfather":{"gender":"MALE","id":"30ed578d-ebee-4643-9b82-78e15e5c902e","Health History":[],"name":"あなたの父方の祖父","relationship":"paternal_grandfather"},"paternal_grandmother":{"gender":"FEMALE","id":"e7c4a26c-92b3-4732-83eb-11645d886b32","Health History":[],"name":"あなたの父方の祖母","relationship":"paternal_grandmother"},"created_date":"2020/04/28 21:27:19","smoker":"1","training_family":"1","take_antihypertensive":"false","take_hypoglycemic":"false","maternal_aunt_0":{"gender":"FEMALE","name":"あなたの母方のおば","relationship":"aunt","flg_race_ethnic":1,"id":"be5ea431-4bb4-4f2e-bf0b-805be86a6dea","parent_id":"","adopted":false,"prefectures":"0001","living_prefectures":null,"birth_order":2,"is_alive":"unknown","training_strength":null,"training_count_for_training_at_week":"","training_time_for_training_at_week":"","Health History":[],"race":{"American Indian or Alaska Native":false,"Asian":true,"Black or African-American":false,"Native Hawaiian or Other Pacific Islander":false,"White":false,"Asian Indian":false,"Chinese":false,"Filipino":false,"Japanese":true,"Korean":false,"Vietnamese":false,"Other Asian":false,"Unknown Asian":false,"Chamorro":false,"Guamanian":false,"Native Hawaiian":false,"Samoan":false,"Unknown South Pacific Islander":false},"ethnicity":{"Hispanic or Latino":false,"Ashkenazi Jewish":false,"Not Hispanic or Latino":false,"Central American":false,"Cuban":false,"Dominican":false,"Mexican":false,"Other Hispanic":false,"Puerto Rican":false,"South American":false}}};
+			// personal_information = {"id":"cf3abeed-bdd8-4bfa-a","name":"あなた","gender":"MALE","date_of_birth":"1952/03/01","prefectures":"0002","living_prefectures":"0003","twin_status":"NO","adopted":"false","month_of_birth":"3","year_of_birth":"1952","birth_order":"1","dietary_frequency_to_drink_in_week":"0-2_times_or_less","flg_race_ethnic":"1","Health History":[{"Disease Name":"Cancer","Detailed Disease Name":"食道がん","Age At Diagnosis":"early_twenties","Disease Code":"SNOMED_CT-363402007"}],"weight_unit":"kilogram","waist_unit":"centimeters","hip_unit":"centimeters","father":{"id":"960b83f5-8b5c-4585-aeee-94a71c9887fd","name":"あなたの父","gender":"MALE","relationship":"father"},"mother":{"id":"8dc1fba5-267f-4bff-a387-936ca1c878d8","name":"あなたの母","gender":"FEMALE","relationship":"mother"},"paternal_grandfather":{"id":"cfb7d150-ad43-4953-b40b-c093c3020196","name":"あなたの父方の祖父","gender":"MALE","relationship":"paternal_grandfather"},"paternal_grandmother":{"id":"5d9b01a6-21f2-46c3-ba93-e0486e76fef9","name":"あなたの父方の祖母","gender":"FEMALE","relationship":"paternal_grandmother"},"maternal_grandfather":{"id":"ed2fd10b-4851-4c64-a94d-237bad7d8971","name":"あなたの母方の祖父","gender":"MALE","relationship":"maternal_grandfather"},"maternal_grandmother":{"id":"f6a721f3-4be1-4671-a619-d0a796688352","name":"あなたの母方の祖母","gender":"FEMALE","relationship":"maternal_grandmother"},"son_0":{"id":"29f00d95-6609-47a3-90fe-1949d4a3ab68","name":"あなたの息子ようしハイ","gender":"MALE","prefectures":"0002","adopted":"true","birth_order":"1","training_count_for_training_at_week":"","training_time_for_training_at_week":"","flg_race_ethnic":"1","relationship":"son","is_alive":"unknown","parent_id":""},"son_1":{"id":"852e6efb-9834-4313-b731-bcc4d122c362","name":"あなたの息子","gender":"MALE","birth_order":"2","relationship":"son"},"sister_0":{"id":"2680eeed-7f12-4822-b354-a60112962048","name":"あなたの姉妹","gender":"FEMALE","birth_order":"3","relationship":"sister"},"sister_1":{"id":"328a78ac-4b4b-4827-b634-b84a6a26f4fb","name":"あなたの姉妹","gender":"FEMALE","birth_order":"4","relationship":"sister"},"brother_0":{"id":"e42e0eeb-b0dc-4c46-b560-d61da84b7f51","name":"あなたの兄弟","gender":"MALE","birth_order":"2","flg_race_ethnic":"1","relationship":"brother"},"maternal_aunt_0":{"id":"f86162d2-bfac-4474-9903-de3ae0b1d114","name":"あなたの母方のおば","gender":"FEMALE","relationship":"aunt"},"maternal_aunt_1":{"id":"7c60883a-575c-4a5d-bb33-a5956d440a2b","name":"あなたの母方のおば","gender":"FEMALE","relationship":"aunt"},"maternal_uncle_0":{"id":"4563af0b-4e89-4a57-8e70-1b3c28fa37a8","name":"あなたの母方のおじ","gender":"MALE","relationship":"uncle"},"maternal_uncle_1":{"id":"0a85dfc3-0539-415a-8f56-67a41748afaa","name":"あなたの母方のおじ","gender":"MALE","relationship":"uncle"},"paternal_aunt_0":{"id":"64542476-5687-4426-b98e-2c18ec999b00","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_1":{"id":"c581bd43-45c4-4e13-b70d-cc611be5989b","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_2":{"id":"61e8b7e3-4584-4870-8652-5cb25e57ea9a","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_3":{"id":"28c4b45f-8a0d-4712-8b5d-ec59da102e14","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_uncle_0":{"id":"0105afe7-741d-4fec-9f3f-e54ffea16dd0","name":"あなたの父方のおじ","gender":"MALE","relationship":"uncle"},"paternal_uncle_1":{"id":"1579b627-d8f7-4189-bcf8-1daf4b6fb7b3","name":"あなたの父方のおじ","gender":"MALE","relationship":"uncle"}};
+			personal_information = {"id":"cf3abeed-bdd8-4bfa-a","name":"あなた","gender":"MALE","date_of_birth":"1952/03/01","prefectures":"0002","living_prefectures":"0003","twin_status":"NO","adopted":"false","month_of_birth":"3","year_of_birth":"1952","birth_order":"1","dietary_frequency_to_drink_in_week":"0-2_times_or_less","flg_race_ethnic":"1","Health History":[{"Disease Name":"Cancer","Detailed Disease Name":"食道がん","Age At Diagnosis":"early_twenties","Disease Code":"SNOMED_CT-363402007"}],"weight_unit":"kilogram","waist_unit":"centimeters","hip_unit":"centimeters","father":{"id":"960b83f5-8b5c-4585-aeee-94a71c9887fd","name":"あなたの父","gender":"MALE","relationship":"father"},"mother":{"id":"8dc1fba5-267f-4bff-a387-936ca1c878d8","name":"あなたの母","gender":"FEMALE","relationship":"mother"},"paternal_grandfather":{"id":"cfb7d150-ad43-4953-b40b-c093c3020196","name":"あなたの父方の祖父","gender":"MALE","relationship":"paternal_grandfather"},"paternal_grandmother":{"id":"5d9b01a6-21f2-46c3-ba93-e0486e76fef9","name":"あなたの父方の祖母","gender":"FEMALE","relationship":"paternal_grandmother"},"maternal_grandfather":{"id":"ed2fd10b-4851-4c64-a94d-237bad7d8971","name":"あなたの母方の祖父","gender":"MALE","relationship":"maternal_grandfather"},"maternal_grandmother":{"id":"f6a721f3-4be1-4671-a619-d0a796688352","name":"あなたの母方の祖母","gender":"FEMALE","relationship":"maternal_grandmother"},"son_0":{"id":"29f00d95-6609-47a3-90fe-1949d4a3ab68","name":"あなたの息子ようしハイ","gender":"MALE","prefectures":"0002","adopted":"true","birth_order":"1","training_count_for_training_at_week":"","training_time_for_training_at_week":"","flg_race_ethnic":"1","relationship":"son","is_alive":"unknown","parent_id":""},"son_1":{"id":"852e6efb-9834-4313-b731-bcc4d122c362","name":"あなたの息子","gender":"MALE","birth_order":"2","relationship":"son"},"sister_0":{"id":"2680eeed-7f12-4822-b354-a60112962048","name":"あなたの姉妹","gender":"FEMALE","birth_order":"3","relationship":"sister"},"sister_1":{"id":"328a78ac-4b4b-4827-b634-b84a6a26f4fb","name":"あなたの姉妹","gender":"FEMALE","birth_order":"4","relationship":"sister"},"brother_0":{"id":"e42e0eeb-b0dc-4c46-b560-d61da84b7f51","name":"あなたの兄弟","gender":"MALE","birth_order":"2","flg_race_ethnic":"1","relationship":"brother"},"maternal_aunt_0":{"id":"f86162d2-bfac-4474-9903-de3ae0b1d114","name":"あなたの母方のおば","gender":"FEMALE","relationship":"aunt"},"maternal_aunt_1":{"id":"7c60883a-575c-4a5d-bb33-a5956d440a2b","name":"あなたの母方のおば","gender":"FEMALE","relationship":"aunt"},"maternal_uncle_0":{"id":"4563af0b-4e89-4a57-8e70-1b3c28fa37a8","name":"あなたの母方のおじ","gender":"MALE","relationship":"uncle"},"maternal_uncle_1":{"id":"0a85dfc3-0539-415a-8f56-67a41748afaa","name":"あなたの母方のおじ","gender":"MALE","relationship":"uncle"},"paternal_aunt_0":{"id":"64542476-5687-4426-b98e-2c18ec999b00","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_1":{"id":"c581bd43-45c4-4e13-b70d-cc611be5989b","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_2":{"id":"61e8b7e3-4584-4870-8652-5cb25e57ea9a","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_3":{"id":"28c4b45f-8a0d-4712-8b5d-ec59da102e14","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_uncle_0":{"id":"0105afe7-741d-4fec-9f3f-e54ffea16dd0","name":"あなたの父方のおじ","gender":"MALE","relationship":"uncle"},"paternal_uncle_1":{"id":"1579b627-d8f7-4189-bcf8-1daf4b6fb7b3","name":"あなたの父方のおじ","gender":"MALE","relationship":"uncle"}};
+		}
+	
 		build_family_history_data_table();
-		// TODO Load From XML File Dialog
-
-
-		// 		// DBの情報を読み込み
-// 		$.get("../../operation/load")
-// 			.done(function(data, textStatus, jqXHR){
-// 				if( data === jqXHR.responseJSON ){
-// 					personal_information = data;
-// 					build_family_history_data_table();
-// 				}else{
-// 					reset_personal_information();
-// 					build_family_history_data_table();
-// 					$("#add_personal_information_dialog").dialog("open");
-// //					$("#load_personal_history_dialog").dialog("open");
-// 				}
-// 			})
-// 			.fail(function(){
-// 				reset_personal_information();
-// 				build_family_history_data_table();
-// 				$("#add_personal_information_dialog").dialog("open");
-// //				$("#load_personal_history_dialog").dialog("open");
-// 			});
-
+		if( location.hostname != "localhost" ){
+			$("#load_personal_history_dialog").dialog("open");
+		}
+	
 	}	else if (getParameterByName("action") == 'create') {
 		reset_personal_information();
 			build_family_history_data_table();
@@ -1290,7 +1294,7 @@ function bind_compensate_information_submit_button_action(){
 function preparate_lifestyle_score_dialog(){
 
 	// 喫煙状況
-	$('input[name="compensation_smoker"]').change(function() {
+	$('input[name="lifestylescore_compensation_smoker"]').change(function() {
  	if ($('input[name="lifestylescore_compensation_smoker"]:checked').val() != "5") {
  		$('input[name="lifestylescore_compensation_number_of_cigarettes_per_day"]').prop('checked',false);
  		$('input[name="lifestylescore_compensation_number_of_cigarettes_per_day"]').prop('disabled',true);
@@ -1322,31 +1326,31 @@ function preparate_lifestyle_score_dialog(){
 
 
 	// 身長
-	$("#compensate_height").change(function() {
-		var hgt = parseInt( $('#compensation_height_centimeters').val() );
+	$("#lifestylescore__height").change(function() {
+		var hgt = parseInt( $('#lifestylescore_compensation_height_centimeters').val() );
 		if (isNaN(hgt)) hgt = 0;
 
 		personal_information['height'] = hgt;
 		personal_information['height_unit'] = "centimeters";
- });
+ 	});
 
 	// 体重
-	$("#compensate_weight").change(function() {
-		personal_information['weight'] = $('#compensation_weight').val();
+	$("#lifestylescore__weight").change(function() {
+		personal_information['weight'] = $('#lifestylescore_compensation_weight').val();
 	});
 
 	// 喫煙
-	$("#compensate_smoker").change(function() {
-		personal_information['smoker'] = $('input[name="compensation_smoker"]:checked').val();
-		personal_information['number_of_cigarettes_per_day'] = $('input[name="compensation_number_of_cigarettes_per_day"]:checked').val();
+	$("#lifestylescore__smoker").change(function() {
+		personal_information['smoker'] = $('input[name="lifestylescore_compensation_smoker"]:checked').val();
+		personal_information['number_of_cigarettes_per_day'] = $('input[name="lifestylescore_compensation_number_of_cigarettes_per_day"]:checked').val();
 	});
 
 	// 運動
-	$("#compensate_training").change(function() {
-		personal_information['training_family'] = $('input[name="compensation_training"]:checked').val();
-		personal_information['training_strength'] = $('#compensation_training_strength').val();
-		personal_information['training_count_for_training_at_week'] = $('#compensation_count_for_training_at_week').val();
-		personal_information['training_time_for_training_at_week'] = $('#compensation_time_for_training_at_week').val();
+	$("#lifestylescore_compensate_training").change(function() {
+		personal_information['training_family'] = $('input[name="lifestylescore_compensation_training"]:checked').val();
+		personal_information['training_strength'] = $('#lifestylescore_compensation_training_strength').val();
+		personal_information['training_count_for_training_at_week'] = $('#lifestylescore_compensation_count_for_training_at_week').val();
+		personal_information['training_time_for_training_at_week'] = $('#lifestylescore_compensation_time_for_training_at_week').val();
 	});
 
 }
@@ -2035,9 +2039,9 @@ function bind_personal_submit_button_action () {
 			// Resort Birth order
 			BirthOrderUtil.ResortBirthOrder( personal_information, "self" ,isUp);
 
-			update_personal_history_row();
-
-			update_birth_order_col();
+			build_family_history_data_table()
+			// update_personal_history_row();
+			// update_birth_order_col();
 
 			ScoreCardController.refresh();
 
@@ -2542,9 +2546,9 @@ function bind_family_member_submit_button_action () {
 		// Resort Birth order
 		BirthOrderUtil.ResortBirthOrder( personal_information, current_relationship, isUp );
 
-		update_family_history_row(current_relationship, family_member_information);
-
-		update_birth_order_col();
+		build_family_history_data_table();
+		// update_family_history_row(current_relationship, family_member_information);
+		// update_birth_order_col();
 
 		ScoreCardController.refresh();
 
@@ -2969,13 +2973,6 @@ class ScoreCardController{
 
 }
 
-function calcLifestyleScoreAndShow() {
-	// ライフスタイルスコア
-	var lifestyle_score_class = showLifeStyleScore();
-
-	showScoreDetail(stroke_score_class, lifestyle_score_class);
-}
-
 function riskCalcAndShow() {
 	// 糖尿病
 	var drc_calcflag = drc_checkNecessaryItems();
@@ -3006,10 +3003,15 @@ function riskCalcAndShow() {
 
 	// 脳卒中リスクスコア
 	var stroke_score_class = showStrokeRisk();
+	showScoreDetail(stroke_score_class);
+}
+
+function calcLifestyleScoreAndShow() {
+	LifeStyleScoreDetailDialogController.refresh();
 }
 
 // リスク計算内訳反映
-function showScoreDetail(stroke_score_class, lifestyle_score_class) {
+function showScoreDetail(stroke_score_class) {
 
 	// リスク計算内訳表示
 
@@ -3045,13 +3047,6 @@ function showScoreDetail(stroke_score_class, lifestyle_score_class) {
 	$("#stroke_score_diabetes").text(stroke_score.diabetes);
 	$("#stroke_score_total").text(stroke_score_class.totalScore);
 
-	// ライフスタイルスコア
-	var lifestyle_score = lifestyle_score_class.score;
-	$("#lifestyle_score_isSmoker").text(lifestyle_score.smoker);
-	$("#lifestyle_score_bmi").text(lifestyle_score.bmi);
-	$("#lifestyle_score_training").text(lifestyle_score.trainingFamily);
-	$("#lifestyle_score_diabetes").text(lifestyle_score.dietary);
-	$("#lifestyle_score_total").text(lifestyle_score_class.toatalScore);
 }
 
 //  Need to do a deep copy of the PI data to support IE10 dropping data when window closes
@@ -3094,16 +3089,83 @@ function getRelationshipIds( relations, pi ) {
 
 	return relationships;
 }
-
 function displayRelationships(table, relations, pi ){
+	displayRelationships(table, relations, pi, false );
+}
+
+function displayRelationships(table, relations, pi, is_sortable ){
+	displayRelationships(table, relations, pi, false, false );
+}
+
+function displayRelationships(table, relations, pi, is_sortable, is_sort_only ){
 	// get relation id
 	var displayRelationshipIds = getRelationshipIds( relations, pi );
 	// display
 	displayRelationshipIds.forEach( function( tr ) {
-		add_new_family_history_row(table, pi[tr], $.t("fhh_js." + pi[tr].relationship), tr, true);
+		add_new_family_history_row(table, pi[tr], $.t("fhh_js." + pi[tr].relationship), tr, true, is_sortable, is_sort_only);
 	});
 }
 
+function getSortableTbody(){
+	var tbody = $('<tbody>');
+	$(tbody).sortable({update: function(ev, ui){
+			var tobeArray = ui.item.closest('.ui-sortable').sortable("toArray");
+			var updateArray = ui.item.closest('.ui-sortable').sortable("toArray");
+
+			for( let i = 0; i < tobeArray.length; i++ ){
+				var target = tobeArray[i];
+				var targetItem = ui.item.closest('.ui-sortable').find('#' + target);
+				var birthOrder = targetItem.find('.birthOrder');
+
+				if( target == "self" ){
+					personal_information[ "birth_order" ] = i + 1;
+					updateArray[i] = "self";
+					birthOrder.empty();
+					birthOrder.append(getBirthOrderElement(personal_information, true));
+					continue;
+				}
+				personal_information[ target ].birth_order = i + 1;
+				updateArray[i] = target;
+				birthOrder.empty();
+				birthOrder.append(getBirthOrderElement(personal_information[target], true));
+			}
+			build_family_history_data_table();
+		}
+	});
+
+	$(tbody).disableSelection();
+	return tbody;
+}
+
+function sortTbody(tbody){
+		// 並べ替え
+	// シリアライズ
+	var currentArray = $(tbody).sortable("toArray")
+	var updated = {};
+	console.log( currentArray );
+
+	for( let i = 0; i < currentArray.length; i ++ ){
+		var target = currentArray[i];
+		var order = ( target == "self" )?
+			personal_information.birth_order
+			: personal_information[ currentArray[i] ].birth_order;
+		updated[order] = target;
+	}
+	// ソート
+	for(key of Object.keys(updated).sort()) {
+		
+		console.log(`${key} : ${updated[key]}`);
+		var prevKey = Number(key)-1;
+		var nextKey = Number(key)+1;
+		$(tbody).find('#' + updated[key] ).after(
+			tbody.find('#' + updated[nextKey] )
+	   );
+		$(tbody).find('#' + updated[key] ).before(
+			 tbody.find('#' + updated[prevKey] )
+		);
+	}
+	return tbody;
+}
 
 function build_family_history_data_table () {
 
@@ -3115,90 +3177,268 @@ function build_family_history_data_table () {
 	add_family_history_header_row(table);
 
 	// Self title
-	add_new_family_history_row_title(table, $.t("family-t.self") + " <span class='small'>* " + $.t("family-t.your_siblings") + "</span>");
-	add_personal_history_row(table, personal_information['name'], $.t("fhh_js.self"), "self", true, false);
-
+	var tbody = $('<tbody>');
+	add_new_family_history_row_title(tbody, $.t("family-t.self") + " <span class='small'>* " + $.t("family-t.your_siblings") + "</span>");
+	add_personal_history_row(tbody, false);
+	table.append(tbody);
 
 	// Brother and sister
 	if( hasRelations( [ 'brother', 'sister' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.sibling") + " <span class='small'>* " + $.t("family-t.bo_you") + "</span>");
-		displayRelationships(table, [ 'brother', 'sister' ], personal_information );
+		var tbody = $('<tbody>');
+		add_new_family_history_row_title(tbody, $.t("family-t.sibling") + " <span class='small'>* " + $.t("family-t.bo_you") + "</span>");
+		table.append(tbody);
+		var tbody = getSortableTbody();
+		displayRelationships(tbody, [ 'brother', 'sister' ], personal_information, true );
+		add_personal_history_row(tbody, true);
+		table.append(sortTbody(tbody));
 	}
 
 	// parents
-	add_new_family_history_row_title(table, $.t("family-t.parents") + " <span class='small'>* " + $.t("family-t.bo_parent_brother") + "</span>");
+	var tbody = $('<tbody>');
+	add_new_family_history_row_title(tbody, $.t("family-t.parents") + " <span class='small'>* " + $.t("family-t.bo_parent_brother") + "</span>");
 
 	if( typeof personal_information.father != "undefined")
-		add_new_family_history_row(table, personal_information.father, $.t("fhh_js.father"), "father", false);
+		add_new_family_history_row(tbody, personal_information.father, $.t("fhh_js.father"), "father", false);
 
 	if( typeof personal_information.mother != "undefined")
-		add_new_family_history_row(table, personal_information.mother, $.t("fhh_js.mother"), "mother", false);
+		add_new_family_history_row(tbody, personal_information.mother, $.t("fhh_js.mother"), "mother", false);
+
+	table.append(tbody);
 
 	// children
 	if( hasRelations( [ 'son', 'daughter' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.child"));
-		displayRelationships(table, [ 'son', 'daughter' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, $.t("family-t.child"));
+		table.append(tbody);
+		var tbody = getSortableTbody();
+		displayRelationships(tbody, [ 'son', 'daughter' ], personal_information, true );
+		table.append(sortTbody(tbody));
 	}
 
 	// おい（甥）・めい（姪）
 	if( hasRelations( [ 'niece', 'nephew' ], personal_information ) ){
-		add_new_family_history_row_title(table, "おい（甥）・めい（姪） <span class='small'>* 親（あなたの兄弟姉妹）の出生順も書いてください。</span>");
-		displayRelationships(table, [ 'niece', 'nephew' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, "おい（甥）・めい（姪） <span class='small'>* 親（あなたの兄弟姉妹）の出生順も書いてください。</span>");
+		table.append(tbody);
+		var tbody = getSortableTbody();
+		displayRelationships(tbody, [ 'niece', 'nephew' ], personal_information, true );
+		table.append(sortTbody(tbody));
 	}
 
 	// 父方 おじ・おば
 	if( hasRelations( [ 'paternal_uncle', 'paternal_aunt' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.paternal_uncle_and_aunt") + " <span class='small'>* " + $.t("family-t.bo_father") + "</span>");
-		displayRelationships(table, [ 'paternal_uncle', 'paternal_aunt' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, $.t("family-t.paternal_uncle_and_aunt") + " <span class='small'>* " + $.t("family-t.bo_father") + "</span>");
+		table.append(tbody);
+		var tbody = getSortableTbody();
+		displayRelationships(tbody, [ 'paternal_uncle', 'paternal_aunt' ], personal_information, true );
+		displayRelationships(tbody, [ 'father' ], personal_information, true, true );
+		table.append(sortTbody(tbody));
 	}
 
 	// 母方 おじ・おば
 	if( hasRelations( [ 'maternal_uncle', 'maternal_aunt' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.maternal_uncle_and_aunt") + " <span class='small'>* " + $.t("family-t.bo_mother") + "</span>");
-		displayRelationships(table, [ 'maternal_uncle', 'maternal_aunt' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, $.t("family-t.maternal_uncle_and_aunt") + " <span class='small'>* " + $.t("family-t.bo_mother") + "</span>");
+		table.append(tbody);
+		var tbody = getSortableTbody();
+		displayRelationships(tbody, [ 'maternal_uncle', 'maternal_aunt' ], personal_information, true );
+		displayRelationships(tbody, [ 'mother' ], personal_information, true, true );
+		table.append(sortTbody(tbody));
 	}
 
 	// 父方 祖父母
 	if( hasRelations( [ 'paternal_grandfather', 'paternal_grandmother' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.paternal_grandparents"));
-		add_new_family_history_row(table, personal_information.paternal_grandfather, $.t("fhh_js.paternal_grandfather"), "paternal_grandfather", false);
-		add_new_family_history_row(table, personal_information.paternal_grandmother, $.t("fhh_js.paternal_grandmother"), "paternal_grandmother", false);
+		var tbody = $('<tbody>');
+		add_new_family_history_row_title(tbody, $.t("family-t.paternal_grandparents"));
+		add_new_family_history_row(tbody, personal_information.paternal_grandfather, $.t("fhh_js.paternal_grandfather"), "paternal_grandfather", false);
+		add_new_family_history_row(tbody, personal_information.paternal_grandmother, $.t("fhh_js.paternal_grandmother"), "paternal_grandmother", false);
+		table.append(tbody);
 	}
 
 	// 母方 祖父母
 	if( hasRelations( [ 'maternal_grandfather', 'maternal_grandmother' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.maternal_grandparents"));
-		add_new_family_history_row(table, personal_information.maternal_grandfather, $.t("fhh_js.maternal_grandfather"), "maternal_grandfather", false);
-		add_new_family_history_row(table, personal_information.maternal_grandmother, $.t("fhh_js.maternal_grandmother"), "maternal_grandmother", false);
+		var tbody = $('<tbody>');
+		add_new_family_history_row_title(tbody, $.t("family-t.maternal_grandparents"));
+		add_new_family_history_row(tbody, personal_information.maternal_grandfather, $.t("fhh_js.maternal_grandfather"), "maternal_grandfather", false);
+		add_new_family_history_row(tbody, personal_information.maternal_grandmother, $.t("fhh_js.maternal_grandmother"), "maternal_grandmother", false);
+		table.append(tbody);
 	}
 
 	// 父方 いとこ
 	if( hasRelations( [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.maternal_uncle_and_aunt"));
-		displayRelationships(table, [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, $.t("family-t.maternal_uncle_and_aunt"));
+		table.append(tbody);
+		var tbody = getSortableTbody();
+		displayRelationships(tbody, [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information, true );
+		table.append(sortTbody(tbody));
 	}
 
 	// 母方 いとこ
 	if( hasRelations( [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information ) ){
-		add_new_family_history_row_title(table, $.t("family-t.maternal_uncle_and_aunt"));
-		displayRelationships(table, [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, $.t("family-t.maternal_uncle_and_aunt"));
+		table.append(tbody);
+		var tbody = getSortableTbody();
+		displayRelationships(tbody, [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information, true );
+		table.append(sortTbody(tbody));
 	}
 
 	// 孫
 	if( hasRelations( [ 'grandson', 'granddaughter' ], personal_information ) ){
-		add_new_family_history_row_title(table, "孫");
-		displayRelationships(table, [ 'grandson', 'granddaughter' ], personal_information );
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, "孫");
+		table.append(tbody);
+		var tbody = getSortableTbody();
+		displayRelationships(tbody, [ 'grandson', 'granddaughter' ], personal_information, true );
+		table.append(sortTbody(tbody));
 	}
 	// 書ききれなかった方
-	add_new_family_history_row_title(table, $.t("fhh_js.recently_added"));
+	var tbody = $('<tbody>');
+	add_new_family_history_row_title(tbody, $.t("fhh_js.recently_added"));
+	table.append(tbody);
 
-	$("#history_summary_table").find('tbody').addClass('list-group ui-sortable')
-	$("#history_summary_table").find('tbody').attr( 'id', 'list01');
-	$('#list01').sortable();
-	$( "#list01" ).disableSelection();
+	// $("#history_summary_table").find('tbody').addClass('list-group ui-sortable')
+	// $("#history_summary_table").find('tbody').attr( 'id', 'list01');
+	// $('#list01').sortable();
+	// $( "#list01" ).disableSelection();
 
 	ScoreCardController.refresh();
 }
+
+
+function build_qof_family_history_data_table () {
+
+	var tbody = $("#qofList");
+	tbody.empty();
+
+	// Self 
+	tbody.append(getQofListRow(personal_information));
+
+	// Brother and sister
+	if( hasRelations( [ 'brother', 'sister' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'brother', 'sister' ], personal_information);
+	}
+
+	// parents
+	if( typeof personal_information.father != "undefined")
+		displayRelationshipsForQof(tbody, [ 'father' ], personal_information);
+
+	if( typeof personal_information.mother != "undefined")
+		displayRelationshipsForQof(tbody, [ 'mother' ], personal_information);
+
+	// children
+	if( hasRelations( [ 'son', 'daughter' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'son', 'daughter' ], personal_information);
+	}
+
+	// おい（甥）・めい（姪）
+	if( hasRelations( [ 'niece', 'nephew' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'niece', 'nephew' ], personal_information);
+	}
+
+	// 父方 おじ・おば
+	if( hasRelations( [ 'paternal_uncle', 'paternal_aunt' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'paternal_uncle', 'paternal_aunt' ], personal_information);
+	}
+
+	// 母方 おじ・おば
+	if( hasRelations( [ 'maternal_uncle', 'maternal_aunt' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'maternal_uncle', 'maternal_aunt' ], personal_information);
+	}
+
+	// 父方 祖父母
+	if( hasRelations( [ 'paternal_grandfather', 'paternal_grandmother' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'paternal_grandfather' ], personal_information );
+		displayRelationshipsForQof(tbody, [ 'paternal_grandmother' ], personal_information );
+	}
+
+	// 母方 祖父母
+	if( hasRelations( [ 'maternal_grandfather', 'maternal_grandmother' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'maternal_grandfather' ], personal_information );
+		displayRelationshipsForQof(tbody, [ 'maternal_grandmother' ], personal_information );
+	}
+
+	// 父方 いとこ
+	if( hasRelations( [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information);
+	}
+
+	// 母方 いとこ
+	if( hasRelations( [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information);
+	}
+
+	// 孫
+	if( hasRelations( [ 'grandson', 'granddaughter' ], personal_information ) ){
+		displayRelationshipsForQof(tbody, [ 'grandson', 'granddaughter' ], personal_information);
+	}
+}
+
+function displayRelationshipsForQof(table, relations, pi ){
+	// get relation id
+	var displayRelationshipIds = getRelationshipIds( relations, pi );
+
+	// display
+	displayRelationshipIds.forEach( function( tr ) {
+		add_new_qof_row(table, pi[tr]);
+	});
+}
+
+function add_new_qof_row(table, family_member ) {
+	table.append( getQofListRow(family_member) );
+}
+function getQofList_is_alive( id, is_alive ){
+
+	var radio_id = 'qof_radio_id_' + id;
+	var radio_name = 'qof_radio_name_' + id;
+
+	var ret = "<span>";
+	ret += '<input id="' + radio_id + '_alive" ' + 'name="' + radio_name + '" value="alive" type="radio" />';
+	ret += '<label for="' + radio_id + '_alive"' + ">" + $.t("info_dialog.yes") + "</label>";
+	ret += "</span>";
+
+	ret += '<span>'
+	ret += '<input id="' + radio_id + '_dead" ' + 'name="' + radio_name + '" value="dead" type="radio" />';
+	ret += '<label for="' + radio_id + '_dead"' + ">" + $.t("info_dialog.no") + "</label>";
+	ret += '</label>'
+	ret += "</span>";
+	
+	ret += '<span>'
+	ret += '<input id="' + radio_id + '_unknown" ' + 'name="' + radio_name + '" value="unknown" type="radio" />';
+	ret += '<label for="' + radio_id + '_unknown"' + ">" + $.t("info_dialog.unknown") + "</label>";
+	ret += '</label>'
+	ret += "</span>";
+
+	return ret;
+}
+
+function getQofListRow(pi){
+	var row = $("<tr>");
+
+	// 	お名前
+	row.append("<td class='center nowrap'>" + pi.name + "</td>");
+	// 存命
+	row.append("<td class='center nowrap'>" + getQofList_is_alive(pi.id, pi.is_alive) + "</td>");
+	// 死亡年齢
+	row.append("<td class='center nowrap'>-</td>");
+	// 死因
+	row.append("<td class='center nowrap'>-</td>");
+	// 疾患有無
+	row.append("<td class='center nowrap'>-</td>");
+	// 病気
+	row.append("<td class='center nowrap'>-</td>");
+
+	// 病気詳細
+	row.append("<td class='center nowrap'>-</td>");
+
+	// 発症年齢
+	row.append("<td class='center nowrap'>-</td>");
+
+	return row;
+}
+
 
 function add_family_history_header_row(table) {
 	var header_row = $("<tr>");
@@ -3219,11 +3459,22 @@ function add_family_history_header_row(table) {
 	table.empty().append(head);
 }
 
-
 function getBirthOrderElement(pi){
+	return getBirthOrderElement(pi, false );
+}
+function getBirthOrderElement(pi, sortable){
 	var retval = $("<td class='inforamtion center birthOrder'>");
 	retval.text(getDisplayBirthOrder(pi));
+	if( sortable ){
+		$(retval).append(getSortableIcon());
+	}
 	return retval ;
+}
+
+function getSortableIcon(){
+	var retval = $("<span class='material-icons small-size green-text cursor_pointer '>");
+	retval.text('sort');
+	return retval;
 }
 
 function getDisplayBirthOrder( pi ){
@@ -3261,14 +3512,10 @@ function getHealthHistories( histories ){
 
 	histories.forEach( function( h ){
 		var row = $('<div>');
-		var text = h["Detailed Disease Name"];
 
-//		if( !( typeof text == "undfined") ){
-//
-//		}
-//		if( text.length > 20 )
-//			text = text.substr( 0, 10 ) + "...";
-
+		var text = $.t("diseases:" + h["Disease Code"]);
+		if( text.length == 0 ) text = h["Detailed Disease Name"];
+		
 		text += "(" + $.t("fhh_js." + h["Age At Diagnosis"] ) + ")" ;
 
 		row.text(text);
@@ -3307,16 +3554,24 @@ function getDisplayAge(pi){
 }
 
 function add_personal_history_row(table) {
+	add_personal_history_row(table, false);
+}
+
+function add_personal_history_row(table, is_sort_only) {
 
 	// Html requires that all blank fields have at least 1 char or it will not show border
 	name = 'Self';
 	var new_row = $("<tr class='center information' id='self'></tr>");
 	new_row.addClass("proband");
 
-	new_row.append(getBirthOrderElement(personal_information));
+	new_row.append(getBirthOrderElement(personal_information, is_sort_only));
 
 	var nameColumn_td = $("<td class='center information' id='relatives_name'></td>")
-	var nameColumn_text = $("<a style='cursor:pointer;' name=''>" + escape_html(personal_information.name) + "</a>");
+
+	var nameColumn_text = (is_sort_only) 
+						? escape_html(personal_information.name) 
+						: $("<a style='cursor:pointer;' name=''>" + escape_html(personal_information.name) + "</a>");
+
 	nameColumn_td.append(nameColumn_text);
 	new_row.append(nameColumn_td);
 
@@ -3334,17 +3589,20 @@ function add_personal_history_row(table) {
 	new_row.append(getHealthHistoriesCol(personal_information["Health History"]));
 
 	var update_history_td = $("<td class='information center'>");
-//	var update_history = $("<A class='action update_history'><img style='border:0' src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
-	var update_history = $("<A class='action update_history'><div class='material-icons center green-text icon_shadow2'>edit</div></A>");
-	update_history_td.append(update_history);
 
-	update_history.on("click", function() {
-		updateHistoryDialog('self');
-	});
+	if(!is_sort_only) {
+	//	var update_history = $("<A class='action update_history'><img style='border:0' src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
+		var update_history = $("<A class='action update_history'><div class='material-icons center green-text icon_shadow2'>edit</div></A>");
+		update_history_td.append(update_history);
 
-	nameColumn_text.on("click", function() {
-		updateHistoryDialog('self');
-	});
+		update_history.on("click", function() {
+			updateHistoryDialog('self');
+		});
+
+		nameColumn_text.on("click", function() {
+			updateHistoryDialog('self');
+		});
+	}
 
 	new_row.append(update_history_td);
 
@@ -3362,9 +3620,15 @@ function add_new_family_history_row_title(table, name) {
 }
 
 function add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable) {
+	add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable, false);
+}
 
+function add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable, is_sortable) {
+	add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable, false, false);
+}
 
-
+function add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable, is_sortable, is_sort_only) {
+	
 	// Html requires that all blank fields have at least 1 char or it will not show border
 
 	var name;
@@ -3377,13 +3641,17 @@ function add_new_family_history_row(table, family_member, relationship, relation
 
 	var new_row = $("<tr class='' id='" + relationship_id + "'></tr>");
 	new_row.addClass("proband");
-	var nameColumn_td = $("<td class='center information' id='relatives_name'></td>")
-	var nameColumn_text = $("<a style='cursor:pointer;' name=''>" + name + "</a>");
+	var nameColumn_td = $("<td class='center information' id='relatives_name'></td>");
+	// var nameColumn_text = $("<a style='cursor:pointer;' name=''>" + name + "</a>");
+	var nameColumn_text = (is_sort_only) 
+						? $("<span>" + escape_html(name) + "</span>")
+						: $("<a style='cursor:pointer;' name=''>" + escape_html(name) + "</a>");
+
 	nameColumn_td.append(nameColumn_text);
 	nameColumn_text.attr("relationship_id", relationship_id);
 
 
-	new_row.append(getBirthOrderElement(family_member));
+	new_row.append(getBirthOrderElement(family_member, is_sortable));
 
 	new_row.append(nameColumn_td);
 
@@ -3420,6 +3688,13 @@ function add_new_family_history_row(table, family_member, relationship, relation
 
 	// 病歴
 	new_row.append(getHealthHistoriesCol(family_member["Health History"], family_member));
+
+	if(is_sort_only) {
+		new_row.append("<td class='center action update_history'>&nbsp;</td>");
+		new_row.append("<td class='action center remove_history'>&nbsp;</td>")
+		table.append(new_row);
+		return;
+	}
 
 	if (is_already_defined) {
 
@@ -3511,6 +3786,7 @@ function remove_family_member(relationship_id, confirm_flag) {
 
 		// Resort Birth order
 		BirthOrderUtil.ResortBirthOrder( personal_information, relationship_id, true );
+		build_family_history_data_table();
 		ScoreCardController.refresh();
 	} else {
 		// DO nothing
@@ -3730,7 +4006,7 @@ function build_family_health_information_section() {
 	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);
 	hi_data_entry_row.append($("<td>").append(age_at_diagnosis_select_label).append(age_at_diagnosis_select));
 
-	var add_new_disease_button = $("<button id='family_add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1 '>登録</button>");
+	var add_new_disease_button = $("<button id='family_add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1 '>" + $.t("fhh_js.add")  + "</button>");
 	add_new_disease_button.on('click', add_disease);
 
 	hi_data_entry_row.append($("<td style='text-align:center;'>").append(add_new_disease_button) );
@@ -3819,8 +4095,7 @@ function build_personal_health_information_section() {
 
 	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);
 	hi_data_entry_row.append($("<td></td>").append(age_at_diagnosis_select));
-
-	var add_new_disease_button = $("<button id='add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1'>登録</button>");
+	var add_new_disease_button = $("<button id='add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1'>" + $.t("fhh_js.add")  + "</button>");
 
 	add_new_disease_button.on('click', add_disease);
 
@@ -4269,7 +4544,7 @@ function build_race_ethnicity_section(race_ethnicity, personal_flag) {
 	*							+ "<input name='person.consanguinity' value='true' tabindex='20' id='person_consanguinity' type='checkbox' class='filled-in' /></td>"));
 	*}
 	*/
-	table.append($("<tr class='md_tr'>").append("<td colspan='2'>" + $.t("fhh_js.multiple_races_selectable") + "<span id='warn_japanese' style='display:none;'>日本人アジアにチェックが入っています。異なる場合はチェックを外してください。</span></td>") );
+	table.append($("<tr class='md_tr'>").append("<td colspan='2'>" + $.t("fhh_js.multiple_races_selectable") + "<span id='warn_japanese' style='display:none;'>" + $.t( "fhh_js.default_is_japanese_asia" ) + "</span></td>") );
 	table.append($("<tr class='md_tr'>")
 						.append("<td style='width:150px;'>" + $.t("fhh_js.race") + "</td>")
 						.append(race_checkboxes) );

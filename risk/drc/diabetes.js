@@ -92,7 +92,7 @@ function calcHisayamaScore() {
 function showDiabetesRisk(totalscore) {
 
 	var percentile = "";
-	var filepath = "../risk/result_image/diabetes/";
+	var filepath = "../risk/result_image/diabetes_" + getLang() + "/";
 	var filename = "";
 	var extension = ".png";
 
@@ -113,7 +113,7 @@ function showDiabetesRisk(totalscore) {
 		filename = "score19";
 	}
 
-	$('#risk_range_diabetes').text("最低2.2% ～ 最高17.9%");
+	$('#risk_range_diabetes').text($.t('family-t_risk_range_diabetes.pattern1'));
 	$('#risk_parcentile_diabetes').text(percentile);
 	$('#risk_image_diabetes').attr('src', filepath + filename + extension);
 
@@ -140,22 +140,22 @@ function checkDiabetesRisk(hypo, fasting, occasional, ogtt, hba1c, diabetes){
 
 		// 糖尿病型の判定要因を列挙
 		$(".diabetes_chd_reason").empty();
+		
 		if(fasting){
-			$(".diabetes_chd_reason").append("空腹時血糖値が126以上");
+			$(".diabetes_chd_reason").append($.t("family-t_risk.fasting_blood_glucose_level_is126"));
 		}
 		if(occasional){
 			appendComma();
-			$(".diabetes_chd_reason").append("随時血糖値が200以上");
+			$(".diabetes_chd_reason").append($.t("family-t_risk.blood_glucose_level_is_200"));
 		}
 		if(ogtt){
 			appendComma();
-			$(".diabetes_chd_reason").append("75g OGTT 2時間値が200以上");
+			$(".diabetes_chd_reason").append($.t("family-t_risk.ogtt_two-hour"));
 		}
 		if(hba1c){
 			appendComma();
-			$(".diabetes_chd_reason").append("HbA1cの値が6.5以上");
+			$(".diabetes_chd_reason").append($.t("family-t_risk.HbA1c_value_is_65"));
 		}
-
 	}
 
 }
@@ -215,7 +215,7 @@ function drc_checkNecessaryItems() {
 }
 
 function appendComma(){
-	if($(".diabetes_chd_reason").text().length > 0) $(".diabetes_chd_reason").append("、");
+	if($(".diabetes_chd_reason").text().length > 0) $(".diabetes_chd_reason").append(", ");
 }
 
 function load_age_drc(birthYear, birthMonth, birthDay) {
@@ -413,6 +413,9 @@ function load_diabetes_status(hypoglycemic, fasting, occasional, ogtt, hba1c) {
 
 function load_diabetes_experience(history) {
 	var experience = false;
+
+	if(typeof history == "undefined") return false;
+
 
 	// 糖尿病リスト
 	const diabetesSnomedCodes = [

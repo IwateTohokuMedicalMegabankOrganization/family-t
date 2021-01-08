@@ -1,5 +1,6 @@
 <script src="http://gojs.net/latest/intro/goIntro.js"></script>
 
+<div id="top"></div>
 <table class="infolayer">
 	<tr>
 		<td style="padding-left:5px;background-color:#dfdddd;width:1%;border-style:solid;border-width:1px;">
@@ -8,34 +9,20 @@
 				<li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line1")}}</li>
 				<li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line2_before_anchor1")}} <a href="#diagram_head">{{translate("fhh_family_pedigree","desc_line2_anchor1")}}</a> {{translate("fhh_family_pedigree","desc_line2_before_anchor2")}} <a id="tableAnchor" href="#table_head">{{translate("fhh_family_pedigree","desc_line2_anchor2")}}</a> {{translate("fhh_family_pedigree","desc_line2_after_anchor2")}}</li>
 				<li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line3")}}</li>
-<!-- 				<li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line4")}}</li> -->
 			</ul>
-<!-- 			<ul style="list-style-type:none;padding-left:20px;"> -->
-<!-- 				<li>オプション:</li> -->
-<!-- 				<ul style="list-style-type:none;padding-left:60px;"> -->
-<!-- 					<li> -->
-<!-- 						<input id='bmi' type='checkbox' class='filled-in' name='bmi' value='bmi' onclick='HidePersonalInfo()' checked /> {{translate("fhh_family_pedigree","diagram_options_checkbox1")}}<br /> -->
-<!-- 					</li> -->
-<!-- 					<li> -->
-<!-- 						<input id='names' type='checkbox' class='filled-in' name='names' value='names' onclick='HideNames()' checked /> {{translate("fhh_family_pedigree","diagram_options_checkbox2")}}<br /> -->
-<!-- 					</li> -->
-<!-- 					<li> -->
-<!-- 						<label for='diseaseopts'>家系図で強調する疾患または状態を選択:  </label> -->
-<!-- 						<select id='diseaseopts' onchange='DiseaseDna()'></select> -->
-<!-- 					</li> -->
-<!-- 				</ul> -->
-<!-- 			</ul> -->
 		</td>
 	</tr>
 </table>
 <br />
 <div class="row">
 	<div class="col s6">
-		<h2 id="diagram_head">家系図</h2>
+		<h2 id="diagram_head">{{translate("family-t_pedigree","diagram")}}</h2>
 	</div>
 	<div class="col s6 right-align">
 		<button class="btn-small waves-effect waves-light teal lighten-1" ng-click="close()">{{translate("fhh_family_pedigree","close")}}</button>
-		<a href="#close"><button class="btn-small waves-effect waves-light teal lighten-1">トップ</button></a>
+		<a href="#top"><button class="btn-small waves-effect waves-light teal lighten-1">
+			{{translate("family-t_pedigree","top")}}
+		</button></a>
 	</div>
 </div>
 
@@ -79,10 +66,12 @@
 		</div>
 		<div class="col s6 row">
 			<div class="row">
-				f-treeをダウンロードし、下のボタンでダウンロードしたCSVファイルをf-treeに読み込ませて、家系図を表示します。
+				{{translate("family-t_pedigree","download_f-tree")}}
 			</div>
-			<div class="row center" style="">
-				<button class="btn-small waves-effect waves-light teal lighten-1" id="download_csv" ng-click="bindDownloadCSV()"><i class="material-icons left">file_download</i>CSVをダウンロード</button>
+			<div class="row center">
+				<button class="btn-small waves-effect waves-light teal lighten-1" id="download_csv" ng-click="bindDownloadCSV()"><i class="material-icons left">file_download</i>
+					{{translate("family-t_pedigree","csv_download")}}
+				</button>
 			</div>
 		</div>
 	</div>
@@ -94,11 +83,15 @@
 	<div id="bottom_table">
 		<div class="row">
 			<div class="col s8">
-				<h2 id="table_head">家族の疾患や健康状態の一覧表</h2>
+				<h2 id="table_head">
+					{{translate("family-t_pedigree","table_of_family_deseases_and_conditions")}}
+				</h2>
 			</div>
 			<div class="col s4 right-align">
 				<button class="btn-small waves-effect waves-light teal lighten-1" ng-click="close()">{{translate("fhh_family_pedigree","close")}}</button>
-				<a href="#close"><button class="btn-small waves-effect waves-light teal lighten-1">トップ</button></a>
+				<a href="#top"><button class="btn-small waves-effect waves-light teal lighten-1">
+					{{translate("family-t_pedigree","top")}}
+				</button></a>
 			</div>
 		</div>
 
@@ -140,15 +133,14 @@
 				</table>
 			</div>
 			<div id="health_table_action_buttons">
-				<div class="col s6">
 <!-- 					<button class="translate btn-small waves-effect waves-light teal lighten-1" ng-click="print(true)">{{translate("fhh_family_pedigree","print")}}</button> -->
 <!-- 					<button class="translate btn-small waves-effect waves-light teal lighten-1" ng-click="print()">{{translate("fhh_family_pedigree","save_image")}}</button> -->
-				</div>
 			</div>
+		</div>
 
 		</div>
 		<button class=" btn-small waves-effect waves-light teal lighten-1" ng-click="collapseTable()">{{collapse_status.collapse_text}}</button>
-		<span >&nbsp;&nbsp;（かかりつけ医が把握しておくべき6つの一般的な疾患については常時表示しています）</span>
+		<span >&nbsp;&nbsp;{{translate("family-t_pedigree","always_shown")}}</span>
 		<br />
 		<ul id="disease_list">
 			<li ng-repeat="d in disease_list" ng-if="!d.show">
@@ -186,7 +178,7 @@
 						<div class="other_disease" ng-repeat="od in person['Health History'] track by $index" ng-if="od.isOther">
 
 							<!--{{od['Disease Code']}}<br />({{od['Age At Diagnosis']}})-->
-							{{od['translatedDiseaseName']}}<<br />({{od['Age At Diagnosis']}})
+							{{od['translatedDiseaseName']}}<br />({{od['Age At Diagnosis']}})
 						</div>
 					</span>
 					{{lookupDisease(person,d['code'])['Age At Diagnosis']}}
@@ -200,7 +192,9 @@
 <div id="#diagram_image"></div>
 <div class="modal-footer">
 	<button class="btn-small waves-effect waves-light teal lighten-1" ng-click="close()">{{translate("fhh_family_pedigree","close")}}</button>
-	<a href="#close"><button class="btn-small waves-effect waves-light teal lighten-1">トップ</button></a>
+	<a href="#top"><button class="btn-small waves-effect waves-light teal lighten-1">
+		{{translate("family-t_pedigree","top")}}
+	</button></a>
 </div>
 <div id="diagram_container">
 	<div ng-show="diagram_show" id="print_diagram" style="width:auto; height:{{getTableHeight()}}px; background-color: #fff;"></div>
