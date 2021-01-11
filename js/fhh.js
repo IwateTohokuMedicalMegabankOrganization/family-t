@@ -1027,12 +1027,16 @@ function start()
 		location.href='../../logout';
 	});
 
-	// questionnaire
-	$('#lead_to_questionaire').on('click', function(){
-		$('#url_to_questionaire').load( "../../operation/gettoken" , function(data){
-			window.open('https://27.133.130.34/questionnaire/index.php/641312?newtest=Y&lang=ja&token=' + data , '_blank');
-		});
+	$('#leave_this_site').on('click', function(){
+		window.open('about:blank','_self').close();
 	});
+
+	// questionnaire
+	// $('#lead_to_questionaire').on('click', function(){
+	// 	$('#url_to_questionaire').load( "../../operation/gettoken" , function(data){
+	// 		window.open('https://27.133.130.34/questionnaire/index.php/641312?newtest=Y&lang=ja&token=' + data , '_blank');
+	// 	});
+	// });
 
 	// Hide dialog close button
 	$(".ui-dialog-titlebar-close").hide();
@@ -2039,9 +2043,6 @@ function bind_personal_submit_button_action () {
 			// update_birth_order_col();
 
 			ScoreCardController.refresh();
-
-			// Auto Save To Server
-			saveToServer();
 		}
 	});
 }
@@ -2550,8 +2551,6 @@ function bind_family_member_submit_button_action () {
 		current_health_history = [];
 		$("#update_family_member_health_history_dialog").dialog("close");
 
-		// Auto Save To Server
-		saveToServer();
 	});
 }
 
@@ -2684,8 +2683,6 @@ function bind_add_all_family_members_submit_button_action() {
 		// Created Date
 		personal_information['created_date'] = getCreatedDate();
 
-		// Auto Save To Server
-		saveToServer();
 	});
 
 }
