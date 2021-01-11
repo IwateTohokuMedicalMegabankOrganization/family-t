@@ -577,12 +577,7 @@ function start()
 
 	// remove //
 	var lng = window.i18n.lng();
-	var history_dialog = "load_personal_history_dialog.html";
-
-	if (lng=='it'||lng=='pt'||lng=='es') {
-		history_dialog = "load_personal_history_dialog_backup.html";
-	}
-	history_dialog = "load_personal_history_dialog_ja.html";
+	var history_dialog = "load_personal_history_dialog_ja.html";
 
 	$("#load_personal_history_dialog").load (history_dialog, function () {
 		bind_load_personal_history_button();
@@ -991,6 +986,7 @@ function start()
 		if( location.hostname != "localhost" ){
 			$("#load_personal_history_dialog").dialog("open");
 		}
+		$("#load_personal_history_dialog").dialog("open");
 	
 	}	else if (getParameterByName("action") == 'create') {
 		reset_personal_information();
