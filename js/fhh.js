@@ -986,7 +986,6 @@ function start()
 		if( location.hostname != "localhost" ){
 			$("#load_personal_history_dialog").dialog("open");
 		}
-		$("#load_personal_history_dialog").dialog("open");
 	
 	}	else if (getParameterByName("action") == 'create') {
 		reset_personal_information();
