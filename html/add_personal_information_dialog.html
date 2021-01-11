@@ -129,7 +129,7 @@
 
 		<div class="edit_form_tr">
 			<div class="edit_form_label_area">
-				<label for="personal_info_form_place_of_birth"><span class='translate' data-i18n='family-t.birthplace'>Birthplace</span></label>
+				<label for="personal_info_form_place_of_birth"><span class='translate' data-i18n='family-t.birthplace_label'>Birthplace</span></label>
 			</div>
 			<div class="edit_form_input_area">
 				<select name="person.prefectures" id="personal_info_form_place_of_birth" style="width: 100px; height:80%;">
@@ -183,12 +183,12 @@
 					<option value="0047" class='translate' data-i18n='family-t.optionlabel.prefecture.0047'>沖縄県</option>
 					<option value="0048" class='translate' data-i18n='family-t.optionlabel.prefecture.0048'>日本国外</option>
 					<option value="0049" class='translate' data-i18n='family-t.optionlabel.prefecture.0049'>不明</option>
-				</select> <span class="translate" data-i18n="family-t.birthplace">出身地</span>
+				</select> <span class="translate" data-i18n="family-t.birthplace">出身都道府県を選んでください。</span>
 			</div>
 		</div>
 			<div class="edit_form_tr">
 			<div class="edit_form_label_area">
-				<label for="personal_info_form_current_place"><span class="translate" data-i18n="family-t.current_place_of_residence">Current place of residence</span></label>
+				<label for="personal_info_form_current_place"><span class="translate" data-i18n="family-t.current_place_of_residence_label">Current place of residence</span></label>
 			</div>
 			<div class="edit_form_input_area">
 				<select name="person.current_place" id="personal_info_form_current_place" style="width: 100px; height:80%;">
@@ -243,7 +243,7 @@
 					<option value="0047" class='translate' data-i18n='family-t.optionlabel.prefecture.0047'>沖縄県</option>
 					<option value="0048" class='translate' data-i18n='family-t.optionlabel.prefecture.0048'>日本国外</option>
 					<option value="0049" class='translate' data-i18n='family-t.optionlabel.prefecture.0049'>不明</option>
-				</select> <span class="translate" data-i18n="family-t.current_place_of_residence">居住地</span>
+				</select> <span class="translate" data-i18n="family-t.current_place_of_residence">現在の居住地を選んでください。</span>
 			</div>
 		</div>
 		<div class="edit_form_tr">
@@ -481,7 +481,7 @@
 					<span class='translate' data-i18n='family-t.label.times'> times </span>
 				</div>
 				<span class="left col s12" id='alert_count_for_training_at_week' style="display:none; color:red;">
-					<span class='translate' data-i18n="family-t.select_a_number_between_1_and_30.">
+					<span class='translate' data-i18n="family-t.select_a_number_between_1_and_30">
 					Select a number between 1 and 30.
 					</span>
 				</span>
@@ -560,7 +560,7 @@
 	<span class='translate' data-i18n="family-t.eating_habits">Eating habits</span></div>
 <div class="row">
 	<div class="col s12 left">
-	<span class='translate' data-i18n='family-t.describe_your_eating_habits.'>Describe your eating habits.</span>
+	<span class='translate' data-i18n='family-t.describe_your_eating_habits'>Describe your eating habits.</span>
 		<div class="row">
 			<div class="col s5">
 				<span class='translate' data-i18n='family-t.do_you_eat_more_than_3_servings_of_fruits_a_day?'>Do you eat more than 3 servings of fruits a day?</span>
@@ -1105,14 +1105,12 @@
 	</div>
 	<div class="col s3">
 		<select id="last_diagnosis_year">
-			<option value="" disabled selected>
-			<span class='translate' data-i18n='family-t.select_the_year.'>Please select the year.</span>
-			</option>
+			<option value="" disabled selected class='translate' data-i18n='family-t.select_the_year'>Please select the year.</option>
 		</select>
 	</div>
 	<div class="col s3">
 		<select id="last_diagnosis_month">
-			<option value="" disabled selected><span class='translate' data-i18n='family-t.select_the__month.'>Please select the month.</span></option>
+			<option value="" disabled selected class='translate' data-i18n='family-t.select_the__month'>Please select the month.</option>
 			<option value="1">1</option>
 			<option value="2">2</option>
 			<option value="3">3</option>
