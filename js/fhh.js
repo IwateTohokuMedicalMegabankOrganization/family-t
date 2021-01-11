@@ -577,7 +577,7 @@ function start()
 
 	// remove //
 	var lng = window.i18n.lng();
-	var history_dialog = "load_personal_history_dialog_ja.html";
+	var history_dialog = "load_personal_history_dialog.html";
 
 	$("#load_personal_history_dialog").load (history_dialog, function () {
 		bind_load_personal_history_button();
