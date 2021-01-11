@@ -413,7 +413,7 @@
 		"no_file_chosen_error1": "",
 		"no_file_chosen_error2": "",
 		"copy_from_health_vault": "",
-		"choose_a_file": "",
+		"choose_a_file": "保存済みのファイルを選択して開きます。",
 		"load_from_file": "デバイスから家族歴を読み込む",
 		"load_file_instructions1": "保存済みの家族歴ファイルを、コンピュータまたはポータブルストレージデバイス（USBドライブなど）から読み込みます。",
 		"load_file_instructions2": "",
