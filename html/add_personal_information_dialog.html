@@ -1189,6 +1189,12 @@ $(function() {
 });
 
 $(document).ready(function(){
+
+	var thisdate = new Date();
+	var thisyear = thisdate.getFullYear();
+
+	$('#personal_info_form_year_of_birth').empty().append( getYearOptions( 1950, thisyear ) );
+
 	var birth = new Date( $('#personal_info_form_date_of_birth').val());
 
 	if( 1950 <= birth.getFullYear() && birth.getFullYear() <= 1979  )
@@ -1196,8 +1202,6 @@ $(document).ready(function(){
 
 	$('#personal_info_form_month_of_birth').val(birth.getMonth() + 1);
 
-	var thisdate = new Date();
-	var thisyear = thisdate.getFullYear();
 
 	for (var i=0; i<3; i++) {
 		$('#last_diagnosis_year').append($('<option>').val(thisyear-i).text($.t("family-t.yyyy." + ( thisyear-i ) )));

@@ -946,27 +946,17 @@
 	<div id='family_health_information' class="row"> health info </div>
 	<div id='family_race_ethnicity'> Race and Ethnicity Information </div>
 	<br />
-	<div width="100%" cellspacing="0" cellpadding="0" border="0">
+	<div width="100%" cellspacing="0" cellpadding="0">
 		<div style="text-align:center;">
 			<button id='addFamilyMemberCancelButton' class='btn-large waves-effect waves-light teal lighten-1  translate' data-i18n='fhh_js.cancel'>Cancel </button>
 			<button id='addFamilyMemberSubmitButton' style="font-size:110% !important" class='btn-large waves-effect waves-light teal lighten-1 translate' data-i18n='fhh_js.save'>Next </button>
 		</div>
 	</div>
 
-<script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-	ga('create', 'UA-84860122-1', 'auto');
-	ga('send', 'pageview');
-
-	/* Datepiker 初期化 */
-	/*$(function(){
-		$('#age_determination_date_of_birth').datepicker({
-			changeYear: true,	// 年選択をプルダウン化
-			changeMonth: true	// 月選択をプルダウン化
-			});
-	}); */
-</script>
+	<script type='text/javascript'>
+		$(document).ready(function(){
+			var thisdate = new Date();
+			var thisyear = thisdate.getFullYear();
+			$('#family_info_form_year_of_birth').empty().append( getYearOptions( 1950, thisyear ) );
+		});
+	</script>

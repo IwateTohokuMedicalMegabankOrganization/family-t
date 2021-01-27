@@ -6619,6 +6619,60 @@ function escape_html (string) {
 
 window.onbeforeunload = closeEditorWarning;
 
+/**
+ * 年のプルダウンオプションを取得する
+ * @param {int} min 
+ * @param {int} max 
+ */
+function getYearOptions(min, max){
 
+	var options = [];
+	
+	for( let i = min; i <= max ; i++ ){
+	
+		var opt = $('<option>');
+		opt.val( i )
+			.html(
+				( getLang() == 'ja' ) ?
+					getWarekiYear( i )
+					: i 
+				)
+			.css( 'translate' );
 
+		options.push( opt );
+	}
 
+	return options;
+}
+
+function getWarekiYear(year){
+	
+	if( 1925 < year && year <= 1988 ){
+		var warekiYear = year - 1925;
+		
+		if( warekiYear < 2 )
+			return '昭和元年' + '（' + year + '）';
+	
+		return '昭和' + warekiYear + '年' + '（' + year + '）';
+	}
+
+	if( 1988 < year && year <= 2018 ){
+		var warekiYear = year - 1988;
+		
+		if( warekiYear < 2 )
+			return '平成元年' + '（' + year + '）';
+	
+		return '平成' + warekiYear + '年' + '（' + year + '）';
+	}
+	
+	if( 2018 < year  ){
+		var warekiYear = year - 2018;
+		
+		if( warekiYear < 2 )
+			return '令和元年' + '（' + year + '）';
+	
+		return '令和' + warekiYear + '年' + '（' + year + '）';
+	}
+	
+	return year + '年';
+}
