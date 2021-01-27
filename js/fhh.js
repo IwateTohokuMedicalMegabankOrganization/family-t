@@ -3294,8 +3294,8 @@ function build_family_history_data_table () {
 	// $("#history_summary_table").find('tbody').addClass('list-group ui-sortable')
 	// $("#history_summary_table").find('tbody').attr( 'id', 'list01');
 	// $('#list01').sortable();
-	// $( "#list01" ).disableSelection();
 
+	// $( "#list01" ).disableSelection();
 	ScoreCardController.refresh();
 }
 
@@ -3306,7 +3306,7 @@ function build_qof_family_history_data_table () {
 	tbody.empty();
 
 	// Self 
-	tbody.append(getQofListRow(personal_information));
+	tbody.append(getQofListRow(personal_information, true));
 
 	// Brother and sister
 	if( hasRelations( [ 'brother', 'sister' ], personal_information ) ){
@@ -3379,7 +3379,7 @@ function displayRelationshipsForQof(table, relations, pi ){
 }
 
 function add_new_qof_row(table, family_member ) {
-	table.append( getQofListRow(family_member) );
+	table.append( getQofListRow(family_member, false) );
 }
 function getQofList_is_alive( id, is_alive ){
 
@@ -3406,21 +3406,33 @@ function getQofList_is_alive( id, is_alive ){
 	return ret;
 }
 
-function getQofListRow(pi){
+function getQofListRow(pi, is_self){
+
+	console.log( is_self );
 	var row = $("<tr>");
 
 	// 	お名前
 	row.append("<td class='center nowrap'>" + pi.name + "</td>");
-	// 存命
-	row.append("<td class='center nowrap'>" + getQofList_is_alive(pi.id, pi.is_alive) + "</td>");
-	// 死亡年齢
-	row.append("<td class='center nowrap'>-</td>");
-	// 死因
-	row.append("<td class='center nowrap'>-</td>");
+
+	if( is_self ){
+		// 存命
+		row.append("<td class='center nowrap'>-</td>");
+		// 死亡年齢
+		row.append("<td class='center nowrap'>-</td>");
+		// 死因
+		row.append("<td class='center nowrap'>-</td>");
+	}else{
+		// 存命
+		row.append("<td class='center nowrap'>" + getQofList_is_alive(pi.id, pi.is_alive) + "</td>");
+		// 死亡年齢
+		row.append("<td class='center nowrap'>" + getDisplayAge(pi) + "</td>");
+		// 死因
+		row.append("<td class='center nowrap'>-</td>");
+	}
 	// 疾患有無
 	row.append("<td class='center nowrap'>-</td>");
 	// 病気
-	row.append("<td class='center nowrap'>-</td>");
+	row.append("<td class='center nowrap'>" + getHealthHistoriesCol(pi["Health History"], pi) + "</td>");
 
 	// 病気詳細
 	row.append("<td class='center nowrap'>-</td>");

@@ -762,6 +762,7 @@
 		"gender": "性別",
 		"still_living": "生死の別",
 		"age": "年齢",
+		"presence_or_absence_of_disease": "疾患",
 		"health_information": "病歴",
 		"self": "本人（あなた）",
 		"your_siblings": "出生順は兄弟姉妹を含んだ順を書いてください。",
