@@ -543,10 +543,8 @@ function start()
 		// フラグを立て、2回目以降の表示ではデフォルト設定をしないようにする
 		personal_information['flg_race_ethnic'] = 1;
 
-		// 閉じるボタン
-		$('#closeUpdateFamilyMemberHelthHistoryDialogButton').on('click', function(){
-			$("#update_family_member_health_history_dialog").dialog('close');
-		});
+		// キャンセルボタン
+		$('#closeUpdateFamilyMemberHelthHistoryDialogButton').on('click',cancel_update_family_member);
 	});
 
 	$("#update_family_member_health_history_dialog").dialog({
@@ -556,6 +554,7 @@ function start()
 		height:'auto',
 		width:['95%'],
 		resizable: false,
+		closeOnEscape: false,
 		close: cancel_update_family_member
 	});
 
