@@ -543,6 +543,10 @@ function start()
 		// フラグを立て、2回目以降の表示ではデフォルト設定をしないようにする
 		personal_information['flg_race_ethnic'] = 1;
 
+		// 閉じるボタン
+		$('#closeUpdateFamilyMemberHelthHistoryDialogButton').on('click', function(){
+			$("#update_family_member_health_history_dialog").dialog('close');
+		});
 	});
 
 	$("#update_family_member_health_history_dialog").dialog({
@@ -626,6 +630,11 @@ function start()
 		i18n.init(option, function () {
 			$(".translate").i18n();
 		});
+		
+		// 閉じるボタン
+		$('#closeSavePersonalHistoryDialogButton').on('click', function(){
+			$("#save_personal_history_dialog").dialog('close');
+		});
 	});
 
 	$("#save_personal_history_dialog").dialog({
@@ -670,6 +679,11 @@ function start()
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
 		i18n.init(option, function () {
 			$(".translate").i18n();
+		});
+		
+		// 閉じるボタン
+		$('#closeRiskScoreButton').on('click', function(){
+			$("#disease_risk_calculator_dialog").dialog('close');
 		});
 	});
 
@@ -942,6 +956,11 @@ function start()
 		if (isiPad) {
 			$(".computerOnly").remove();
 		};
+
+		// 閉じるボタン
+		$('#closeHelpDialogButton').on('click', function(){
+			$("#help_dialog").dialog('close');
+		});
 
 	});
 
@@ -1539,7 +1558,20 @@ function bind_add_another_family_member_button_action() {
 			new_family_member_dialog.empty().dialog("open");
 		}
 
+		var closeButton = "<button id='closeNewFamilyMemberDialogButton' class='btn-large waves-effect waves-light teal lighten-1 translate' data-i18n='fhh_family_pedigree.close' style='text-align:right;font-size:110% !important'>"
+		+ $.t("fhh_family_pedigree.close")
+		+ "</button>";
+		new_family_member_dialog.append($("<div class='row'></div>").append(
+			$("<div class='col s12 text-right'></div>").append(
+				closeButton
+			)
+		));
+		new_family_member_dialog.find('#closeNewFamilyMemberDialogButton').on("click",function(){
+			$("#new_family_member_dialog").dialog('close');
+		} );
+
 		new_family_member_dialog.append("<div class='popup_title'> " + $.t("fhh_js.add_relative_title") + " </div>");
+
 		new_family_member_dialog.append("<P class='instructions'>" + $.t("fhh_js.add_relative_para") + "</P>");
 		new_family_member_dialog.append("<label for='new_family_member_relationship'> " + $.t("fhh_js.relationship_to_me") + " </label>");
 		new_family_member_select =
@@ -2152,6 +2184,11 @@ function cancel_add_personal_information() {
 function bind_personal_help_button_action () {
 	$("#add-help").on("click", function() {
 		$("#personal_help_dialog").dialog("open");
+		
+		// 閉じるボタン
+		$('#closePersonalHelpDialogButton').on('click', function(){
+			$("#personal_help_dialog").dialog('close');
+		});
 	});
 }
 
@@ -2170,6 +2207,11 @@ function bind_load_help_button_action() {
 function bind_immediate_help_button_action() {
 	$("#immediate-help").on("click", function() {
 		$("#immediate_help_dialog").dialog("open");
+
+		// 閉じるボタン
+		$('#closeImmediateHelpDialogButton').on('click', function(){
+			$("#immediate_help_dialog").dialog('close');
+		});
 	});
 }
 
