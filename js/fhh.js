@@ -729,7 +729,6 @@ function start()
 
 	// 家族歴の質ダイアログ
 	$("#quality_of_family_history_score_dialog").load("quality_of_family_history_score_dialog.html",function(){
-		QualityOfFamilyHistoryScoreController.refresh()
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
 		i18n.init(option, function () {
 			$(".translate").i18n();
@@ -752,7 +751,8 @@ function start()
 	});
 
 	$("#showQofhScoreDetail").on("click", function() {
-		build_qof_family_history_data_table();
+		QualityOfFamilyHistoryScoreController.refresh()
+		var qoFSupplementForm = new QoFSupplementForm( personal_information );
 		$("#quality_of_family_history_score_dialog").dialog('open').position("center top");
 	});
 
@@ -3340,151 +3340,6 @@ function build_family_history_data_table () {
 	ScoreCardController.refresh();
 }
 
-
-function build_qof_family_history_data_table () {
-
-	var tbody = $("#qofList");
-	tbody.empty();
-
-	// Self 
-	tbody.append(getQofListRow(personal_information, true));
-
-	// Brother and sister
-	if( hasRelations( [ 'brother', 'sister' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'brother', 'sister' ], personal_information);
-	}
-
-	// parents
-	if( typeof personal_information.father != "undefined")
-		displayRelationshipsForQof(tbody, [ 'father' ], personal_information);
-
-	if( typeof personal_information.mother != "undefined")
-		displayRelationshipsForQof(tbody, [ 'mother' ], personal_information);
-
-	// children
-	if( hasRelations( [ 'son', 'daughter' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'son', 'daughter' ], personal_information);
-	}
-
-	// おい（甥）・めい（姪）
-	if( hasRelations( [ 'niece', 'nephew' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'niece', 'nephew' ], personal_information);
-	}
-
-	// 父方 おじ・おば
-	if( hasRelations( [ 'paternal_uncle', 'paternal_aunt' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'paternal_uncle', 'paternal_aunt' ], personal_information);
-	}
-
-	// 母方 おじ・おば
-	if( hasRelations( [ 'maternal_uncle', 'maternal_aunt' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'maternal_uncle', 'maternal_aunt' ], personal_information);
-	}
-
-	// 父方 祖父母
-	if( hasRelations( [ 'paternal_grandfather', 'paternal_grandmother' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'paternal_grandfather' ], personal_information );
-		displayRelationshipsForQof(tbody, [ 'paternal_grandmother' ], personal_information );
-	}
-
-	// 母方 祖父母
-	if( hasRelations( [ 'maternal_grandfather', 'maternal_grandmother' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'maternal_grandfather' ], personal_information );
-		displayRelationshipsForQof(tbody, [ 'maternal_grandmother' ], personal_information );
-	}
-
-	// 父方 いとこ
-	if( hasRelations( [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information);
-	}
-
-	// 母方 いとこ
-	if( hasRelations( [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information);
-	}
-
-	// 孫
-	if( hasRelations( [ 'grandson', 'granddaughter' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'grandson', 'granddaughter' ], personal_information);
-	}
-}
-
-function displayRelationshipsForQof(table, relations, pi ){
-	// get relation id
-	var displayRelationshipIds = getRelationshipIds( relations, pi );
-
-	// display
-	displayRelationshipIds.forEach( function( tr ) {
-		add_new_qof_row(table, pi[tr]);
-	});
-}
-
-function add_new_qof_row(table, family_member ) {
-	table.append( getQofListRow(family_member, false) );
-}
-function getQofList_is_alive( id, is_alive ){
-
-	var radio_id = 'qof_radio_id_' + id;
-	var radio_name = 'qof_radio_name_' + id;
-
-	var ret = "<span>";
-	ret += '<input id="' + radio_id + '_alive" ' + 'name="' + radio_name + '" value="alive" type="radio" />';
-	ret += '<label for="' + radio_id + '_alive"' + ">" + $.t("info_dialog.yes") + "</label>";
-	ret += "</span>";
-
-	ret += '<span>'
-	ret += '<input id="' + radio_id + '_dead" ' + 'name="' + radio_name + '" value="dead" type="radio" />';
-	ret += '<label for="' + radio_id + '_dead"' + ">" + $.t("info_dialog.no") + "</label>";
-	ret += '</label>'
-	ret += "</span>";
-	
-	ret += '<span>'
-	ret += '<input id="' + radio_id + '_unknown" ' + 'name="' + radio_name + '" value="unknown" type="radio" />';
-	ret += '<label for="' + radio_id + '_unknown"' + ">" + $.t("info_dialog.unknown") + "</label>";
-	ret += '</label>'
-	ret += "</span>";
-
-	return ret;
-}
-
-function getQofListRow(pi, is_self){
-
-	console.log( is_self );
-	var row = $("<tr>");
-
-	// 	お名前
-	row.append("<td class='center nowrap'>" + pi.name + "</td>");
-
-	if( is_self ){
-		// 存命
-		row.append("<td class='center nowrap'>-</td>");
-		// 死亡年齢
-		row.append("<td class='center nowrap'>-</td>");
-		// 死因
-		row.append("<td class='center nowrap'>-</td>");
-	}else{
-		// 存命
-		row.append("<td class='center nowrap'>" + getQofList_is_alive(pi.id, pi.is_alive) + "</td>");
-		// 死亡年齢
-		row.append("<td class='center nowrap'>" + getDisplayAge(pi) + "</td>");
-		// 死因
-		row.append("<td class='center nowrap'>-</td>");
-	}
-	// 疾患有無
-	row.append("<td class='center nowrap'>-</td>");
-	// 病気
-	row.append("<td class='center nowrap'>" + getHealthHistoriesCol(pi["Health History"], pi) + "</td>");
-
-	// 病気詳細
-	row.append("<td class='center nowrap'>-</td>");
-
-	// 発症年齢
-	row.append("<td class='center nowrap'>-</td>");
-
-	return row;
-}
-
-
 function add_family_history_header_row(table) {
 	var header_row = $("<tr>");
 	var head = $('<thead>');
@@ -4127,6 +3982,15 @@ function build_personal_health_information_section() {
 	hi_header_row.append("<th class='md_tr' style='width:10%;text-align:center'>" + $.t("fhh_js.action") + "</th>");
 	hi_health_history_table.append(hi_header_row);
 
+	var hi_data_entry_row = build_hi_data_entry_row();
+	hi_health_history_table.append(hi_data_entry_row);
+
+	information.append(hi_health_history_table);
+	information.append("<br />");
+}
+
+
+function build_hi_data_entry_row() {
 	var hi_data_entry_row = $("<tr class='md_tr' id='health_data_entry_row'></tr>");
 
 	var disease_select = $("<select class='col s6' tabindex='17' id='disease_choice_select' name='disease_choice_select' style='margin: auto;'></select>");
@@ -4140,18 +4004,14 @@ function build_personal_health_information_section() {
 
 	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);
 	hi_data_entry_row.append($("<td></td>").append(age_at_diagnosis_select));
-	var add_new_disease_button = $("<button id='add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1'>" + $.t("fhh_js.add")  + "</button>");
+	var add_new_disease_button = $("<button id='add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1'>" + $.t("fhh_js.add") + "</button>");
 
 	add_new_disease_button.on('click', add_disease);
 
 
-	hi_data_entry_row.append($("<td style='text-align:center;'></td>").append(add_new_disease_button) );
-	hi_health_history_table.append(hi_data_entry_row);
-
-	information.append(hi_health_history_table);
-	information.append("<br />");
+	hi_data_entry_row.append($("<td style='text-align:center;'></td>").append(add_new_disease_button));
+	return hi_data_entry_row;
 }
-
 
 function set_disease_choice_select (disease_select, detailed_disease_select, cod) {
 	//detailed_disease_select.hide();
