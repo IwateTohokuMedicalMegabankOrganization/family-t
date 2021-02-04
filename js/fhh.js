@@ -332,7 +332,7 @@ function start()
 		bind_personal_submit_button_action();
 		bind_personal_cancel_button_action();
 		bind_personal_help_button_action();
-		clear_and_set_personal_health_history_dialog();
+		// clear_and_set_personal_health_history_dialog();
 		// $("#help_dialog").load ("update-help.html");
 
 
@@ -3991,7 +3991,7 @@ function build_personal_health_information_section() {
 
 
 function build_hi_data_entry_row() {
-	var hi_data_entry_row = $("<tr class='md_tr' id='health_data_entry_row'></tr>");
+	var hi_data_entry_row = $("<tr class='md_tr health_data_entry_row' id='health_data_entry_row'></tr>");
 
 	var disease_select = $("<select class='col s6' tabindex='17' id='disease_choice_select' name='disease_choice_select' style='margin: auto;'></select>");
 	var detailed_disease_select = $("<select class='ddcs col s6' tabindex='18' id='detailed_disease_choice_select' name='detailed_disease_choice_select' style='margin: auto;'></select>");
