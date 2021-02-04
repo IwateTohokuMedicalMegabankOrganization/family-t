@@ -2894,11 +2894,13 @@ class QualityOfFamilyHistoryScoreController{
 	}
 
 	static _showDetail(){
-		$('#lifestyle_score_isSmoker').text(this.calculator.score.smoker);
-		$('#lifestyle_score_bmi').text(this.calculator.score.bmi);
-		$('#lifestyle_score_training').text(this.calculator.score.trainingFamily);
-		$('#lifestyle_score_diabetes').text(this.calculator.score.dietary);
-		$('#lifestyle_score_total').text(this.calculator.totalScore);
+		
+		var calculator = new QualityOfFamilyHistoryCalculator( personal_information );
+
+		$('#DialogRateOfHelthHistory').text( calculator.qualityOfFamilyHistoryScore.rateOfHelthHistory );
+		$('#DialogRateOfAgeAtDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDeath );
+		$('#DialogRateOfCauseOfDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfCauseOfDeath );
+		$('#DialogRateOfAgeAtDisease').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDisease );
 	}
 
 }

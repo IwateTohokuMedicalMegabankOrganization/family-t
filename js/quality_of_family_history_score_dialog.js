@@ -61,9 +61,6 @@ class QoFSupplementForm {
 
 		// イベントハンドラの設定
 		row.find(`input:radio[name="${this._getName(QoFSupplementForm.QOF_IS_ALIVE_PREFIX, pi.id )}"]`).change( row, function(){
-
-
-			
 			// 死亡の場合、死亡年齢、死因を表示する
 			if( $(this).val() == 'dead' ){
 				row.find('#' + QoFSupplementForm._getId(QoFSupplementForm.QOF_ESTIMATED_DEATH_AGE_PREFIX, pi.id ) ).show();
@@ -88,6 +85,8 @@ class QoFSupplementForm {
 			// 疾患不明の場合、病歴登録フォームを非表示にする
 			row.find('.health_histories').hide();
 		});
+		// 値の設定
+		row.find(`input:radio[name="${this._getName(QoFSupplementForm.QOF_HAS_DESEASE_PREFIX, pi.id )}"][value="${( typeof pi.has_desease == 'undefined' )? 'unknown' : pi.has_desease }"]`).prop('checked',true).trigger('change');
 
 
 		return row;
