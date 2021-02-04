@@ -988,7 +988,9 @@
 				"0048": "Outside Japan",
 				"0049": "Unknown"
 			}
-		}
+		},
+		"with" : "あり",
+		"without" : "なし"
 	},
 	"family-t_risk": {
 		"exp1": "The results calculated herein are based on research findings reported to date.",

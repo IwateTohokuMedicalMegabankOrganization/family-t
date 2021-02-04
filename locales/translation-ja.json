@@ -996,7 +996,9 @@
 				"0048": "日本国外",
 				"0049": "不明"
 			}
-		}
+		},
+		"with" : "あり",
+		"without" : "なし"
 	},
 	"family-t_risk": {
 		"fasting_blood_glucose_level_is126": "空腹時血糖値が126以上",
