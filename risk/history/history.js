@@ -205,7 +205,7 @@ class QualityOfFamilyHistoryCalculator extends RiskCalculatorBase{
 	}
 
 
-	// 死因となった疾患の記入がある死者数
+	// 死亡年齢の記入がある死者数
 	_getNumberOfAgeAtDeath(ids){
 
 		var pi = this.pi;
@@ -232,7 +232,7 @@ class QualityOfFamilyHistoryCalculator extends RiskCalculatorBase{
 		return retval;
 	}
 
-	// 死亡年齢の記入がある死者数
+	// 死因となった疾患の記入がある死者数
 	_getNumberOfCauseOfDeath(ids){
 		const unknownSnomedCodes = [
 			'SNOMED_CT-315645005'

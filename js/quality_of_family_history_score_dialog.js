@@ -17,7 +17,7 @@ class QoFSupplementForm {
 	}
 
 	refresh() {
-		var tbody = $("#qofList");
+		var tbody = $("#qof_compensational_block");
 		tbody.empty();
 		
 		// あなた
@@ -105,6 +105,7 @@ class QoFSupplementForm {
 								.attr('id', QoFSupplementForm._getId( prefix_id, v))
 								.attr('name', name)
 								.attr('value', v)
+								.attr('pi_id', pi.id)
 							)
 						.append(
 							$("<label>")
@@ -113,7 +114,6 @@ class QoFSupplementForm {
 							)
 					);
 		}
-		// TODO piによって、選択
 
 		return ret;
 	}
@@ -124,7 +124,8 @@ class QoFSupplementForm {
 		
 		var estimated_death_age_select = $("<select>")
 											.attr('id', id)
-											.attr('name', name);
+											.attr('name', name)
+											.attr('pi_id', pi.id);
 		
 		set_age_at_diagnosis_pulldown( $.t("fhh_js.select_age_death"), estimated_death_age_select);
 
@@ -137,11 +138,13 @@ class QoFSupplementForm {
 		var ret = this._getTD("");
 		var disease_select = $("<select>")
 								.attr('id', QoFSupplementForm._getId(QoFSupplementForm.QOF_CAUSE_OF_DEATH_PREFIX, pi.id ))
-								.attr('name', this._getName(QoFSupplementForm.QOF_CAUSE_OF_DEATH_PREFIX, pi.id ));
+								.attr('name', this._getName(QoFSupplementForm.QOF_CAUSE_OF_DEATH_PREFIX, pi.id ))
+								.attr('pi_id', pi.id);
 
 		var detailed_disease_select = $("<select>")
 								.attr('id', QoFSupplementForm._getId(QoFSupplementForm.QOF_DETAILED_CAUSE_OF_DEATH_PREFIX, pi.id ))
-								.attr('name', this._getName(QoFSupplementForm.QOF_DETAILED_CAUSE_OF_DEATH_PREFIX, pi.id ));
+								.attr('name', this._getName(QoFSupplementForm.QOF_DETAILED_CAUSE_OF_DEATH_PREFIX, pi.id ))
+								.attr('pi_id', pi.id);
 		
 		var ds = set_disease_choice_select(disease_select, detailed_disease_select, "cod");
 		disease_select.val( pi.cause_of_death);
@@ -191,6 +194,7 @@ class QoFSupplementForm {
 								.attr('id', QoFSupplementForm._getId( prefix_id, v))
 								.attr('name', name)
 								.attr('value', v)
+								.attr('pi_id', pi.id)
 							)
 						.append(
 							$("<label>")
@@ -204,6 +208,27 @@ class QoFSupplementForm {
 		return ret;
 	}
 
+	updatePersonalInformation( info ){
+		var pi = PersonalInformationUtil.getRelationshipPiByPersonId( $(info).attr('pi_id') );
+
+		// 存命
+		pi.is_alive = $(`input[name="${this._getName(QoFSupplementForm.QOF_IS_ALIVE_PREFIX, pi.id )}"]:checked`).val();
+
+		// 死亡年齢
+		pi.estimated_death_age = $(`select[name="${this._getName(QoFSupplementForm.QOF_ESTIMATED_DEATH_AGE_PREFIX, pi.id )}"]`).val();
+
+		// 死因
+		pi.cause_of_death = $(`select[name="${this._getName(QoFSupplementForm.QOF_CAUSE_OF_DEATH_PREFIX, pi.id )}"]`).val();
+		pi.cause_of_death_code = $(`select[name="${this._getName(QoFSupplementForm.QOF_DETAILED_CAUSE_OF_DEATH_PREFIX, pi.id )}"]`).val();
+		pi.detailed_cause_of_death_code = $(`select[name="${this._getName(QoFSupplementForm.QOF_DETAILED_CAUSE_OF_DEATH_PREFIX, pi.id )}"]`).text();
+
+		// 疾患有無
+		pi.has_desease = $(`input[name="${this._getName(QoFSupplementForm.QOF_HAS_DESEASE_PREFIX, pi.id )}"]:checked`).val();
+		
+		// TODO 病歴
+
+	}
+
 
 	_getFamilyForm(pi, tbody) {
 
@@ -212,59 +237,59 @@ class QoFSupplementForm {
 			this._getRelationshipsForm(tbody, ['brother', 'sister'], pi);
 		}
 
-		// // parents
-		// if (typeof personal_information.father != "undefined")
-		// 	displayRelationshipsForQof(tbody, ['father'], personal_information);
+		// parents
+		if (typeof personal_information.father != "undefined")
+			this._getRelationshipsForm(tbody, ['father'], pi);
 
-		// if (typeof personal_information.mother != "undefined")
-		// 	displayRelationshipsForQof(tbody, ['mother'], personal_information);
+		if (typeof personal_information.mother != "undefined")
+			this._getRelationshipsForm(tbody, ['mother'], pi);
 
-		// // children
-		// if (hasRelations(['son', 'daughter'], personal_information)) {
-		// 	displayRelationshipsForQof(tbody, ['son', 'daughter'], personal_information);
-		// }
+		// children
+		if (hasRelations(['son', 'daughter'], pi)) {
+			this._getRelationshipsForm(tbody, ['son', 'daughter'], pi);
+		}
 
-		// // おい（甥）・めい（姪）
-		// if (hasRelations(['niece', 'nephew'], personal_information)) {
-		// 	displayRelationshipsForQof(tbody, ['niece', 'nephew'], personal_information);
-		// }
+		// おい（甥）・めい（姪）
+		if (hasRelations(['niece', 'nephew'], pi)) {
+			this._getRelationshipsForm(tbody, ['niece', 'nephew'], pi);
+		}
 
-		// // 父方 おじ・おば
-		// if (hasRelations(['paternal_uncle', 'paternal_aunt'], personal_information)) {
-		// 	displayRelationshipsForQof(tbody, ['paternal_uncle', 'paternal_aunt'], personal_information);
-		// }
+		// 父方 おじ・おば
+		if (hasRelations(['paternal_uncle', 'paternal_aunt'], pi)) {
+			this._getRelationshipsForm(tbody, ['paternal_uncle', 'paternal_aunt'], pi);
+		}
 
-		// // 母方 おじ・おば
-		// if (hasRelations(['maternal_uncle', 'maternal_aunt'], personal_information)) {
-		// 	displayRelationshipsForQof(tbody, ['maternal_uncle', 'maternal_aunt'], personal_information);
-		// }
+		// 母方 おじ・おば
+		if (hasRelations(['maternal_uncle', 'maternal_aunt'], pi)) {
+			this._getRelationshipsForm(tbody, ['maternal_uncle', 'maternal_aunt'], pi);
+		}
 
-		// // 父方 祖父母
-		// if (hasRelations(['paternal_grandfather', 'paternal_grandmother'], personal_information)) {
-		// 	displayRelationshipsForQof(tbody, ['paternal_grandfather'], personal_information);
-		// 	displayRelationshipsForQof(tbody, ['paternal_grandmother'], personal_information);
-		// }
+		// 父方 祖父母
+		if (hasRelations(['paternal_grandfather', 'paternal_grandmother'], pi)) {
+			this._getRelationshipsForm(tbody, ['paternal_grandfather'], pi);
+			this._getRelationshipsForm(tbody, ['paternal_grandmother'], pi);
+		}
 
-		// // 母方 祖父母
-		// if (hasRelations(['maternal_grandfather', 'maternal_grandmother'], personal_information)) {
-		// 	displayRelationshipsForQof(tbody, ['maternal_grandfather'], personal_information);
-		// 	displayRelationshipsForQof(tbody, ['maternal_grandmother'], personal_information);
-		// }
+		// 母方 祖父母
+		if (hasRelations(['maternal_grandfather', 'maternal_grandmother'], pi)) {
+			this._getRelationshipsForm(tbody, ['maternal_grandfather'], pi);
+			this._getRelationshipsForm(tbody, ['maternal_grandmother'], pi);
+		}
 
-		// // 父方 いとこ
-		// if (hasRelations(['paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister'], personal_information)) {
-		// 	displayRelationshipsForQof(tbody, ['paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister'], personal_information);
-		// }
+		// 父方 いとこ
+		if (hasRelations(['paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister'], pi)) {
+			this._getRelationshipsForm(tbody, ['paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister'], pi);
+		}
 
-		// // 母方 いとこ
-		// if (hasRelations(['maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister'], personal_information)) {
-		// 	displayRelationshipsForQof(tbody, ['maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister'], personal_information);
-		// }
+		// 母方 いとこ
+		if (hasRelations(['maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister'], pi)) {
+			this._getRelationshipsForm(tbody, ['maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister'], pi);
+		}
 
-		// // 孫
-		// if (hasRelations(['grandson', 'granddaughter'], personal_information)) {
-		// 	displayRelationshipsForQof(tbody, ['grandson', 'granddaughter'], personal_information);
-		// }
+		// 孫
+		if (hasRelations(['grandson', 'granddaughter'], pi)) {
+			this._getRelationshipsForm(tbody, ['grandson', 'granddaughter'], pi);
+		}
 	}
 
 

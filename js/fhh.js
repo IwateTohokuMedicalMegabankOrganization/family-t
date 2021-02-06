@@ -240,6 +240,21 @@ class BirthOrderUtil {
 	}
 }
 
+class PersonalInformationUtil {
+
+	static getRelationshipIdByPersonId( id ){
+		var ret = "";
+		Object.keys( personal_information ).some(function( r ) {
+				ret = r;
+				return personal_information[r].id == id;
+			});
+		return ret ;
+	}
+	static getRelationshipPiByPersonId( id ){
+		return personal_information[PersonalInformationUtil.getRelationshipIdByPersonId(id)];
+	}
+}
+
 function getLang(){
 
 	if( 'en' == getParameterByName('setLng') ) return 'en';
@@ -779,7 +794,7 @@ function start()
 	});
 
 	$("#showQofhScoreDetail").on("click", function() {
-		var qoFSupplementForm = new QoFSupplementForm( personal_information );
+		preparate_qof_score_dialog();
 		$("#quality_of_family_history_score_dialog").dialog('open').position("center top");
 		QualityOfFamilyHistoryScoreController.refresh()
 	});
@@ -1339,6 +1354,26 @@ function bind_compensate_information_submit_button_action(){
 		$("#disease_risk_calculator_dialog").dialog("open");
 		load_risk_links();
 	});
+}
+
+//不足項目入力フォームのchangeイベント、ボタンclickイベント準備
+function preparate_qof_score_dialog(){
+	var qoFSupplementForm = new QoFSupplementForm( personal_information );
+
+	// 再計算ボタン
+	$("#reCalculateQofScore").on("click", function() {
+		QualityOfFamilyHistoryScoreController.refresh();
+		temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
+		build_family_history_data_table();
+	});
+
+	$('#qof_compensational_block input').change(function(){
+		qoFSupplementForm.updatePersonalInformation( this );
+	});
+	$('#qof_compensational_block select').change(function(){
+		qoFSupplementForm.updatePersonalInformation( this );
+	});
+
 }
 //不足項目入力フォームのchangeイベント、ボタンclickイベント準備
 function preparate_lifestyle_score_dialog(){
@@ -3477,10 +3512,11 @@ function getDisplayAge(pi){
 
 	}
 
-	if( typeof pi.estimated_death_age != "undefined" )
-		if( pi.estimated_death_age != "")
-			if( $.t( "fhh_js." + pi.estimated_death_age ).length > 0 )
-				return $.t( "fhh_js." + pi.estimated_death_age ) ;
+	if( pi.is_alive == "dead")
+		if( typeof pi.estimated_death_age != "undefined" )
+			if( pi.estimated_death_age != "")
+				if( $.t( "fhh_js." + pi.estimated_death_age ).length > 0 )
+					return $.t( "fhh_js." + pi.estimated_death_age ) ;
 
 	return "";
 }
@@ -4778,8 +4814,8 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 			$("#person_is_alive").show();
 			$("#person_is_not_alive").hide();
 		} else {
-			$("#is_person_alive").val('unknown');
-			$("#person_is_alive").hide();
+			$("#is_person_alive").val('alive');
+			$("#person_is_alive").show();
 			$("#person_is_not_alive").hide();
 		}
 	} else {
