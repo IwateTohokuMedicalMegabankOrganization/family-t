@@ -1326,19 +1326,21 @@ function preparate_lifestyle_score_dialog(){
 		if ($('input[name="lifestylescore_compensation_training"]:checked').val() == 1) {
  		$('select[name="lifestylescore_compensation_training_status1"]').prop('disabled',false);
  		$('input[name="lifestylescore_compensation_training_status2"]').prop('disabled',false);
- 		$('input[name="lifestylescore_compensation_training_status3"]').prop('disabled',false);
+		 $('input[name="lifestylescore_compensation_training_status3"]').prop('disabled',false);
+		 $('.lifestylescore_compensation_training_status_yes').show();
      } else {
      	document.getElementById("lifestylescore_compensation_training_strength").value = "";
      	document.getElementById("lifestylescore_compensation_count_for_training_at_week").value = "";
      	document.getElementById("lifestylescore_compensation_time_for_training_at_week").value = "";
      	$('select[name="lifestylescore_compensation_training_status1"]').prop('disabled',true);
      	$('input[name="lifestylescore_compensation_training_status2"]').prop('disabled',true);
-     	$('input[name="lifestylescore_compensation_training_status3"]').prop('disabled',true);
+		 $('input[name="lifestylescore_compensation_training_status3"]').prop('disabled',true);
+		 $('.lifestylescore_compensation_training_status_yes').hide();
      }
 	});
 
 	// 再計算ボタン
-	$("reCalculateLifestyleScore").on("click", function() {
+	$("#reCalculateLifestyleScore").on("click", function() {
 		calcLifestyleScoreAndShow();
 	});
 

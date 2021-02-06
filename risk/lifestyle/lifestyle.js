@@ -131,12 +131,16 @@ class LifeStyleScoreCalculator extends RiskCalculatorBase{
 	// 1) 一週間で、以下のいずれかを行っていたら1点
 	// ・中等度の運動を150分以上
 	// ・集中的（重度）な運動を75分以上
+	// ・定期的な運動「いいえ」だったら0点
 	calculateTraining(
 			trainingFamily
 			,trainingStrengthFamily
 			,countForTrainingAtWeekFamily
 			,timeForTrainingAtWeekFamily
 	) {
+		/// 定期的な運動「いいえ」だったら0点
+		if( trainingFamily == "0" ) return 0;
+
 		// ・中等度の運動を150分以上
 		if( trainingStrengthFamily == '中程度' ){
 			if( timeForTrainingAtWeekFamily >= 150 )
@@ -300,9 +304,13 @@ class LifeStyleScoreCalculator extends RiskCalculatorBase{
 		ret.training_strength = !(typeof this.pi.training_strength  == "undefined"
 								|| this.pi.training_strength == "" );
 
-		// 運動状況（時間）
-		ret.training_time_for_training_at_week = !(typeof this.pi.training_time_for_training_at_week  == "undefined"
-												|| this.pi.training_time_for_training_at_week == "" );
+		// 運動状況運動状況（時間）
+		if( this.pi.training_family == "0"){
+			ret.training_time_for_training_at_week = true;
+		}else{
+			ret.training_time_for_training_at_week = !(typeof this.pi.training_time_for_training_at_week  == "undefined"
+			|| this.pi.training_time_for_training_at_week == "" );
+		}
 
 		return ret;
 	}
