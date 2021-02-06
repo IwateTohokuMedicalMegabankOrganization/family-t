@@ -697,7 +697,7 @@ function start()
 		});
 		
 		// 閉じるボタン
-		$('#closeRiskScoreButton').on('click', function(){
+		$('.closeRiskScoreButton').on('click', function(){
 			$("#disease_risk_calculator_dialog").dialog('close');
 		});
 	});
@@ -757,7 +757,7 @@ function start()
 		});
 		
 		// 閉じるボタン
-		$('#closeQofhScoreButton').on('click', function(){
+		$('.closeQofhScoreButton').on('click', function(){
 			$("#quality_of_family_history_score_dialog").dialog('close');
 		});
 	});
@@ -812,7 +812,7 @@ function start()
 			temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
 		},
 		beforeClose: function(){
-			personal_information = temporarilyHoldCareTaker.paste( 'personal_informaiton');
+			personal_information = temporarilyHoldCareTaker.paste('personal_informaiton');
 		}
 	});
 
@@ -1348,6 +1348,7 @@ function preparate_lifestyle_score_dialog(){
 		calcLifestyleScoreAndShow();
 		// 値を反映
 		temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
+		ScoreCardController.refresh();
 	});
 
 	$('#lifestylescore_compensational_block input').change(function(){

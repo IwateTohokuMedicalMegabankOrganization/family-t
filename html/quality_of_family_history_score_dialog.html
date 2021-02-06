@@ -1,104 +1,19 @@
 <html>
-<!-- 
-<head>
-
-	<title>family-t</title>
-
-	<script src="../js/angular.min.js"></script>
-	<script src="../js/fhhController.js"></script>
-	<link rel="stylesheet" type="text/css" href="../css/jquery.keypad.css">
-	<script type="text/javascript" src="../plugins/bootstrap/ui-bootstrap-tpls-0.13.0.min.js"></script>
-	<script type="text/javascript" src="../jquery/jquery-1.11.1.js"></script>
-	<script type="text/javascript" src="../jquery/jquery-ui-1.10.4.js"></script>
-	<script type="text/javascript" src="../jquery/jquery.plugin.js"></script>
-	<script type="text/javascript" src="../jquery/jquery.keypad.js"></script>
-	<link rel="stylesheet" type="text/css" href="../jquery/jquery-ui-1.10.4.css">
-	<script type="text/javascript" src="../jquery/datepicker-ja.js"></script>
-	<script type="text/javascript" src="../js/config.js"></script>
-	<script type="text/javascript" src="../js/go-debug.js"></script>
-	<script type="text/javascript" src="../js/genogram.js"></script>
-	<script type="text/javascript" src="../js/new_diagram.js"></script>
-	<script type="text/javascript" src="../js/fhh.js"></script>
-	<script type="text/javascript" src="../js/fhh_export_family_member.js"></script>
-	<script type="text/javascript" src="../js/load_xml.js"></script>
-	<script type="text/javascript" src="../js/save_xml.js"></script>
-
-
-	<link rel="shortcut icon" href="../themes/deploy/favicon.ico" type="image/x-icon">
-	<script type="text/javascript" src="../js/i18next-1.7.4.js"></script>
-
-	<script type="text/javascript" src="../js/family_pivot.js"></script>
-
-	<script type="text/javascript" src="../js/bmi.js"></script>
-
-	<script type="text/javascript" src="../static/js/jquery.svg.js"></script>
-
-	<script type="text/javascript" src="../static/js/jquery.qtip.js"></script>
-	<script type="text/javascript" src="../static/js/jquery.dataTables.js"></script>
-	<script type="text/javascript" src="../static/js/dataTables.colReorder.js"></script>
-	<script type="text/javascript" src="../static/js/dataTables.tableTools.js"></script>
-	<script type="text/javascript" src="../static/js/dataTables.fixedColumns.js"></script>
-	<script type="text/javascript" src="../static/js/raphael-min.js"></script>
-
-	<script type="text/javascript" src="../risk/atherosclerotic/atherosclerotic.js"></script>
-	<script type="text/javascript" src="../risk/drc/diabetes.js"></script>
-	<script type="text/javascript" src="../risk/stroke/stroke.js"></script>
-	<script type="text/javascript" src="../risk/lifestyle/lifestyle.js"></script>
-	<script type="text/javascript" src="../risk/history/history.js"></script>
-
-	<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.amber-pink.min.css" />
-	<script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection,print" />
-	<link rel="stylesheet" type="text/css" href="../static/css/jquery.svg.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/jquery.qtip.min.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/dataTables.colReorder.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/dataTables.tableTools.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/dataTables.fixedColumns.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/stickymenu.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
-	<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection,print" />
-	<link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection,print" />
-	<script type="text/javascript" src="../js/keys.js"></script>
-	<script type="text/javascript" src="../js/materialize.js"></script>
-	<script type="text/javascript" src="../js/quality_of_family_history_score_dialog.js"></script>
-	<script type="text/javascript">
-		$(function () {
-			$("#list01").sortable();
-			$("#list01").disableSelection();
-		});
-	</script>
-
-
-	<script>
-		$(document).ready(function () {
-			var qoFSupplementForm = new QoFSupplementForm( personal_information );
-		});
-	</script>
-	<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection,print" />
-	<link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection,print" />
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-</head> -->
-
 <body>
-
 	<div class="row">
-		<div>
-			<span class='col s6 text-left translate' data-i18n='family-t_qof_history_score.explain1'>家族歴の質を高めるために、下記についてご確認ください。</span>
-		</div>
-		<div class="col s6 text-right">
-			<button id='closeQofhScoreButton' class="btn-large waves-effect waves-light teal lighten-1 translate"
+		<div class="col s12 text-right">
+			<button class="closeQofhScoreButton btn-large waves-effect waves-light teal lighten-1 translate"
 				data-i18n='fhh_family_pedigree.close' style="text-align:right;font-size:110% !important">Close</button>
 		</div>
 	</div>
 
-
-	<div class="row risk_box">
-		<div class="col s12 risk_title">
+	<div class="row compensational_block">
+		<div class="col s12 compensation_start">
+			<div class="col s12 left">
+				<span class='col s6 text-left translate' data-i18n='family-t_qof_history_score.explain1'>家族歴の質を高めるために、下記についてご確認ください。</span>
+			</div>
 		</div>
-		<div class="col s12 risk_container">
+		<div class="col s12 compensation">
 			<table class="table">
 				<thead>
 					<tr>
@@ -127,8 +42,6 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
-	<div class="row">
 		<div class="col s12 compensation">
 			<div class="col s12 center">
 				<button id="reCalculate" class="btn-small waves-effect waves-light teal lighten-1">
@@ -141,6 +54,7 @@
 
 	<div class="row risk_box">
 		<div class="col s12 risk_title">
+			<span class='translate' data-i18n='family-t_qof_history_score.title'>ライフスタイルスコア</span>
 		</div>
 		<div class="col s12 risk_container">
 			<div class="row">
@@ -155,7 +69,7 @@
 						style="font-size:3em;">%</span>
 				</div>
 				<div class="col s12">
-					<span class='translate' data-i18n='family-t_qof_history_score.medical_history_formula'>発症年齢（％）=
+					<span class='translate' data-i18n='family-t_qof_history_score.age_of_onset_formula'>発症年齢（％）=
 						発症年齢の記入がある疾患数
 						÷ 家系内の疾患数</span>
 				</div>
@@ -164,7 +78,7 @@
 						style="font-size:3em;">%</span>
 				</div>
 				<div class="col s12">
-					<span class='translate' data-i18n='family-t_qof_history_score.medical_history_formula'>死因（％）=
+					<span class='translate' data-i18n='family-t_qof_history_score.cause_of_death_formula'>死因（％）=
 						死因となった疾患の記入がある死者数 ÷ 家系内の死者数</span>
 				</div>
 				<div class="col s12">
@@ -172,7 +86,7 @@
 						style="font-size:3em;">%</span>
 				</div>
 				<div class="col s12">
-					<span class='translate' data-i18n='family-t_qof_history_score.medical_history_formula'>死亡年齢（％）=
+					<span class='translate' data-i18n='family-t_qof_history_score.age_of_death_formula'>死亡年齢（％）=
 						死亡年齢の記入がある死者数
 						÷ 家系内の死者数</span>
 				</div>
@@ -184,6 +98,12 @@
 		</div>
 	</div>
 
+	<div class="row">
+		<div class="col s12 text-right">
+			<button class="closeQofhScoreButton btn-large waves-effect waves-light teal lighten-1 translate"
+				data-i18n='fhh_family_pedigree.close' style="text-align:right;font-size:110% !important">Close</button>
+		</div>
+	</div>
 
 </body>
 
