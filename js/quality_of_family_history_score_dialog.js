@@ -227,6 +227,10 @@ class QoFSupplementForm {
 		
 		// TODO 病歴
 
+		// 差分表示
+
+		
+
 	}
 
 

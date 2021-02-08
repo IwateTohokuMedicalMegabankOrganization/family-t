@@ -1365,15 +1365,19 @@ function preparate_qof_score_dialog(){
 		QualityOfFamilyHistoryScoreController.refresh();
 		temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
 		build_family_history_data_table();
+		QualityOfFamilyHistoryScoreController.hideDifferenceScore();
 	});
 
 	$('#qof_compensational_block input').change(function(){
 		qoFSupplementForm.updatePersonalInformation( this );
+		QualityOfFamilyHistoryScoreController.showDifferenceScore ( personal_information );
 	});
 	$('#qof_compensational_block select').change(function(){
 		qoFSupplementForm.updatePersonalInformation( this );
+		QualityOfFamilyHistoryScoreController.showDifferenceScore ( personal_information );
 	});
 
+	QualityOfFamilyHistoryScoreController.hideDifferenceScore();
 }
 //不足項目入力フォームのchangeイベント、ボタンclickイベント準備
 function preparate_lifestyle_score_dialog(){
@@ -2965,6 +2969,19 @@ class QualityOfFamilyHistoryScoreController{
 		$('#DialogRateOfAgeAtDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDeath );
 		$('#DialogRateOfCauseOfDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfCauseOfDeath );
 		$('#DialogRateOfAgeAtDisease').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDisease );
+	}
+
+	static hideDifferenceScore(pi){
+		$('.DisplayDiffereOfQof').hide();
+	}
+	static showDifferenceScore(pi){
+
+		var calculator = new QualityOfFamilyHistoryCalculator( pi );
+		$('#UpdateRateOfHelthHistory').text( calculator.qualityOfFamilyHistoryScore.rateOfHelthHistory );
+		$('#UpdateRateOfAgeAtDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDeath );
+		$('#UpdateRateOfCauseOfDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfCauseOfDeath );
+		$('#UpdateRateOfAgeAtDisease').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDisease );
+		$('.DisplayDiffereOfQof').show('slow');
 	}
 
 }
