@@ -3049,6 +3049,8 @@ class ScoreCardController{
 		ScoreCardController._lifeStyleScore();
 
 		// 疾患発症リスク
+		if( cannot_calculate() ) return ;
+
 		// 糖尿病	
 		ScoreCardController._diababatesRiskScore();
 
@@ -3143,7 +3145,29 @@ class ScoreCardController{
 
 }
 
+function cannot_calculate(){
+	// 40歳以下、70歳以上の場合は計算しない
+	var age = getDisplayAge(personal_information);
+	if( age <= 40 || 70 <= age ) {
+		$("#compensational_block").hide();
+		$(".result_block").hide();
+		$(".calculatable").hide();
+		$('.cannnot_calculate_under40').hide();
+		$('.cannnot_calculate_over70').hide();
+
+		if( age <= 40 )	$('.cannnot_calculate_under40').show();
+
+		if( 70 <= age )	$('.cannnot_calculate_over70').show();
+
+		return true;
+	}
+	return false;
+}
+
 function riskCalcAndShow() {
+
+	if( cannot_calculate() ) return ;
+
 	// 糖尿病
 	var drc_calcflag = drc_checkNecessaryItems();
 
@@ -3562,6 +3586,10 @@ function getHealthHistories( histories ){
 }
 
 function getDisplayAge(pi){
+
+	if( typeof pi.relationship == 'undefined'){
+		return get_member_age(pi);
+	}
 
 	// 存命
 	if( pi.is_alive == "alive"){
@@ -4763,7 +4791,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 
 	$("#family_info_form_year_of_birth, #family_info_form_month_of_birth").on("change",function() {
 		var year = $("#family_info_form_year_of_birth").val() + "/";
-		var month = $("#family_info_form_month_of_birth").val().toString().padStart(2, '0');
+		var month = String($("#family_info_form_month_of_birth").val()).padStart(2, '0');
 		var date = "/01";
 		$("#family_info_form_date_of_birth").val(year + month + date);
 	});
