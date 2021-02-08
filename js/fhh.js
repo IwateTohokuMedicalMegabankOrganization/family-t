@@ -2714,114 +2714,115 @@ function cancel_update_family_member() {
 
 function bind_add_all_family_members_submit_button_action() {
 
-	$("#create_immediate_family_submit").on("click", function() {
-		var number_brothers = parseInt($("#family_brothers").val()) || 0;
-		var number_sisters = parseInt($("#family_sisters").val()) || 0;
-		var number_sons = parseInt( $("#family_sons").val()) || 0;
-		var number_daughters = parseInt($("#family_daughters").val()) || 0;
-		var number_maternal_uncles = parseInt($("#family_maternal_uncles").val()) || 0;
-		var number_maternal_aunts = parseInt($("#family_maternal_aunts").val()) || 0;
-		var number_paternal_uncles = parseInt($("#family_paternal_uncles").val()) || 0;
-		var number_paternal_aunts = parseInt($("#family_paternal_aunts").val()) || 0;
+	$("#create_immediate_family_submit").on("click",create_immediate_family_submit);
+}
 
-		personal_information['father'] = {'gender':'MALE'};
-		personal_information['father'].id = guid();
-		personal_information['father']['Health History'] = [];
-		personal_information['father'].name = get_defaultname('father');
+function create_immediate_family_submit(){
+	
+	var number_brothers = parseInt($("#family_brothers").val()) || 0;
+	var number_sisters = parseInt($("#family_sisters").val()) || 0;
+	var number_sons = parseInt( $("#family_sons").val()) || 0;
+	var number_daughters = parseInt($("#family_daughters").val()) || 0;
+	var number_maternal_uncles = parseInt($("#family_maternal_uncles").val()) || 0;
+	var number_maternal_aunts = parseInt($("#family_maternal_aunts").val()) || 0;
+	var number_paternal_uncles = parseInt($("#family_paternal_uncles").val()) || 0;
+	var number_paternal_aunts = parseInt($("#family_paternal_aunts").val()) || 0;
 
-		personal_information['mother'] = {'gender':'FEMALE'};
-		personal_information['mother'].id = guid();
-		personal_information['mother']['Health History'] = [];
-		personal_information['mother'].name = get_defaultname('mother');
+	personal_information['father'] = {'gender':'MALE'};
+	personal_information['father'].id = guid();
+	personal_information['father']['Health History'] = [];
+	personal_information['father'].name = get_defaultname('father');
 
-		personal_information['maternal_grandfather'] = {'gender':'MALE'};
-		personal_information['maternal_grandfather'].id = guid();
-		personal_information['maternal_grandfather']['Health History'] = [];
-		personal_information['maternal_grandfather'].name = get_defaultname('maternal_grandfather');
+	personal_information['mother'] = {'gender':'FEMALE'};
+	personal_information['mother'].id = guid();
+	personal_information['mother']['Health History'] = [];
+	personal_information['mother'].name = get_defaultname('mother');
 
-		personal_information['maternal_grandmother'] = {'gender':'FEMALE'};
-		personal_information['maternal_grandmother'].id = guid();
-		personal_information['maternal_grandmother']['Health History'] = [];
-		personal_information['maternal_grandmother'].name = get_defaultname('maternal_grandmother');
+	personal_information['maternal_grandfather'] = {'gender':'MALE'};
+	personal_information['maternal_grandfather'].id = guid();
+	personal_information['maternal_grandfather']['Health History'] = [];
+	personal_information['maternal_grandfather'].name = get_defaultname('maternal_grandfather');
 
-		personal_information['paternal_grandfather'] = {'gender':'MALE'};
-		personal_information['paternal_grandfather'].id = guid();
-		personal_information['paternal_grandfather']['Health History'] = [];
-		personal_information['paternal_grandfather'].name = get_defaultname('paternal_grandfather');
+	personal_information['maternal_grandmother'] = {'gender':'FEMALE'};
+	personal_information['maternal_grandmother'].id = guid();
+	personal_information['maternal_grandmother']['Health History'] = [];
+	personal_information['maternal_grandmother'].name = get_defaultname('maternal_grandmother');
 
-		personal_information['paternal_grandmother'] = {'gender':'FEMALE'};
-		personal_information['paternal_grandmother'].id = guid();
-		personal_information['paternal_grandmother']['Health History'] = [];
-		personal_information['paternal_grandmother'].name = get_defaultname('paternal_grandmother');
+	personal_information['paternal_grandfather'] = {'gender':'MALE'};
+	personal_information['paternal_grandfather'].id = guid();
+	personal_information['paternal_grandfather']['Health History'] = [];
+	personal_information['paternal_grandfather'].name = get_defaultname('paternal_grandfather');
 
-		for (var i=0; i<number_brothers;i++) {
-			personal_information['brother_' + i] = {'gender':'MALE'};
-			personal_information['brother_' + i].id = guid();
-			personal_information['brother_' + i]['Health History'] = [];
-			personal_information['brother_' + i].name = get_defaultname('brother', i );
-		}
-		for (var i=0; i<number_sisters;i++) {
-			personal_information['sister_' + i] = {'gender':'FEMALE'};
-			personal_information['sister_' + i].id = guid();
-			personal_information['sister_' + i]['Health History'] = [];
-			personal_information['sister_' + i].name = get_defaultname('sister', i );
-		}
-		for (var i=0; i<number_sons;i++) {
-			personal_information['son_' + i] = {'gender':'MALE'};
-			personal_information['son_' + i].id = guid();
-			personal_information['son_' + i]['Health History'] = [];
-			personal_information['son_' + i].name = get_defaultname('son', i );
-		}
-		for (var i=0; i<number_daughters;i++) {
-			personal_information['daughter_' + i] = {'gender':'FEMALE'};
-			personal_information['daughter_' + i].id = guid();
-			personal_information['daughter_' + i]['Health History'] = [];
-			personal_information['daughter_' + i].name =  get_defaultname('daughter', i );
-		}
-		for (var i=0; i<number_maternal_uncles;i++) {
-			personal_information['maternal_uncle_' + i] = {'gender':'MALE'};
-			personal_information['maternal_uncle_' + i].id = guid();
-			personal_information['maternal_uncle_' + i]['Health History'] = [];
-			personal_information['maternal_uncle_' + i].name =  get_defaultname('maternal_uncle', i );
-		}
-		for (var i=0; i<number_maternal_aunts;i++) {
-			personal_information['maternal_aunt_' + i] = {'gender':'FEMALE'};
-			personal_information['maternal_aunt_' + i].id = guid();
-			personal_information['maternal_aunt_' + i]['Health History'] = [];
-			personal_information['maternal_aunt_' + i].name =  get_defaultname('maternal_aunt', i );
-		}
-		for (var i=0; i<number_paternal_uncles;i++) {
-			personal_information['paternal_uncle_' + i] = {'gender':'MALE'};
-			personal_information['paternal_uncle_' + i].id = guid();
-			personal_information['paternal_uncle_' + i]['Health History'] = [];
-			personal_information['paternal_uncle_' + i].name =  get_defaultname('paternal_uncle', i );
-		}
-		for (var i=0; i<number_paternal_aunts;i++) {
-			personal_information['paternal_aunt_' + i] = {'gender':'FEMALE'};
-			personal_information['paternal_aunt_' + i].id = guid();
-			personal_information['paternal_aunt_' + i]['Health History'] = [];
-			personal_information['paternal_aunt_' + i].name =  get_defaultname('paternal_aunt', i );
-		}
+	personal_information['paternal_grandmother'] = {'gender':'FEMALE'};
+	personal_information['paternal_grandmother'].id = guid();
+	personal_information['paternal_grandmother']['Health History'] = [];
+	personal_information['paternal_grandmother'].name = get_defaultname('paternal_grandmother');
 
-		build_family_history_data_table();
+	for (var i=0; i<number_brothers;i++) {
+		personal_information['brother_' + i] = {'gender':'MALE'};
+		personal_information['brother_' + i].id = guid();
+		personal_information['brother_' + i]['Health History'] = [];
+		personal_information['brother_' + i].name = get_defaultname('brother', i );
+	}
+	for (var i=0; i<number_sisters;i++) {
+		personal_information['sister_' + i] = {'gender':'FEMALE'};
+		personal_information['sister_' + i].id = guid();
+		personal_information['sister_' + i]['Health History'] = [];
+		personal_information['sister_' + i].name = get_defaultname('sister', i );
+	}
+	for (var i=0; i<number_sons;i++) {
+		personal_information['son_' + i] = {'gender':'MALE'};
+		personal_information['son_' + i].id = guid();
+		personal_information['son_' + i]['Health History'] = [];
+		personal_information['son_' + i].name = get_defaultname('son', i );
+	}
+	for (var i=0; i<number_daughters;i++) {
+		personal_information['daughter_' + i] = {'gender':'FEMALE'};
+		personal_information['daughter_' + i].id = guid();
+		personal_information['daughter_' + i]['Health History'] = [];
+		personal_information['daughter_' + i].name =  get_defaultname('daughter', i );
+	}
+	for (var i=0; i<number_maternal_uncles;i++) {
+		personal_information['maternal_uncle_' + i] = {'gender':'MALE'};
+		personal_information['maternal_uncle_' + i].id = guid();
+		personal_information['maternal_uncle_' + i]['Health History'] = [];
+		personal_information['maternal_uncle_' + i].name =  get_defaultname('maternal_uncle', i );
+	}
+	for (var i=0; i<number_maternal_aunts;i++) {
+		personal_information['maternal_aunt_' + i] = {'gender':'FEMALE'};
+		personal_information['maternal_aunt_' + i].id = guid();
+		personal_information['maternal_aunt_' + i]['Health History'] = [];
+		personal_information['maternal_aunt_' + i].name =  get_defaultname('maternal_aunt', i );
+	}
+	for (var i=0; i<number_paternal_uncles;i++) {
+		personal_information['paternal_uncle_' + i] = {'gender':'MALE'};
+		personal_information['paternal_uncle_' + i].id = guid();
+		personal_information['paternal_uncle_' + i]['Health History'] = [];
+		personal_information['paternal_uncle_' + i].name =  get_defaultname('paternal_uncle', i );
+	}
+	for (var i=0; i<number_paternal_aunts;i++) {
+		personal_information['paternal_aunt_' + i] = {'gender':'FEMALE'};
+		personal_information['paternal_aunt_' + i].id = guid();
+		personal_information['paternal_aunt_' + i]['Health History'] = [];
+		personal_information['paternal_aunt_' + i].name =  get_defaultname('paternal_aunt', i );
+	}
 
-		$("#add_another_family_member_button").show();
+	build_family_history_data_table();
 
-		// $("#firstVari").text("You have unsaved data!");
-		$("#firstVari").text("未保存のデータがあります！");
-		$("#firstVari").css("visibility","visible");
-		$("#firstVari").addClass("label_alert");
-		$("tt1").removeClass("green-text");
-		$("tt1").addClass("red-text");
-		$("#save_personal_history_button").css("background-color","red");
+	$("#add_another_family_member_button").show();
 
-		$("#add_all_family_members_dialog").dialog("close");
+	// $("#firstVari").text("You have unsaved data!");
+	$("#firstVari").text("未保存のデータがあります！");
+	$("#firstVari").css("visibility","visible");
+	$("#firstVari").addClass("label_alert");
+	$("tt1").removeClass("green-text");
+	$("tt1").addClass("red-text");
+	$("#save_personal_history_button").css("background-color","red");
 
-		// Created Date
-		personal_information['created_date'] = getCreatedDate();
+	$("#add_all_family_members_dialog").dialog("close");
 
-	});
-
+	// Created Date
+	personal_information['created_date'] = getCreatedDate();
 }
 
 // 作成日時を取得する
