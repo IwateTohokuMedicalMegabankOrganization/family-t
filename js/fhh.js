@@ -1892,7 +1892,7 @@ function exact_family_member_relationship_selection_change_action() {
 
 		current_relationship = relationship + "_" + i;
 	//	alert ("Exact Relationship ID: " + current_relationship);
-		create_new_family_member(current_relationship, relationship, parent_id);
+		create_new_family_member(current_relationship, relationship, parent_id, i );
 		family_member_information.relationship = relationship;
 
 		clear_and_set_current_family_member_health_history_dialog(family_member_information);
@@ -1902,7 +1902,7 @@ function exact_family_member_relationship_selection_change_action() {
 	}
 }
 
-function create_new_family_member(current_relationship, relationship, parent_id) {
+function create_new_family_member(current_relationship, relationship, parent_id, i ) {
 	family_member_information = new Object();
 	current_health_history = [];
 
@@ -1912,7 +1912,8 @@ function create_new_family_member(current_relationship, relationship, parent_id)
 		family_member_information.parent_id = parent_id;
 	}
 	family_member_information.gender = get_gender(relationship);
-	family_member_information.name = get_defaultname(relationship);
+	family_member_information.name = get_defaultname(relationship) + " " + i;
+	console.log( family_member_information.name );
 	personal_information[current_relationship] = family_member_information;
 
 	var table = $("#history_summary_table");
@@ -2726,80 +2727,80 @@ function bind_add_all_family_members_submit_button_action() {
 		personal_information['father'] = {'gender':'MALE'};
 		personal_information['father'].id = guid();
 		personal_information['father']['Health History'] = [];
-		personal_information['father'].name = 'あなたの父';
+		personal_information['father'].name = get_defaultname('father');
 
 		personal_information['mother'] = {'gender':'FEMALE'};
 		personal_information['mother'].id = guid();
 		personal_information['mother']['Health History'] = [];
-		personal_information['mother'].name = 'あなたの母';
+		personal_information['mother'].name = get_defaultname('mother');
 
 		personal_information['maternal_grandfather'] = {'gender':'MALE'};
 		personal_information['maternal_grandfather'].id = guid();
 		personal_information['maternal_grandfather']['Health History'] = [];
-		personal_information['maternal_grandfather'].name = 'あなたの母方の祖父';
+		personal_information['maternal_grandfather'].name = get_defaultname('maternal_grandfather');
 
 		personal_information['maternal_grandmother'] = {'gender':'FEMALE'};
 		personal_information['maternal_grandmother'].id = guid();
 		personal_information['maternal_grandmother']['Health History'] = [];
-		personal_information['maternal_grandmother'].name = 'あなたの母方の祖母';
+		personal_information['maternal_grandmother'].name = get_defaultname('maternal_grandmother');
 
 		personal_information['paternal_grandfather'] = {'gender':'MALE'};
 		personal_information['paternal_grandfather'].id = guid();
 		personal_information['paternal_grandfather']['Health History'] = [];
-		personal_information['paternal_grandfather'].name = 'あなたの父方の祖父';
+		personal_information['paternal_grandfather'].name = get_defaultname('paternal_grandfather');
 
 		personal_information['paternal_grandmother'] = {'gender':'FEMALE'};
 		personal_information['paternal_grandmother'].id = guid();
 		personal_information['paternal_grandmother']['Health History'] = [];
-		personal_information['paternal_grandmother'].name = 'あなたの父方の祖母';
+		personal_information['paternal_grandmother'].name = get_defaultname('paternal_grandmother');
 
 		for (var i=0; i<number_brothers;i++) {
 			personal_information['brother_' + i] = {'gender':'MALE'};
 			personal_information['brother_' + i].id = guid();
 			personal_information['brother_' + i]['Health History'] = [];
-			personal_information['brother_' + i].name = 'あなたの兄弟';
+			personal_information['brother_' + i].name = get_defaultname('brother', i );
 		}
 		for (var i=0; i<number_sisters;i++) {
 			personal_information['sister_' + i] = {'gender':'FEMALE'};
 			personal_information['sister_' + i].id = guid();
 			personal_information['sister_' + i]['Health History'] = [];
-			personal_information['sister_' + i].name = 'あなたの姉妹';
+			personal_information['sister_' + i].name = get_defaultname('sister', i );
 		}
 		for (var i=0; i<number_sons;i++) {
 			personal_information['son_' + i] = {'gender':'MALE'};
 			personal_information['son_' + i].id = guid();
 			personal_information['son_' + i]['Health History'] = [];
-			personal_information['son_' + i].name = 'あなたの息子';
+			personal_information['son_' + i].name = get_defaultname('son', i );
 		}
 		for (var i=0; i<number_daughters;i++) {
 			personal_information['daughter_' + i] = {'gender':'FEMALE'};
 			personal_information['daughter_' + i].id = guid();
 			personal_information['daughter_' + i]['Health History'] = [];
-			personal_information['daughter_' + i].name = 'あなたの娘';
+			personal_information['daughter_' + i].name =  get_defaultname('daughter', i );
 		}
 		for (var i=0; i<number_maternal_uncles;i++) {
 			personal_information['maternal_uncle_' + i] = {'gender':'MALE'};
 			personal_information['maternal_uncle_' + i].id = guid();
 			personal_information['maternal_uncle_' + i]['Health History'] = [];
-			personal_information['maternal_uncle_' + i].name = 'あなたの母方のおじ';
+			personal_information['maternal_uncle_' + i].name =  get_defaultname('maternal_uncle', i );
 		}
 		for (var i=0; i<number_maternal_aunts;i++) {
 			personal_information['maternal_aunt_' + i] = {'gender':'FEMALE'};
 			personal_information['maternal_aunt_' + i].id = guid();
 			personal_information['maternal_aunt_' + i]['Health History'] = [];
-			personal_information['maternal_aunt_' + i].name = 'あなたの母方のおば';
+			personal_information['maternal_aunt_' + i].name =  get_defaultname('maternal_aunt', i );
 		}
 		for (var i=0; i<number_paternal_uncles;i++) {
 			personal_information['paternal_uncle_' + i] = {'gender':'MALE'};
 			personal_information['paternal_uncle_' + i].id = guid();
 			personal_information['paternal_uncle_' + i]['Health History'] = [];
-			personal_information['paternal_uncle_' + i].name = 'あなたの父方のおじ';
+			personal_information['paternal_uncle_' + i].name =  get_defaultname('paternal_uncle', i );
 		}
 		for (var i=0; i<number_paternal_aunts;i++) {
 			personal_information['paternal_aunt_' + i] = {'gender':'FEMALE'};
 			personal_information['paternal_aunt_' + i].id = guid();
 			personal_information['paternal_aunt_' + i]['Health History'] = [];
-			personal_information['paternal_aunt_' + i].name = 'あなたの父方のおば';
+			personal_information['paternal_aunt_' + i].name =  get_defaultname('paternal_aunt', i );
 		}
 
 		build_family_history_data_table();
@@ -6308,7 +6309,7 @@ function get_member_birth(member_information) {
 
 function get_member_age(member_information) {
 	if (typeof member_information.age == "undefined" || member_information.age == null || member_information.age == "") {
-		var get_age = "-1";
+		var get_age = "";
 		if (typeof member_information.estimated_age != "undefined") {
 			get_age = calc_est_age(member_information.estimated_age);
 		}
@@ -6616,59 +6617,11 @@ function reset_personal_information() {
 	personal_information['Health History']=[];
 }
 
-function get_defaultname(relationship) {
-	switch(relationship) {
-	case 'maternal_grandfather':
-		return "あなたの母方の祖父";
-	case 'paternal_grandfather':
-		return "あなたの父方の祖父";
-	case 'father':
-		return "あなたの父";
-	case 'brother':
-		return "あなたの兄弟";
-	case 'son':
-		return "あなたの息子";
-	case 'maternal_uncle':
-		return "あなたの母方のおじ";
-	case 'paternal_uncle':
-		return "あなたの父方のおじ";
-	case 'nephew':
-		return "あなたのおい";
-	case 'grandson':
-		return "あなたの孫息子";
-	case 'maternal_halfbrother':
-		return "あなたの異母兄弟";
-	case 'paternal_halfbrother':
-		return "あなたの異父兄弟";
-	case 'maternal_grandmother':
-		return "あなたの母方の祖母";
-	case 'paternal_grandmother':
-		return "あなたの父方の祖母";
-	case 'mother':
-		return "あなたの母";
-	case 'sister':
-		return "あなたの姉妹";
-	case 'daughter':
-		return "あなたの娘";
-	case 'maternal_aunt':
-		return "あなたの母方のおば";
-	case 'paternal_aunt':
-		return "あなたの父方のおば";
-	case 'niece':
-		return "あなたのめい";
-	case 'granddaughter':
-		return "あなたの孫娘";
-	case 'maternal_halfsister':
-		return "あなたの異母姉妹";
-	case 'paternal_halfsister':
-		return "あなたの異父姉妹";
-	case 'maternal_cousin':
-		return "あなたの母方のいとこ";
-	case 'paternal_cousin':
-		return "あなたの父方のいとこ";
-	default:
-		return "";
-	}
+function get_defaultname(relationship, i ){
+	if( typeof i == "undefined")
+		return $.t(`family-t.${relationship}`);
+
+	return $.t(`family-t.${relationship}`) + " " + ( i + 1 );
 }
 
 function escape_name(name) {
