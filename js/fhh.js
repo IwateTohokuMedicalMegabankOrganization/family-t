@@ -1485,6 +1485,8 @@ function preparate_compensation_dialog(){
 	// 再計算ボタン
 	$("#reCalculate").on("click", function() {
 		riskCalcAndShow();
+		temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
+		ScoreCardController.refresh();
     });
 
 	// 性別
