@@ -838,9 +838,9 @@ function start()
 		LifeStyleScoreDetailDialogController.refresh();
 		// 不足していれば(=false)、その項目の入力フォームを表示
 		if(checkResult) {
-			$("#lifestylescore_compensational_block").hide();
+			$("#lifestylescore_compensation_block").hide();
 		} else {
-			$("#lifestylescore_compensational_block").show();
+			$("#lifestylescore_compensation_block").show();
 		}
 
 		$("#lifestyle_score_calculator_dialog").dialog('open').position("center top");
@@ -852,9 +852,9 @@ function start()
 
 		// 不足していれば(=false)、その項目の入力フォームを表示
 		if(checkResult) {
-			$("#lifestylescore_compensational_block").hide();
+			$("#lifestylescore_compensation_block").hide();
 		} else {
-			$("#lifestylescore_compensational_block").show();
+			$("#lifestylescore_compensation_block").show();
 		}
 
 		$("#lifestyle_score_calculator_dialog").dialog('open').position("center top");
@@ -1389,56 +1389,64 @@ function preparate_lifestyle_score_dialog(){
 		temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
 		ScoreCardController.refresh();
 	});
-
-	$('#lifestylescore_compensational_block input').change(function(){
-
-		// 喫煙状況
-		if ($('input[name="lifestylescore_compensation_smoker"]:checked').val() != "5") {
-			$('input[name="lifestylescore_compensation_number_of_cigarettes_per_day"]').prop('checked',false);
-			$('input[name="lifestylescore_compensation_number_of_cigarettes_per_day"]').prop('disabled',true);
-		} else {
-			$('input[name="lifestylescore_compensation_number_of_cigarettes_per_day"]').prop('disabled',false);
-		}
-		
-		// 運動状況
-		if ($('input[name="lifestylescore_compensation_training"]:checked').val() == 1) {
-			$('select[name="lifestylescore_compensation_training_status1"]').prop('disabled',false);
-			$('input[name="lifestylescore_compensation_training_status2"]').prop('disabled',false);
-			$('input[name="lifestylescore_compensation_training_status3"]').prop('disabled',false);
-			$('.lifestylescore_compensation_training_status_yes').show();
-		} else {
-			document.getElementById("lifestylescore_compensation_training_strength").value = "";
-			document.getElementById("lifestylescore_compensation_count_for_training_at_week").value = "";
-			document.getElementById("lifestylescore_compensation_time_for_training_at_week").value = "";
-			$('select[name="lifestylescore_compensation_training_status1"]').prop('disabled',true);
-			$('input[name="lifestylescore_compensation_training_status2"]').prop('disabled',true);
-			$('input[name="lifestylescore_compensation_training_status3"]').prop('disabled',true);
-			$('.lifestylescore_compensation_training_status_yes').hide('slow');
-		}
-
-		// 値の更新
-		// 身長
-		if( !isNaN(parseInt( $('#lifestylescore_compensation_height_centimeters').val() ) ) ) {
-			personal_information['height'] = parseInt( $('#lifestylescore_compensation_height_centimeters').val() );
-			personal_information['height_unit'] = "centimeters";
-		}
-
-		// 体重
-		if( !isNaN(parseInt( $('#lifestylescore_compensation_weight').val() ) ) ) {
-			personal_information['weight'] = $('#lifestylescore_compensation_weight').val();
-		};
-
-		// 喫煙
-		personal_information['smoker'] = $('input[name="lifestylescore_compensation_smoker"]:checked').val();
-		personal_information['number_of_cigarettes_per_day'] = $('input[name="lifestylescore_compensation_number_of_cigarettes_per_day"]:checked').val();
-
-		// 運動
-		personal_information['training_family'] = $('input[name="lifestylescore_compensation_training"]:checked').val();
-		personal_information['training_strength'] = $('#lifestylescore_compensation_training_strength').val();
-		personal_information['training_count_for_training_at_week'] = $('#lifestylescore_compensation_count_for_training_at_week').val();
-		personal_information['training_time_for_training_at_week'] = $('#lifestylescore_compensation_time_for_training_at_week').val();
+	// シミュレーションボタン
+	$("#simurateCalculateLifestyleScore").on("click", function() {
+		LifeStyleScoreDetailDialogController.simurate();
 	});
 
+	setChangeEvent('compensation');
+	setChangeEvent('simuration');
+
+	function setChangeEvent(key) {
+		$(`#lifestylescore_${key}_block input`).change(function () {
+
+			// 喫煙状況
+			if ($(`input[name="lifestylescore_${key}_smoker"]:checked`).val() != "5") {
+				$(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]`).prop('checked', false);
+				$(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]`).prop('disabled', true);
+			} else {
+				$(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]`).prop('disabled', false);
+			}
+
+			// 運動状況
+			if ($(`input[name="lifestylescore_${key}_training"]:checked`).val() == 1) {
+				$(`select[name="lifestylescore_${key}_training_status1"]`).prop('disabled', false);
+				$(`input[name="lifestylescore_${key}_training_status2"]`).prop('disabled', false);
+				$(`input[name="lifestylescore_${key}_training_status3"]`).prop('disabled', false);
+				$(`.lifestylescore_${key}_training_status_yes`).show();
+			} else {
+				document.getElementById(`lifestylescore_${key}_training_strength`).value = "";
+				document.getElementById(`lifestylescore_${key}_count_for_training_at_week`).value = "";
+				document.getElementById(`lifestylescore_${key}_time_for_training_at_week`).value = "";
+				$(`select[name="lifestylescore_${key}_training_status1"]`).prop('disabled', true);
+				$(`input[name="lifestylescore_${key}_training_status2"]`).prop('disabled', true);
+				$(`input[name="lifestylescore_${key}_training_status3"]`).prop('disabled', true);
+				$(`.lifestylescore_${key}_training_status_yes`).hide('slow');
+			}
+
+			// 値の更新
+			// 身長
+			if (!isNaN(parseInt($(`#lifestylescore_${key}_height_centimeters`).val()))) {
+				personal_information['height'] = parseInt($(`#lifestylescore_${key}_height_centimeters`).val());
+				personal_information['height_unit'] = "centimeters";
+			}
+
+			// 体重
+			if (!isNaN(parseInt($(`#lifestylescore_${key}_weight`).val()))) {
+				personal_information['weight'] = $(`#lifestylescore_${key}_weight`).val();
+			};
+
+			// 喫煙
+			personal_information['smoker'] = $(`input[name="lifestylescore_${key}_smoker"]:checked`).val();
+			personal_information['number_of_cigarettes_per_day'] = $(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]:checked`).val();
+
+			// 運動
+			personal_information['training_family'] = $(`input[name="lifestylescore_${key}_training"]:checked`).val();
+			personal_information['training_strength'] = $(`#lifestylescore_${key}_training_strength`).val();
+			personal_information['training_count_for_training_at_week'] = $(`#lifestylescore_${key}_count_for_training_at_week`).val();
+			personal_information['training_time_for_training_at_week'] = $(`#lifestylescore_${key}_time_for_training_at_week`).val();
+		});
+	}
 }
 
 // 不足項目入力フォームのchangeイベント、ボタンclickイベント準備
@@ -2902,6 +2910,8 @@ class LifeStyleScoreDetailDialogController{
 	// 再計算
 	static refresh(){
 
+		$('.simuratedScore').hide();
+
 		this.calculator = new LifeStyleScoreCalculator( personal_information );
 
 		// 項目チェック
@@ -2912,6 +2922,19 @@ class LifeStyleScoreDetailDialogController{
 
 		// 内訳
 		LifeStyleScoreDetailDialogController._showDetail();
+		LifeStyleScoreDetailDialogController.hideCompensationalBlock();
+	}
+
+	static simurate(){
+
+		this.calculator = new LifeStyleScoreCalculator( personal_information );
+		// ライフスタイルスコア
+		LifeStyleScoreDetailDialogController._updateSimurateScore();
+
+		// 内訳
+		LifeStyleScoreDetailDialogController._updateSimurateDetail();
+
+		$('.simuratedScore').hide().show('slow');
 	}
 
 	static _validateEntiries(){
@@ -2925,21 +2948,40 @@ class LifeStyleScoreDetailDialogController{
 		// 登録されていませんを表示
 		$('#lifestylescore_ok_mode').hide();
 		$('#lifestylescore_calc_ng').show();
+
+		LifeStyleScoreDetailDialogController._showCompensationalBlock();
 		return false;
 	}
 
-	static _showScore(){
-		$('#risk_parcentile_lifestylescore').text(this.calculator.totalScore);
+	static _showScore(key=''){
+		$(`#${key}risk_parcentile_lifestylescore`).text(this.calculator.totalScore);
 	}
 
-	static _showDetail(){
-		$('#lifestyle_score_isSmoker').text(this.calculator.score.smoker);
-		$('#lifestyle_score_bmi').text(this.calculator.score.bmi);
-		$('#lifestyle_score_training').text(this.calculator.score.trainingFamily);
-		$('#lifestyle_score_diabetes').text(this.calculator.score.dietary);
-		$('#lifestyle_score_total').text(this.calculator.totalScore);
+	static _showDetail(key=''){
+		$(`#${key}lifestyle_score_isSmoker`).text(this.calculator.score.smoker);
+		$(`#${key}lifestyle_score_bmi`).text(this.calculator.score.bmi);
+		$(`#${key}lifestyle_score_training`).text(this.calculator.score.trainingFamily);
+		$(`#${key}lifestyle_score_diabetes`).text(this.calculator.score.dietary);
+		$(`#${key}lifestyle_score_total`).text(this.calculator.totalScore);
 	}
 
+	static _updateSimurateScore(){
+		return LifeStyleScoreDetailDialogController._showScore('simurated_');
+	}
+
+	static _updateSimurateDetail(){
+		return LifeStyleScoreDetailDialogController._showDetail('simurated_');
+	}
+
+	static hideCompensationalBlock(){
+		$('#lifestylescore_compensation_block').hide();
+		$('#lifestylescore_simuration_block').show();
+	}
+
+	static _showCompensationalBlock(){
+		$('#lifestylescore_compensation_block').show();
+		$('#lifestylescore_simuration_block').hide();
+	}
 }
 
 
@@ -2982,6 +3024,10 @@ class QualityOfFamilyHistoryScoreController{
 		$('#UpdateRateOfCauseOfDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfCauseOfDeath );
 		$('#UpdateRateOfAgeAtDisease').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDisease );
 		$('.DisplayDiffereOfQof').show('slow');
+	}
+
+	static hideCompensationalBlock(){
+		$('.compensational_block').hide();
 	}
 
 }
