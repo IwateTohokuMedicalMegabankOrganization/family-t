@@ -667,9 +667,14 @@ function start()
 		});
 		
 		// 閉じるボタン
-		$('#closeSavePersonalHistoryDialogButton').on('click', function(){
+		$('.closeSavePersonalHistoryDialogButton').on('click', function(){
 			$("#save_personal_history_dialog").dialog('close');
 		});
+		
+		$('#saved_leave_this_site').on('click', function(){
+			window.open('about:blank','_self').close();
+		});
+
 	});
 
 	$("#save_personal_history_dialog").dialog({
@@ -677,7 +682,13 @@ function start()
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
-		width:800
+		width:800,
+		open : function( event , ui ){
+			$( "#saved_leave_this_site").hide();
+		},
+		close : function( event , ui ){
+			$( "#saved_leave_this_site").hide();
+		}
 	});
 
 	// This is the second page when you are initially creating a personal history, it asks how many of each type of member
@@ -1101,9 +1112,9 @@ function start()
 	});
 
 	$('#leave_this_site').on('click', function(){
-		window.open('about:blank','_self').close();
+		$( "#save_personal_history_dialog" ).dialog( "open" );
+		$( "#saved_leave_this_site").show();
 	});
-
 	// questionnaire
 	// $('#lead_to_questionaire').on('click', function(){
 	// 	$('#url_to_questionaire').load( "../../operation/gettoken" , function(data){
