@@ -244,13 +244,18 @@ class PersonalInformationUtil {
 
 	static getRelationshipIdByPersonId( id ){
 		var ret = "";
-		Object.keys( personal_information ).some(function( r ) {
-				ret = r;
-				return personal_information[r].id == id;
+		
+		
+		Object.keys( personal_information ).forEach(function( r ) {
+				if( personal_information[r] != null ) 
+					if( personal_information[r].hasOwnProperty('id') )
+						if( personal_information[r].id == id )
+							ret = r;
 			});
 		return ret ;
 	}
 	static getRelationshipPiByPersonId( id ){
+		console.log( PersonalInformationUtil.getRelationshipIdByPersonId(id) );
 		return personal_information[PersonalInformationUtil.getRelationshipIdByPersonId(id)];
 	}
 }
