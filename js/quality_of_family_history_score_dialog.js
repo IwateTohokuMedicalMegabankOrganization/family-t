@@ -43,7 +43,7 @@ class QoFSupplementForm {
 
 		// フォームの生成
 		// 	お名前
-		row.append("<td class='center nowrap'>" + pi.name + "</td>");
+		row.append("<td class='left'>" + pi.name + "</td>");
 		// 存命
 		row.append(this._getIsAliveForm(pi));
 		// 死亡年齢
@@ -96,11 +96,12 @@ class QoFSupplementForm {
 		var name = this._getName(QoFSupplementForm.QOF_HAS_DESEASE_PREFIX, pi.id );
 
 		var values = [ 'with', 'without', 'unknown'];
+		var translations = { with: "family-t.with", without: "family-t.without" , unknown: 'info_dialog.unknown'};
 
 		for( const v of values ){
 
 			ret.append( 
-					$("<span>").append(
+					$("<div>").append(
 						 $("<input type='radio'>")
 								.attr('id', QoFSupplementForm._getId( prefix_id, v))
 								.attr('name', name)
@@ -110,7 +111,7 @@ class QoFSupplementForm {
 						.append(
 							$("<label>")
 								.attr('for', QoFSupplementForm._getId( prefix_id, v) )
-								.text( $.t('family-t.' + v ) )
+								.text( $.t(translations[ v ] ) )
 							)
 					);
 		}
@@ -150,18 +151,8 @@ class QoFSupplementForm {
 		disease_select.val( pi.cause_of_death);
 		disease_select.trigger('change');
 		detailed_disease_select.val( pi.cause_of_death_code);
-
-		var table = $('<table>').append(
-						$('<tbody>').append(
-								$('<tr>')
-									.append(this._getLeftTD(ds))
-									.append(this._getLeftTD(detailed_disease_select)
-							)
-						)
-					);
-
-		// ret.append(detailed_disease_select);
-		ret.append( table );
+		ret.append( $('<div>').append(ds) );
+		ret.append( $('<div>').append(detailed_disease_select) );
 		return ret ;
 	}
 
@@ -189,7 +180,7 @@ class QoFSupplementForm {
 		for( const v of values ){
 
 			ret.append( 
-					$("<span>").append(
+					$("<div>").append(
 						 $("<input type='radio'>")
 								.attr('id', QoFSupplementForm._getId( prefix_id, v))
 								.attr('name', name)
@@ -333,18 +324,18 @@ class QoFSupplementForm {
 					current_health_history[i]['Disease Code']);
 				data_entry_row.before(new_row);
 			}
-		}
+		}	
 		return table;
 	}
 
 	_getTD(contents) {
-		var td = $("<td class='center '>");
+		var td = $("<td>");
 		td.append(contents);
 		return td;
 	}
 
 	_getLeftTD(contents) {
-		var td = $("<td class='left '>");
+		var td = $("<td>");
 		td.append(contents);
 		return td;
 	}
