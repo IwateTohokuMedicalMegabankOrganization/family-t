@@ -161,7 +161,7 @@ class FamilyTree {
 	};
 
 	draw( targetId = '#graph', displayText = false ) {
-
+		$(targetId).empty();
 		var margin = {
 			top: 0,
 			right: 5,
