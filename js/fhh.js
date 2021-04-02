@@ -5,6 +5,21 @@ var current_relationship = "Self";
 
 var diseases;
 var isiPad = navigator.userAgent.match(/iPad/i) != null;
+class TemporarilyHoldCareTaker {
+	mementos = {};
+    add(key, memento) {
+		this.mementos[key] = $.extend( true, {}, memento);
+    }
+ 
+    get(key) {
+        return this.mementos[key];
+	}  
+
+	paste(key) {
+		return  $.extend( true, {} , this.mementos[key]); 
+    }
+}
+var temporarilyHoldCareTaker = new TemporarilyHoldCareTaker();
 
 const default_diseases_list = [
 		"not_picked",
@@ -89,6 +104,7 @@ function limitMaxLength( value, maxLength ){
 
 	return value;
 }
+
 
 class BirthOrderUtil {
 
@@ -224,6 +240,30 @@ class BirthOrderUtil {
 	}
 }
 
+class PersonalInformationUtil {
+
+	static getRelationshipIdByPersonId( id ){
+		var ret = "";
+		
+		
+		Object.keys( personal_information ).forEach(function( r ) {
+				if( personal_information[r] != null ) 
+					if( personal_information[r].hasOwnProperty('id') )
+						if( personal_information[r].id == id )
+							ret = r;
+			});
+		return ret ;
+	}
+	static getRelationshipPiByPersonId( id ){
+		console.log( PersonalInformationUtil.getRelationshipIdByPersonId(id) );
+		return personal_information[PersonalInformationUtil.getRelationshipIdByPersonId(id)];
+	}
+
+	static setDefaultPersonalInformation(){
+
+	}
+}
+
 function getLang(){
 
 	if( 'en' == getParameterByName('setLng') ) return 'en';
@@ -301,7 +341,6 @@ $(document).ready(function() {
 	}
 });
 
-
 function start()
 {
 
@@ -332,7 +371,7 @@ function start()
 		bind_personal_submit_button_action();
 		bind_personal_cancel_button_action();
 		bind_personal_help_button_action();
-		clear_and_set_personal_health_history_dialog();
+		// clear_and_set_personal_health_history_dialog();
 		// $("#help_dialog").load ("update-help.html");
 
 
@@ -381,7 +420,7 @@ function start()
 //		});
 
 		// 日本人アジアにチェックが入っている場合は警告を表示する
-		if( $("#personal_race_ethnicity").find('#selectedRaces-2').prop('checked') ) $("#warn_japanese").show(); else ("#warn_japanese").hide();
+		if( $("#personal_race_ethnicity").find('#selectedRaces-2').prop('checked') ) $("#warn_japanese").show(); else $("#warn_japanese").hide();
 
 		});
 
@@ -392,9 +431,11 @@ function start()
 		height:'auto',
 		width:['98%'],
 		resizable: false,
-		closeOnEscape: false
+		closeOnEscape: false //,
+		// close : cancel_before_create_family_members
 		//close: cancel_add_personal_information
 	});
+	
 
 	// family_member_information_dialog
 	$("#update_family_member_health_history_dialog").load ("update_family_member_health_history_dialog_ja.html", function () {
@@ -543,6 +584,8 @@ function start()
 		// フラグを立て、2回目以降の表示ではデフォルト設定をしないようにする
 		personal_information['flg_race_ethnic'] = 1;
 
+		// キャンセルボタン
+		$('#closeUpdateFamilyMemberHelthHistoryDialogButton').on('click',cancel_update_family_member);
 	});
 
 	$("#update_family_member_health_history_dialog").dialog({
@@ -552,6 +595,7 @@ function start()
 		height:'auto',
 		width:['95%'],
 		resizable: false,
+		closeOnEscape: false,
 		close: cancel_update_family_member
 	});
 
@@ -578,11 +622,6 @@ function start()
 	// remove //
 	var lng = window.i18n.lng();
 	var history_dialog = "load_personal_history_dialog.html";
-
-	if (lng=='it'||lng=='pt'||lng=='es') {
-		history_dialog = "load_personal_history_dialog_backup.html";
-	}
-	history_dialog = "load_personal_history_dialog_ja.html";
 
 	$("#load_personal_history_dialog").load (history_dialog, function () {
 		bind_load_personal_history_button();
@@ -631,6 +670,16 @@ function start()
 		i18n.init(option, function () {
 			$(".translate").i18n();
 		});
+		
+		// 閉じるボタン
+		$('.closeSavePersonalHistoryDialogButton').on('click', function(){
+			$("#save_personal_history_dialog").dialog('close');
+		});
+		
+		$('#saved_leave_this_site').on('click', function(){
+			window.open('about:blank','_self').close();
+		});
+
 	});
 
 	$("#save_personal_history_dialog").dialog({
@@ -638,7 +687,13 @@ function start()
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
-		width:800
+		width:800,
+		open : function( event , ui ){
+			$( "#saved_leave_this_site").hide();
+		},
+		close : function( event , ui ){
+			$( "#saved_leave_this_site").hide();
+		}
 	});
 
 	// This is the second page when you are initially creating a personal history, it asks how many of each type of member
@@ -676,6 +731,11 @@ function start()
 		i18n.init(option, function () {
 			$(".translate").i18n();
 		});
+		
+		// 閉じるボタン
+		$('.closeRiskScoreButton').on('click', function(){
+			$("#disease_risk_calculator_dialog").dialog('close');
+		});
 	});
 
 	// Disease Risk Calculator
@@ -685,7 +745,13 @@ function start()
 		resizable: false,
 		autoOpen: false,
 		height:'auto',
-		width:['95%']
+		width:['95%'],
+		open: function(){
+			temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
+		},
+		beforeClose: function(){
+			personal_information = temporarilyHoldCareTaker.paste( 'personal_informaiton');
+		}
 	});
 
 	$("#navRiskCalculator").on("click", function() {
@@ -721,14 +787,13 @@ function start()
 
 	// 家族歴の質ダイアログ
 	$("#quality_of_family_history_score_dialog").load("quality_of_family_history_score_dialog.html",function(){
-		QualityOfFamilyHistoryScoreController.refresh()
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
 		i18n.init(option, function () {
 			$(".translate").i18n();
 		});
 		
 		// 閉じるボタン
-		$('#closeQofhScoreButton').on('click', function(){
+		$('.closeQofhScoreButton').on('click', function(){
 			$("#quality_of_family_history_score_dialog").dialog('close');
 		});
 	});
@@ -740,12 +805,19 @@ function start()
 		resizable: false,
 		autoOpen: false,
 		height:'auto',
-		width:['95%']
+		width:['95%'],
+		open: function(){
+			temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
+		},
+		beforeClose: function(){
+			personal_information = temporarilyHoldCareTaker.paste( 'personal_informaiton');
+		}
 	});
 
 	$("#showQofhScoreDetail").on("click", function() {
-		build_qof_family_history_data_table();
+		preparate_qof_score_dialog();
 		$("#quality_of_family_history_score_dialog").dialog('open').position("center top");
+		QualityOfFamilyHistoryScoreController.refresh()
 	});
 
 	// ライフスタイルスコア計算ダイアログ
@@ -759,7 +831,7 @@ function start()
 		});
 		
 		// 閉じるボタン
-		$('#closeLifestyleScoreButton').on('click', function(){
+		$('.closeLifestyleScoreButton').on('click', function(){
 			$("#lifestyle_score_calculator_dialog").dialog('close');
 		});
 	});
@@ -771,7 +843,13 @@ function start()
 		resizable: false,
 		autoOpen: false,
 		height:'auto',
-		width:['95%']
+		width:['95%'],
+		open: function(){
+			temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
+		},
+		beforeClose: function(){
+			personal_information = temporarilyHoldCareTaker.paste('personal_informaiton');
+		}
 	});
 
 	$("#navLifeStyleScoreCalculator").on("click", function() {
@@ -781,9 +859,9 @@ function start()
 		LifeStyleScoreDetailDialogController.refresh();
 		// 不足していれば(=false)、その項目の入力フォームを表示
 		if(checkResult) {
-			$("#lifestylescore_compensational_block").hide();
+			$("#lifestylescore_compensation_block").hide();
 		} else {
-			$("#lifestylescore_compensational_block").show();
+			$("#lifestylescore_compensation_block").show();
 		}
 
 		$("#lifestyle_score_calculator_dialog").dialog('open').position("center top");
@@ -795,9 +873,9 @@ function start()
 
 		// 不足していれば(=false)、その項目の入力フォームを表示
 		if(checkResult) {
-			$("#lifestylescore_compensational_block").hide();
+			$("#lifestylescore_compensation_block").hide();
 		} else {
-			$("#lifestylescore_compensational_block").show();
+			$("#lifestylescore_compensation_block").show();
 		}
 
 		$("#lifestyle_score_calculator_dialog").dialog('open').position("center top");
@@ -948,6 +1026,11 @@ function start()
 			$(".computerOnly").remove();
 		};
 
+		// 閉じるボタン
+		$('#closeHelpDialogButton').on('click', function(){
+			$("#help_dialog").dialog('close');
+		});
+
 	});
 
 	$(".banner_right").on("click", function() {
@@ -984,7 +1067,8 @@ function start()
 		if( location.hostname == "localhost" ){
 			// personal_information = {"name":"あなた","twin_status":"NO","prefectures":null,"Health History":[],"flg_race_ethnic":1,"id":"a8b86875-9e48-4048-acd9-33b68400de59","gender":"MALE","date_of_birth":"1962/04/01","adopted":false,"height":180,"height_unit":"centimeters","weight":"70","weight_unit":"kilogram","month_of_birth":"4","year_of_birth":"1962","birth_order":1,"living_prefectures":"0000","waist":"66","waist_unit":"centimeters","hip":"","hip_unit":"centimeters","training_strength":"中程度","training_count_for_training_at_week":"1","training_time_for_training_at_week":"10","systolic_blood_pressure":"under_119","diastolic_blood_pressure":"79_or_less","fasting_blood_glucose_lebel":"99_or_less","occasionally_blood_glucose_lebel":"139_or_less","ogtt_blood_glucose_lebel":"139_or_less","hba1c":"under65","hdl_cholesterol":"less_than_40","ldl_cholesterol":"less_than_100","last_diagnosis_year":null,"last_diagnosis_month":null,"race":{"American Indian or Alaska Native":false,"Asian":true,"Black or African-American":false,"Native Hawaiian or Other Pacific Islander":false,"White":false,"Asian Indian":false,"Chinese":false,"Filipino":false,"Japanese":true,"Korean":false,"Vietnamese":false,"Other Asian":false,"Unknown Asian":false,"Chamorro":false,"Guamanian":false,"Native Hawaiian":false,"Samoan":false,"Unknown South Pacific Islander":false},"ethnicity":{"Hispanic or Latino":false,"Ashkenazi Jewish":false,"Not Hispanic or Latino":false,"Central American":false,"Cuban":false,"Dominican":false,"Mexican":false,"Other Hispanic":false,"Puerto Rican":false,"South American":false},"father":{"gender":"MALE","id":"da79a12a-84ea-4e5b-8e04-e3c4abd881ca","Health History":[],"name":"あなたの父","relationship":"father"},"mother":{"gender":"FEMALE","id":"b65ed6b8-0ce4-4dc5-ac05-aadb472bb14d","Health History":[],"name":"あなたの母","relationship":"mother","birth_order":1},"maternal_grandfather":{"gender":"MALE","id":"321b373f-7cfb-4cfc-869f-89d0ce436d14","Health History":[],"name":"あなたの母方の祖父","relationship":"maternal_grandfather"},"maternal_grandmother":{"gender":"FEMALE","id":"1abfa341-73a2-4445-ab84-a05b7b062f9d","Health History":[],"name":"あなたの母方の祖母","relationship":"maternal_grandmother"},"paternal_grandfather":{"gender":"MALE","id":"30ed578d-ebee-4643-9b82-78e15e5c902e","Health History":[],"name":"あなたの父方の祖父","relationship":"paternal_grandfather"},"paternal_grandmother":{"gender":"FEMALE","id":"e7c4a26c-92b3-4732-83eb-11645d886b32","Health History":[],"name":"あなたの父方の祖母","relationship":"paternal_grandmother"},"created_date":"2020/04/28 21:27:19","smoker":"1","training_family":"1","take_antihypertensive":"false","take_hypoglycemic":"false","maternal_aunt_0":{"gender":"FEMALE","name":"あなたの母方のおば","relationship":"aunt","flg_race_ethnic":1,"id":"be5ea431-4bb4-4f2e-bf0b-805be86a6dea","parent_id":"","adopted":false,"prefectures":"0001","living_prefectures":null,"birth_order":2,"is_alive":"unknown","training_strength":null,"training_count_for_training_at_week":"","training_time_for_training_at_week":"","Health History":[],"race":{"American Indian or Alaska Native":false,"Asian":true,"Black or African-American":false,"Native Hawaiian or Other Pacific Islander":false,"White":false,"Asian Indian":false,"Chinese":false,"Filipino":false,"Japanese":true,"Korean":false,"Vietnamese":false,"Other Asian":false,"Unknown Asian":false,"Chamorro":false,"Guamanian":false,"Native Hawaiian":false,"Samoan":false,"Unknown South Pacific Islander":false},"ethnicity":{"Hispanic or Latino":false,"Ashkenazi Jewish":false,"Not Hispanic or Latino":false,"Central American":false,"Cuban":false,"Dominican":false,"Mexican":false,"Other Hispanic":false,"Puerto Rican":false,"South American":false}}};
 			// personal_information = {"id":"cf3abeed-bdd8-4bfa-a","name":"あなた","gender":"MALE","date_of_birth":"1952/03/01","prefectures":"0002","living_prefectures":"0003","twin_status":"NO","adopted":"false","month_of_birth":"3","year_of_birth":"1952","birth_order":"1","dietary_frequency_to_drink_in_week":"0-2_times_or_less","flg_race_ethnic":"1","Health History":[{"Disease Name":"Cancer","Detailed Disease Name":"食道がん","Age At Diagnosis":"early_twenties","Disease Code":"SNOMED_CT-363402007"}],"weight_unit":"kilogram","waist_unit":"centimeters","hip_unit":"centimeters","father":{"id":"960b83f5-8b5c-4585-aeee-94a71c9887fd","name":"あなたの父","gender":"MALE","relationship":"father"},"mother":{"id":"8dc1fba5-267f-4bff-a387-936ca1c878d8","name":"あなたの母","gender":"FEMALE","relationship":"mother"},"paternal_grandfather":{"id":"cfb7d150-ad43-4953-b40b-c093c3020196","name":"あなたの父方の祖父","gender":"MALE","relationship":"paternal_grandfather"},"paternal_grandmother":{"id":"5d9b01a6-21f2-46c3-ba93-e0486e76fef9","name":"あなたの父方の祖母","gender":"FEMALE","relationship":"paternal_grandmother"},"maternal_grandfather":{"id":"ed2fd10b-4851-4c64-a94d-237bad7d8971","name":"あなたの母方の祖父","gender":"MALE","relationship":"maternal_grandfather"},"maternal_grandmother":{"id":"f6a721f3-4be1-4671-a619-d0a796688352","name":"あなたの母方の祖母","gender":"FEMALE","relationship":"maternal_grandmother"},"son_0":{"id":"29f00d95-6609-47a3-90fe-1949d4a3ab68","name":"あなたの息子ようしハイ","gender":"MALE","prefectures":"0002","adopted":"true","birth_order":"1","training_count_for_training_at_week":"","training_time_for_training_at_week":"","flg_race_ethnic":"1","relationship":"son","is_alive":"unknown","parent_id":""},"son_1":{"id":"852e6efb-9834-4313-b731-bcc4d122c362","name":"あなたの息子","gender":"MALE","birth_order":"2","relationship":"son"},"sister_0":{"id":"2680eeed-7f12-4822-b354-a60112962048","name":"あなたの姉妹","gender":"FEMALE","birth_order":"3","relationship":"sister"},"sister_1":{"id":"328a78ac-4b4b-4827-b634-b84a6a26f4fb","name":"あなたの姉妹","gender":"FEMALE","birth_order":"4","relationship":"sister"},"brother_0":{"id":"e42e0eeb-b0dc-4c46-b560-d61da84b7f51","name":"あなたの兄弟","gender":"MALE","birth_order":"2","flg_race_ethnic":"1","relationship":"brother"},"maternal_aunt_0":{"id":"f86162d2-bfac-4474-9903-de3ae0b1d114","name":"あなたの母方のおば","gender":"FEMALE","relationship":"aunt"},"maternal_aunt_1":{"id":"7c60883a-575c-4a5d-bb33-a5956d440a2b","name":"あなたの母方のおば","gender":"FEMALE","relationship":"aunt"},"maternal_uncle_0":{"id":"4563af0b-4e89-4a57-8e70-1b3c28fa37a8","name":"あなたの母方のおじ","gender":"MALE","relationship":"uncle"},"maternal_uncle_1":{"id":"0a85dfc3-0539-415a-8f56-67a41748afaa","name":"あなたの母方のおじ","gender":"MALE","relationship":"uncle"},"paternal_aunt_0":{"id":"64542476-5687-4426-b98e-2c18ec999b00","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_1":{"id":"c581bd43-45c4-4e13-b70d-cc611be5989b","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_2":{"id":"61e8b7e3-4584-4870-8652-5cb25e57ea9a","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_3":{"id":"28c4b45f-8a0d-4712-8b5d-ec59da102e14","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_uncle_0":{"id":"0105afe7-741d-4fec-9f3f-e54ffea16dd0","name":"あなたの父方のおじ","gender":"MALE","relationship":"uncle"},"paternal_uncle_1":{"id":"1579b627-d8f7-4189-bcf8-1daf4b6fb7b3","name":"あなたの父方のおじ","gender":"MALE","relationship":"uncle"}};
-			personal_information = {"id":"cf3abeed-bdd8-4bfa-a","name":"あなた","gender":"MALE","date_of_birth":"1952/03/01","prefectures":"0002","living_prefectures":"0003","twin_status":"NO","adopted":"false","month_of_birth":"3","year_of_birth":"1952","birth_order":"1","dietary_frequency_to_drink_in_week":"0-2_times_or_less","flg_race_ethnic":"1","Health History":[{"Disease Name":"Cancer","Detailed Disease Name":"食道がん","Age At Diagnosis":"early_twenties","Disease Code":"SNOMED_CT-363402007"}],"weight_unit":"kilogram","waist_unit":"centimeters","hip_unit":"centimeters","father":{"id":"960b83f5-8b5c-4585-aeee-94a71c9887fd","name":"あなたの父","gender":"MALE","relationship":"father"},"mother":{"id":"8dc1fba5-267f-4bff-a387-936ca1c878d8","name":"あなたの母","gender":"FEMALE","relationship":"mother"},"paternal_grandfather":{"id":"cfb7d150-ad43-4953-b40b-c093c3020196","name":"あなたの父方の祖父","gender":"MALE","relationship":"paternal_grandfather"},"paternal_grandmother":{"id":"5d9b01a6-21f2-46c3-ba93-e0486e76fef9","name":"あなたの父方の祖母","gender":"FEMALE","relationship":"paternal_grandmother"},"maternal_grandfather":{"id":"ed2fd10b-4851-4c64-a94d-237bad7d8971","name":"あなたの母方の祖父","gender":"MALE","relationship":"maternal_grandfather"},"maternal_grandmother":{"id":"f6a721f3-4be1-4671-a619-d0a796688352","name":"あなたの母方の祖母","gender":"FEMALE","relationship":"maternal_grandmother"},"son_0":{"id":"29f00d95-6609-47a3-90fe-1949d4a3ab68","name":"あなたの息子ようしハイ","gender":"MALE","prefectures":"0002","adopted":"true","birth_order":"1","training_count_for_training_at_week":"","training_time_for_training_at_week":"","flg_race_ethnic":"1","relationship":"son","is_alive":"unknown","parent_id":""},"son_1":{"id":"852e6efb-9834-4313-b731-bcc4d122c362","name":"あなたの息子","gender":"MALE","birth_order":"2","relationship":"son"},"sister_0":{"id":"2680eeed-7f12-4822-b354-a60112962048","name":"あなたの姉妹","gender":"FEMALE","birth_order":"3","relationship":"sister"},"sister_1":{"id":"328a78ac-4b4b-4827-b634-b84a6a26f4fb","name":"あなたの姉妹","gender":"FEMALE","birth_order":"4","relationship":"sister"},"brother_0":{"id":"e42e0eeb-b0dc-4c46-b560-d61da84b7f51","name":"あなたの兄弟","gender":"MALE","birth_order":"2","flg_race_ethnic":"1","relationship":"brother"},"maternal_aunt_0":{"id":"f86162d2-bfac-4474-9903-de3ae0b1d114","name":"あなたの母方のおば","gender":"FEMALE","relationship":"aunt"},"maternal_aunt_1":{"id":"7c60883a-575c-4a5d-bb33-a5956d440a2b","name":"あなたの母方のおば","gender":"FEMALE","relationship":"aunt"},"maternal_uncle_0":{"id":"4563af0b-4e89-4a57-8e70-1b3c28fa37a8","name":"あなたの母方のおじ","gender":"MALE","relationship":"uncle"},"maternal_uncle_1":{"id":"0a85dfc3-0539-415a-8f56-67a41748afaa","name":"あなたの母方のおじ","gender":"MALE","relationship":"uncle"},"paternal_aunt_0":{"id":"64542476-5687-4426-b98e-2c18ec999b00","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_1":{"id":"c581bd43-45c4-4e13-b70d-cc611be5989b","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_2":{"id":"61e8b7e3-4584-4870-8652-5cb25e57ea9a","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_3":{"id":"28c4b45f-8a0d-4712-8b5d-ec59da102e14","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_uncle_0":{"id":"0105afe7-741d-4fec-9f3f-e54ffea16dd0","name":"あなたの父方のおじ","gender":"MALE","relationship":"uncle"},"paternal_uncle_1":{"id":"1579b627-d8f7-4189-bcf8-1daf4b6fb7b3","name":"あなたの父方のおじ","gender":"MALE","relationship":"uncle"}};
+			// personal_information = {"id":"cf3abeed-bdd8-4bfa-a","name":"あなた","gender":"MALE","date_of_birth":"1952/03/01","prefectures":"0002","living_prefectures":"0003","twin_status":"NO","adopted":"false","month_of_birth":"3","year_of_birth":"1952","birth_order":"1","dietary_frequency_to_drink_in_week":"0-2_times_or_less","flg_race_ethnic":"1","Health History":[{"Disease Name":"Cancer","Detailed Disease Name":"食道がん","Age At Diagnosis":"early_twenties","Disease Code":"SNOMED_CT-363402007"}],"weight_unit":"kilogram","waist_unit":"centimeters","hip_unit":"centimeters","father":{"id":"960b83f5-8b5c-4585-aeee-94a71c9887fd","name":"あなたの父","gender":"MALE","relationship":"father"},"mother":{"id":"8dc1fba5-267f-4bff-a387-936ca1c878d8","name":"あなたの母","gender":"FEMALE","relationship":"mother"},"paternal_grandfather":{"id":"cfb7d150-ad43-4953-b40b-c093c3020196","name":"あなたの父方の祖父","gender":"MALE","relationship":"paternal_grandfather"},"paternal_grandmother":{"id":"5d9b01a6-21f2-46c3-ba93-e0486e76fef9","name":"あなたの父方の祖母","gender":"FEMALE","relationship":"paternal_grandmother"},"maternal_grandfather":{"id":"ed2fd10b-4851-4c64-a94d-237bad7d8971","name":"あなたの母方の祖父","gender":"MALE","relationship":"maternal_grandfather"},"maternal_grandmother":{"id":"f6a721f3-4be1-4671-a619-d0a796688352","name":"あなたの母方の祖母","gender":"FEMALE","relationship":"maternal_grandmother"},"son_0":{"id":"29f00d95-6609-47a3-90fe-1949d4a3ab68","name":"あなたの息子ようしハイ","gender":"MALE","prefectures":"0002","adopted":"true","birth_order":"1","training_count_for_training_at_week":"","training_time_for_training_at_week":"","flg_race_ethnic":"1","relationship":"son","is_alive":"unknown","parent_id":""},"son_1":{"id":"852e6efb-9834-4313-b731-bcc4d122c362","name":"あなたの息子","gender":"MALE","birth_order":"2","relationship":"son"},"sister_0":{"id":"2680eeed-7f12-4822-b354-a60112962048","name":"あなたの姉妹","gender":"FEMALE","birth_order":"3","relationship":"sister"},"sister_1":{"id":"328a78ac-4b4b-4827-b634-b84a6a26f4fb","name":"あなたの姉妹","gender":"FEMALE","birth_order":"4","relationship":"sister"},"brother_0":{"id":"e42e0eeb-b0dc-4c46-b560-d61da84b7f51","name":"あなたの兄弟","gender":"MALE","birth_order":"2","flg_race_ethnic":"1","relationship":"brother"},"maternal_aunt_0":{"id":"f86162d2-bfac-4474-9903-de3ae0b1d114","name":"あなたの母方のおば","gender":"FEMALE","relationship":"aunt"},"maternal_aunt_1":{"id":"7c60883a-575c-4a5d-bb33-a5956d440a2b","name":"あなたの母方のおば","gender":"FEMALE","relationship":"aunt"},"maternal_uncle_0":{"id":"4563af0b-4e89-4a57-8e70-1b3c28fa37a8","name":"あなたの母方のおじ","gender":"MALE","relationship":"uncle"},"maternal_uncle_1":{"id":"0a85dfc3-0539-415a-8f56-67a41748afaa","name":"あなたの母方のおじ","gender":"MALE","relationship":"uncle"},"paternal_aunt_0":{"id":"64542476-5687-4426-b98e-2c18ec999b00","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_1":{"id":"c581bd43-45c4-4e13-b70d-cc611be5989b","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_2":{"id":"61e8b7e3-4584-4870-8652-5cb25e57ea9a","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_3":{"id":"28c4b45f-8a0d-4712-8b5d-ec59da102e14","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_uncle_0":{"id":"0105afe7-741d-4fec-9f3f-e54ffea16dd0","name":"あなたの父方のおじ","gender":"MALE","relationship":"uncle"},"paternal_uncle_1":{"id":"1579b627-d8f7-4189-bcf8-1daf4b6fb7b3","name":"あなたの父方のおじ","gender":"MALE","relationship":"uncle"}};
+			personal_information = {"id":"cf3abeed-bdd8-4bfa-a","name":"あなた","gender":"MALE","date_of_birth":"1952/03/01","prefectures":"0002","living_prefectures":"0003","twin_status":"NO","adopted":"false","month_of_birth":"3","year_of_birth":"1952","birth_order":1,"dietary_frequency_to_drink_in_week":"0-2_times_or_less","flg_race_ethnic":1,"Health History":[{"Disease Name":"Cancer","Detailed Disease Name":"食道がん","Age At Diagnosis":"early_twenties","Disease Code":"SNOMED_CT-363402007"}],"weight_unit":"kilogram","waist_unit":"centimeters","hip_unit":"centimeters","father":{"id":"960b83f5-8b5c-4585-aeee-94a71c9887fd","name":"あなたの父","gender":"MALE","relationship":"father"},"mother":{"id":"8dc1fba5-267f-4bff-a387-936ca1c878d8","name":"あなたの母","gender":"FEMALE","relationship":"mother"},"paternal_grandfather":{"id":"cfb7d150-ad43-4953-b40b-c093c3020196","name":"あなたの父方の祖父","gender":"MALE","relationship":"paternal_grandfather"},"paternal_grandmother":{"id":"5d9b01a6-21f2-46c3-ba93-e0486e76fef9","name":"あなたの父方の祖母","gender":"FEMALE","relationship":"paternal_grandmother"},"maternal_grandfather":{"id":"ed2fd10b-4851-4c64-a94d-237bad7d8971","name":"あなたの母方の祖父","gender":"MALE","relationship":"maternal_grandfather"},"maternal_grandmother":{"id":"f6a721f3-4be1-4671-a619-d0a796688352","name":"あなたの母方の祖母","gender":"FEMALE","relationship":"maternal_grandmother"},"son_0":{"id":"29f00d95-6609-47a3-90fe-1949d4a3ab68","name":"あなたの息子ようしハイ","gender":"MALE","prefectures":"0002","adopted":"true","birth_order":"1","training_count_for_training_at_week":"","training_time_for_training_at_week":"","flg_race_ethnic":"1","relationship":"son","is_alive":"unknown","parent_id":""},"son_1":{"id":"852e6efb-9834-4313-b731-bcc4d122c362","name":"あなたの息子","gender":"MALE","birth_order":"2","relationship":"son"},"sister_0":{"id":"2680eeed-7f12-4822-b354-a60112962048","name":"あなたの姉妹","gender":"FEMALE","birth_order":3,"relationship":"sister","flg_race_ethnic":1,"parent_id":"","adopted":false,"prefectures":null,"living_prefectures":null,"is_alive":"dead","cause_of_death":"High Cholesterol","detailed_cause_of_death":"高コレステロール","estimated_death_age":"early_twenties","cause_of_death_code":"SNOMED_CT-55822004","training_strength":null,"training_count_for_training_at_week":"","training_time_for_training_at_week":"","Health History":[],"race":{"American Indian or Alaska Native":false,"Asian":true,"Black or African-American":false,"Native Hawaiian or Other Pacific Islander":false,"White":false,"Asian Indian":false,"Chinese":false,"Filipino":false,"Japanese":true,"Korean":false,"Vietnamese":false,"Other Asian":false,"Unknown Asian":false,"Chamorro":false,"Guamanian":false,"Native Hawaiian":false,"Samoan":false,"Unknown South Pacific Islander":false},"ethnicity":{"Hispanic or Latino":false,"Ashkenazi Jewish":false,"Not Hispanic or Latino":false,"Central American":false,"Cuban":false,"Dominican":false,"Mexican":false,"Other Hispanic":false,"Puerto Rican":false,"South American":false}},"sister_1":{"id":"328a78ac-4b4b-4827-b634-b84a6a26f4fb","name":"あなたの姉妹","gender":"FEMALE","birth_order":4,"relationship":"sister"},"brother_0":{"id":"e42e0eeb-b0dc-4c46-b560-d61da84b7f51","name":"あなたの兄弟","gender":"MALE","birth_order":2,"flg_race_ethnic":"1","relationship":"brother","parent_id":"","adopted":false,"prefectures":null,"living_prefectures":null,"is_alive":"alive","age":12,"training_strength":null,"training_count_for_training_at_week":"","training_time_for_training_at_week":"","Health History":[],"race":{"American Indian or Alaska Native":false,"Asian":false,"Black or African-American":false,"Native Hawaiian or Other Pacific Islander":false,"White":false,"Asian Indian":false,"Chinese":false,"Filipino":false,"Japanese":false,"Korean":false,"Vietnamese":false,"Other Asian":false,"Unknown Asian":false,"Chamorro":false,"Guamanian":false,"Native Hawaiian":false,"Samoan":false,"Unknown South Pacific Islander":false},"ethnicity":{"Hispanic or Latino":false,"Ashkenazi Jewish":false,"Not Hispanic or Latino":false,"Central American":false,"Cuban":false,"Dominican":false,"Mexican":false,"Other Hispanic":false,"Puerto Rican":false,"South American":false}},"maternal_aunt_0":{"id":"f86162d2-bfac-4474-9903-de3ae0b1d114","name":"あなたの母方のおば","gender":"FEMALE","relationship":"aunt"},"maternal_aunt_1":{"id":"7c60883a-575c-4a5d-bb33-a5956d440a2b","name":"あなたの母方のおば","gender":"FEMALE","relationship":"aunt"},"maternal_uncle_0":{"id":"4563af0b-4e89-4a57-8e70-1b3c28fa37a8","name":"あなたの母方のおじ","gender":"MALE","relationship":"uncle"},"maternal_uncle_1":{"id":"0a85dfc3-0539-415a-8f56-67a41748afaa","name":"あなたの母方のおじ","gender":"MALE","relationship":"uncle"},"paternal_aunt_0":{"id":"64542476-5687-4426-b98e-2c18ec999b00","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_1":{"id":"c581bd43-45c4-4e13-b70d-cc611be5989b","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_2":{"id":"61e8b7e3-4584-4870-8652-5cb25e57ea9a","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_aunt_3":{"id":"28c4b45f-8a0d-4712-8b5d-ec59da102e14","name":"あなたの父方のおば","gender":"FEMALE","relationship":"aunt"},"paternal_uncle_0":{"id":"0105afe7-741d-4fec-9f3f-e54ffea16dd0","name":"あなたの父方のおじ","gender":"MALE","relationship":"uncle"},"paternal_uncle_1":{"id":"1579b627-d8f7-4189-bcf8-1daf4b6fb7b3","name":"あなたの父方のおじ","gender":"MALE","relationship":"uncle"}};
 		}
 	
 		build_family_history_data_table();
@@ -1032,15 +1116,45 @@ function start()
 		location.href='../../logout';
 	});
 
-	// questionnaire
-	$('#lead_to_questionaire').on('click', function(){
-		$('#url_to_questionaire').load( "../../operation/gettoken" , function(data){
-			window.open('https://27.133.130.34/questionnaire/index.php/641312?newtest=Y&lang=ja&token=' + data , '_blank');
-		});
+	$('#leave_this_site').on('click', function(){
+		$( "#save_personal_history_dialog" ).dialog( "open" );
+		$( "#saved_leave_this_site").show();
 	});
+	// questionnaire
+	// $('#lead_to_questionaire').on('click', function(){
+	// 	$('#url_to_questionaire').load( "../../operation/gettoken" , function(data){
+	// 		window.open('https://27.133.130.34/questionnaire/index.php/641312?newtest=Y&lang=ja&token=' + data , '_blank');
+	// 	});
+	// });
 
 	// Hide dialog close button
 	$(".ui-dialog-titlebar-close").hide();
+
+	// $("#family_t_tree_dialog").dialog({
+	// 	title:$.t("fhh_js.family_t_tree_dialog"),
+	// 	position:['middle',0],
+	// 	autoOpen: false,
+	// 	height: 'auto',
+	// 	width: ['96%'],
+	// 	open: function(){
+	// 		// 高さ
+	// 		$('#family_t_tree_dialog').css('height', $(window).outerHeight() * 0.93  );
+	// 		$('#enlargedView').css('height', $('#family_t_tree_dialog').height() - 280 );
+	// 		// 描画
+	// 		( new FamilyTree( personal_information ) ).draw( '#enlargedView' , true );
+	// 	},
+	// 	close: function(){
+	// 		$('#enlargedView').empty();
+	// 	}
+	// });
+
+	// $('.closeFamilyTreeDialogButton').on('click', function(){
+	// 	$('#family_t_tree_dialog').dialog('close');
+	// });
+
+	// $('#graph').on('click', function(){
+	// 	$("#family_t_tree_dialog").dialog('open');
+	// });
 }
 
 // ライフスタイルスコア計算の不足項目があるかチェックする関数
@@ -1289,70 +1403,97 @@ function bind_compensate_information_submit_button_action(){
 	});
 }
 
+//不足項目入力フォームのchangeイベント、ボタンclickイベント準備
+function preparate_qof_score_dialog(){
+	var qoFSupplementForm = new QoFSupplementForm( personal_information );
 
+	// 再計算ボタン
+	$("#reCalculateQofScore").on("click", function() {
+		QualityOfFamilyHistoryScoreController.refresh();
+		temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
+		build_family_history_data_table();
+		QualityOfFamilyHistoryScoreController.hideDifferenceScore();
+	});
+
+	$('#qof_compensational_block input').change(function(){
+		qoFSupplementForm.updatePersonalInformation( this );
+		QualityOfFamilyHistoryScoreController.showDifferenceScore ( personal_information );
+	});
+	$('#qof_compensational_block select').change(function(){
+		qoFSupplementForm.updatePersonalInformation( this );
+		QualityOfFamilyHistoryScoreController.showDifferenceScore ( personal_information );
+	});
+
+	QualityOfFamilyHistoryScoreController.hideDifferenceScore();
+}
 //不足項目入力フォームのchangeイベント、ボタンclickイベント準備
 function preparate_lifestyle_score_dialog(){
 
-	// 喫煙状況
-	$('input[name="lifestylescore_compensation_smoker"]').change(function() {
- 	if ($('input[name="lifestylescore_compensation_smoker"]:checked').val() != "5") {
- 		$('input[name="lifestylescore_compensation_number_of_cigarettes_per_day"]').prop('checked',false);
- 		$('input[name="lifestylescore_compensation_number_of_cigarettes_per_day"]').prop('disabled',true);
-     } else {
-     	$('input[name="lifestylescore_compensation_number_of_cigarettes_per_day"]').prop('disabled',false);
-     }
- });
-
-	// 運動状況
-	$('input[name="lifestylescore_compensation_training"]').change(function() {
-		if ($('input[name="lifestylescore_compensation_training"]:checked').val() == 1) {
- 		$('select[name="lifestylescore_compensation_training_status1"]').prop('disabled',false);
- 		$('input[name="lifestylescore_compensation_training_status2"]').prop('disabled',false);
- 		$('input[name="lifestylescore_compensation_training_status3"]').prop('disabled',false);
-     } else {
-     	document.getElementById("lifestylescore_compensation_training_strength").value = "";
-     	document.getElementById("lifestylescore_compensation_count_for_training_at_week").value = "";
-     	document.getElementById("lifestylescore_compensation_time_for_training_at_week").value = "";
-     	$('select[name="lifestylescore_compensation_training_status1"]').prop('disabled',true);
-     	$('input[name="lifestylescore_compensation_training_status2"]').prop('disabled',true);
-     	$('input[name="lifestylescore_compensation_training_status3"]').prop('disabled',true);
-     }
-	});
-
 	// 再計算ボタン
-	$("reCalculateLifestyleScore").on("click", function() {
+	$("#reCalculateLifestyleScore").on("click", function() {
 		calcLifestyleScoreAndShow();
+		// 値を反映
+		temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
+		ScoreCardController.refresh();
+	});
+	// シミュレーションボタン
+	$("#simurateCalculateLifestyleScore").on("click", function() {
+		LifeStyleScoreDetailDialogController.simurate();
 	});
 
+	setChangeEvent('compensation');
+	setChangeEvent('simuration');
 
-	// 身長
-	$("#lifestylescore__height").change(function() {
-		var hgt = parseInt( $('#lifestylescore_compensation_height_centimeters').val() );
-		if (isNaN(hgt)) hgt = 0;
+	function setChangeEvent(key) {
+		$(`#lifestylescore_${key}_block input`).change(function () {
 
-		personal_information['height'] = hgt;
-		personal_information['height_unit'] = "centimeters";
- 	});
+			// 喫煙状況
+			if ($(`input[name="lifestylescore_${key}_smoker"]:checked`).val() != "5") {
+				$(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]`).prop('checked', false);
+				$(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]`).prop('disabled', true);
+			} else {
+				$(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]`).prop('disabled', false);
+			}
 
-	// 体重
-	$("#lifestylescore__weight").change(function() {
-		personal_information['weight'] = $('#lifestylescore_compensation_weight').val();
-	});
+			// 運動状況
+			if ($(`input[name="lifestylescore_${key}_training"]:checked`).val() == 1) {
+				$(`select[name="lifestylescore_${key}_training_status1"]`).prop('disabled', false);
+				$(`input[name="lifestylescore_${key}_training_status2"]`).prop('disabled', false);
+				$(`input[name="lifestylescore_${key}_training_status3"]`).prop('disabled', false);
+				$(`.lifestylescore_${key}_training_status_yes`).show();
+			} else {
+				document.getElementById(`lifestylescore_${key}_training_strength`).value = "";
+				document.getElementById(`lifestylescore_${key}_count_for_training_at_week`).value = "";
+				document.getElementById(`lifestylescore_${key}_time_for_training_at_week`).value = "";
+				$(`select[name="lifestylescore_${key}_training_status1"]`).prop('disabled', true);
+				$(`input[name="lifestylescore_${key}_training_status2"]`).prop('disabled', true);
+				$(`input[name="lifestylescore_${key}_training_status3"]`).prop('disabled', true);
+				$(`.lifestylescore_${key}_training_status_yes`).hide('slow');
+			}
 
-	// 喫煙
-	$("#lifestylescore__smoker").change(function() {
-		personal_information['smoker'] = $('input[name="lifestylescore_compensation_smoker"]:checked').val();
-		personal_information['number_of_cigarettes_per_day'] = $('input[name="lifestylescore_compensation_number_of_cigarettes_per_day"]:checked').val();
-	});
+			// 値の更新
+			// 身長
+			if (!isNaN(parseInt($(`#lifestylescore_${key}_height_centimeters`).val()))) {
+				personal_information['height'] = parseInt($(`#lifestylescore_${key}_height_centimeters`).val());
+				personal_information['height_unit'] = "centimeters";
+			}
 
-	// 運動
-	$("#lifestylescore_compensate_training").change(function() {
-		personal_information['training_family'] = $('input[name="lifestylescore_compensation_training"]:checked').val();
-		personal_information['training_strength'] = $('#lifestylescore_compensation_training_strength').val();
-		personal_information['training_count_for_training_at_week'] = $('#lifestylescore_compensation_count_for_training_at_week').val();
-		personal_information['training_time_for_training_at_week'] = $('#lifestylescore_compensation_time_for_training_at_week').val();
-	});
+			// 体重
+			if (!isNaN(parseInt($(`#lifestylescore_${key}_weight`).val()))) {
+				personal_information['weight'] = $(`#lifestylescore_${key}_weight`).val();
+			};
 
+			// 喫煙
+			personal_information['smoker'] = $(`input[name="lifestylescore_${key}_smoker"]:checked`).val();
+			personal_information['number_of_cigarettes_per_day'] = $(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]:checked`).val();
+
+			// 運動
+			personal_information['training_family'] = $(`input[name="lifestylescore_${key}_training"]:checked`).val();
+			personal_information['training_strength'] = $(`#lifestylescore_${key}_training_strength`).val();
+			personal_information['training_count_for_training_at_week'] = $(`#lifestylescore_${key}_count_for_training_at_week`).val();
+			personal_information['training_time_for_training_at_week'] = $(`#lifestylescore_${key}_time_for_training_at_week`).val();
+		});
+	}
 }
 
 // 不足項目入力フォームのchangeイベント、ボタンclickイベント準備
@@ -1386,6 +1527,8 @@ function preparate_compensation_dialog(){
 	// 再計算ボタン
 	$("#reCalculate").on("click", function() {
 		riskCalcAndShow();
+		temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
+		ScoreCardController.refresh();
     });
 
 	// 性別
@@ -1540,7 +1683,20 @@ function bind_add_another_family_member_button_action() {
 			new_family_member_dialog.empty().dialog("open");
 		}
 
+		var closeButton = "<button id='closeNewFamilyMemberDialogButton' class='btn-large waves-effect waves-light teal lighten-1 translate' data-i18n='fhh_family_pedigree.close' style='text-align:right;font-size:110% !important'>"
+		+ $.t("fhh_family_pedigree.close")
+		+ "</button>";
+		new_family_member_dialog.append($("<div class='row'></div>").append(
+			$("<div class='col s12 text-right'></div>").append(
+				closeButton
+			)
+		));
+		new_family_member_dialog.find('#closeNewFamilyMemberDialogButton').on("click",function(){
+			$("#new_family_member_dialog").dialog('close');
+		} );
+
 		new_family_member_dialog.append("<div class='popup_title'> " + $.t("fhh_js.add_relative_title") + " </div>");
+
 		new_family_member_dialog.append("<P class='instructions'>" + $.t("fhh_js.add_relative_para") + "</P>");
 		new_family_member_dialog.append("<label for='new_family_member_relationship'> " + $.t("fhh_js.relationship_to_me") + " </label>");
 		new_family_member_select =
@@ -1767,7 +1923,7 @@ function exact_family_member_relationship_selection_change_action() {
 
 		current_relationship = relationship + "_" + i;
 	//	alert ("Exact Relationship ID: " + current_relationship);
-		create_new_family_member(current_relationship, relationship, parent_id);
+		create_new_family_member(current_relationship, relationship, parent_id, i );
 		family_member_information.relationship = relationship;
 
 		clear_and_set_current_family_member_health_history_dialog(family_member_information);
@@ -1777,7 +1933,7 @@ function exact_family_member_relationship_selection_change_action() {
 	}
 }
 
-function create_new_family_member(current_relationship, relationship, parent_id) {
+function create_new_family_member(current_relationship, relationship, parent_id, i ) {
 	family_member_information = new Object();
 	current_health_history = [];
 
@@ -1787,7 +1943,8 @@ function create_new_family_member(current_relationship, relationship, parent_id)
 		family_member_information.parent_id = parent_id;
 	}
 	family_member_information.gender = get_gender(relationship);
-	family_member_information.name = get_defaultname(relationship);
+	family_member_information.name = get_defaultname(relationship) + " " + i;
+	console.log( family_member_information.name );
 	personal_information[current_relationship] = family_member_information;
 
 	var table = $("#history_summary_table");
@@ -2044,10 +2201,9 @@ function bind_personal_submit_button_action () {
 			// update_birth_order_col();
 
 			ScoreCardController.refresh();
-
-			// Auto Save To Server
-			saveToServer();
 		}
+		
+		cancel_before_create_family_members();
 	});
 }
 
@@ -2150,12 +2306,18 @@ function cancel_add_personal_information() {
 //	alert (typeof personal_information);
 	current_health_history = [];
 
+	cancel_before_create_family_members();
 	$("#add_personal_information_dialog").dialog("close");
 }
 
 function bind_personal_help_button_action () {
 	$("#add-help").on("click", function() {
 		$("#personal_help_dialog").dialog("open");
+		
+		// 閉じるボタン
+		$('#closePersonalHelpDialogButton').on('click', function(){
+			$("#personal_help_dialog").dialog('close');
+		});
 	});
 }
 
@@ -2174,6 +2336,11 @@ function bind_load_help_button_action() {
 function bind_immediate_help_button_action() {
 	$("#immediate-help").on("click", function() {
 		$("#immediate_help_dialog").dialog("open");
+
+		// 閉じるボタン
+		$('#closeImmediateHelpDialogButton').on('click', function(){
+			$("#immediate_help_dialog").dialog('close');
+		});
 	});
 }
 
@@ -2555,8 +2722,6 @@ function bind_family_member_submit_button_action () {
 		current_health_history = [];
 		$("#update_family_member_health_history_dialog").dialog("close");
 
-		// Auto Save To Server
-		saveToServer();
 	});
 }
 
@@ -2583,116 +2748,128 @@ function cancel_update_family_member() {
 
 function bind_add_all_family_members_submit_button_action() {
 
-	$("#create_immediate_family_submit").on("click", function() {
-		var number_brothers = parseInt($("#family_brothers").val()) || 0;
-		var number_sisters = parseInt($("#family_sisters").val()) || 0;
-		var number_sons = parseInt( $("#family_sons").val()) || 0;
-		var number_daughters = parseInt($("#family_daughters").val()) || 0;
-		var number_maternal_uncles = parseInt($("#family_maternal_uncles").val()) || 0;
-		var number_maternal_aunts = parseInt($("#family_maternal_aunts").val()) || 0;
-		var number_paternal_uncles = parseInt($("#family_paternal_uncles").val()) || 0;
-		var number_paternal_aunts = parseInt($("#family_paternal_aunts").val()) || 0;
+	$("#create_immediate_family_submit").on("click",create_immediate_family_submit);
+}
 
-		personal_information['father'] = {'gender':'MALE'};
-		personal_information['father'].id = guid();
-		personal_information['father']['Health History'] = [];
-		personal_information['father'].name = 'あなたの父';
+function cancel_before_create_family_members(){
 
-		personal_information['mother'] = {'gender':'FEMALE'};
-		personal_information['mother'].id = guid();
-		personal_information['mother']['Health History'] = [];
-		personal_information['mother'].name = 'あなたの母';
+	if( typeof personal_information['father'] != 'undefined') return;
 
-		personal_information['maternal_grandfather'] = {'gender':'MALE'};
-		personal_information['maternal_grandfather'].id = guid();
-		personal_information['maternal_grandfather']['Health History'] = [];
-		personal_information['maternal_grandfather'].name = 'あなたの母方の祖父';
+	build_default_personal_information();
+	build_family_history_data_table();
 
-		personal_information['maternal_grandmother'] = {'gender':'FEMALE'};
-		personal_information['maternal_grandmother'].id = guid();
-		personal_information['maternal_grandmother']['Health History'] = [];
-		personal_information['maternal_grandmother'].name = 'あなたの母方の祖母';
+}
 
-		personal_information['paternal_grandfather'] = {'gender':'MALE'};
-		personal_information['paternal_grandfather'].id = guid();
-		personal_information['paternal_grandfather']['Health History'] = [];
-		personal_information['paternal_grandfather'].name = 'あなたの父方の祖父';
+function create_immediate_family_submit(){
+	
+	build_default_personal_information();
 
-		personal_information['paternal_grandmother'] = {'gender':'FEMALE'};
-		personal_information['paternal_grandmother'].id = guid();
-		personal_information['paternal_grandmother']['Health History'] = [];
-		personal_information['paternal_grandmother'].name = 'あなたの父方の祖母';
+	build_family_history_data_table();
 
-		for (var i=0; i<number_brothers;i++) {
-			personal_information['brother_' + i] = {'gender':'MALE'};
-			personal_information['brother_' + i].id = guid();
-			personal_information['brother_' + i]['Health History'] = [];
-			personal_information['brother_' + i].name = 'あなたの兄弟';
-		}
-		for (var i=0; i<number_sisters;i++) {
-			personal_information['sister_' + i] = {'gender':'FEMALE'};
-			personal_information['sister_' + i].id = guid();
-			personal_information['sister_' + i]['Health History'] = [];
-			personal_information['sister_' + i].name = 'あなたの姉妹';
-		}
-		for (var i=0; i<number_sons;i++) {
-			personal_information['son_' + i] = {'gender':'MALE'};
-			personal_information['son_' + i].id = guid();
-			personal_information['son_' + i]['Health History'] = [];
-			personal_information['son_' + i].name = 'あなたの息子';
-		}
-		for (var i=0; i<number_daughters;i++) {
-			personal_information['daughter_' + i] = {'gender':'FEMALE'};
-			personal_information['daughter_' + i].id = guid();
-			personal_information['daughter_' + i]['Health History'] = [];
-			personal_information['daughter_' + i].name = 'あなたの娘';
-		}
-		for (var i=0; i<number_maternal_uncles;i++) {
-			personal_information['maternal_uncle_' + i] = {'gender':'MALE'};
-			personal_information['maternal_uncle_' + i].id = guid();
-			personal_information['maternal_uncle_' + i]['Health History'] = [];
-			personal_information['maternal_uncle_' + i].name = 'あなたの母方のおじ';
-		}
-		for (var i=0; i<number_maternal_aunts;i++) {
-			personal_information['maternal_aunt_' + i] = {'gender':'FEMALE'};
-			personal_information['maternal_aunt_' + i].id = guid();
-			personal_information['maternal_aunt_' + i]['Health History'] = [];
-			personal_information['maternal_aunt_' + i].name = 'あなたの母方のおば';
-		}
-		for (var i=0; i<number_paternal_uncles;i++) {
-			personal_information['paternal_uncle_' + i] = {'gender':'MALE'};
-			personal_information['paternal_uncle_' + i].id = guid();
-			personal_information['paternal_uncle_' + i]['Health History'] = [];
-			personal_information['paternal_uncle_' + i].name = 'あなたの父方のおじ';
-		}
-		for (var i=0; i<number_paternal_aunts;i++) {
-			personal_information['paternal_aunt_' + i] = {'gender':'FEMALE'};
-			personal_information['paternal_aunt_' + i].id = guid();
-			personal_information['paternal_aunt_' + i]['Health History'] = [];
-			personal_information['paternal_aunt_' + i].name = 'あなたの父方のおば';
-		}
+	$("#add_another_family_member_button").show();
 
-		build_family_history_data_table();
+	// $("#firstVari").text("You have unsaved data!");
+	$("#firstVari").text("未保存のデータがあります！");
+	$("#firstVari").css("visibility","visible");
+	$("#firstVari").addClass("label_alert");
+	$("tt1").removeClass("green-text");
+	$("tt1").addClass("red-text");
+	$("#save_personal_history_button").css("background-color","red");
 
-		$("#add_another_family_member_button").show();
+	$("#add_all_family_members_dialog").dialog("close");
 
-		// $("#firstVari").text("You have unsaved data!");
-		$("#firstVari").text("未保存のデータがあります！");
-		$("#firstVari").css("visibility","visible");
-		$("#firstVari").addClass("label_alert");
-		$("tt1").removeClass("green-text");
-		$("tt1").addClass("red-text");
-		$("#save_personal_history_button").css("background-color","red");
+	// Created Date
+	personal_information['created_date'] = getCreatedDate();
+}
 
-		$("#add_all_family_members_dialog").dialog("close");
+function build_default_personal_information() {
+	var number_brothers = parseInt($("#family_brothers").val()) || 0;
+	var number_sisters = parseInt($("#family_sisters").val()) || 0;
+	var number_sons = parseInt($("#family_sons").val()) || 0;
+	var number_daughters = parseInt($("#family_daughters").val()) || 0;
+	var number_maternal_uncles = parseInt($("#family_maternal_uncles").val()) || 0;
+	var number_maternal_aunts = parseInt($("#family_maternal_aunts").val()) || 0;
+	var number_paternal_uncles = parseInt($("#family_paternal_uncles").val()) || 0;
+	var number_paternal_aunts = parseInt($("#family_paternal_aunts").val()) || 0;
 
-		// Created Date
-		personal_information['created_date'] = getCreatedDate();
+	personal_information['father'] = { 'gender': 'MALE' };
+	personal_information['father'].id = guid();
+	personal_information['father']['Health History'] = [];
+	personal_information['father'].name = get_defaultname('father');
 
-		// Auto Save To Server
-		saveToServer();
-	});
+	personal_information['mother'] = { 'gender': 'FEMALE' };
+	personal_information['mother'].id = guid();
+	personal_information['mother']['Health History'] = [];
+	personal_information['mother'].name = get_defaultname('mother');
 
+	personal_information['maternal_grandfather'] = { 'gender': 'MALE' };
+	personal_information['maternal_grandfather'].id = guid();
+	personal_information['maternal_grandfather']['Health History'] = [];
+	personal_information['maternal_grandfather'].name = get_defaultname('maternal_grandfather');
+
+	personal_information['maternal_grandmother'] = { 'gender': 'FEMALE' };
+	personal_information['maternal_grandmother'].id = guid();
+	personal_information['maternal_grandmother']['Health History'] = [];
+	personal_information['maternal_grandmother'].name = get_defaultname('maternal_grandmother');
+
+	personal_information['paternal_grandfather'] = { 'gender': 'MALE' };
+	personal_information['paternal_grandfather'].id = guid();
+	personal_information['paternal_grandfather']['Health History'] = [];
+	personal_information['paternal_grandfather'].name = get_defaultname('paternal_grandfather');
+
+	personal_information['paternal_grandmother'] = { 'gender': 'FEMALE' };
+	personal_information['paternal_grandmother'].id = guid();
+	personal_information['paternal_grandmother']['Health History'] = [];
+	personal_information['paternal_grandmother'].name = get_defaultname('paternal_grandmother');
+
+	for (var i = 0; i < number_brothers; i++) {
+		personal_information['brother_' + i] = { 'gender': 'MALE' };
+		personal_information['brother_' + i].id = guid();
+		personal_information['brother_' + i]['Health History'] = [];
+		personal_information['brother_' + i].name = get_defaultname('brother', i);
+	}
+	for (var i = 0; i < number_sisters; i++) {
+		personal_information['sister_' + i] = { 'gender': 'FEMALE' };
+		personal_information['sister_' + i].id = guid();
+		personal_information['sister_' + i]['Health History'] = [];
+		personal_information['sister_' + i].name = get_defaultname('sister', i);
+	}
+	for (var i = 0; i < number_sons; i++) {
+		personal_information['son_' + i] = { 'gender': 'MALE' };
+		personal_information['son_' + i].id = guid();
+		personal_information['son_' + i]['Health History'] = [];
+		personal_information['son_' + i].name = get_defaultname('son', i);
+	}
+	for (var i = 0; i < number_daughters; i++) {
+		personal_information['daughter_' + i] = { 'gender': 'FEMALE' };
+		personal_information['daughter_' + i].id = guid();
+		personal_information['daughter_' + i]['Health History'] = [];
+		personal_information['daughter_' + i].name = get_defaultname('daughter', i);
+	}
+	for (var i = 0; i < number_maternal_uncles; i++) {
+		personal_information['maternal_uncle_' + i] = { 'gender': 'MALE' };
+		personal_information['maternal_uncle_' + i].id = guid();
+		personal_information['maternal_uncle_' + i]['Health History'] = [];
+		personal_information['maternal_uncle_' + i].name = get_defaultname('maternal_uncle', i);
+	}
+	for (var i = 0; i < number_maternal_aunts; i++) {
+		personal_information['maternal_aunt_' + i] = { 'gender': 'FEMALE' };
+		personal_information['maternal_aunt_' + i].id = guid();
+		personal_information['maternal_aunt_' + i]['Health History'] = [];
+		personal_information['maternal_aunt_' + i].name = get_defaultname('maternal_aunt', i);
+	}
+	for (var i = 0; i < number_paternal_uncles; i++) {
+		personal_information['paternal_uncle_' + i] = { 'gender': 'MALE' };
+		personal_information['paternal_uncle_' + i].id = guid();
+		personal_information['paternal_uncle_' + i]['Health History'] = [];
+		personal_information['paternal_uncle_' + i].name = get_defaultname('paternal_uncle', i);
+	}
+	for (var i = 0; i < number_paternal_aunts; i++) {
+		personal_information['paternal_aunt_' + i] = { 'gender': 'FEMALE' };
+		personal_information['paternal_aunt_' + i].id = guid();
+		personal_information['paternal_aunt_' + i]['Health History'] = [];
+		personal_information['paternal_aunt_' + i].name = get_defaultname('paternal_aunt', i);
+	}
 }
 
 // 作成日時を取得する
@@ -2800,6 +2977,8 @@ class LifeStyleScoreDetailDialogController{
 	// 再計算
 	static refresh(){
 
+		$('.simuratedScore').hide();
+
 		this.calculator = new LifeStyleScoreCalculator( personal_information );
 
 		// 項目チェック
@@ -2810,34 +2989,66 @@ class LifeStyleScoreDetailDialogController{
 
 		// 内訳
 		LifeStyleScoreDetailDialogController._showDetail();
+		LifeStyleScoreDetailDialogController.hideCompensationalBlock();
+	}
+
+	static simurate(){
+
+		this.calculator = new LifeStyleScoreCalculator( personal_information );
+		// ライフスタイルスコア
+		LifeStyleScoreDetailDialogController._updateSimurateScore();
+
+		// 内訳
+		LifeStyleScoreDetailDialogController._updateSimurateDetail();
+
+		$('.simuratedScore').hide().show('slow');
 	}
 
 	static _validateEntiries(){
 
 		if( this.calculator.canBeDetermineScore()){
-			$('#lifestylescore_ok_mode').show();
-			$('#lifestylescore_calc_ng').hide();
+			$('#lifestylescore_calc_ng').hide('slow');
+			$('#lifestylescore_ok_mode').show('slow');
 			return true;
 		}
 
 		// 登録されていませんを表示
 		$('#lifestylescore_ok_mode').hide();
 		$('#lifestylescore_calc_ng').show();
+
+		LifeStyleScoreDetailDialogController._showCompensationalBlock();
 		return false;
 	}
 
-	static _showScore(){
-		$('#risk_parcentile_lifestylescore').text(this.calculator.totalScore);
+	static _showScore(key=''){
+		$(`#${key}risk_parcentile_lifestylescore`).text(this.calculator.totalScore);
 	}
 
-	static _showDetail(){
-		$('#lifestyle_score_isSmoker').text(this.calculator.score.smoker);
-		$('#lifestyle_score_bmi').text(this.calculator.score.bmi);
-		$('#lifestyle_score_training').text(this.calculator.score.trainingFamily);
-		$('#lifestyle_score_diabetes').text(this.calculator.score.dietary);
-		$('#lifestyle_score_total').text(this.calculator.totalScore);
+	static _showDetail(key=''){
+		$(`#${key}lifestyle_score_isSmoker`).text(this.calculator.score.smoker);
+		$(`#${key}lifestyle_score_bmi`).text(this.calculator.score.bmi);
+		$(`#${key}lifestyle_score_training`).text(this.calculator.score.trainingFamily);
+		$(`#${key}lifestyle_score_diabetes`).text(this.calculator.score.dietary);
+		$(`#${key}lifestyle_score_total`).text(this.calculator.totalScore);
 	}
 
+	static _updateSimurateScore(){
+		return LifeStyleScoreDetailDialogController._showScore('simurated_');
+	}
+
+	static _updateSimurateDetail(){
+		return LifeStyleScoreDetailDialogController._showDetail('simurated_');
+	}
+
+	static hideCompensationalBlock(){
+		$('#lifestylescore_compensation_block').hide();
+		$('#lifestylescore_simuration_block').show();
+	}
+
+	static _showCompensationalBlock(){
+		$('#lifestylescore_compensation_block').show();
+		$('#lifestylescore_simuration_block').hide();
+	}
 }
 
 
@@ -2860,11 +3071,30 @@ class QualityOfFamilyHistoryScoreController{
 	}
 
 	static _showDetail(){
-		$('#lifestyle_score_isSmoker').text(this.calculator.score.smoker);
-		$('#lifestyle_score_bmi').text(this.calculator.score.bmi);
-		$('#lifestyle_score_training').text(this.calculator.score.trainingFamily);
-		$('#lifestyle_score_diabetes').text(this.calculator.score.dietary);
-		$('#lifestyle_score_total').text(this.calculator.totalScore);
+		
+		var calculator = new QualityOfFamilyHistoryCalculator( personal_information );
+
+		$('#DialogRateOfHelthHistory').text( calculator.qualityOfFamilyHistoryScore.rateOfHelthHistory );
+		$('#DialogRateOfAgeAtDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDeath );
+		$('#DialogRateOfCauseOfDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfCauseOfDeath );
+		$('#DialogRateOfAgeAtDisease').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDisease );
+	}
+
+	static hideDifferenceScore(pi){
+		$('.DisplayDiffereOfQof').hide();
+	}
+	static showDifferenceScore(pi){
+
+		var calculator = new QualityOfFamilyHistoryCalculator( pi );
+		$('#UpdateRateOfHelthHistory').text( calculator.qualityOfFamilyHistoryScore.rateOfHelthHistory );
+		$('#UpdateRateOfAgeAtDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDeath );
+		$('#UpdateRateOfCauseOfDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfCauseOfDeath );
+		$('#UpdateRateOfAgeAtDisease').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDisease );
+		$('.DisplayDiffereOfQof').show('slow');
+	}
+
+	static hideCompensationalBlock(){
+		$('.compensational_block').hide();
 	}
 
 }
@@ -2878,7 +3108,6 @@ class ScoreCardController{
 		// ライフスタイルスコア
 		ScoreCardController._lifeStyleScore();
 
-		// 疾患発症リスク
 		// 糖尿病	
 		ScoreCardController._diababatesRiskScore();
 
@@ -2887,6 +3116,9 @@ class ScoreCardController{
 
 		// 脳卒中（10年間）
 		ScoreCardController._strokeRiskScore();
+
+		(new GenerationalFamilyMembers( personal_information ) ).draw();
+		// ( new FamilyTree( personal_information ) ).draw();
 	}
 
 	static _qualityOfFamilyHistoryScore(){
@@ -2913,13 +3145,26 @@ class ScoreCardController{
 
 		// 糖尿病
 		var drc_calcflag = drc_checkNecessaryItems();
+		// 入力項目不足で計算できない場合
+		if( !drc_calcflag ){
+			$('#cannotDisplayDiabateScoreTotal').show();
+			return;
+		}
 
 		// 糖尿病型の判定
 		var pi = personal_information;
 		load_diabetes_status(pi.take_hypoglycemic, pi.fasting_blood_glucose_lebel, pi.occasionally_blood_glucose_lebel, pi.ogtt_blood_glucose_lebel, pi.hba1c);
 
-		// 計算できない場合は中断
-		if( !drc_calcflag ) return;
+		if( clientValue.hypo || clientValue.fasting || clientValue.occasional || clientValue.ogtt || clientValue.hba1c || clientValue.diabetes ){
+			$('.diabetes_ng_mode').show();
+			return;
+		}
+		
+		// 年齢で計算できない場合
+		if( !isCoverageAgeForCalculate() ){
+			$('.diabetes_age_ng_mode').show();
+			return;
+		}
 
 		// 計算
 		calcHisayamaScore();
@@ -2933,17 +3178,17 @@ class ScoreCardController{
 	static _athroscleroticRiskScore(){
 
 		// 冠動脈疾患
-		var chd_calcflag = chd_checkNecessaryItems();
+		// 入力項目不足で計算できない場合
+		if( !chd_checkNecessaryItems() ){
+			$('#cannotDisplayAtheroscleroticScoreTotal').show();
+			return;
+		} 
 
-		// 計算できない場合は中断
-		if( !chd_calcflag ) return;
 
 		// 計算
 		calcSuitaScore();
 
-
 		// 表示
-		$('#cannotDisplayAtheroscleroticScoreTotal').hide();
 		$('#DisplayAtheroscleroticScoreTotal').text(showCHDRisk(clientValue.age, personal_information.gender, chd_score.total));
 		$('#canDisplayAtheroscleroticScoreTotal').show();
 	}
@@ -2973,7 +3218,27 @@ class ScoreCardController{
 
 }
 
+function cannot_calculate( baseId, lower , upper ){
+	// lower歳未満、upper歳以上の場合は計算しない
+	var age = getDisplayAge(personal_information);
+	if( age < lower || upper <= age ) {
+		$("#compensational_block").hide();
+		$(".result_block").hide();
+		$(".calculatable").hide();
+		$( baseId + ' ' + '.cannnot_calculate_under40').hide();
+		$('.cannnot_calculate_over70').hide();
+
+		if( age <= 40 )	$('.cannnot_calculate_under40').show();
+
+		if( 70 <= age )	$('.cannnot_calculate_over70').show();
+
+		return true;
+	}
+	return false;
+}
+
 function riskCalcAndShow() {
+
 	// 糖尿病
 	var drc_calcflag = drc_checkNecessaryItems();
 
@@ -3302,143 +3567,10 @@ function build_family_history_data_table () {
 	// $("#history_summary_table").find('tbody').addClass('list-group ui-sortable')
 	// $("#history_summary_table").find('tbody').attr( 'id', 'list01');
 	// $('#list01').sortable();
-	// $( "#list01" ).disableSelection();
 
+	// $( "#list01" ).disableSelection();
 	ScoreCardController.refresh();
 }
-
-
-function build_qof_family_history_data_table () {
-
-	var tbody = $("#qofList");
-	tbody.empty();
-
-	// Self 
-	tbody.append(getQofListRow(personal_information));
-
-	// Brother and sister
-	if( hasRelations( [ 'brother', 'sister' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'brother', 'sister' ], personal_information);
-	}
-
-	// parents
-	if( typeof personal_information.father != "undefined")
-		displayRelationshipsForQof(tbody, [ 'father' ], personal_information);
-
-	if( typeof personal_information.mother != "undefined")
-		displayRelationshipsForQof(tbody, [ 'mother' ], personal_information);
-
-	// children
-	if( hasRelations( [ 'son', 'daughter' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'son', 'daughter' ], personal_information);
-	}
-
-	// おい（甥）・めい（姪）
-	if( hasRelations( [ 'niece', 'nephew' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'niece', 'nephew' ], personal_information);
-	}
-
-	// 父方 おじ・おば
-	if( hasRelations( [ 'paternal_uncle', 'paternal_aunt' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'paternal_uncle', 'paternal_aunt' ], personal_information);
-	}
-
-	// 母方 おじ・おば
-	if( hasRelations( [ 'maternal_uncle', 'maternal_aunt' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'maternal_uncle', 'maternal_aunt' ], personal_information);
-	}
-
-	// 父方 祖父母
-	if( hasRelations( [ 'paternal_grandfather', 'paternal_grandmother' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'paternal_grandfather' ], personal_information );
-		displayRelationshipsForQof(tbody, [ 'paternal_grandmother' ], personal_information );
-	}
-
-	// 母方 祖父母
-	if( hasRelations( [ 'maternal_grandfather', 'maternal_grandmother' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'maternal_grandfather' ], personal_information );
-		displayRelationshipsForQof(tbody, [ 'maternal_grandmother' ], personal_information );
-	}
-
-	// 父方 いとこ
-	if( hasRelations( [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information);
-	}
-
-	// 母方 いとこ
-	if( hasRelations( [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information);
-	}
-
-	// 孫
-	if( hasRelations( [ 'grandson', 'granddaughter' ], personal_information ) ){
-		displayRelationshipsForQof(tbody, [ 'grandson', 'granddaughter' ], personal_information);
-	}
-}
-
-function displayRelationshipsForQof(table, relations, pi ){
-	// get relation id
-	var displayRelationshipIds = getRelationshipIds( relations, pi );
-
-	// display
-	displayRelationshipIds.forEach( function( tr ) {
-		add_new_qof_row(table, pi[tr]);
-	});
-}
-
-function add_new_qof_row(table, family_member ) {
-	table.append( getQofListRow(family_member) );
-}
-function getQofList_is_alive( id, is_alive ){
-
-	var radio_id = 'qof_radio_id_' + id;
-	var radio_name = 'qof_radio_name_' + id;
-
-	var ret = "<span>";
-	ret += '<input id="' + radio_id + '_alive" ' + 'name="' + radio_name + '" value="alive" type="radio" />';
-	ret += '<label for="' + radio_id + '_alive"' + ">" + $.t("info_dialog.yes") + "</label>";
-	ret += "</span>";
-
-	ret += '<span>'
-	ret += '<input id="' + radio_id + '_dead" ' + 'name="' + radio_name + '" value="dead" type="radio" />';
-	ret += '<label for="' + radio_id + '_dead"' + ">" + $.t("info_dialog.no") + "</label>";
-	ret += '</label>'
-	ret += "</span>";
-	
-	ret += '<span>'
-	ret += '<input id="' + radio_id + '_unknown" ' + 'name="' + radio_name + '" value="unknown" type="radio" />';
-	ret += '<label for="' + radio_id + '_unknown"' + ">" + $.t("info_dialog.unknown") + "</label>";
-	ret += '</label>'
-	ret += "</span>";
-
-	return ret;
-}
-
-function getQofListRow(pi){
-	var row = $("<tr>");
-
-	// 	お名前
-	row.append("<td class='center nowrap'>" + pi.name + "</td>");
-	// 存命
-	row.append("<td class='center nowrap'>" + getQofList_is_alive(pi.id, pi.is_alive) + "</td>");
-	// 死亡年齢
-	row.append("<td class='center nowrap'>-</td>");
-	// 死因
-	row.append("<td class='center nowrap'>-</td>");
-	// 疾患有無
-	row.append("<td class='center nowrap'>-</td>");
-	// 病気
-	row.append("<td class='center nowrap'>-</td>");
-
-	// 病気詳細
-	row.append("<td class='center nowrap'>-</td>");
-
-	// 発症年齢
-	row.append("<td class='center nowrap'>-</td>");
-
-	return row;
-}
-
 
 function add_family_history_header_row(table) {
 	var header_row = $("<tr>");
@@ -3526,6 +3658,10 @@ function getHealthHistories( histories ){
 
 function getDisplayAge(pi){
 
+	if( typeof pi.relationship == 'undefined'){
+		return get_member_age(pi);
+	}
+
 	// 存命
 	if( pi.is_alive == "alive"){
 		// 推定年齢
@@ -3545,10 +3681,11 @@ function getDisplayAge(pi){
 
 	}
 
-	if( typeof pi.estimated_death_age != "undefined" )
-		if( pi.estimated_death_age != "")
-			if( $.t( "fhh_js." + pi.estimated_death_age ).length > 0 )
-				return $.t( "fhh_js." + pi.estimated_death_age ) ;
+	if( pi.is_alive == "dead")
+		if( typeof pi.estimated_death_age != "undefined" )
+			if( pi.estimated_death_age != "")
+				if( $.t( "fhh_js." + pi.estimated_death_age ).length > 0 )
+					return $.t( "fhh_js." + pi.estimated_death_age ) ;
 
 	return "";
 }
@@ -4082,7 +4219,16 @@ function build_personal_health_information_section() {
 	hi_header_row.append("<th class='md_tr' style='width:10%;text-align:center'>" + $.t("fhh_js.action") + "</th>");
 	hi_health_history_table.append(hi_header_row);
 
-	var hi_data_entry_row = $("<tr class='md_tr' id='health_data_entry_row'></tr>");
+	var hi_data_entry_row = build_hi_data_entry_row();
+	hi_health_history_table.append(hi_data_entry_row);
+
+	information.append(hi_health_history_table);
+	information.append("<br />");
+}
+
+
+function build_hi_data_entry_row() {
+	var hi_data_entry_row = $("<tr class='md_tr health_data_entry_row' id='health_data_entry_row'></tr>");
 
 	var disease_select = $("<select class='col s6' tabindex='17' id='disease_choice_select' name='disease_choice_select' style='margin: auto;'></select>");
 	var detailed_disease_select = $("<select class='ddcs col s6' tabindex='18' id='detailed_disease_choice_select' name='detailed_disease_choice_select' style='margin: auto;'></select>");
@@ -4095,18 +4241,14 @@ function build_personal_health_information_section() {
 
 	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);
 	hi_data_entry_row.append($("<td></td>").append(age_at_diagnosis_select));
-	var add_new_disease_button = $("<button id='add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1'>" + $.t("fhh_js.add")  + "</button>");
+	var add_new_disease_button = $("<button id='add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1'>" + $.t("fhh_js.add") + "</button>");
 
 	add_new_disease_button.on('click', add_disease);
 
 
-	hi_data_entry_row.append($("<td style='text-align:center;'></td>").append(add_new_disease_button) );
-	hi_health_history_table.append(hi_data_entry_row);
-
-	information.append(hi_health_history_table);
-	information.append("<br />");
+	hi_data_entry_row.append($("<td style='text-align:center;'></td>").append(add_new_disease_button));
+	return hi_data_entry_row;
 }
-
 
 function set_disease_choice_select (disease_select, detailed_disease_select, cod) {
 	//detailed_disease_select.hide();
@@ -4124,7 +4266,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 			if (cod) {
 				//if ( $("#new_disease_name_cod").length == 0) {
 					$(this).after($("<div id='new_disease_cod' style='display: inline-block; padding-left: 8px;'><INPUT id='new_disease_name_cod' class='ddcs' placeholder='病名を入力してください' type='text' size='40' style='height:35px;'></INPUT></div>"));
-					$("#detailed_cause_of_death_select").hide();
+					// $("#detailed_cause_of_death_select").hide();
 					detailed_disease_select.empty().hide();
 				//}
 			} else {
@@ -4720,7 +4862,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 
 	$("#family_info_form_year_of_birth, #family_info_form_month_of_birth").on("change",function() {
 		var year = $("#family_info_form_year_of_birth").val() + "/";
-		var month = $("#family_info_form_month_of_birth").val().toString().padStart(2, '0');
+		var month = String($("#family_info_form_month_of_birth").val()).padStart(2, '0');
 		var date = "/01";
 		$("#family_info_form_date_of_birth").val(year + month + date);
 	});
@@ -4841,8 +4983,8 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 			$("#person_is_alive").show();
 			$("#person_is_not_alive").hide();
 		} else {
-			$("#is_person_alive").val('unknown');
-			$("#person_is_alive").hide();
+			$("#is_person_alive").val('alive');
+			$("#person_is_alive").show();
 			$("#person_is_not_alive").hide();
 		}
 	} else {
@@ -6226,7 +6368,7 @@ function get_member_birth(member_information) {
 
 function get_member_age(member_information) {
 	if (typeof member_information.age == "undefined" || member_information.age == null || member_information.age == "") {
-		var get_age = "-1";
+		var get_age = "";
 		if (typeof member_information.estimated_age != "undefined") {
 			get_age = calc_est_age(member_information.estimated_age);
 		}
@@ -6534,59 +6676,11 @@ function reset_personal_information() {
 	personal_information['Health History']=[];
 }
 
-function get_defaultname(relationship) {
-	switch(relationship) {
-	case 'maternal_grandfather':
-		return "あなたの母方の祖父";
-	case 'paternal_grandfather':
-		return "あなたの父方の祖父";
-	case 'father':
-		return "あなたの父";
-	case 'brother':
-		return "あなたの兄弟";
-	case 'son':
-		return "あなたの息子";
-	case 'maternal_uncle':
-		return "あなたの母方のおじ";
-	case 'paternal_uncle':
-		return "あなたの父方のおじ";
-	case 'nephew':
-		return "あなたのおい";
-	case 'grandson':
-		return "あなたの孫息子";
-	case 'maternal_halfbrother':
-		return "あなたの異母兄弟";
-	case 'paternal_halfbrother':
-		return "あなたの異父兄弟";
-	case 'maternal_grandmother':
-		return "あなたの母方の祖母";
-	case 'paternal_grandmother':
-		return "あなたの父方の祖母";
-	case 'mother':
-		return "あなたの母";
-	case 'sister':
-		return "あなたの姉妹";
-	case 'daughter':
-		return "あなたの娘";
-	case 'maternal_aunt':
-		return "あなたの母方のおば";
-	case 'paternal_aunt':
-		return "あなたの父方のおば";
-	case 'niece':
-		return "あなたのめい";
-	case 'granddaughter':
-		return "あなたの孫娘";
-	case 'maternal_halfsister':
-		return "あなたの異母姉妹";
-	case 'paternal_halfsister':
-		return "あなたの異父姉妹";
-	case 'maternal_cousin':
-		return "あなたの母方のいとこ";
-	case 'paternal_cousin':
-		return "あなたの父方のいとこ";
-	default:
-		return "";
-	}
+function get_defaultname(relationship, i ){
+	if( typeof i == "undefined")
+		return $.t(`family-t.${relationship}`);
+
+	return $.t(`family-t.${relationship}`) + " " + ( i + 1 );
 }
 
 function escape_name(name) {
@@ -6615,6 +6709,60 @@ function escape_html (string) {
 
 window.onbeforeunload = closeEditorWarning;
 
+/**
+ * 年のプルダウンオプションを取得する
+ * @param {int} min 
+ * @param {int} max 
+ */
+function getYearOptions(min, max){
 
+	var options = [];
+	
+	for( let i = min; i <= max ; i++ ){
+	
+		var opt = $('<option>');
+		opt.val( i )
+			.html(
+				( getLang() == 'ja' ) ?
+					getWarekiYear( i )
+					: i 
+				)
+			.css( 'translate' );
 
+		options.push( opt );
+	}
 
+	return options;
+}
+
+function getWarekiYear(year){
+	
+	if( 1925 < year && year <= 1988 ){
+		var warekiYear = year - 1925;
+		
+		if( warekiYear < 2 )
+			return '昭和元年' + '（' + year + '）';
+	
+		return '昭和' + warekiYear + '年' + '（' + year + '）';
+	}
+
+	if( 1988 < year && year <= 2018 ){
+		var warekiYear = year - 1988;
+		
+		if( warekiYear < 2 )
+			return '平成元年' + '（' + year + '）';
+	
+		return '平成' + warekiYear + '年' + '（' + year + '）';
+	}
+	
+	if( 2018 < year  ){
+		var warekiYear = year - 2018;
+		
+		if( warekiYear < 2 )
+			return '令和元年' + '（' + year + '）';
+	
+		return '令和' + warekiYear + '年' + '（' + year + '）';
+	}
+	
+	return year + '年';
+}

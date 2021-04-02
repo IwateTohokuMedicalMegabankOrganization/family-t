@@ -1,3 +1,10 @@
+
+<div class="row">
+	<div class="col s12 text-right">
+	<button id='closeUpdateFamilyMemberHelthHistoryDialogButton' class="btn-large waves-effect waves-light teal lighten-1 translate" data-i18n='fhh_js.cancel' style="text-align:right;font-size:110% !important">Cancel</button>
+	</div>
+</div>
+
 <div style="display:inline-flex;width:100%;font-size:0.9em;">
 	<div class="row top_instructions_area" style="margin-top: 4px; margin-bottom: 2px;">
 		<div class="col s10 left" style="background-color:white;">
@@ -52,7 +59,7 @@
 		</div>
 		<div class="col s12 edit_form_tr">
 			<div class="update_form_label_area">
-				<span class='translate' data-i18n='family-t.birthplace'>Birthplace</span>
+				<span class='translate' data-i18n='family-t.birthplace_label'>Birthplace</span>
 			</div>
 			<div class="edit_form_input_area">
 				<select name="family.member.prefectures" id="family_member_info_form_place_of_birth" style="width: 180px;height: 32px;font-size: 0.9em;">
@@ -110,7 +117,7 @@
 		</div>
 		<div class="col s12 edit_form_tr">
 			<div class="update_form_label_area">
-				<label for="family_member_info_form_living_place"><span class="translate" data-i18n="family-t.current_place_of_residence">Current place of residence</span></label>
+				<label for="family_member_info_form_living_place"><span class="translate" data-i18n="family-t.current_place_of_residence_label">Current place of residence</span></label>
 			</div>
 			<div class="edit_form_input_area">
 				<select name="family.member.prefectures" id="family_member_info_form_living_place" style="width: 180px;height: 32px;font-size: 0.9em;">
@@ -350,7 +357,7 @@
 		<div class="col s12 edit_form_tr">
 			<div class="update_form_label_area">
 				<label for="family_member_birth_order">
-					<span class='translate' data-i18n='family-t.birthplace'>Enter your birth order, including your siblings</span>
+					<span class='translate' data-i18n='family-t.birth_order'>Enter your birth order, including your siblings</span>
 				</label>
 			</div>
 			<div class="edit_form_input_area">
@@ -502,7 +509,7 @@
 					<span class='translate' data-i18n='family-t.label.times'> times </span>
 				</div>
 				<span class="left col s7 offset-s5" id='alert_count_for_training_at_week_family' style="display:none; color:red;">
-					<span class='translate' data-i18n="family-t.select_a_number_between_1_and_30.">
+					<span class='translate' data-i18n="family-t.select_a_number_between_1_and_30">
 						Select a number between 1 and 30.
 					</span>
 				</span>
@@ -588,7 +595,7 @@
 	</div>
 	<div class="row">
 		<div class="col s12 left">
-			<span class='translate' data-i18n='family-t.describe_your_eating_habits.'>Describe your eating habits.</span>
+			<span class='translate' data-i18n='family-t.describe_your_eating_habits'>Describe your eating habits.</span>
 			<div class="row">
 				<div class="col s5">
 					<span class='translate' data-i18n='family-t.do_you_eat_more_than_3_servings_of_fruits_a_day?'>Do you eat more than 3 servings of fruits a day?</span>
@@ -937,33 +944,26 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="row"></div>
+			<div class="row"></div>
 		</div>
 	</div>
 
 	<div id='family_health_information' class="row"> health info </div>
 	<div id='family_race_ethnicity'> Race and Ethnicity Information </div>
 	<br />
-	<div width="100%" cellspacing="0" cellpadding="0" border="0">
+	<div width="100%" cellspacing="0" cellpadding="0">
 		<div style="text-align:center;">
 			<button id='addFamilyMemberCancelButton' class='btn-large waves-effect waves-light teal lighten-1  translate' data-i18n='fhh_js.cancel'>Cancel </button>
 			<button id='addFamilyMemberSubmitButton' style="font-size:110% !important" class='btn-large waves-effect waves-light teal lighten-1 translate' data-i18n='fhh_js.save'>Next </button>
 		</div>
 	</div>
 
-<script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-	ga('create', 'UA-84860122-1', 'auto');
-	ga('send', 'pageview');
-
-	/* Datepiker 初期化 */
-	/*$(function(){
-		$('#age_determination_date_of_birth').datepicker({
-			changeYear: true,	// 年選択をプルダウン化
-			changeMonth: true	// 月選択をプルダウン化
-			});
-	}); */
-</script>
+	<script type='text/javascript'>
+		$(document).ready(function(){
+			var thisdate = new Date();
+			var thisyear = thisdate.getFullYear();
+			$('#family_info_form_year_of_birth').empty().append( getYearOptions( 1950, thisyear ) );
+		});
+	</script>

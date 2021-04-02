@@ -1,77 +1,130 @@
-<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection,print" />
-<link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection,print"/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-<div class="row">
-	<div class="col s12 text-right">
-	<button id='closeQofhScoreButton' class="btn-large waves-effect waves-light teal lighten-1 translate" data-i18n='fhh_family_pedigree.close' style="text-align:right;font-size:110% !important">Close</button>
+<html>
+<body>
+	<div class="row">
+		<div class="col s12 text-right">
+			<button class="closeQofhScoreButton btn-large waves-effect waves-light teal lighten-1 translate"
+				data-i18n='fhh_family_pedigree.close' style="text-align:right;font-size:110% !important">Close</button>
+		</div>
 	</div>
-</div>
 
-<div class="row risk_box">
-  <div class="col s12 risk_title">
-  </div>
-  <div class="col s12 risk_container">
-    <div class="row">
+	<div class="row compensational_block">
+		<div class="col s12 compensation_start">
+			<div class="col s12 left">
+				<span class='col s6 text-left translate' data-i18n='family-t_qof_history_score.explain1'>家族歴の質を高めるために、下記についてご確認ください。</span>
+			</div>
+		</div>
+		<div class="col s12 compensation">
+			<table class="table" style="table-layout: fixed;">
+				<thead>
+					<tr>
+						<th width="10%"></th>
+						<th width="10%"><span class="translate" data-i18n="fhh_js.still_living_main">存命</span>
+						</th>
+						<th width="15%"><span class="translate"
+								data-i18n="info_dialog.age_at_death"></span></th>
+						<th width="20%"><span class="translate"
+								data-i18n="info_dialog.cause_of_death"></span></th>
+						<th width="10%"><span class="translate"
+								data-i18n="family-t.presence_or_absence_of_disease"></span></th>
+						<th><span class="translate"
+								data-i18n=""></span></th>
+					</tr>
+				</thead>
+				<tbody class="list-group ui-sortable" id="qof_compensational_block">
+					<tr class="center information proband">
+						<td class="inforamtion center"></td>
+						<td class="inforamtion center"></td>
+						<td class="inforamtion center"></td>
+						<td class="inforamtion center"></td>
+						<td class="inforamtion center"></td>
+						<td class="inforamtion center"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col s12 compensation">
+			<div class="col s12 center">
+				<button id="reCalculateQofScore" class="btn-small waves-effect waves-light teal lighten-1">
+					<i class="material-icons left">refresh</i>
+					<span class="translate" data-i18n="family-t_risk.recalculate">再計算</span>
+				</button>
+			</div>
+		</div>
+	</div>
 
-      <div class="col s12">
-        <span class='translate' data-i18n='family-t_qof_history_score.medical_history_formula'>病歴（％）= 病名の記入がある家系構成員数 ÷ 全家系構成人数（本人は含まない）</span>
-      </div>
-      <div class="col s12">
-          <span id="DialogRateOfHelthHistory" style="font-size:3em;">0</span><span style="font-size:3em;">%</span>
-        </div>
-        <div class="col s12">
-            <span class='translate' data-i18n='family-t_qof_history_score.medical_history_formula'>発症年齢（％）= 発症年齢の記入がある疾患数 ÷ 家系内の疾患数</span>
-        </div>
-      <div class="col s12">
-          <span id="DialogRateOfAgeAtDisease" style="font-size:3em;">0</span><span style="font-size:3em;">%</span>
-      </div>
-      <div class="col s12">
-        <span class='translate' data-i18n='family-t_qof_history_score.medical_history_formula'>死因（％）= 死因となった疾患の記入がある死者数 ÷ 家系内の死者数</span>
-      </div>
-      <div class="col s12">
-        <span id="DialogRateOfCauseOfDeath" style="font-size:3em;">0</span><span style="font-size:3em;">%</span>
-      </div>
-      <div class="col s12">
-        <span class='translate' data-i18n='family-t_qof_history_score.medical_history_formula'>死亡年齢（％）= 死亡年齢の記入がある死者数 ÷ 家系内の死者数</span>
-      </div>
-      <div class="col s12">
-        <span id="DialogRateOfAgeAtDeath" style="font-size:3em;">0</span><span style="font-size:3em;">%</span>
-      </div>
-    </div>
-  </div>
-</div>
-<div>
-  <span class='translate' data-i18n='family-t_qof_history_score.explain1'>家族歴の質を高めるために、下記についてご確認ください。</span>
-</div>
+	<div class="row risk_box">
+		<div class="col s12 risk_title">
+			<span class='translate' data-i18n='family-t_qof_history_score.title'>ライフスタイルスコア</span>
+		</div>
+		<div class="col s12 risk_container">
+			<div class="row">
 
-<div class="row risk_box">
-  <div class="col s12 risk_title">
-  </div>
-<div class="col s12 risk_container">
-  <table class="table">
-    <thead>
-      <tr>
-        <th class="center nowrap"><span class="translate" data-i18n="fhh_js.name">名前</span></th>
-        <th class="center nowrap"><span class="translate" data-i18n="fhh_js.still_living_main">存命</span></th>
-        <th class="center nowrap"><span class="translate" data-i18n="info_dialog.age_at_death">死亡年齢</span></th>
-        <th class="center nowrap"><span class="translate" data-i18n="info_dialog.cause_of_death">死因</span></th>
-        <th class="center nowrap"><span class="translate" data-i18n="family-t.">疾患</span></th>
-        <th class="center nowrap"><span class="translate" data-i18n="family-t.health_information">病歴</span></th>
-        <th class="nowrap" cols="2"><span class="translate" data-i18n="fhh_js.disease_or_condition"></span></th>
-        <th class="center nowrap"><span class="translate" data-i18n="fhh_js.age_at_diagnosis">発症年齢</span></th>
-      </tr>
-    </thead>
-    <tbody class="list-group ui-sortable" id="qofList">
-      <tr class="center information proband">
-        <td class="inforamtion center"></td>
-        <td class="inforamtion center"></td>
-        <td class="inforamtion center"></td>
-        <td class="inforamtion center"></td>
-        <td class="inforamtion center"></td>
-        <td class="inforamtion center"></td>
-      </tr>
-    </tbody>
-    </table>
-</div>
-</div>
+				<div class="col s12">
+					<span class='translate' data-i18n='family-t_qof_history_score.medical_history_formula'>病歴（％）=
+						病名の記入がある家系構成員数 ÷
+						全家系構成人数（本人は含まない）</span>
+				</div>
+				<div class="col s12">
+					<span id="DialogRateOfHelthHistory" style="font-size:3em;">0</span><span
+						style="font-size:3em;">%</span>
+					<span class="DisplayDiffereOfQof">
+						<i class="small material-icons">arrow_forward</i>
+						<span id="UpdateRateOfHelthHistory" style="font-size:2em;">0</span><span
+						style="font-size:2em;">%</span>
+					</span>
+				</div>
+				<div class="col s12">
+					<span class='translate' data-i18n='family-t_qof_history_score.age_of_onset_formula'>発症年齢（％）=
+						発症年齢の記入がある疾患数
+						÷ 家系内の疾患数</span>
+				</div>
+				<div class="col s12">
+					<span id="DialogRateOfAgeAtDisease" style="font-size:3em;">0</span><span
+						style="font-size:3em;">%</span>
+					<span class="DisplayDiffereOfQof">
+						<i class="small material-icons">arrow_forward</i>
+						<span id="UpdateRateOfAgeAtDisease" style="font-size:2em;">0</span><span
+						style="font-size:2em;">%</span>
+					</span>
+				</div>
+				<div class="col s12">
+					<span class='translate' data-i18n='family-t_qof_history_score.cause_of_death_formula'>死因（％）=
+						死因となった疾患の記入がある死者数 ÷ 家系内の死者数</span>
+				</div>
+				<div class="col s12">
+					<span id="DialogRateOfCauseOfDeath" style="font-size:3em;">0</span><span
+						style="font-size:3em;">%</span>
+					<span class="DisplayDiffereOfQof">
+						<i class="small material-icons">arrow_forward</i>
+						<span id="UpdateRateOfCauseOfDeath" style="font-size:2em;">0</span><span
+						style="font-size:2em;">%</span>
+					</span>
+				</div>
+				<div class="col s12">
+					<span class='translate' data-i18n='family-t_qof_history_score.age_of_death_formula'>死亡年齢（％）=
+						死亡年齢の記入がある死者数
+						÷ 家系内の死者数</span>
+				</div>
+				<div class="col s12">
+					<span id="DialogRateOfAgeAtDeath" style="font-size:3em;">0</span><span
+						style="font-size:3em;">%</span>
+					<span class="DisplayDiffereOfQof">
+						<i class="small material-icons">arrow_forward</i>
+						<span id="UpdateRateOfAgeAtDeath" style="font-size:2em;">0</span><span
+						style="font-size:2em;">%</span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col s12 text-right">
+			<button class="closeQofhScoreButton btn-large waves-effect waves-light teal lighten-1 translate"
+				data-i18n='fhh_family_pedigree.close' style="text-align:right;font-size:110% !important">Close</button>
+		</div>
+	</div>
+
+</body>
+
+</html>

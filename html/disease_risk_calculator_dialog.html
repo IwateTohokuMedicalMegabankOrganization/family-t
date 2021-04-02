@@ -1,6 +1,14 @@
 <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection,print" />
 <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection,print"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+<div class="row">
+	<div class="col s12 text-right">
+		<button class="closeRiskScoreButton btn-large waves-effect waves-light teal lighten-1 translate" data-i18n='fhh_family_pedigree.close' style="text-align:right;font-size:110% !important">Close</button>
+	</div>
+</div>
+
 <div class="row risk_caution">
 	<div class="col s11">
 
@@ -29,6 +37,27 @@
 	<div class="col s1 center" style="margin-top: 2em; padding-left: 2em;" id="risk_printer">
 		<span class="material-icons large-size green-text cursor_pointer icon_shadow">print</span><div class="col s12"style="white-space: nowrap;">
 		<span class='translate' data-i18n='fhh_family_pedigree.print'>印刷</span></div>
+	</div>
+</div>
+
+<div class="row risk_box cannnot_calculate_under40" style="display: none;">
+	<div class="col s12 risk_title">
+	</div>
+	<div class="col s12 risk_container">
+			<div class="col s10 offset-s1 risk_warning">
+				<span class='translate' data-i18n='family-t_risk.cannnot_calculate_under40'>40歳以下については、論文・ガイドラインによる根拠がないため計算しません。</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row risk_box cannnot_calculate_over70" style="display: none;">
+	<div class="col s12 risk_title">
+	</div>
+	<div class="col s12 risk_container">
+		<div class="col s10 offset-s1 risk_warning">
+			<span class='translate' data-i18n='family-t_risk.cannnot_calculate_over70'>70歳以上については、論文・ガイドラインによる根拠がないため計算しません。</span>
+		</div>
 	</div>
 </div>
 
@@ -487,7 +516,8 @@
 	</div>
 </div>
 
-<div class="row risk_box">
+
+<div class="row risk_box result_block">
 	<div class="col s12 risk_title">
 		<span class='translate' data-i18n='family-t_risk.type2diabates'>2型糖尿病</span>
 	</div>
@@ -552,7 +582,7 @@
 	</div>
 </div>
 
-<div class="row risk_box">
+<div class="row risk_box result_block">
 	<div class="col s12 risk_title">
 		<span class='translate' data-i18n='family-t_risk.cdh'>冠動脈疾患</span>
 	</div>
@@ -621,7 +651,7 @@
 	</div>
 </div>
 
-<div class="row risk_box">
+<div class="row risk_box result_block">
 	<div class="col s12 risk_title">
 		<span class='translate' data-i18n='family-t_risk.stroke'>脳卒中</span>
 	</div>
@@ -684,7 +714,7 @@
 	</div>
 </div>
 
-<div class="row risk_box">
+<div class="row risk_box result_block">
 	<div class="col s12 risk_title">
 		<span class='translate' data-i18n='family-t_score_summary.score_sheet'>リスク計算内訳</span>
 		</div>
@@ -834,3 +864,8 @@
 </div>
 
 
+<div class="row">
+	<div class="col s12 text-right">
+		<button class="closeRiskScoreButton btn-large waves-effect waves-light teal lighten-1 translate" data-i18n='fhh_family_pedigree.close' style="text-align:right;font-size:110% !important">Close</button>
+	</div>
+</div>

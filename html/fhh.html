@@ -90,6 +90,7 @@
 	<link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection,print" />
 	<link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection,print"/>
 	<script type="text/javascript" src="../js/keys.js"></script>
+	<script type="text/javascript" src="../js/quality_of_family_history_score_dialog.js"></script>
 	<!--	<script type="text/javascript" src="../js/materialize.min.js"></script>-->
 	<!--
 	<script type="text/javascript">
@@ -109,9 +110,31 @@
 			$( "#list01" ).disableSelection();
 		} );
   </script>
+	<!-- <script type="text/javascript" src="../js/family_t_tree.js"></script> -->
+	<script type="text/javascript" src="../js/family_t_figure.js"></script>
 <style type="text/css" media="screen">
 .list-group-item{
 	display: contents;
+}
+body {
+    font: 10px sans-serif;
+}
+.link {
+    fill: none;
+    stroke: #000;
+}
+.sibling {
+    fill: none;
+    stroke: blue;
+}
+.border {
+    fill: none;
+    shape-rendering: crispEdges;
+    stroke: #aaa;
+}
+.node {
+    stroke: red;
+    fill:white;
 }
 </style>
 
@@ -185,14 +208,15 @@
 							<span class="material-icons large-size green-text cursor_pointer icon_shadow">delete_forever</span>
 							<span class="translate" data-i18n="family-t.start_over">家族歴の削除</span>
 						</span>
+						
+						<span id="url_to_questionaire" style="display: none;">URL</span>
  						-->
 
-						<span id="showFamilyTable" style="display: none;" class="cursor_pointer">
-							<span class="material-icons large-size cyan-text cursor_pointer icon_shadow">print</span>
-							<span class="translate" data-i18n="family-t.logout">家系図</span>
+						<span id="leave_this_site" class="cursor_pointer">
+							<span class="material-icons large-size red-text cursor_pointer ">delete_forever</span>
+							<span class="translate" data-i18n="family-t.leave_this_site">このサイトを離れる</span>
 						</span>
 
-						<span id="url_to_questionaire" style="display: none;">URL</span>
 					</div>
 					<div class="col s2 m1 l1 center">
 						<span id="nav_help" class="material-icons large-size green-text cursor_pointer icon_shadow">help_outline</span>
@@ -352,7 +376,7 @@
 										<span id="canDisplayLifeStyleScoreTotal" style="display: none;">
 											<span id="DisplayLifeStyleScoreTotal" style="font-size:3em;"></span><span style="font-size:3em;"> <span class='translate' data-i18n='family-t_lifestylescore.points'>点</span></span>
 										</span>
-										<span id="cannotDisplayLifeStyleScoreTotal" style="display: none;">
+										<span id="cannotDisplayLifeStyleScoreTotal" class='translate' data-i18n="family-t_lifestylescore.items_required_for_lifestyle_score_calculation_are_not_registered">
 											計算できません。
 										</span>
 									</div>
@@ -367,18 +391,32 @@
 					     <div class="card light-green lighten-5">
 							<div class="card-content black-text">
 								<div class="card-title"><span class='translate' data-i18n='family-t_score_summary.disease_risk'>疾患発症リスク</span></div>
-								<div>
+								<div class="calculatable"> 
 									<div class="row">
 										<div class="col s12">
 											<span class='translate' data-i18n='family-t_score_summary.type_2_diabetes_5_years'>糖尿病（5年以内）</span>
 										</div>
-										<div class="col s12">
+										<div id="diabetesScoreCard" class="col s12">
 											<span id="canDisplayDiabateScoreTotal" style="display: none;">
 												<span id="DisplayDiabateScoreTotal" style="font-size:3em;"></span>
 											</span>
-											<span id="cannotDisplayDiabateScoreTotal" style="display: none;">
-												計算できません。
+											<span id="cannotDisplayDiabateScoreTotal" style="display: none;" class="translate" data-i18n="family-t_risk.type2_required">2型糖尿病の発症リスク計算に必要な項目が登録されていません。</span>
+											<span class="diabetes_ng_mode" style="display: none;">
+												<span class='translate' data-i18n='family-t_risk.stroke_result_exp4'>
+												糖尿病疾患の服薬治療をされている方、過去に糖尿病を発症された方、または血糖値が「糖尿病型」の方の2型糖尿病発症リスクは計算できません。
+												</span>
 											</span>
+											<div class="row cannnot_calculate_under40" style="display: none;">
+												<div class="col s12 ">
+													<span class='translate' data-i18n='family-t_risk.cannnot_calculate_under40'>40歳以下については、論文・ガイドラインによる根拠がないため計算しません。</span>
+												</div>
+											</div>
+											<div class="row cannnot_calculate_over80" style="display: none;">
+												<div class="col s12 ">
+													<span class='translate' data-i18n='family-t_risk.cannnot_calculate_over80'>80歳以上については、論文・ガイドラインによる根拠がないため計算しません。</span>
+												</div>
+											</div>
+
 										</div>
 									</div>
 									<div class="row">
@@ -389,9 +427,9 @@
 											<span id="canDisplayAtheroscleroticScoreTotal" style="display: none;">
 												<span id="DisplayAtheroscleroticScoreTotal" style="font-size:3em;"></span>
 											</span>
-											<span id="cannotDisplayAtheroscleroticScoreTotal" style="display: none;">
-												計算できません。
-											</span></div>
+											<span id="cannotDisplayAtheroscleroticScoreTotal" class="translate" data-i18n="family-t_risk.heart_required">冠動脈疾患の発症リスク計算に必要な項目が登録されていません。</span>
+															
+										</div>
 									</div>
 									<div class="row">
 										<div class="col s12">
@@ -401,9 +439,8 @@
 											<span id="canDisplayStrokeScoreTotal" style="display: none;">
 												<span id="DisplayStrokeScoreTotal" style="font-size:3em;"></span>
 											</span>
-											<span id="cannotDisplayStrokeScoreTotal" style="display: none;">
-												計算できません。
-											</span></div>
+											<span id="cannotDisplayStrokeScoreTotal"  class="translate" data-i18n="family-t_risk.stroke_required">脳卒中の発症リスク計算に必要な項目が登録されていません。</span>
+											</div>
 									</div>
 								</div>
 							</div>
@@ -412,6 +449,17 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="row">
+						<div class="card light-green lighten-5">
+						   <div class="card-content black-text">
+							   <div class="card-title">
+								   <span class='translate' data-i18n='family-t.figure'>世代別家系構成人数</span>
+							   </div>
+							   <div id="graph" class="row"></div>
+						   </div>
+					   </div>
+				   </div>
 				</div>
 
 
@@ -441,9 +489,34 @@
 							<div id='lifestyle_score_calculator_dialog' style="background: #ffffff !important;"></div>
 							<div id='quality_of_family_history_score_dialog' style="background: #ffffff !important;"></div>
 							<div id='familyTable'></div>
+							<div id='family_t_tree_dialog'>
+								<div class="row">
+									<div class="col s12 text-right">
+									<button class="closeFamilyTreeDialogButton btn-large waves-effect waves-light teal lighten-1 translate" data-i18n='fhh_family_pedigree.close' style="text-align:right;font-size:110% !important">Close</button>
+									</div>
+								</div>
+								<div>f-treeをダウンロードし、下のボタンでダウンロードしたCSVファイルをf-treeに読み込ませて、家系図を表示します。</div>
+								<div class="row center">
+									<button class="btn-small waves-effect waves-light teal lighten-1 ng-binding" id="download_csv" ng-click="bindDownloadCSV()"><i class="material-icons left">file_download</i>
+										CSVをダウンロード
+									</button>
+								</div>
+								<div id="enlargedView"></div>
+								<div class="row">
+									<div class="col s12 text-right">
+									<button class="closeFamilyTreeDialogButton btn-large waves-effect waves-light teal lighten-1 translate" data-i18n='fhh_family_pedigree.close' style="text-align:right;font-size:110% !important">Close</button>
+									</div>
+								</div>
+							</div>
 							<div style="display:none;">
 								<div id='risk_section'> <i>Loading Risk Assessment Tools...</i> </div>
 								<div id='help_dialog'>
+									
+									<div class="row">
+										<div class="col s12 text-right">
+										<button id='closeHelpDialogButton' class="btn-large waves-effect waves-light teal lighten-1 translate" data-i18n='fhh_family_pedigree.close' style="text-align:right;font-size:110% !important">Close</button>
+										</div>
+									</div>
 									<div id='help_main_page' class='help'>
 										<h2 class='translate' data-i18n='fhh_fhh.h2_update_fhh'>Update My Family History</h2>
 										<p class='translate instructions' data-i18n='fhh_fhh.p_update_my_history'>On this screen you can:</p>
@@ -522,7 +595,6 @@
 </body>
 
 <script type='text/javascript'>
-// Static links need to know what language
 
 function get_help() {
 	window.open("./static/help_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
@@ -550,5 +622,4 @@ function site_updates() {
 </script>
 <script src="../../js/materialize.js"></script>
 <script src="../../js/init.js"></script>
-
 </html>

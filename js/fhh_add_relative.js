@@ -60,6 +60,7 @@ function add_new_family_member_select() {
 
 function add_new_family_member_instructions(new_family_member_dialog) {
 	new_family_member_dialog.append("<h3> " + $.t("fhh_js.add_relative_title") + " </h3>");
+
 	new_family_member_dialog.append("<P class='instructions'>" + $.t("fhh_js.add_relative_para") + "</P>");
 	new_family_member_dialog.append("<label for='new_family_member_relationship'> " + $.t("fhh_js.relationship_to_me") + " </label>");	
 }

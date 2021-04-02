@@ -160,6 +160,13 @@ function checkDiabetesRisk(hypo, fasting, occasional, ogtt, hba1c, diabetes){
 
 }
 
+function isCoverageAgeForCalculate(){
+	// 40歳未満、70歳以上は計算範囲外
+	if( clientValue.age >= 40 ) return true;
+	if( clientValue.age < 70 ) return true;
+	return false;
+}
+
 // 計算しない場合の表示制御
 function showDiabetesCalcNG(){
 	$("#diabetes_ok_mode").hide();

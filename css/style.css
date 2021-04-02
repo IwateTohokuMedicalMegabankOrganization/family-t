@@ -270,6 +270,14 @@ table td{
 	padding: 6px;
 }
 
+.simuration_block {
+	border: dotted 2px gray;
+	background-color: gray;
+	border: dotted 2px red;
+	background-color: #ffffee;
+	padding: 6px;
+}
+
 .page-footer {
 	background-color: #8ec31f;
 }
