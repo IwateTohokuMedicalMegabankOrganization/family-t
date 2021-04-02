@@ -183,6 +183,13 @@ class StrokeRiskCalculator extends RiskCalculatorBase{
 		return;
 	}
 
+	isCoverageAgeForCalculate(){
+		// 40歳未満、70歳以上は計算範囲外
+		if( this.age >= 40 ) return true;
+		if( this.age < 70 ) return true;
+		return false;
+	}
+
 	// 糖尿病疾患の有無を確認
 	hasDiabetes( h, fasting_blood_glucose_lebel, occasionally_blood_glucose_lebel, ogtt_blood_glucose_lebel, take_hypoglycemic ){
 

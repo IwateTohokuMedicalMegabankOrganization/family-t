@@ -396,11 +396,27 @@ body {
 										<div class="col s12">
 											<span class='translate' data-i18n='family-t_score_summary.type_2_diabetes_5_years'>糖尿病（5年以内）</span>
 										</div>
-										<div class="col s12">
+										<div id="diabetesScoreCard" class="col s12">
 											<span id="canDisplayDiabateScoreTotal" style="display: none;">
 												<span id="DisplayDiabateScoreTotal" style="font-size:3em;"></span>
 											</span>
-											<span id="cannotDisplayDiabateScoreTotal" class="translate" data-i18n="family-t_risk.type2_required">2型糖尿病の発症リスク計算に必要な項目が登録されていません。</span>
+											<span id="cannotDisplayDiabateScoreTotal" style="display: none;" class="translate" data-i18n="family-t_risk.type2_required">2型糖尿病の発症リスク計算に必要な項目が登録されていません。</span>
+											<span class="diabetes_ng_mode" style="display: none;">
+												<span class='translate' data-i18n='family-t_risk.stroke_result_exp4'>
+												糖尿病疾患の服薬治療をされている方、過去に糖尿病を発症された方、または血糖値が「糖尿病型」の方の2型糖尿病発症リスクは計算できません。
+												</span>
+											</span>
+											<div class="row cannnot_calculate_under40" style="display: none;">
+												<div class="col s12 ">
+													<span class='translate' data-i18n='family-t_risk.cannnot_calculate_under40'>40歳以下については、論文・ガイドラインによる根拠がないため計算しません。</span>
+												</div>
+											</div>
+											<div class="row cannnot_calculate_over80" style="display: none;">
+												<div class="col s12 ">
+													<span class='translate' data-i18n='family-t_risk.cannnot_calculate_over80'>80歳以上については、論文・ガイドラインによる根拠がないため計算しません。</span>
+												</div>
+											</div>
+
 										</div>
 									</div>
 									<div class="row">
@@ -412,6 +428,7 @@ body {
 												<span id="DisplayAtheroscleroticScoreTotal" style="font-size:3em;"></span>
 											</span>
 											<span id="cannotDisplayAtheroscleroticScoreTotal" class="translate" data-i18n="family-t_risk.heart_required">冠動脈疾患の発症リスク計算に必要な項目が登録されていません。</span>
+															
 										</div>
 									</div>
 									<div class="row">
@@ -424,16 +441,6 @@ body {
 											</span>
 											<span id="cannotDisplayStrokeScoreTotal"  class="translate" data-i18n="family-t_risk.stroke_required">脳卒中の発症リスク計算に必要な項目が登録されていません。</span>
 											</div>
-									</div>
-								</div>
-								<div class="row cannnot_calculate_under40" style="display: none;">
-									<div class="col s12 ">
-										<span class='translate' data-i18n='family-t_risk.cannnot_calculate_under40'>40歳以下については、論文・ガイドラインによる根拠がないため計算しません。</span>
-									</div>
-								</div>
-								<div class="row cannnot_calculate_over70" style="display: none;">
-									<div class="col s12 ">
-										<span class='translate' data-i18n='family-t_risk.cannnot_calculate_over70'>70歳以上については、論文・ガイドラインによる根拠がないため計算しません。</span>
 									</div>
 								</div>
 							</div>
@@ -588,7 +595,6 @@ body {
 </body>
 
 <script type='text/javascript'>
-// Static links need to know what language
 
 function get_help() {
 	window.open("./static/help_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
@@ -616,5 +622,4 @@ function site_updates() {
 </script>
 <script src="../../js/materialize.js"></script>
 <script src="../../js/init.js"></script>
-<script src="https://d3js.org/d3.v3.min.js"></script>
 </html>

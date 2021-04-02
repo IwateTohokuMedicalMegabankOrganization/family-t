@@ -3108,9 +3108,6 @@ class ScoreCardController{
 		// ライフスタイルスコア
 		ScoreCardController._lifeStyleScore();
 
-		// 疾患発症リスク
-		if( cannot_calculate() ) return ;
-
 		// 糖尿病	
 		ScoreCardController._diababatesRiskScore();
 
@@ -3148,13 +3145,26 @@ class ScoreCardController{
 
 		// 糖尿病
 		var drc_calcflag = drc_checkNecessaryItems();
+		// 入力項目不足で計算できない場合
+		if( !drc_calcflag ){
+			$('#cannotDisplayDiabateScoreTotal').show();
+			return;
+		}
 
 		// 糖尿病型の判定
 		var pi = personal_information;
 		load_diabetes_status(pi.take_hypoglycemic, pi.fasting_blood_glucose_lebel, pi.occasionally_blood_glucose_lebel, pi.ogtt_blood_glucose_lebel, pi.hba1c);
 
-		// 計算できない場合は中断
-		if( !drc_calcflag ) return;
+		if( clientValue.hypo || clientValue.fasting || clientValue.occasional || clientValue.ogtt || clientValue.hba1c || clientValue.diabetes ){
+			$('.diabetes_ng_mode').show();
+			return;
+		}
+		
+		// 年齢で計算できない場合
+		if( !isCoverageAgeForCalculate() ){
+			$('.diabetes_age_ng_mode').show();
+			return;
+		}
 
 		// 計算
 		calcHisayamaScore();
@@ -3168,17 +3178,17 @@ class ScoreCardController{
 	static _athroscleroticRiskScore(){
 
 		// 冠動脈疾患
-		var chd_calcflag = chd_checkNecessaryItems();
+		// 入力項目不足で計算できない場合
+		if( !chd_checkNecessaryItems() ){
+			$('#cannotDisplayAtheroscleroticScoreTotal').show();
+			return;
+		} 
 
-		// 計算できない場合は中断
-		if( !chd_calcflag ) return;
 
 		// 計算
 		calcSuitaScore();
 
-
 		// 表示
-		$('#cannotDisplayAtheroscleroticScoreTotal').hide();
 		$('#DisplayAtheroscleroticScoreTotal').text(showCHDRisk(clientValue.age, personal_information.gender, chd_score.total));
 		$('#canDisplayAtheroscleroticScoreTotal').show();
 	}
@@ -3208,14 +3218,14 @@ class ScoreCardController{
 
 }
 
-function cannot_calculate(){
-	// 40歳以下、70歳以上の場合は計算しない
+function cannot_calculate( baseId, lower , upper ){
+	// lower歳未満、upper歳以上の場合は計算しない
 	var age = getDisplayAge(personal_information);
-	if( age <= 40 || 70 <= age ) {
+	if( age < lower || upper <= age ) {
 		$("#compensational_block").hide();
 		$(".result_block").hide();
 		$(".calculatable").hide();
-		$('.cannnot_calculate_under40').hide();
+		$( baseId + ' ' + '.cannnot_calculate_under40').hide();
 		$('.cannnot_calculate_over70').hide();
 
 		if( age <= 40 )	$('.cannnot_calculate_under40').show();
@@ -3228,8 +3238,6 @@ function cannot_calculate(){
 }
 
 function riskCalcAndShow() {
-
-	if( cannot_calculate() ) return ;
 
 	// 糖尿病
 	var drc_calcflag = drc_checkNecessaryItems();
