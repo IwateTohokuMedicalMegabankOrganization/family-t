@@ -5086,6 +5086,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 					current_health_history[i]['Disease Code']);
 			data_entry_row.before(new_row);
 		}
+		toggleHealthyOption( $(data_entry_row).parent() );
 	}
 
 	$("#family_health_information").find("#disease_choice_select").val($("#disease_choice_select").find('option').first().val());
@@ -5593,6 +5594,7 @@ function clear_and_set_personal_health_history_dialog() {
 					current_health_history[i]['Disease Code']);
 			data_entry_row.before(new_row);
 		}
+		toggleHealthyOption( $(data_entry_row).parent() );
 	}
 
 	/*
