@@ -79,11 +79,9 @@ class RiskCalculatorBase {
 		var birthDay = currentDay;
 
 		if(typeof pi.date_of_birth != "undefined"){
-			if(pi.date_of_birth.length == 10){
-				birthYear = pi.date_of_birth.substr(0,4);
-				birthMonth = pi.date_of_birth.substr(5,2);
-				birthDay = pi.date_of_birth.substr(9,2);
-			}
+			birthYear = pi.date_of_birth.substr(0,4);
+			birthMonth = pi.date_of_birth.substr(5,2);
+			birthDay = pi.date_of_birth.substr(9,2);
 		}
 
 		var yob;
@@ -185,9 +183,16 @@ class StrokeRiskCalculator extends RiskCalculatorBase{
 
 	isCoverageAgeForCalculate(){
 		// 40歳未満、70歳以上は計算範囲外
-		if( this.age >= 40 ) return true;
-		if( this.age < 70 ) return true;
-		return false;
+		if( this.clientValue.age < 40 ) return false;
+		if( this.clientValue.age >= 70 ) return false;
+		return true;
+	}
+
+	getDisplayClass(){
+		// 40歳未満、70歳以上は計算範囲外
+		if( this.clientValue.age < 40 ) return 'cannot_calculate_under40';
+		if( this.clientValue.age >= 70 ) return 'cannot_calculate_over70';
+		return '';
 	}
 
 	// 糖尿病疾患の有無を確認
@@ -195,7 +200,7 @@ class StrokeRiskCalculator extends RiskCalculatorBase{
 
 		if( typeof h == "undefined") return false;
 		// 既往歴に糖尿病疾患がある場合は糖尿病として扱う
-		const diabatesSnomedCodes = [
+		const diabatesSnomedCodes = [	
 			'SNOMED_CT-73211009',
 			'SNOMED_CT-11687002',
 			'SNOMED_CT-82141001',
@@ -551,28 +556,45 @@ class StrokeRiskCalculator extends RiskCalculatorBase{
 }
 
 function showStrokeRisk(){
+	// var calculator = new StrokeRiskCalculator( personal_information );
+
+	// if( !calculator.stroke_checkNecessaryItems() ){
+	// 	$('#cannotDisplayStrokeScoreTotal').show();
+	// 	$('#canDisplayStrokeScoreTotal').hide();
+	// 	return;
+	// }
+
+	// if( calculator.riskCalcNGFlg() ){
+	// 	$('#cannotDisplayStrokeScoreTotal').show();
+	// 	$('#canDisplayStrokeScoreTotal').hide();
+	// 	return;
+	// }
+
+	// $('#cannotDisplayStrokeScoreTotal').hide();
+	// $('#DisplayStrokeScoreTotal').text(calculator.getRiskPercentile());
+	// $('#canDisplayStrokeScoreTotal').show();
+
+	// 一度すべて非表示に変更する
+	$('.strokeScoreResult').hide();
+
 	var calculator = new StrokeRiskCalculator( personal_information );
 
-	if( !calculator.stroke_checkNecessaryItems() ){
-		$("#stroke_ok_mode").hide();
-		$("#stroke_ng_mode").hide();
-		$("#stroke_calc_ng").show();
-	} else {
-
-		$('#risk_range_stroke').text(calculator.getRiskRange());
-		$('#risk_parcentile_stroke').text(calculator.getRiskPercentile());
-		$('#risk_image_stroke').attr('src', calculator.getColorImagePatternPath());
-
-		if( calculator.riskCalcNGFlg() ){
-			$('#stroke_ok_mode').hide();
-			$('#stroke_ng_mode').show();
-			$("#stroke_calc_ng").hide();
-		} else {
-			$('#stroke_ok_mode').show();
-			$('#stroke_ng_mode').hide();
-			$("#stroke_calc_ng").hide();
-		}
+	// 年齢で計算できない場合
+	if( !calculator.isCoverageAgeForCalculate() ){
+		$('.' + calculator.getDisplayClass() ).show();
+		return calculator;
 	}
+
+	// 入力項目不足で計算できない場合
+	if( !calculator.stroke_checkNecessaryItems() ){
+		$(".stroke_calc_ng").show();
+		return calculator;
+	}
+
+	$(".stroke_ok_mode").show();
+	$('#risk_range_stroke').text(calculator.getRiskRange());
+	$('.risk_parcentile_stroke').text(calculator.getRiskPercentile());
+	$('#risk_image_stroke').attr('src', calculator.getColorImagePatternPath());
 
 	return calculator;
 }

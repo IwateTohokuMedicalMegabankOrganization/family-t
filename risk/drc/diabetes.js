@@ -120,17 +120,37 @@ function showDiabetesRisk(totalscore) {
 	return percentile;
 }
 
+
+function drc_getDisplayClass(){
+	load_age_drc(personal_information.date_of_birth.substr(0,4), personal_information.date_of_birth.substr(5,2), personal_information.date_of_birth.substr(9,2));
+	// 40歳未満、70歳以上は計算範囲外
+	if( clientValue.age < 40 ) return 'cannot_calculate_under40';
+	if( clientValue.age >= 80 ) return 'cannot_calculate_over80';
+	return '';
+}
+
 // 糖尿病（と冠動脈疾患）は同じルール・内容の表示非表示を行っている
 function checkDiabetesRisk(hypo, fasting, occasional, ogtt, hba1c, diabetes){
-	// 計算結果をshow、治療中の文言、計算NGの文言はhide
-	$("#diabetes_ok_mode").show();
-	$("#diabetes_ng_mode").hide();
-	$("#diabetes_calc_ng").hide();
+
+	// 一度すべて非表示に変更する
+	$(".diabeteScoreResult").hide();
+
+	// 年齢で計算できない場合
+	if( !drc_isCoverageAgeForCalculate() ){
+		$('.' + drc_getDisplayClass() ).show();
+		return false;
+	}
+
+	// 入力項目不足で計算できない場合
+	var drc_calcflag = drc_checkNecessaryItems();
+	if( !drc_calcflag ){
+		$(".diabetes_calc_ng").show();
+		return false;
+	}
 
 	// 糖尿病型は計算結果を隠し、治療中の文言を表示
 	if(hypo || fasting || occasional || ogtt || hba1c || diabetes){
-		$("#diabetes_ok_mode").hide();
-		$("#diabetes_ng_mode").show();
+		$(".diabetes_ng_mode").show();
 		$(".diabetes_chd_recommendation").show();
 
 		// 投薬治療中 or 糖尿病罹患歴ありは、表示した文言の勧告文を隠す
@@ -140,7 +160,6 @@ function checkDiabetesRisk(hypo, fasting, occasional, ogtt, hba1c, diabetes){
 
 		// 糖尿病型の判定要因を列挙
 		$(".diabetes_chd_reason").empty();
-		
 		if(fasting){
 			$(".diabetes_chd_reason").append($.t("family-t_risk.fasting_blood_glucose_level_is126"));
 		}
@@ -156,15 +175,20 @@ function checkDiabetesRisk(hypo, fasting, occasional, ogtt, hba1c, diabetes){
 			appendComma();
 			$(".diabetes_chd_reason").append($.t("family-t_risk.HbA1c_value_is_65"));
 		}
+		return false;
 	}
 
+	$(".diabetes_ok_mode").show();
+	return true;
 }
 
-function isCoverageAgeForCalculate(){
-	// 40歳未満、70歳以上は計算範囲外
-	if( clientValue.age >= 40 ) return true;
-	if( clientValue.age < 70 ) return true;
-	return false;
+
+function drc_isCoverageAgeForCalculate(){
+	load_age_drc(personal_information.date_of_birth.substr(0,4), personal_information.date_of_birth.substr(5,2), personal_information.date_of_birth.substr(9,2));
+	// 40歳未満、80歳以上は計算範囲外
+	if( clientValue.age < 40 ) return false;
+	if( clientValue.age >= 80 ) return false;
+	return true;
 }
 
 // 計算しない場合の表示制御

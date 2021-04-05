@@ -3143,50 +3143,22 @@ class ScoreCardController{
 
 	static _diababatesRiskScore(){
 
-		// 糖尿病
-		var drc_calcflag = drc_checkNecessaryItems();
-		// 入力項目不足で計算できない場合
-		if( !drc_calcflag ){
-			$('#cannotDisplayDiabateScoreTotal').show();
-			return;
-		}
-
-		// 糖尿病型の判定
 		var pi = personal_information;
-		load_diabetes_status(pi.take_hypoglycemic, pi.fasting_blood_glucose_lebel, pi.occasionally_blood_glucose_lebel, pi.ogtt_blood_glucose_lebel, pi.hba1c);
-
-		if( clientValue.hypo || clientValue.fasting || clientValue.occasional || clientValue.ogtt || clientValue.hba1c || clientValue.diabetes ){
-			$('.diabetes_ng_mode').show();
-			return;
-		}
-		
-		// 年齢で計算できない場合
-		if( !isCoverageAgeForCalculate() ){
-			$('.diabetes_age_ng_mode').show();
-			return;
-		}
-
+		load_diabetes_status(pi.take_hypglycemic, pi.fasting_blood_glucose_lebel, pi.occasionally_blood_glucose_lebel, pi.ogtt_blood_glucose_lebel, pi.hba1c);
+		if(!checkDiabetesRisk(clientValue.hypo, clientValue.fasting, clientValue.occasional, clientValue.ogtt, clientValue.hba1c, clientValue.diabetes) )return ;
+	
 		// 計算
 		calcHisayamaScore();
-
 		// 表示
-		$('#cannotDisplayDiabateScoreTotal').hide();
 		$('#DisplayDiabateScoreTotal').text(showDiabetesRisk(drc_score.total));
-		$('#canDisplayDiabateScoreTotal').show();
+		$('.canDisplayDiabateScoreTotal').show();
 	}
 
 	static _athroscleroticRiskScore(){
 
 		// 冠動脈疾患
-		// 入力項目不足で計算できない場合
-		if( !chd_checkNecessaryItems() ){
-			$('#cannotDisplayAtheroscleroticScoreTotal').show();
-			return;
-		} 
-
-
-		// 計算
 		calcSuitaScore();
+		if(!checkCHDRisk(clientValue.hypo, clientValue.fasting, clientValue.occasional, clientValue.ogtt, clientValue.hba1c) ) return;
 
 		// 表示
 		$('#DisplayAtheroscleroticScoreTotal').text(showCHDRisk(clientValue.age, personal_information.gender, chd_score.total));
@@ -3196,24 +3168,8 @@ class ScoreCardController{
 	static _strokeRiskScore(){
 
 		// 脳卒中
-		var calculator = new StrokeRiskCalculator( personal_information );
-
-		if( !calculator.stroke_checkNecessaryItems() ){
-			$('#cannotDisplayStrokeScoreTotal').show();
-			$('#canDisplayStrokeScoreTotal').hide();
-			return;
-		}
-
-		if( calculator.riskCalcNGFlg() ){
-			$('#cannotDisplayStrokeScoreTotal').show();
-			$('#canDisplayStrokeScoreTotal').hide();
-			return;
-		}
-
-		$('#cannotDisplayStrokeScoreTotal').hide();
-		$('#DisplayStrokeScoreTotal').text(calculator.getRiskPercentile());
-		$('#canDisplayStrokeScoreTotal').show();
-
+		var stroke_score_class = showStrokeRisk();
+		
 	}
 
 }
@@ -3239,31 +3195,18 @@ function cannot_calculate( baseId, lower , upper ){
 
 function riskCalcAndShow() {
 
-	// 糖尿病
-	var drc_calcflag = drc_checkNecessaryItems();
-
 	// 糖尿病型の判定
 	var pi = personal_information;
 	load_diabetes_status(pi.take_hypoglycemic, pi.fasting_blood_glucose_lebel, pi.occasionally_blood_glucose_lebel, pi.ogtt_blood_glucose_lebel, pi.hba1c);
-
-	// 計算に必要な項目が揃っているかどうか
-	if (drc_calcflag) {
+	if(checkDiabetesRisk(clientValue.hypo, clientValue.fasting, clientValue.occasional, clientValue.ogtt, clientValue.hba1c, clientValue.diabetes) ){
 		calcHisayamaScore();
 		showDiabetesRisk(drc_score.total);
-		checkDiabetesRisk(clientValue.hypo, clientValue.fasting, clientValue.occasion, clientValue.ogtt, clientValue.hba1c, clientValue.diabetes);
-	} else {
-		showDiabetesCalcNG();
 	}
 
 	// 冠動脈疾患
-	var chd_calcflag = chd_checkNecessaryItems();
-
-	if (chd_calcflag) {
-		calcSuitaScore();
+	calcSuitaScore();
+	if(checkCHDRisk(clientValue.hypo, clientValue.fasting, clientValue.occasional, clientValue.ogtt, clientValue.hba1c) ){
 		showCHDRisk(clientValue.age, personal_information.gender, chd_score.total);
-		checkCHDRisk(clientValue.hypo, clientValue.fasting, clientValue.occasion, clientValue.ogtt, clientValue.hba1c);
-	} else {
-		showCHDCalcNG();
 	}
 
 	// 脳卒中リスクスコア
