@@ -186,6 +186,7 @@
 		"age_at_diagnosis": "Age at Diagnosis",
 		"action": "Action",
 		"age_at_diagnosis_select": "Select Age at Diagnosis",
+		"blank": "",
 		"prebirth": "Pre-Birth",
 		"newborn": "Newborn",
 		"infant": "In Infancy",
@@ -1015,7 +1016,8 @@
 		"maternal_halfsister":"your maternal halfsister",
 		"paternal_halfsister":"your paternal halfsister",
 		"maternal_cousin":"your maternal cousin",
-		"paternal_cousin":"your paternal cousin"
+		"paternal_cousin":"your paternal cousin",
+		"healthy":"Healthy"
 	},
 	"family-t_risk": {
 		"exp1": "The results calculated herein are based on research findings reported to date.",

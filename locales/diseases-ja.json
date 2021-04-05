@@ -1,4 +1,5 @@
 {
+  "Healthy": "健康",
   "Cancer": "がん（さらに詳細を選択）",
   "Clotting Disorder": "凝固障害（さらに詳細を選択）",
   "Dementia/Alzheimers": "認知症/アルツハイマー病",
@@ -124,5 +125,6 @@
   "SNOMED_CT-null": "不明の疾患",
   "undefined": "その他の疾患",
   "SNOMED_CT-undefined": "その他の疾患",
-  "SNOMED_CT-OTHER": "その他の疾患"
+  "SNOMED_CT-OTHER": "その他の疾患",
+  "FAMILY_T-HEALTHY": "健康"
 }

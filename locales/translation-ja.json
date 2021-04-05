@@ -195,6 +195,7 @@
 		"age_at_diagnosis": "診断時の年齢",
 		"action": "操作",
 		"age_at_diagnosis_select": "診断時の年齢を選択",
+		"blank": "",
 		"prebirth": "出生前",
 		"newborn": "新生児期",
 		"infant": "乳児期",
@@ -1022,7 +1023,8 @@
 		"maternal_halfsister":"あなたの異母姉妹",
 		"paternal_halfsister":"あなたの異父姉妹",
 		"maternal_cousin":"あなたの母方のいとこ",
-		"paternal_cousin":"あなたの父方のいとこ"
+		"paternal_cousin":"あなたの父方のいとこ",
+		"healthy":"健康"
 	},
 	"family-t_risk": {
 		"fasting_blood_glucose_level_is126": "空腹時血糖値が126以上",

@@ -4238,6 +4238,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 				var new_disease_selected = $("#cause_of_death_select").val();
 			}
 
+			$(this).parent().parent().find($('#age_at_diagnosis_select')).show();
 			if ((detailed_disease && detailed_disease.length > 0)) {
 				if (detailed_disease.length == 1) {
 //					alert ("Exactly one subtype: " + JSON.stringify(detailed_disease));
@@ -4246,6 +4247,9 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 					detailed_disease_select.append("<option value='" + detailed_disease[0].system + "-" + detailed_disease[0].code + "'> "
 						+ $.t("diseases:" + detailed_disease[0].system + "-" + detailed_disease[0].code) + " </option>");
 
+					if( $(this).val() == 'Healthy'){
+						$(this).parent().parent().find($('#age_at_diagnosis_select')).hide();
+					}
 				} else {
 					$(this).parent().find($('.ddcs')).prop('disabled',false);
 					detailed_disease_select.show().append("<option value='not_picked'>" + $.t("fhh_js.disease_subtype_select") + "</option>");
@@ -4280,6 +4284,7 @@ function get_detailed_disease (disease_name) {
 
 function set_age_at_diagnosis_pulldown(instructions, age_at_diagnosis_select) {
 	age_at_diagnosis_select.append("<option value='not_picked'> "+instructions+"  </option>");
+	age_at_diagnosis_select.append("<option value='Unknown'>" + $.t("fhh_js.unknown") + "</option>");
 	age_at_diagnosis_select.append("<option value='prebirth'>" + $.t("fhh_js.prebirth") + "</option>");
 	age_at_diagnosis_select.append("<option value='newborn'>" + $.t("fhh_js.newborn") + "</option>");
 	age_at_diagnosis_select.append("<option value='infant'>" + $.t("fhh_js.infant") + "</option>");
@@ -4297,7 +4302,6 @@ function set_age_at_diagnosis_pulldown(instructions, age_at_diagnosis_select) {
 	age_at_diagnosis_select.append("<option value='early_sixties'>" + $.t("fhh_js.early_sixties") + "</option>");
 	age_at_diagnosis_select.append("<option value='late_sixties'>" + $.t("fhh_js.late_sixties") + "</option>");
 	age_at_diagnosis_select.append("<option value='senior'>" + $.t("fhh_js.senior") + "</option>");
-	age_at_diagnosis_select.append("<option value='Unknown'>" + $.t("fhh_js.unknown") + "</option>");
 	return age_at_diagnosis_select;
 }
 
@@ -4372,9 +4376,13 @@ function add_disease() {
 		return;
 	}
 
-	if (age_at_diagnosis == null || age_at_diagnosis == '' || age_at_diagnosis == 'not_picked') {
-		alert ($.t("fhh_js.age_at_diagnosis_select"));
-		return;
+	if( disease_name == 'Healthy' ){
+		age_at_diagnosis = 'blank';
+	}else{
+		if (age_at_diagnosis == null || age_at_diagnosis == '' || age_at_diagnosis == 'not_picked') {
+			alert ($.t("fhh_js.age_at_diagnosis_select"));
+			return;
+		}
 	}
 
 	var new_disease_name = $(this).parent().parent().find("#new_disease_name").val();
@@ -4434,7 +4442,11 @@ function add_disease() {
 
 	$(this).parent().parent().find("#age_at_diagnosis_select").val($(this).parent().parent().find("#age_at_diagnosis_select").find('option').first().val());
 
-//	alert ("Adding: " + disease_name + ":" + disease_detail + ":" + age_at_diagnosis);
+	if( disease_name == 'Healthy' ){
+		$(this).parent().parent().parent().find("#health_data_entry_row").hide();
+	}
+	toggleHealthyOption( $(this).parent().parent().parent() );
+
 	return false;
 }
 
@@ -4470,6 +4482,14 @@ function create_disease_row(row_number, disease_name, disease_detail, age_at_dia
 	return new_row;
 }
 
+function toggleHealthyOption( that ){
+	if( $(that).find('.md_tr[row_number]').length > 0 ){
+		$(that).find("#disease_choice_select option[value='Healthy']").hide();
+		return;
+	}
+	$(that).find("#disease_choice_select option[value='Healthy']").show();
+}
+
 function remove_disease() {
 
 	var row_number = $(this).attr("row_number");
@@ -4499,9 +4519,12 @@ function remove_disease() {
 
 	current_health_history.splice(disease_row_number, 1);
 
+	$(this).parent().parent().parent().find("#health_data_entry_row").show();
+	var that = $(this).parent().parent().parent();
 	$(this).parent().parent().remove();
 //	alert ("Removing Disease Row: " + row_number);
 
+	toggleHealthyOption( that );
 
 	// 「削除」ボタンが押され、病歴が配列からspliceされたタイミングで、
 	// current_health_history の診断時年齢をすべて調べ、実年齢or死亡年齢との整合性をチェック
