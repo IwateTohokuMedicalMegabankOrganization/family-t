@@ -15,7 +15,7 @@
   "Septicemia": "Septicemia/bloodstream infection",
   "Stroke/Brain Attack": "Stroke/Brain Attack",
   "Sudden Infant Death Syndrome": "Sudden Infant Death Syndrome",
-  "Unknown Disease": "Unknown Disease",
+  "Unknown Disease": "Unknown",
   "Other Disease": "Other - Add new",
 
 	"SNOMED_CT-55822004": "High Cholesterol",
@@ -119,5 +119,6 @@
   "SNOMED_CT-null":"Unkown Disease",
   "undefined": "Other Disease",
   "SNOMED_CT-undefined": "Other Disease",
-  "SNOMED_CT-OTHER": "Other Disease"
+  "SNOMED_CT-OTHER": "Other Disease",
+  "FAMILY_T-HEALTHY": "Healthy"
 }
