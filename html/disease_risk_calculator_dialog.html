@@ -522,7 +522,7 @@
 		<span class='translate' data-i18n='family-t_risk.type2diabates'>2型糖尿病</span>
 	</div>
 	<div class="col s12 risk_container">
-		<div id="diabetes_ok_mode">
+		<div class="diabeteScoreResult diabetes_ok_mode">
 			<div class="col s12 risk_result">
 			<span class='translate' data-i18n='family-t_risk.predicted_probability_in_5_years'>5年以内の発症率：</span>
 			 <span class="risk_parcentile" id="risk_parcentile_diabetes">8.6%</span> </div>
@@ -552,7 +552,7 @@
 			</div>
 			<div class="col s12 center"><span id="btn_toggle_diabetes" class="material-icons large-size orange-text cursor_pointer icon_shadow_o">swap_vertical_circle</span></div>
 		</div>
-		<div id="diabetes_ng_mode">
+		<div class="diabeteScoreResult diabetes_ng_mode">
 			<div class="col s10 offset-s1 risk_warning">
 				<span class='translate' data-i18n='family-t_risk.stroke_result_exp4'>
 				糖尿病疾患の服薬治療をされている方、過去に糖尿病を発症された方、または血糖値が「糖尿病型」の方の2型糖尿病発症リスクは計算できません。
@@ -574,9 +574,19 @@
 				</span>
 			</div>
 		</div>
-		<div id="diabetes_calc_ng">
+		<div class="diabeteScoreResult diabetes_calc_ng">
 			<div class="col s10 offset-s1 risk_warning">
 				<span class='translate' data-i18n='family-t_risk.type2_required'>2型糖尿病の発症リスク計算に必要な項目が登録されていません。</span>
+			</div>
+		</div>
+		<div class="diabeteScoreResult cannot_calculate_under40">
+			<div class="col s10 offset-s1 risk_warning">
+				<span class='translate' data-i18n='family-t_risk.cannnot_calculate_under40'>40歳以下については、論文・ガイドラインによる根拠がないため計算しません。</span>
+			</div>
+		</div>
+		<div class="diabeteScoreResult cannot_calculate_over80">
+			<div class="col s10 offset-s1 risk_warning">
+				<span class='translate' data-i18n='family-t_risk.cannnot_calculate_over80'>80歳以上については、論文・ガイドラインによる根拠がないため計算しません。</span>
 			</div>
 		</div>
 	</div>

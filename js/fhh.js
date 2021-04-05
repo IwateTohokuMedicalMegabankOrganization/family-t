@@ -3143,36 +3143,15 @@ class ScoreCardController{
 
 	static _diababatesRiskScore(){
 
-		// 糖尿病
-		var drc_calcflag = drc_checkNecessaryItems();
-		// 入力項目不足で計算できない場合
-		if( !drc_calcflag ){
-			$('#cannotDisplayDiabateScoreTotal').show();
-			return;
-		}
-
-		// 糖尿病型の判定
 		var pi = personal_information;
-		load_diabetes_status(pi.take_hypoglycemic, pi.fasting_blood_glucose_lebel, pi.occasionally_blood_glucose_lebel, pi.ogtt_blood_glucose_lebel, pi.hba1c);
-
-		if( clientValue.hypo || clientValue.fasting || clientValue.occasional || clientValue.ogtt || clientValue.hba1c || clientValue.diabetes ){
-			$('.diabetes_ng_mode').show();
-			return;
-		}
-		
-		// 年齢で計算できない場合
-		if( !isCoverageAgeForCalculate() ){
-			$('.diabetes_age_ng_mode').show();
-			return;
-		}
-
+		load_diabetes_status(pi.take_hypglycemic, pi.fasting_blood_glucose_lebel, pi.occasionally_blood_glucose_lebel, pi.ogtt_blood_glucose_lebel, pi.hba1c);
+		if(!checkDiabetesRisk(clientValue.hypo, clientValue.fasting, clientValue.occasional, clientValue.ogtt, clientValue.hba1c, clientValue.diabetes) )return ;
+	
 		// 計算
 		calcHisayamaScore();
-
 		// 表示
-		$('#cannotDisplayDiabateScoreTotal').hide();
 		$('#DisplayDiabateScoreTotal').text(showDiabetesRisk(drc_score.total));
-		$('#canDisplayDiabateScoreTotal').show();
+		$('.canDisplayDiabateScoreTotal').show();
 	}
 
 	static _athroscleroticRiskScore(){
@@ -3239,20 +3218,12 @@ function cannot_calculate( baseId, lower , upper ){
 
 function riskCalcAndShow() {
 
-	// 糖尿病
-	var drc_calcflag = drc_checkNecessaryItems();
-
 	// 糖尿病型の判定
 	var pi = personal_information;
 	load_diabetes_status(pi.take_hypoglycemic, pi.fasting_blood_glucose_lebel, pi.occasionally_blood_glucose_lebel, pi.ogtt_blood_glucose_lebel, pi.hba1c);
-
-	// 計算に必要な項目が揃っているかどうか
-	if (drc_calcflag) {
+	if(checkDiabetesRisk(clientValue.hypo, clientValue.fasting, clientValue.occasional, clientValue.ogtt, clientValue.hba1c, clientValue.diabetes) ){
 		calcHisayamaScore();
 		showDiabetesRisk(drc_score.total);
-		checkDiabetesRisk(clientValue.hypo, clientValue.fasting, clientValue.occasion, clientValue.ogtt, clientValue.hba1c, clientValue.diabetes);
-	} else {
-		showDiabetesCalcNG();
 	}
 
 	// 冠動脈疾患

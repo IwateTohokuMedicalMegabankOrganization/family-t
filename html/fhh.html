@@ -396,27 +396,26 @@ body {
 										<div class="col s12">
 											<span class='translate' data-i18n='family-t_score_summary.type_2_diabetes_5_years'>糖尿病（5年以内）</span>
 										</div>
-										<div id="diabetesScoreCard" class="col s12">
-											<span id="canDisplayDiabateScoreTotal" style="display: none;">
+										<div class="col s12">
+											<span class="diabeteScoreResult canDisplayDiabateScoreTotal" >
 												<span id="DisplayDiabateScoreTotal" style="font-size:3em;"></span>
 											</span>
-											<span id="cannotDisplayDiabateScoreTotal" style="display: none;" class="translate" data-i18n="family-t_risk.type2_required">2型糖尿病の発症リスク計算に必要な項目が登録されていません。</span>
-											<span class="diabetes_ng_mode" style="display: none;">
+											<span class="translate diabeteScoreResult diabetes_calc_ng" data-i18n="family-t_risk.type2_required">2型糖尿病の発症リスク計算に必要な項目が登録されていません。</span>
+											<span class="diabeteScoreResult diabetes_ng_mode" >
 												<span class='translate' data-i18n='family-t_risk.stroke_result_exp4'>
 												糖尿病疾患の服薬治療をされている方、過去に糖尿病を発症された方、または血糖値が「糖尿病型」の方の2型糖尿病発症リスクは計算できません。
 												</span>
 											</span>
-											<div class="row cannnot_calculate_under40" style="display: none;">
+											<div class="row diabeteScoreResult cannot_calculate_under40">
 												<div class="col s12 ">
 													<span class='translate' data-i18n='family-t_risk.cannnot_calculate_under40'>40歳以下については、論文・ガイドラインによる根拠がないため計算しません。</span>
 												</div>
 											</div>
-											<div class="row cannnot_calculate_over80" style="display: none;">
+											<div class="row diabeteScoreResult cannot_calculate_over80">
 												<div class="col s12 ">
 													<span class='translate' data-i18n='family-t_risk.cannnot_calculate_over80'>80歳以上については、論文・ガイドラインによる根拠がないため計算しません。</span>
 												</div>
 											</div>
-
 										</div>
 									</div>
 									<div class="row">
