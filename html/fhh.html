@@ -406,15 +406,11 @@ body {
 												糖尿病疾患の服薬治療をされている方、過去に糖尿病を発症された方、または血糖値が「糖尿病型」の方の2型糖尿病発症リスクは計算できません。
 												</span>
 											</span>
-											<div class="row diabeteScoreResult cannot_calculate_under40">
-												<div class="col s12 ">
-													<span class='translate' data-i18n='family-t_risk.cannnot_calculate_under40'>40歳以下については、論文・ガイドラインによる根拠がないため計算しません。</span>
-												</div>
+											<div class="diabeteScoreResult cannot_calculate_under40">
+												<span class='translate' data-i18n='family-t_risk.cannnot_calculate_under40'>40歳以下については、論文・ガイドラインによる根拠がないため計算しません。</span>
 											</div>
-											<div class="row diabeteScoreResult cannot_calculate_over80">
-												<div class="col s12 ">
-													<span class='translate' data-i18n='family-t_risk.cannnot_calculate_over80'>80歳以上については、論文・ガイドラインによる根拠がないため計算しません。</span>
-												</div>
+											<div class="diabeteScoreResult cannot_calculate_over80">
+												<span class='translate' data-i18n='family-t_risk.cannnot_calculate_over80'>80歳以上については、論文・ガイドラインによる根拠がないため計算しません。</span>
 											</div>
 										</div>
 									</div>
@@ -423,11 +419,21 @@ body {
 											<span class='translate' data-i18n='family-t_score_summary.coronary_heart_disease_10_years'>冠動脈疾患（10年以内）</span>
 										</div>
 										<div class="col s12">
-											<span id="canDisplayAtheroscleroticScoreTotal" style="display: none;">
+											<span class="chdScoreResult" id="canDisplayAtheroscleroticScoreTotal" style="display: none;">
 												<span id="DisplayAtheroscleroticScoreTotal" style="font-size:3em;"></span>
 											</span>
-											<span id="cannotDisplayAtheroscleroticScoreTotal" class="translate" data-i18n="family-t_risk.heart_required">冠動脈疾患の発症リスク計算に必要な項目が登録されていません。</span>
-															
+											<span class="translate chdScoreResult chd_calc_ng" data-i18n="family-t_risk.heart_required">冠動脈疾患の発症リスク計算に必要な項目が登録されていません。</span>
+											<span class="chdScoreResult chd_ng_mode" >
+												<span class='translate' data-i18n='family-t_risk.stroke_result_exp4'>
+												糖尿病疾患の服薬治療をされている方、過去に糖尿病を発症された方、または血糖値が「糖尿病型」の方の2型糖尿病発症リスクは計算できません。
+												</span>
+											</span>
+											<div class="chdScoreResult cannot_calculate_under35">
+												<span class='translate' data-i18n='family-t_risk.cannnot_calculate_under35'>35歳以下については、論文・ガイドラインによる根拠がないため計算しません。</span>
+											</div>
+											<div class="chdScoreResult cannot_calculate_over80">
+												<span class='translate' data-i18n='family-t_risk.cannnot_calculate_over80'>80歳以上については、論文・ガイドラインによる根拠がないため計算しません。</span>
+											</div>
 										</div>
 									</div>
 									<div class="row">

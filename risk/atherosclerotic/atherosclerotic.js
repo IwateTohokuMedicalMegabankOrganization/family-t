@@ -114,20 +114,45 @@ function getFileName(score){
 	return "71";
 }
 
+function chd_isCoverageAgeForCalculate(){
+	load_age_chd(personal_information.date_of_birth.substr(0,4), personal_information.date_of_birth.substr(5,2), personal_information.date_of_birth.substr(9,2));
+	// 35歳未満、80歳以上は計算範囲外
+	if( clientValue.age < 35 ) return false;
+	if( clientValue.age >= 80 ) return false;
+	return true;
+}
+
+function chd_getDisplayClass(){
+	load_age_chd(personal_information.date_of_birth.substr(0,4), personal_information.date_of_birth.substr(5,2), personal_information.date_of_birth.substr(9,2));
+	// 35歳未満、80歳以上は計算範囲外
+	if( clientValue.age < 35 ) return 'cannot_calculate_under35';
+	if( clientValue.age >= 80 ) return 'cannot_calculate_over80';
+	return '';
+}
+
 //糖尿病と冠動脈疾患は同じルール・内容の表示非表示を行っている
 function checkCHDRisk(hypo, fasting, occasional, ogtt, hba1c){
-	// 計算結果をshow、治療中の文言、計算NGの文言はhide
-	$("#chd_ok_mode").show();
-	$("#chd_ng_mode").hide();
-	$("#chd_ng_mode2").hide();
-	$("#chd_ng_ref").hide();
-	$("#chd_calc_ng").hide();
+
+	// 一度すべて非表示に変更する
+	$('.chdScoreResult').hide();
+
+	// 年齢で計算できない場合
+	if( !chd_isCoverageAgeForCalculate() ){
+		$('.' + chd_getDisplayClass() ).show();
+		return false;
+	}
+
+	// 入力項目不足で計算できない場合
+	var chd_calcflag = chd_checkNecessaryItems();
+	if( !chd_calcflag ){
+		$(".chd_calc_ng").show();
+		return false;
+	}
 
 	// 糖尿病型は計算結果を隠し、治療中の文言を表示
 	if(hypo || fasting || occasional || ogtt || hba1c){
-		$("#chd_ok_mode").hide();
-		$("#chd_ng_mode").show();
-		$("#chd_ng_ref").show();
+		$(".chd_ng_mode").show();
+		$(".chd_ng_ref").show();
 		$(".diabetes_chd_recommendation").show();
 
 		// 投薬治療中は、表示した文言の勧告文を隠す
@@ -153,15 +178,19 @@ function checkCHDRisk(hypo, fasting, occasional, ogtt, hba1c){
 			$(".diabetes_chd_reason").append($.t("family-t_risk.HbA1c_value_is_65"));
 		}
 
+		return false;
 	}
 
 	// 冠動脈疾患リスク計算除外対象疾病チェックに引っかかった場合は計算結果を隠し、除外文言を表示
 	if( checkNGDisease() ){
-		$("#chd_ok_mode").hide();
-		$("#chd_ng_mode2").show();
-		$("#chd_ng_ref").show();
+		$(".chd_ng_mode2").show();
+		$(".chd_ng_ref").show();
+		return false;
 	}
 
+	// 計算結果を表示
+	$(".chd_ok_mode").show();
+	return true;
 }
 
 // 冠動脈疾患リスク計算除外対象疾病チェック

@@ -3157,15 +3157,8 @@ class ScoreCardController{
 	static _athroscleroticRiskScore(){
 
 		// 冠動脈疾患
-		// 入力項目不足で計算できない場合
-		if( !chd_checkNecessaryItems() ){
-			$('#cannotDisplayAtheroscleroticScoreTotal').show();
-			return;
-		} 
-
-
-		// 計算
 		calcSuitaScore();
+		if(!checkCHDRisk(clientValue.hypo, clientValue.fasting, clientValue.occasional, clientValue.ogtt, clientValue.hba1c) ) return;
 
 		// 表示
 		$('#DisplayAtheroscleroticScoreTotal').text(showCHDRisk(clientValue.age, personal_information.gender, chd_score.total));
@@ -3227,15 +3220,20 @@ function riskCalcAndShow() {
 	}
 
 	// 冠動脈疾患
-	var chd_calcflag = chd_checkNecessaryItems();
-
-	if (chd_calcflag) {
-		calcSuitaScore();
+	calcSuitaScore();
+	if(checkCHDRisk(clientValue.hypo, clientValue.fasting, clientValue.occasional, clientValue.ogtt, clientValue.hba1c) ){
 		showCHDRisk(clientValue.age, personal_information.gender, chd_score.total);
-		checkCHDRisk(clientValue.hypo, clientValue.fasting, clientValue.occasion, clientValue.ogtt, clientValue.hba1c);
-	} else {
-		showCHDCalcNG();
 	}
+
+
+	// var chd_calcflag = chd_checkNecessaryItems();
+
+	// if (chd_calcflag) {
+	// 	showCHDRisk(clientValue.age, personal_information.gender, chd_score.total);
+	// 	checkCHDRisk(clientValue.hypo, clientValue.fasting, clientValue.occasion, clientValue.ogtt, clientValue.hba1c);
+	// } else {
+	// 	showCHDCalcNG();
+	// }
 
 	// 脳卒中リスクスコア
 	var stroke_score_class = showStrokeRisk();
