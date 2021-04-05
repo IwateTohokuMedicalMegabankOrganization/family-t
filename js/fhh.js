@@ -3168,24 +3168,8 @@ class ScoreCardController{
 	static _strokeRiskScore(){
 
 		// 脳卒中
-		var calculator = new StrokeRiskCalculator( personal_information );
-
-		if( !calculator.stroke_checkNecessaryItems() ){
-			$('#cannotDisplayStrokeScoreTotal').show();
-			$('#canDisplayStrokeScoreTotal').hide();
-			return;
-		}
-
-		if( calculator.riskCalcNGFlg() ){
-			$('#cannotDisplayStrokeScoreTotal').show();
-			$('#canDisplayStrokeScoreTotal').hide();
-			return;
-		}
-
-		$('#cannotDisplayStrokeScoreTotal').hide();
-		$('#DisplayStrokeScoreTotal').text(calculator.getRiskPercentile());
-		$('#canDisplayStrokeScoreTotal').show();
-
+		var stroke_score_class = showStrokeRisk();
+		
 	}
 
 }
@@ -3224,16 +3208,6 @@ function riskCalcAndShow() {
 	if(checkCHDRisk(clientValue.hypo, clientValue.fasting, clientValue.occasional, clientValue.ogtt, clientValue.hba1c) ){
 		showCHDRisk(clientValue.age, personal_information.gender, chd_score.total);
 	}
-
-
-	// var chd_calcflag = chd_checkNecessaryItems();
-
-	// if (chd_calcflag) {
-	// 	showCHDRisk(clientValue.age, personal_information.gender, chd_score.total);
-	// 	checkCHDRisk(clientValue.hypo, clientValue.fasting, clientValue.occasion, clientValue.ogtt, clientValue.hba1c);
-	// } else {
-	// 	showCHDCalcNG();
-	// }
 
 	// 脳卒中リスクスコア
 	var stroke_score_class = showStrokeRisk();

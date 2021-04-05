@@ -676,10 +676,10 @@
 		<span class='translate' data-i18n='family-t_risk.stroke'>脳卒中</span>
 	</div>
 	<div class="col s12 risk_container">
-		<div id="stroke_ok_mode">
+		<div class="strokeScoreResult stroke_ok_mode">
 			<div class="col s12 risk_result">
 				<span class='translate' data-i18n='family-t_risk.predicted_probability_in_10_years'>10年以内の発症率：</span>
-				<span class="risk_parcentile" id="risk_parcentile_stroke">4.4%</span></div>
+				<span class="risk_parcentile risk_parcentile_stroke" id="">4.4%</span></div>
 			<div id="disp_toggle_stroke" style="height: 750px;">
 				<div class="col s12 risk_description">
 					<span class='translate' data-i18n='family-t_risk.type2_result_exp1'>あなたと同性・同年代の集団の発症率は</span>
@@ -708,7 +708,7 @@
 			</div>
 			<div class="col s12 center"><span id="btn_toggle_stroke" class="material-icons large-size orange-text cursor_pointer icon_shadow_o">swap_vertical_circle</span></div>
 		</div>
-		<div id="stroke_ng_mode">
+		<div class="strokeScoreResult stroke_ng_mode">
 			<div class="col s10 offset-s1 risk_warning" style="display: block;">
 				<span class='translate' data-i18n='family-t_risk.stroke_result_exp6'>
 				脳卒中の既往のある方、年齢40歳未満または70歳以上の方の脳卒中発症リスクは計算できません。
@@ -726,9 +726,19 @@
 				</span>
 			</div>
 		</div>
-		<div id="stroke_calc_ng">
+		<div class="strokeScoreResult stroke_calc_ng">
 			<div class="col s10 offset-s1 risk_warning">
 				<span class='translate' data-i18n='family-t_risk.stroke_required'>脳卒中の発症リスク計算に必要な項目が登録されていません。</span>
+			</div>
+		</div>
+		<div class="strokeScoreResult cannot_calculate_under40">
+			<div class="col s10 offset-s1 risk_warning">
+				<span class='translate' data-i18n='family-t_risk.cannnot_calculate_under40'>40歳以下については、論文・ガイドラインによる根拠がないため計算しません。</span>
+			</div>
+		</div>
+		<div class="strokeScoreResult cannot_calculate_over70">
+			<div class="col s10 offset-s1 risk_warning">
+				<span class='translate' data-i18n='family-t_risk.cannot_calculate_over70'>70歳以上については、論文・ガイドラインによる根拠がないため計算しません。</span>
 			</div>
 		</div>
 	</div>

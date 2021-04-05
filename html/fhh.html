@@ -441,11 +441,17 @@ body {
 											<span class='translate' data-i18n='family-t_score_summary.stroke_10_years'>脳卒中（10年以内）</span>
 										</div>
 										<div class="col s12">
-											<span id="canDisplayStrokeScoreTotal" style="display: none;">
-												<span id="DisplayStrokeScoreTotal" style="font-size:3em;"></span>
+											<span class="strokeScoreResult stroke_ok_mode " style="display: none;">
+												<span class="risk_parcentile risk_parcentile_stroke" id="DisplayStrokeScoreTotal" style="font-size:3em;"></span>
 											</span>
-											<span id="cannotDisplayStrokeScoreTotal"  class="translate" data-i18n="family-t_risk.stroke_required">脳卒中の発症リスク計算に必要な項目が登録されていません。</span>
+											<span class="strokeScoreResult stroke_calc_ng translate" data-i18n="family-t_risk.stroke_required">脳卒中の発症リスク計算に必要な項目が登録されていません。</span>
+											<div class="strokeScoreResult cannot_calculate_under40">
+												<span class='translate' data-i18n='family-t_risk.cannnot_calculate_under40'>40歳以下については、論文・ガイドラインによる根拠がないため計算しません。</span>
 											</div>
+											<div class="strokeScoreResult cannot_calculate_over70">
+												<span class='translate' data-i18n='family-t_risk.cannnot_calculate_over70'>70歳以上については、論文・ガイドラインによる根拠がないため計算しません。</span>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
