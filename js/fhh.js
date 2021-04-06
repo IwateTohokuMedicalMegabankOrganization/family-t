@@ -4224,13 +4224,13 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 		if ($(this).find("option:selected" ).val() == 'other') {
 			if (cod) {
 				//if ( $("#new_disease_name_cod").length == 0) {
-					$(this).after($("<div id='new_disease_cod' style='display: inline-block; padding-left: 8px;'><INPUT id='new_disease_name_cod' class='ddcs' placeholder='病名を入力してください' type='text' size='40' style='height:35px;'></INPUT></div>"));
+					$(this).after($("<div id='new_disease_cod' style='display: inline-block; padding-left: 8px;'><INPUT id='new_disease_name_cod' class='ddcs' placeholder='" + $.t('fhh_js.disease_name_enter') + "' type='text' size='40' style='height:35px;'></INPUT></div>"));
 					// $("#detailed_cause_of_death_select").hide();
 					detailed_disease_select.empty().hide();
 				//}
 			} else {
 				if ( $("#new_disease_name").length == 0) {
-					$(this).after($("<div id='new_disease' class='col s6'><INPUT id='new_disease_name' class='ddcs' type='text' size='40' value='' placeholder='病名を入力してください' style='height:40px;width:100%;'></INPUT></div>"));
+					$(this).after($("<div id='new_disease' class='col s6'><INPUT id='new_disease_name' class='ddcs' type='text' size='40' value='' placeholder='" + $.t('fhh_js.disease_name_enter') + "' style='height:40px;width:100%;'></INPUT></div>"));
 					detailed_disease_select.empty().hide();
 				}
 			}
