@@ -2017,6 +2017,8 @@ function bind_personal_submit_button_action () {
 			}
 			errors = true;
 		}
+		
+		if (!enteredHealthHistory($('.require_health_history'))) errors = true;
 
 		if (errors) {
 			alert ($.t("fhh_js.invalid_data_alert"));
@@ -2378,7 +2380,7 @@ function bind_family_member_submit_button_action () {
 			}
 		}
 
-
+		if (!enteredHealthHistory($('.require_health_history'))) errors = true;
 
 		// All Family members must have a gender, most already do, but cousins may be an issue.
 		if ($("#family_member_info_form_gender_male").prop('checked') == false &&
@@ -2723,6 +2725,17 @@ function bind_family_member_submit_button_action () {
 		$("#update_family_member_health_history_dialog").dialog("close");
 
 	});
+}
+
+function enteredHealthHistory(errorMessageObj) {
+
+	if (current_health_history.length == 0) {
+		$(errorMessageObj).show();
+		return false;
+	}
+
+	$(errorMessageObj).hide();
+	return true;
 }
 
 function bind_family_member_cancel_button_action () {
@@ -3591,7 +3604,8 @@ function getHealthHistories( histories ){
 		var text = $.t("diseases:" + h["Disease Code"]);
 		if( text.length == 0 ) text = h["Detailed Disease Name"];
 		
-		text += "(" + $.t("fhh_js." + h["Age At Diagnosis"] ) + ")" ;
+		if( h["Age At Diagnosis"] != "blank")
+			text += "(" + $.t("fhh_js." + h["Age At Diagnosis"] ) + ")" ;
 
 		row.text(text);
 		rows.append( row );
@@ -4063,10 +4077,11 @@ function build_family_health_information_section() {
 	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_4") + "</li>"));
 	information.append(inner_information);
 	information.append($("<span class='left' id='alert_age_at_diagnosis' style='display:none; color:red; padding-left: 2em;'>実年齢または死亡年齢を超えています。</span>"));
+	information.append($("<span class='left require_health_history' style='display:none; color:red; padding-left: 2em;'>" + $.t("family-t.mandatory_health_history") + "</span>"));
 
 	var hi_health_history_table = $("<table class='disease_table col s12'>");
 	var hi_header_row = $("<tr class='md_tr'>");
-	hi_header_row.append("<th class='md_tr' style='width:35%;text-align:center'>" + $.t("fhh_js.disease_or_condition") + "</th>");
+	hi_header_row.append("<th class='md_tr' style='width:35%;text-align:center'><span class='required'>*</span>" + $.t("fhh_js.disease_or_condition") + "</th>");
 	hi_header_row.append("<th class='md_tr' style='width:35%;text-align:center'>" + $.t("") + "</th>");
 	hi_header_row.append("<th class='md_tr' style='width:20%;text-align:center'>" + $.t("fhh_js.age_at_diagnosis") + "</th>");
 	hi_header_row.append("<th class='md_tr' style='width:10%;text-align:center'>" + $.t("fhh_js.action") + "</th>");
@@ -4152,6 +4167,7 @@ function build_personal_health_information_section() {
 	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_3") + "</li>"));
 	information.append(inner_information);
 	information.append($("<span class='left' id='alert_age_at_diagnosis' style='display:none; color:red; padding-left: 2em;'>実年齢または死亡年齢を超えています。</span>"));
+	information.append($("<span class='left require_health_history' style='display:none; color:red; padding-left: 2em;'>" + $.t("family-t.mandatory_health_history") + "</span>"));
 
 
 	var hi_health_history_table = $("<table class='disease_table col s12'>");

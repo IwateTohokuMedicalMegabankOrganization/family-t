@@ -1017,7 +1017,8 @@
 		"paternal_halfsister":"your paternal halfsister",
 		"maternal_cousin":"your maternal cousin",
 		"paternal_cousin":"your paternal cousin",
-		"healthy":"Healthy"
+		"healthy":"Healthy",
+		"mandatory_health_history": "健康または病気の状態を登録してください。健康の場合は、健康を選択して登録ボタンを押してください。"
 	},
 	"family-t_risk": {
 		"exp1": "The results calculated herein are based on research findings reported to date.",
