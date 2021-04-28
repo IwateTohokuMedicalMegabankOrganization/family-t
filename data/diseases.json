@@ -1,4 +1,7 @@
 {
+	"Healthy": [
+		{"name":"Healthy","abbr":"HLT","code":"HEALTHY","system":"FAMILY_T"}
+	],
 	"Cancer": [
 		{"name":"Brain Cancer","abbr":"BrC","code":"1000000","system":"SNOMED_CT"},
 		{"name":"Thyroid Cancer","abbr":"ThC","code":"363478007","system":"SNOMED_CT"},
@@ -113,7 +116,6 @@
 		{"name":"Sudden Infant Death Syndrome","abbr":"SIDS","code":"51178009","system":"SNOMED_CT"}
 	],
 	"Unknown Disease": [
-		{"name":"Unknown Disease","abbr":"HD","code":"315645005","system":"SNOMED_CT"}
-
+		{"name":"Unknown","abbr":"HD","code":"315645005","system":"SNOMED_CT"}
 	]
 }

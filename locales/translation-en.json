@@ -178,13 +178,15 @@
 		"remove_q": "Do you really want to remove",
 		"remove_q2": "This will also delete all their children",
 		"family_health_subtitle": "Your Family's Health Information",
-		"add_disease_instructions_1": "In the list below, select a <B>Disease or Condition</B> (if any) from the dropdown box. ",
+		"add_disease_instructions_1": "In the list below, select a <B>Healthy or Disease</B> (if any) from the dropdown box. ",
 		"add_disease_instructions_2": "Then select the <B>Age at Diagnosis</B> and press the <B>Add</B> button.",
 		"add_disease_instructions_3": "You may repeat this process as necessary.",
-		"disease_or_condition": "Disease or Condition",
+		"add_disease_instructions_4": "Select the disease that caused the death.",
+		"disease_or_condition": "Healthy or Disease",
 		"age_at_diagnosis": "Age at Diagnosis",
 		"action": "Action",
 		"age_at_diagnosis_select": "Select Age at Diagnosis",
+		"blank": "",
 		"prebirth": "Pre-Birth",
 		"newborn": "Newborn",
 		"infant": "In Infancy",
@@ -1014,7 +1016,9 @@
 		"maternal_halfsister":"your maternal halfsister",
 		"paternal_halfsister":"your paternal halfsister",
 		"maternal_cousin":"your maternal cousin",
-		"paternal_cousin":"your paternal cousin"
+		"paternal_cousin":"your paternal cousin",
+		"healthy":"Healthy",
+		"mandatory_health_history": "健康または病気の状態を登録してください。健康の場合は、健康を選択して登録ボタンを押してください。"
 	},
 	"family-t_risk": {
 		"exp1": "The results calculated herein are based on research findings reported to date.",
