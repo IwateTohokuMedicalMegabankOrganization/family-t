@@ -279,8 +279,8 @@ class QualityOfFamilyHistoryCalculator extends RiskCalculatorBase{
 	}
 
 	_getPercentage( numerator , dominator ){
-		if( dominator <= 0 ) return 0;
-		return Math.round( 100 * ( numerator / dominator ) );
+		if( dominator <= 0 ) return "N/A";
+		return Math.round( 100 * ( numerator / dominator ) ) + '%';
 	}
 
 }
