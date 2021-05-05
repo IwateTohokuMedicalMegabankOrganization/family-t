@@ -182,6 +182,7 @@
 		"add_disease_instructions_2": "Then select the <B>Age at Diagnosis</B> and press the <B>Add</B> button.",
 		"add_disease_instructions_3": "You may repeat this process as necessary.",
 		"add_disease_instructions_4": "Select the disease that caused the death.",
+		"add_disease_instructions_5": "Remove healthy and you can enter the disease.",
 		"disease_or_condition": "Healthy or Disease",
 		"age_at_diagnosis": "Age at Diagnosis",
 		"action": "Action",
