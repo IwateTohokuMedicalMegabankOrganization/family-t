@@ -1125,7 +1125,13 @@
 		"age_of_onset_formula": "Age of onset (%) = Number of diseases with age of onset/Number of diseases in the family (excluding you)",
 		"cause_of_death_formula": "Cause of death (%) = Number of deceased relatives with a cause of death/Number of deceased relatives in the family",
 		"age_of_death_formula": "Age of death (%) = Number of deceased relatives with age of death/Number of deceased relatives in the family",
-		"explain1": "Check the following to improve the quality of your family history:"
+		"explain1": "Check the following to improve the quality of your family history:",
+		"complement1":"“Health history” as the quality of family history information indicates the percentage of the number of family members * who have any disease information except “unknown”, or “healthy”.",
+		"complement2":"“Age of onset” indicates the percentage of diseases that the age of onset (age) was entered among the medical history of the family member.",
+		"complement3":"“Cause of death” ** indicates the percentage of the deceased family member who has been added information of cause of death.",
+		"complement4":"“Age of death” ** indicates the percentage of the deceased family member who has been added information of death age.",
+		"annotation1":"* The “family members” refers to family members excluding yourself.",
+		"annotation2":"** If there is no deceased member in your family, the “Cause of death” and “Age of death” will not be calculated."
 	},
 	"family-t_score_summary": {
 		"disease_risk": "Disease Risk",
