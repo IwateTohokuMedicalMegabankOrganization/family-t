@@ -124,7 +124,8 @@ class QualityOfFamilyHistoryCalculator extends RiskCalculatorBase{
 	// 病名の記入がある家系構成員数
 	_getNumberOfDisease(ids){
 		const unknownSnomedCodes = [
-			'SNOMED_CT-315645005'
+			'SNOMED_CT-315645005',
+			'SNOMED_CT-261665006'
 		];
 
 		var pi = this.pi;
@@ -235,7 +236,8 @@ class QualityOfFamilyHistoryCalculator extends RiskCalculatorBase{
 	// 死因となった疾患の記入がある死者数
 	_getNumberOfCauseOfDeath(ids){
 		const unknownSnomedCodes = [
-			'SNOMED_CT-315645005'
+			'SNOMED_CT-315645005',
+			'SNOMED_CT-261665006'
 		];
 		var pi = this.pi;
 
@@ -277,8 +279,8 @@ class QualityOfFamilyHistoryCalculator extends RiskCalculatorBase{
 	}
 
 	_getPercentage( numerator , dominator ){
-		if( dominator <= 0 ) return 0;
-		return Math.round( 100 * ( numerator / dominator ) );
+		if( dominator <= 0 ) return "N/A";
+		return Math.round( 100 * ( numerator / dominator ) ) + '%';
 	}
 
 }

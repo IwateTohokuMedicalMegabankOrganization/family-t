@@ -15,7 +15,7 @@
   "Septicemia": "Septicemia/bloodstream infection",
   "Stroke/Brain Attack": "Stroke/Brain Attack",
   "Sudden Infant Death Syndrome": "Sudden Infant Death Syndrome",
-  "Unknown Disease": "Unknown",
+  "Unknown": "Unknown",
   "Other Disease": "Other - Add new",
 
 	"SNOMED_CT-55822004": "High Cholesterol",
@@ -101,7 +101,7 @@
   "SNOMED_CT-472972006": "Maturity Onset Diabetes mellitus in Young (MODY)",
   "SNOMED_CT-28453007": "Maturity Onset Diabetes mellitus in Young (MODY)",
   "SNOMED_CT-74732009": "Mental Disorder",
-  "SNOMED_CT-315645005": "Unknown Disease",
+  "SNOMED_CT-261665006": "Unknown",
   "SNOMED_CT-PREDIABE": "Pre-Diabetes",
   "SNOMED_CT-undefined": "Other Disease",
   "undefined": "Other Disease",

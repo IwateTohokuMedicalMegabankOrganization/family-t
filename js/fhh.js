@@ -4075,6 +4075,7 @@ function build_family_health_information_section() {
 	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_2") + "</li>"));
 	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_3") + "</li>"));
 	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_4") + "</li>"));
+	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_5") + "</li>"));
 	information.append(inner_information);
 	information.append($("<span class='left' id='alert_age_at_diagnosis' style='display:none; color:red; padding-left: 2em;'>実年齢または死亡年齢を超えています。</span>"));
 	information.append($("<span class='left require_health_history' style='display:none; color:red; padding-left: 2em;'>" + $.t("family-t.mandatory_health_history") + "</span>"));
@@ -4165,6 +4166,7 @@ function build_personal_health_information_section() {
 	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_1") + "</li>"));
 	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_2") + "</li>"));
 	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_3") + "</li>"));
+	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_5") + "</li>"));
 	information.append(inner_information);
 	information.append($("<span class='left' id='alert_age_at_diagnosis' style='display:none; color:red; padding-left: 2em;'>実年齢または死亡年齢を超えています。</span>"));
 	information.append($("<span class='left require_health_history' style='display:none; color:red; padding-left: 2em;'>" + $.t("family-t.mandatory_health_history") + "</span>"));

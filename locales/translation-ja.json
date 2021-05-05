@@ -191,6 +191,7 @@
 		"add_disease_instructions_2": "次に、<B>診断時の年齢</ B>を選択し、<B>登録</ B>ボタンを押します。",
 		"add_disease_instructions_3": "健康または病気の状態を追加することができます。",
 		"add_disease_instructions_4": "死因とした病気も選択してください。",
+		"add_disease_instructions_5": "健康を削除すると病気を入力することができます。",
 		"disease_or_condition": "健康または病気の状態",
 		"age_at_diagnosis": "診断時の年齢",
 		"action": "操作",
@@ -1041,8 +1042,8 @@
 		"cannnot_calculate_the_risk4": "・非心原性脳梗塞",
 		"cannnot_calculate_the_risk5": "・末梢動脈疾患",
 		"blood_pressure": "血圧",
-		"cannnot_calculate_under40":"40歳以下については、論文・ガイドラインによる根拠がないため計算しません。",
-		"cannnot_calculate_over70":"70歳以上については、論文・ガイドラインによる根拠がないため計算しません。"
+		"cannnot_calculate_under40":"40歳以下については、論文・ガイドラインによる根拠がないため計算を行いません。",
+		"cannnot_calculate_over70":"70歳以上については、論文・ガイドラインによる根拠がないため計算を行いません。"
 	},
 	"family-t_risk_range": {
 		"pattern1": "最低1%未満 ～ 最高10-12%です",
@@ -1081,11 +1082,17 @@
 	},
 	"family-t_qof_history_score": {
 		"title": "家族歴の質",
-		"medical_history_formula": "病歴（％）= 病名の記入がある家系構成員数 ÷ 全家系構成人数（本人は含まない）",
-		"age_of_onset_formula": "発症年齢（％）= 発症年齢の記入がある疾患数 ÷ 家系内の疾患数（本人は含まない）",
-		"cause_of_death_formula": "死因（％）= 死因となった疾患の記入がある死者数 ÷ 家系内の死者数",
-		"age_of_death_formula": "死亡年齢（％）= 死亡年齢の記入がある死者数 ÷ 家系内の死者数",
-		"explain1": "家族歴の質を高めるために、下記についてご確認ください。"
+		"medical_history_formula": "病歴（％）",
+		"age_of_onset_formula": "発症年齢（％）",
+		"cause_of_death_formula": "死因（％）",
+		"age_of_death_formula": "死亡年齢（％）",
+		"explain1": "家族歴の質を高めるために、下記についてご確認ください。",
+		"complement1":"家族歴情報の質としての「病歴」は、「不明」を除く何らかの疾患もしくは「健康」の入力があった家族＊の割合を示します",
+		"complement2":"「発症年齢」は、家族の病歴に入力された疾患のうち、発症年齢（年代）の入力があった疾患の割合を示しています",
+		"complement3":"「死因」＊＊は、亡くなった方のうち、死因の入力があった方の割合を示しています",
+		"complement4":"「死亡年齢」＊＊は、亡くなった方のうち、死亡年齢のがわかっている方の割合を示しています",
+		"annotation1":"＊ここで示す家族は、本人を除く家系構成員を示してます",
+		"annotation2":"＊＊亡くなった方がいない場合は、「死因」と「死亡年齢」は計算されません"
 	},
 	"family-t_score_summary": {
 		"disease_risk": "疾患発症リスク",
