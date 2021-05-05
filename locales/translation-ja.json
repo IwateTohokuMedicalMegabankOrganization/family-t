@@ -1041,8 +1041,8 @@
 		"cannnot_calculate_the_risk4": "・非心原性脳梗塞",
 		"cannnot_calculate_the_risk5": "・末梢動脈疾患",
 		"blood_pressure": "血圧",
-		"cannnot_calculate_under40":"40歳以下については、論文・ガイドラインによる根拠がないため計算しません。",
-		"cannnot_calculate_over70":"70歳以上については、論文・ガイドラインによる根拠がないため計算しません。"
+		"cannnot_calculate_under40":"40歳以下については、論文・ガイドラインによる根拠がないため計算を行いません。",
+		"cannnot_calculate_over70":"70歳以上については、論文・ガイドラインによる根拠がないため計算を行いません。"
 	},
 	"family-t_risk_range": {
 		"pattern1": "最低1%未満 ～ 最高10-12%です",
