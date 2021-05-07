@@ -3669,7 +3669,7 @@ function add_personal_history_row(table, is_sort_only) {
 	nameColumn_td.append(nameColumn_text);
 	new_row.append(nameColumn_td);
 
-	new_row.append(getTdElement( $.t("fhh_js." + personal_information.gender ), 'gender') );
+	new_row.append(getTdElement( $.t("fhh_js." + ( ( typeof personal_information.gender == 'undefined' )? "Unknown" : personal_information.gender )) , 'gender') );
 
 //	new_row.append("<td class='summary_td information'>" + $.t("fhh_js.self") + "</td>");
 

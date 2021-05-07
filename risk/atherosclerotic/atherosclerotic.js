@@ -115,6 +115,8 @@ function getFileName(score){
 }
 
 function chd_isCoverageAgeForCalculate(){
+	if( typeof personal_information.date_of_birth  == 'undefined' ) return false;
+	if( typeof personal_information.date_of_birth.length != 11 ) return false;
 	load_age_chd(personal_information.date_of_birth.substr(0,4), personal_information.date_of_birth.substr(5,2), personal_information.date_of_birth.substr(9,2));
 	// 35歳未満、80歳以上は計算範囲外
 	if( clientValue.age < 35 ) return false;
@@ -123,6 +125,8 @@ function chd_isCoverageAgeForCalculate(){
 }
 
 function chd_getDisplayClass(){
+	if( typeof personal_information.date_of_birth  == 'undefined' ) return 'cannot_calculate_under35';
+	if( typeof personal_information.date_of_birth.length != 11 ) return 'cannot_calculate_under35';
 	load_age_chd(personal_information.date_of_birth.substr(0,4), personal_information.date_of_birth.substr(5,2), personal_information.date_of_birth.substr(9,2));
 	// 35歳未満、80歳以上は計算範囲外
 	if( clientValue.age < 35 ) return 'cannot_calculate_under35';
@@ -277,6 +281,9 @@ function chd_checkNecessaryItems() {
 
 function calcSuitaScore(){
 
+	if( typeof personal_information.date_of_birth  == 'undefined' ) return false;
+	if( typeof personal_information.date_of_birth.length != 11 ) return false;
+	
 	// クライアント値をセット
 	load_age_chd(personal_information.date_of_birth.substr(0,4), personal_information.date_of_birth.substr(5,2), personal_information.date_of_birth.substr(9,2));
 	load_gender_chd(personal_information.gender);
