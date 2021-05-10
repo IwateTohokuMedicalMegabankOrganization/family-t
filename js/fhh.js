@@ -824,6 +824,34 @@ function start()
 		QualityOfFamilyHistoryScoreController.refresh()
 	});
 
+	// 家族歴の質ヘルプダイアログ
+	$("#family-t_qof_history_score_help_dialog").load("quality_of_family_history_score_help_dialog.html",function(){
+		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
+		
+		// 閉じるボタン
+		$('.closeQofhScoreHelpButton').on('click', function(){
+			$("#family-t_qof_history_score_help_dialog").dialog('close');
+		});
+	});
+
+	// 家族歴の質
+	$("#family-t_qof_history_score_help_dialog").dialog({
+		title:$.t("family-t_qof_history_score.title"),
+		position:['top',0],
+		resizable: false,
+		autoOpen: false,
+		height:'auto',
+		width:['95%']
+	});
+
+	$("#family-t_qof_history_score_help").on("click", function() {
+		$("#family-t_qof_history_score_help_dialog").dialog("open");
+	});
+
+		
 	// ライフスタイルスコア計算ダイアログ
 	$("#lifestyle_score_calculator_dialog").load("lifestyle_score_calculator_dialog.html",function(){
 		preparate_lifestyle_score_dialog();
