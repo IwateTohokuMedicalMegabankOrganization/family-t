@@ -4266,7 +4266,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 						+ $.t("diseases:" + detailed_disease[0].system + "-" + detailed_disease[0].code) + " </option>");
 
 					if( $(this).val() == 'Healthy'){
-						$(this).parent().parent().find($('#age_at_diagnosis_select')).hide();
+						$(this).parent().parent().find('#age_at_diagnosis_select').hide();
 					}
 				} else {
 					$(this).parent().find($('.ddcs')).prop('disabled',false);
