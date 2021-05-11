@@ -272,9 +272,7 @@ table td{
 
 .simuration_block {
 	border: dotted 2px gray;
-	background-color: gray;
-	border: dotted 2px red;
-	background-color: #ffffee;
+	background-color: #ffffee !important;
 	padding: 6px;
 }
 
