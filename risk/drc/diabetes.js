@@ -123,7 +123,7 @@ function showDiabetesRisk(totalscore) {
 
 function drc_getDisplayClass(){
 	if( typeof personal_information.date_of_birth  == 'undefined' ) return 'cannot_calculate_under40';
-	if( typeof personal_information.date_of_birth.length != 11 ) return 'cannot_calculate_under40';
+	if( personal_information.date_of_birth.length != ("YYYY/MM/DD").length ) return 'cannot_calculate_under40';
 	load_age_drc(personal_information.date_of_birth.substr(0,4), personal_information.date_of_birth.substr(5,2), personal_information.date_of_birth.substr(9,2));
 	// 40歳未満、70歳以上は計算範囲外
 	if( clientValue.age < 40 ) return 'cannot_calculate_under40';
@@ -187,7 +187,7 @@ function checkDiabetesRisk(hypo, fasting, occasional, ogtt, hba1c, diabetes){
 
 function drc_isCoverageAgeForCalculate(){
 	if( typeof personal_information.date_of_birth  == 'undefined' ) return false;
-	if( typeof personal_information.date_of_birth.length != 11 ) return false;
+	if( personal_information.date_of_birth.length != ("YYYY/MM/DD").length ) return false;
 
 	load_age_drc(personal_information.date_of_birth.substr(0,4), personal_information.date_of_birth.substr(5,2), personal_information.date_of_birth.substr(9,2));
 	// 40歳未満、80歳以上は計算範囲外
