@@ -190,7 +190,7 @@
 		"add_disease_instructions_1": "プルダウンから<B>健康または病気の状態</ B>（ある場合）を選択します。",
 		"add_disease_instructions_2": "次に、<B>診断時の年齢</ B>を選択し、<B>登録</ B>ボタンを押します。",
 		"add_disease_instructions_3": "健康または病気の状態を追加することができます。",
-		"add_disease_instructions_4": "死因とした病気も選択してください。",
+		"add_disease_instructions_4": "亡くなっている方については死因とした病気も入力してください。",
 		"add_disease_instructions_5": "健康を削除すると病気を入力することができます。",
 		"disease_or_condition": "健康または病気の状態",
 		"age_at_diagnosis": "診断時の年齢",
