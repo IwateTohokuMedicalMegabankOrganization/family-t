@@ -388,7 +388,9 @@
 		"di4_fam_hist": "ご家族の情報",
 		"btn1_fam_hist": "次へ進む",
 		"btn2_fam_hist": "キャンセル",
-		"done": "完了"
+		"done": "完了",
+		"select_the_age_input_method": "年齢入力方法の選択",
+		"unit_of_age": "歳"
 	},
 	"fhh_add_family": {
 		"instructions": "家族構成の情報を入力します。",
