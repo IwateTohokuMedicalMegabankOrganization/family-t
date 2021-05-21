@@ -191,15 +191,22 @@
 
 		<div id='person_is_alive' style="width: 80%;">
 			<div class="col s12 edit_form_tr" >
-				<div class="update_form_label_area">
+				<div class="update_form_label_area" style="margin-right: 5px;">
 					<label for='age_determination'><span class='translate' data-i18n='info_dialog.select_the_age_input_method' >Select the age input method</span></label>
 				</div>
 				<div class="edit_form_input_area">
-					<select id='age_determination' style="width: auto; margin-left: 6px;">
+					<select id='age_determination' style="width: auto; margin-left: 6px; display:none;">
 						<option value='date_of_birth' class='translate' data-i18n='info_dialog.dob'>Date of Birth</option>
 						<option value='age' class='translate' data-i18n='info_dialog.age'>Age</option>
 						<option value='estimated_age' class='translate' data-i18n='info_dialog.estimated_age'>Estimated Age</option>
 					</select>
+					<input name="age_determination" id="age_determination_dob" value="date_of_birth" type="radio">
+					<label for="age_determination_dob" class='translate' data-i18n='info_dialog.dob'>Date of Birth</label>
+					<input name="age_determination" id="age_determination_age" value="age" type="radio">
+					<label for="age_determination_age" class='translate' data-i18n='info_dialog.age'>Age</label>
+					<input name="age_determination" id="age_determination_estimated_age" value="estimated_age" type="radio">
+					<label for="age_determination_estimated_age" class='translate' data-i18n='info_dialog.estimated_age'>Estimated Age</label>
+
 				</div>
 			</div>
 			<div class="col s12 edit_form_tr" id="age_determination_date_of_birth">
