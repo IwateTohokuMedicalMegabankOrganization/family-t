@@ -279,3 +279,15 @@ table td{
 .page-footer {
 	background-color: #8ec31f;
 }
+
+/*家族歴の質　引用文献のエリア*/
+.quote_documents_area {
+	padding-left: 3%;
+	padding-right: 3%;
+	font-size: 75%;
+}
+
+/*家族歴の質　引用文献のエリア*/
+.quote_document {
+	font-size: 90%;
+}
