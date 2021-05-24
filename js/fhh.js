@@ -4227,6 +4227,9 @@ function build_hi_data_entry_row() {
 	var detailed_disease_select = $("<select class='ddcs col s6' tabindex='18' id='detailed_disease_choice_select' name='detailed_disease_choice_select' style='margin: auto;'></select>");
 
 	set_disease_choice_select(disease_select, detailed_disease_select);
+	
+	// 本人情報画面では病歴のリストに「不明」を表示しない
+	$(disease_select).find('option[value="Unknown"]').hide();
 
 	hi_data_entry_row.append($("<td colspan='2'></td>").append(disease_select).append(detailed_disease_select));
 
