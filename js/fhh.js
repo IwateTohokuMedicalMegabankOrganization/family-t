@@ -534,20 +534,24 @@ function start()
 
 
 
-		$("#age_determination").on("change", function () {
-			if ($("#age_determination").val() == 'date_of_birth') {
+		$('input[name="age_determination"]').on("change", function () {
+			var value = $(this).val();
+			if (value == 'date_of_birth') {
+				$("#age_determination").val('date_of_birth');
 				$("#age_determination_date_of_birth").show();
 				$("#age_determination_date_of_birth_text").hide();
 				$("#age_determination_date_of_birth_estimate").hide();
 				$("#age_determination_text").hide();
 				$("#estimated_age_select").hide();
-			} else if ($("#age_determination").val() == 'age') {
+			} else if (value == 'age') {
+				$("#age_determination").val('age');
 				$("#age_determination_date_of_birth").hide();
 				$("#age_determination_date_of_birth_text").show();
 				$("#age_determination_date_of_birth_estimate").hide();
 				$("#age_determination_text").show();
 				$("#estimated_age_select").hide();
-			} else if ($("#age_determination").val() == 'estimated_age') {
+			} else if (value == 'estimated_age') {
+				$("#age_determination").val('estimated_age');
 				$("#age_determination_date_of_birth").hide();
 				$("#age_determination_date_of_birth_text").hide();
 				$("#age_determination_date_of_birth_estimate").show();
@@ -4804,6 +4808,9 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	$("#family_member_info_form_twin_status_identical").prop('checked',false);
 	$("#family_member_info_form_twin_status_fraternal").prop('checked',false);
 	$("#age_determination").val("");
+	$("#age_determination_dob").prop('checked',false);
+	$("#age_determination_age").prop('checked',false);
+	$("#age_determination_estimated_age").prop('checked',false);
 	$("#family_info_form_year_of_birth").val("");
 	$("#family_info_form_month_of_birth").val("");
 	$("#family_info_form_date_of_birth").val("");
@@ -4811,6 +4818,9 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	$("#age_determination_date_of_birth_estimate").val("");
 	$("#age_determination_text").val("");
 	$("#estimated_age_select").val("");
+	$("#age_determination_date_of_birth").show();
+	$("#age_determination_date_of_birth_text").hide();
+	$("#age_determination_date_of_birth_estimate").hide();
 
 
 
@@ -4907,6 +4917,9 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 
 
 	$("#age_determination").val("");
+	$("#age_determination_dob").prop('checked',false);
+	$("#age_determination_age").prop('checked',false);
+	$("#age_determination_estimated_age").prop('checked',false);
 
 	$("#family_info_form_year_of_birth").val("");
 	$("#family_info_form_month_of_birth").val("");
@@ -4942,27 +4955,38 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 		if (family_member.date_of_birth) {
 			$("#is_person_alive").val('alive');
 			$("#age_determination").val('date_of_birth');
+			$("#age_determination_dob").prop('checked',true);
+			$("#age_determination_age").prop('checked',false);
+			$("#age_determination_estimated_age").prop('checked',false);
 			$("#age_determination_date_of_birth").show();
 			$("#family_info_form_date_of_birth").hide().val(family_member.date_of_birth);
 			$("#family_info_form_year_of_birth").show().val(family_member.year_of_birth);
 			$("#family_info_form_month_of_birth").show().val(family_member.month_of_birth);
-			$('#age_determination_text').hide();
-			$('#estimated_age_select').hide();
+			$('#age_determination_date_of_birth_text').hide();
+			$('#age_determination_date_of_birth_estimate').hide();
 			$("#person_is_alive").show();
 			$("#person_is_not_alive").hide();
 		} else if (family_member.age) {
 			$("#is_person_alive").val('alive');
 			$("#age_determination").val('age');
+			$("#age_determination_dob").prop('checked',false);
+			$("#age_determination_age").prop('checked',true);
+			$("#age_determination_estimated_age").prop('checked',false);
 			$("#age_determination_date_of_birth").hide();
+			$("#age_determination_date_of_birth_text").show();
 			$('#age_determination_text').show().val(family_member.age);
-			$('#estimated_age_select').hide();
+			$("#age_determination_date_of_birth_estimate").hide();
 			$("#person_is_alive").show();
 			$("#person_is_not_alive").hide();
 		} else if (family_member.estimated_age) {
 			$("#is_person_alive").val('alive');
 			$("#age_determination").val('estimated_age');
+			$("#age_determination_dob").prop('checked',false);
+			$("#age_determination_age").prop('checked',false);
+			$("#age_determination_estimated_age").prop('checked',true);
 			$("#age_determination_date_of_birth").hide();
-			$('#age_determination_text').hide();
+			$("#age_determination_date_of_birth_text").hide();
+			$("#age_determination_date_of_birth_estimate").show();
 			$('#estimated_age_select').show().val(family_member.estimated_age);
 			$("#person_is_alive").show();
 			$("#person_is_not_alive").hide();
