@@ -4226,10 +4226,7 @@ function build_hi_data_entry_row() {
 	var disease_select = $("<select class='col s6' tabindex='17' id='disease_choice_select' name='disease_choice_select' style='margin: auto;'></select>");
 	var detailed_disease_select = $("<select class='ddcs col s6' tabindex='18' id='detailed_disease_choice_select' name='detailed_disease_choice_select' style='margin: auto;'></select>");
 
-	set_disease_choice_select(disease_select, detailed_disease_select);
-	
-	// 本人情報画面では病歴のリストに「不明」を表示しない
-	$(disease_select).find('option[value="Unknown"]').hide();
+	set_disease_choice_select(disease_select, detailed_disease_select, null, true);
 
 	hi_data_entry_row.append($("<td colspan='2'></td>").append(disease_select).append(detailed_disease_select));
 
@@ -4246,13 +4243,18 @@ function build_hi_data_entry_row() {
 	return hi_data_entry_row;
 }
 
-function set_disease_choice_select (disease_select, detailed_disease_select, cod) {
+function set_disease_choice_select (disease_select, detailed_disease_select, cod, skip_Unknown) {
 	//detailed_disease_select.hide();
 	disease_select.append("<option value='not_picked'>" + $.t("fhh_js.disease_select") + "</option>");
 	detailed_disease_select.append("<option value='not_picked'>" + $.t("fhh_js.disease_subtype_select") + "</option>");
 	$('.ddcs').prop('disabled',true);
 	for (disease_name in diseases) {
-		disease_select.append("<option value='" + disease_name + "'> " + $.t("diseases:" + disease_name) + " </option>");
+		if( skip_Unknown ) {
+			if( disease_name != 'Unknown')
+				disease_select.append("<option value='" + disease_name + "'> " + $.t("diseases:" + disease_name) + " </option>");
+		}else{
+			disease_select.append("<option value='" + disease_name + "'> " + $.t("diseases:" + disease_name) + " </option>");
+		}
 	}
 	disease_select.append("<option value='other'>" + $.t("fhh_js.add_new") + "</option>");
 
