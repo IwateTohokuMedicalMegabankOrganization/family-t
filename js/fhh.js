@@ -4818,9 +4818,9 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	$("#age_determination_date_of_birth_estimate").val("");
 	$("#age_determination_text").val("");
 	$("#estimated_age_select").val("");
-	$("#age_determination_date_of_birth").show("");
-	$("#age_determination_date_of_birth_text").hide("");
-	$("#age_determination_date_of_birth_estimate").hide("");
+	$("#age_determination_date_of_birth").show();
+	$("#age_determination_date_of_birth_text").hide();
+	$("#age_determination_date_of_birth_estimate").hide();
 
 
 
