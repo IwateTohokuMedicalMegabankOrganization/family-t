@@ -824,6 +824,34 @@ function start()
 		QualityOfFamilyHistoryScoreController.refresh()
 	});
 
+	// 家族歴の質ヘルプダイアログ
+	$("#family-t_qof_history_score_help_dialog").load("quality_of_family_history_score_help_dialog.html",function(){
+		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
+		
+		// 閉じるボタン
+		$('.closeQofhScoreHelpButton').on('click', function(){
+			$("#family-t_qof_history_score_help_dialog").dialog('close');
+		});
+	});
+
+	// 家族歴の質
+	$("#family-t_qof_history_score_help_dialog").dialog({
+		title:$.t("family-t_qof_history_score.title"),
+		position:['top',0],
+		resizable: false,
+		autoOpen: false,
+		height:'auto',
+		width:['95%']
+	});
+
+	$("#family-t_qof_history_score_help").on("click", function() {
+		$("#family-t_qof_history_score_help_dialog").dialog("open");
+	});
+
+		
 	// ライフスタイルスコア計算ダイアログ
 	$("#lifestyle_score_calculator_dialog").load("lifestyle_score_calculator_dialog.html",function(){
 		preparate_lifestyle_score_dialog();
@@ -4198,7 +4226,7 @@ function build_hi_data_entry_row() {
 	var disease_select = $("<select class='col s6' tabindex='17' id='disease_choice_select' name='disease_choice_select' style='margin: auto;'></select>");
 	var detailed_disease_select = $("<select class='ddcs col s6' tabindex='18' id='detailed_disease_choice_select' name='detailed_disease_choice_select' style='margin: auto;'></select>");
 
-	set_disease_choice_select(disease_select, detailed_disease_select);
+	set_disease_choice_select(disease_select, detailed_disease_select, null, true);
 
 	hi_data_entry_row.append($("<td colspan='2'></td>").append(disease_select).append(detailed_disease_select));
 
@@ -4215,13 +4243,18 @@ function build_hi_data_entry_row() {
 	return hi_data_entry_row;
 }
 
-function set_disease_choice_select (disease_select, detailed_disease_select, cod) {
+function set_disease_choice_select (disease_select, detailed_disease_select, cod, skip_Unknown) {
 	//detailed_disease_select.hide();
 	disease_select.append("<option value='not_picked'>" + $.t("fhh_js.disease_select") + "</option>");
 	detailed_disease_select.append("<option value='not_picked'>" + $.t("fhh_js.disease_subtype_select") + "</option>");
 	$('.ddcs').prop('disabled',true);
 	for (disease_name in diseases) {
-		disease_select.append("<option value='" + disease_name + "'> " + $.t("diseases:" + disease_name) + " </option>");
+		if( skip_Unknown ) {
+			if( disease_name != 'Unknown')
+				disease_select.append("<option value='" + disease_name + "'> " + $.t("diseases:" + disease_name) + " </option>");
+		}else{
+			disease_select.append("<option value='" + disease_name + "'> " + $.t("diseases:" + disease_name) + " </option>");
+		}
 	}
 	disease_select.append("<option value='other'>" + $.t("fhh_js.add_new") + "</option>");
 
@@ -4271,9 +4304,18 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 
 					if( $(this).val() == 'Healthy'){
 						$(this).parent().parent().find('#age_at_diagnosis_select').hide();
+					}else{
+						$(this).parent().parent().find('#age_at_diagnosis_select').show();
+					}
+					
+					$(this).parent().parent().find('#age_at_diagnosis_select').prop('disabled',false);
+					if( $(this).val() == 'Unknown'){
+						$(this).parent().parent().find('#age_at_diagnosis_select').val('Unknown');
+						$(this).parent().parent().find('#age_at_diagnosis_select').prop('disabled',true);
 					}
 				} else {
 					$(this).parent().find($('.ddcs')).prop('disabled',false);
+					$(this).parent().parent().find('#age_at_diagnosis_select').prop('disabled',false);
 					detailed_disease_select.show().append("<option value='not_picked'>" + $.t("fhh_js.disease_subtype_select") + "</option>");
 
 					for (var i = 0; i < detailed_disease.length;i++) {
@@ -4285,6 +4327,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 			else {
 					detailed_disease_select.show();
 					$(this).parent().find($('.ddcs')).prop('disabled',true);
+					$(this).parent().parent().find('#age_at_diagnosis_select').prop('disabled',false);
 					//detailed_disease_select.append("<option value='" + new_disease_selected.replace(/\"/g,'&quot;') + "'>" +  "" + "</option>");
 					//detailed_disease_select.append("<option value='" + detailed_disease[0].system + "-" + detailed_disease[0].code + "'> "
 					//	+ $.t("diseases:" + detailed_disease[0].system + "-" + detailed_disease[0].code) + " </option>");

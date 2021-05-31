@@ -335,17 +335,17 @@ body {
 					<div class="row">
 					     <div class="card light-green lighten-5">
 							<div class="card-content black-text">
-								<div class="card-title"><span class='translate' data-i18n='family-t_qof_history_score.title'>家族歴の質</span></div>
+								<div class="card-title"><span class='translate' data-i18n='family-t_qof_history_score.title'>家族歴の質</span><span id="family-t_qof_history_score_help" class="material-icons medium-size green-text cursor_pointer icon_shadow">help_outline</span></div>
 								<div>
 									<div class="row">
-										<div class="col s12"><span class='translate' data-i18n='family-t_qof_history_score.medical_history_formula'>病歴（％）= 病名の記入がある家系構成員数 ÷ 全家系構成人数（本人は含まない）</span></div>
+										<div class="col s12"><span class='translate' data-i18n='family-t_qof_history_score.medical_history_formula'>病歴</span></div>
 										<div class="col s12">
 											<span id="DisplayRateOfHelthHistory" style="font-size:1.5em;"></span>
 										</div>
 									</div>
 
 									<div class="row">
-										<div class="col s12"><span class='translate' data-i18n='family-t_qof_history_score.age_of_onset_formula'>発症年齢（％）= 発症年齢の記入がある疾患数 ÷ 家系内の疾患数</span></div>
+										<div class="col s12"><span class='translate' data-i18n='family-t_qof_history_score.age_of_onset_formula'>発症年齢</span></div>
 										<div class="col s12">
 											<span id="DisplayRateOfAgeAtDisease" style="font-size:1.5em;"></span>
 										</div>
@@ -353,7 +353,7 @@ body {
 
 									<div class="row">
 										<div class="col s12">
-											<span class='translate' data-i18n='family-t_qof_history_score.cause_of_death_formula'>死因（％）= 死因となった疾患の記入がある死者数 ÷ 家系内の死者数</span>
+											<span class='translate' data-i18n='family-t_qof_history_score.cause_of_death_formula'>死因</span>
 										</div>
 										<div class="col s12">
 											<span id="DisplayRateOfCauseOfDeath" style="font-size:1.5em;"></span>
@@ -362,7 +362,7 @@ body {
 
 									<div class="row">
 										<div class="col s12">
-											<span class='translate' data-i18n='family-t_qof_history_score.age_of_death_formula'>死亡年齢（％）= 死亡年齢の記入がある死者数 ÷ 家系内の死者数</span>
+											<span class='translate' data-i18n='family-t_qof_history_score.age_of_death_formula'>死亡年齢</span>
 										</div>
 										<div class="col s12">
 											<span id="DisplayRateOfAgeAtDeath" style="font-size:1.5em;"></span>
@@ -500,6 +500,7 @@ body {
 							<div id='compensate_information_dialog' style="background: #ffffff !important;"></div>
 							<div id='lifestyle_score_calculator_dialog' style="background: #ffffff !important;"></div>
 							<div id='quality_of_family_history_score_dialog' style="background: #ffffff !important;"></div>
+							<div id='family-t_qof_history_score_help_dialog' style="background: #ffffff !important;"></div>
 							<div id='familyTable'></div>
 							<div id='family_t_tree_dialog'>
 								<div class="row">
