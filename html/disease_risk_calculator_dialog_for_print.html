@@ -52,19 +52,18 @@
 
 <div class="for_print">
 	<div class="popup_title_color ui-dialog-titlebar ui-widget-header ui-corner-all" style="padding: auto;">
-		<div style="margin-left: 1%; color: #ffffff !important;">疾患発症リスク計算</div>
+		<div id="risk_calculator_dialog_title" style="margin-left: 1%; color: #ffffff !important;" class='translate' data-i18n='fhh_js.risk_calculator_dialog_title'>疾患発症リスク計算</div>
 	</div>
-
 	<div id="contents"></div>
 </div>
 
 <script>
 
-// $(document).ready(function(){
 $(window).on("load", function(){
 	
 	$('#contents').empty();
 	$('#contents').append($( window.opener.document ).find('#disease_risk_calculator_dialog').clone() );
+	$('#risk_calculator_dialog_title').text(window.opener.printWindowTitle);
 
 	$("#disp_toggle_diabetes").show();
 	$("#disp_toggle_chd").show();

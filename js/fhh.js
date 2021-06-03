@@ -2939,6 +2939,7 @@ function bind_add_all_family_members_cancel_button_action() {
 }
 
 var printWindow = null;
+var printWindowTitle = "";
 function load_risk_links() {
 	// get lng and set to variable. used to open correct pdf //
 	var lng = window.i18n.lng();
@@ -2982,6 +2983,7 @@ function load_risk_links() {
 
 	// リスク計算結果印刷
 	$("#risk_printer").on("click", function() {
+		printWindowTitle = $.t("fhh_js.risk_calculator_dialog_title");
 		printWindow = window.open('disease_risk_calculator_dialog_for_print.html', 'disease_risk_calculator_dialog_for_print');
 	});
 
