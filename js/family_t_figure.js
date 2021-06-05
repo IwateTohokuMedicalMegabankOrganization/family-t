@@ -16,35 +16,21 @@ class GenerationalFamilyMembers {
     draw(targetId = '#graph', displayText = false) {
         $(targetId).empty();
         // 祖父母世代
-        $(targetId).append(this._draw('祖父母世代', 4));
+        $(targetId).append(this._draw('祖父母世代', this._getNumberOfRelationship(['maternal_grandfather', 'maternal_grandmother', 'paternal_grandfather',  'paternal_grandmother'] ) ));
 
         // 親世代
-        $(targetId).append(this._draw('親世代', this._getNumberOfParentsGenerations()));
+        $(targetId).append(this._draw('親世代', this._getNumberOfRelationship(['paternal_uncle', 'paternal_aunt', 'father',  'maternal_uncle', 'maternal_aunt', 'mother'] ) ) );
 
         // 自分の世代
-        $(targetId).append(this._draw('あなたの世代', this._getNumberOfSelfGenerations()));
+        $(targetId).append(this._draw('あなたの世代', this._getNumberOfRelationship(['brother', 'sister'] ) )) ;
 
         // 子ども世代
-        $(targetId).append(this._draw('子ども世代', this._getNumberOfChildGenerations()));
+        $(targetId).append(this._draw('子ども世代', this._getNumberOfRelationship(['son', 'daughter'] )));
 
         // 孫世代
-        $(targetId).append(this._draw('孫世代', this._getNumberOfGrandchildGenerations()));
+        $(targetId).append(this._draw('孫世代', this._getNumberOfRelationship([ 'grandson', 'granddaughter'] )));
     }
 
-    _getNumberOfParentsGenerations(){
-        return this._getNumberOfRelationship(['paternal_uncle', 'paternal_aunt', 'father',  'maternal_uncle', 'maternal_aunt', 'mother'] ).length;
-    }
-
-    _getNumberOfSelfGenerations(){
-        return this._getNumberOfRelationship(['brother', 'sister'] ).length;
-    }
-
-    _getNumberOfChildGenerations(){
-        return this._getNumberOfRelationship(['son', 'daughter'] ).length;
-    }
-    _getNumberOfGrandchildGenerations(){
-        return this._getNumberOfRelationship([ 'grandson', 'granddaughter'] ).length;
-    }
     _getNumberOfRelationship( relationshipIds ){
         return this._getChildNodes(relationshipIds);
     }
@@ -55,10 +41,12 @@ class GenerationalFamilyMembers {
         ret.append(label);
 
         var icons = $('<div>').addClass('col s12');
-        for (let index = 0; index < persons; index++) {
-            var fig = $('<i>').addClass('material-icons green-text').text('person');
+
+        persons.forEach(function( person ){
+            var fig = $('<i>').addClass('material-icons green-text').css('opacity', person.opacity ).text('person');
             icons.append(fig);
-        }
+        });
+
         ret.append(icons);
         return ret;
     }
@@ -92,8 +80,13 @@ class GenerationalFamilyMembers {
 		node.name = pi.name;
 		node.id = pi.id;
 		node.hidden = false;
+		node.opacity = this._getOpacity(pi);
 
 		return node;
 	};
+
+    _getOpacity( pi ){
+        return (new ColorIntensityCalculator( pi )).getOpacity();
+    }
 
 }
