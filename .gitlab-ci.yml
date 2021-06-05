@@ -1,0 +1,22 @@
+# GitLabのパイプライン設定
+# 要求：
+# ブランチにプッシュされたとき
+#  - 社内サーバを更新する（ブランチ名で公開する）
+# developにマージされたとき(= developがプッシュされたとき)
+#  - 限定サーバを更新する（/family-t_pub
+
+# ビルド
+build:
+  stage: build
+  script:
+    - echo "update family-t mss demo server contents"
+    - mkdir -p /var/www/html/$CI_COMMIT_REF_SLUG
+    - cp -rf ./* /var/www/html/$CI_COMMIT_REF_SLUG/
+
+# リリース
+deploy:
+  stage: deploy
+  script:
+    - echo "update family-t demo server contents"
+  only:
+    - develop
