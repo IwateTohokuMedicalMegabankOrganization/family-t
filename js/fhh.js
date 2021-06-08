@@ -5161,10 +5161,18 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 
 
 	data_entry_row = $("#family_health_information").find("#health_data_entry_row");
+	data_entry_row.show();
+	data_entry_row.find("#disease_choice_select option[value='Healthy']").show();
 
 	if (family_member['Health History'] != null) {
 		current_health_history = family_member['Health History'];
 		for (var i=0; i<current_health_history.length;i++) {
+
+			if(current_health_history[i]['Disease Code'] == 'Healthy' ){
+				data_entry_row.hide();
+				data_entry_row.find("#disease_choice_select option[value='Healthy']").show();
+			} 
+
 			new_row = create_disease_row(
 					i,
 					current_health_history[i]['Disease Name'],
@@ -5173,7 +5181,6 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 					current_health_history[i]['Disease Code']);
 			data_entry_row.before(new_row);
 		}
-		toggleHealthyOption( $(data_entry_row).parent() );
 	}
 
 	$("#family_health_information").find("#disease_choice_select").val($("#disease_choice_select").find('option').first().val());
