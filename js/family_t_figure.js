@@ -29,6 +29,12 @@ class GenerationalFamilyMembers {
 
         // 孫世代
         $(targetId).append(this._draw('孫世代', this._getNumberOfRelationship([ 'grandson', 'granddaughter'] )));
+
+        // 動的描画部分の翻訳
+		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
     }
 
     _getNumberOfRelationship( relationshipIds ){
@@ -37,7 +43,7 @@ class GenerationalFamilyMembers {
 
     _draw(label, persons) {
         var ret = $('<div>');
-        var label = $('<div>').addClass('col s12').text(label);
+        var label = this._generateLabel(label);
         ret.append(label);
 
         var icons = $('<div>').addClass('col s12');
@@ -48,6 +54,24 @@ class GenerationalFamilyMembers {
         });
 
         ret.append(icons);
+        return ret;
+    }
+
+    _generateLabel(labelName){
+        var labelSpan = $('<span>').addClass('translate').attr('data-i18n', this._getTranslate(labelName)).text(labelName);
+        var labelDiv = $('<div>').addClass('col s12').append(labelSpan);
+        return labelDiv;
+    }
+
+    _getTranslate(labelName){
+        var ret = '';
+        switch(labelName){
+            case '祖父母世代':   ret = 'family-t_number_of_families_by_generation.grandparents'; break;
+            case '親世代':       ret = 'family-t_number_of_families_by_generation.parents'; break;
+            case 'あなたの世代': ret = 'family-t_number_of_families_by_generation.you'; break;
+            case '子ども世代':   ret = 'family-t_number_of_families_by_generation.children'; break;
+            case '孫世代':       ret = 'family-t_number_of_families_by_generation.grandchildren'; break;
+        }
         return ret;
     }
 

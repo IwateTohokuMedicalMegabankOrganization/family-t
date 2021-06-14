@@ -3165,7 +3165,6 @@ class ScoreCardController{
 		ScoreCardController._strokeRiskScore();
 
 		(new GenerationalFamilyMembers( personal_information ) ).draw();
-		// ( new FamilyTree( personal_information ) ).draw();
 	}
 
 	static _qualityOfFamilyHistoryScore(){

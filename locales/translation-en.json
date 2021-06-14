@@ -1087,6 +1087,14 @@
 		"cannnot_calculate_under40":"Cannot calculate for under 40 years old. It is not calculated because there is no basis based on the treatise or guidelines.",
 		"cannnot_calculate_over70":"Cannot calculate for over 70 years old. It is not calculated because there is no basis based on the treatise or guidelines."
 	},
+	"family-t_number_of_families_by_generation": {
+		"title":"Number of families by Generations",
+		"grandparents": "Grandparents generation",
+		"parents": "Parents generation",
+		"you": "Your generation",
+		"children": "Generation of children",
+		"grandchildren": "Generation of grandchildren"
+	},
 	"family-t_risk_range": {
 		"pattern1": "1% to 10-12%",
 		"pattern2": "1-2% to 15-20%",
