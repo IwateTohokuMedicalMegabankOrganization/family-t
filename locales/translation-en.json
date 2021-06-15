@@ -1022,7 +1022,8 @@
 		"healthy":"Healthy",
 		"mandatory_health_history": "健康または病気の状態を登録してください。健康の場合は、健康を選択して登録ボタンを押してください。",
 		"download_xml":"Download",
-		"leave_this_site":"Leave this site"
+		"leave_this_site":"Leave this site",
+		"nav_help": "Help for your family health history"
 	},
 	"family-t_risk": {
 		"exp1": "The results calculated herein are based on research findings reported to date.",
@@ -1077,15 +1078,15 @@
 		"if_your": "If your",
 		"type2_recommend_consult_a_doctor": ", you are classified as a “diabetic type,” according to the Treatment Guide for Diabetes 2018–2019 published by the Japan Diabetes Society. This risk score is not a definitive diagnosis, but it may indicate that you have diabetes, and therefore, we recommend that you consult your doctor.",
 		"chd_recommend_consult_a_doctor": ", you are classified as a “diabetic type,” according to the Treatment Guide for Diabetes 2018–2019 published by the Japan Diabetes Society. This risk score is not a definitive diagnosis, but it may indicate that you have diabetes, and therefore, we recommend that you consult your doctor.",
-		"cannnot_calculate_the_risk": "This tool cannot calculate the risk of disease if you have had the following conditions: ",
-		"cannnot_calculate_the_risk1": "Coronary artery disease,",
-		"cannnot_calculate_the_risk2": "Diabetes,",
-		"cannnot_calculate_the_risk3": "Chronic kidney disease,",
-		"cannnot_calculate_the_risk4": "Non-cardioembolic stroke, or",
-		"cannnot_calculate_the_risk5": "Peripheral arterial disease.",
-		"cannnot_calculate_under35":"Cannot calculate for under 35 years old. It is not calculated because there is no basis based on the treatise or guidelines.",
-		"cannnot_calculate_under40":"Cannot calculate for under 40 years old. It is not calculated because there is no basis based on the treatise or guidelines.",
-		"cannnot_calculate_over70":"Cannot calculate for over 70 years old. It is not calculated because there is no basis based on the treatise or guidelines."
+		"cannot_calculate_the_risk": "This tool cannot calculate the risk of disease if you have had the following conditions: ",
+		"cannot_calculate_the_risk1": "Coronary artery disease,",
+		"cannot_calculate_the_risk2": "Diabetes,",
+		"cannot_calculate_the_risk3": "Chronic kidney disease,",
+		"cannot_calculate_the_risk4": "Non-cardioembolic stroke, or",
+		"cannot_calculate_the_risk5": "Peripheral arterial disease.",
+		"cannot_calculate_under35":"Cannot calculate for under 35 years old. It is not calculated because there is no basis based on the treatise or guidelines.",
+		"cannot_calculate_under40":"Cannot calculate for under 40 years old. It is not calculated because there is no basis based on the treatise or guidelines.",
+		"cannot_calculate_over70":"Cannot calculate for over 70 years old. It is not calculated because there is no basis based on the treatise or guidelines."
 	},
 	"family-t_number_of_families_by_generation": {
 		"title":"Number of families by Generations",
