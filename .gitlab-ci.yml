@@ -3,9 +3,8 @@
 # ブランチにプッシュされたとき
 #  - 社内サーバを更新する（ブランチ名で公開する）
 # developにマージされたとき(= developがプッシュされたとき)
-#  - 限定サーバを更新する（/family-t_pub
 
-# ビルド
+# 社内ビルド
 build:
   stage: build
   script:
@@ -13,6 +12,19 @@ build:
     - mkdir -p /var/www/html/$CI_COMMIT_REF_SLUG
     - cp -rf ./* /var/www/html/$CI_COMMIT_REF_SLUG/
 
+## レビュー
+deploy_review:
+  stage: deploy
+  script:
+    - echo "Deploy a review app"
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: http://family-t.tkb.mss.co.jp/$CI_COMMIT_REF_SLUG/
+  only:
+    - branches
+  except:
+    - master
+    
 # リリース
 deploy:
   stage: deploy
