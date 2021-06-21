@@ -3165,7 +3165,6 @@ class ScoreCardController{
 		ScoreCardController._strokeRiskScore();
 
 		(new GenerationalFamilyMembers( personal_information ) ).draw();
-		// ( new FamilyTree( personal_information ) ).draw();
 	}
 
 	static _qualityOfFamilyHistoryScore(){
@@ -3228,12 +3227,12 @@ function cannot_calculate( baseId, lower , upper ){
 		$("#compensational_block").hide();
 		$(".result_block").hide();
 		$(".calculatable").hide();
-		$( baseId + ' ' + '.cannnot_calculate_under40').hide();
-		$('.cannnot_calculate_over70').hide();
+		$( baseId + ' ' + '.cannot_calculate_under40').hide();
+		$('.cannot_calculate_over70').hide();
 
-		if( age <= 40 )	$('.cannnot_calculate_under40').show();
+		if( age <= 40 )	$('.cannot_calculate_under40').show();
 
-		if( 70 <= age )	$('.cannnot_calculate_over70').show();
+		if( 70 <= age )	$('.cannot_calculate_over70').show();
 
 		return true;
 	}
