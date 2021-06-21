@@ -1086,7 +1086,8 @@
 		"cannot_calculate_the_risk5": "Peripheral arterial disease.",
 		"cannot_calculate_under35":"Cannot calculate for under 35 years old. It is not calculated because there is no basis based on the treatise or guidelines.",
 		"cannot_calculate_under40":"Cannot calculate for under 40 years old. It is not calculated because there is no basis based on the treatise or guidelines.",
-		"cannot_calculate_over70":"Cannot calculate for over 70 years old. It is not calculated because there is no basis based on the treatise or guidelines."
+		"cannot_calculate_over70":"Cannot calculate for over 70 years old. It is not calculated because there is no basis based on the treatise or guidelines.",
+		"cannot_calculate_over80":"Cannot calculate for over 80 years old. It is not calculated because there is no basis based on the treatise or guidelines."
 	},
 	"family-t_number_of_families_by_generation": {
 		"title":"Number of families by Generations",
