@@ -50,7 +50,7 @@ function bind_uploader() {
 		browse_button : 'pickfiles', // you can pass in id...
 		http_method : 'POST',
 		container: document.getElementById('container'), // ... or DOM Element itself
-		url : 'https://27.133.130.34/familyt_api/getjson',
+		url : '/familyt_api/getjson',
 		flash_swf_url : '../js/Moxie.swf',
 		silverlight_xap_url : '../js/Moxie.xap',
 		multi_selection: false,

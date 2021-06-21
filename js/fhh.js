@@ -254,13 +254,111 @@ class PersonalInformationUtil {
 			});
 		return ret ;
 	}
+
 	static getRelationshipPiByPersonId( id ){
-		console.log( PersonalInformationUtil.getRelationshipIdByPersonId(id) );
 		return personal_information[PersonalInformationUtil.getRelationshipIdByPersonId(id)];
 	}
 
-	static setDefaultPersonalInformation(){
+	static getCurrentDate(){
+		var d = new Date();
+		return this._formatDate(d);
+	}
 
+	static getUpdateDate( d ){
+		if( !Boolean(d) ) return "";
+		return this._formatDate( new Date( d ) );
+	}
+
+	static _formatDate( d ){
+		if( !Boolean(d) ) return "";
+		if( isNaN(d)) return "";
+		return `${d.getFullYear()}/${(d.getMonth()+1).toString().padStart(2, '0')}/${d.getDate().toString().padStart(2, '0')}`.replace(/\n|\r/g, '');
+	}
+
+	static getCurrentDateBadge(){
+		return this.getUpdateDateBadge(this.getCurrentDate());
+	}
+
+	static getUpdateDateBadge( update_date ){
+		if( !Boolean( update_date ) ) return "";
+		return `<span class="badge new" data-badge-caption="">${this.getUpdateDate(update_date)}</span>`;
+	}
+
+	static _getRelationCodeMaps(){
+		return {
+			father               : "NFTH",
+			mother               : "NMTH",
+			maternal_grandmother : "MGRMTH",
+			maternal_grandfather : "MGRFTH",
+			paternal_grandmother : "PGRMTH",
+			paternal_grandfather : "PGRFTH"
+		};
+	};
+
+	static _getRelationCodeMaps( multiple ){
+		return {
+			son                  : "SON",
+			daughter             : "DAU",
+			nephew               : "NEPHEW",
+			niece                : "NIECE",
+			sister               : "NSIS",
+			brother              : "NBRO",
+			grandson             : "GRNSON",
+			granddaughter        : "GRNDAU",
+			maternal_aunt        : "MAUNT",
+			maternal_cousin      : "MCOUSN",
+			maternal_halfbrother : "MHBRO",
+			maternal_halfsister  : "MHSIS",
+			maternal_uncle       : "MUNCLE",
+			paternal_aunt        : "PAUNT",
+			paternal_cousin      : "PCOUSN",
+			paternal_halfbrother : "PHBRO",
+			paternal_halfsister  : "PHSIS",
+			paternal_uncle       : "PUNCLE"
+		};
+	}
+	
+	static getLastUpdateDate( pi ){
+		
+		var last_update_date = "";
+
+		if( Boolean( pi.update_date ) ) last_update_date = pi.update_date;
+
+		// 家族情報
+		for (var key in this._getRelationCodeMaps()) {
+			if( Boolean( pi[key] ) ){
+				if( Boolean( pi[key].update_date ) ){
+					last_update_date = this._getNewerDateString(last_update_date, pi[key].update_date);
+				}
+			}
+		}
+	
+		Object.keys( pi ).forEach(function( r ) {
+			Object.keys( PersonalInformationUtil._getRelationCodeMaps(true) ).forEach( function( tr ) {
+				if( r.startsWith( tr ) ){
+					if( Boolean( pi[r] ) ){
+						if( Boolean( pi[r].update_date ) ){
+							last_update_date = PersonalInformationUtil._getNewerDateString(last_update_date, pi[r].update_date);
+						}
+					}
+				}
+			});
+		});
+
+		return last_update_date;
+	}
+
+	static _getNewerDateString( d1, d2 ){
+		var date1 = new Date( d1 );
+		var date2 = new Date( d2 );
+
+		if( isNaN( date1 ) && !isNaN( date2 ) ) return d2;
+		if( !isNaN( date1 ) && isNaN( date2 ) ) return d1;
+		if( isNaN( date1 ) && isNaN( date2 ) ) return "";
+
+		if( date1 < date2 ) return d2;
+
+		return d1;
 	}
 }
 
@@ -2216,6 +2314,8 @@ function bind_personal_submit_button_action () {
 
 		bind_smoker_value(personal_information);
 
+		personal_information['update_date']	= PersonalInformationUtil.getCurrentDate();
+
 
 //		build_family_history_data_table();
 			current_health_history = [];
@@ -2740,6 +2840,8 @@ function bind_family_member_submit_button_action () {
 		family_member_information['ethnicity']['Other Hispanic'] = $("#family_race_ethnicity").find("#selectedFamilyEthnicities-15").is(':checked');
 		family_member_information['ethnicity']['Puerto Rican'] = $("#family_race_ethnicity").find("#selectedFamilyEthnicities-16").is(':checked');
 		family_member_information['ethnicity']['South American'] = $("#family_race_ethnicity").find("#selectedFamilyEthnicities-17").is(':checked');
+
+		family_member_information['update_date'] = PersonalInformationUtil.getCurrentDate();
 
 		personal_information[current_relationship] = family_member_information;
 
@@ -3421,7 +3523,15 @@ function sortTbody(tbody){
 	return tbody;
 }
 
+function update_date(){
+	$('#current_date').empty().append(PersonalInformationUtil.getCurrentDate());
+	$('#last_update_date').empty().append(PersonalInformationUtil.getLastUpdateDate( personal_information ));
+}
+
 function build_family_history_data_table () {
+
+
+	update_date();
 
 	var table = $("#history_summary_table");
 
@@ -3573,6 +3683,7 @@ function add_family_history_header_row(table) {
 	header_row.append("<th class='nowrap'>" + $.t("family-t.health_information") + "</th>");
 	header_row.append("<th abbr='Update' class='center nowrap'>" + $.t("fhh_js.update_history") + "</th>");
 	header_row.append("<th abbr='Remove' class='center nowrap'>" + $.t("fhh_js.remove_relative") + "</th>");
+	header_row.append("<th abbr='UpdateDate' class='center nowrap'>" + $.t("family-t.update_date") + "</th>");
 	header_row.append("");
 
 	head.append( header_row );
@@ -3735,6 +3846,9 @@ function add_personal_history_row(table, is_sort_only) {
 
 	new_row.append("<td class='action remove_history'>&nbsp;</td>");
 
+	// Update Date
+	new_row.append("<td class='action center'>" + PersonalInformationUtil.getUpdateDateBadge( personal_information["update_date"] ) + "&nbsp;</td>");
+
 	table.append(new_row);
 }
 
@@ -3819,6 +3933,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	if(is_sort_only) {
 		new_row.append("<td class='center action update_history'>&nbsp;</td>");
 		new_row.append("<td class='action center remove_history'>&nbsp;</td>")
+		new_row.append("<td class='action center'>" + PersonalInformationUtil.getUpdateDateBadge( family_member['update_date'] ) + "&nbsp;</td>");
 		table.append(new_row);
 		return;
 	}
@@ -3883,6 +3998,8 @@ function add_new_family_history_row(table, family_member, relationship, relation
 
 		new_row.append(remove_history_td);
 	} else new_row.append("<td class='action center remove_history'>&nbsp;</td>");
+
+	new_row.append("<td class='action center'>" + PersonalInformationUtil.getUpdateDateBadge( family_member['update_date'] ) + "&nbsp;</td>");
 
 	table.append(new_row);
 }
@@ -4866,7 +4983,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	$("#age_determination_date_of_birth_text").hide();
 	$("#age_determination_date_of_birth_estimate").hide();
 
-
+	$("#family_member_update_date").empty().append(PersonalInformationUtil.getUpdateDate( family_member.update_date ));
 
 	var person_name_or_relationship;
 	if (!(family_member.name == "")) person_name_or_relationship = family_member.name;
@@ -5332,6 +5449,9 @@ function clear_and_set_personal_health_history_dialog() {
 	if (personal_information == null) reset_personal_information();
 	if (personal_information.name != null) $("#personal_info_form_name").val(personal_information.name);
 	else $("#personal_info_form_name").val("");
+
+	// 更新日
+	$("#personal_information_update_date").empty().append( PersonalInformationUtil.getUpdateDate( personal_information.update_date ) );
 
 	// 男女
 	if (personal_information.gender == "MALE") $('#personal_info_form_gender_male').prop('checked',true);
