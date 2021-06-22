@@ -540,38 +540,118 @@ body {
 									
 									<div class="row">
 										<div class="col s12 text-right">
-										<button id='closeHelpDialogButton' class="btn-large waves-effect waves-light teal lighten-1 translate" data-i18n='fhh_family_pedigree.close' style="text-align:right;font-size:110% !important">Close</button>
+										<button class="closeHelpDialogButton btn-large waves-effect waves-light teal lighten-1 translate" data-i18n='fhh_family_pedigree.close' style="text-align:right;font-size:110% !important">Close</button>
 										</div>
 									</div>
 									<div id='help_main_page' class='help'>
 										<h2 class='translate' data-i18n='fhh_fhh.h2_update_fhh'>Update My Family History</h2>
 										<p class='translate instructions' data-i18n='fhh_fhh.p_update_my_history'>On this screen you can:</p>
-										<ul>
-											<li>
-												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_before'>Change your information or a family member's information by pressing</span><span class="translate instructions" data-i18n="fhh_fhh.th_upd_hist" style="font-weight:bold;"><B>Update History</B></span>
+
+										<div class='row'>
+											<div class='col s1 text-right'>
 												<div class='material-icons center green-text icon_shadow2'>edit</div>
+											</div>
+											<div class='col s3 text-left'>
+												<span class="translate instructions" data-i18n="fhh_fhh.th_upd_hist">Update History</span>
+											</div>
+											<div class='col s7 text-left'>
+												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_before'>Change your information or a family member's information by pressing</span>
 												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_after'> next to the name in the list.</span>
-											</li>
-											<li>
-												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_before'>Remove a family member from your history by pressing</span><span class='translate instructions' data-i18n='fhh_fhh.th_remove_hist' style="font-weight:Bold;"><B>Remove</B></span>
+											</div>
+										</div>
+
+										<div class='row'>
+											<div class='col s1 text-right'>
 												<div class='material-icons center green-text icon_shadow2'>delete</div>
-												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_after'>  next to the name in the list. (You cannot remove yourself, your parents, or grandparents.)</span>
-											</li>
-										</ul>
+											</div>
+											<div class='col s3 text-left'>
+												<span class='translate instructions' data-i18n='fhh_fhh.th_remove_hist'Remove</span>
+											</div>
+											<div class='col s7 text-left'>
+												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_before'>Remove a family member from your history by pressing</span>
+											</div>
+										</div>
+
+										<div class='row'>
+											<div class='col s1 text-right'>
+												<span class="material-icons green-text cursor_pointer icon_shadow">group_add</span>
+											</div>
+											<div class='col s3 text-left'>
+												<span class="translate" data-i18n="family-t.add_a_family_member">家族を追加</span>
+											</div>
+											<div class='col s7 text-left'>
+												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b3'>Add another family member to your family history by clicking 'Add a family member' button</span>
+											</div>
+										</div>
+
 										<p class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2'>You can Also:</p>
-										<ul>
-											<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b1'>Restart your family history by clicking on the 'Start Over' button </li>
-											<span class="computerOnly">
-												<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b2'>Save your history to a file on your computer or into the cloud by clicking on 'Save Data' button</li>
-											</span>
-											<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b3'>Add another family member to your family history by clicking 'Add a family member' button</li>
-											<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b4'>View a diagram of your family tree by clicking on 'Pedigree drawing' button. Alternatively, you can click the 'Family Health table' button to navigate to the table directly</li>
-											<span class="computerOnly">
-												<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b5'>Export your family information to give a close relative a headstart on his/her family tree by clicking on the 'Share Data' button</li>
-											</span>
-											<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b6'>Use one of the Disease Risk Calculators to determine if you are at increased risk of a disease based on your family history by clicking on the 'Check your risk' button</li>
-											<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b7'>Get additional Help by clicking on the 'Get Help For This Page' button</li>
-										</ul>
+
+										<div class='row'>
+											<div class='col s1 text-right'>
+												<span class="material-icons green-text cursor_pointer icon_shadow">save</span>
+											</div>
+											<div class='col s3 text-left'>
+												<span class="translate" data-i18n="family-t.save_data">家族歴の保存</span>
+											</div>
+											<div class='col s7 text-left'>
+												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b2'>Save your history to a file on your computer or into the cloud by clicking on 'Save Data' button</span>
+											</div>
+										</div>
+										
+										<div class='row'>
+											<div class='col s1 text-right'>
+												<span class="material-icons green-text cursor_pointer icon_shadow">playlist_add_check</span>
+											</div>
+											<div class='col s3 text-left'>
+												<span class="translate" data-i18n="family-t.check_your_score">ライフスタイルスコア</span>
+											</div>
+											<div class='col s7 text-left'>
+												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b8'></span>
+											</div>
+										</div>
+
+										<div class='row'>
+											<div class='col s1 text-right'>
+												<span class="material-icons green-text cursor_pointer icon_shadow">report_problem</span>
+											</div>
+											<div class='col s3 text-left'>
+												<span class="translate" data-i18n="family-t.check_your_risk">リスク判定</span>
+											</div>
+											<div class='col s7 text-left'>
+												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b6'>Use one of the Disease Risk Calculators to determine if you are at increased risk of a disease based on your family history by clicking on the 'Check your risk' button</span>
+											</div>
+										</div>
+
+										<div class='row'>
+											<div class='col s1 text-right'>
+												<span class="material-icons green-text cursor_pointer icon_shadow">print</span>
+											</div>
+											<div class='col s3 text-left'>
+												<span class="translate" data-i18n="family-t.export_pedigree">家系図印刷</span>
+											</div>
+											<div class='col s7 text-left'>
+												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b4'>View a diagram of your family tree by clicking on 'Pedigree drawing' button. Alternatively, you can click the 'Family Health table' button to navigate to the table directly</span>
+											</div>
+										</div>
+
+										<div class='row'>
+											<div class='col s1 text-right'>
+												<span class="material-icons red-text cursor_pointer ">delete_forever</span>
+											</div>
+											<div class='col s3 text-left'>
+												<span class="translate" data-i18n="family-t.leave_this_site">このサイトを離れる</span>
+											</div>
+											<div class='col s7 text-left'>
+												<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b1'>Add another family member to your family history by clicking 'Add a family member' button</span>
+											</div>
+										</div>
+
+									</div>
+									
+									<div class="row">
+										<div class="col s12 text-right">
+										<button class="closeHelpDialogButton btn-large waves-effect waves-light teal lighten-1 translate" data-i18n='fhh_family_pedigree.close' style="text-align:right;font-size:110% !important">Close</button>
+										</div>
 									</div>
 								</div>
 							</div>
