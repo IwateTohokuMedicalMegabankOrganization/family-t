@@ -1089,7 +1089,7 @@ function start()
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
-		width:600
+		width: ['96%']
 	});
 
 	$("#update_help_dialog").load ("update-help.html", function () {});
@@ -1157,7 +1157,7 @@ function start()
 		};
 
 		// 閉じるボタン
-		$('#closeHelpDialogButton').on('click', function(){
+		$('.closeHelpDialogButton').on('click', function(){
 			$("#help_dialog").dialog('close');
 		});
 

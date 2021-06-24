@@ -245,7 +245,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
                 if (!re.exec(d)) {
                     dl.push({
                         'code': d,
-                        'translatedDiseaseName':  d,
+                        'translatedDiseaseName':  (/FAMILY_T-/.exec(d)) ? $scope.translate("diseases", d).replace("diseases:","") : d,
                         'show': true
                     })
                 }
