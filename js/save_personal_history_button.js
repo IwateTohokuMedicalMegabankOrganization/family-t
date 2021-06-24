@@ -17,7 +17,7 @@ function saveToServer(){
 
 function saveToPCPost(){
 	$('#personal_information_text').val(JSON.stringify(personal_information));
-	$.post("https://27.133.130.34/familyt_api/getxml"
+	$.post("/familyt_api/getxml"
 			, $('#personal_information_form').serialize() )
 			.done(function(data, textStatus, jqXHR){
 				downloadXML( jqXHR.responseText );
