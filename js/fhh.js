@@ -3526,6 +3526,10 @@ function sortTbody(tbody){
 function update_date(){
 	$('#current_date').empty().append(PersonalInformationUtil.getCurrentDate());
 	$('#last_update_date').empty().append(PersonalInformationUtil.getLastUpdateDate( personal_information ));
+
+	( PersonalInformationUtil.getLastUpdateDate( personal_information ).length == 0 )?
+		$("#last_update_date").closest('.row').hide()
+		: $("#last_update_date").closest('.row').show();
 }
 
 function build_family_history_data_table () {
@@ -4984,7 +4988,10 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	$("#age_determination_date_of_birth_estimate").hide();
 
 	$("#family_member_update_date").empty().append(PersonalInformationUtil.getUpdateDate( family_member.update_date ));
-
+	( PersonalInformationUtil.getUpdateDate( family_member.update_date ).length == 0 )?
+		$("#family_member_update_date").closest('.row').hide()
+		: $("#family_member_update_date").closest('.row').show();
+		
 	var person_name_or_relationship;
 	if (!(family_member.name == "")) person_name_or_relationship = family_member.name;
 	else person_name_or_relationship = $.t("info_dialog.your") + " " + $.t("fhh_js." + relationship_name);
@@ -5452,6 +5459,9 @@ function clear_and_set_personal_health_history_dialog() {
 
 	// 更新日
 	$("#personal_information_update_date").empty().append( PersonalInformationUtil.getUpdateDate( personal_information.update_date ) );
+	( PersonalInformationUtil.getUpdateDate( personal_information.update_date ).length == 0 )?
+			$("#personal_information_update_date").closest('.row').hide()
+			: $("#personal_information_update_date").closest('.row').show();
 
 	// 男女
 	if (personal_information.gender == "MALE") $('#personal_info_form_gender_male').prop('checked',true);
