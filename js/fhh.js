@@ -360,6 +360,16 @@ class PersonalInformationUtil {
 
 		return d1;
 	}
+
+	static openFamilyMemberHealthHistoryDialog( that ){
+		if( !Boolean(that) ) return ;
+		if( !Boolean($(that).attr('relationship_id')) ) return ;
+
+		var family_member = personal_information[$(that).attr('relationship_id')];
+		family_member.relationship = $(that).attr('relationship_id');
+		clear_and_set_current_family_member_health_history_dialog(family_member);
+		$( "#update_family_member_health_history_dialog" ).dialog( "open" );
+	}
 }
 
 function getLang(){
