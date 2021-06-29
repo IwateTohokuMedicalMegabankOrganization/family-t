@@ -36,8 +36,7 @@ class GenerationalFamilyMembers {
 			$(".translate").i18n();
 		});
 
-        // イベント
-        // クリック
+        // 世代別家系構成人数アイコンをクリックすると編集画面を表示する
         $(targetId + " .cursor_pointer").unbind().on('click', function(){
             PersonalInformationUtil.openFamilyMemberHealthHistoryDialog( this );
         });
