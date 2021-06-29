@@ -41,7 +41,7 @@ class GenerationalFamilyMembers {
             PersonalInformationUtil.openFamilyMemberHealthHistoryDialog( this );
         });
 
-        // ツールチップ
+        // 世代別家系構成人数アイコンにマウスオーバーすると世代別家系構成人数アイコンが示す人物名を表示する
         $(targetId + " .tooltipped").tooltip();
     }
 
