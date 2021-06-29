@@ -362,6 +362,7 @@ class PersonalInformationUtil {
 	}
 
 	static openFamilyMemberHealthHistoryDialog( that ){
+                // 引数が空(undefined, null , "")の場合は以降の処理をしない
 		if( !Boolean(that) ) return ;
 		if( !Boolean($(that).attr('relationship_id')) ) return ;
 
