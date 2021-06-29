@@ -5217,7 +5217,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 		} else { // いいえ・分からない、の場合
 			$('select[name="training_status1"]  option').removeAttr('selected');
 			$('input[name="training_status2"]').val('');
-			$('input[name="training_status3"]').val('')
+			$('input[name="training_status3"]').val('');
     		$('select[name="training_status1"]').prop('disabled',true);
     		$('input[name="training_status2"]').prop('disabled',true);
     		$('input[name="training_status3"]').prop('disabled',true);
