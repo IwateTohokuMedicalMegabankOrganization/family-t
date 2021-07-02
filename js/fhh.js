@@ -281,7 +281,7 @@ class PersonalInformationUtil {
 
 	static getUpdateDateBadge( update_date ){
 		if( !Boolean( update_date ) ) return "";
-		var ret = `<span class="badge new" data-badge-caption="">${this.getUpdateDate(update_date)}</span>`;
+		var ret = `<span class="badge new ${(this._moreThanYearHasPassed(update_date))? "pulse" : ""}" data-badge-caption="">${this.getUpdateDate(update_date)}</span>`;
 
 		if(this._moreThanYearHasPassed(update_date)){
 			ret += `<span class="tiny material-icons red-text">error_outline</i></span>`;
@@ -3568,9 +3568,14 @@ function update_date(){
 	$('#current_date').empty().append(PersonalInformationUtil.getCurrentDate());
 	$('#last_update_date').empty().append(PersonalInformationUtil.getLastUpdateDate( personal_information ));
 
-	( PersonalInformationUtil.getLastUpdateDate( personal_information ).length == 0 )?
+	if( PersonalInformationUtil.getLastUpdateDate( personal_information ).length == 0 ){
 		$("#last_update_date").closest('.row').hide()
-		: $("#last_update_date").closest('.row').show();
+	}else{
+		$("#last_update_date").closest('.row').show();
+
+		if( PersonalInformationUtil._moreThanYearHasPassed(PersonalInformationUtil.getLastUpdateDate( personal_information )))
+			$("#last_update_date").closest('.badge').addClass('pulse');	
+	}
 }
 
 function build_family_history_data_table () {
