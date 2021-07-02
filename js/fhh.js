@@ -281,8 +281,12 @@ class PersonalInformationUtil {
 
 	static getUpdateDateBadge( update_date ){
 		if( !Boolean( update_date ) ) return "";
+
+		// Display the update date. 
+		// If more than a year has passed since the last update date, emphasize with pulse.
 		var ret = `<span class="badge new ${(this._moreThanYearHasPassed(update_date))? "pulse" : ""}" data-badge-caption="">${this.getUpdateDate(update_date)}</span>`;
 
+		// Display an icon if more than one year has passed since the last update date.
 		if(this._moreThanYearHasPassed(update_date)){
 			ret += `<span class="tiny material-icons red-text">error_outline</i></span>`;
 		}
@@ -367,25 +371,25 @@ class PersonalInformationUtil {
 	}
 
 	/**
-	 * 1年以上前の日付か判定する
-	 * @param date_string 日付(文字列：yyyy/mm/dd )
+	 * Determine if the date is more than a year old 
+	 * @param date_string Date (string: yyyy/mm/dd) 
 	 * @return
-	 		1年以上前の日付である: true
-			1年以内の日付でない: false
-			無効値: false
+	 		Dated more than a year ago : true
+			Not dated within 1 year : false
+			Invalid value : false
 	 */
 	static _moreThanYearHasPassed( date_string ){
 
 		var in_date = new Date( date_string );
 
-		// 基準日
+		// Reference date
 		var base_date = new Date();
 		base_date.setFullYear( base_date.getFullYear() - 1);
 
-		// 無効な日付はfalseとする
+		// Invalid date is false 
 		if( isNaN( in_date )  ) return false;
 
-		// 基準日より新しい日付はfalse
+		// Dates newer than the base date are false
 		if( base_date < in_date ) return false;
 
 		return true;
@@ -3569,11 +3573,12 @@ function update_date(){
 	$('#last_update_date').empty().append(PersonalInformationUtil.getLastUpdateDate( personal_information ));
 
 
-	if( PersonalInformationUtil.getLastUpdateDate( personal_information ).length == 0 ){
-		$("#last_update_date").closest('.row').hide()
-	}else{
+	// If the last update date is a valid value, the last update date is displayed. 
+	$("#last_update_date").closest('.row').hide();
+	if( Boolean(PersonalInformationUtil.getLastUpdateDate( personal_information ) ) ){
 		$("#last_update_date").closest('.row').show();
 
+		// If the last update date is more than a year ago, emphasize with pulse 
 		$("#last_update_date").closest('.badge').removeClass('pulse');
 		if( PersonalInformationUtil._moreThanYearHasPassed(PersonalInformationUtil.getLastUpdateDate( personal_information )))
 			$("#last_update_date").closest('.badge').addClass('pulse');	
