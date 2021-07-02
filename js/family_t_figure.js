@@ -35,6 +35,14 @@ class GenerationalFamilyMembers {
 		i18n.init(option, function () {
 			$(".translate").i18n();
 		});
+
+        // 世代別家系構成人数アイコンをクリックすると編集画面を表示する
+        $(targetId + " .cursor_pointer").unbind().on('click', function(){
+            PersonalInformationUtil.openFamilyMemberHealthHistoryDialog( this );
+        });
+
+        // 世代別家系構成人数アイコンにマウスオーバーすると世代別家系構成人数アイコンが示す人物名を表示する
+        $(targetId + " .tooltipped").tooltip();
     }
 
     _getNumberOfRelationship( relationshipIds ){
@@ -49,7 +57,9 @@ class GenerationalFamilyMembers {
         var icons = $('<div>').addClass('col s12');
 
         persons.forEach(function( person ){
-            var fig = $('<i>').addClass('material-icons green-text').css('opacity', person.opacity ).text('person');
+            var fig = $('<i>').addClass('material-icons green-text tooltipped cursor_pointer').css('opacity', person.opacity ).text('person')
+            .attr('data-position', 'bottom').attr('data-tooltip', person.name)
+            .attr('relationship_id', person.relationship_id);
             icons.append(fig);
         });
 
@@ -97,7 +107,8 @@ class GenerationalFamilyMembers {
 			id: 1,
 			hidden: true,
 			no_parent: true,
-			children: []
+			children: [],
+            relationship_id: ""
 		};
 
 		var pi = this.pi[relationship_id];
@@ -105,6 +116,7 @@ class GenerationalFamilyMembers {
 		node.id = pi.id;
 		node.hidden = false;
 		node.opacity = this._getOpacity(pi);
+        node.relationship_id = relationship_id;
 
 		return node;
 	};

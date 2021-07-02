@@ -360,6 +360,17 @@ class PersonalInformationUtil {
 
 		return d1;
 	}
+
+	static openFamilyMemberHealthHistoryDialog( that ){
+                // 引数が空(undefined, null , "")の場合は以降の処理をしない
+		if( !Boolean(that) ) return ;
+		if( !Boolean($(that).attr('relationship_id')) ) return ;
+
+		var family_member = personal_information[$(that).attr('relationship_id')];
+		family_member.relationship = $(that).attr('relationship_id');
+		clear_and_set_current_family_member_health_history_dialog(family_member);
+		$( "#update_family_member_health_history_dialog" ).dialog( "open" );
+	}
 }
 
 function getLang(){
@@ -5205,18 +5216,18 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
     		$('input[name="training_status3"]').val([family_member.training_time_for_training_at_week]);
     		$('input[name="training_status3"]').prop('disabled',false);
 		} else { // いいえ・分からない、の場合
-        	document.getElementById("training_strength_family").value = "";
-        	document.getElementById("count_for_training_at_week_family").value = "";
-        	document.getElementById("time_for_training_at_week_family").value = "";
+			$('select[name="training_status1"]  option').removeAttr('selected');
+			$('input[name="training_status2"]').val('');
+			$('input[name="training_status3"]').val('');
     		$('select[name="training_status1"]').prop('disabled',true);
     		$('input[name="training_status2"]').prop('disabled',true);
     		$('input[name="training_status3"]').prop('disabled',true);
 		}
 	} else {
 		$('input[name="training_family"]').prop('checked', false);
-    	document.getElementById("training_strength_family").value = "";
-    	document.getElementById("count_for_training_at_week_family").value = "";
-    	document.getElementById("time_for_training_at_week_family").value = "";
+		$('select[name="training_status1"]  option').removeAttr('selected');
+		$('input[name="training_status2"]').val('');
+		$('input[name="training_status3"]').val('');
 		$('select[name="training_status1"]').prop('disabled',true);
 		$('input[name="training_status2"]').prop('disabled',true);
 		$('input[name="training_status3"]').prop('disabled',true);
@@ -5228,9 +5239,9 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
     		$('input[name="training_status2"]').prop('disabled',false);
     		$('input[name="training_status3"]').prop('disabled',false);
         } else {
-        	document.getElementById("training_strength_family").value = "";
-        	document.getElementById("count_for_training_at_week_family").value = "";
-        	document.getElementById("time_for_training_at_week_family").value = "";
+			$('select[name="training_status1"]  option').removeAttr('selected');
+			$('input[name="training_status2"]').val('');
+			$('input[name="training_status3"]').val('');
         	$('select[name="training_status1"]').prop('disabled',true);
         	$('input[name="training_status2"]').prop('disabled',true);
         	$('input[name="training_status3"]').prop('disabled',true);
