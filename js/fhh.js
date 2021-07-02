@@ -3568,11 +3568,13 @@ function update_date(){
 	$('#current_date').empty().append(PersonalInformationUtil.getCurrentDate());
 	$('#last_update_date').empty().append(PersonalInformationUtil.getLastUpdateDate( personal_information ));
 
+
 	if( PersonalInformationUtil.getLastUpdateDate( personal_information ).length == 0 ){
 		$("#last_update_date").closest('.row').hide()
 	}else{
 		$("#last_update_date").closest('.row').show();
 
+		$("#last_update_date").closest('.badge').removeClass('pulse');
 		if( PersonalInformationUtil._moreThanYearHasPassed(PersonalInformationUtil.getLastUpdateDate( personal_information )))
 			$("#last_update_date").closest('.badge').addClass('pulse');	
 	}
