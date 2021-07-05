@@ -1083,13 +1083,20 @@ function start()
 		i18n.init(option, function () {
 			$(".translate").i18n();
 		});
+
+		// download CSV button click
+		$(".download_csv_for_ftree").on('click', function(){
+			make_csv();
+		});
+
+		// close buttons
+		$('.closeShowFamilyTableButton').on('click', function(){
+			$("#familyTable").dialog('close');
+		});
 	});
 
-	$("#showFamilyTable").on("click", function() {
-
+	$("#navViewDiagram").on("click", function() {
 		$("#familyTable").dialog("open");
-		load_risk_links();
-
 	});
 
 	// compensation dialog
@@ -1106,19 +1113,12 @@ function start()
 //     family pedigree diagram dialog
 //    $("#family_pedigree").load ("family_pedigree.html", function () {});
 
-	$("#navViewDiagram").on("click", function() {
-		//xmlload();
-	});
-
 	$("#navCopyFamily").on("click", function() {
      $("#copy_for_family_member").dialog("open");
      build_copy_for_family_member_dialog();
   });
 
-//	$("#download_csv").on("click", function() {
-//		//alert ("trigger");
-//		make_csv();
-//	});
+
 
 	$("#copy_for_family_member").dialog({
 		title:$.t("fhh_js.family_member_copy_dialog_title"),
