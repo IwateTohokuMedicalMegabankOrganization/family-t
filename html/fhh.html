@@ -187,8 +187,9 @@ body {
 						<span class="material-icons large-size green-text cursor_pointer icon_shadow">report_problem</span>
 						<span class="translate" data-i18n="family-t.check_your_risk">リスク判定</span>
 						</span>
-
-						<span id="navViewDiagram" class="cursor_pointer" ng-click="openDiagramTable(true)" ng-controller="fhhController">
+						<!-- Inactivate openDiagramTable -->
+						<!-- <span id="navViewDiagram" class="cursor_pointer" ng-click="openDiagramTable(true)" ng-controller="fhhController"> -->
+						<span class="cursor_pointer">
 							<span class="material-icons large-size green-text cursor_pointer icon_shadow">print</span>
 							<span class="translate" data-i18n="family-t.export_pedigree">家系図印刷</span>
 						</span>
@@ -500,7 +501,7 @@ body {
 							<div id='lifestyle_score_calculator_dialog' style="background: #ffffff !important;"></div>
 							<div id='quality_of_family_history_score_dialog' style="background: #ffffff !important;"></div>
 							<div id='family-t_qof_history_score_help_dialog' style="background: #ffffff !important;"></div>
-							<div id='familyTable'></div>
+							<div id='familyTable'>aaaa</div>
 							<div id='family_t_tree_dialog'>
 								<div class="row">
 									<div class="col s12 text-right">
