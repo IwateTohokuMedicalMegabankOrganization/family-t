@@ -281,7 +281,16 @@ class PersonalInformationUtil {
 
 	static getUpdateDateBadge( update_date ){
 		if( !Boolean( update_date ) ) return "";
-		return `<span class="badge new" data-badge-caption="">${this.getUpdateDate(update_date)}</span>`;
+
+		// Display the update date. 
+		// If more than a year has passed since the last update date, emphasize with pulse.
+		var ret = `<span class="badge new ${(this._moreThanYearHasPassed(update_date))? "pulse" : ""}" data-badge-caption="">${this.getUpdateDate(update_date)}</span>`;
+
+		// Display an icon if more than one year has passed since the last update date.
+		if(this._moreThanYearHasPassed(update_date)){
+			ret += `<span class="tiny material-icons red-text">error_outline</i></span>`;
+		}
+		return ret;
 	}
 
 	static _getRelationCodeMaps(){
@@ -359,6 +368,31 @@ class PersonalInformationUtil {
 		if( date1 < date2 ) return d2;
 
 		return d1;
+	}
+
+	/**
+	 * Determine if the date is more than a year old 
+	 * @param date_string Date (string: yyyy/mm/dd) 
+	 * @return
+	 		Dated more than a year ago : true
+			Not dated within 1 year : false
+			Invalid value : false
+	 */
+	static _moreThanYearHasPassed( date_string ){
+
+		var in_date = new Date( date_string );
+
+		// Reference date
+		var base_date = new Date();
+		base_date.setFullYear( base_date.getFullYear() - 1);
+
+		// Invalid date is false 
+		if( isNaN( in_date )  ) return false;
+
+		// Dates newer than the base date are false
+		if( base_date < in_date ) return false;
+
+		return true;
 	}
 
 	static openFamilyMemberHealthHistoryDialog( that ){
@@ -3538,9 +3572,17 @@ function update_date(){
 	$('#current_date').empty().append(PersonalInformationUtil.getCurrentDate());
 	$('#last_update_date').empty().append(PersonalInformationUtil.getLastUpdateDate( personal_information ));
 
-	( PersonalInformationUtil.getLastUpdateDate( personal_information ).length == 0 )?
-		$("#last_update_date").closest('.row').hide()
-		: $("#last_update_date").closest('.row').show();
+
+	// If the last update date is a valid value, the last update date is displayed. 
+	$("#last_update_date").closest('.row').hide();
+	if( Boolean(PersonalInformationUtil.getLastUpdateDate( personal_information ) ) ){
+		$("#last_update_date").closest('.row').show();
+
+		// If the last update date is more than a year ago, emphasize with pulse 
+		$("#last_update_date").closest('.badge').removeClass('pulse');
+		if( PersonalInformationUtil._moreThanYearHasPassed(PersonalInformationUtil.getLastUpdateDate( personal_information )))
+			$("#last_update_date").closest('.badge').addClass('pulse');	
+	}
 }
 
 function build_family_history_data_table () {
@@ -3862,7 +3904,7 @@ function add_personal_history_row(table, is_sort_only) {
 	new_row.append("<td class='action remove_history'>&nbsp;</td>");
 
 	// Update Date
-	new_row.append("<td class='action center'>" + PersonalInformationUtil.getUpdateDateBadge( personal_information["update_date"] ) + "&nbsp;</td>");
+	new_row.append("<td class='action center' style='white-space: nowrap;'>" + PersonalInformationUtil.getUpdateDateBadge( personal_information["update_date"] ) + "</td>");
 
 	table.append(new_row);
 }
@@ -3948,7 +3990,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	if(is_sort_only) {
 		new_row.append("<td class='center action update_history'>&nbsp;</td>");
 		new_row.append("<td class='action center remove_history'>&nbsp;</td>")
-		new_row.append("<td class='action center'>" + PersonalInformationUtil.getUpdateDateBadge( family_member['update_date'] ) + "&nbsp;</td>");
+		new_row.append("<td class='action center' style='white-space: nowrap;'>" + PersonalInformationUtil.getUpdateDateBadge( family_member["update_date"] ) + "</td>");
 		table.append(new_row);
 		return;
 	}
@@ -4014,8 +4056,8 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		new_row.append(remove_history_td);
 	} else new_row.append("<td class='action center remove_history'>&nbsp;</td>");
 
-	new_row.append("<td class='action center'>" + PersonalInformationUtil.getUpdateDateBadge( family_member['update_date'] ) + "&nbsp;</td>");
-
+	new_row.append("<td class='action center' style='white-space: nowrap;'>" + PersonalInformationUtil.getUpdateDateBadge( family_member["update_date"] ) + "</td>");
+	
 	table.append(new_row);
 }
 
