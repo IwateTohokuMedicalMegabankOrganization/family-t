@@ -1032,7 +1032,8 @@
 		"healthy":"健康",
 		"download_xml":"ダウンロード",
 		"leave_this_site":"このサイトを離れる",
-		"mandatory_health_history": "健康または病気の状態を登録してください。健康の場合は、健康を選択して登録ボタンを押してください。",
+		"mandatory_health_history_self": "健康または病気の状態を登録してください。健康の場合は、健康を選択して登録ボタンを押してください。",
+		"mandatory_health_history_family": "健康または病気の状態を登録してください。健康の場合は、健康を選択して登録ボタンを押してください。",
 		"update_date": "更新日",
 		"current_date": "現　　　在",
 		"last_update_date": "最終更新日"
