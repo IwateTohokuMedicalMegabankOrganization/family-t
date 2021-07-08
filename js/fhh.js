@@ -284,7 +284,7 @@ class PersonalInformationUtil {
 
 		// Display the update date. 
 		// If more than a year has passed since the last update date, emphasize with pulse.
-		var ret = `<span class="badge new ${(this._moreThanYearHasPassed(update_date))? "pulse" : ""}" data-badge-caption="">${this.getUpdateDate(update_date)}</span>`;
+		var ret = `<span class="badge new" data-badge-caption="">${this.getUpdateDate(update_date)}</span>`;
 
 		// Display an icon if more than one year has passed since the last update date.
 		if(this._moreThanYearHasPassed(update_date)){
@@ -3577,11 +3577,6 @@ function update_date(){
 	$("#last_update_date").closest('.row').hide();
 	if( Boolean(PersonalInformationUtil.getLastUpdateDate( personal_information ) ) ){
 		$("#last_update_date").closest('.row').show();
-
-		// If the last update date is more than a year ago, emphasize with pulse 
-		$("#last_update_date").closest('.badge').removeClass('pulse');
-		if( PersonalInformationUtil._moreThanYearHasPassed(PersonalInformationUtil.getLastUpdateDate( personal_information )))
-			$("#last_update_date").closest('.badge').addClass('pulse');	
 	}
 }
 
