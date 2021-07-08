@@ -1025,7 +1025,8 @@
 		"nav_help": "Help for your family health history",
 		"update_date": "Update date",
 		"current_date":     "Now             ",
-		"last_update_date": "Last update date"
+		"last_update_date": "Last update date",
+		"more_than_a_year_has_passed_from_updated": "More than a year has passed since the update." 
 	},
 	"family-t_risk": {
 		"exp1": "The results calculated herein are based on research findings reported to date.",

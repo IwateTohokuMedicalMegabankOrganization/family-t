@@ -1036,7 +1036,8 @@
 		"mandatory_health_history_family": "健康または病気の状態を登録してください。健康の場合は、健康を選択して登録ボタンを押してください。",
 		"update_date": "更新日",
 		"current_date": "現　　　在",
-		"last_update_date": "最終更新日"
+		"last_update_date": "最終更新日",
+		"more_than_a_year_has_passed_from_updated": "最後の更新から1年以上経っています。" 
 	},
 	"family-t_risk": {
 		"fasting_blood_glucose_level_is126": "空腹時血糖値が126以上",

@@ -284,11 +284,11 @@ class PersonalInformationUtil {
 
 		// Display the update date. 
 		// If more than a year has passed since the last update date, emphasize with pulse.
-		var ret = `<span class="badge new ${(this._moreThanYearHasPassed(update_date))? "pulse" : ""}" data-badge-caption="">${this.getUpdateDate(update_date)}</span>`;
+		var ret = `<span class="badge new" data-badge-caption="">${this.getUpdateDate(update_date)}</span>`;
 
 		// Display an icon if more than one year has passed since the last update date.
 		if(this._moreThanYearHasPassed(update_date)){
-			ret += `<span class="tiny material-icons red-text">error_outline</i></span>`;
+			ret += `<span class="tiny material-icons red-text moreThanYearHasPassed">error_outline</span>`;
 		}
 		return ret;
 	}
@@ -3577,12 +3577,13 @@ function update_date(){
 	$("#last_update_date").closest('.row').hide();
 	if( Boolean(PersonalInformationUtil.getLastUpdateDate( personal_information ) ) ){
 		$("#last_update_date").closest('.row').show();
-
-		// If the last update date is more than a year ago, emphasize with pulse 
-		$("#last_update_date").closest('.badge').removeClass('pulse');
-		if( PersonalInformationUtil._moreThanYearHasPassed(PersonalInformationUtil.getLastUpdateDate( personal_information )))
-			$("#last_update_date").closest('.badge').addClass('pulse');	
 	}
+
+	// Displayed when there is one or more items that have been updated for more than one year. 
+	( $('#history_summary_table .moreThanYearHasPassed').length )?
+		$('#supplementary_explanation_moreThanYearHasPassed').show()
+		: $('#supplementary_explanation_moreThanYearHasPassed').hide();
+
 }
 
 function build_family_history_data_table () {
