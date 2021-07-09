@@ -1068,7 +1068,7 @@ function start()
 
 	// 家系図印刷
 	$("#familyTable").dialog({
-		title: "家系図",
+		title: $.t("family-t.export_pedigree"),
 		position: ['top',0],
 		autoOpen: false,
 		resizable: false,

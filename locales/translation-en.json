@@ -733,7 +733,7 @@
 		"share_data": "Share Data",
 		"check_your_score": "Lifestyle Score",
 		"check_your_risk": "Check Your Risk",
-		"export_pedigree": "Export Pedigree",
+		"export_pedigree": "Export Pedigree (For healthcare professionals)",
 		"questionnaire": "Questionnaire",
 		"start_over": "Start Over",
 		"click": "Click",
@@ -1162,6 +1162,10 @@
 		"csv_download": "Download CSV file",
 		"table_of_family_deseases_and_conditions": "Table of Family Diseases and Conditions",
 		"always_shown": "(Six common conditions your doctor should know about are always shown)",
-		"top": "Top"
+		"top": "Top",
+		"how_to_display": "How to display a family tree using f-tree",
+		"how_to_display_download_and_install_ftree": "Download and install f-tree.",
+		"how_to_display_download_csv": "Download CSV.",
+		"how_to_display_load_csv": "Read CSV with f-tree."
 	}
 }
