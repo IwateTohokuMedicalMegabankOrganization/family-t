@@ -6,3 +6,4 @@ static/.DS_Store
 static/images/.DS_Store
 js/package-lock.json
 /.vscode
+/package-lock.json
