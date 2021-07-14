@@ -7,8 +7,14 @@ stages:
 # test
 ut:
   stage: test
+  tags: 
+    - shared
   script:
-    - echo "do module test"
+    - npm install
+    - npm run test -- --coverage
+  artifacts:
+    paths:
+    - coverage
 
 ## review
 deploy_for_review:
