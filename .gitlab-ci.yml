@@ -17,7 +17,7 @@ ut:
     - npm run test -- --coverage
   artifacts:
     paths:
-    - coverage
+    - __tests__/__coverage__/
 
 ## review
 deploy_for_review:
