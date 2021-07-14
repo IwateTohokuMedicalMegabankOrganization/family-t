@@ -1,31 +1,24 @@
-# GitLabのパイプライン設定
-# 要求：
-# ブランチにプッシュされたとき
-#  - 社内サーバを更新する（ブランチ名で公開する）
-# developにマージされたとき(= developがプッシュされたとき)
-
 stages:
-  - build
-  - deploy_review
+  - test
+  - review
   - analysis
   - deploy
 
-# 社内ビルド
-build:
-  stage: build
+# test
+ut:
+  stage: test
+  script:
+    - echo "do module test"
+
+## review
+deploy_for_review:
+  stage: review
   tags: 
     - review_deploy
   script:
     - echo "update family-t mss demo server contents"
     - mkdir -p /var/www/html/$CI_COMMIT_REF_SLUG
     - cp -rf ./* /var/www/html/$CI_COMMIT_REF_SLUG/
-
-## レビュー
-deploy_review:
-  stage: deploy
-  tags: 
-    - review_deploy
-  script:
     - echo "Deploy a review app"
   environment:
     name: review/$CI_COMMIT_REF_NAME
@@ -35,7 +28,7 @@ deploy_review:
   except:
     - master
     
-# リリース
+# release
 deploy:
   stage: deploy
   script:
@@ -43,8 +36,8 @@ deploy:
   only:
     - develop
 
-# 静的解析
-analysis:
+# SonarQube analysis
+SonarQube:
   stage: analysis
   tags: 
     - shared
