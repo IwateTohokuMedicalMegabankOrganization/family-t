@@ -1,6 +1,5 @@
 stages:
   - test
-  - review
   - analysis
   - deploy
 
@@ -8,8 +7,7 @@ stages:
 ut:
   stage: test
   tags: 
-    - shared
-  image: node:latest
+    - review_deploy
   script:
     - npm install
     - npm run test -- --coverage
@@ -19,7 +17,7 @@ ut:
 
 ## review
 deploy_for_review:
-  stage: review
+  stage: test
   tags: 
     - review_deploy
   script:
