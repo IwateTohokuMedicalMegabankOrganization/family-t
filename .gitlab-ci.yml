@@ -59,5 +59,4 @@ SonarQube:
     - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.projectKey=family-t -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.sourceEncoding=${SOURCE_ENCODING}
   allow_failure: true
   only:
-    - 65-ci-sonarqube-sonarqube
-    # - develop
+    - develop
