@@ -115,8 +115,6 @@ $(function(){
 		$("#save_personal_history_dialog" ).dialog("close");
 	});
 
-	loadOldList();
-
 	$('#selectedCreatedDatetime').on('change', function(){
 		_setCreated_timestamp();
 	});
