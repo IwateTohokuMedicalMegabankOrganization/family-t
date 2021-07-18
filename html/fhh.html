@@ -123,17 +123,6 @@ body {
 
 </head>
 <body ng-app="myApp">
-	<!-- Dropbox Integration -->
-	<!-- Need to dynamically create the script tag as the data-app-key comes from the keys.js file -->
-	<script type="text/javascript">
-			if (typeof DROPBOX_APP_KEY != 'undefined')  {
-			  var s = document.createElement( 'script' );
-			  s.setAttribute( 'src', "../static/js/dropbox_dropins.js" );
-			  s.setAttribute( 'id', "dropboxjs" );
-			  s.setAttribute( 'data-app-key', DROPBOX_APP_KEY );
-			  document.body.appendChild( s );
-			}
-	</script>
 
 	<div class="container">
 		<header>
