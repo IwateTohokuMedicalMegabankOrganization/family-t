@@ -867,12 +867,12 @@
 		"are_you_taking_antihypertensive_drugs": "降圧剤（血圧を下げる薬）を服用していますか？",
 		"maximum_blood_pressure": "最高血圧（mmHg）",
 		"minimum_blood_pressure": "最低血圧（mmHg）",
-		"are_you_currently_taking_a_hypoglycemic_agent?": "血糖降下薬を服用していますか？ ",
+		"are_you_currently_taking_a_hypoglycemic_agent?": "血糖値を下げる薬を服用していますか？ ",
 		"fasting_blood_glucose_(mg/dl)": "空腹時血糖値（mg/dL）",
 		"a_blood_glucose_level_of_126_or_higher_is_regarded_as_“diabetic”": "血糖値126以上は「糖尿病型」と判定されます",
-		"casual_blood_glucose_(mg/dl)_(blood_glucose_tested_at_any_time_of_the_day)": "随時血糖値（mg/dL）（食事の時間と関係なく測定した血糖値）",
+		"casual_blood_glucose_(mg/dl)_(blood_glucose_tested_at_any_time_of_the_day)": "食事の時間と関係なく測定した血糖値：随時血糖値（mg/dL）",
 		"a_casual_blood_glucose_level_of_200_or_higher_is_regarded_as_“diabetic”.": "随時血糖値200以上は「糖尿病型」と判定されます",
-		"oral_glucose_tolerance_test_(ogtt)_two-hour_blood_glucose_(mg/dl)": "75g経口糖負荷試験（OGTT）２時間値（mg/dL）",
+		"oral_glucose_tolerance_test_(ogtt)_two-hour_blood_glucose_(mg/dl)": "75ｇ経口ブドウ糖負荷試験2時間後の血糖値：75gOGTT 2時間値（mg/dL）",
 		"ogtt_two-hour_blood_glucose_level_of_200_or_higher_is_regarded_as_“diabetic”": "75g経口糖負荷試験200以上は「糖尿病型」と判定されます",
 		"hba1c_(%)": "HbA1c（%）",
 		"an_hba1c_level_of_6.5_or_higher_is_regarded_as_“diabetic”": "HbA1c 6.5 以上は「糖尿病型」と判定されます",
@@ -1038,7 +1038,10 @@
 		"update_date": "更新日",
 		"current_date": "現　　　在",
 		"last_update_date": "最終更新日",
-		"more_than_a_year_has_passed_from_updated": "最後の更新から1年以上経っています。" 
+		"more_than_a_year_has_passed_from_updated": "最後の更新から1年以上経っています。" ,
+		"explain_fasting_blood_glucose": "10時間以上絶食後の早朝空腹時の血糖値",
+		"explain_ogtt_blood_glucose": "糖を飲んだ後、2時間の血糖値。糖尿病の診断や、境界型の診断をする時に行われます。",
+		"explain_hba1c": "過去（1～2ヶ月）の血糖の状態を把握することができます。血糖コントロールの指標として重要な検査です。"
 	},
 	"family-t_risk": {
 		"fasting_blood_glucose_level_is126": "空腹時血糖値が126以上",
