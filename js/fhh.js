@@ -537,7 +537,7 @@ function start()
 		bind_help_button_action( 'ogtt_blood_glucose' );
 		bind_help_button_action( 'hba1c' );
 
-		// clear_and_set_personal_health_history_dialog();
+		clear_and_set_personal_health_history_dialog();
 		// $("#help_dialog").load ("update-help.html");
 
 
@@ -5903,7 +5903,7 @@ function clear_and_set_personal_health_history_dialog() {
 		}
 
 	});
-
+	
 	$('.md_tr[row_number]').each(function () {
 		$(this).remove();
 	});
@@ -6130,6 +6130,7 @@ function check_age_diagage_validity(personal_age, diag_age) {
 
 // 年齢計算（本人）
 function calc_personal_age() {
+	if( !$("#personal_info_form_year_of_birth").val() ) return 0;
 	var birthyear = $("#personal_info_form_year_of_birth").val().toString().padStart(4, '0');
 	if ( $("#personal_info_form_month_of_birth").val() == null ) {
 		var birthmonth = "01";
