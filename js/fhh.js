@@ -1327,32 +1327,6 @@ function start()
 
 	// Hide dialog close button
 	$(".ui-dialog-titlebar-close").hide();
-
-	// $("#family_t_tree_dialog").dialog({
-	// 	title:$.t("fhh_js.family_t_tree_dialog"),
-	// 	position:['middle',0],
-	// 	autoOpen: false,
-	// 	height: 'auto',
-	// 	width: ['96%'],
-	// 	open: function(){
-	// 		// 高さ
-	// 		$('#family_t_tree_dialog').css('height', $(window).outerHeight() * 0.93  );
-	// 		$('#enlargedView').css('height', $('#family_t_tree_dialog').height() - 280 );
-	// 		// 描画
-	// 		( new FamilyTree( personal_information ) ).draw( '#enlargedView' , true );
-	// 	},
-	// 	close: function(){
-	// 		$('#enlargedView').empty();
-	// 	}
-	// });
-
-	// $('.closeFamilyTreeDialogButton').on('click', function(){
-	// 	$('#family_t_tree_dialog').dialog('close');
-	// });
-
-	// $('#graph').on('click', function(){
-	// 	$("#family_t_tree_dialog").dialog('open');
-	// });
 }
 
 // ライフスタイルスコア計算の不足項目があるかチェックする関数
