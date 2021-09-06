@@ -30,7 +30,7 @@
 
 <div class="row" style="padding-top: 10px;">
 	
-	<div class="col s12 m12 l6 pull-left form edit_form" summary="Enter personal information." style="padding-top: 1em; padding-bottom:1em;">
+	<div class="col s12 m12 l12 pull-left form edit_form" summary="Enter personal information." style="padding-top: 1em; padding-bottom:1em;">
 		<div class="edit_form_tr">
 			<div class="edit_form_label_area" style="white-space: nowrap; padding-right: 1em;">
 				<label for="personal_info_form_name" class="label">
@@ -312,6 +312,7 @@
 		<div class="edit_form_tr">
 			<div class="edit_form_label_area">
 				<label><span class="label">BMI</span></label>
+				<span class="bmi-help material-icons medium-size green-text cursor_pointer">help_outline</span>
 			</div>
 			<div class="edit_form_input_area" style="display: inline-flex;">
 				<span id="personal_bmi"></span>
@@ -349,6 +350,7 @@
 		<div class='edit_form_tr'>
 			<div class='edit_form_label_area'>
 				<label><span class='label'>WHR</span></label>
+				<span class="whr-help material-icons medium-size green-text cursor_pointer">help_outline</span>
 			</div>
 			<div class='edit_form_input_area' style='display: inline-flex;'>
 				<span id='additional_information_wh_ratio'></span>
@@ -356,29 +358,7 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="col s12 m12 l6">
-    	<div class="spanheight box">
-			<span class="box-title">BMI</span>
-			<p>
-				<span class='label translate' data-i18n="family-t.explain_bmi" >
-					Clinical diagnosis of obesity is based on the Body Mass Index (BMI) calculated from an individual’s height and weight. BMI is calculated using the formula “weight (kg) ÷ height (m)².” According to the criteria set by the Japan Society for the Study of Obesity , a BMI of 22 is standard and statistically least susceptible to illness, while obesity is defined as having a BMI of 25 or higher.
-				</span>
-			</p>
-		</div>
-
-   		<div class="box box-title">
-			<span class="box-title">WHR</span>
-			<p>
-			<span class='label translate' data-i18n="family-t.explain_whr" >
-				The waist-to-hip ratio (W/H ratio) is used as a physical index of obesity. It is calculated as “abdominal circumference (cm) ÷ hip circumference (cm).” This measurement is used to determine an individual’s obesity subclass with respect to body type, which can be either “pear-shaped obesity” or “apple-shaped obesity.” A large W/H ratio indicates apple-shaped obesity (abdominal obesity) with fat accumulation in the upper body (abdomen), which is associated with a greater risk of various health complications. In the United States and Europe, the standard BMI is 1.0 for men and 0.9 for women. For obese people exclusively, W/H ratio seems to be a more robust index for assessing obesity than BMI, which is used internationally. However, W/H ratio is not as frequently measured in non-obese people with less subcutaneous fat, since W/H ratio is a relative ratio and is therefore not an appropriate index to infer body type. Therefore, the actual measured value of the waist circumference is used instead (Ministry of Health, Labour and Welfare  e-HealthNet ).
-			</span>
-			</p>
-	    </div>
-	</div>
-
 </div>
-
 
 <div class="title-bar"><span class="translate" data-i18n="family-t.smoking_status">Smoking status</span></div>
 <div class="row smoking_checked">
@@ -960,6 +940,7 @@
 		<div class="row">
 			<div class="col s5">
 				<span class='translate' data-i18n='family-t.fasting_blood_glucose_(mg/dl)'>Fasting blood glucose (mg/dL)</span>
+				<span class="fasting_blood_glucose-help material-icons medium-size green-text cursor_pointer">help_outline</span>
 			</div>
 			<div class="col s7">
 				<div class="col s5">
@@ -1004,6 +985,7 @@
 		<div class="row">
 			<div class="col s5">
 				<span class='translate' data-i18n='family-t.oral_glucose_tolerance_test_(ogtt)_two-hour_blood_glucose_(mg/dl)'>Oral glucose tolerance test (OGTT) two-hour blood glucose (mg/dL)</span>
+				<span class="ogtt_blood_glucose-help material-icons medium-size green-text cursor_pointer">help_outline</span>
 			</div>
 			<div class="col s7">
 				<div class="col s5">
@@ -1025,6 +1007,7 @@
 		<div class="row">
 			<div class="col s5">
 				<span class='translate' data-i18n='family-t.hba1c_(%)'>HbA1c (%)</span>
+				<span class="hba1c-help material-icons medium-size green-text cursor_pointer">help_outline</span>
 			</div>
 			<div class="col s7">
 				<div class="col s5">

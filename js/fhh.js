@@ -484,6 +484,19 @@ $(document).ready(function() {
 	}
 });
 
+function startHelpDialogs(){
+  // BMI help dialog
+  help_dialog( 'bmi', 'fhh_diabetes_calculator.bmi' );
+  // WHR help dialog
+  help_dialog( 'whr', 'WHR' );
+  // 空腹時血糖値（mg/dL） help dialog
+  help_dialog( 'fasting_blood_glucose', 'family-t.fasting_blood_glucose_(mg/dl)' );
+  // 75ｇ経口糖負荷試験（OGTT）2時間値（mg/dL）
+  help_dialog( 'ogtt_blood_glucose', 'family-t.oral_glucose_tolerance_test_(ogtt)_two-hour_blood_glucose_(mg/dl)' );
+  // HbA1c help dialog
+  help_dialog( 'hba1c', 'family-t.hba1c_(%)' );
+}
+
 function start()
 {
 
@@ -507,6 +520,8 @@ function start()
 		$("#dropbox_save").attr("href", "data:application/xml," + JSON.stringify(personal_information, null, 2));
 	});
 
+	startHelpDialogs();
+
 	// personal_information_dialog
 	$("#add_personal_information_dialog").load ("add_personal_information_dialog.html", function () {
 		build_personal_health_information_section();
@@ -514,6 +529,14 @@ function start()
 		bind_personal_submit_button_action();
 		bind_personal_cancel_button_action();
 		bind_personal_help_button_action();
+
+		// Open BMI help dialog
+		bind_help_button_action( 'bmi', false);
+		bind_help_button_action( 'whr', false );
+		bind_help_button_action( 'fasting_blood_glucose' );
+		bind_help_button_action( 'ogtt_blood_glucose' );
+		bind_help_button_action( 'hba1c' );
+
 		// clear_and_set_personal_health_history_dialog();
 		// $("#help_dialog").load ("update-help.html");
 
@@ -2487,6 +2510,33 @@ function cancel_add_personal_information() {
 
 	cancel_before_create_family_members();
 	$("#add_personal_information_dialog").dialog("close");
+}
+
+function help_dialog(prefix, i18n_title_key) {
+	$("#" + prefix + "-help_dialog").dialog({
+		title: $.t(i18n_title_key),
+		position: ['middle', 'center'],
+		autoOpen: false,
+		height: 'auto',
+		width: 600
+	});
+}
+
+function bind_help_button_action(prefix, ja_only = true) {
+
+	if( ja_only && ( getLang() != 'ja' ) ){
+		$("." + prefix + "-help").hide();
+		return;
+	}
+
+	$("." + prefix + "-help").on("click", function () {
+		$("#" + prefix + "-help_dialog").dialog("open");
+
+		// 閉じるボタン
+		$("#" + prefix + "-help_dialog").find('.closeHelpDialogButton').on('click', function () {
+			$("#" + prefix + "-help_dialog").dialog('close');
+		});
+	});
 }
 
 function bind_personal_help_button_action () {
