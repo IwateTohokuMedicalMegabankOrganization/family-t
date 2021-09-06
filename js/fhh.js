@@ -5369,7 +5369,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 		current_health_history = family_member['Health History'];
 		for (var i=0; i<current_health_history.length;i++) {
 
-			if(current_health_history[i]['Disease Code'] == 'Healthy' ){
+			if(current_health_history[i]['Disease Name'] == 'Healthy' ){
 				data_entry_row.hide();
 				data_entry_row.find("#disease_choice_select option[value='Healthy']").show();
 			} 
