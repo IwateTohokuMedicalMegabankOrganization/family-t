@@ -509,7 +509,7 @@ function start()
 
 	$("#why_ask_ashkenazi_dialog").dialog({
 		title:$.t("fhh_js.ashkenazi"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:250,
 		width:350
@@ -592,7 +592,7 @@ function start()
 
 	$("#add_personal_information_dialog").dialog({
 		title:$.t("fhh_js.pi"),
-		position:['middle',0],
+		position: {my: "center top", at: "center top", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:['98%'],
@@ -760,7 +760,7 @@ function start()
 
 	$("#update_family_member_health_history_dialog").dialog({
 		title:$.t("fhh_js.family_health_history_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:['95%'],
@@ -812,7 +812,7 @@ function start()
 
 	$("#load_personal_history_dialog").dialog({
 		title:$.t("fhh_js.load_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		closeOnEscape: true,
 		autoOpen: false,
 		resizable: false,
@@ -854,7 +854,7 @@ function start()
 
 	$("#save_personal_history_dialog").dialog({
 		title:$.t("fhh_js.save_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:800,
@@ -882,7 +882,7 @@ function start()
 
 	$("#add_all_family_members_dialog").dialog({
 		title:$.t("fhh_js.add_family_members_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:650
@@ -911,7 +911,7 @@ function start()
 	// Disease Risk Calculator
 	$("#disease_risk_calculator_dialog").dialog({
 		title:$.t("fhh_js.risk_calculator_dialog_title"),
-		position:['top',0],
+		position: {my: "center", at: "center", of: window},
 		resizable: false,
 		autoOpen: false,
 		height:'auto',
@@ -971,7 +971,7 @@ function start()
 	// 家族歴の質
 	$("#quality_of_family_history_score_dialog").dialog({
 		title:$.t("family-t_qof_history_score.title"),
-		position:['top',0],
+		position: {my: "center", at: "center", of: window},
 		resizable: false,
 		autoOpen: false,
 		height:'auto',
@@ -1006,7 +1006,7 @@ function start()
 	// 家族歴の質
 	$("#family-t_qof_history_score_help_dialog").dialog({
 		title:$.t("family-t_qof_history_score.title"),
-		position:['top',0],
+		position: {my: "center", at: "center", of: window},
 		resizable: false,
 		autoOpen: false,
 		height:'auto',
@@ -1037,7 +1037,7 @@ function start()
 	// Life Style Score Calculator
 	$("#lifestyle_score_calculator_dialog").dialog({
 		title:$.t("fhh_js.lifestyle_score_calculator_dialog_title"),
-		position:['top',0],
+		position: {my: "center", at: "center", of: window},
 		resizable: false,
 		autoOpen: false,
 		height:'auto',
@@ -1092,7 +1092,7 @@ function start()
 	// 家系図印刷
 	$("#familyTable").dialog({
 		title: $.t("family-t.export_pedigree"),
-		position: ['top',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		resizable: false,
 		height: 'auto',
@@ -1154,7 +1154,7 @@ function start()
 	// $("#help_dialog").load ("update-help.html", function () {});
 	$("#help_dialog").dialog({
 		title:$.t("fhh_js.help_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width: ['96%']
@@ -1163,7 +1163,7 @@ function start()
 	$("#update_help_dialog").load ("update-help.html", function () {});
 	$("#update_help_dialog").dialog({
 		title:$.t("fhh_js.update_help_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:600
@@ -1172,7 +1172,7 @@ function start()
 	$("#personal_help_dialog").load ("personal-help.html", function () {});
 	$("#personal_help_dialog").dialog({
 		title:$.t("fhh_js.add_help_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:600
@@ -1189,7 +1189,7 @@ function start()
 	}
 	$("#load_help_dialog").dialog({
 		title:$.t("fhh_js.load_help_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:600
@@ -1198,7 +1198,7 @@ function start()
 	$("#immediate_help_dialog").load ("immediate-help.html", function () {});
 	$("#immediate_help_dialog").dialog({
 		title:$.t("fhh_js.immediate_help_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:600
@@ -1845,7 +1845,7 @@ function bind_add_another_family_member_button_action() {
 		if ($("#new_family_member_dialog").length == 0) {
 			new_family_member_dialog = $("<div id='new_family_member_dialog'>");
 			new_family_member_dialog.dialog({
-				position:['middle',0],
+				position: {my: "center", at: "center", of: window},
 				title:$.t("fhh_js.define_family_relationship_dialog_title"),
 				height:'auto',
 				width:500
@@ -1859,7 +1859,7 @@ function bind_add_another_family_member_button_action() {
 		+ $.t("fhh_family_pedigree.close")
 		+ "</button>";
 		new_family_member_dialog.append($("<div class='row'></div>").append(
-			$("<div class='col s12 text-right'></div>").append(
+			$("<div class='right'></div>").append(
 				closeButton
 			)
 		));
@@ -2489,7 +2489,7 @@ function cancel_add_personal_information() {
 function help_dialog(prefix, i18n_title_key) {
 	$("#" + prefix + "-help_dialog").dialog({
 		title: $.t(i18n_title_key),
-		position: ['middle', 'center'],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height: 'auto',
 		width: 600
