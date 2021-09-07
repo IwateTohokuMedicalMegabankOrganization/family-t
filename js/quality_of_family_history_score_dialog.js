@@ -84,10 +84,32 @@ class QoFSupplementForm {
 			row.find('.health_histories').hide();
 		});
 		// 値の設定
-		row.find(`input:radio[name="${this._getName(QoFSupplementForm.QOF_HAS_DESEASE_PREFIX, pi.id )}"][value="${( typeof pi.has_desease == 'undefined' )? 'unknown' : pi.has_desease }"]`).prop('checked',true).trigger('change');
+		row.find(`input:radio[name="${this._getName(QoFSupplementForm.QOF_HAS_DESEASE_PREFIX, pi.id )}"][value="${healthHistoryValue() }"]`).prop('checked',true).trigger('change');
 
 
 		return row;
+
+		function healthHistoryValue() {
+			var healthHistory =	pi['Health History'];
+			// Healthy
+			if( healthHistory.length == 1 && healthHistory[0]['Disease Name'] == 'Healthy' ){
+				return "without";
+			}
+
+			// Unknown
+			if( healthHistory.length < 1 )
+				return "unknown";
+
+			// Unknown
+			for (var i = 0; i < healthHistory.length; i++) {
+				if( healthHistory[i]['Disease Name'] == 'Unknown' ){
+					return "unknown";
+				}
+			}
+
+			// Has desease
+			return "with";
+		}
 	}
 
 	_getHasDeseaseForm(pi){
