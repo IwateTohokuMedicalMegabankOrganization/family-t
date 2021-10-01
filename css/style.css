@@ -221,6 +221,21 @@ table#history_summary_table {
 	border-collapse: collapse;
 }
 
+table#history_summary_table thead{
+	border-bottom: solid 2px;
+	border-bottom-color: inherit;
+}
+
+table#history_summary_table tbody{
+	border-bottom: solid 0.1px;
+	border-bottom-color: inherit;
+}
+
+table#history_summary_table tbody tr{
+	border-bottom: solid 0.01px;
+	border-bottom-color: inherit;
+}
+
 .subsection{
 	vertical-align: bottom !important;
 }
