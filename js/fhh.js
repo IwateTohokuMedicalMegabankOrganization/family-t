@@ -4707,7 +4707,7 @@ function add_disease() {
 
 	$(this).parent().parent().find("#age_at_diagnosis_select").val($(this).parent().parent().find("#age_at_diagnosis_select").find('option').first().val());
 
-	if( disease_name == 'Healthy' ){
+	if( disease_name == 'Healthy' || disease_name == 'Unknown' ){
 		$(this).parent().parent().parent().find("#health_data_entry_row").hide();
 	}
 	toggleHealthyOption( $(this).parent().parent().parent() );
