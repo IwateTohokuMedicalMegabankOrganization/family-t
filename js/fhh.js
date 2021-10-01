@@ -462,12 +462,12 @@ $(document).ready(function() {
 	var lng = window.i18n.lng();
 
 	// get value of dropdown and set setLng param in URL //
-	$( ".language" ).change(function() {
+	$( ".language" ).on('change',function() {
 	  location.href="?setLng=" + $(".language").val();
 	});
 
 	// get value of dropdown and set setLng param in URL on fhh page //
-	$( ".language_fhh" ).change(function() {
+	$( ".language_fhh" ).on('change',function() {
 	  location.href="?action=create&setLng=" + $(".language_fhh").val();
 	});
 
@@ -509,14 +509,14 @@ function start()
 
 	$("#why_ask_ashkenazi_dialog").dialog({
 		title:$.t("fhh_js.ashkenazi"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:250,
 		width:350
 	});
 
 
-	$("#dropbox_save").click(function() {
+	$("#dropbox_save").on('click', function() {
 		$("#dropbox_save").attr("href", "data:application/xml," + JSON.stringify(personal_information, null, 2));
 	});
 
@@ -592,7 +592,7 @@ function start()
 
 	$("#add_personal_information_dialog").dialog({
 		title:$.t("fhh_js.pi"),
-		position:['middle',0],
+		position: {my: "center top", at: "center top", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:['98%'],
@@ -760,7 +760,7 @@ function start()
 
 	$("#update_family_member_health_history_dialog").dialog({
 		title:$.t("fhh_js.family_health_history_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:['95%'],
@@ -812,7 +812,7 @@ function start()
 
 	$("#load_personal_history_dialog").dialog({
 		title:$.t("fhh_js.load_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		closeOnEscape: true,
 		autoOpen: false,
 		resizable: false,
@@ -854,7 +854,7 @@ function start()
 
 	$("#save_personal_history_dialog").dialog({
 		title:$.t("fhh_js.save_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:800,
@@ -882,7 +882,7 @@ function start()
 
 	$("#add_all_family_members_dialog").dialog({
 		title:$.t("fhh_js.add_family_members_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:650
@@ -911,7 +911,7 @@ function start()
 	// Disease Risk Calculator
 	$("#disease_risk_calculator_dialog").dialog({
 		title:$.t("fhh_js.risk_calculator_dialog_title"),
-		position:['top',0],
+		position: {my: "center", at: "center", of: window},
 		resizable: false,
 		autoOpen: false,
 		height:'auto',
@@ -971,7 +971,7 @@ function start()
 	// 家族歴の質
 	$("#quality_of_family_history_score_dialog").dialog({
 		title:$.t("family-t_qof_history_score.title"),
-		position:['top',0],
+		position: {my: "center", at: "center", of: window},
 		resizable: false,
 		autoOpen: false,
 		height:'auto',
@@ -1006,7 +1006,7 @@ function start()
 	// 家族歴の質
 	$("#family-t_qof_history_score_help_dialog").dialog({
 		title:$.t("family-t_qof_history_score.title"),
-		position:['top',0],
+		position: {my: "center", at: "center", of: window},
 		resizable: false,
 		autoOpen: false,
 		height:'auto',
@@ -1037,7 +1037,7 @@ function start()
 	// Life Style Score Calculator
 	$("#lifestyle_score_calculator_dialog").dialog({
 		title:$.t("fhh_js.lifestyle_score_calculator_dialog_title"),
-		position:['top',0],
+		position: {my: "center", at: "center", of: window},
 		resizable: false,
 		autoOpen: false,
 		height:'auto',
@@ -1092,7 +1092,7 @@ function start()
 	// 家系図印刷
 	$("#familyTable").dialog({
 		title: $.t("family-t.export_pedigree"),
-		position: ['top',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		resizable: false,
 		height: 'auto',
@@ -1154,7 +1154,7 @@ function start()
 	// $("#help_dialog").load ("update-help.html", function () {});
 	$("#help_dialog").dialog({
 		title:$.t("fhh_js.help_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width: ['96%']
@@ -1163,7 +1163,7 @@ function start()
 	$("#update_help_dialog").load ("update-help.html", function () {});
 	$("#update_help_dialog").dialog({
 		title:$.t("fhh_js.update_help_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:600
@@ -1172,7 +1172,7 @@ function start()
 	$("#personal_help_dialog").load ("personal-help.html", function () {});
 	$("#personal_help_dialog").dialog({
 		title:$.t("fhh_js.add_help_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:600
@@ -1189,7 +1189,7 @@ function start()
 	}
 	$("#load_help_dialog").dialog({
 		title:$.t("fhh_js.load_help_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:600
@@ -1198,7 +1198,7 @@ function start()
 	$("#immediate_help_dialog").load ("immediate-help.html", function () {});
 	$("#immediate_help_dialog").dialog({
 		title:$.t("fhh_js.immediate_help_dialog_title"),
-		position:['middle',0],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
 		width:600
@@ -1242,14 +1242,14 @@ function start()
 	// Hide or show the right initial buttons
 	$("#create_new_personal_history_button").show().on("click", bind_create_new_personal_history_button_action);
 //	$("#save_personal_history_button").show().on("click", bind_save_personal_history_button_action);
-	$("#save_personal_history_button1").click(function(){
+	$("#save_personal_history_button1").on('click', function(){
 		bind_save_personal_history_button_action();
 	});
 //	$("#add_another_family_member_button").show().on("click", bind_add_another_family_member_button_action);
-	$("#add_another_family_member_button1").click(function(){
+	$("#add_another_family_member_button1").on('click', function(){
 		bind_add_another_family_member_button_action();
 	});
-	$("#add_another_family_member_button2").click(function(){
+	$("#add_another_family_member_button2").on('click', function(){
 		bind_add_another_family_member_button_action();
 	});
 	$("#save_family_history_button").hide();
@@ -1302,7 +1302,7 @@ function start()
 	});
 
 	// loads selected calculator from nav //
-	$( "#calculateButton" ).click(function() {
+	$( "#calculateButton" ).on('click', function() {
 		$("#disease_risk_calculator").dialog("open");
 		$( "#risk_section" ).load( "../risk/" + $("#calculatorDropdown").val(), function(data) {
 		});
@@ -1587,11 +1587,11 @@ function preparate_qof_score_dialog(){
 		QualityOfFamilyHistoryScoreController.hideDifferenceScore();
 	});
 
-	$('#qof_compensational_block input').change(function(){
+	$('#qof_compensational_block input').on('change',function(){
 		qoFSupplementForm.updatePersonalInformation( this );
 		QualityOfFamilyHistoryScoreController.showDifferenceScore ( personal_information );
 	});
-	$('#qof_compensational_block select').change(function(){
+	$('#qof_compensational_block select').on('change',function(){
 		qoFSupplementForm.updatePersonalInformation( this );
 		QualityOfFamilyHistoryScoreController.showDifferenceScore ( personal_information );
 	});
@@ -1671,7 +1671,7 @@ function preparate_lifestyle_score_dialog(){
 // 不足項目入力フォームのchangeイベント、ボタンclickイベント準備
 function preparate_compensation_dialog(){
 	// 喫煙状況
-	$('input[name="compensation_smoker"]').change(function() {
+	$('input[name="compensation_smoker"]').on('change',function() {
     	if ($('input[name="compensation_smoker"]:checked').val() != "5") {
     		$('input[name="compensation_number_of_cigarettes_per_day"]').prop('checked',false);
     		$('input[name="compensation_number_of_cigarettes_per_day"]').prop('disabled',true);
@@ -1681,7 +1681,7 @@ function preparate_compensation_dialog(){
     });
 
 	// 運動状況
-	$('input[name="compensation_training"]').change(function() {
+	$('input[name="compensation_training"]').on('change',function() {
 		if ($('input[name="compensation_training"]:checked').val() == 1) {
     		$('select[name="compensation_training_status1"]').prop('disabled',false);
     		$('input[name="compensation_training_status2"]').prop('disabled',false);
@@ -1704,19 +1704,19 @@ function preparate_compensation_dialog(){
     });
 
 	// 性別
-	$("#compensate_gender").change(function() {
+	$("#compensate_gender").on('change',function() {
 		personal_information['gender'] = $('input[name="compensation_gender"]:checked').val();
     });
 
 	// 生年月
-	$('#compensation_year_of_birth, #compensation_month_of_birth').change(function(){
+	$('#compensation_year_of_birth, #compensation_month_of_birth').on('change',function(){
 		personal_information['year_of_birth'] = $('#compensation_year_of_birth').val();
 		personal_information['month_of_birth'] = $('#compensation_month_of_birth').val();
 		personal_information['date_of_birth'] = $('#compensation_year_of_birth').val() + "/" + ("00" + $('#compensation_month_of_birth').val()).slice(-2) + "/01";
 	});
 
 	// 身長
-	$("#compensate_height").change(function() {
+	$("#compensate_height").on('change',function() {
 		var hgt = parseInt( $('#compensation_height_centimeters').val() );
 		if (isNaN(hgt)) hgt = 0;
 
@@ -1725,23 +1725,23 @@ function preparate_compensation_dialog(){
     });
 
 	// 体重
-	$("#compensate_weight").change(function() {
+	$("#compensate_weight").on('change',function() {
 		personal_information['weight'] = $('#compensation_weight').val();
     });
 
 	// 腹囲
-	$("#compensate_waist").change(function() {
+	$("#compensate_waist").on('change',function() {
 		personal_information['waist'] = $('#compensation_waist').val();
     });
 
 	// 喫煙
-	$("#compensate_smoker").change(function() {
+	$("#compensate_smoker").on('change',function() {
 		personal_information['smoker'] = $('input[name="compensation_smoker"]:checked').val();
 		personal_information['number_of_cigarettes_per_day'] = $('input[name="compensation_number_of_cigarettes_per_day"]:checked').val();
     });
 
 	// 運動
-	$("#compensate_training").change(function() {
+	$("#compensate_training").on('change',function() {
 		personal_information['training_family'] = $('input[name="compensation_training"]:checked').val();
 		personal_information['training_strength'] = $('#compensation_training_strength').val();
 		personal_information['training_count_for_training_at_week'] = $('#compensation_count_for_training_at_week').val();
@@ -1749,32 +1749,32 @@ function preparate_compensation_dialog(){
     });
 
 	// 降圧
-	$("#compensate_antihypertensive").change(function() {
+	$("#compensate_antihypertensive").on('change',function() {
 		personal_information['take_antihypertensive'] = $('input[name="compensation_take_antihypertensive"]:checked').val();
     });
 
 	// 最高血圧
-	$("#compensate_bpmax").change(function() {
+	$("#compensate_bpmax").on('change',function() {
 		personal_information['systolic_blood_pressure'] = $('#compensation_systolic_blood_pressure').val();
     });
 
 	// 最低血圧
-	$("#compensate_bpmin").change(function() {
+	$("#compensate_bpmin").on('change',function() {
 		personal_information['diastolic_blood_pressure'] = $('#compensation_diastolic_blood_pressure').val();
     });
 
 	// HDLコレステロール
-	$("#compensate_hdl").change(function() {
+	$("#compensate_hdl").on('change',function() {
 		personal_information['hdl_cholesterol'] = $('#compensation_hdl_cholesterol').val();
     });
 
 	// LDLコレステロール
-	$("#compensate_ldl").change(function() {
+	$("#compensate_ldl").on('change',function() {
 		personal_information['ldl_cholesterol'] = $('#compensation_ldl_cholesterol').val();
     });
 
 	// 血糖降下薬、空腹時血糖、ogtt、hba1c
-	$("#compensate_bloodglucose").change(function() {
+	$("#compensate_bloodglucose").on('change',function() {
 		personal_information['take_hypoglycemic'] = $('input[name="compensation_take_hypoglycemic"]:checked').val();
 		personal_information['fasting_blood_glucose_lebel'] = $('#compensation_fasting_blood_glucose_lebel').val();
 		personal_information['occasionally_blood_glucose_lebel'] = $('#compensation_occasionally_blood_glucose_lebel').val();
@@ -1845,7 +1845,7 @@ function bind_add_another_family_member_button_action() {
 		if ($("#new_family_member_dialog").length == 0) {
 			new_family_member_dialog = $("<div id='new_family_member_dialog'>");
 			new_family_member_dialog.dialog({
-				position:['middle',0],
+				position: {my: "center", at: "center", of: window},
 				title:$.t("fhh_js.define_family_relationship_dialog_title"),
 				height:'auto',
 				width:500
@@ -1859,7 +1859,7 @@ function bind_add_another_family_member_button_action() {
 		+ $.t("fhh_family_pedigree.close")
 		+ "</button>";
 		new_family_member_dialog.append($("<div class='row'></div>").append(
-			$("<div class='col s12 text-right'></div>").append(
+			$("<div class='right'></div>").append(
 				closeButton
 			)
 		));
@@ -2489,7 +2489,7 @@ function cancel_add_personal_information() {
 function help_dialog(prefix, i18n_title_key) {
 	$("#" + prefix + "-help_dialog").dialog({
 		title: $.t(i18n_title_key),
-		position: ['middle', 'center'],
+		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height: 'auto',
 		width: 600
@@ -4935,7 +4935,7 @@ function build_race_ethnicity_section(race_ethnicity, personal_flag) {
 						.append(hispanic_ethnicity_checkboxes) );
 /*
 	var why_ask_ashkenazi_link = $("<div class='why_necessary button_color_normal'><a tabindex='29' href='#' id='why_ask_ashkenazi_link'>" + $.t("fhh_js.ashkezani_q") + "</a></div>");
-	why_ask_ashkenazi_link.click(function () {
+	why_ask_ashkenazi_link.on('click', function () {
 		$("#why_ask_ashkenazi_dialog").dialog("open");
 	});
 //	race_ethnicity.append($("<tr class='md_tr'>").append(why_ask_ashkenazi_link));
@@ -5191,7 +5191,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 			}
 		}
 		$('#estimated_death_age_select').val(family_member.estimated_death_age);
-		$('#estimated_death_age_select').change(function() {
+		$('#estimated_death_age_select').on('change',function() {
 			$('select#select1 option[value="senior"]').wrap('<span>');
 		});
 
@@ -5263,7 +5263,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 		$('input[name="additional_information_number_of_cigarettes_per_day_family"]').prop('disabled',true);
 	}
 
-	$('input[name="smoker_family"]').change(function() {
+	$('input[name="smoker_family"]').on('change',function() {
     	if ($('input[name="smoker_family"]:checked').val() != 10) {
     		$('input[name="additional_information_number_of_cigarettes_per_day_family"]').prop('checked',false);
     		$('input[name="additional_information_number_of_cigarettes_per_day_family"]').prop('disabled',true);
@@ -5300,7 +5300,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 		$('input[name="training_status3"]').prop('disabled',true);
 	}
 
-	$('input[name="training_family"]').change(function() {
+	$('input[name="training_family"]').on('change',function() {
 		if ($('input[name="training_family"]:checked').val() == 1) {
     		$('select[name="training_status1"]').prop('disabled',false);
     		$('input[name="training_status2"]').prop('disabled',false);
@@ -5390,7 +5390,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 
 
 	/*
-	$('#family_race_ethnicity').change(function() {
+	$('#family_race_ethnicity').on('change',function() {
     	if ($('#selectedFamilyRaces-2').prop('checked')) {
     		$("#family_race_ethnicity").find("#asian_Familycheckboxes").show();
     	} else {
@@ -5639,7 +5639,7 @@ function clear_and_set_personal_health_history_dialog() {
 		$('input[name="additional_information_number_of_cigarettes_per_day"]').prop('disabled',true);
 	}
 
-	$('input[name="smoker"]').change(function() {
+	$('input[name="smoker"]').on('change',function() {
     	if ($('input[name="smoker"]:checked').val() != 5) {
     		$('input[name="additional_information_number_of_cigarettes_per_day"]').prop('checked',false);
     		$('input[name="additional_information_number_of_cigarettes_per_day"]').prop('disabled',true);
@@ -5721,7 +5721,7 @@ function clear_and_set_personal_health_history_dialog() {
 		this.value = this.value.replace(/[^0-9]+/i,'');
 	});
 
-    $('input[name="smoker"]').change(function() {
+    $('input[name="smoker"]').on('change',function() {
     	if ($('input[name="smoker"]:checked').val() != 5) {
     		$('input[name="additional_information_number_of_cigarettes_per_day"]').prop('checked',false);
     		$('input[name="additional_information_number_of_cigarettes_per_day"]').prop('disabled',true);
@@ -5730,7 +5730,7 @@ function clear_and_set_personal_health_history_dialog() {
         }
     });
 
-    $('input[name="training"]').change(function() {
+    $('input[name="training"]').on('change',function() {
     	if ($('input[name="training"]:checked').val() == 1) {
     		$('select[name="training_status1"]').prop('disabled',false);
     		$('input[name="training_status2"]').prop('disabled',false);
