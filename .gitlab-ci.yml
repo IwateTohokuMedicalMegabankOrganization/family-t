@@ -55,6 +55,7 @@ SonarQube:
     SONAR_TOKEN: ${SONARQUBE_TOKEN}
     SONAR_PROJECT_BASE_DIR: ${CI_PROJECT_DIR}
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    SONAR_EXCLUSIONS: "jquery/**, node_modules/**"
     SOURCE_ENCODING: UTF-8
     LCOV_INFO: "__tests__/__coverage__/lcov.info"
     GIT_DEPTH: "0"
@@ -63,7 +64,7 @@ SonarQube:
     paths:
       - .sonar/cache
   script:
-    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.projectKey=family-t -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.sourceEncoding=${SOURCE_ENCODING} -Dsonar.javascript.lcov.reportPaths=${LCOV_INFO}
+    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.projectKey=family-t -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.sourceEncoding=${SOURCE_ENCODING} -Dsonar.javascript.lcov.reportPaths=${LCOV_INFO} -Dsonar.exclusions=${SONAR_EXCLUSIONS}
   allow_failure: true
   only:
     - branches
