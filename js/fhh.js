@@ -293,7 +293,31 @@ class PersonalInformationUtil {
 		return ret;
 	}
 
-	static _getRelationCodeMaps(){
+	static _getRelationCodeMaps( multiple = false ){
+
+		if( multiple ){
+			return {
+				son                  : "SON",
+				daughter             : "DAU",
+				nephew               : "NEPHEW",
+				niece                : "NIECE",
+				sister               : "NSIS",
+				brother              : "NBRO",
+				grandson             : "GRNSON",
+				granddaughter        : "GRNDAU",
+				maternal_aunt        : "MAUNT",
+				maternal_cousin      : "MCOUSN",
+				maternal_halfbrother : "MHBRO",
+				maternal_halfsister  : "MHSIS",
+				maternal_uncle       : "MUNCLE",
+				paternal_aunt        : "PAUNT",
+				paternal_cousin      : "PCOUSN",
+				paternal_halfbrother : "PHBRO",
+				paternal_halfsister  : "PHSIS",
+				paternal_uncle       : "PUNCLE"
+			};
+		}
+
 		return {
 			father               : "NFTH",
 			mother               : "NMTH",
@@ -301,29 +325,6 @@ class PersonalInformationUtil {
 			maternal_grandfather : "MGRFTH",
 			paternal_grandmother : "PGRMTH",
 			paternal_grandfather : "PGRFTH"
-		};
-	};
-
-	static _getRelationCodeMaps( multiple ){
-		return {
-			son                  : "SON",
-			daughter             : "DAU",
-			nephew               : "NEPHEW",
-			niece                : "NIECE",
-			sister               : "NSIS",
-			brother              : "NBRO",
-			grandson             : "GRNSON",
-			granddaughter        : "GRNDAU",
-			maternal_aunt        : "MAUNT",
-			maternal_cousin      : "MCOUSN",
-			maternal_halfbrother : "MHBRO",
-			maternal_halfsister  : "MHSIS",
-			maternal_uncle       : "MUNCLE",
-			paternal_aunt        : "PAUNT",
-			paternal_cousin      : "PCOUSN",
-			paternal_halfbrother : "PHBRO",
-			paternal_halfsister  : "PHSIS",
-			paternal_uncle       : "PUNCLE"
 		};
 	}
 	
