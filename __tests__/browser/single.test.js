@@ -15,17 +15,17 @@ capabilities.set('chromeOptions', {
     ]
 });
 
-test('it performs a validation of the search box on the page', (async () => {
+// test('it performs a validation of the search box on the page', (async () => {
 
-    const driver = await new Builder().withCapabilities(capabilities).build();
+//     const driver = await new Builder().withCapabilities(capabilities).build();
 
-    await driver.get('http://family-t.tkb.mss.co.jp/develop/html/index.html');
+//     await driver.get('http://family-t.tkb.mss.co.jp/develop/html/index.html');
 
-    await driver.wait(until.elementLocated(By.id('download-button')), 10000);
+//     await driver.wait(until.elementLocated(By.id('download-button')), 10000);
 
-    let base64 = await driver.takeScreenshot();
-    let buffer = Buffer.from(base64, 'base64');
-    await promisify(fs.writeFile)('screenshot.jpg', buffer);
+//     let base64 = await driver.takeScreenshot();
+//     let buffer = Buffer.from(base64, 'base64');
+//     await promisify(fs.writeFile)('screenshot.jpg', buffer);
 
-    driver.quit();
-}));
+//     driver.quit();
+// }));
