@@ -222,18 +222,18 @@ table#history_summary_table {
 }
 
 table#history_summary_table thead{
-	border-bottom: solid 2px;
-	border-bottom-color: inherit;
+	border-bottom: solid 3px;
+	border-bottom-color: rgb(221, 221, 221);
 }
 
 table#history_summary_table tbody{
-	border-bottom: solid 0.1px;
-	border-bottom-color: inherit;
+	border-bottom: solid 1px;
+	border-bottom-color: rgb(221, 221, 221);
 }
 
 table#history_summary_table tbody tr{
 	border-bottom: solid 0.01px;
-	border-bottom-color: inherit;
+	border-bottom-color: rgb(221, 221, 221);
 }
 
 .subsection{
