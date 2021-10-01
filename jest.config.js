@@ -154,7 +154,7 @@ module.exports = {
   //   "**/?(*.)+(spec|test).[tj]s?(x)"
   // ],
   testMatch: [
-    "**/__tests__/**/?(*.)+(spec|test).[tj]s?(x)"
+    "**/__tests__/js/**/?(*.)+(spec|test).[tj]s?(x)"
   ],
 
 
