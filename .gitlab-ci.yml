@@ -64,7 +64,7 @@ SonarQube:
     paths:
       - .sonar/cache
   script:
-    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.projectKey=family-t -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.sourceEncoding=${SOURCE_ENCODING} -Dsonar.javascript.lcov.reportPaths=${LCOV_INFO} -Dsonar.exclusions=${SONAR_EXCLUSIONS}
+    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.projectKey=family-t -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.sourceEncoding=${SOURCE_ENCODING} -Dsonar.javascript.lcov.reportPaths=${LCOV_INFO} -Dsonar.exclusions="${SONAR_EXCLUSIONS}"
   allow_failure: true
   only:
     - branches
