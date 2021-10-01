@@ -216,6 +216,11 @@ table td{
 	vertical-align: middle;
 }
 
+table#history_summary_table {
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
 .subsection{
 	vertical-align: bottom !important;
 }
