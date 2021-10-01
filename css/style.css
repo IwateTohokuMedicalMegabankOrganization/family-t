@@ -219,21 +219,29 @@ table td{
 table#history_summary_table {
 	border-spacing: 0;
 	border-collapse: collapse;
+	width: 100%;
+	margin-bottom: 20px;
 }
 
-table#history_summary_table thead{
-	border-bottom: solid 3px;
-	border-bottom-color: rgb(221, 221, 221);
+table#history_summary_table thead tr th{
+	padding: 8px;
+	line-height: 1.42857143;
+	border-bottom: solid 2px #ddd;
 }
 
-table#history_summary_table tbody{
-	border-bottom: solid 1px;
-	border-bottom-color: rgb(221, 221, 221);
+table#history_summary_table tbody {
+	padding-top: 60px;
+	border-bottom: solid 2px #ddd;
 }
 
-table#history_summary_table tbody tr{
-	border-bottom: solid 0.01px;
-	border-bottom-color: rgb(221, 221, 221);
+table#history_summary_table tbody tr td{
+	padding: 8px;
+	line-height: 1.42857143;
+	border-top: solid 1px #ddd;
+}
+
+table#history_summary_table .small{
+	font-size: 85%;
 }
 
 .subsection{
