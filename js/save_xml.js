@@ -264,7 +264,7 @@ function bind_save_heath_vault() {
 		timer = setInterval(function(){
 			var st = window.localStorage.getItem("HV Status");
 			if (st != null && st != "") {
-				$("#save_personal_history_dialog").dialog("close");
+				closeDialog("#save_personal_history_dialog");
 				if (st == "Failed") {
 					alert($.t("fhh_load_save.fail_to_save"));
 				}

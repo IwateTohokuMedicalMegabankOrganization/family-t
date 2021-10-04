@@ -100,7 +100,7 @@ $(function(){
 	$('#saveToPC').on('click', function(){
 		openDialog("#save_personal_history_dialog");
 	});
-	$('#saveToServer').on('click', function(){
+	$('#saveToServer').on('click', function(){closeSavePersonalHistoryDialogButton
 		saveToServer();
 	});
 
