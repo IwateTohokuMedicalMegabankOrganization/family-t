@@ -14,7 +14,7 @@ function bind_add_another_family_member_button_action() {
 		new_family_member_dialog = $("#new_family_member_dialog");
 		new_family_member_dialog.empty().dialog("open");
 	}
-
+	
 	add_new_family_member_instructions(new_family_member_dialog);
 	var new_family_member_select = add_new_family_member_select();	
 
@@ -254,8 +254,8 @@ function exact_family_member_relationship_selection_change_action() {
 	family_member_information.relationship = relationship;
 
 	clear_and_set_current_family_member_health_history_dialog(family_member_information);
-	$("#new_family_member_dialog").dialog("close");
-	$( "#update_family_member_health_history_dialog" ).dialog( "open" );
+	closeDialog("#new_family_member_dialog");
+	openDialog("#update_family_member_health_history_dialog");
 	
 }
 

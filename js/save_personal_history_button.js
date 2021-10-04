@@ -1,6 +1,6 @@
 
 function saveToServer(){
-	$("#save_personal_history_dialog" ).dialog( "open" );
+	openDialog("#save_personal_history_dialog");
 
 	if( created_datetime === null ){
 		$('#createdDate').val( getNowDate() );
@@ -24,7 +24,7 @@ function saveToPCPost(){
 			})
 			.fail(function(jqXHR, textStatus, errorThrown){
 				alert('family-tサーバへの保存に失敗しました。\n code: ' + jqXHR.status + '\n status: ' + textStatus + '\n error: ' + errorThrown);
-				$("#save_personal_history_dialog").dialog("close");
+				closeDialog("#save_personal_history_dialog");
 			});
 }
 
@@ -76,16 +76,16 @@ function saveToServerPost(){
 						// ここをモーダルからモードレス表示に変更。
 						Materialize.toast('family-tサーバに保存しました。', 6000, 'rounded') // 'rounded' is the class I'm applying to the toast
 //						alert('family-tサーバに保存しました。');
-						$("#save_personal_history_dialog").dialog("close");
+						closeDialog("#save_personal_history_dialog");
 						loadOldList();
 					}else{
 						alert('family-tサーバへの保存に失敗しました。\n' + textStatus);
-						$("#save_personal_history_dialog").dialog("close");
+						closeDialog("#save_personal_history_dialog");
 					}
 				})
 				.fail(function(jqXHR, textStatus, errorThrown){
 					alert('family-tサーバへの保存に失敗しました。\n code: ' + jqXHR.status + '\n status: ' + textStatus + '\n error: ' + errorThrown);
-					$("#save_personal_history_dialog").dialog("close");
+					closeDialog("#save_personal_history_dialog");
 				});
 }
 
@@ -98,9 +98,9 @@ function saveToServerWithDate( createdDatetime,  updatedDatetime){
 $(function(){
 
 	$('#saveToPC').on('click', function(){
-		$("#save_personal_history_dialog" ).dialog( "open" );
+		openDialog("#save_personal_history_dialog");
 	});
-	$('#saveToServer').on('click', function(){
+	$('#saveToServer').on('click', function(){closeSavePersonalHistoryDialogButton
 		saveToServer();
 	});
 
@@ -112,7 +112,7 @@ $(function(){
 	});
 
 	$('#savePersonalInfoToServerCancelButton').on('click', function(){
-		$("#save_personal_history_dialog" ).dialog("close");
+		closeDialog("#save_personal_history_dialog");
 	});
 
 	$('#selectedCreatedDatetime').on('change', function(){

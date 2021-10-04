@@ -131,7 +131,7 @@ function bind_save_dropbox () {
 		filename = get_filename(personal_information);
 		Dropbox.save({
 		   files: [ {'url': 'data:application/xml;base64,' + btoa(unescape(encodeURIComponent(output_string))), 'filename': filename } ],
-			 success: function () { $("#save_personal_history_dialog").dialog("close");},
+			 success: function () { closeDialog("#save_personal_history_dialog");},
 			 error: function (errorMessage) { alert ("ERROR:" + errorMessage);}
 		});
 	});
@@ -214,7 +214,7 @@ function googlePostAuthSave(authResult) {
 			});
 
 			var	callback = function(file) {
-				$("#save_personal_history_dialog").dialog("close");
+				closeDialog("#save_personal_history_dialog");
 			};
 			request.execute(callback);
 		};
@@ -264,7 +264,7 @@ function bind_save_heath_vault() {
 		timer = setInterval(function(){
 			var st = window.localStorage.getItem("HV Status");
 			if (st != null && st != "") {
-				$("#save_personal_history_dialog").dialog("close");
+				closeDialog("#save_personal_history_dialog");
 				if (st == "Failed") {
 					alert($.t("fhh_load_save.fail_to_save"));
 				}
