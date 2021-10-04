@@ -1,11 +1,15 @@
 // Modularize and import
-import hello from './hello.js';
-import bind_help from './help.js'
+import xmlToPersonalInfo from './xmlToPersonalInfo.js';
+import personalInfoToXml from './personalInfoToXml.js';
+import $ from 'jquery';
 
 function component() {
-  console.log( hello() );
-  console.log( bind_help() );
-  // move to $(document).ready(){...}
+  console.log( xmlToPersonalInfo( '<FamilyHistory moodCode="EVN" classCode="OBS"></FamilyHistory>'));
 }
 
+function convertXml( pi ){
+  console.log( personalInfoToXml( pi ));
+}
+
+window.convertXml = convertXml;
 component();

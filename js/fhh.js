@@ -832,6 +832,11 @@ function start()
 
 		bind_save_personal_history_button();
 		bind_save_xml();
+			
+		$("#download_xml_new").on("click", function () {
+
+			convertXml(personal_information);
+		});
 
 		if (isiPad) {
 			$(".savePersonalInfoFromFile").remove();

@@ -1,19 +1,21 @@
 var parser = require('fast-xml-parser');
 
 export default function xmlToPersonalInfo(xmlString) {
-    return xml2json(xmlString);
+    return covertPersonal_information(xml2json(xmlString));
 }
 
 function xml2json(xmlString) {
     var options = {
-        attributeNamePrefix : "",
-        attrNodeName: false,
-        textNodeName : "#text",
-        ignoreAttributes : false,
-        ignoreNameSpace : false,
-        allowBooleanAttributes : false,
-        parseNodeValue : true,
-        parseAttributeValue : false,
+        attributeNamePrefix: "attr_",
+        attrNodeName: "", //default is false
+        // attributeNamePrefix : "",
+        // attrNodeName: false,
+        textNodeName: "#text",
+        ignoreAttributes: false,
+        ignoreNameSpace: false,
+        allowBooleanAttributes: false,
+        parseNodeValue: true,
+        parseAttributeValue: false,
         trimValues: true,
         cdataTagName: "__cdata", //default is 'false'
         cdataPositionChar: "\\c",
@@ -30,48 +32,57 @@ function xml2json(xmlString) {
     return jsonObj;
 }
 
-function to_personal_information(input) {
+function covertPersonal_information(input) {
 
-    personal_information = _getPatientPerson(input);
+    if (!Boolean(input)) return {};
+    if (!Boolean(input.patientPerson)) return {};
 
+    var personal_information = {};
+
+    // Patient
+    var patientPerson = _getPatientPerson(input);
+    personal_information.id = _getId(patientPerson);
+    personal_information.name = _getName(patientPerson);
+    personal_information.date_of_birth = _getDate_of_birth(patientPerson);
+    personal_information.prefectures = _getPrefectures(patientPerson);
+
+    return personal_information;
 }
 
 function _getPatientPerson(input) {
 
     if (!Boolean(input)) return {};
-    if (!Boolean(input.patientPerson)) return {};
+    if (!Boolean(input.FamilyHistory)) return {};
+    if (!Boolean(input.FamilyHistory.subject)) return {};
+    if (!Boolean(input.FamilyHistory.subject.patient)) return {};
+    if (!Boolean(input.FamilyHistory.subject.patient.patientPerson)) return {};
 
-    var patientPerson = {};
-
-    patientPerson.id = _getId(input.patientPerson);
-    patientPerson.name = _getName(input.patientPerson);
-    patientPerson.date_of_birth = _getDate_of_birth(input.patientPerson);
-    patientPerson.prefectures = _getPrefectures(input.patientPerson);
+    return input.FamilyHistory.subject.patient.patientPerson;
 }
 
 function _getId(p) {
 
     if (!Boolean(p)) return "";
     if (!Boolean(p.id)) return "";
-    if (!Boolean(p.id.extention)) return "";
+    if (!Boolean(p.id.attr_extention)) return "";
 
-    return p.id.extention;
+    return p.id.attr_extention;
 }
 
 function _getName(p) {
 
     if (!Boolean(p)) return "";
     if (!Boolean(p.name)) return "";
-    if (!Boolean(p.name.formatted)) return "";
+    if (!Boolean(p.name.attr_formatted)) return "";
 
-    return p.name.formatted;
+    return p.name.attr_formatted;
 }
 
 function _getDate_of_birth(p) {
 
     if (!Boolean(p)) return "";
     if (!Boolean(p.birthTime)) return "";
-    if (!Boolean(p.birthTime.value)) return "";
+    if (!Boolean(p.birthTime.attr_value)) return "";
 
-    return p.birthTime.value;
+    return p.birthTime.attr_value;
 }
