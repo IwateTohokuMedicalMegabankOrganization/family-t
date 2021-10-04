@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "fast-xml-parser": "^3.20.3",
+    "he": "^1.2.0",
     "jquery": "^3.6.0",
     "material-design-icons": "^3.0.1",
     "materialize-css": "^1.0.0-rc.2"
