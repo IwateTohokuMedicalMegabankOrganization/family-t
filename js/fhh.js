@@ -404,7 +404,7 @@ class PersonalInformationUtil {
 		var family_member = personal_information[$(that).attr('relationship_id')];
 		family_member.relationship = $(that).attr('relationship_id');
 		clear_and_set_current_family_member_health_history_dialog(family_member);
-		$( "#update_family_member_health_history_dialog" ).dialog( "open" );
+		openDialog("#update_family_member_health_history_dialog");
 	}
 }
 
@@ -844,7 +844,7 @@ function start()
 		
 		// 閉じるボタン
 		$('.closeSavePersonalHistoryDialogButton').on('click', function(){
-			$("#save_personal_history_dialog").dialog('close');
+			closeDialog("#save_personal_history_dialog");
 		});
 		
 		$('#saved_leave_this_site').on('click', function(){
@@ -905,7 +905,7 @@ function start()
 		
 		// 閉じるボタン
 		$('.closeRiskScoreButton').on('click', function(){
-			$("#disease_risk_calculator_dialog").dialog('close');
+			closeDialog("#disease_risk_calculator_dialog");
 		});
 	});
 
@@ -936,7 +936,7 @@ function start()
 			$("#compensational_block").show();
 		}
 
-		$("#disease_risk_calculator_dialog").dialog('open').position("center top");
+		openDialog("#disease_risk_calculator_dialog", "center top");
 		load_risk_links();
 
 	});
@@ -952,7 +952,7 @@ function start()
 			$("#compensational_block").show();
 		}
 
-		$("#disease_risk_calculator_dialog").dialog('open').position("center top");
+		openDialog("#disease_risk_calculator_dialog", "center top");
 		load_risk_links();
 	});
 
@@ -965,7 +965,7 @@ function start()
 		
 		// 閉じるボタン
 		$('.closeQofhScoreButton').on('click', function(){
-			$("#quality_of_family_history_score_dialog").dialog('close');
+			closeDialog("#quality_of_family_history_score_dialog");
 		});
 	});
 
@@ -987,7 +987,7 @@ function start()
 
 	$("#showQofhScoreDetail").on("click", function() {
 		preparate_qof_score_dialog();
-		$("#quality_of_family_history_score_dialog").dialog('open').position("center top");
+		openDialog("#quality_of_family_history_score_dialog", "center top");
 		QualityOfFamilyHistoryScoreController.refresh()
 	});
 
@@ -1000,7 +1000,7 @@ function start()
 		
 		// 閉じるボタン
 		$('.closeQofhScoreHelpButton').on('click', function(){
-			$("#family-t_qof_history_score_help_dialog").dialog('close');
+			closeDialog("#family-t_qof_history_score_help_dialog");
 		});
 	});
 
@@ -1015,7 +1015,7 @@ function start()
 	});
 
 	$("#family-t_qof_history_score_help").on("click", function() {
-		$("#family-t_qof_history_score_help_dialog").dialog("open");
+		openDialog("#family-t_qof_history_score_help_dialog");
 	});
 
 		
@@ -1031,7 +1031,7 @@ function start()
 		
 		// 閉じるボタン
 		$('.closeLifestyleScoreButton').on('click', function(){
-			$("#lifestyle_score_calculator_dialog").dialog('close');
+			closeDialog("#lifestyle_score_calculator_dialog");
 		});
 	});
 
@@ -1063,7 +1063,7 @@ function start()
 			$("#lifestylescore_compensation_block").show();
 		}
 
-		$("#lifestyle_score_calculator_dialog").dialog('open').position("center top");
+		openDialog("#lifestyle_score_calculator_dialog", "center top");
 	});
 
 	$("#showLifeStyleScoreDetail").on("click", function() {
@@ -1077,7 +1077,7 @@ function start()
 			$("#lifestylescore_compensation_block").show();
 		}
 
-		$("#lifestyle_score_calculator_dialog").dialog('open').position("center top");
+		openDialog("#lifestyle_score_calculator_dialog", "center top");
 	});
 
 	// リスク計算不足要素入力ダイアログ
@@ -1115,12 +1115,12 @@ function start()
 
 		// close buttons
 		$('.closeShowFamilyTableButton').on('click', function(){
-			$("#familyTable").dialog('close');
+			closeDialog("#familyTable");
 		});
 	});
 
 	$("#navViewDiagram").on("click", function() {
-		$("#familyTable").dialog("open");
+		openDialog("#familyTable");
 	});
 
 	// compensation dialog
@@ -1138,7 +1138,7 @@ function start()
 //    $("#family_pedigree").load ("family_pedigree.html", function () {});
 
 	$("#navCopyFamily").on("click", function() {
-     $("#copy_for_family_member").dialog("open");
+	 openDialog("#copy_for_family_member");
      build_copy_for_family_member_dialog();
   });
 
@@ -1217,7 +1217,7 @@ function start()
 
 	// Below function is temporary to allow debuging of the pedigree
 	$("#nav_help").on("click", function() {
-		$("#help_dialog").dialog("open");
+		openDialog("#help_dialog")
 
 		// test if iPad //
 		// remove help items related to computer //
@@ -1227,7 +1227,7 @@ function start()
 
 		// 閉じるボタン
 		$('.closeHelpDialogButton').on('click', function(){
-			$("#help_dialog").dialog('close');
+			closeDialog("#help_dialog");
 		});
 
 	});
@@ -1272,15 +1272,15 @@ function start()
 	
 		build_family_history_data_table();
 		if( location.hostname != "localhost" ){
-			$("#load_personal_history_dialog").dialog("open");
+			openDialog("#load_personal_history_dialog");
 		}
 	
 	}	else if (getParameterByName("action") == 'create') {
 		reset_personal_information();
 			build_family_history_data_table();
-			$("#add_personal_information_dialog").dialog("open");
+			openDialog("#add_personal_information_dialog");
 	} else if (getParameterByName("action") == 'save') {
-			$("#save_personal_history_dialog").dialog("open");
+			openDialog("#save_personal_history_dialog");
 	}
 
 
@@ -1304,7 +1304,7 @@ function start()
 
 	// loads selected calculator from nav //
 	$( "#calculateButton" ).on('click', function() {
-		$("#disease_risk_calculator").dialog("open");
+		openDialog("#disease_risk_calculator");
 		$( "#risk_section" ).load( "../risk/" + $("#calculatorDropdown").val(), function(data) {
 		});
 
@@ -1316,7 +1316,7 @@ function start()
 	});
 
 	$('#leave_this_site').on('click', function(){
-		$( "#save_personal_history_dialog" ).dialog( "open" );
+		openDialog("#save_personal_history_dialog");
 		$( "#saved_leave_this_site").show();
 	});
 	// questionnaire
@@ -1569,9 +1569,9 @@ function testDiabates(){
 // 不足項目入力ダイアログで計算ボタン押下時の保存、ダイアログ消去、リスク計算＋画面表示処理
 function bind_compensate_information_submit_button_action(){
 	$("#compensateAndStartRiskCalc").on("click", function() {
-		$("#compensate_information_dialog").dialog("close");
+		closeDialog("#compensate_information_dialog");
 
-		$("#disease_risk_calculator_dialog").dialog("open");
+		openDialog("#disease_risk_calculator_dialog");
 		load_risk_links();
 	});
 }
@@ -1792,7 +1792,7 @@ function bind_load_personal_history_button() {
 function bind_save_personal_history_button() {
 	$("#file_download_button").on("click", function () {
 		alert($.t("fhh_js.file_save"));
-		$("#save_personal_history_dialog").dialog("close");
+		closeDialog("#save_personal_history_dialog");
 
 		return false;
 	});
@@ -1818,12 +1818,12 @@ function bind_create_new_personal_history_button_action () {
 		$("#family_health_information #disease_choice_select option[class='other_disease']").remove();
 		$("#update_family_member_health_history_dialog #cause_of_death_select option[class='other_disease']").remove();
 
-		$( "#add_personal_information_dialog" ).dialog( "open" );
+		openDialog("#add_personal_information_dialog");
 	}
 }
 
 function bind_view_diagram_and_table_button_action () {
-	$("#view_diagram_and_table_dialog").dialog("open");
+	openDialog("#view_diagram_and_table_dialog");
 
 	$("#view_diagram_and_table_dialog").append("");
 }
@@ -1835,7 +1835,7 @@ function bind_save_personal_history_button_action () {
 	$("tt1").removeClass("red-text");
 	$("tt1").addClass("green-text");
 	$("#save_personal_history_button").css("background-color","#337AB7");
-	$( "#save_personal_history_dialog" ).dialog( "open" );
+	openDialog("#save_personal_history_dialog");
 }
 
 function bind_add_another_family_member_button_action() {
@@ -1853,8 +1853,10 @@ function bind_add_another_family_member_button_action() {
 			});
 		} else {
 			new_family_member_dialog = $("#new_family_member_dialog");
-			new_family_member_dialog.empty().dialog("open");
+			new_family_member_dialog.empty();
+			openDialog("#new_family_member_dialog");
 		}
+		$(".ui-dialog-titlebar-close").hide();
 
 		var closeButton = "<button id='closeNewFamilyMemberDialogButton' class='btn-large waves-effect waves-light teal lighten-1 translate' data-i18n='fhh_family_pedigree.close' style='text-align:right;font-size:110% !important'>"
 		+ $.t("fhh_family_pedigree.close")
@@ -1865,7 +1867,7 @@ function bind_add_another_family_member_button_action() {
 			)
 		));
 		new_family_member_dialog.find('#closeNewFamilyMemberDialogButton').on("click",function(){
-			$("#new_family_member_dialog").dialog('close');
+			closeDialog("#new_family_member_dialog");
 		} );
 
 		new_family_member_dialog.append("<div class='popup_title'> " + $.t("fhh_js.add_relative_title") + " </div>");
@@ -2101,8 +2103,8 @@ function exact_family_member_relationship_selection_change_action() {
 
 		clear_and_set_current_family_member_health_history_dialog(family_member_information);
 
-		$("#new_family_member_dialog").dialog("close");
-		$( "#update_family_member_health_history_dialog").dialog( "open" );
+		closeDialog("#new_family_member_dialog");
+		openDialog("#update_family_member_health_history_dialog");
 	}
 }
 
@@ -2362,12 +2364,12 @@ function bind_personal_submit_button_action () {
 
 //		build_family_history_data_table();
 			current_health_history = [];
-		$("#add_personal_information_dialog").dialog("close");
+		closeDialog("#add_personal_information_dialog");
 
 
 		//  If there already is a father object, then this is an update, do not try and recreate relatives
 		if (personal_information['father'] == null) {
-			$("#add_all_family_members_dialog").dialog("open");
+			openDialog("#add_all_family_members_dialog");
 		} else {
 
 			// Resort Birth order
@@ -2484,7 +2486,7 @@ function cancel_add_personal_information() {
 	current_health_history = [];
 
 	cancel_before_create_family_members();
-	$("#add_personal_information_dialog").dialog("close");
+	closeDialog("#add_personal_information_dialog");
 }
 
 function help_dialog(prefix, i18n_title_key) {
@@ -2505,45 +2507,45 @@ function bind_help_button_action(prefix, ja_only = true) {
 	}
 
 	$("." + prefix + "-help").on("click", function () {
-		$("#" + prefix + "-help_dialog").dialog("open");
+		openDialog("#" + prefix + "-help_dialog");
 
 		// 閉じるボタン
 		$("#" + prefix + "-help_dialog").find('.closeHelpDialogButton').on('click', function () {
-			$("#" + prefix + "-help_dialog").dialog('close');
+			closeDialog("#" + prefix + "-help_dialog");
 		});
 	});
 }
 
 function bind_personal_help_button_action () {
 	$("#add-help").on("click", function() {
-		$("#personal_help_dialog").dialog("open");
+		openDialog("#personal_help_dialog");
 		
 		// 閉じるボタン
 		$('#closePersonalHelpDialogButton').on('click', function(){
-			$("#personal_help_dialog").dialog('close');
+			closeDialog("#personal_help_dialog");
 		});
 	});
 }
 
 function bind_family_member_help_button_action () {
 	$("#update-help").on("click", function() {
-		$("#update_help_dialog").dialog("open");
+		openDialog("#update_help_dialog");
 	});
 }
 
 function bind_load_help_button_action() {
 	$("#load-help").on("click", function() {
-		$("#load_help_dialog").dialog("open");
+		openDialog("#load_help_dialog");
 	});
 }
 
 function bind_immediate_help_button_action() {
 	$("#immediate-help").on("click", function() {
-		$("#immediate_help_dialog").dialog("open");
+		openDialog("#immediate_help_dialog");
 
 		// 閉じるボタン
 		$('#closeImmediateHelpDialogButton').on('click', function(){
-			$("#immediate_help_dialog").dialog('close');
+			$("#immediate_help_dialog").dialog('close'); // closeDialogを利用しない
 		});
 	});
 }
@@ -2926,8 +2928,8 @@ function bind_family_member_submit_button_action () {
 		ScoreCardController.refresh();
 
 		current_health_history = [];
-		$("#update_family_member_health_history_dialog").dialog("close");
-
+		closeDialog("#update_family_member_health_history_dialog");
+		closeDialog("#update_help_dialog");
 	});
 }
 
@@ -2960,7 +2962,8 @@ function cancel_update_family_member() {
 
 	current_health_history = [];
 
-	$("#update_family_member_health_history_dialog").dialog("close");
+	closeDialog("#update_family_member_health_history_dialog");
+	closeDialog("#update_help_dialog");
 }
 
 function bind_add_all_family_members_submit_button_action() {
@@ -2993,7 +2996,7 @@ function create_immediate_family_submit(){
 	$("tt1").addClass("red-text");
 	$("#save_personal_history_button").css("background-color","red");
 
-	$("#add_all_family_members_dialog").dialog("close");
+	closeDialog("#add_all_family_members_dialog");
 
 	// Created Date
 	personal_information['created_date'] = getCreatedDate();
@@ -3105,8 +3108,7 @@ function getCreatedDate(){
 
 function bind_add_all_family_members_cancel_button_action() {
 	$("#create_immediate_family_cancel").on("click", function() {
-//		alert ("Cancelling Adding of Family Members");
-		$("#add_all_family_members_dialog").dialog("close");
+		closeDialog("#add_all_family_members_dialog");
 	});
 }
 
@@ -4060,7 +4062,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 
 			current_relationship = relationship_id;
 			clear_family_member_health_history_dialog();
-			$( "#update_family_member_health_history_dialog" ).dialog( "open" );
+			openDialog("#update_family_member_health_history_dialog");
 		});
 
 
@@ -4219,7 +4221,7 @@ function update_family_history_row(relationship_id, family_member_information) {
 		current_relationship = $(this).attr('relationship_id');
 		family_member.relationship = relationship_id;
 		clear_and_set_current_family_member_health_history_dialog(family_member);
-		$( "#update_family_member_health_history_dialog" ).dialog( "open" );
+		openDialog("#update_family_member_health_history_dialog");
 	});
 
 	$("#" + relationship_id).find(".add_history").off("click");
@@ -6898,7 +6900,7 @@ function updateHistoryDialog(relationship, family_member) {
 				$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
 			current_relationship = 'self';
 			clear_and_set_personal_health_history_dialog();
-			$( "#add_personal_information_dialog" ).dialog( "open" );
+			openDialog("#add_personal_information_dialog");
 
 			// 初回表示の人種デフォルト設定
 			if (personal_information['flg_race_ethnic'] != 1) {
@@ -6922,7 +6924,7 @@ function updateHistoryDialog(relationship, family_member) {
 
 			clear_and_set_current_family_member_health_history_dialog(family_member);
 
-			$( "#update_family_member_health_history_dialog" ).dialog( "open" );
+			openDialog("#update_family_member_health_history_dialog");
 
 			// 初回表示の人種デフォルト設定
 			if (family_member['flg_race_ethnic'] != 1) {
