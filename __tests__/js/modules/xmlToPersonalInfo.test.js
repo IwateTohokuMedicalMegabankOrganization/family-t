@@ -490,3 +490,16 @@ test('_getDate_of_birth', () => {
     expect(_getDate_of_birth({ birthTime: { attr_value: null } })).toBe("");
     expect(_getDate_of_birth({ birthTime: { attr_value: "04/10/2021" } })).toBe("04/10/2021");
 });
+test('_getGender', () => {
+    const _getGender = require('../../../js/modules/xmlToPersonalInfo.js').__get__('_getGender');
+    expect(_getGender(0)).toBe("");
+    expect(_getGender(false)).toBe("");
+
+    expect(_getGender({})).toBe("");
+    expect(_getGender({ administrativeGenderCode: "" })).toBe("");
+    expect(_getGender({ administrativeGenderCode: {} })).toBe("");
+    expect(_getGender({ administrativeGenderCode: { attr_displayName : null } })).toBe("");
+
+    expect(_getGender({ administrativeGenderCode: { attr_displayName : 'male' } })).toBe("MALE");
+    expect(_getGender({ administrativeGenderCode: { attr_displayName : 'female' } })).toBe("FEMALE");
+});

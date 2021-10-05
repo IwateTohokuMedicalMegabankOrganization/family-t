@@ -25,6 +25,14 @@
 				<button style="display:none;" id="pickfiles" href="javascript:;"></button><label for="pickfiles"><div id="tt10" class="material-icons center green-text large-size cursor_pointer icon_shadow">open_in_browser</div></label>
 				<div class="mdl-tooltip" for="tt10"><span class='translate' data-i18n="fhh_load_save.load_from_file">保存ファイルを開きます</span></div>
 			</div>
+			<hr>
+			<h3>Old Way</h3>
+			<form action="#" enctype="multipart/form-data" method="post"  >
+			  <input name="pedigree_file" type="file" id='pedigree_file' accept='text/xml' />
+			  <input type="submit" value="Load File" id='file_upload_button' />
+			</form>
+			<br />
+			<hr>
 			<div id="filelist">お使いのブラウザはFlash、Silverlight、またはHTML5がサポートされていません。</div>
 			<pre id="console" style="color:red;"></pre>
 		</div>

@@ -9,7 +9,15 @@ function component() {
 
 function convertXml( pi ){
   console.log( personalInfoToXml( pi ));
+  return personalInfoToXml( pi );
 }
 
+function convertPi( pi ){
+  return xmlToPersonalInfo( pi );
+}
+
+
 window.convertXml = convertXml;
+window.convertPi = convertPi;
+
 component();

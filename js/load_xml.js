@@ -9,8 +9,8 @@ var SNOMED_CT_CODES = {
 
 function bind_load_xml() {
 	// Change the name of the Load File here to support internationalization
-	bind_uploader();
-	//bind_load_file();
+	// bind_uploader();
+	bind_load_file();
 	bind_load_dropbox();
 	bind_load_google_drive();
 	bind_load_health_vault();
@@ -31,13 +31,13 @@ function bind_load_file() {
 		var fsize = $('#pedigree_file')[0].files[0].size;
 //		alert ("Filename is (" + fsize + "): " + $("#pedigree_file").val());
 		console.dir(fsize);
-		console.dir($('#pedigree_file')[0].files);
+		// console.dir($('#pedigree_file')[0].files);
 
 		var reader = new FileReader();
-		reader.readAsText($('#pedigree_file')[0].files[0], "UTF-8");
 		reader.onload = loaded;
+		reader.readAsText($('#pedigree_file')[0].files[0], "UTF-8");
 
-		$("#load_personal_history_dialog").dialog("close");
+		closeDialog("#load_personal_history_dialog");
 
 		return false;
 	});
@@ -366,7 +366,8 @@ function load_xml(xmlInput) {
 function loaded (evt) {
 	var fileString = evt.target.result;
 	console.dir(evt);
-	parse_xml(fileString);
+	personal_information = convertPi(fileString);
+	// parse_xml(fileString);
 	build_family_history_data_table();
 	$("#add_another_family_member_button").show();
 }

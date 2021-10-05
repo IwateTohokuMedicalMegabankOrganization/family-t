@@ -46,11 +46,26 @@ function _convert( pi ){
                 "attr_typeCode": "SBJ",
                 "patient": {
                     "attr_classCode": "PAT",
-                    "patientPerson": {}
+                    "patientPerson": _getPatienatPerson( pi )
                 }
             }
         }
     };
 
     return jsonData;
+}
+
+function _getPatienatPerson(pi){
+
+    var ret = {};
+
+    ret.id = pi.id; 
+
+    ret.name = { attr_formatted : pi.name };
+
+    ret.birthTime = { attr_birthTime : pi.date_of_birth };
+
+    ret.administrativeGenderCode = { attr_displayName : pi.gender };
+
+    return ret;
 }
