@@ -441,52 +441,22 @@ test('load', () => {
 });
 
 test('_getPatientPerson', () => {
-    const _getPatientPerson = require('../../../js/modules/xmlToPersonalInfo.js').__get__('_getPatientPerson');
+    const _getPatientPerson = require('../../../js/modules/personalInfoToXml.js').__get__('_getPatientPerson');
     expect(_getPatientPerson(0)).toBeDefined();
     expect(_getPatientPerson(false)).toBeDefined();
     expect(_getPatientPerson({})).toBeDefined();
 });
 
-test('_getId', () => {
-    const _getId = require('../../../js/modules/xmlToPersonalInfo.js').__get__('_getId');
-    expect(_getId(0)).toBe("");
-    expect(_getId(false)).toBe("");
+test('_convert', () => {
+    const _convert = require('../../../js/modules/xmlToPersonalInfo.js').__get__('_convert');
+    expect(_convert(0)).toBe("");
+    expect(_convert(false)).toBe("");
 
-    expect(_getId({})).toBe("");
-    expect(_getId({ id: "" })).toBe("");
-    expect(_getId({ id: "test" })).toBe("");
-    expect(_getId({ id: {} })).toBe("");
+    expect(_convert({})).toBe("");
+    expect(_convert({ id: "" })).toBe("");
+    expect(_convert({ id: "test" })).toBe("");
+    expect(_convert({ id: {} })).toBe("");
 
-    expect(_getId({ id: { attr_extention: null } })).toBe("");
-    expect(_getId({ id: { attr_extention: "test" } })).toBe("test");
-});
-
-
-test('_getName', () => {
-    const _getName = require('../../../js/modules/xmlToPersonalInfo.js').__get__('_getName');
-    expect(_getName(0)).toBe("");
-    expect(_getName(false)).toBe("");
-
-    expect(_getName({})).toBe("");
-    expect(_getName({ name: "" })).toBe("");
-    expect(_getName({ name: "test" })).toBe("");
-    expect(_getName({ name: {} })).toBe("");
-    expect(_getName({ name: null })).toBe("");
-    expect(_getName({ name: { attr_formatted: "test" } })).toBe("test");
-});
-
-
-test('_getDate_of_birth', () => {
-    const _getDate_of_birth = require('../../../js/modules/xmlToPersonalInfo.js').__get__('_getDate_of_birth');
-    expect(_getDate_of_birth(0)).toBe("");
-    expect(_getDate_of_birth(false)).toBe("");
-
-    expect(_getDate_of_birth({})).toBe("");
-    expect(_getDate_of_birth({ birthTime: "" })).toBe("");
-    expect(_getDate_of_birth({ birthTime: "04/10/2021" })).toBe("");
-    expect(_getDate_of_birth({ birthTime: {} })).toBe("");
-    expect(_getDate_of_birth({ birthTime: null })).toBe("");
-
-    expect(_getDate_of_birth({ birthTime: { attr_value: null } })).toBe("");
-    expect(_getDate_of_birth({ birthTime: { attr_value: "04/10/2021" } })).toBe("04/10/2021");
+    expect(_convert({ id: { attr_extention: null } })).toBe("");
+    expect(_convert({ id: { attr_extention: "test" } })).toBe("test");
 });

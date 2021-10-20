@@ -34,7 +34,7 @@ function _convert( pi ){
             "attr_classCode": "OBS",
             "attr_moodCode": "EVN",
             "effectiveTime": {
-                "attr_value": "10/1/2021",
+                "attr_value": "10/1/2021", // 動的！！　TODO
             },
             "id": {
                 "attr_extention": "gov.hhs.fhh:718163810183",
@@ -46,7 +46,7 @@ function _convert( pi ){
                 "attr_typeCode": "SBJ",
                 "patient": {
                     "attr_classCode": "PAT",
-                    "patientPerson": _getPatienatPerson( pi )
+                    "patientPerson": _getPatientPerson( pi )
                 }
             }
         }
@@ -55,7 +55,12 @@ function _convert( pi ){
     return jsonData;
 }
 
-function _getPatienatPerson(pi){
+/**
+ * 
+ * @param {*} pi PersonalInfo
+ * @returns json data of patient person
+ */
+function _getPatientPerson(pi){
 
     var ret = {};
 

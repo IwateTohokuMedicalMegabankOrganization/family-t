@@ -100,13 +100,7 @@ function bind_save_download() {
 
 	$("#download_xml").on("click", function () {
 
-		saveToPCPost();
-		// isHealthVaultSave = false; // not healthvault save
-		// output_string = get_xml_string();
-		// filename = get_filename(personal_information);
-
-		// save_document($(this), output_string, filename);
-		// $("#save_personal_history_dialog").dialog("close");
+		// ここで、PersonalInfoToXml.jsのメソッドを呼び出す。
 	});
 }
 
