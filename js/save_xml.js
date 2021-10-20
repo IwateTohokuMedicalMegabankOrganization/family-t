@@ -23,29 +23,6 @@ var filename;
 var output_string;
 var isHealthVaultSave; // determine if saving to healthvault to set death disease display name to english //
 
-//  For downliadify to support Safari and IE downloading
-			function load_downloadify(){
-				var lng = window.i18n.lng();
-				Downloadify.create('downloadify',{
-					filename: function(){
-						filename = get_filename(personal_information)
-						return filename;
-					},
-					data: function(){
-						return get_xml_string();
-					},
-					onComplete: function(){ alert('Your File Has Been Saved!'); },
-					onCancel: function(){ alert('You have cancelled the saving of this file.'); },
-					onError: function(){ alert('You must put something in the File Contents or there will be nothing to save!'); },
-					swf: '../downloadify/media/downloadify.swf',
-					downloadImage: '../downloadify/images/download_savetofile_'+lng+'.png',
-					width: 132,
-					height: 32,
-					transparent: true,
-					append: false
-				});
-			}
-
 
 function bind_save_xml() {
 	try {
@@ -303,31 +280,6 @@ function add_personal_history(pi) {
 
 	add_personal_information (patientPerson_tag, pi);
 	return subject_tag;
-}
-
-function add_personal_information(patient_tag, pi) {
-	if (personal_information == null) return;
-
-	add_id(patient_tag, pi.id);
-	add_name(patient_tag, pi.name);
-	add_birthday(patient_tag, pi.date_of_birth);
-	add_prefectures(patient_tag, pi.prefectures);
-	add_gender(patient_tag, pi.gender);
-	add_all_ethnic_groups(patient_tag, pi.ethnicity);
-	add_all_races(patient_tag, pi.race);
-	add_clinical_observations(patient_tag,
-			pi.height,
-			pi.height_unit,
-			pi.weight,
-			pi.weight_unit,
-			pi.consanguinity,
-			pi["Health History"],
-			null, null,
-			pi.twin_status,
-			pi.adopted,
-			pi.physically_active
-	);
-	add_relatives(patient_tag, pi);
 }
 
 function add_id(tag, id_text) {
@@ -707,14 +659,6 @@ function add_estimated_age_tag(tag, code_tag, estimated_age) {
 	}
 }
 
-
-function add_death_status (tag, cause_of_death) {
-	if (cause_of_death == null) return;
-//	var deceasedIndCode_tag = doc.createElement("deceasedIndCode");
-//	deceasedIndCode_tag.setAttribute("value", "true");
-//	tag.appendChild(deceasedIndCode_tag);
-}
-
 function add_death_age(tag, estimated_death_age) {
 	if (estimated_death_age == null) return;
 
@@ -1032,37 +976,6 @@ function get_age_values_from_estimated_age(age_at_diagnosis) {
 		case "unknown": return null;
 	}
 	return null;
-}
-
-function save_document(save_link, output_string, filename) {
-	var DownloadAttributeSupport = 'download' in document.createElement('a');
-
-	var str = '<!-- TO OPEN THIS DATA IN THE "MY FAMILY HEALTH PORTRAIT" APPLICATION: -->';
-	str = str + '<!-- 	- Open your browser and navigate to "https://familyhistory.hhs.gov." -->';
-	str = str + '<!-- 	- Click the "Use a Saved History" button to show the file-open options. -->';
-	str = str + '<!-- 	- Go to the location where this file is stored. -->';
-	str = str + '<!-- 	- Select the filename and open the file. -->';
-	str = str + '<!-- Click "Help" on the "Load your Family Health History" page for more help. -->';
-
-	str = str + output_string;
-
-	if (DownloadAttributeSupport) {
-			save_link.attr("download", filename).attr("href", "data:application/force-download," + encodeURIComponent(str) ).attr("target", "download");
-	} else {
-	    var blobObject = new Blob([str]);
-	    window.navigator.msSaveBlob(blobObject, filename); // The user only has the option of clicking the Save button.
-	}
-
-/*
-		if (isIE10) {
-	    var blobObject = new Blob([output_string]);
-	    window.navigator.msSaveBlob(blobObject, filename); // The user only has the option of clicking the Save button.
-		} else {
-//			save_link.attr("href", "data:application/xml," + output_string ).attr("download", filename);
-			save_link.attr("download", filename).attr("href", "data:application/force-download," + encodeURIComponent(output_string) ).attr("target", "download");
-		}
-*/
-
 }
 
 
