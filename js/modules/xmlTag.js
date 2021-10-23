@@ -39,6 +39,17 @@ class XmlTag {
             json[element] = value;
         }
     }
+
+    returnUndefinedIfJsonIsEmpty(json){
+        if(this.isEmpty(json)){
+            return undefined;
+        }
+        return json;
+    }
+
+    isEmpty(json){
+        return !Object.keys(json).length;
+    }
 }
 
 class PatientPerson extends XmlTag {
@@ -79,11 +90,11 @@ class AdministrativeGenderCode extends XmlTag {
     }
 
     getXmlDataByJson(personalInformation){
-        var administrativeGenderCode;
+        var administrativeGenderCode = {};
         this.appendJsonElement(administrativeGenderCode, "attr_code", this.code);
         this.appendJsonElement(administrativeGenderCode, "attr_codeSystemName", this.codeSystemName);
         this.appendJsonElement(administrativeGenderCode, "attr_displayName", this.displayName);
-        var jsonOfXmlData = { "administrativeGenderCode" : administrativeGenderCode };
+        var jsonOfXmlData = { "administrativeGenderCode" : this.returnUndefinedIfJsonIsEmpty(administrativeGenderCode) };
         return jsonOfXmlData;
     }
 
@@ -98,13 +109,13 @@ class BirthTime extends XmlTag {
 
     constructor(value){
         super();
-        this.c = value;
+        this.value = value;
     }
 
     getXmlDataByJson(personalInformation){
-        var birthTime;
+        var birthTime = {};
         this.appendJsonElement(birthTime, "attr_value", this.value);
-        var jsonOfXmlData = { "birthTime" : birthTime };
+        var jsonOfXmlData = { "birthTime" : this.returnUndefinedIfJsonIsEmpty(birthTime) };
         return jsonOfXmlData;
     }
 
@@ -123,9 +134,9 @@ class Id extends XmlTag {
     }
 
     getXmlDataByJson(personalInformation){
-        var id;
+        var id = {};
         this.appendJsonElement(id, "attr_extension", this.extension);
-        var jsonOfXmlData = { "id" : id };
+        var jsonOfXmlData = { "id" : this.returnUndefinedIfJsonIsEmpty(id) };
         return jsonOfXmlData;
     }
 
@@ -144,9 +155,9 @@ class Name extends XmlTag {
     }
 
     getXmlDataByJson(personalInformation){
-        var name;
+        var name = {};
         this.appendJsonElement(name, "attr_formatted", this.formatted);
-        var jsonOfXmlData = { "name" : name };
+        var jsonOfXmlData = { "name" : this.returnUndefinedIfJsonIsEmpty(name) };
         return jsonOfXmlData;
     }
 
@@ -171,12 +182,12 @@ class RaceCode extends XmlTag {
     }
 
     getXmlDataByJson(personalInformation){
-        var raceCode;
+        var raceCode = {};
         this.appendJsonElement(raceCode, "attr_code", this.code);
         this.appendJsonElement(raceCode, "attr_codeSystemName", this.codeSystemName);
         this.appendJsonElement(raceCode, "attr_displayName", this.displayName);
-        this.appendJsonElement(raceCode, "attr_originalText", this.originalText);
-        var jsonOfXmlData = { "raceCode" : raceCode };
+        this.appendJsonElement(raceCode, "attr_id", this.id);
+        var jsonOfXmlData = { "raceCode" : this.returnUndefinedIfJsonIsEmpty(raceCode) };
         return jsonOfXmlData;
     }
 
@@ -231,12 +242,12 @@ class Code extends XmlTag {
     }
 
     getXmlDataByJson(personalInformation){
-        var code;
+        var code = {};
         this.appendJsonElement(code, "attr_code", this.code);
         this.appendJsonElement(code, "attr_codeSystemName", this.codeSystemName);
         this.appendJsonElement(code, "attr_displayName", this.displayName);
         this.appendJsonElement(code, "attr_originalText", this.originalText);
-        var jsonOfXmlData = { "code" : code };
+        var jsonOfXmlData = { "code" : this.returnUndefinedIfJsonIsEmpty(code) };
         return jsonOfXmlData;
     }
 
@@ -257,10 +268,10 @@ class Value extends XmlTag {
     }
 
     getXmlDataByJson(personalInformation){
-        var value;
+        var value = {};
         this.appendJsonElement(value, "attr_value", this.value);
-        this.appendJsonElement(value, "attr_vunit", this.unit);
-        var jsonOfXmlData = { "value" : value };
+        this.appendJsonElement(value, "attr_unit", this.unit);
+        var jsonOfXmlData = { "value" : this.returnUndefinedIfJsonIsEmpty(value) };
         return jsonOfXmlData;
     }
 
@@ -342,10 +353,10 @@ class Note extends XmlTag {
     }
 
     getXmlDataByJson(personalInformation){
-        var note;
+        var note = {};
         this.appendJsonElement(note, "attr_code", this.code);
         this.appendJsonElement(note, "attr_text", this.text);
-        var jsonOfXmlData = { "note" : note };
+        var jsonOfXmlData = { "note" : this.returnUndefinedIfJsonIsEmpty(note) };
         return jsonOfXmlData;
     }
 
