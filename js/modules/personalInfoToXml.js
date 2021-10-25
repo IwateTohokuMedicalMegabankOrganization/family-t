@@ -1,3 +1,8 @@
+import {AdministrativeGenderCode,BirthTime,Id,Name,RaceCode,
+    SubjectOf2,ClinicalObservation,Code,Value,Subject,DataEstimatedAge,
+    PatientPerson,Relative,RelationshipHolder,Note,XmlTag} from '../modules/xmlTag';
+
+
 var Parser = require("fast-xml-parser").j2xParser;
 var he = require('he');
 
@@ -62,15 +67,13 @@ function _convert( pi ){
  */
 function _getPatientPerson(pi){
 
-    var ret = {};
+    // var ret = {};
+    // ret.id = pi.id; 
+    // ret.name = { attr_formatted : pi.name };
+    // ret.birthTime = { attr_birthTime : pi.date_of_birth };
+    // ret.administrativeGenderCode = { attr_displayName : pi.gender };
+    // return ret;
 
-    ret.id = pi.id; 
-
-    ret.name = { attr_formatted : pi.name };
-
-    ret.birthTime = { attr_birthTime : pi.date_of_birth };
-
-    ret.administrativeGenderCode = { attr_displayName : pi.gender };
-
-    return ret;
+    var patientPerson = new PatientPerson();
+    return patientPerson.getXmlDataByJson( pi );
 }
