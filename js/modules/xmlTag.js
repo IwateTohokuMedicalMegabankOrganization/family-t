@@ -6,6 +6,8 @@
 
 
 
+import { get } from "jquery";
+
 /**
  * base class 
  * 
@@ -204,7 +206,68 @@ class PatientPerson extends XmlTag {
     }
 
     getPersonalInfomationData(persedXml){
-        var personalInformation;
+
+        var personal_information = {};
+
+        if (this.isUndefindOrNull(persedXml.patientPerson)) return personal_information;
+
+        // Id
+        if (this.isUndefindOrNull(persedXml.patientPerson.id)) return personal_information;
+        this.id = new Id(persedXml.patientPerson.id.attr_extension);
+        Object.assign(personal_information, this.id.getPersonalInfomationData());
+
+        // Name
+        if (this.isUndefindOrNull(persedXml.name)) return personal_information;
+        this.name = new Name(persedXml.name.attr_formatted);
+        Object.assign(personal_information, this.name.getPersonalInfomationData());
+
+        // Birth Time
+        if (this.isUndefindOrNull(persedXml.birthTime)) return personal_information;
+        this.birthTime = new BirthTime(persedXml.birthTime.attr_value);
+        Object.assign(personal_information, this.birthTime.getPersonalInfomationData());
+
+        // Administrative Gender Code
+        if (this.isUndefindOrNull(persedXml.patientPerson.administrativeGenderCode)) return {};
+        this.administrativeGenderCode = new AdministrativeGenderCode(
+            persedXml.administrativeGenderCode.code,
+            persedXml.administrativeGenderCode.codeSystemName,
+            persedXml.administrativeGenderCode.displayName);
+        Object.assign(personal_information, this.administrativeGenderCode.getPersonalInfomationData());
+
+        // RaceCode 
+        if (this.isUndefindOrNull(persedXml.patientPerson.raceCode)) return {};
+        for (let r in persedXml.patientPerson.raceCode) {
+            var raceCode = new RaceCode(
+                r.attr_code,
+                r.attr_codeSystemName,
+                r.attr_displayName,
+                r.attr_id
+            );
+            Object.assign(personal_information, raceCode.getPersonalInfomationData(r));
+        }
+
+        // subjectOf2
+        if (this.isUndefindOrNull(persedXml.patientPerson.subjectOf2)) return {};
+        this.subjectOf2 = new SubjectOf2();
+        Object.assign(personal_information, this.subjectOf2.getPersonalInfomationData(persedXml.patientPerson.subjectOf2));
+
+        // relative
+        // if( this.isUndefindOrNull( persedXml.patientPerson.relative) ) return {};
+        // for( let r in persedXml.patientPerson.relative){
+        //     var relative = new Relative();
+        //     Object.assign( personal_information, relative.getPersonalInfomationData(r));
+        // }
+
+        // note
+        if (this.isUndefindOrNull(persedXml.patientPerson.notes)) return {};
+        for (let r in persedXml.patientPerson.notes) {
+            var note = new Note(
+                r.attr_code,
+                r.attr_text
+            );
+            Object.assign(personal_information, note.getPersonalInfomationData(r));
+        }
+
         return personalInformation;
     }
 }
@@ -229,9 +292,35 @@ class AdministrativeGenderCode extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(administrativeGenderCode);
     }
 
-    getPersonalInfomationData(persedXml){
-        var personalInformation;
+    getPersonalInfomationData(){
+        var personalInformation = {};
+        this.appendJsonElement(personalInformation, "gender",  this._getAdministrativeGenderCode().piCode );
         return personalInformation;
+    }
+    
+    _getAdministrativeGenderCode(){
+        if( this.isUndefindOrNull( this.displayName ) )
+            return this.AdministrativeGenderCodes.MALE;
+
+        for(let gender in this.AdministrativeGenderCodes ){
+            if( this.AdministrativeGenderCodes[gender].displayName.toUpperCase() == this.displayName.toUpperCase() ){
+                return this.AdministrativeGenderCodes[gender];
+            }
+        }
+        return this.AdministrativeGenderCodes.MALE;
+    }
+
+    AdministrativeGenderCodes = {
+        MALE: {
+            code: 248153007
+            , displayName : "male"
+            , piCode : "MALE"
+        },
+        FEMALE: {
+            code: 248152002
+            , displayName : "female"
+            , piCode : "FEMALE"
+        }
     }
 }
 
@@ -250,9 +339,17 @@ class BirthTime extends XmlTag {
     }
 
     getPersonalInfomationData(persedXml){
-        var personalInformation;
+        var personalInformation = {};
+        this.appendJsonElement(personalInformation, "date_of_birth",  this._getYYYYMMDD(this.value) );
         return personalInformation;
     }
+
+    _getYYYYMMDD( value ){
+        var d = new Date( value );
+        if( isNaN( d ) ) d = new Date();
+        return String(d.getFullYear()) + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + d.getDate()).slice(-2) ;
+    }
+
 }
 
 class Id extends XmlTag {
@@ -269,8 +366,9 @@ class Id extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(id);
     }
 
-    getPersonalInfomationData(persedXml){
-        var personalInformation;
+    getPersonalInfomationData(){
+        var personalInformation = {};
+        this.appendJsonElement(personalInformation, "id",  this.extension );
         return personalInformation;
     }
 }
@@ -289,8 +387,9 @@ class Name extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(name);
     }
 
-    getPersonalInfomationData(persedXml){
-        var personalInformation;
+    getPersonalInfomationData(){
+        var personalInformation = {};
+        this.appendJsonElement(personalInformation, "name",  this.formatted );
         return personalInformation;
     }
 }
@@ -319,9 +418,14 @@ class RaceCode extends XmlTag {
     }
 
     getPersonalInfomationData(persedXml){
-        var personalInformation;
+        var personalInformation = { "American Indian or Alaska Native": false, "Asian": false, "Black or African-American": false, "Native Hawaiian or Other Pacific Islander": false, "White": false, "Asian Indian": false, "Chinese": false, "Filipino": false, "Japanese": false, "Korean": false, "Vietnamese": false, "Other Asian": false, "Unknown Asian": false, "Chamorro": false, "Guamanian": false, "Native Hawaiian": false, "Samoan": false, "Unknown South Pacific Islander": false };
+
+
+        this.appendJsonElement(personalInformation, "name",  this.formatted );
         return personalInformation;
     }
+
+
 }
 
 class SubjectOf2 extends XmlTag {
@@ -431,8 +535,130 @@ class ClinicalObservation extends XmlTag {
     }
 
     getPersonalInfomationData(persedXml){
-        var personalInformation;
+        var personalInformation = {};
+
+        // code
+        if( this.isUndefindOrNull( persedXml ) ) return personalInformation;
+        if( this.isUndefindOrNull( persedXml.code ) ) return personalInformation;
+        this.code = new Code(persedXml.code.attr_code, persedXml.code.attr_codeSystemName, persedXml.code.attr_value);
+
+        if(!this.isUndefindOrNull( persedXml.subject ) ) {
+            this.subject = new Subject();
+        }
+
+        if (!this.isUndefindOrNull(persedXml.value)) {
+            this.value = new Value(persedXml.value.attr_value, persedXml.value.attr_unit);
+        }
+
+        // Twin and Adopted Status
+        Object.assign(personalInformation, this._getTwinStatus());
+
+        // Height and Weight and actvity
+        Object.assign(personalInformation, this._getHeight());
+
+        // Personal Diseases
+
+        // this.appendJsonElement(personalInformation, "code", this.code.getPersonalInfomationData(persedXml) ) ;
+        // this.appendJsonElement(personalInformation, "relationshipHolder", this.relationshipHolder.getPersonalInfomationData(persedXml));
+
+        // COD
+
         return personalInformation;
+    }
+    
+    _getHeight(){
+        var personalInformation = {};
+
+        if( this.isUndefindOrNull( this.code ) ){
+            return personalInformation;
+        }
+
+        if( this.HEIGHT.code == this.code.code ){
+            if (!this.isUndefindOrNull(this.value.value)) {
+                this.appendJsonElement(personalInformation, this.HEIGHT.piCode,  this.value.value );
+                this.appendJsonElement(personalInformation, this.HEIGHT.piUnit,  this.value.unit );
+            }
+        }
+
+        return personalInformation;
+    }
+
+    _getTwinStatus(){
+
+        var personalInformation = {};
+
+        if( this.isUndefindOrNull( this.code ) ){
+            return personalInformation;
+        }
+
+        for(let st in this.TWIN_STATUS ){
+            if( this.TWIN_STATUS[st].code == this.code.code ){
+                this.appendJsonElement(personalInformation, "twin_status",  this.TWIN_STATUS[st].piCode );
+            }
+        }
+
+        return personalInformation;
+    }
+
+    // _getAdministrativeGenderCode(){
+    //     if( this.isUndefindOrNull( this.displayName ) )
+    //         return this.AdministrativeGenderCodes.MALE;
+
+    //     for(let gender in this.AdministrativeGenderCodes ){
+    //         if( this.AdministrativeGenderCodes[gender].displayName.toUpperCase() == this.displayName.toUpperCase() ){
+    //             return this.AdministrativeGenderCodes[gender];
+    //         }
+    //     }
+    //     return this.AdministrativeGenderCodes.MALE;
+    // }
+
+    // AdministrativeGenderCodes = {
+    //     MALE: {
+    //         code: 248153007
+    //         , displayName : "male"
+    //         , piCode : "MALE"
+    //     },
+    //     FEMALE: {
+    //         code: 248152002
+    //         , displayName : "female"
+    //         , piCode : "FEMALE"
+    //     }
+    // }
+
+    // twin status
+    TWIN_STATUS = {
+        IDENTICAL: {
+            code: 313415001
+            , displayName : "Identical twin (person)"
+            , piCode : "IDENTICAL"
+        },
+        FRATERNAL: {
+            code: 313416000
+            , displayName : "Fraternal twin (person)"
+            , piCode : "FRATERNAL"
+        }
+    }
+
+    // height and weight and activity
+    HEIGHT = {
+        code: 271603002
+        , displayName : "height"
+        , piCode: "height"
+        , piUnit: "height_unit"
+    }
+
+    WEIGHT = {
+        code: 271603002
+        , displayName : "height"
+        , piCode: "weight"
+        , piUnit: "weight_unit"
+    }
+
+    // Adopted
+    ADOPTED = {
+        code: 160496001
+        , displayName : "adopted"
+        , piCode : true
     }
 }
 
@@ -460,8 +686,7 @@ class Code extends XmlTag {
     }
 
     getPersonalInfomationData(persedXml){
-        var personalInformation;
-        return personalInformation;
+        return new ReferenceError();
     }
 }
 
@@ -570,9 +795,15 @@ class Relative extends XmlTag {
         this.appendJsonElementFromTag(relative, "relationshipHolder", this.relationshipHolder);
         return this.returnEmptyStringIfJsonLengthIsZero(relative);
     }
-
+    
     getPersonalInfomationData(persedXml){
-        var personalInformation;
+        this.code = new Code( persedXml.attr_code, persedXml.attr_codeSystemName, persedXml.attr_displayName );
+        this.relationshipHolder = new RelationshipHolder();
+
+        var personalInformation = {};
+        this.appendJsonElement(personalInformation, "code", this.code.getPersonalInfomationData(persedXml) ) ;
+        this.appendJsonElement(personalInformation, "relationshipHolder", this.relationshipHolder.getPersonalInfomationData(persedXml));
+
         return personalInformation;
     }
 }
@@ -638,7 +869,8 @@ class Note extends XmlTag {
     }
 
     getPersonalInfomationData(persedXml){
-        var personalInformation;
+        var personalInformation = {};
+        this.appendJsonElement(personalInformation, this.code,  this.text );
         return personalInformation;
     }
 }
