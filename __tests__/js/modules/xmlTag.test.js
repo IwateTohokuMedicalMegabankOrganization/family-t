@@ -103,9 +103,33 @@ test('PatientPerson_setPatientPersonProps', () => {
     expect(tag.name.formatted).toStrictEqual(personalInformation.name);
 });
 
-test('PatientPerson_getXmlDataByJson', () => {
+test('PatientPerson_getRaceCodes', () => {
     var tag = new PatientPerson();
-    tag.setPatientPersonProps(personalInformation);
+    var evalue = [
+        {
+            "code":"",
+            "codeSystemName":"",
+            "displayName":"Asian",
+            "id":""
+        },
+        {
+            "code":"",
+            "codeSystemName":"",
+            "displayName":"Japanese",
+            "id":""
+        }
+    ];
+    expect(tag.getRaceCode(personalInformation)).toStrictEqual(personalInformation.name);
+});
+
+test('PatientPerson_getApplicableRaces', () => {
+    var tag = new PatientPerson();
+    var evalue = ["Asian","Japanese"];
+    expect(tag.getApplicableRaces(personalInformation.race)).toStrictEqual(evalue);
+});
+
+test('PatientPerson_getXmlDataByJson', () => {
+    var tag = new PatientPerson(personalInformation);
     var evalue = {
         administrativeGenderCode : { attr_displayName : personalInformation.gender },
         birthTime : { attr_value : personalInformation.date_of_birth },
@@ -123,7 +147,7 @@ test('PatientPerson_getXmlDataByJson', () => {
 test('AdministrativeGenderCode_getXmlDataByJson', () => {
     var tag = new AdministrativeGenderCode();
     var evalue = undefined;
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new AdministrativeGenderCode("code", "codeSystemName", "displayName");
     var evalue = {
@@ -131,61 +155,61 @@ test('AdministrativeGenderCode_getXmlDataByJson', () => {
         "attr_codeSystemName":"codeSystemName",
         "attr_displayName":"displayName"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new AdministrativeGenderCode("code", undefined, undefined);
     var evalue = {
         "attr_code":"code"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new AdministrativeGenderCode(undefined, "codeSystemName", undefined);
     var evalue = {
         "attr_codeSystemName":"codeSystemName",
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
     
     var tag = new AdministrativeGenderCode(undefined, undefined, "displayName");
     var evalue = {
         "attr_displayName":"displayName"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('BirthTime_getXmlDataByJson', () => {
     var tag = new BirthTime();
     var evalue = undefined ;
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new BirthTime("birthTime");
     var evalue = { "attr_value":"birthTime" };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('Id_getXmlDataByJson', () => {
     var tag = new Id();
     var evalue = undefined;
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new Id("id");
     var evalue = {"attr_extension":"id"};
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('Name_getXmlDataByJson', () => {
     var tag = new Name();
     var evalue = undefined;
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new Name("formatted");
     var evalue = {"attr_formatted":"formatted"};
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('RaceCode_getXmlDataByJson', () => {
     var tag = new RaceCode();
     var evalue = undefined;
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new RaceCode("code","codeSystemName","displayName","id");
     var evalue = {
@@ -194,49 +218,49 @@ test('RaceCode_getXmlDataByJson', () => {
         "attr_displayName":"displayName",
         "attr_id":"id"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new RaceCode("code",undefined,undefined,undefined);
     var evalue = {
         "attr_code":"code"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new RaceCode(undefined,"codeSystemName",undefined,undefined);
     var evalue = {
         "attr_codeSystemName":"codeSystemName"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new RaceCode(undefined,undefined,"displayName",undefined);
     var evalue = {
         "attr_displayName":"displayName"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new RaceCode(undefined,undefined,undefined,"id");
     var evalue = {
         "attr_id":"id"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('SubjectOf2_getXmlDataByJson', () => {
     var tag = new SubjectOf2();
     var evalue = undefined;
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('ClinicalObservation_getXmlDataByJson', () => {
     var tag = new ClinicalObservation();
     var evalue = undefined;
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('Code_getXmlDataByJson', () => {
     var tag = new Code();
     var evalue = undefined;
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new Code("code","codeSystemName","displayName","originalText");
     var evalue = {
@@ -245,103 +269,103 @@ test('Code_getXmlDataByJson', () => {
         "attr_displayName":"displayName",
         "attr_originalText":"originalText"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new Code("code",undefined,undefined,undefined);
     var evalue = {
         "attr_code":"code"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new Code(undefined,"codeSystemName",undefined,undefined);
     var evalue = {
         "attr_codeSystemName":"codeSystemName"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new Code(undefined,undefined,"displayName",undefined);
     var evalue = {
         "attr_displayName":"displayName"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new Code(undefined,undefined,undefined,"originalText");
     var evalue = {
         "attr_originalText":"originalText"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('Value_getXmlDataByJson', () => {
     var tag = new Value();
     var evalue = undefined;
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new Value("value", "unit");
     var evalue = {
         "attr_value":"value",
         "attr_unit":"unit"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new Value("value", undefined);
     var evalue = {
         "attr_value":"value"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new Value(undefined, "unit");
     var evalue = {
         "attr_unit":"unit"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('Subject_getXmlDataByJson', () => {
     var tag = new Subject();
     var evalue = undefined;
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('DataEstimatedAge_getXmlDataByJson', () => {
     var tag = new DataEstimatedAge();
     var evalue = undefined;
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('Relative_getXmlDataByJson', () => {
     var tag = new Relative();
     var evalue = undefined;
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('RelationshipHolder_getXmlDataByJson', () => {
     var tag = new RelationshipHolder();
     var evalue = undefined;
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('Note_getXmlDataByJson', () => {
     var tag = new Note();
     var evalue = undefined;
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new Note("code","text");
     var evalue = {
         "attr_code":"code",
         "attr_text":"text"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new Note("code",undefined);
     var evalue = {
         "attr_code":"code"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
     var tag = new Note(undefined,"text");
     var evalue = {
         "attr_text":"text"
     };
-    expect(tag.getXmlDataByJson(personalInformation)).toStrictEqual(evalue);
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
