@@ -107,19 +107,19 @@ test('PatientPerson_getRaceCodes', () => {
     var tag = new PatientPerson();
     var evalue = [
         {
-            "code":"",
-            "codeSystemName":"",
+            "code":"1000000",
+            "codeSystemName":"TBD",
             "displayName":"Asian",
-            "id":""
+            "id":"2"
         },
         {
-            "code":"",
-            "codeSystemName":"",
+            "code":"2039-6",
+            "codeSystemName":"HL7",
             "displayName":"Japanese",
-            "id":""
+            "id":"14"
         }
     ];
-    expect(tag.getRaceCode(personalInformation)).toStrictEqual(personalInformation.name);
+    expect(tag.getRaceCodes(personalInformation)).toEqual(evalue);
 });
 
 test('PatientPerson_getApplicableRaces', () => {

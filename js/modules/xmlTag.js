@@ -1,6 +1,9 @@
 /**
  * this module defines xml tag classes what used in familiy-t
  */
+ import {RaceUtil} from '../../js/modules/xmlTagUtil';
+
+
 
 /**
  * base class 
@@ -112,8 +115,10 @@ class PatientPerson extends XmlTag {
         }
         var applicableRaces = this.getApplicableRaces(races) 
         var raceCodes = [];
-        raceCodes.push(new RaceCode());
-        raceCodes.push(new RaceCode());
+        Object.keys(applicableRaces).forEach(function(index){
+            var race = RaceUtil.getRace(applicableRaces[index]);
+            raceCodes.push(new RaceCode(race.code,race.codeSystemName,race.displayName,race.id));
+        });
         return raceCodes;
     }
     
