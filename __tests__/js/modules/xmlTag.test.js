@@ -128,6 +128,12 @@ test('PatientPerson_getApplicableRaces', () => {
     expect(tag.getApplicableRaces(personalInformation.race)).toStrictEqual(evalue);
 });
 
+test('PatientPerson_getRelatives', () => {
+    var tag = new PatientPerson();
+    var evalue = ["Asian","Japanese"];
+    expect(tag.getRelatives(personalInformation)).toStrictEqual(evalue);
+});
+
 test('PatientPerson_getXmlDataByJson', () => {
     var tag = new PatientPerson(personalInformation);
     var evalue = {

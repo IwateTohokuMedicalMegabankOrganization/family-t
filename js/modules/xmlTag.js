@@ -2,6 +2,7 @@
  * this module defines xml tag classes what used in familiy-t
  */
  import {RaceUtil} from '../../js/modules/xmlTagUtil';
+ //import {relationToGroup} from '../../js//fhh';
 
 
 
@@ -90,7 +91,7 @@ class PatientPerson extends XmlTag {
         this.name = new Name(this.getObjectProperty(personalInformation,"name"));
         this.notes = this.getNotes(personalInformation);
         this.relatives = this.getRaceCodes(personalInformation);
-        this.relatives = this.getRlatives(personalInformation);
+        this.relatives = this.getRelatives(personalInformation);
         this.subjectOf2 = this.getSubjectOf2(personalInformation);
     }
 
@@ -132,8 +133,25 @@ class PatientPerson extends XmlTag {
         return applicableRaces;
     }
 
-    getRlatives(personalInformation){
-        return undefined;
+    getRelatives(personalInformation){
+        if(this.isUndefindOrNull(personalInformation)){
+            return undefined;
+        }
+        var relatives = [];
+        Object.keys(personalInformation).forEach(function(key){
+            //relatives.push(key);
+            /**
+             * key がrelationToGroupの各relationと先頭一致するかどうか判定
+             * if(RelationToGroupUtil.isMatchRelation(key)){
+             *      var family = personalInformation[key];
+             *      var group = RelationToGroupUtil.getGroup(key)
+             *      var relationship = RelationToGroupUtil.getRelation(key)
+             *      relative.push(new Relative(family, group, relationsip))
+             * }
+             * 
+             */
+        });
+        return relatives;
     }
 
     getSubjectOf2(personalInformation){
