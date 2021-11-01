@@ -130,3 +130,260 @@ export class RaceUtil{
         return isMatch;
     }
 }
+
+export class RelativeUtil{
+    static birthOrderRelations = {
+        "self" : [ "brother", "sister", "self"]
+        , "paternal" : [ "paternal_uncle", "paternal_aunt", "father" ]
+        , "maternal" : [ "maternal_uncle", "maternal_aunt", "mother" ]
+        , "children" : [ "son", "daughter" ]
+    };
+
+    static relationToGroup  = [
+        {
+            "code" :  "SELF"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Self"
+            ,"group" : "self"
+            ,"relation" : "self"
+            ,"nestedRelation" : {
+                "code" :  ""
+                ,"codeSystemName" : ""
+                ,"displayName" : ""
+                ,"group" : ""
+                ,"relation" : ""
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "NBRO"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Brother"
+            ,"group" : "self"
+            ,"relation" : "brother"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "NSIS"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Sister"
+            ,"group" : "self"
+            ,"relation" : "sister"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "PUNC"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Paternal Uncle"
+            ,"group" : "paternal"
+            ,"relation" : "paternal_uncle"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "PAUN"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Paternal Aunt"
+            ,"group" : "paternal"
+            ,"relation" : "paternal_aunt"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "PGRFTH"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Paternal Grandfather"
+            ,"group" : "paternal"
+            ,"relation" : "paternal_grandfather"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "PGRMTH"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Paternal Grandmother"
+            ,"group" : "paternal"
+            ,"relation" : "paternal_grandmother"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "NFTH"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Father"
+            ,"group" : "paternal"
+            ,"relation" : "father"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "MUNC"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Maternal Uncle"
+            ,"group" : "maternal"
+            ,"relation" : "maternal_uncle"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "MAUN"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Maternal Aunt"
+            ,"group" : "maternal"
+            ,"relation" : "maternal_aunt"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },        
+        {
+            "code" :  "MGRFTH"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Maternal Grandfather"
+            ,"group" : "maternal"
+            ,"relation" : "maternal_grandfather"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "MGRMTH"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Maternal Grandmother"
+            ,"group" : "maternal"
+            ,"relation" : "maternal_grandmother"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "NMTH"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Mother"
+            ,"group" : "maternal"
+            ,"relation" : "mother"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "NSON"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Son"
+            ,"group" : "children"
+            ,"relation" : "son"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "NDAU"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Daughter"
+            ,"group" : "children"
+            ,"relation" : "daughter"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+    ];
+
+    static isMatchRelation(key){
+        var isMatch = false;
+        this.relationToGroup.forEach(function(relation){
+            if(key.startsWith(relation.relation)){
+                isMatch = true;
+            }
+        });
+        return isMatch;
+    }
+
+    static getRelation(key){
+        var rel = undefined;
+        this.relationToGroup.forEach(function(relation){
+            if(key.startsWith(relation.relation)){
+                rel = relation;
+            }
+        });
+        return rel;
+    }
+}
