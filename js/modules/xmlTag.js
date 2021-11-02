@@ -1,7 +1,7 @@
 /**
  * this module defines xml tag classes what used in familiy-t
  */
- import {RaceUtil, RelativeUtil} from '../../js/modules/xmlTagUtil';
+ import {RaceUtil, RelativeUtil, CodeUtil} from '../../js/modules/xmlTagUtil';
  //import {relationToGroup} from '../../js//fhh';
 
 
@@ -99,6 +99,17 @@ class PatientPerson extends XmlTag {
     }
 
     setPatientPersonProps(personalInformation){
+        /* 
+        add_id
+        add_name
+        add_birthday
+        add_prefectures
+        add_gender
+        add_all_ethnic_groups
+        add_all_races
+        add_clinical_observations
+        add_relatives
+         */
         this.administrativeGenderCode = new AdministrativeGenderCode(undefined,undefined,this.getObjectProperty(personalInformation,"gender"))
         this.birthTime = new BirthTime(this.getObjectProperty(personalInformation,"date_of_birth"));
         this.id = new Id(this.getObjectProperty(personalInformation,"id"));        
@@ -314,6 +325,74 @@ class RaceCode extends XmlTag {
 class SubjectOf2 extends XmlTag {
     clinicalObservations;   // XmlTag
 
+    constructor(personalInformation){
+        super();
+        this.clinicalObservations = this.getClinicalObservations(personalInformation);
+    }
+
+    getClinicalObservations(personalInformation){
+        if(this.isUndefindOrNull(personalInformation)) return undefined;
+
+        // reference : save_xml add_clinical_observations
+        var clinicalObservations = [];
+        this.appendByKey(clinicalObservations, personalInformation, 
+            this.getObjectProperty(personalInformation,"twin_status"));
+        // adopted
+        // active
+        this.appendByKey(clinicalObservations, personalInformation, "height");
+        this.appendByKey(clinicalObservations, personalInformation, "weight");
+        this.appendParentalConsanguinity(clinicalObservations);
+        this.appendHealthHistory(clinicalObservations, personalInformation);
+        this.appendCauseOfDeath(clinicalObservations, personalInformation);
+        return clinicalObservations;
+    }
+
+    appendByKey(clinicalObservations, personalInformation, key){
+        var attr = CodeUtil.getCode(key);
+        if(this.isUndefindOrNull(attr)) return;
+        var code = new Code(attr.code,attr.codeSystemName,attr.displayName,undefined);
+        var keyValue = this.getObjectProperty(personalInformation,key);
+        var keyUnit = this.getObjectProperty(personalInformation,key+"_unit");
+        var value = new Value(keyValue,keyUnit);
+        clinicalObservations.push(new ClinicalObservation(code,undefined,undefined,value));
+    }
+
+    appendParentalConsanguinity(clinicalObservations){
+        var text = "Parental consanguinity indicated";
+        var code = new Code(undefined,undefined,undefined,text);
+        clinicalObservations.push(new ClinicalObservation(code,undefined,undefined,undefined));
+    }
+
+    appendHealthHistory(clinicalObservations, personalInformation){
+        var healthHistory = this.getObjectProperty(personalInformation,"Health History");
+        healthHistory.forEach(function(history){
+            // generate CodeTag for ClinicalObservationTag
+            var diseas = CodeUtil.getCode(history["Disease Code"]);
+            var code = new Code(diseas.code,diseas.codeSystemName,diseas.displayName,diseas.originText);
+            
+            // generate SubjectTag
+            var ageAtDiag = CodeUtil.getCode("ESTIMATED_AGE");
+            var deaCode = new Code(ageAtDiag.code,ageAtDiag.codeSystemName,ageAtDiag.displayName,history["Age At Diagnosis"]);
+            var dateEstimateAge = new DataEstimatedAge(deaCode);
+            var subject = new Subject(dateEstimateAge);
+
+            clinicalObservations.push(new ClinicalObservation(code,undefined,subject,undefined));
+        });
+    }
+
+    appendCauseOfDeath(clinicalObservations, personalInformation){
+        if(this.isUndefindOrNull(this.getObjectProperty(personalInformation,"cause_of_death"))) return;
+        if(this.isUndefindOrNull(this.getObjectProperty(personalInformation,"cause_of_death_code"))) return;
+
+        var cause = CodeUtil.getCode(personalInformation.cause_of_death_code);
+        var code = new Code(cause.code,cause.codeSystemName,cause.displayName,cause.originText);
+
+        var death = CodeUtil.getCode("DEATH");
+        var souceCode = new Code(death.code,death.codeSystemName,death.displayName,undefined);
+        var sourceOf = new SourceOf(souceCode);
+        clinicalObservations.push(new ClinicalObservation(code,sourceOf,undefined,undefined));
+    }
+
     getXmlDataByJson(){
         var jsonOfXmlData = "";
         return jsonOfXmlData;
@@ -327,8 +406,17 @@ class SubjectOf2 extends XmlTag {
 
 class ClinicalObservation extends XmlTag {
     code;       // XmlTag
+    sourceOf;   // XmlTag
     subject;    // XmlTag
     value;      // XmlTag
+
+    constructor(code,sourceOf,subject,value){
+        super();
+        this.code = code;
+        this.sourceOf = sourceOf;
+        this.subject = subject;
+        this.value = value;
+    }
 
     getXmlDataByJson(){
         var jsonOfXmlData = undefined;
@@ -393,8 +481,32 @@ class Value extends XmlTag {
     }
 }
 
+class SourceOf extends XmlTag {
+    code;   //XmlTag
+
+    constructor(code){
+        super();
+        this.code = code;
+    }
+
+    getXmlDataByJson(){
+        var jsonOfXmlData = undefined;
+        return jsonOfXmlData;
+    }
+
+    getPersonalInfomationData(persedXml){
+        var personalInformation;
+        return personalInformation;
+    }
+}
+
 class Subject extends XmlTag {
     dataEstimatedAge;   // XmlTag
+
+    constructor(dataEstimatedAge){
+        super();
+        this.dataEstimatedAge = dataEstimatedAge;
+    }
 
     getXmlDataByJson(){
         var jsonOfXmlData = undefined;
@@ -409,6 +521,11 @@ class Subject extends XmlTag {
 
 class DataEstimatedAge extends XmlTag {
     code;   // XmlTag
+
+    constructor(code){
+        super();
+        this.code = code;
+    }
 
     getXmlDataByJson(){
         var jsonOfXmlData = undefined;
@@ -459,6 +576,7 @@ class RelationshipHolder extends XmlTag {
     administrativeGenderCode;   // XmlTag
     id;                         // XmlTag
     name;                       // XmlTag
+    notes;                      // XmlTags
     relative;                   // XmlTag
     subjectOf2;                 // XmlTag
 
@@ -467,8 +585,13 @@ class RelationshipHolder extends XmlTag {
         this.administrativeGenderCode = new AdministrativeGenderCode(undefined,undefined,this.getObjectProperty(family,"gender"));
         this.id = new Id(this.getObjectProperty(family,"id"));
         this.name = new Name(this.getObjectProperty(family,"name"));
+        this.notes = this.getNotes(family);
         this.relative = new Relative(undefined, relation);
         this.subjectOf2 = new SubjectOf2(undefined);
+    }
+
+    getNotes(family){
+
     }
 
     getXmlDataByJson(){
