@@ -1,5 +1,5 @@
 import {AdministrativeGenderCode,BirthTime,Id,Name,RaceCode,
-    SubjectOf2,ClinicalObservation,Code,Value,Subject,DataEstimatedAge,
+    SubjectOf2,ClinicalObservation,Code,Value,Subject,SourceOf,DataEstimatedAge,
     PatientPerson,Relative,RelationshipHolder,Note,XmlTag} from '../../../js/modules/xmlTag';
 
     
@@ -522,43 +522,367 @@ test('RaceCode_getXmlDataByJson', () => {
 
 test('SubjectOf2_appendByKey', () => {
     var tag = new SubjectOf2();
-    var array = [];
-    tag.appendByKey(array, personalInformation, personalInformation.twin_status);
-    tag.appendByKey(array, personalInformation, "height");
-    tag.appendByKey(array, personalInformation, "weight");
-    expect(array.length).toStrictEqual(3);
+    var evalue = [
+        {
+            "code":{
+                "code":"313415001",
+                "codeSystemName":"SNOMED_CT",
+                "displayName":"Identical twin (person)",
+                "originalText":undefined
+            },
+            "sourceOf":undefined,
+            "subject":undefined,
+            "value":{
+                "value":undefined,
+                "unit":undefined
+            }
+        },
+        {
+            "code":{
+                "code":"271603002",
+                "codeSystemName":"SNOMED_CT",
+                "displayName":"height",
+                "originalText":undefined
+            },
+            "sourceOf":undefined,
+            "subject":undefined,
+            "value":{
+                "value":175,
+                "unit":"centimeters"
+            }
+        },
+        {
+            "code":{
+                "code":"107647005",
+                "codeSystemName":"SNOMED_CT",
+                "displayName":"weight",
+                "originalText":undefined
+            },
+            "sourceOf":undefined,
+            "subject":undefined,
+            "value":{
+                "value":"60",
+                "unit":"kilogram"
+            }
+        }
+    ];
+    var actual = [];
+    tag.appendByKey(actual, personalInformation, personalInformation.twin_status);
+    tag.appendByKey(actual, personalInformation, "height");
+    tag.appendByKey(actual, personalInformation, "weight");
+    expect(actual.length).toEqual(evalue.length);
+    expect(actual).toEqual(evalue);
 });
 
 test('SubjectOf2_appendParentalConsanguinity', () => {
     var tag = new SubjectOf2();
-    var array = [];
-    tag.appendParentalConsanguinity(array);
-    expect(array.length).toStrictEqual(1);
+    var evalue = [{
+        "code":{
+            "code":undefined,
+            "codeSystemName":undefined,
+            "displayName":undefined,
+            "originalText":"Parental consanguinity indicated"
+        },
+        "sourceOf":undefined,
+        "subject":undefined,
+        "value":undefined
+    }];
+    var actual = [];
+    tag.appendParentalConsanguinity(actual);
+    expect(actual.length).toEqual(evalue.length);
+    expect(actual).toEqual(evalue);
 });
 
 test('SubjectOf2_appendHealthHistory', () => {
     var tag = new SubjectOf2();
-    var array = [];
-    tag.appendHealthHistory(array, personalInformation.maternal_uncle_0);
-    expect(array.length).toStrictEqual(2);
+    var evalue = [{
+        "code":{
+            "code":"38341003",
+            "codeSystemName":"SNOMED_CT",
+            "displayName":"Hypertension/high blood pressure",
+            "originalText":"Hypertension/high blood pressure"
+        },
+        "sourceOf":undefined,
+        "subject":{
+            "dataEstimatedAge" : {
+                "code" : {
+                    "code":"21611-9",
+                    "codeSystemName":"LOINC",
+                    "displayName":"Estimated Age",
+                    "originalText":"late_fourties"
+                }
+            }
+        },
+        "value":undefined
+    },
+    {
+        "code":{
+            "code":"55822004",
+            "codeSystemName":"SNOMED_CT",
+            "displayName":"High Cholesterol",
+            "originalText":"High Cholesterol"
+        },
+        "sourceOf":undefined,
+        "subject":{
+            "dataEstimatedAge" : {
+                "code" : {
+                    "code":"21611-9",
+                    "codeSystemName":"LOINC",
+                    "displayName":"Estimated Age",
+                    "originalText":"late_fourties"
+                }
+            }
+        },
+        "value":undefined
+    }];
+    var actual = [];
+    tag.appendHealthHistory(actual, personalInformation.maternal_uncle_0);
+    expect(actual.length).toEqual(evalue.length);
+    expect(actual).toEqual(evalue);
 });
 
 test('SubjectOf2_appendCauseOfDeath', () => {
     var tag = new SubjectOf2();
-    var array = [];
-    tag.appendCauseOfDeath(array, personalInformation.maternal_grandfather);
-    expect(1).toStrictEqual(1);
+    var evalue = [{
+        "code":{
+            "code":"363349007",
+            "codeSystemName":"SNOMED_CT",
+            "displayName":"Gastric Cancer",
+            "originalText":"Gastric Cancer"
+        },
+        "sourceOf":{
+            "code":{
+                "code":"419620001",
+                "codeSystemName":"SNOMED_CT",
+                "displayName":"death",
+                "originalText":undefined
+            }
+        },
+        "subject":undefined,
+        "value":undefined
+    }];
+    var actual = [];
+    tag.appendCauseOfDeath(actual, personalInformation.maternal_uncle_0);
+    tag.appendCauseOfDeath(actual, personalInformation.maternal_grandfather);
+    expect(actual.length).toEqual(evalue.length);
+    expect(actual).toEqual(evalue);
 });
 
 test('SubjectOf2_getXmlDataByJson', () => {
     var tag = new SubjectOf2();
-    var evalue = "";
-    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
+    var clinicalObservations = [];
+
+    var code_1 = new Code("code","codeSystemName","displayName","originalText");
+    var sourceOf_1 = new SourceOf(code_1);
+    var subject_1 = new Subject(new DataEstimatedAge(code_1));
+    var value_1 = new Value("value", "unit");
+    var tag_1 = new ClinicalObservation(code_1,sourceOf_1,subject_1,value_1);
+    
+    var code_2 = undefined;
+    var sourceOf_2 = new SourceOf(code_2);
+    var subject_2 = new Subject(new DataEstimatedAge(code_2));
+    var value_2 = new Value("value", "unit");
+    var tag_2 = new ClinicalObservation(code_2,sourceOf_2,subject_2,value_2);
+
+    clinicalObservations.push(tag_1);
+    clinicalObservations.push(tag_2);
+
+    tag.clinicalObservations = clinicalObservations;
+    var evalue = {
+        "clinicalObservation":[
+            {
+                "code":{
+                    "attr_code":"code",
+                    "attr_codeSystemName":"codeSystemName",
+                    "attr_displayName":"displayName",
+                    "attr_originalText":"originalText"
+                },
+                "sourceOf":{
+                    "code":{
+                        "attr_code":"code",
+                        "attr_codeSystemName":"codeSystemName",
+                        "attr_displayName":"displayName",
+                        "attr_originalText":"originalText"
+                    }
+                },
+                "subject":{
+                    "dataEstimatedAge" : {
+                        "code" : {
+                            "attr_code":"code",
+                            "attr_codeSystemName":"codeSystemName",
+                            "attr_displayName":"displayName",
+                            "attr_originalText":"originalText"
+                        }
+                    }
+                },
+                "value":{
+                    "attr_value":"value",
+                    "attr_unit":"unit"
+                }
+            },
+            {
+                "code":"",
+                "sourceOf":"",
+                "subject":"",
+                "value":{
+                    "attr_value":"value",
+                    "attr_unit":"unit"
+                }
+            }
+        ]
+    };
+    var actual = tag.getXmlDataByJson();
+    expect(actual).toStrictEqual(evalue);
 });
 
 test('ClinicalObservation_getXmlDataByJson', () => {
     var tag = new ClinicalObservation();
     var evalue = "";
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
+
+    var code = new Code("code","codeSystemName","displayName","originalText");
+    var sourceOf = new SourceOf(code);
+    var subject = new Subject(new DataEstimatedAge(code));
+    var value = new Value("value", "unit");
+    var tag = new ClinicalObservation(code,sourceOf,subject,value);
+    var evalue = {
+        "code":{
+            "attr_code":"code",
+            "attr_codeSystemName":"codeSystemName",
+            "attr_displayName":"displayName",
+            "attr_originalText":"originalText"
+        },
+        "sourceOf":{
+            "code":{
+                "attr_code":"code",
+                "attr_codeSystemName":"codeSystemName",
+                "attr_displayName":"displayName",
+                "attr_originalText":"originalText"
+            }
+        },
+        "subject":{
+            "dataEstimatedAge" : {
+                "code" : {
+                    "attr_code":"code",
+                    "attr_codeSystemName":"codeSystemName",
+                    "attr_displayName":"displayName",
+                    "attr_originalText":"originalText"
+                }
+            }
+        },
+        "value":{
+            "attr_value":"value",
+            "attr_unit":"unit"
+        }
+    };
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
+
+    var code = undefined;
+    var sourceOf = new SourceOf(code);
+    var subject = new Subject(new DataEstimatedAge(code));
+    var value = new Value("value", "unit");
+    var tag = new ClinicalObservation(code,sourceOf,subject,value);
+    var evalue = {
+        "code":"",
+        "sourceOf":"",
+        "subject":"",
+        "value":{
+            "attr_value":"value",
+            "attr_unit":"unit"
+        }
+    };
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
+
+    var code = new Code("code","codeSystemName","displayName","originalText");
+    var sourceOf = undefined;
+    var subject = new Subject(new DataEstimatedAge(code));
+    var value = new Value("value", "unit");
+    var tag = new ClinicalObservation(code,sourceOf,subject,value);
+    var evalue = {
+        "code":{
+            "attr_code":"code",
+            "attr_codeSystemName":"codeSystemName",
+            "attr_displayName":"displayName",
+            "attr_originalText":"originalText"
+        },
+        "sourceOf":"",
+        "subject":{
+            "dataEstimatedAge" : {
+                "code" : {
+                    "attr_code":"code",
+                    "attr_codeSystemName":"codeSystemName",
+                    "attr_displayName":"displayName",
+                    "attr_originalText":"originalText"
+                }
+            }
+        },
+        "value":{
+            "attr_value":"value",
+            "attr_unit":"unit"
+        }
+    };
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
+
+    var code = new Code("code","codeSystemName","displayName","originalText");
+    var sourceOf = new SourceOf(code);
+    var subject = undefined;
+    var value = new Value("value", "unit");
+    var tag = new ClinicalObservation(code,sourceOf,subject,value);
+    var evalue = {
+        "code":{
+            "attr_code":"code",
+            "attr_codeSystemName":"codeSystemName",
+            "attr_displayName":"displayName",
+            "attr_originalText":"originalText"
+        },
+        "sourceOf":{
+            "code":{
+                "attr_code":"code",
+                "attr_codeSystemName":"codeSystemName",
+                "attr_displayName":"displayName",
+                "attr_originalText":"originalText"
+            }
+        },
+        "subject":"",
+        "value":{
+            "attr_value":"value",
+            "attr_unit":"unit"
+        }
+    };
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
+
+    var code = new Code("code","codeSystemName","displayName","originalText");
+    var sourceOf = new SourceOf(code);
+    var subject = new Subject(new DataEstimatedAge(code));
+    var value = undefined;
+    var tag = new ClinicalObservation(code,sourceOf,subject,value);
+    var evalue = {
+        "code":{
+            "attr_code":"code",
+            "attr_codeSystemName":"codeSystemName",
+            "attr_displayName":"displayName",
+            "attr_originalText":"originalText"
+        },
+        "sourceOf":{
+            "code":{
+                "attr_code":"code",
+                "attr_codeSystemName":"codeSystemName",
+                "attr_displayName":"displayName",
+                "attr_originalText":"originalText"
+            }
+        },
+        "subject":{
+            "dataEstimatedAge" : {
+                "code" : {
+                    "attr_code":"code",
+                    "attr_codeSystemName":"codeSystemName",
+                    "attr_displayName":"displayName",
+                    "attr_originalText":"originalText"
+                }
+            }
+        },
+        "value":""
+    };
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
@@ -630,15 +954,43 @@ test('Subject_getXmlDataByJson', () => {
     var tag = new Subject();
     var evalue = "";
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
+
+    var tag = new Subject(new DataEstimatedAge(new Code("code","codesys","display","oring")));
+    var evalue = {
+        "dataEstimatedAge" : {
+            "code" : {
+                "attr_code":"code",
+                "attr_codeSystemName":"codesys",
+                "attr_displayName":"display",
+                "attr_originalText":"oring",
+            }
+        }
+    };
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('DataEstimatedAge_getXmlDataByJson', () => {
     var tag = new DataEstimatedAge();
     var evalue = "";
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
+
+    var tag = new DataEstimatedAge(new Code("code","codesys","display","oring"));
+    var evalue = {
+        "code" : {
+            "attr_code":"code",
+            "attr_codeSystemName":"codesys",
+            "attr_displayName":"display",
+            "attr_originalText":"oring",
+        }
+    };
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
 test('Relative_getXmlDataByJson', () => {
+    var tag = new Relative();
+    var evalue = "";
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
+
     var patientPerson = new PatientPerson(personalInformation);
     var tag = patientPerson.relatives[0];
     var evalue = {
@@ -672,6 +1024,10 @@ test('Relative_getXmlDataByJson', () => {
 });
 
 test('RelationshipHolder_getXmlDataByJson', () => {
+    var tag = new RelationshipHolder();
+    var evalue = "";
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
+
     var pp = new PatientPerson(personalInformation);
     var tag = pp.relatives[0].relationshipHolder;
     var evalue = {
