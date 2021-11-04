@@ -641,16 +641,60 @@ test('DataEstimatedAge_getXmlDataByJson', () => {
 test('Relative_getXmlDataByJson', () => {
     var patientPerson = new PatientPerson(personalInformation);
     var tag = patientPerson.relatives[0];
-    var evalue = "";
-    var a = tag.getXmlDataByJson();
-    expect(1).toStrictEqual(1);
+    var evalue = {
+        "code" : {
+            "attr_code":"NFTH",
+            "attr_codeSystemName":"HL7 Family History Model",
+            "attr_displayName":"Father",
+        },
+        "relationshipHolder" : {
+            "administrativeGenderCode":{
+                "attr_code":"248153007",
+                "attr_codeSystemName":"SNOMED_CT",
+                "attr_displayName":"male",
+            },
+            "id":{"attr_extension":"7421ec0a-a1ba-4793-b9e4-675d59840e70",},
+            "name":{"attr_formatted":"あなたの父",},
+            "note" : [],
+            "relative":{
+                "code" : {
+                    "attr_code":"PAR",
+                    "attr_codeSystemName":"HL7 Family History Model",
+                    "attr_displayName":"Parent",
+                },
+                "relationshipHolder" : ""
+            },
+            "subjectOf2":"",
+        }
+    };
+    var actual = tag.getXmlDataByJson();
+    expect(actual).toStrictEqual(evalue);
 });
 
 test('RelationshipHolder_getXmlDataByJson', () => {
-    var tag = new PatientPerson(personalInformation);
-    var tag = new RelationshipHolder();
-    var evalue = "";
-    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
+    var pp = new PatientPerson(personalInformation);
+    var tag = pp.relatives[0].relationshipHolder;
+    var evalue = {
+        "administrativeGenderCode":{
+            "attr_code":"248153007",
+            "attr_codeSystemName":"SNOMED_CT",
+            "attr_displayName":"male",
+        },
+        "id":{"attr_extension":"7421ec0a-a1ba-4793-b9e4-675d59840e70",},
+        "name":{"attr_formatted":"あなたの父",},
+        "note" : [],
+        "relative":{
+            "code" : {
+                "attr_code":"PAR",
+                "attr_codeSystemName":"HL7 Family History Model",
+                "attr_displayName":"Parent",
+            },
+            "relationshipHolder" : ""
+        },
+        "subjectOf2":"",
+    };
+    var actual = tag.getXmlDataByJson();
+    expect(actual).toStrictEqual(evalue);
 });
 
 test('Note_getXmlDataByJson', () => {

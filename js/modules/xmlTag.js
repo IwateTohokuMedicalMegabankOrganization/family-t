@@ -419,8 +419,12 @@ class ClinicalObservation extends XmlTag {
     }
 
     getXmlDataByJson(){
-        var jsonOfXmlData = undefined;
-        return jsonOfXmlData;
+        var clinicalObservation = {};
+        this.appendJsonElement(clinicalObservation, "code", this.code);
+        this.appendJsonElement(clinicalObservation, "sourceOf", this.sourceOf);
+        this.appendJsonElement(clinicalObservation, "subject", this.subject);
+        this.appendJsonElement(clinicalObservation, "value", this.value);
+        return this.returnEmptyStringIfJsonLengthIsZero(clinicalObservation);
     }
 
     getPersonalInfomationData(persedXml){
@@ -549,19 +553,18 @@ class Relative extends XmlTag {
             this.getObjectProperty(relation,"codeSystemName"), 
             this.getObjectProperty(relation,"displayName"),
             undefined);
-        if(!this.isEmpty(relation)){
-            this.relationshipHolder = new RelationshipHolder(family, 
-                this.getObjectProperty(relation,"nestedRelation"));
+        if(!this.isEmpty(this.getObjectProperty(relation,"nestedRelation"))){
+            this.relationshipHolder = new RelationshipHolder(family, relation.nestedRelation);
         }        
     }
 
     getXmlDataByJson(){
         var relative = {};
         this.appendJsonElement(relative, "code", this.code.getXmlDataByJson());
-        if(!this.isUndefindOrNull(this.relationshipHolder)){
-            this.appendJsonElement(relative, "relationshipHolder", this.relationshipHolder.getXmlDataByJson());
-        }else{
+        if(this.isUndefindOrNull(this.relationshipHolder) || this.isEmpty(this.relationshipHolder)){
             this.appendJsonElement(relative, "relationshipHolder", "");
+        }else{
+            this.appendJsonElement(relative, "relationshipHolder", this.relationshipHolder.getXmlDataByJson());
         }
         return this.returnEmptyStringIfJsonLengthIsZero(relative);
     }
@@ -582,7 +585,11 @@ class RelationshipHolder extends XmlTag {
 
     constructor(family, relation){
         super();
-        this.administrativeGenderCode = new AdministrativeGenderCode(undefined,undefined,this.getObjectProperty(family,"gender"));
+        var gender = CodeUtil.getCode(this.getObjectProperty(family,"gender"));
+        this.administrativeGenderCode = new AdministrativeGenderCode(
+            this.getObjectProperty(gender,"code"),
+            this.getObjectProperty(gender,"codeSystemName"),
+            this.getObjectProperty(gender,"displayName"));
         this.id = new Id(this.getObjectProperty(family,"id"));
         this.name = new Name(this.getObjectProperty(family,"name"));
         this.notes = this.getNotes(family);
@@ -591,7 +598,7 @@ class RelationshipHolder extends XmlTag {
     }
 
     getNotes(family){
-
+        return [];
     }
 
     getXmlDataByJson(){
@@ -599,6 +606,7 @@ class RelationshipHolder extends XmlTag {
         this.appendJsonElement(relationshipHolder, "administrativeGenderCode", this.administrativeGenderCode.getXmlDataByJson());
         this.appendJsonElement(relationshipHolder, "id", this.id.getXmlDataByJson());
         this.appendJsonElement(relationshipHolder, "name", this.name.getXmlDataByJson());
+        this.appendJsonElement(relationshipHolder, "note", []); // TODO
         this.appendJsonElement(relationshipHolder, "relative", this.relative.getXmlDataByJson());
         this.appendJsonElement(relationshipHolder, "subjectOf2", this.subjectOf2.getXmlDataByJson());
         return this.returnEmptyStringIfJsonLengthIsZero(relationshipHolder);
