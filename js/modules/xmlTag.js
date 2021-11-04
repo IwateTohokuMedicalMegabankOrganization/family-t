@@ -47,6 +47,14 @@ class XmlTag {
         }        
     }
 
+    appendJsonElementFromTag(json, element, tag){
+        if(this.isUndefindOrNull(tag) || this.isEmpty(tag)){
+            this.appendJsonElement(json, element, "");
+        }else{
+            this.appendJsonElement(json, element, tag.getXmlDataByJson());
+        }
+    }
+
     returnEmptyStringIfJsonLengthIsZero(json){
         if(this.isUndefindOrNull(json)
         || this.isEmpty(json) 
@@ -532,8 +540,11 @@ class DataEstimatedAge extends XmlTag {
     }
 
     getXmlDataByJson(){
-        var jsonOfXmlData = undefined;
-        return jsonOfXmlData;
+        if(this.isUndefindOrNull(this.code)) return "";
+
+        var dataEstimatedAge = {};
+        this.appendJsonElement(dataEstimatedAge, "code", this.code.getXmlDataByJson());
+        return this.returnEmptyStringIfJsonLengthIsZero(dataEstimatedAge);
     }
 
     getPersonalInfomationData(persedXml){
@@ -560,12 +571,8 @@ class Relative extends XmlTag {
 
     getXmlDataByJson(){
         var relative = {};
-        this.appendJsonElement(relative, "code", this.code.getXmlDataByJson());
-        if(this.isUndefindOrNull(this.relationshipHolder) || this.isEmpty(this.relationshipHolder)){
-            this.appendJsonElement(relative, "relationshipHolder", "");
-        }else{
-            this.appendJsonElement(relative, "relationshipHolder", this.relationshipHolder.getXmlDataByJson());
-        }
+        this.appendJsonElementFromTag(relative, "code", this.code);
+        this.appendJsonElementFromTag(relative, "relationshipHolder", this.relationshipHolder);
         return this.returnEmptyStringIfJsonLengthIsZero(relative);
     }
 
@@ -603,12 +610,12 @@ class RelationshipHolder extends XmlTag {
 
     getXmlDataByJson(){
         var relationshipHolder = {};
-        this.appendJsonElement(relationshipHolder, "administrativeGenderCode", this.administrativeGenderCode.getXmlDataByJson());
-        this.appendJsonElement(relationshipHolder, "id", this.id.getXmlDataByJson());
-        this.appendJsonElement(relationshipHolder, "name", this.name.getXmlDataByJson());
+        this.appendJsonElementFromTag(relationshipHolder, "administrativeGenderCode", this.administrativeGenderCode);
+        this.appendJsonElementFromTag(relationshipHolder, "id", this.id);
+        this.appendJsonElementFromTag(relationshipHolder, "name", this.name);
         this.appendJsonElement(relationshipHolder, "note", []); // TODO
-        this.appendJsonElement(relationshipHolder, "relative", this.relative.getXmlDataByJson());
-        this.appendJsonElement(relationshipHolder, "subjectOf2", this.subjectOf2.getXmlDataByJson());
+        this.appendJsonElementFromTag(relationshipHolder, "relative", this.relative);
+        this.appendJsonElementFromTag(relationshipHolder, "subjectOf2", this.subjectOf2);
         return this.returnEmptyStringIfJsonLengthIsZero(relationshipHolder);
     }
 
