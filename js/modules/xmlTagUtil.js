@@ -1,3 +1,5 @@
+import { Note } from "./XmlTag";
+
 export class RaceUtil{
     static RACES = {
         "American Indian or Alaska Native":{
@@ -511,5 +513,64 @@ export class CodeUtil{
 
     static getCode(key){
         return this.CODE[key];
+    }
+}
+
+export class NoteUtil{
+    static FAMILY_T_ORIGINAL_TERM = [
+        "age",
+        "birth_order",
+        "created_date",
+        "diastolic_blood_pressure",
+        "dietary_frequency_to_drink_suger_drin_in_week",
+        "dietary_frequency_to_eat_dairy_products_in_day",
+        "dietary_frequency_to_eat_fishes_in_week",
+        "dietary_frequency_to_eat_fruits_in_day",
+        "dietary_frequency_to_eat_nuts_in_week",
+        "dietary_frequency_to_eat_processed_meat_in_week",
+        "dietary_frequency_to_eat_unprocessed_meat_in_week",
+        "dietary_frequency_to_eat_vegetables_in_day",
+        "dietary_frequency_to_eat_whole_grains_in_day",
+        "estimated_age",
+        "estimated_death_age",
+        "ethnicity",
+        "fasting_blood_glucose_lebel",
+        "flg_race_ethnic",
+        "hba1c",
+        "hdl_cholesterol",
+        "hip",
+        "hip_unit",
+        "is_alive",
+        "last_diagnosis_month",
+        "last_diagnosis_year",
+        "ldl_cholesterol",
+        "living_prefectures",
+        "month_of_birth",
+        "occasionally_blood_glucose_lebel",
+        "ogtt_blood_glucose_lebel",
+        "race",
+        "relationship",
+        "smoker",
+        "systolic_blood_pressure",
+        "take_antihypertensive",
+        "take_hypoglycemic",
+        "training_count_for_training_at_week",
+        "training_family",
+        "training_strength",
+        "training_time_for_training_at_week",
+        "update_date",
+        "waist",
+        "waist_unit",
+        "year_of_birth",
+    ]
+
+    static getNotes(personalInformation){
+        var notes = [];
+        this.FAMILY_T_ORIGINAL_TERM.forEach(function(term){
+            if(personalInformation[term]!==undefined){
+                notes.push(new Note(term,personalInformation[term]));
+            }
+        });
+        return notes;
     }
 }
