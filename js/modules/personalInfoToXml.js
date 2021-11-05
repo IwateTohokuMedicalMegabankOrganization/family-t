@@ -25,7 +25,7 @@ export function json2xml(json) {
         indentBy: "  ",
         supressEmptyNode: false,
         tagValueProcessor: a => he.encode(a, { useNamedReferences: true }),// default is a=>a
-        attrValueProcessor: a => he.encode(a, { isAttributeValue: true, useNamedReferences: true })// default is a=>a
+        attrValueProcessor: a => a// default is a=>a he.encode(a, { isAttributeValue: true, useNamedReferences: true })
     };
     var parser = new Parser(defaultOptions);
     var xml = parser.parse(json);
