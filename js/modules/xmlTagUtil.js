@@ -565,6 +565,8 @@ export class NoteUtil{
     ]
 
     static getNotes(personalInformation){
+        if(personalInformation===undefined) return [];
+
         var notes = [];
         this.FAMILY_T_ORIGINAL_TERM.forEach(function(term){
             if(personalInformation[term]!==undefined){

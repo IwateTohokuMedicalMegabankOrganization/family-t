@@ -39,11 +39,14 @@ class XmlTag {
 
     appendJsonElement(json, element, value){
         if(element.startsWith("attr_")){
-            if(!this.isUndefindOrNull(value)){
+            if(this.isUndefindOrNull(value)) return;
+            json[element] = value;
+        }else{
+            if(this.isUndefindOrNull(value)){
+                json[element] = "";
+            }else{
                 json[element] = value;
             }
-        }else{
-            json[element] = value;
         }        
     }
 
@@ -77,6 +80,7 @@ class XmlTag {
     }
 
     isEmpty(json){
+        if(this.isUndefindOrNull(json)) return true;
         return !Object.keys(json).length;
     }
 
@@ -130,7 +134,9 @@ class PatientPerson extends XmlTag {
         add_clinical_observations
         add_relatives
          */
-        this.administrativeGenderCode = new AdministrativeGenderCode(undefined,undefined,this.getObjectProperty(personalInformation,"gender"))
+        if(this.isUndefindOrNull(personalInformation)) return;
+        var gender = CodeUtil.getCode(this.getObjectProperty(personalInformation,"gender"));
+        this.administrativeGenderCode = new AdministrativeGenderCode(gender.code,gender.codeSystemName,gender.displayName);
         this.birthTime = new BirthTime(this.getObjectProperty(personalInformation,"date_of_birth"));
         this.id = new Id(this.getObjectProperty(personalInformation,"id"));        
         this.name = new Name(this.getObjectProperty(personalInformation,"name"));
