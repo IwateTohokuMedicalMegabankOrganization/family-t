@@ -6,11 +6,11 @@ import {AdministrativeGenderCode,BirthTime,Id,Name,RaceCode,
 var Parser = require("fast-xml-parser").j2xParser;
 var he = require('he');
 
-export default function personalInfoToXml(personal_information) {
+export function personalInfoToXml(personal_information) {
     return json2xml(_convert(personal_information));
 }
 
-function json2xml(json) {
+export function json2xml(json) {
 
     //default options need not to set
     var defaultOptions = {
@@ -32,14 +32,15 @@ function json2xml(json) {
     return xml;
 }
 
-function _convert( pi ){
+export function _convert(pi){
+    if(isNotCorrectData(pi)) return "";
 
     var jsonData = {
         "FamilyHistory": {
             "attr_classCode": "OBS",
             "attr_moodCode": "EVN",
             "effectiveTime": {
-                "attr_value": "10/1/2021", // 動的！！　TODO
+                "attr_value": _getEffectiveTime(pi), // 動的！！　TODO
             },
             "id": {
                 "attr_extention": "gov.hhs.fhh:718163810183",
@@ -51,7 +52,7 @@ function _convert( pi ){
                 "attr_typeCode": "SBJ",
                 "patient": {
                     "attr_classCode": "PAT",
-                    "patientPerson": _getPatientPerson( pi )
+                    "patientPerson": _getPatientPerson(pi)
                 }
             }
         }
@@ -60,20 +61,42 @@ function _convert( pi ){
     return jsonData;
 }
 
+export function isNotCorrectData(pi){
+    if(pi === undefined) return true;
+    if(pi === null) return true;
+    if(pi === null) return true;
+    if(pi === "") return true;
+    if(typeof pi === "boolean") return true;
+    if(typeof pi === "function") return true;
+    if(typeof pi === "number") return true;
+    if(Object.keys(pi).indexOf("name") === -1) return true;
+    if(Object.keys(pi).indexOf("id") === -1) return true;
+    if(Object.keys(pi).indexOf("gender") === -1) return true;
+    if(Object.keys(pi).indexOf("date_of_birth") === -1) return true;
+    if(Object.keys(pi).indexOf("update_date") === -1) return true;
+    return false;
+}
+
+export function _getEffectiveTime( pi ){
+    if(pi===undefined) return "";
+    if(Object.keys(pi).indexOf("update_date") === -1) return "";
+    if(pi.update_date===undefined) return "";
+
+    var updateTime = pi.update_date;
+    var date = updateTime.split("/");
+    var yyyy = date[0];
+    var mm = date[1];
+    var dd = date[2];
+
+    return mm + "/" + dd + "/" + yyyy;
+}
+
 /**
  * 
  * @param {*} pi PersonalInfo
  * @returns json data of patient person
  */
-function _getPatientPerson(pi){
-
-    // var ret = {};
-    // ret.id = pi.id; 
-    // ret.name = { attr_formatted : pi.name };
-    // ret.birthTime = { attr_birthTime : pi.date_of_birth };
-    // ret.administrativeGenderCode = { attr_displayName : pi.gender };
-    // return ret;
-
-    var patientPerson = new PatientPerson();
-    return patientPerson.getXmlDataByJson( pi );
+ export function _getPatientPerson(pi){
+    var patientPerson = new PatientPerson(pi);
+    return patientPerson.getXmlDataByJson();
 }
