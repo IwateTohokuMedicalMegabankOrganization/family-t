@@ -2,84 +2,6 @@ import {AdministrativeGenderCode,BirthTime,Id,Name,RaceCode,
     SubjectOf2,ClinicalObservation,Code,Value,Subject,SourceOf,DataEstimatedAge,
     PatientPerson,Relative,RelationshipHolder,Note,XmlTag} from '../../../js/modules/xmlTag';
 
-    
-/* var personalInformation = {
-    "name":"あなた",
-    "twin_status":"NO",
-    "prefectures":null,
-    "Health History":[{"Disease Name":"Healthy","Detailed Disease Name":"健康","Age At Diagnosis":"blank","Disease Code":"FAMILY_T-HEALTHY"}],
-    "flg_race_ethnic":1,
-    "id":"2b62490e-d59b-4a16-8e07-e0745801ba55",
-    "gender":"MALE",
-    "date_of_birth":"1950/01/01",
-    "adopted":false,
-    "height":180,
-    "height_unit":"centimeters",
-    "weight":"80",
-    "weight_unit":"kilogram",
-    "month_of_birth":"1",
-    "year_of_birth":"1950",
-    "birth_order":1,
-    "living_prefectures":"0000",
-    "waist":"80",
-    "waist_unit":"centimeters",
-    "hip":"80",
-    "hip_unit":"centimeters",
-    "smoker":"5",
-    "number_of_cigarettes_per_day":"1_to_9",
-    "training_family":"1",
-    "training_strength":"中程度",
-    "training_count_for_training_at_week":"1",
-    "training_time_for_training_at_week":"120",
-    "dietary_frequency_to_eat_fruits_in_day":"true",
-    "dietary_frequency_to_eat_vegetables_in_day":"3times",
-    "dietary_frequency_to_eat_nuts_in_week":"2-4times",
-    "dietary_frequency_to_eat_whole_grains_in_day":"true",
-    "dietary_frequency_to_eat_fishes_in_week":"true",
-    "dietary_frequency_to_eat_dairy_products_in_day":"true",
-    "dietary_frequency_to_eat_processed_meat_in_week":"true",
-    "dietary_frequency_to_eat_unprocessed_meat_in_week":"true",
-    "dietary_frequency_to_drink_suger_drin_in_week":"true",
-    "take_antihypertensive":"false",
-    "systolic_blood_pressure":"120-129",
-    "diastolic_blood_pressure":"80-84",
-    "take_hypoglycemic":"false",
-    "fasting_blood_glucose_lebel":"100-129",
-    "occasionally_blood_glucose_lebel":"140-199",
-    "ogtt_blood_glucose_lebel":"140-199",
-    "hba1c":"under65",
-    "hdl_cholesterol":"40-59",
-    "ldl_cholesterol":"100-139",
-    "last_diagnosis_year":"2021",
-    "last_diagnosis_month":"5",
-    "race":{"American Indian or Alaska Native":false,"Asian":true,"Black or African-American":false,"Native Hawaiian or Other Pacific Islander":false,"White":false,"Asian Indian":false,"Chinese":false,"Filipino":false,"Japanese":true,"Korean":false,"Vietnamese":false,"Other Asian":false,"Unknown Asian":false,"Chamorro":false,"Guamanian":false,"Native Hawaiian":false,"Samoan":false,"Unknown South Pacific Islander":false},
-    "ethnicity":{"Hispanic or Latino":false,"Ashkenazi Jewish":false,"Not Hispanic or Latino":false,"Central American":false,"Cuban":false,"Dominican":false,"Mexican":false,"Other Hispanic":false,"Puerto Rican":false,"South American":false},
-    "update_date":"2021/10/25",
-    "father":{"gender":"MALE","id":"429c0497-530a-4410-82ac-95be3650ad39","Health History":[],"name":"あなたの父","relationship":"father"},
-    "mother":{"gender":"FEMALE","id":"acd920f2-84ae-48a9-b4e9-a4db1369c67f","Health History":[],"name":"あなたの母","relationship":"mother"},
-    "maternal_grandfather":{"gender":"MALE","id":"07b24aab-0742-42b0-ac87-fe1f6d811182","Health History":[],"name":"あなたの母方の祖父","relationship":"maternal_grandfather"},
-    "maternal_grandmother":{"gender":"FEMALE","id":"415e0daa-cd79-4c43-a241-11ad7f3c5667","Health History":[],"name":"あなたの母方の祖母","relationship":"maternal_grandmother"},
-    "paternal_grandfather":{"gender":"MALE","id":"b962851c-123a-44ae-90f6-1bbb61ac01a6","Health History":[],"name":"あなたの父方の祖父","relationship":"paternal_grandfather"},
-    "paternal_grandmother":{"gender":"FEMALE","id":"504fd200-aa89-4a50-9d43-50033353e9a4","Health History":[],"name":"あなたの父方の祖母","relationship":"paternal_grandmother"},
-    "brother_0":{"gender":"MALE","id":"fc9d1aca-bf01-4c7d-b00f-b0048d88ab23","Health History":[],"name":"あなたの兄弟 1","relationship":"brother"},
-    "brother_1":{"gender":"MALE","id":"40aa54f2-2bb6-4ca1-8705-1acbcf809425","Health History":[],"name":"あなたの兄弟 2","relationship":"brother"},
-    "sister_0":{"gender":"FEMALE","id":"02db2a75-efc7-440d-abac-8708abe3bf33","Health History":[],"name":"あなたの姉妹 1","relationship":"sister"},
-    "sister_1":{"gender":"FEMALE","id":"3c83dd24-5b41-42d7-b089-8ce32603a8c0","Health History":[],"name":"あなたの姉妹 2","relationship":"sister"},
-    "son_0":{"gender":"MALE","id":"07cc9067-9946-4309-bf5a-65a0a1be9e97","Health History":[],"name":"あなたの息子 1","relationship":"son"},
-    "son_1":{"gender":"MALE","id":"9f604f67-29f2-4d89-86d2-46d0cca2b5de","Health History":[],"name":"あなたの息子 2","relationship":"son"},
-    "daughter_0":{"gender":"FEMALE","id":"aaf04449-1beb-41cf-93af-930fa878b080","Health History":[],"name":"あなたの娘 1","relationship":"daughter"},
-    "daughter_1":{"gender":"FEMALE","id":"53570f59-296a-41f9-ac11-44927bc4874b","Health History":[],"name":"あなたの娘 2","relationship":"daughter"},
-    "maternal_uncle_0":{"gender":"MALE","id":"21d58ffd-b7ed-4a17-808d-318ab3780bd8","Health History":[],"name":"あなたの母方のおじ 1","relationship":"uncle"},
-    "maternal_uncle_1":{"gender":"MALE","id":"43385fd2-6218-4ac6-8d29-04ea59d28dcd","Health History":[],"name":"あなたの母方のおじ 2","relationship":"uncle"},
-    "maternal_aunt_0":{"gender":"FEMALE","id":"915f91da-8208-45fc-9231-4b64311845fe","Health History":[],"name":"あなたの母方のおば 1","relationship":"aunt"},
-    "maternal_aunt_1":{"gender":"FEMALE","id":"3e42eb70-e71f-4307-88c7-f9503586e49a","Health History":[],"name":"あなたの母方のおば 2","relationship":"aunt"},
-    "paternal_uncle_0":{"gender":"MALE","id":"7b5fd0bc-794b-45e2-a2be-85e6bad62dad","Health History":[],"name":"あなたの父方のおじ 1","relationship":"uncle"},
-    "paternal_uncle_1":{"gender":"MALE","id":"a854215e-1cba-447c-9267-b3e2555c0fb8","Health History":[],"name":"あなたの父方のおじ 2","relationship":"uncle"},
-    "paternal_aunt_0":{"gender":"FEMALE","id":"1ba351de-2bc9-4806-9ca6-6c7b19d8d896","Health History":[],"name":"あなたの父方のおば 1","relationship":"aunt"},
-    "paternal_aunt_1":{"gender":"FEMALE","id":"db16e89b-5623-4ca0-93b9-0dac4d6aeac7","Health History":[],"name":"あなたの父方のおば 2","relationship":"aunt"},
-    "created_date":"2021/10/25 16:41:37"
-}; */
-
 var personalInformation = {
 	"name":"あなた",
 	"twin_status":"IDENTICAL",
@@ -349,25 +271,29 @@ var personalInformation = {
 	"created_date":"2021/11/02 11:08:43"
 }
 
-
 test('XmlTag_appendJsonElement', () => {
     var xmlTag = new XmlTag();
 
-    var json_1 = {};
-    var evalue_1 = { number : "1" };
-    xmlTag.appendJsonElement(json_1, "number", "1");
-    expect(json_1).toStrictEqual(evalue_1);
+    var json = {};
+    var evalue = { number : "1" };
+    xmlTag.appendJsonElement(json, "number", "1");
+    expect(json).toStrictEqual(evalue);
 
-    var json_2 = {};
-    var evalue_2 = {};
-    xmlTag.appendJsonElement(json_2, "number", );
-    expect(json_2).toStrictEqual(evalue_2);
+    var json = {};
+    var evalue = {};
+    xmlTag.appendJsonElement(json, "attr_number", );
+    expect(json).toStrictEqual(evalue);
+
+    var json = {};
+    var evalue = {"number":""};
+    xmlTag.appendJsonElement(json, "number", );
+    expect(json).toStrictEqual(evalue);
 });
 
 test('PatientPerson_setPatientPersonProps', () => {
     var tag = new PatientPerson();
     tag.setPatientPersonProps(personalInformation);
-    expect(tag.administrativeGenderCode.displayName).toStrictEqual(personalInformation.gender);
+    expect(tag.administrativeGenderCode.displayName).toStrictEqual("male");
     expect(tag.birthTime.value).toStrictEqual(personalInformation.date_of_birth);
     expect(tag.id.extension).toStrictEqual(personalInformation.id);
     expect(tag.name.formatted).toStrictEqual(personalInformation.name);
@@ -400,23 +326,127 @@ test('PatientPerson_getApplicableRaces', () => {
 
 test('PatientPerson_getRelatives', () => {
     var tag = new PatientPerson();
-    expect(tag.getRelatives(personalInformation).length).toStrictEqual(22);
+    expect(tag.getRelatives(personalInformation).length).toStrictEqual(10);
 });
 
 test('PatientPerson_getXmlDataByJson', () => {
     var tag = new PatientPerson(personalInformation);
     var evalue = {
-        administrativeGenderCode : { attr_displayName : personalInformation.gender },
-        birthTime : { attr_value : personalInformation.date_of_birth },
-        id : { attr_extension : personalInformation.id },
-        name : { attr_formatted : personalInformation.name },
-        note :undefined,
-        raceCode : undefined,
-        relative : undefined,
-        subjectOf2 : undefined
+        "administrativeGenderCode": {
+            "attr_code": "248153007",
+            "attr_codeSystemName": "SNOMED_CT",
+            "attr_displayName": "male",
+        },
+        "birthTime": {
+            "attr_value": "1994/01/01",
+        },
+        "id": {
+            "attr_extension": "310674d6-1b03-4a03-abe8-418d23c40296",
+        },
+        "name": {
+            "attr_formatted": "あなた",
+        },
+        "note":[
+            {},{},{},{},{},{},{},{},{},{},
+            {},{},{},{},{},{},{},{},{},{},
+            {},{},{},{},{},{},{},{},{},{},
+            {},{},{},{},{},{},{},{},{},
+        ],
+        "raceCode": [
+            {
+                "attr_code": "1000000",
+                "attr_codeSystemName": "TBD",
+                "attr_displayName": "Asian",
+                "attr_id": "2",
+            },
+            {
+                "attr_code": "2039-6",
+                "attr_codeSystemName": "HL7",
+                "attr_displayName": "Japanese",
+                "attr_id": "14",
+            },
+        ],
+        "relative":[
+            {},{},{},{},{},{},{},{},{},{}
+        ],
+        "subjectOf2":{
+            "clinicalObservation": [
+                {
+                    "code": {
+                        "attr_code": "313415001",
+                        "attr_codeSystemName": "SNOMED_CT",
+                        "attr_displayName": "Identical twin (person)",
+                    },
+                    "sourceOf":"",
+                    "subject":"",
+                    "value": ""
+                },
+                {
+                    "code": {
+                        "attr_code": "271603002",
+                        "attr_codeSystemName": "SNOMED_CT",
+                        "attr_displayName": "height",
+                    },
+                    "sourceOf":"",
+                    "subject":"",
+                    "value": {
+                        "attr_unit": "centimeters",
+                        "attr_value": 175,
+                    },
+                },
+                {
+                    "code": {
+                        "attr_code": "107647005",
+                        "attr_codeSystemName": "SNOMED_CT",
+                        "attr_displayName": "weight",
+                    },
+                    "sourceOf":"",
+                    "subject":"",
+                    "value": {
+                        "attr_unit": "kilogram",
+                        "attr_value": "60",
+                    },
+                },
+                {
+                    "code": {
+                        "attr_originalText": "Parental consanguinity indicated",
+                    },
+                    "sourceOf":"",
+                    "subject":"",
+                    "value":""
+                },
+                {
+                    "code": {
+                        "attr_code": "HEALTHY",
+                        "attr_codeSystemName": "FAMILY_T",
+                        "attr_displayName": "Healthy",
+                        "attr_originalText": "Healthy",
+                    },
+                    "sourceOf":"",
+                    "subject": {
+                        "dataEstimatedAge": {
+                            "code": {
+                                "attr_code": "21611-9",
+                                "attr_codeSystemName": "LOINC",
+                                "attr_displayName": "Estimated Age",
+                                "attr_originalText": "blank",
+                            },
+                        },
+                    },
+                    "value":""
+                },
+            ]
+        }
     };
     var actual = tag.getXmlDataByJson();
-    expect(actual).toStrictEqual(evalue);
+    expect(actual.administrativeGenderCode).toStrictEqual(evalue.administrativeGenderCode);
+    expect(actual.birthTime).toStrictEqual(evalue.birthTime);
+    expect(actual.id).toStrictEqual(evalue.id);
+    expect(actual.name).toStrictEqual(evalue.name);
+    expect(actual.note.length).toStrictEqual(evalue.note.length);
+    expect(actual.raceCode).toStrictEqual(evalue.raceCode);
+    expect(actual.relative.length).toStrictEqual(evalue.relative.length);
+    expect(actual.subjectOf2).toStrictEqual(evalue.subjectOf2);
 });
 
 test('AdministrativeGenderCode_getXmlDataByJson', () => {
@@ -1007,7 +1037,85 @@ test('Relative_getXmlDataByJson', () => {
             },
             "id":{"attr_extension":"7421ec0a-a1ba-4793-b9e4-675d59840e70",},
             "name":{"attr_formatted":"あなたの父",},
-            "note" : [],
+            "note" : [
+                {
+                    "attr_code": "age",
+                    "attr_text": 53,
+                  },
+                  {
+                    "attr_code": "birth_order",
+                    "attr_text": 1,
+                  },
+                  {
+                    "attr_code": "ethnicity",
+                    "attr_text": {
+                      "Ashkenazi Jewish": false,
+                      "Central American": false,
+                      "Cuban": false,
+                      "Dominican": false,
+                      "Hispanic or Latino": false,
+                      "Mexican": false,
+                      "Not Hispanic or Latino": false,
+                      "Other Hispanic": false,
+                      "Puerto Rican": false,
+                      "South American": false,
+                    },
+                  },
+                  {
+                    "attr_code": "flg_race_ethnic",
+                    "attr_text": 1,
+                  },
+                  {
+                    "attr_code": "is_alive",
+                    "attr_text": "alive",
+                  },
+                  {
+                    "attr_code": "living_prefectures",
+                  },
+                  {
+                    "attr_code": "race",
+                    "attr_text": {
+                      "American Indian or Alaska Native": false,
+                      "Asian": true,
+                      "Asian Indian": false,
+                      "Black or African-American": false,
+                      "Chamorro": false,
+                      "Chinese": false,
+                      "Filipino": false,
+                      "Guamanian": false,
+                      "Japanese": true,
+                      "Korean": false,
+                      "Native Hawaiian": false,
+                      "Native Hawaiian or Other Pacific Islander": false,
+                      "Other Asian": false,
+                      "Samoan": false,
+                      "Unknown Asian": false,
+                      "Unknown South Pacific Islander": false,
+                      "Vietnamese": false,
+                      "White": false,
+                    },
+                  },
+                  {
+                    "attr_code": "relationship",
+                    "attr_text": "father",
+                  },
+                  {
+                    "attr_code": "training_count_for_training_at_week",
+                    "attr_text": "",
+                  },
+                  {
+                    "attr_code": "training_strength",
+                    "attr_text": "空欄",
+                  },
+                  {
+                    "attr_code": "training_time_for_training_at_week",
+                    "attr_text": "",
+                  },
+                  {
+                    "attr_code": "update_date",
+                    "attr_text": "2021/11/02",
+                  }
+            ],
             "relative":{
                 "code" : {
                     "attr_code":"PAR",
@@ -1038,7 +1146,85 @@ test('RelationshipHolder_getXmlDataByJson', () => {
         },
         "id":{"attr_extension":"7421ec0a-a1ba-4793-b9e4-675d59840e70",},
         "name":{"attr_formatted":"あなたの父",},
-        "note" : [],
+        "note" : [
+            {
+                "attr_code": "age",
+                "attr_text": 53,
+              },
+              {
+                "attr_code": "birth_order",
+                "attr_text": 1,
+              },
+              {
+                "attr_code": "ethnicity",
+                "attr_text": {
+                  "Ashkenazi Jewish": false,
+                  "Central American": false,
+                  "Cuban": false,
+                  "Dominican": false,
+                  "Hispanic or Latino": false,
+                  "Mexican": false,
+                  "Not Hispanic or Latino": false,
+                  "Other Hispanic": false,
+                  "Puerto Rican": false,
+                  "South American": false,
+                },
+              },
+              {
+                "attr_code": "flg_race_ethnic",
+                "attr_text": 1,
+              },
+              {
+                "attr_code": "is_alive",
+                "attr_text": "alive",
+              },
+              {
+                "attr_code": "living_prefectures",
+              },
+              {
+                "attr_code": "race",
+                "attr_text": {
+                  "American Indian or Alaska Native": false,
+                  "Asian": true,
+                  "Asian Indian": false,
+                  "Black or African-American": false,
+                  "Chamorro": false,
+                  "Chinese": false,
+                  "Filipino": false,
+                  "Guamanian": false,
+                  "Japanese": true,
+                  "Korean": false,
+                  "Native Hawaiian": false,
+                  "Native Hawaiian or Other Pacific Islander": false,
+                  "Other Asian": false,
+                  "Samoan": false,
+                  "Unknown Asian": false,
+                  "Unknown South Pacific Islander": false,
+                  "Vietnamese": false,
+                  "White": false,
+                },
+              },
+              {
+                "attr_code": "relationship",
+                "attr_text": "father",
+              },
+              {
+                "attr_code": "training_count_for_training_at_week",
+                "attr_text": "",
+              },
+              {
+                "attr_code": "training_strength",
+                "attr_text": "空欄",
+              },
+              {
+                "attr_code": "training_time_for_training_at_week",
+                "attr_text": "",
+              },
+              {
+                "attr_code": "update_date",
+                "attr_text": "2021/11/02",
+              }
+        ],
         "relative":{
             "code" : {
                 "attr_code":"PAR",
