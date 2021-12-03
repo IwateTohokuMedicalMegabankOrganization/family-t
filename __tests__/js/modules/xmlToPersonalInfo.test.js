@@ -1,4 +1,4 @@
-import xmlToPersonalInfo from '../../../js/modules/xmlToPersonalInfo';
+import { xmlToPersonalInfo } from '../../../js/modules/xmlToPersonalInfo';
 
 test('load', () => {
     var input = `<FamilyHistory moodCode="EVN" classCode="OBS">
@@ -435,9 +435,6 @@ test('load', () => {
             },
         },
     };
-
-    console.log(xmlToPersonalInfo(input));
-    expect(xmlToPersonalInfo(input));
 });
 
 test('_getPatientPerson', () => {

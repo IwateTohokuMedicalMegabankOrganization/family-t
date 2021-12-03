@@ -1,11 +1,16 @@
+import {AdministrativeGenderCode,BirthTime,Id,Name,RaceCode,
+    SubjectOf2,ClinicalObservation,Code,Value,Subject,DataEstimatedAge,
+    PatientPerson,Relative,RelationshipHolder,Note,XmlTag} from '../modules/xmlTag';
+
+
 var Parser = require("fast-xml-parser").j2xParser;
 var he = require('he');
 
-export default function personalInfoToXml(personal_information) {
+export function personalInfoToXml(personal_information) {
     return json2xml(_convert(personal_information));
 }
 
-function json2xml(json) {
+export function json2xml(json) {
 
     //default options need not to set
     var defaultOptions = {
@@ -20,21 +25,22 @@ function json2xml(json) {
         indentBy: "  ",
         supressEmptyNode: false,
         tagValueProcessor: a => he.encode(a, { useNamedReferences: true }),// default is a=>a
-        attrValueProcessor: a => he.encode(a, { isAttributeValue: true, useNamedReferences: true })// default is a=>a
+        attrValueProcessor: a => a// default is a=>a he.encode(a, { isAttributeValue: true, useNamedReferences: true })
     };
     var parser = new Parser(defaultOptions);
     var xml = parser.parse(json);
     return xml;
 }
 
-function _convert( pi ){
+export function _convert(pi){
+    if(isNotCorrectData(pi)) return "";
 
     var jsonData = {
         "FamilyHistory": {
             "attr_classCode": "OBS",
             "attr_moodCode": "EVN",
             "effectiveTime": {
-                "attr_value": "10/1/2021",
+                "attr_value": _getEffectiveTime(pi), // 動的！！　TODO
             },
             "id": {
                 "attr_extention": "gov.hhs.fhh:718163810183",
@@ -46,7 +52,7 @@ function _convert( pi ){
                 "attr_typeCode": "SBJ",
                 "patient": {
                     "attr_classCode": "PAT",
-                    "patientPerson": _getPatienatPerson( pi )
+                    "patientPerson": _getPatientPerson(pi)
                 }
             }
         }
@@ -55,17 +61,42 @@ function _convert( pi ){
     return jsonData;
 }
 
-function _getPatienatPerson(pi){
+export function isNotCorrectData(pi){
+    if(pi === undefined) return true;
+    if(pi === null) return true;
+    if(pi === null) return true;
+    if(pi === "") return true;
+    if(typeof pi === "boolean") return true;
+    if(typeof pi === "function") return true;
+    if(typeof pi === "number") return true;
+    if(Object.keys(pi).indexOf("name") === -1) return true;
+    if(Object.keys(pi).indexOf("id") === -1) return true;
+    if(Object.keys(pi).indexOf("gender") === -1) return true;
+    if(Object.keys(pi).indexOf("date_of_birth") === -1) return true;
+    if(Object.keys(pi).indexOf("update_date") === -1) return true;
+    return false;
+}
 
-    var ret = {};
+export function _getEffectiveTime( pi ){
+    if(pi===undefined) return "";
+    if(Object.keys(pi).indexOf("update_date") === -1) return "";
+    if(pi.update_date===undefined) return "";
 
-    ret.id = pi.id; 
+    var updateTime = pi.update_date;
+    var date = updateTime.split("/");
+    var yyyy = date[0];
+    var mm = date[1];
+    var dd = date[2];
 
-    ret.name = { attr_formatted : pi.name };
+    return mm + "/" + dd + "/" + yyyy;
+}
 
-    ret.birthTime = { attr_birthTime : pi.date_of_birth };
-
-    ret.administrativeGenderCode = { attr_displayName : pi.gender };
-
-    return ret;
+/**
+ * 
+ * @param {*} pi PersonalInfo
+ * @returns json data of patient person
+ */
+ export function _getPatientPerson(pi){
+    var patientPerson = new PatientPerson(pi);
+    return patientPerson.getXmlDataByJson();
 }

@@ -81,6 +81,7 @@ function _getId(p) {
 
     if (!Boolean(p)) return "";
     if (!Boolean(p.id)) return "";
+    if (!Boolean(p.id.attr_extention)) return "";
 
     return p.id.attr_extention;
 }
