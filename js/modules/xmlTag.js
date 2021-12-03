@@ -100,6 +100,30 @@ class XmlTag {
         }
         return undefined;
     }
+
+    getRaceCodes(personalInformation){
+        var races = this.getObjectProperty(personalInformation, "race");
+        if(this.isUndefindOrNull(races)){
+            return undefined;
+        }
+        var applicableRaces = this.getApplicableRaces(races) 
+        var raceCodes = [];
+        Object.keys(applicableRaces).forEach(function(index){
+            var race = RaceUtil.getRace(applicableRaces[index]);
+            raceCodes.push(new RaceCode(race.code,race.codeSystemName,race.displayName,race.id));
+        });
+        return raceCodes;
+    }
+    
+    getApplicableRaces(races){
+        var applicableRaces = [];
+        Object.keys(races).forEach(function(key){
+            if(races[key]){
+                applicableRaces.push(key);
+            }
+        });
+        return applicableRaces;
+    }
 }
 
 class PatientPerson extends XmlTag {
@@ -148,29 +172,7 @@ class PatientPerson extends XmlTag {
         this.subjectOf2 = this.getSubjectOf2(personalInformation);
     }
 
-    getRaceCodes(personalInformation){
-        var races = this.getObjectProperty(personalInformation, "race");
-        if(this.isUndefindOrNull(races)){
-            return undefined;
-        }
-        var applicableRaces = this.getApplicableRaces(races) 
-        var raceCodes = [];
-        Object.keys(applicableRaces).forEach(function(index){
-            var race = RaceUtil.getRace(applicableRaces[index]);
-            raceCodes.push(new RaceCode(race.code,race.codeSystemName,race.displayName,race.id));
-        });
-        return raceCodes;
-    }
-    
-    getApplicableRaces(races){
-        var applicableRaces = [];
-        Object.keys(races).forEach(function(key){
-            if(races[key]){
-                applicableRaces.push(key);
-            }
-        });
-        return applicableRaces;
-    }
+
 
     getRelatives(personalInformation){
         if(this.isUndefindOrNull(personalInformation)){
@@ -209,11 +211,9 @@ class PatientPerson extends XmlTag {
 
         var personal_information = {};
 
-        if (this.isUndefindOrNull(persedXml.patientPerson)) return personal_information;
-
         // Id
-        if (this.isUndefindOrNull(persedXml.patientPerson.id)) return personal_information;
-        this.id = new Id(persedXml.patientPerson.id.attr_extension);
+        if (this.isUndefindOrNull(persedXml.id)) return personal_information;
+        this.id = new Id(persedXml.id.attr_extension);
         Object.assign(personal_information, this.id.getPersonalInfomationData());
 
         // Name
@@ -227,7 +227,7 @@ class PatientPerson extends XmlTag {
         Object.assign(personal_information, this.birthTime.getPersonalInfomationData());
 
         // Administrative Gender Code
-        if (this.isUndefindOrNull(persedXml.patientPerson.administrativeGenderCode)) return {};
+        if (this.isUndefindOrNull(persedXml.administrativeGenderCode)) return {};
         this.administrativeGenderCode = new AdministrativeGenderCode(
             persedXml.administrativeGenderCode.code,
             persedXml.administrativeGenderCode.codeSystemName,
@@ -235,32 +235,30 @@ class PatientPerson extends XmlTag {
         Object.assign(personal_information, this.administrativeGenderCode.getPersonalInfomationData());
 
         // RaceCode 
-        if (this.isUndefindOrNull(persedXml.patientPerson.raceCode)) return {};
-        for (let r in persedXml.patientPerson.raceCode) {
-            var raceCode = new RaceCode(
-                r.attr_code,
-                r.attr_codeSystemName,
-                r.attr_displayName,
-                r.attr_id
-            );
-            Object.assign(personal_information, raceCode.getPersonalInfomationData(r));
-        }
+        if (this.isUndefindOrNull(persedXml.raceCode)) return {};
+        var raceCode = new RaceCode(
+            'code',
+            'codeSystemName',
+            'displayName',
+            'id'
+        );
+        Object.assign(personal_information, raceCode.getPersonalInfomationData(persedXml.raceCode));
 
         // subjectOf2
-        if (this.isUndefindOrNull(persedXml.patientPerson.subjectOf2)) return {};
+        if (this.isUndefindOrNull(persedXml.subjectOf2)) return {};
         this.subjectOf2 = new SubjectOf2();
-        Object.assign(personal_information, this.subjectOf2.getPersonalInfomationData(persedXml.patientPerson.subjectOf2));
+        Object.assign(personal_information, this.subjectOf2.getPersonalInfomationData(persedXml.subjectOf2));
 
         // relative
-        // if( this.isUndefindOrNull( persedXml.patientPerson.relative) ) return {};
-        // for( let r in persedXml.patientPerson.relative){
-        //     var relative = new Relative();
-        //     Object.assign( personal_information, relative.getPersonalInfomationData(r));
-        // }
+        if( this.isUndefindOrNull( persedXml.relative) ) return {};
+        for( let r in persedXml.relative){
+            var relative = new Relative();
+            Object.assign( personal_information, relative.getPersonalInfomationData(r));
+        }
 
         // note
-        if (this.isUndefindOrNull(persedXml.patientPerson.notes)) return {};
-        for (let r in persedXml.patientPerson.notes) {
+        if (this.isUndefindOrNull(persedXml.note)) return {};
+        for (let r in persedXml.note) {
             var note = new Note(
                 r.attr_code,
                 r.attr_text
@@ -268,7 +266,7 @@ class PatientPerson extends XmlTag {
             Object.assign(personal_information, note.getPersonalInfomationData(r));
         }
 
-        return personalInformation;
+        return personal_information;
     }
 }
 
@@ -417,15 +415,13 @@ class RaceCode extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(raceCode);
     }
 
-    getPersonalInfomationData(persedXml){
-        var personalInformation = { "American Indian or Alaska Native": false, "Asian": false, "Black or African-American": false, "Native Hawaiian or Other Pacific Islander": false, "White": false, "Asian Indian": false, "Chinese": false, "Filipino": false, "Japanese": false, "Korean": false, "Vietnamese": false, "Other Asian": false, "Unknown Asian": false, "Chamorro": false, "Guamanian": false, "Native Hawaiian": false, "Samoan": false, "Unknown South Pacific Islander": false };
-
-
-        this.appendJsonElement(personalInformation, "name",  this.formatted );
-        return personalInformation;
+    getPersonalInfomationData(aryRaceCode){
+        var race = { "American Indian or Alaska Native": false, "Asian": false, "Black or African-American": false, "Native Hawaiian or Other Pacific Islander": false, "White": false, "Asian Indian": false, "Chinese": false, "Filipino": false, "Japanese": false, "Korean": false, "Vietnamese": false, "Other Asian": false, "Unknown Asian": false, "Chamorro": false, "Guamanian": false, "Native Hawaiian": false, "Samoan": false, "Unknown South Pacific Islander": false };
+        aryRaceCode.forEach(r => {
+            race[ r.attr_displayName ] = true;
+        });
+        return race;
     }
-
-
 }
 
 class SubjectOf2 extends XmlTag {
@@ -868,8 +864,10 @@ class Note extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(note);
     }
 
-    getPersonalInfomationData(persedXml){
+    getPersonalInfomationData(){
         var personalInformation = {};
+        if( this.isUndefindOrNull(this.code) ) return personalInformation;
+        if( this.isUndefindOrNull(this.text) ) return personalInformation;
         this.appendJsonElement(personalInformation, this.code,  this.text );
         return personalInformation;
     }
