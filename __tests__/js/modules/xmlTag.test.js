@@ -586,7 +586,6 @@ test('PatientPerson_getXmlDataByJson', () => {
     expect(actual.subjectOf2).toStrictEqual(evalue.subjectOf2);
 });
 
-
 test('PatientPerson_getPersonalInfomationData', () => {
     var xml = new PatientPerson(personalInformation);
 

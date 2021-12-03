@@ -456,7 +456,7 @@ class SubjectOf2 extends XmlTag {
         var keyValue = this.getObjectProperty(personalInformation,key);
         var keyUnit = this.getObjectProperty(personalInformation,key+"_unit");
         var value = new Value(keyValue,keyUnit);
-        clinicalObservations.push(new ClinicalObservation(code,undefined,undefined,value));
+        clinicalObservations.push(( new ClinicalObservation(code,undefined,undefined,value) ));
     }
 
     appendParentalConsanguinity(clinicalObservations){
