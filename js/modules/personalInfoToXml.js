@@ -97,6 +97,6 @@ export function _getEffectiveTime( pi ){
  * @returns json data of patient person
  */
  export function _getPatientPerson(pi){
-    var patientPerson = new PatientPerson(pi);
-    return patientPerson.getXmlDataByJson();
+    var patientPerson = new PatientPerson();
+    return patientPerson.getXmlDataByJson(pi);
 }
