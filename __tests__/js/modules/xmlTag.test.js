@@ -467,7 +467,7 @@ test('PatientPerson_getRelatives', () => {
 });
 
 test('PatientPerson_getXmlDataByJson', () => {
-    var tag = new PatientPerson(personalInformation);
+    var tag = new PatientPerson();
     var evalue = {
         "administrativeGenderCode": {
             "attr_code": "248153007",
@@ -575,7 +575,7 @@ test('PatientPerson_getXmlDataByJson', () => {
             ]
         }
     };
-    var actual = tag.getXmlDataByJson();
+    var actual = tag.getXmlDataByJson(personalInformation);
     expect(actual.administrativeGenderCode).toStrictEqual(evalue.administrativeGenderCode);
     expect(actual.birthTime).toStrictEqual(evalue.birthTime);
     expect(actual.id).toStrictEqual(evalue.id);
@@ -1526,8 +1526,8 @@ test('Relative_getXmlDataByJson', () => {
     var tag = new Relative();
     var evalue = "";
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
-
-    var patientPerson = new PatientPerson(personalInformation);
+    var patientPerson = new PatientPerson();
+    patientPerson.getXmlDataByJson(personalInformation);
     var tag = patientPerson.relatives[0];
     var evalue = {
         "code": {
@@ -1595,7 +1595,7 @@ test('Relative_getXmlDataByJson', () => {
             "subjectOf2": "",
         }
     };
-    var actual = tag.getXmlDataByJson();
+    var actual = tag.getXmlDataByJson(personalInformation);
     expect(actual).toStrictEqual(evalue);
 });
 
@@ -1604,8 +1604,8 @@ test('RelationshipHolder_getXmlDataByJson', () => {
     var evalue = "";
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
-    var pp = new PatientPerson(personalInformation);
-    var tag = pp.relatives[0].relationshipHolder;
+    var pp = new PatientPerson();
+    pp.getXmlDataByJson(personalInformation);
     var evalue = {
         "administrativeGenderCode": {
             "attr_code": "248153007",
@@ -1665,7 +1665,9 @@ test('RelationshipHolder_getXmlDataByJson', () => {
         },
         "subjectOf2": "",
     };
-    var actual = tag.getXmlDataByJson();
+    
+    var tag = pp.relatives[0].relationshipHolder;
+    var actual = tag.getXmlDataByJson(personalInformation);
     expect(actual).toStrictEqual(evalue);
 });
 
