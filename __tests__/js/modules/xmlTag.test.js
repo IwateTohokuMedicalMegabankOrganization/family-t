@@ -732,9 +732,10 @@ test('Id_getXmlDataByJson', () => {
 });
 
 test('Id_getPersonalInfomationData', () => {
-    var obj = new Id(parsedXml.id.attr_extension);
+    var obj = new Id();
+    var parsedXml =  { "attr_extension": "310674d6-1b03-4a03-abe8-418d23c40296" };
     var evalue = { "id": "310674d6-1b03-4a03-abe8-418d23c40296" };
-    expect(obj.getPersonalInfomationData()).toStrictEqual(evalue);
+    expect(obj.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 });
 
 test('Name_getXmlDataByJson', () => {
