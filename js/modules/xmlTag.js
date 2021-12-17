@@ -218,8 +218,8 @@ class PatientPerson extends XmlTag {
 
         // Name
         if (this.isUndefindOrNull(persedXml.name)) return personal_information;
-        this.name = new Name(persedXml.name.attr_formatted);
-        Object.assign(personal_information, this.name.getPersonalInfomationData());
+        this.name = new Name();
+        Object.assign(personal_information, this.name.getPersonalInfomationData(persedXml.name));
 
         // Birth Time
         if (this.isUndefindOrNull(persedXml.birthTime)) return personal_information;
@@ -382,9 +382,9 @@ class Name extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(name);
     }
 
-    getPersonalInfomationData(){
+    getPersonalInfomationData(persedXml){
         var personalInformation = {};
-        this.appendJsonElement(personalInformation, "name",  this.formatted );
+        this.appendJsonElement(personalInformation, "name",  persedXml.attr_formatted );
         return personalInformation;
     }
 }

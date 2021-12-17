@@ -599,13 +599,6 @@ test('PatientPerson_getPersonalInfomationData', () => {
     expect(actual.relative).toStrictEqual(personalInformation.relative);
     expect(actual.note).toStrictEqual(personalInformation.note);
 });
-
-test('Name_getPersonalInfomationData', () => {
-    var xml = new Name("あなた");
-
-    var actual = xml.getPersonalInfomationData();
-    expect(actual.name).toStrictEqual("あなた");
-});
 test('RaceCode_getPersonalInfomationData', () => {
     var xml = new RaceCode(
         'code',
@@ -733,7 +726,7 @@ test('Id_getXmlDataByJson', () => {
 
 test('Id_getPersonalInfomationData', () => {
     var obj = new Id();
-    var parsedXml =  { "attr_extension": "310674d6-1b03-4a03-abe8-418d23c40296" };
+    var parsedXml = { "attr_extension": "310674d6-1b03-4a03-abe8-418d23c40296" };
     var evalue = { "id": "310674d6-1b03-4a03-abe8-418d23c40296" };
     expect(obj.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 });
@@ -746,6 +739,19 @@ test('Name_getXmlDataByJson', () => {
     var tag = new Name("formatted");
     var evalue = { "attr_formatted": "formatted" };
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
+});
+
+
+test('Name_getPersonalInfomationData', () => {
+    var tag = new Name();
+    var parsedXml = { "attr_formatted": "formatted" };
+    var evalue = { name: "formatted" };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var tag = new Name();
+    var parsedXml = {};
+    var evalue = { name: "" };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 });
 
 test('RaceCode_getXmlDataByJson', () => {
