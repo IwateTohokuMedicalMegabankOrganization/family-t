@@ -667,6 +667,30 @@ test('AdministrativeGenderCode_getXmlDataByJson', () => {
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
+
+test('AdministrativeGenderCode_getPersonalInfomationData', () => {
+    var tag = new AdministrativeGenderCode();
+    var evalue = { "gender": "MALE" };
+    var parsedXml = {};
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var evalue = { "gender": "MALE" };
+    var parsedXml = {
+        "attr_code": "248153007",
+        "attr_codeSystemName": "SNOMED_CT",
+        "attr_displayName": "male",
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var evalue = { "gender": "FEMALE" };
+    var parsedXml = {
+        "attr_code": "248152002",
+        "attr_codeSystemName": "SNOMED_CT",
+        "attr_displayName": "female",
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+});
+
 test('BirthTime_getXmlDataByJson', () => {
     var tag = new BirthTime();
     var evalue = "";

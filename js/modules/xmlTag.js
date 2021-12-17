@@ -228,11 +228,8 @@ class PatientPerson extends XmlTag {
 
         // Administrative Gender Code
         if (this.isUndefindOrNull(persedXml.administrativeGenderCode)) return {};
-        this.administrativeGenderCode = new AdministrativeGenderCode(
-            persedXml.administrativeGenderCode.code,
-            persedXml.administrativeGenderCode.codeSystemName,
-            persedXml.administrativeGenderCode.displayName);
-        Object.assign(personal_information, this.administrativeGenderCode.getPersonalInfomationData());
+        this.administrativeGenderCode = new AdministrativeGenderCode();
+        Object.assign(personal_information, this.administrativeGenderCode.getPersonalInfomationData(persedXml.administrativeGenderCode));
 
         // RaceCode 
         if (this.isUndefindOrNull(persedXml.raceCode)) return {};
@@ -290,18 +287,18 @@ class AdministrativeGenderCode extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(administrativeGenderCode);
     }
 
-    getPersonalInfomationData(){
+    getPersonalInfomationData(parsedXml){
         var personalInformation = {};
-        this.appendJsonElement(personalInformation, "gender",  this._getAdministrativeGenderCode().piCode );
+        this.appendJsonElement(personalInformation, "gender",  this._getAdministrativeGenderCode(parsedXml.attr_displayName).piCode );
         return personalInformation;
     }
     
-    _getAdministrativeGenderCode(){
-        if( this.isUndefindOrNull( this.displayName ) )
+    _getAdministrativeGenderCode(attr_displayName){
+        if( this.isUndefindOrNull( attr_displayName ) )
             return this.AdministrativeGenderCodes.MALE;
 
         for(let gender in this.AdministrativeGenderCodes ){
-            if( this.AdministrativeGenderCodes[gender].displayName.toUpperCase() == this.displayName.toUpperCase() ){
+            if( this.AdministrativeGenderCodes[gender].displayName.toUpperCase() == attr_displayName.toUpperCase() ){
                 return this.AdministrativeGenderCodes[gender];
             }
         }
