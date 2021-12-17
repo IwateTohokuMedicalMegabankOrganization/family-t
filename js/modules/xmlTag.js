@@ -223,8 +223,8 @@ class PatientPerson extends XmlTag {
 
         // Birth Time
         if (this.isUndefindOrNull(persedXml.birthTime)) return personal_information;
-        this.birthTime = new BirthTime(persedXml.birthTime.attr_value);
-        Object.assign(personal_information, this.birthTime.getPersonalInfomationData());
+        this.birthTime = new BirthTime();
+        Object.assign(personal_information, this.birthTime.getPersonalInfomationData(persedXml.birthTime));
 
         // Administrative Gender Code
         if (this.isUndefindOrNull(persedXml.administrativeGenderCode)) return {};
@@ -335,7 +335,7 @@ class BirthTime extends XmlTag {
 
     getPersonalInfomationData(persedXml){
         var personalInformation = {};
-        this.appendJsonElement(personalInformation, "date_of_birth",  this._getYYYYMMDD(this.value) );
+        this.appendJsonElement(personalInformation, "date_of_birth",  this._getYYYYMMDD(persedXml.attr_value) );
         return personalInformation;
     }
 

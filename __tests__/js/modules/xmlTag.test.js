@@ -701,6 +701,26 @@ test('BirthTime_getXmlDataByJson', () => {
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
+test('BirthTime_getPersonalInfomationData', () => {
+    var tag = new BirthTime();
+    var parsedXml = {};
+    var d = new Date();
+    var evalue = { "date_of_birth": String(d.getFullYear()) + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + d.getDate()).slice(-2) };
+
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var tag = new BirthTime();
+    var parsedXml = { "attr_value": "1994/02/01" };
+    var evalue = { "date_of_birth": "1994/02/01" };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var tag = new BirthTime();
+    var parsedXml = { "attr_value": "02/01/1994" };
+    var evalue = { "date_of_birth": "1994/02/01" };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+});
+
 test('Id_getXmlDataByJson', () => {
     var tag = new Id();
     var evalue = "";
