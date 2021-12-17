@@ -599,33 +599,6 @@ test('PatientPerson_getPersonalInfomationData', () => {
     expect(actual.relative).toStrictEqual(personalInformation.relative);
     expect(actual.note).toStrictEqual(personalInformation.note);
 });
-test('RaceCode_getPersonalInfomationData', () => {
-    var xml = new RaceCode(
-        'code',
-        'codeSystemName',
-        'displayName',
-        'id'
-    );
-
-    var actual = xml.getPersonalInfomationData(
-        [
-            {
-                "attr_code": "1000000",
-                "attr_codeSystemName": "TBD",
-                "attr_displayName": "Asian",
-                "attr_id": "2",
-            },
-            {
-                "attr_code": "2039-6",
-                "attr_codeSystemName": "HL7",
-                "attr_displayName": "Japanese",
-                "attr_id": "14",
-            },
-        ]
-    );
-    var evalue = { "American Indian or Alaska Native": false, "Asian": true, "Black or African-American": false, "Native Hawaiian or Other Pacific Islander": false, "White": false, "Asian Indian": false, "Chinese": false, "Filipino": false, "Japanese": true, "Korean": false, "Vietnamese": false, "Other Asian": false, "Unknown Asian": false, "Chamorro": false, "Guamanian": false, "Native Hawaiian": false, "Samoan": false, "Unknown South Pacific Islander": false };
-    expect(actual).toStrictEqual(evalue);
-});
 
 
 test('AdministrativeGenderCode_getXmlDataByJson', () => {
@@ -792,6 +765,35 @@ test('RaceCode_getXmlDataByJson', () => {
     };
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
+
+test('RaceCode_getPersonalInfomationData', () => {
+    var xml = new RaceCode(
+        'code',
+        'codeSystemName',
+        'displayName',
+        'id'
+    );
+
+    var actual = xml.getPersonalInfomationData(
+        [
+            {
+                "attr_code": "1000000",
+                "attr_codeSystemName": "TBD",
+                "attr_displayName": "Asian",
+                "attr_id": "2",
+            },
+            {
+                "attr_code": "2039-6",
+                "attr_codeSystemName": "HL7",
+                "attr_displayName": "Japanese",
+                "attr_id": "14",
+            },
+        ]
+    );
+    var evalue = { "American Indian or Alaska Native": false, "Asian": true, "Black or African-American": false, "Native Hawaiian or Other Pacific Islander": false, "White": false, "Asian Indian": false, "Chinese": false, "Filipino": false, "Japanese": true, "Korean": false, "Vietnamese": false, "Other Asian": false, "Unknown Asian": false, "Chamorro": false, "Guamanian": false, "Native Hawaiian": false, "Samoan": false, "Unknown South Pacific Islander": false };
+    expect(actual).toStrictEqual(evalue);
+});
+
 
 // test('SubjectOf2_appendByKey', () => {
 //     var tag = new SubjectOf2();
@@ -1198,6 +1200,10 @@ test('Code_getXmlDataByJson', () => {
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
+test('Code_getPersonalInfomationData', () => {
+    expect((new Code()).getPersonalInfomationData()).toStrictEqual(new ReferenceError());
+});
+
 test('Value_getXmlDataByJson', () => {
     var tag = new Value();
     var evalue = "";
@@ -1221,6 +1227,58 @@ test('Value_getXmlDataByJson', () => {
         "attr_unit": "unit"
     };
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
+});
+
+
+// var tag = new Name();
+// var parsedXml = { "attr_formatted": "formatted" };
+// var evalue = { name: "formatted" };
+// expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+// var tag = new Name();
+// var parsedXml = {};
+// var evalue = { name: "" };
+// expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+// "height": 175,
+// "height_unit": "centimeters",
+// "weight": "60",
+// "weight_unit": "kilogram",
+
+test('Value_getPersonalInfomationData', () => {
+    var tag = new Value();
+    var parsedXml = {};
+    var evalue = {};
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var tag = new Value();
+    var parsedXml = {
+        "attr_value": "value"
+    };
+    var evalue = {
+        "value": "value"
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var tag = new Value();
+    var parsedXml = {
+        "attr_unit": "kilogram"
+    };
+    var evalue = {
+        "unit": "kilogram"
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var tag = new Value();
+    var parsedXml = {
+        "attr_unit": "kilogram",
+        "attr_value": "60"
+    };
+    var evalue = {
+        "unit": "kilogram",
+        "value": "60"
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
 });
 
 test('Subject_getXmlDataByJson', () => {

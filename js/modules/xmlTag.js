@@ -1,8 +1,8 @@
 /**
  * this module defines xml tag classes what used in familiy-t
  */
- import {RaceUtil, RelativeUtil, CodeUtil, NoteUtil} from '../../js/modules/xmlTagUtil';
- //import {relationToGroup} from '../../js//fhh';
+import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil } from '../../js/modules/xmlTagUtil';
+//import {relationToGroup} from '../../js//fhh';
 
 
 
@@ -14,13 +14,13 @@ import { get } from "jquery";
  * this class enable to use template pattern
  */
 class XmlTag {
-    constructor(){}
+    constructor() { }
 
     /**
      * get json of xml tags from personal information
      * @returns 
      */
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var jsonOfXmlData;
         return jsonOfXmlData;
     }
@@ -30,95 +30,95 @@ class XmlTag {
      * @param {*} persedXml 
      * @returns 
      */
-    getPersonalInfomationData(persedXml){
+    getPersonalInfomationData(persedXml) {
         var personalInformation;
         return personalInformation;
     }
 
-    isUndefindOrNull(value){
+    isUndefindOrNull(value) {
         return value === undefined || value === null;
     }
 
-    appendJsonElement(json, element, value){
-        if(element.startsWith("attr_")){
-            if(this.isUndefindOrNull(value)) return;
+    appendJsonElement(json, element, value) {
+        if (element.startsWith("attr_")) {
+            if (this.isUndefindOrNull(value)) return;
             json[element] = value;
-        }else{
-            if(this.isUndefindOrNull(value)){
+        } else {
+            if (this.isUndefindOrNull(value)) {
                 json[element] = "";
-            }else{
+            } else {
                 json[element] = value;
             }
-        }        
+        }
     }
 
-    appendJsonElementFromTag(json, element, tag){
-        if(this.isUndefindOrNull(tag) || this.isEmpty(tag)){
+    appendJsonElementFromTag(json, element, tag) {
+        if (this.isUndefindOrNull(tag) || this.isEmpty(tag)) {
             this.appendJsonElement(json, element, "");
-        }else{
+        } else {
             this.appendJsonElement(json, element, tag.getXmlDataByJson());
         }
     }
 
-    appendJsonElementFromArray(json, element, tagArray){
-        if(this.isUndefindOrNull(tagArray) || this.isEmpty(tagArray)){
+    appendJsonElementFromArray(json, element, tagArray) {
+        if (this.isUndefindOrNull(tagArray) || this.isEmpty(tagArray)) {
             this.appendJsonElement(json, element, "");
-        }else{
+        } else {
             var jsonArray = [];
-            tagArray.forEach(function(tag){
+            tagArray.forEach(function (tag) {
                 jsonArray.push(tag.getXmlDataByJson());
             });
             json[element] = jsonArray;
         }
     }
 
-    returnEmptyStringIfJsonLengthIsZero(json){
-        if(this.isUndefindOrNull(json)
-        || this.isEmpty(json) 
-        || this.areAllElementsEmpty(json)){
+    returnEmptyStringIfJsonLengthIsZero(json) {
+        if (this.isUndefindOrNull(json)
+            || this.isEmpty(json)
+            || this.areAllElementsEmpty(json)) {
             return "";
         }
         return json;
     }
 
-    isEmpty(json){
-        if(this.isUndefindOrNull(json)) return true;
+    isEmpty(json) {
+        if (this.isUndefindOrNull(json)) return true;
         return !Object.keys(json).length;
     }
 
-    areAllElementsEmpty(json){
+    areAllElementsEmpty(json) {
         var allEmpty = true;
-        Object.keys(json).forEach(function(key){
+        Object.keys(json).forEach(function (key) {
             allEmpty = allEmpty && json[key] === "";
         });
         return allEmpty;
     }
 
-    getObjectProperty(object, propertyName){
-        if(!this.isUndefindOrNull(object) && Object.keys(object).indexOf(propertyName) !== -1){
+    getObjectProperty(object, propertyName) {
+        if (!this.isUndefindOrNull(object) && Object.keys(object).indexOf(propertyName) !== -1) {
             return object[propertyName];
         }
         return undefined;
     }
 
-    getRaceCodes(personalInformation){
+    getRaceCodes(personalInformation) {
         var races = this.getObjectProperty(personalInformation, "race");
-        if(this.isUndefindOrNull(races)){
+        if (this.isUndefindOrNull(races)) {
             return undefined;
         }
-        var applicableRaces = this.getApplicableRaces(races) 
+        var applicableRaces = this.getApplicableRaces(races)
         var raceCodes = [];
-        Object.keys(applicableRaces).forEach(function(index){
+        Object.keys(applicableRaces).forEach(function (index) {
             var race = RaceUtil.getRace(applicableRaces[index]);
-            raceCodes.push(new RaceCode(race.code,race.codeSystemName,race.displayName,race.id));
+            raceCodes.push(new RaceCode(race.code, race.codeSystemName, race.displayName, race.id));
         });
         return raceCodes;
     }
-    
-    getApplicableRaces(races){
+
+    getApplicableRaces(races) {
         var applicableRaces = [];
-        Object.keys(races).forEach(function(key){
-            if(races[key]){
+        Object.keys(races).forEach(function (key) {
+            if (races[key]) {
                 applicableRaces.push(key);
             }
         });
@@ -136,19 +136,19 @@ class PatientPerson extends XmlTag {
     relatives;                  // XmlTag
     subjectOf2;                 // XmlTag
 
-    constructor(personalInformation){
+    constructor(personalInformation) {
         super();
         this.setPatientPersonProps(personalInformation);
     }
 
-    getXmlDataByJson(){
-        var jsonOfXmlData ={};
+    getXmlDataByJson() {
+        var jsonOfXmlData = {};
         this.appendJsonElement(patientPerson, "patientPerson", this.getXmlDataByJson());
-        var jsonOfXmlData = { "patientPerson" : this.returnEmptyStringIfJsonLengthIsZero() };
+        var jsonOfXmlData = { "patientPerson": this.returnEmptyStringIfJsonLengthIsZero() };
         return jsonOfXmlData;
     }
 
-    setPatientPersonProps(personalInformation){
+    setPatientPersonProps(personalInformation) {
         /* 
         add_id
         add_name
@@ -160,12 +160,12 @@ class PatientPerson extends XmlTag {
         add_clinical_observations
         add_relatives
          */
-        if(this.isUndefindOrNull(personalInformation)) return;
-        var gender = CodeUtil.getCode(this.getObjectProperty(personalInformation,"gender"));
-        this.administrativeGenderCode = new AdministrativeGenderCode(gender.code,gender.codeSystemName,gender.displayName);
-        this.birthTime = new BirthTime(this.getObjectProperty(personalInformation,"date_of_birth"));
-        this.id = new Id(this.getObjectProperty(personalInformation,"id"));        
-        this.name = new Name(this.getObjectProperty(personalInformation,"name"));
+        if (this.isUndefindOrNull(personalInformation)) return;
+        var gender = CodeUtil.getCode(this.getObjectProperty(personalInformation, "gender"));
+        this.administrativeGenderCode = new AdministrativeGenderCode(gender.code, gender.codeSystemName, gender.displayName);
+        this.birthTime = new BirthTime(this.getObjectProperty(personalInformation, "date_of_birth"));
+        this.id = new Id(this.getObjectProperty(personalInformation, "id"));
+        this.name = new Name(this.getObjectProperty(personalInformation, "name"));
         this.notes = NoteUtil.getNotes(personalInformation);
         this.raceCodes = this.getRaceCodes(personalInformation);
         this.relatives = this.getRelatives(personalInformation);
@@ -174,14 +174,14 @@ class PatientPerson extends XmlTag {
 
 
 
-    getRelatives(personalInformation){
-        if(this.isUndefindOrNull(personalInformation)){
+    getRelatives(personalInformation) {
+        if (this.isUndefindOrNull(personalInformation)) {
             return undefined;
         }
         var relatives = [];
-        Object.keys(personalInformation).forEach(function(key){
+        Object.keys(personalInformation).forEach(function (key) {
             // key がrelationToGroupの各relationと先頭一致するかどうか判定
-            if(RelativeUtil.isMatchRelation(key)){
+            if (RelativeUtil.isMatchRelation(key)) {
                 var family = personalInformation[key];
                 var relation = RelativeUtil.getRelation(key);
                 relatives.push(new Relative(family, relation));
@@ -190,24 +190,24 @@ class PatientPerson extends XmlTag {
         return relatives;
     }
 
-    getSubjectOf2(personalInformation){
+    getSubjectOf2(personalInformation) {
         return new SubjectOf2(personalInformation);
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var patientPerson = {};
-        this.appendJsonElementFromTag(patientPerson,"administrativeGenderCode",this.administrativeGenderCode);
-        this.appendJsonElementFromTag(patientPerson,"birthTime",this.birthTime);
-        this.appendJsonElementFromTag(patientPerson,"id",this.id);
-        this.appendJsonElementFromTag(patientPerson,"name",this.name);
-        this.appendJsonElementFromArray(patientPerson,"note",this.notes);
-        this.appendJsonElementFromArray(patientPerson,"raceCode",this.raceCodes);
-        this.appendJsonElementFromArray(patientPerson,"relative",this.relatives);
-        this.appendJsonElementFromTag(patientPerson,"subjectOf2",this.subjectOf2);
+        this.appendJsonElementFromTag(patientPerson, "administrativeGenderCode", this.administrativeGenderCode);
+        this.appendJsonElementFromTag(patientPerson, "birthTime", this.birthTime);
+        this.appendJsonElementFromTag(patientPerson, "id", this.id);
+        this.appendJsonElementFromTag(patientPerson, "name", this.name);
+        this.appendJsonElementFromArray(patientPerson, "note", this.notes);
+        this.appendJsonElementFromArray(patientPerson, "raceCode", this.raceCodes);
+        this.appendJsonElementFromArray(patientPerson, "relative", this.relatives);
+        this.appendJsonElementFromTag(patientPerson, "subjectOf2", this.subjectOf2);
         return this.returnEmptyStringIfJsonLengthIsZero(patientPerson);
     }
 
-    getPersonalInfomationData(persedXml){
+    getPersonalInfomationData(persedXml) {
 
         var personal_information = {};
 
@@ -247,10 +247,10 @@ class PatientPerson extends XmlTag {
         Object.assign(personal_information, this.subjectOf2.getPersonalInfomationData(persedXml.subjectOf2));
 
         // relative
-        if( this.isUndefindOrNull( persedXml.relative) ) return {};
-        for( let r in persedXml.relative){
+        if (this.isUndefindOrNull(persedXml.relative)) return {};
+        for (let r in persedXml.relative) {
             var relative = new Relative();
-            Object.assign( personal_information, relative.getPersonalInfomationData(r));
+            Object.assign(personal_information, relative.getPersonalInfomationData(r));
         }
 
         // note
@@ -272,14 +272,14 @@ class AdministrativeGenderCode extends XmlTag {
     codeSystemName;     // string
     displayName;        // string
 
-    constructor(code, codeSystemName, displayName){
+    constructor(code, codeSystemName, displayName) {
         super();
         this.code = code;
         this.codeSystemName = codeSystemName;
         this.displayName = displayName;
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var administrativeGenderCode = {};
         this.appendJsonElement(administrativeGenderCode, "attr_code", this.code);
         this.appendJsonElement(administrativeGenderCode, "attr_codeSystemName", this.codeSystemName);
@@ -287,18 +287,18 @@ class AdministrativeGenderCode extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(administrativeGenderCode);
     }
 
-    getPersonalInfomationData(parsedXml){
+    getPersonalInfomationData(parsedXml) {
         var personalInformation = {};
-        this.appendJsonElement(personalInformation, "gender",  this._getAdministrativeGenderCode(parsedXml.attr_displayName).piCode );
+        this.appendJsonElement(personalInformation, "gender", this._getAdministrativeGenderCode(parsedXml.attr_displayName).piCode);
         return personalInformation;
     }
-    
-    _getAdministrativeGenderCode(attr_displayName){
-        if( this.isUndefindOrNull( attr_displayName ) )
+
+    _getAdministrativeGenderCode(attr_displayName) {
+        if (this.isUndefindOrNull(attr_displayName))
             return this.AdministrativeGenderCodes.MALE;
 
-        for(let gender in this.AdministrativeGenderCodes ){
-            if( this.AdministrativeGenderCodes[gender].displayName.toUpperCase() == attr_displayName.toUpperCase() ){
+        for (let gender in this.AdministrativeGenderCodes) {
+            if (this.AdministrativeGenderCodes[gender].displayName.toUpperCase() == attr_displayName.toUpperCase()) {
                 return this.AdministrativeGenderCodes[gender];
             }
         }
@@ -308,13 +308,13 @@ class AdministrativeGenderCode extends XmlTag {
     AdministrativeGenderCodes = {
         MALE: {
             code: 248153007
-            , displayName : "male"
-            , piCode : "MALE"
+            , displayName: "male"
+            , piCode: "MALE"
         },
         FEMALE: {
             code: 248152002
-            , displayName : "female"
-            , piCode : "FEMALE"
+            , displayName: "female"
+            , piCode: "FEMALE"
         }
     }
 }
@@ -322,27 +322,27 @@ class AdministrativeGenderCode extends XmlTag {
 class BirthTime extends XmlTag {
     value;  // string
 
-    constructor(value){
+    constructor(value) {
         super();
         this.value = value;
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var birthTime = {};
         this.appendJsonElement(birthTime, "attr_value", this.value);
         return this.returnEmptyStringIfJsonLengthIsZero(birthTime);
     }
 
-    getPersonalInfomationData(persedXml){
+    getPersonalInfomationData(persedXml) {
         var personalInformation = {};
-        this.appendJsonElement(personalInformation, "date_of_birth",  this._getYYYYMMDD(persedXml.attr_value) );
+        this.appendJsonElement(personalInformation, "date_of_birth", this._getYYYYMMDD(persedXml.attr_value));
         return personalInformation;
     }
 
-    _getYYYYMMDD( value ){
-        var d = new Date( value );
-        if( isNaN( d ) ) d = new Date();
-        return String(d.getFullYear()) + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + d.getDate()).slice(-2) ;
+    _getYYYYMMDD(value) {
+        var d = new Date(value);
+        if (isNaN(d)) d = new Date();
+        return String(d.getFullYear()) + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + d.getDate()).slice(-2);
     }
 
 }
@@ -350,20 +350,20 @@ class BirthTime extends XmlTag {
 class Id extends XmlTag {
     extension;  // string
 
-    constructor(extension){
+    constructor(extension) {
         super();
         this.extension = extension;
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var id = {};
         this.appendJsonElement(id, "attr_extension", this.extension);
         return this.returnEmptyStringIfJsonLengthIsZero(id);
     }
 
-    getPersonalInfomationData(persedXml){
+    getPersonalInfomationData(persedXml) {
         var personalInformation = {};
-        this.appendJsonElement(personalInformation, "id",  persedXml.attr_extension );
+        this.appendJsonElement(personalInformation, "id", persedXml.attr_extension);
         return personalInformation;
     }
 }
@@ -371,20 +371,20 @@ class Id extends XmlTag {
 class Name extends XmlTag {
     formatted;   // string
 
-    constructor(formatted){
+    constructor(formatted) {
         super();
         this.formatted = formatted;
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var name = {};
         this.appendJsonElement(name, "attr_formatted", this.formatted);
         return this.returnEmptyStringIfJsonLengthIsZero(name);
     }
 
-    getPersonalInfomationData(persedXml){
+    getPersonalInfomationData(persedXml) {
         var personalInformation = {};
-        this.appendJsonElement(personalInformation, "name",  persedXml.attr_formatted );
+        this.appendJsonElement(personalInformation, "name", persedXml.attr_formatted);
         return personalInformation;
     }
 }
@@ -395,7 +395,7 @@ class RaceCode extends XmlTag {
     displayName;        // string
     id;                 // string
 
-    constructor(code, codeSystemName, displayName, id){
+    constructor(code, codeSystemName, displayName, id) {
         super();
         this.code = code;
         this.codeSystemName = codeSystemName;
@@ -403,7 +403,7 @@ class RaceCode extends XmlTag {
         this.id = id;
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var raceCode = {};
         this.appendJsonElement(raceCode, "attr_code", this.code);
         this.appendJsonElement(raceCode, "attr_codeSystemName", this.codeSystemName);
@@ -412,10 +412,10 @@ class RaceCode extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(raceCode);
     }
 
-    getPersonalInfomationData(aryRaceCode){
+    getPersonalInfomationData(aryRaceCode) {
         var race = { "American Indian or Alaska Native": false, "Asian": false, "Black or African-American": false, "Native Hawaiian or Other Pacific Islander": false, "White": false, "Asian Indian": false, "Chinese": false, "Filipino": false, "Japanese": false, "Korean": false, "Vietnamese": false, "Other Asian": false, "Unknown Asian": false, "Chamorro": false, "Guamanian": false, "Native Hawaiian": false, "Samoan": false, "Unknown South Pacific Islander": false };
         aryRaceCode.forEach(r => {
-            race[ r.attr_displayName ] = true;
+            race[r.attr_displayName] = true;
         });
         return race;
     }
@@ -424,18 +424,18 @@ class RaceCode extends XmlTag {
 class SubjectOf2 extends XmlTag {
     clinicalObservations;   // XmlTag
 
-    constructor(personalInformation){
+    constructor(personalInformation) {
         super();
         this.clinicalObservations = this.getClinicalObservations(personalInformation);
     }
 
-    getClinicalObservations(personalInformation){
-        if(this.isUndefindOrNull(personalInformation)) return undefined;
+    getClinicalObservations(personalInformation) {
+        if (this.isUndefindOrNull(personalInformation)) return undefined;
 
         // reference : save_xml add_clinical_observations
         var clinicalObservations = [];
-        this.appendByKey(clinicalObservations, personalInformation, 
-            this.getObjectProperty(personalInformation,"twin_status"));
+        this.appendByKey(clinicalObservations, personalInformation,
+            this.getObjectProperty(personalInformation, "twin_status"));
         // adopted
         // active
         this.appendByKey(clinicalObservations, personalInformation, "height");
@@ -446,59 +446,59 @@ class SubjectOf2 extends XmlTag {
         return clinicalObservations;
     }
 
-    appendByKey(clinicalObservations, personalInformation, key){
+    appendByKey(clinicalObservations, personalInformation, key) {
         var attr = CodeUtil.getCode(key);
-        if(this.isUndefindOrNull(attr)) return;
-        var code = new Code(attr.code,attr.codeSystemName,attr.displayName,undefined);
-        var keyValue = this.getObjectProperty(personalInformation,key);
-        var keyUnit = this.getObjectProperty(personalInformation,key+"_unit");
-        var value = new Value(keyValue,keyUnit);
-        clinicalObservations.push(( new ClinicalObservation(code,undefined,undefined,value) ));
+        if (this.isUndefindOrNull(attr)) return;
+        var code = new Code(attr.code, attr.codeSystemName, attr.displayName, undefined);
+        var keyValue = this.getObjectProperty(personalInformation, key);
+        var keyUnit = this.getObjectProperty(personalInformation, key + "_unit");
+        var value = new Value(keyValue, keyUnit);
+        clinicalObservations.push((new ClinicalObservation(code, undefined, undefined, value)));
     }
 
-    appendParentalConsanguinity(clinicalObservations){
+    appendParentalConsanguinity(clinicalObservations) {
         var text = "Parental consanguinity indicated";
-        var code = new Code(undefined,undefined,undefined,text);
-        clinicalObservations.push(new ClinicalObservation(code,undefined,undefined,undefined));
+        var code = new Code(undefined, undefined, undefined, text);
+        clinicalObservations.push(new ClinicalObservation(code, undefined, undefined, undefined));
     }
 
-    appendHealthHistory(clinicalObservations, personalInformation){
-        var healthHistory = this.getObjectProperty(personalInformation,"Health History");
-        healthHistory.forEach(function(history){
+    appendHealthHistory(clinicalObservations, personalInformation) {
+        var healthHistory = this.getObjectProperty(personalInformation, "Health History");
+        healthHistory.forEach(function (history) {
             // generate CodeTag for ClinicalObservationTag
             var diseas = CodeUtil.getCode(history["Disease Code"]);
-            var code = new Code(diseas.code,diseas.codeSystemName,diseas.displayName,diseas.originText);
-            
+            var code = new Code(diseas.code, diseas.codeSystemName, diseas.displayName, diseas.originText);
+
             // generate SubjectTag
             var ageAtDiag = CodeUtil.getCode("ESTIMATED_AGE");
-            var deaCode = new Code(ageAtDiag.code,ageAtDiag.codeSystemName,ageAtDiag.displayName,history["Age At Diagnosis"]);
+            var deaCode = new Code(ageAtDiag.code, ageAtDiag.codeSystemName, ageAtDiag.displayName, history["Age At Diagnosis"]);
             var dateEstimateAge = new DataEstimatedAge(deaCode);
             var subject = new Subject(dateEstimateAge);
 
-            clinicalObservations.push(new ClinicalObservation(code,undefined,subject,undefined));
+            clinicalObservations.push(new ClinicalObservation(code, undefined, subject, undefined));
         });
     }
 
-    appendCauseOfDeath(clinicalObservations, personalInformation){
-        if(this.isUndefindOrNull(this.getObjectProperty(personalInformation,"cause_of_death"))) return;
-        if(this.isUndefindOrNull(this.getObjectProperty(personalInformation,"cause_of_death_code"))) return;
+    appendCauseOfDeath(clinicalObservations, personalInformation) {
+        if (this.isUndefindOrNull(this.getObjectProperty(personalInformation, "cause_of_death"))) return;
+        if (this.isUndefindOrNull(this.getObjectProperty(personalInformation, "cause_of_death_code"))) return;
 
         var cause = CodeUtil.getCode(personalInformation.cause_of_death_code);
-        var code = new Code(cause.code,cause.codeSystemName,cause.displayName,cause.originText);
+        var code = new Code(cause.code, cause.codeSystemName, cause.displayName, cause.originText);
 
         var death = CodeUtil.getCode("DEATH");
-        var souceCode = new Code(death.code,death.codeSystemName,death.displayName,undefined);
+        var souceCode = new Code(death.code, death.codeSystemName, death.displayName, undefined);
         var sourceOf = new SourceOf(souceCode);
-        clinicalObservations.push(new ClinicalObservation(code,sourceOf,undefined,undefined));
+        clinicalObservations.push(new ClinicalObservation(code, sourceOf, undefined, undefined));
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var subjectOf2 = {};
-        this.appendJsonElementFromArray(subjectOf2,"clinicalObservation",this.clinicalObservations);
+        this.appendJsonElementFromArray(subjectOf2, "clinicalObservation", this.clinicalObservations);
         return this.returnEmptyStringIfJsonLengthIsZero(subjectOf2);
     }
 
-    getPersonalInfomationData(persedXml){
+    getPersonalInfomationData(persedXml) {
         var personalInformation;
         return personalInformation;
     }
@@ -510,7 +510,7 @@ class ClinicalObservation extends XmlTag {
     subject;    // XmlTag
     value;      // XmlTag
 
-    constructor(code,sourceOf,subject,value){
+    constructor(code, sourceOf, subject, value) {
         super();
         this.code = code;
         this.sourceOf = sourceOf;
@@ -518,7 +518,7 @@ class ClinicalObservation extends XmlTag {
         this.value = value;
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var clinicalObservation = {};
         this.appendJsonElementFromTag(clinicalObservation, "code", this.code);
         this.appendJsonElementFromTag(clinicalObservation, "sourceOf", this.sourceOf);
@@ -527,15 +527,15 @@ class ClinicalObservation extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(clinicalObservation);
     }
 
-    getPersonalInfomationData(persedXml){
+    getPersonalInfomationData(persedXml) {
         var personalInformation = {};
 
         // code
-        if( this.isUndefindOrNull( persedXml ) ) return personalInformation;
-        if( this.isUndefindOrNull( persedXml.code ) ) return personalInformation;
+        if (this.isUndefindOrNull(persedXml)) return personalInformation;
+        if (this.isUndefindOrNull(persedXml.code)) return personalInformation;
         this.code = new Code(persedXml.code.attr_code, persedXml.code.attr_codeSystemName, persedXml.code.attr_value);
 
-        if(!this.isUndefindOrNull( persedXml.subject ) ) {
+        if (!this.isUndefindOrNull(persedXml.subject)) {
             this.subject = new Subject();
         }
 
@@ -558,35 +558,35 @@ class ClinicalObservation extends XmlTag {
 
         return personalInformation;
     }
-    
-    _getHeight(){
+
+    _getHeight() {
         var personalInformation = {};
 
-        if( this.isUndefindOrNull( this.code ) ){
+        if (this.isUndefindOrNull(this.code)) {
             return personalInformation;
         }
 
-        if( this.HEIGHT.code == this.code.code ){
+        if (this.HEIGHT.code == this.code.code) {
             if (!this.isUndefindOrNull(this.value.value)) {
-                this.appendJsonElement(personalInformation, this.HEIGHT.piCode,  this.value.value );
-                this.appendJsonElement(personalInformation, this.HEIGHT.piUnit,  this.value.unit );
+                this.appendJsonElement(personalInformation, this.HEIGHT.piCode, this.value.value);
+                this.appendJsonElement(personalInformation, this.HEIGHT.piUnit, this.value.unit);
             }
         }
 
         return personalInformation;
     }
 
-    _getTwinStatus(){
+    _getTwinStatus() {
 
         var personalInformation = {};
 
-        if( this.isUndefindOrNull( this.code ) ){
+        if (this.isUndefindOrNull(this.code)) {
             return personalInformation;
         }
 
-        for(let st in this.TWIN_STATUS ){
-            if( this.TWIN_STATUS[st].code == this.code.code ){
-                this.appendJsonElement(personalInformation, "twin_status",  this.TWIN_STATUS[st].piCode );
+        for (let st in this.TWIN_STATUS) {
+            if (this.TWIN_STATUS[st].code == this.code.code) {
+                this.appendJsonElement(personalInformation, "twin_status", this.TWIN_STATUS[st].piCode);
             }
         }
 
@@ -622,27 +622,27 @@ class ClinicalObservation extends XmlTag {
     TWIN_STATUS = {
         IDENTICAL: {
             code: 313415001
-            , displayName : "Identical twin (person)"
-            , piCode : "IDENTICAL"
+            , displayName: "Identical twin (person)"
+            , piCode: "IDENTICAL"
         },
         FRATERNAL: {
             code: 313416000
-            , displayName : "Fraternal twin (person)"
-            , piCode : "FRATERNAL"
+            , displayName: "Fraternal twin (person)"
+            , piCode: "FRATERNAL"
         }
     }
 
     // height and weight and activity
     HEIGHT = {
         code: 271603002
-        , displayName : "height"
+        , displayName: "height"
         , piCode: "height"
         , piUnit: "height_unit"
     }
 
     WEIGHT = {
         code: 271603002
-        , displayName : "height"
+        , displayName: "107647005"
         , piCode: "weight"
         , piUnit: "weight_unit"
     }
@@ -650,8 +650,8 @@ class ClinicalObservation extends XmlTag {
     // Adopted
     ADOPTED = {
         code: 160496001
-        , displayName : "adopted"
-        , piCode : true
+        , displayName: "adopted"
+        , piCode: true
     }
 }
 
@@ -661,7 +661,7 @@ class Code extends XmlTag {
     displayName;        // string
     originalText;       // string
 
-    constructor(code, codeSystemName, displayName, originalText){
+    constructor(code, codeSystemName, displayName, originalText) {
         super();
         this.code = code;
         this.codeSystemName = codeSystemName;
@@ -669,7 +669,7 @@ class Code extends XmlTag {
         this.originalText = originalText;
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var code = {};
         this.appendJsonElement(code, "attr_code", this.code);
         this.appendJsonElement(code, "attr_codeSystemName", this.codeSystemName);
@@ -678,7 +678,7 @@ class Code extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(code);
     }
 
-    getPersonalInfomationData(persedXml){
+    getPersonalInfomationData() {
         return new ReferenceError();
     }
 }
@@ -687,40 +687,53 @@ class Value extends XmlTag {
     value;  // string
     unit;   // string
 
-    constructor(value, unit){
+    constructor(value, unit) {
         super();
         this.value = value;
         this.unit = unit;
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var value = {};
         this.appendJsonElement(value, "attr_value", this.value);
         this.appendJsonElement(value, "attr_unit", this.unit);
         return this.returnEmptyStringIfJsonLengthIsZero(value);
     }
 
-    getPersonalInfomationData(persedXml){
-        var personalInformation;
-        return personalInformation;
+    getPersonalInfomationData(persedXml) {
+        var value = {};
+
+        if( !this.isUndefindOrNull(persedXml.attr_value)) {
+            this.appendJsonElement(value, "value", persedXml.attr_value);
+        }
+
+        if( !this.isUndefindOrNull(persedXml.attr_unit)) {
+            this.appendJsonElement(value, "unit", persedXml.attr_unit);
+        }
+        return value;
+    }
+
+    _getAttrKey(attr_key) {
+        if (this.isUndefindOrNull(attr_key)) return "";
+        return attr_key.replace(/^attr_/, "");
     }
 }
 
 class SourceOf extends XmlTag {
     code;   //XmlTag
 
-    constructor(code){
+    constructor(code) {
         super();
         this.code = code;
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var sourceOf = {};
-        this.appendJsonElementFromTag(sourceOf,"code",this.code)
+        this.appendJsonElementFromTag(sourceOf, "code", this.code)
         return this.returnEmptyStringIfJsonLengthIsZero(sourceOf);
     }
 
-    getPersonalInfomationData(persedXml){
+    getPersonalInfomationData(persedXml) {
         var personalInformation;
         return personalInformation;
     }
@@ -729,18 +742,18 @@ class SourceOf extends XmlTag {
 class Subject extends XmlTag {
     dataEstimatedAge;   // XmlTag
 
-    constructor(dataEstimatedAge){
+    constructor(dataEstimatedAge) {
         super();
         this.dataEstimatedAge = dataEstimatedAge;
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var subject = {};
-        this.appendJsonElementFromTag(subject,"dataEstimatedAge",this.dataEstimatedAge)
+        this.appendJsonElementFromTag(subject, "dataEstimatedAge", this.dataEstimatedAge)
         return this.returnEmptyStringIfJsonLengthIsZero(subject);
     }
 
-    getPersonalInfomationData(persedXml){
+    getPersonalInfomationData(persedXml) {
         var personalInformation;
         return personalInformation;
     }
@@ -749,18 +762,18 @@ class Subject extends XmlTag {
 class DataEstimatedAge extends XmlTag {
     code;   // XmlTag
 
-    constructor(code){
+    constructor(code) {
         super();
         this.code = code;
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var dataEstimatedAge = {};
         this.appendJsonElementFromTag(dataEstimatedAge, "code", this.code);
         return this.returnEmptyStringIfJsonLengthIsZero(dataEstimatedAge);
     }
 
-    getPersonalInfomationData(persedXml){
+    getPersonalInfomationData(persedXml) {
         var personalInformation;
         return personalInformation;
     }
@@ -770,31 +783,31 @@ class Relative extends XmlTag {
     code;                   // XmlTag
     relationshipHolder;     // XmlTag
 
-    constructor(family, relation){
+    constructor(family, relation) {
         super();
         this.code = new Code(
-            this.getObjectProperty(relation,"code"), 
-            this.getObjectProperty(relation,"codeSystemName"), 
-            this.getObjectProperty(relation,"displayName"),
+            this.getObjectProperty(relation, "code"),
+            this.getObjectProperty(relation, "codeSystemName"),
+            this.getObjectProperty(relation, "displayName"),
             undefined);
-        if(!this.isEmpty(this.getObjectProperty(relation,"nestedRelation"))){
+        if (!this.isEmpty(this.getObjectProperty(relation, "nestedRelation"))) {
             this.relationshipHolder = new RelationshipHolder(family, relation.nestedRelation);
-        }        
+        }
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var relative = {};
         this.appendJsonElementFromTag(relative, "code", this.code);
         this.appendJsonElementFromTag(relative, "relationshipHolder", this.relationshipHolder);
         return this.returnEmptyStringIfJsonLengthIsZero(relative);
     }
-    
-    getPersonalInfomationData(persedXml){
-        this.code = new Code( persedXml.attr_code, persedXml.attr_codeSystemName, persedXml.attr_displayName );
+
+    getPersonalInfomationData(persedXml) {
+        this.code = new Code(persedXml.attr_code, persedXml.attr_codeSystemName, persedXml.attr_displayName);
         this.relationshipHolder = new RelationshipHolder();
 
         var personalInformation = {};
-        this.appendJsonElement(personalInformation, "code", this.code.getPersonalInfomationData(persedXml) ) ;
+        this.appendJsonElement(personalInformation, "code", this.code.getPersonalInfomationData(persedXml));
         this.appendJsonElement(personalInformation, "relationshipHolder", this.relationshipHolder.getPersonalInfomationData(persedXml));
 
         return personalInformation;
@@ -809,36 +822,36 @@ class RelationshipHolder extends XmlTag {
     relative;                   // XmlTag
     subjectOf2;                 // XmlTag
 
-    constructor(family, relation){
+    constructor(family, relation) {
         super();
-        var gender = CodeUtil.getCode(this.getObjectProperty(family,"gender"));
+        var gender = CodeUtil.getCode(this.getObjectProperty(family, "gender"));
         this.administrativeGenderCode = new AdministrativeGenderCode(
-            this.getObjectProperty(gender,"code"),
-            this.getObjectProperty(gender,"codeSystemName"),
-            this.getObjectProperty(gender,"displayName"));
-        this.id = new Id(this.getObjectProperty(family,"id"));
-        this.name = new Name(this.getObjectProperty(family,"name"));
+            this.getObjectProperty(gender, "code"),
+            this.getObjectProperty(gender, "codeSystemName"),
+            this.getObjectProperty(gender, "displayName"));
+        this.id = new Id(this.getObjectProperty(family, "id"));
+        this.name = new Name(this.getObjectProperty(family, "name"));
         this.notes = NoteUtil.getNotes(family);
         this.relative = new Relative(undefined, relation);
         this.subjectOf2 = new SubjectOf2(undefined);
     }
 
-    getNotes(family){
+    getNotes(family) {
         return [];
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var relationshipHolder = {};
         this.appendJsonElementFromTag(relationshipHolder, "administrativeGenderCode", this.administrativeGenderCode);
         this.appendJsonElementFromTag(relationshipHolder, "id", this.id);
         this.appendJsonElementFromTag(relationshipHolder, "name", this.name);
-        this.appendJsonElementFromArray(relationshipHolder,"note",this.notes);
+        this.appendJsonElementFromArray(relationshipHolder, "note", this.notes);
         this.appendJsonElementFromTag(relationshipHolder, "relative", this.relative);
         this.appendJsonElementFromTag(relationshipHolder, "subjectOf2", this.subjectOf2);
         return this.returnEmptyStringIfJsonLengthIsZero(relationshipHolder);
     }
 
-    getPersonalInfomationData(persedXml){
+    getPersonalInfomationData(persedXml) {
         var personalInformation;
         return personalInformation;
     }
@@ -848,27 +861,29 @@ class Note extends XmlTag {
     code;   // string
     text;   // string
 
-    constructor(code, text){
+    constructor(code, text) {
         super();
         this.code = code;
         this.text = text;
     }
 
-    getXmlDataByJson(){
+    getXmlDataByJson() {
         var note = {};
         this.appendJsonElement(note, "attr_code", this.code);
         this.appendJsonElement(note, "attr_text", this.text);
         return this.returnEmptyStringIfJsonLengthIsZero(note);
     }
 
-    getPersonalInfomationData(){
+    getPersonalInfomationData() {
         var personalInformation = {};
-        if( this.isUndefindOrNull(this.code) ) return personalInformation;
-        if( this.isUndefindOrNull(this.text) ) return personalInformation;
-        this.appendJsonElement(personalInformation, this.code,  this.text );
+        if (this.isUndefindOrNull(this.code)) return personalInformation;
+        if (this.isUndefindOrNull(this.text)) return personalInformation;
+        this.appendJsonElement(personalInformation, this.code, this.text);
         return personalInformation;
     }
 }
-export { AdministrativeGenderCode,BirthTime,Id,Name,RaceCode,
-    SubjectOf2,ClinicalObservation,Code,Value,Subject,SourceOf,DataEstimatedAge,
-    PatientPerson,Relative,RelationshipHolder,Note,XmlTag };
+export {
+    AdministrativeGenderCode, BirthTime, Id, Name, RaceCode,
+    SubjectOf2, ClinicalObservation, Code, Value, Subject, SourceOf, DataEstimatedAge,
+    PatientPerson, Relative, RelationshipHolder, Note, XmlTag
+};
