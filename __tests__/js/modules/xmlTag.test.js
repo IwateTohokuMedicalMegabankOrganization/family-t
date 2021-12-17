@@ -742,153 +742,153 @@ test('RaceCode_getXmlDataByJson', () => {
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
-test('SubjectOf2_appendByKey', () => {
-    var tag = new SubjectOf2();
-    var evalue = [
-        {
-            "code": {
-                "code": "313415001",
-                "codeSystemName": "SNOMED_CT",
-                "displayName": "Identical twin (person)",
-                "originalText": undefined
-            },
-            "sourceOf": undefined,
-            "subject": undefined,
-            "value": {
-                "value": undefined,
-                "unit": undefined
-            }
-        },
-        {
-            "code": {
-                "code": "271603002",
-                "codeSystemName": "SNOMED_CT",
-                "displayName": "height",
-                "originalText": undefined
-            },
-            "sourceOf": undefined,
-            "subject": undefined,
-            "value": {
-                "value": 175,
-                "unit": "centimeters"
-            }
-        },
-        {
-            "code": {
-                "code": "107647005",
-                "codeSystemName": "SNOMED_CT",
-                "displayName": "weight",
-                "originalText": undefined
-            },
-            "sourceOf": undefined,
-            "subject": undefined,
-            "value": {
-                "value": "60",
-                "unit": "kilogram"
-            }
-        }
-    ];
-    var actual = [];
-    tag.appendByKey(actual, personalInformation, personalInformation.twin_status);
-    tag.appendByKey(actual, personalInformation, "height");
-    tag.appendByKey(actual, personalInformation, "weight");
-    expect(actual.length).toEqual(evalue.length);
-    expect(actual).toEqual(evalue);
-});
+// test('SubjectOf2_appendByKey', () => {
+//     var tag = new SubjectOf2();
+//     var evalue = [
+//         {
+//             "code": {
+//                 "code": "313415001",
+//                 "codeSystemName": "SNOMED_CT",
+//                 "displayName": "Identical twin (person)",
+//                 "originalText": undefined
+//             },
+//             "sourceOf": undefined,
+//             "subject": undefined,
+//             "value": {
+//                 "value": undefined,
+//                 "unit": undefined
+//             }
+//         },
+//         {
+//             "code": {
+//                 "code": "271603002",
+//                 "codeSystemName": "SNOMED_CT",
+//                 "displayName": "height",
+//                 "originalText": undefined
+//             },
+//             "sourceOf": undefined,
+//             "subject": undefined,
+//             "value": {
+//                 "value": 175,
+//                 "unit": "centimeters"
+//             }
+//         },
+//         {
+//             "code": {
+//                 "code": "107647005",
+//                 "codeSystemName": "SNOMED_CT",
+//                 "displayName": "weight",
+//                 "originalText": undefined
+//             },
+//             "sourceOf": undefined,
+//             "subject": undefined,
+//             "value": {
+//                 "value": "60",
+//                 "unit": "kilogram"
+//             }
+//         }
+//     ];
+//     var actual = [];
+//     tag.appendByKey(actual, personalInformation, personalInformation.twin_status);
+//     tag.appendByKey(actual, personalInformation, "height");
+//     tag.appendByKey(actual, personalInformation, "weight");
+//     expect(actual.length).toEqual(evalue.length);
+//     expect(actual).toEqual(evalue);
+// });
 
-test('SubjectOf2_appendParentalConsanguinity', () => {
-    var tag = new SubjectOf2();
-    var evalue = [{
-        "code": {
-            "code": undefined,
-            "codeSystemName": undefined,
-            "displayName": undefined,
-            "originalText": "Parental consanguinity indicated"
-        },
-        "sourceOf": undefined,
-        "subject": undefined,
-        "value": undefined
-    }];
-    var actual = [];
-    tag.appendParentalConsanguinity(actual);
-    expect(actual.length).toEqual(evalue.length);
-    expect(actual).toEqual(evalue);
-});
+// test('SubjectOf2_appendParentalConsanguinity', () => {
+//     var tag = new SubjectOf2();
+//     var evalue = [{
+//         "code": {
+//             "code": undefined,
+//             "codeSystemName": undefined,
+//             "displayName": undefined,
+//             "originalText": "Parental consanguinity indicated"
+//         },
+//         "sourceOf": undefined,
+//         "subject": undefined,
+//         "value": undefined
+//     }];
+//     var actual = [];
+//     tag.appendParentalConsanguinity(actual);
+//     expect(actual.length).toEqual(evalue.length);
+//     expect(actual).toEqual(evalue);
+// });
 
-test('SubjectOf2_appendHealthHistory', () => {
-    var tag = new SubjectOf2();
-    var evalue = [{
-        "code": {
-            "code": "38341003",
-            "codeSystemName": "SNOMED_CT",
-            "displayName": "Hypertension/high blood pressure",
-            "originalText": "Hypertension/high blood pressure"
-        },
-        "sourceOf": undefined,
-        "subject": {
-            "dataEstimatedAge": {
-                "code": {
-                    "code": "21611-9",
-                    "codeSystemName": "LOINC",
-                    "displayName": "Estimated Age",
-                    "originalText": "late_fourties"
-                }
-            }
-        },
-        "value": undefined
-    },
-    {
-        "code": {
-            "code": "55822004",
-            "codeSystemName": "SNOMED_CT",
-            "displayName": "High Cholesterol",
-            "originalText": "High Cholesterol"
-        },
-        "sourceOf": undefined,
-        "subject": {
-            "dataEstimatedAge": {
-                "code": {
-                    "code": "21611-9",
-                    "codeSystemName": "LOINC",
-                    "displayName": "Estimated Age",
-                    "originalText": "late_fourties"
-                }
-            }
-        },
-        "value": undefined
-    }];
-    var actual = [];
-    tag.appendHealthHistory(actual, personalInformation.maternal_uncle_0);
-    expect(actual.length).toEqual(evalue.length);
-    expect(actual).toEqual(evalue);
-});
+// test('SubjectOf2_appendHealthHistory', () => {
+//     var tag = new SubjectOf2();
+//     var evalue = [{
+//         "code": {
+//             "code": "38341003",
+//             "codeSystemName": "SNOMED_CT",
+//             "displayName": "Hypertension/high blood pressure",
+//             "originalText": "Hypertension/high blood pressure"
+//         },
+//         "sourceOf": undefined,
+//         "subject": {
+//             "dataEstimatedAge": {
+//                 "code": {
+//                     "code": "21611-9",
+//                     "codeSystemName": "LOINC",
+//                     "displayName": "Estimated Age",
+//                     "originalText": "late_fourties"
+//                 }
+//             }
+//         },
+//         "value": undefined
+//     },
+//     {
+//         "code": {
+//             "code": "55822004",
+//             "codeSystemName": "SNOMED_CT",
+//             "displayName": "High Cholesterol",
+//             "originalText": "High Cholesterol"
+//         },
+//         "sourceOf": undefined,
+//         "subject": {
+//             "dataEstimatedAge": {
+//                 "code": {
+//                     "code": "21611-9",
+//                     "codeSystemName": "LOINC",
+//                     "displayName": "Estimated Age",
+//                     "originalText": "late_fourties"
+//                 }
+//             }
+//         },
+//         "value": undefined
+//     }];
+//     var actual = [];
+//     tag.appendHealthHistory(actual, personalInformation.maternal_uncle_0);
+//     expect(actual.length).toEqual(evalue.length);
+//     expect(actual).toEqual(evalue);
+// });
 
-test('SubjectOf2_appendCauseOfDeath', () => {
-    var tag = new SubjectOf2();
-    var evalue = [{
-        "code": {
-            "code": "363349007",
-            "codeSystemName": "SNOMED_CT",
-            "displayName": "Gastric Cancer",
-            "originalText": "Gastric Cancer"
-        },
-        "sourceOf": {
-            "code": {
-                "code": "419620001",
-                "codeSystemName": "SNOMED_CT",
-                "displayName": "death",
-                "originalText": undefined
-            }
-        },
-        "subject": undefined,
-        "value": undefined
-    }];
-    var actual = [];
-    tag.appendCauseOfDeath(actual, personalInformation.maternal_uncle_0);
-    tag.appendCauseOfDeath(actual, personalInformation.maternal_grandfather);
-    expect(actual.length).toEqual(evalue.length);
-    expect(actual).toEqual(evalue);
-});
+// test('SubjectOf2_appendCauseOfDeath', () => {
+//     var tag = new SubjectOf2();
+//     var evalue = [{
+//         "code": {
+//             "code": "363349007",
+//             "codeSystemName": "SNOMED_CT",
+//             "displayName": "Gastric Cancer",
+//             "originalText": "Gastric Cancer"
+//         },
+//         "sourceOf": {
+//             "code": {
+//                 "code": "419620001",
+//                 "codeSystemName": "SNOMED_CT",
+//                 "displayName": "death",
+//                 "originalText": undefined
+//             }
+//         },
+//         "subject": undefined,
+//         "value": undefined
+//     }];
+//     var actual = [];
+//     tag.appendCauseOfDeath(actual, personalInformation.maternal_uncle_0);
+//     tag.appendCauseOfDeath(actual, personalInformation.maternal_grandfather);
+//     expect(actual.length).toEqual(evalue.length);
+//     expect(actual).toEqual(evalue);
+// });
 
 test('SubjectOf2_getXmlDataByJson', () => {
     var tag = new SubjectOf2();
