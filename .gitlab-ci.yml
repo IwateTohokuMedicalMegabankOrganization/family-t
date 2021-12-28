@@ -17,6 +17,7 @@ ut:
     - mkdir -p node_modules
     - npm install
     - npm run test -- --coverage
+  allow_failure: true
   artifacts:
     paths:
     - __tests__/__coverage__/
@@ -42,7 +43,6 @@ deploy_for_review:
   environment:
     name: review/$CI_COMMIT_REF_NAME
     url: http://family-t.tkb.mss.co.jp/$CI_COMMIT_REF_SLUG/
-  allow_failure: true
   only:
     - branches
   except:
