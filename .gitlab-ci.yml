@@ -42,6 +42,7 @@ deploy_for_review:
   environment:
     name: review/$CI_COMMIT_REF_NAME
     url: http://family-t.tkb.mss.co.jp/$CI_COMMIT_REF_SLUG/
+  allow_failure: true
   only:
     - branches
   except:
