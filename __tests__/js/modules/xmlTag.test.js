@@ -1161,6 +1161,208 @@ test('ClinicalObservation_getXmlDataByJson', () => {
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
+test('ClinicalObservation_getPersonalInfomationData', () => {
+
+    var tag = new ClinicalObservation();
+
+    var parsedXml = undefined;
+    var evalue = {
+        twin_status: "NO",
+        adopted: false,
+        consanguinity: undefined,
+        flg_race_ethnic: 1,
+        "Health History": []
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var parsedXml = {};
+    var evalue = {
+        twin_status: "NO",
+        adopted: false,
+        consanguinity: undefined,
+        flg_race_ethnic: 1,
+        "Health History": []
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var parsedXml = [];
+    var evalue = {
+        twin_status: "NO",
+        adopted: false,
+        consanguinity: undefined,
+        flg_race_ethnic: 1,
+        "Health History": []
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var parsedXml = [
+        {
+            "code": {
+                "attr_code": "313415001",
+                "attr_codeSystemName": "SNOMED_CT",
+                "attr_displayName": "Identical twin (person)",
+            },
+            "sourceOf": "",
+            "subject": "",
+            "value": ""
+        }
+    ];
+    var evalue = {
+        twin_status: "IDENTICAL",
+        adopted: false,
+        consanguinity: undefined,
+        flg_race_ethnic: 1,
+        "Health History": []
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+    
+    var parsedXml = [
+        {
+            "code": {
+                "attr_code": "313416000",
+                "attr_codeSystemName": "SNOMED_CT",
+                "attr_displayName": "Fraternal twin (person)",
+            },
+            "sourceOf": "",
+            "subject": "",
+            "value": ""
+        }
+    ];
+    var evalue = {
+        twin_status: "FRATERNAL",
+        adopted: false,
+        consanguinity: undefined,
+        flg_race_ethnic: 1,
+        "Health History": []
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+    
+    var parsedXml = [
+        {
+            "code": {
+                "attr_code": "160496001",
+                "attr_codeSystemName": "SNOMED_CT",
+                "attr_displayName": "ADOPTED",
+            },
+            "sourceOf": "",
+            "subject": "",
+            "value": ""
+        }
+    ];
+    var evalue = {
+        twin_status: "NO",
+        adopted: true,
+        consanguinity: undefined,
+        flg_race_ethnic: 1,
+        "Health History": []
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var parsedXml = [
+        {
+            "code": {
+                "attr_code": "271603002",
+                "attr_codeSystemName": "SNOMED_CT",
+                "attr_displayName": "height",
+            },
+            "sourceOf": "",
+            "subject": "",
+            "value": {
+                "attr_unit": "centimeters",
+                "attr_value": 175,
+            },
+        }
+    ];
+    var evalue = {
+        twin_status: "NO",
+        adopted: false,
+        consanguinity: undefined,
+        flg_race_ethnic: 1,
+        "Health History": [],
+        height: 175,
+        height_unit: "centimeters"
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var parsedXml = [
+        {
+            "code": {
+                "attr_code": "107647005",
+                "attr_codeSystemName": "SNOMED_CT",
+                "attr_displayName": "weight",
+            },
+            "sourceOf": "",
+            "subject": "",
+            "value": {
+                "attr_unit": "kilogram",
+                "attr_value": "60",
+            },
+        }
+    ];
+    var evalue = {
+        twin_status: "NO",
+        adopted: false,
+        consanguinity: undefined,
+        flg_race_ethnic: 1,
+        "Health History": [],
+        weight: "60",
+        weight_unit: "kilogram"
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var parsedXml = [
+        {
+            "code": {
+                "attr_originalText": "Parental consanguinity indicated",
+            },
+            "sourceOf": "",
+            "subject": "",
+            "value": ""
+        }
+    ];
+    var evalue = {
+        twin_status: "NO",
+        adopted: false,
+        consanguinity: undefined,
+        flg_race_ethnic: 1,
+        "Health History": []
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var parsedXml = [
+        {
+            "code": {
+                "attr_code": "HEALTHY",
+                "attr_codeSystemName": "FAMILY_T",
+                "attr_displayName": "Healthy",
+                "attr_originalText": "Healthy",
+            },
+            "sourceOf": "",
+            "subject": {
+                "dataEstimatedAge": {
+                    "code": {
+                        "attr_code": "21611-9",
+                        "attr_codeSystemName": "LOINC",
+                        "attr_displayName": "Estimated Age",
+                        "attr_originalText": "blank",
+                    },
+                },
+            },
+            "value": ""
+        }
+    ];
+    var evalue = {
+        twin_status: "NO",
+        adopted: false,
+        consanguinity: undefined,
+        flg_race_ethnic: 1,
+        "Health History": [ {"Disease Name": 'Healthy', "Detailed Disease Name": 'Healthy', "Age At Diagnosis": 'blank', "Disease Code": 'FAMILY_T-HEALTHY' } ]
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+});
+
+
 test('Code_getXmlDataByJson', () => {
     var tag = new Code();
     var evalue = "";
@@ -1200,10 +1402,6 @@ test('Code_getXmlDataByJson', () => {
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
-test('Code_getPersonalInfomationData', () => {
-    expect((new Code()).getPersonalInfomationData()).toStrictEqual(new ReferenceError());
-});
-
 test('Value_getXmlDataByJson', () => {
     var tag = new Value();
     var evalue = "";
@@ -1229,58 +1427,6 @@ test('Value_getXmlDataByJson', () => {
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
-
-// var tag = new Name();
-// var parsedXml = { "attr_formatted": "formatted" };
-// var evalue = { name: "formatted" };
-// expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
-
-// var tag = new Name();
-// var parsedXml = {};
-// var evalue = { name: "" };
-// expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
-// "height": 175,
-// "height_unit": "centimeters",
-// "weight": "60",
-// "weight_unit": "kilogram",
-
-test('Value_getPersonalInfomationData', () => {
-    var tag = new Value();
-    var parsedXml = {};
-    var evalue = {};
-    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
-
-    var tag = new Value();
-    var parsedXml = {
-        "attr_value": "value"
-    };
-    var evalue = {
-        "value": "value"
-    };
-    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
-
-    var tag = new Value();
-    var parsedXml = {
-        "attr_unit": "kilogram"
-    };
-    var evalue = {
-        "unit": "kilogram"
-    };
-    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
-
-    var tag = new Value();
-    var parsedXml = {
-        "attr_unit": "kilogram",
-        "attr_value": "60"
-    };
-    var evalue = {
-        "unit": "kilogram",
-        "value": "60"
-    };
-    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
-
-});
-
 test('Subject_getXmlDataByJson', () => {
     var tag = new Subject();
     var evalue = "";
@@ -1300,6 +1446,35 @@ test('Subject_getXmlDataByJson', () => {
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
+test('Subject_getPersonalInfomationData', () => {
+    var tag = new Subject();
+    var parsedXml = {};
+    var evalue = {};
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var tag = new Subject();
+    var parsedXml = {
+        "dataEstimatedAge": {
+            "code": {
+                "attr_code": "21611-9",
+                "attr_codeSystemName": "LOINC",
+                "attr_displayName": "Estimated Age",
+                "value": {
+                    "attr_unit": "year",
+                    "low": {
+                        "attr_value": "2"
+                    },
+                    "high": {
+                        "attr_value": "9"
+                    }
+                }
+            }
+        }
+    };
+    var evalue = { "estimated_age": "child" };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+});
+
 test('DataEstimatedAge_getXmlDataByJson', () => {
     var tag = new DataEstimatedAge();
     var evalue = "";
@@ -1317,6 +1492,33 @@ test('DataEstimatedAge_getXmlDataByJson', () => {
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
+test('DataEstimatedAge_getPersonalInfomationData', () => {
+    var tag = new DataEstimatedAge();
+    var parsedXml = {};
+    var evalue = {};
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+
+    var tag = new DataEstimatedAge();
+    var parsedXml = {
+        "code": {
+            "attr_code": "21611-9",
+            "attr_codeSystemName": "LOINC",
+            "attr_displayName": "Estimated Age",
+            "value": {
+                "attr_unit": "year",
+                "low": {
+                    "attr_value": "2"
+                },
+                "high": {
+                    "attr_value": "9"
+                }
+            }
+        }
+    };
+    var evalue = { "estimated_age": "child" };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+});
 test('Relative_getXmlDataByJson', () => {
     var tag = new Relative();
     var evalue = "";

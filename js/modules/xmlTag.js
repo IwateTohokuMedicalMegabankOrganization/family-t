@@ -1,7 +1,7 @@
 /**
  * this module defines xml tag classes what used in familiy-t
  */
-import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil } from '../../js/modules/xmlTagUtil';
+import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../../js/modules/xmlTagUtil';
 //import {relationToGroup} from '../../js//fhh';
 
 
@@ -528,64 +528,114 @@ class ClinicalObservation extends XmlTag {
     }
 
     getPersonalInfomationData(persedXml) {
+        // default value
+        var personalInformation = {
+            twin_status: "NO",
+            adopted: false,
+            consanguinity: undefined,
+            flg_race_ethnic: 1,
+            "Health History": []
+        };
+
+        if (this.isUndefindOrNull(persedXml)) return personalInformation;
+        if (!Array.isArray(persedXml)) return personalInformation;
+
+        persedXml.forEach(obj => {
+            Object.assign(personalInformation, this._getAClinicalObservation(obj));
+            // Health History
+            this._pushHealthHistory(personalInformation['Health History'], obj);
+        });
+
+        return personalInformation;
+    }
+    
+    _pushHealthHistory(healthHistory, obj) {
+        var history = this._getHealthHistory( obj );
+        if( !history ) return;
+        healthHistory.push( history );
+    }
+    
+    _getHealthHistory( obj ){
+
+        var ret = false;
+        // コードがHealthHistory以外ならfalse
+        if (!CodeUtil.isHealthHistoryCode(obj.code.attr_code, obj.code.attr_codeSystemName)) {
+            return ret;
+        }
+
+        Object.keys(CodeUtil.CODE).forEach(function (key) {
+            if (CodeUtil.CODE[key].code == obj.code.attr_code && CodeUtil.CODE[key].codeSystemName == obj.code.attr_codeSystemName) {
+                var code = CodeUtil.CODE[key];
+                ret =  {
+                    "Disease Name": code.displayName,
+                    "Detailed Disease Name": code.originText,
+                    "Age At Diagnosis": 'blank',
+                    "Disease Code": code.codeSystemName + "-" + code.code
+                };
+            }
+        });
+        
+        return ret;
+    }
+
+    _getAClinicalObservation(obj){
         var personalInformation = {};
 
-        // code
-        if (this.isUndefindOrNull(persedXml)) return personalInformation;
-        if (this.isUndefindOrNull(persedXml.code)) return personalInformation;
-        this.code = new Code(persedXml.code.attr_code, persedXml.code.attr_codeSystemName, persedXml.code.attr_value);
+        // Twin status
+        Object.assign(personalInformation, this._getTwinStatus(obj));
 
-        if (!this.isUndefindOrNull(persedXml.subject)) {
-            this.subject = new Subject();
-        }
-
-        if (!this.isUndefindOrNull(persedXml.value)) {
-            this.value = new Value(persedXml.value.attr_value, persedXml.value.attr_unit);
-        }
-
-        // Twin and Adopted Status
-        Object.assign(personalInformation, this._getTwinStatus());
+        // Adopted Status
+        Object.assign(personalInformation, this._getAdopted(obj));
 
         // Height and Weight and actvity
-        Object.assign(personalInformation, this._getHeight());
-
-        // Personal Diseases
-
-        // this.appendJsonElement(personalInformation, "code", this.code.getPersonalInfomationData(persedXml) ) ;
-        // this.appendJsonElement(personalInformation, "relationshipHolder", this.relationshipHolder.getPersonalInfomationData(persedXml));
-
-        // COD
+        Object.assign(personalInformation, this._getHeight(obj));
+        Object.assign(personalInformation, this._getWeight(obj));
 
         return personalInformation;
     }
 
-    _getHeight() {
+    _getWeight(obj) {
         var personalInformation = {};
 
-        if (this.isUndefindOrNull(this.code)) {
+        if (this.isUndefindOrNull(obj.code)) {
             return personalInformation;
         }
 
-        if (this.HEIGHT.code == this.code.code) {
-            if (!this.isUndefindOrNull(this.value.value)) {
-                this.appendJsonElement(personalInformation, this.HEIGHT.piCode, this.value.value);
-                this.appendJsonElement(personalInformation, this.HEIGHT.piUnit, this.value.unit);
+        if (this.WEIGHT.code == obj.code.attr_code) {
+            if (!this.isUndefindOrNull(obj.value.attr_value)) {
+                this.appendJsonElement(personalInformation, this.WEIGHT.piCode, obj.value.attr_value);
+                this.appendJsonElement(personalInformation, this.WEIGHT.piUnit, obj.value.attr_unit);
             }
         }
-
         return personalInformation;
     }
 
-    _getTwinStatus() {
+    _getHeight(obj) {
+        var personalInformation = {};
+
+        if (this.isUndefindOrNull(obj.code)) {
+            return personalInformation;
+        }
+
+        if (this.HEIGHT.code == obj.code.attr_code) {
+            if (!this.isUndefindOrNull(obj.value.attr_value)) {
+                this.appendJsonElement(personalInformation, this.HEIGHT.piCode, obj.value.attr_value);
+                this.appendJsonElement(personalInformation, this.HEIGHT.piUnit, obj.value.attr_unit);
+            }
+        }
+        return personalInformation;
+    }
+
+    _getTwinStatus(obj) {
 
         var personalInformation = {};
 
-        if (this.isUndefindOrNull(this.code)) {
+        if (this.isUndefindOrNull(obj.code)) {
             return personalInformation;
         }
 
         for (let st in this.TWIN_STATUS) {
-            if (this.TWIN_STATUS[st].code == this.code.code) {
+            if (this.TWIN_STATUS[st].code == obj.code.attr_code) {
                 this.appendJsonElement(personalInformation, "twin_status", this.TWIN_STATUS[st].piCode);
             }
         }
@@ -593,30 +643,22 @@ class ClinicalObservation extends XmlTag {
         return personalInformation;
     }
 
-    // _getAdministrativeGenderCode(){
-    //     if( this.isUndefindOrNull( this.displayName ) )
-    //         return this.AdministrativeGenderCodes.MALE;
+    _getAdopted(obj) {
 
-    //     for(let gender in this.AdministrativeGenderCodes ){
-    //         if( this.AdministrativeGenderCodes[gender].displayName.toUpperCase() == this.displayName.toUpperCase() ){
-    //             return this.AdministrativeGenderCodes[gender];
-    //         }
-    //     }
-    //     return this.AdministrativeGenderCodes.MALE;
-    // }
+        var personalInformation = {};
 
-    // AdministrativeGenderCodes = {
-    //     MALE: {
-    //         code: 248153007
-    //         , displayName : "male"
-    //         , piCode : "MALE"
-    //     },
-    //     FEMALE: {
-    //         code: 248152002
-    //         , displayName : "female"
-    //         , piCode : "FEMALE"
-    //     }
-    // }
+        if (this.isUndefindOrNull(obj.code)) {
+            return personalInformation;
+        }
+
+        for (let st in this.ADOPTED) {
+            if (this.ADOPTED.code == obj.code.attr_code) {
+                this.appendJsonElement(personalInformation, "adopted", this.ADOPTED.piCode);
+            }
+        }
+
+        return personalInformation;
+    }
 
     // twin status
     TWIN_STATUS = {
@@ -641,8 +683,8 @@ class ClinicalObservation extends XmlTag {
     }
 
     WEIGHT = {
-        code: 271603002
-        , displayName: "107647005"
+        code: 107647005
+        , displayName: "weight"
         , piCode: "weight"
         , piUnit: "weight_unit"
     }
@@ -678,8 +720,9 @@ class Code extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(code);
     }
 
-    getPersonalInfomationData() {
-        return new ReferenceError();
+    getPersonalInfomationData(persedXml) {
+        var personalInformation;
+        return personalInformation;
     }
 }
 
@@ -700,23 +743,25 @@ class Value extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(value);
     }
 
-    getPersonalInfomationData(persedXml) {
-        var value = {};
+    getPersonalInformationValue(persedXml){
+        var ret = "";
+        if (this.isUndefindOrNull(persedXml)) return ret;
+        if (
+            this.isUndefindOrNull(persedXml.attr_unit)
+            && this.isUndefindOrNull(persedXml.low)
+            && this.isUndefindOrNull(persedXml.high)
+        ){
 
-        if( !this.isUndefindOrNull(persedXml.attr_value)) {
-            this.appendJsonElement(value, "value", persedXml.attr_value);
+            // TODO
         }
 
-        if( !this.isUndefindOrNull(persedXml.attr_unit)) {
-            this.appendJsonElement(value, "unit", persedXml.attr_unit);
+
+        function age( unit, low , high ){
+
+
         }
-        return value;
     }
 
-    _getAttrKey(attr_key) {
-        if (this.isUndefindOrNull(attr_key)) return "";
-        return attr_key.replace(/^attr_/, "");
-    }
 }
 
 class SourceOf extends XmlTag {
@@ -754,8 +799,11 @@ class Subject extends XmlTag {
     }
 
     getPersonalInfomationData(persedXml) {
-        var personalInformation;
-        return personalInformation;
+        var personalInformation = {};
+        if (this.isUndefindOrNull(persedXml)) return personalInformation;
+        if (this.isUndefindOrNull(persedXml.dataEstimatedAge)) return personalInformation;
+
+        return (new DataEstimatedAge()).getPersonalInfomationData(persedXml.dataEstimatedAge);
     }
 }
 
@@ -774,8 +822,13 @@ class DataEstimatedAge extends XmlTag {
     }
 
     getPersonalInfomationData(persedXml) {
-        var personalInformation;
-        return personalInformation;
+        var personalInformation = {};
+        if (this.isUndefindOrNull(persedXml)) return personalInformation;
+        if (this.isUndefindOrNull(persedXml.code)) return personalInformation;
+        if (!CodeUtil.isEstimatedAge(persedXml.code.attr_code, persedXml.code.attr_codeSystemName)) return personalInformation;
+
+
+        return (new Code()).getPersonalInfomationData(persedXml.code);
     }
 }
 
