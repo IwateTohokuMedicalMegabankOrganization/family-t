@@ -51,6 +51,8 @@ deploy_for_review:
 # release
 deploy:
   stage: deploy
+  tags: 
+    - review_deploy
   script:
     - echo "update family-t demo server contents"
   only:
