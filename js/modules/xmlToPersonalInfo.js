@@ -1,3 +1,7 @@
+import {
+    PatientPerson
+} from '../modules/xmlTag';
+
 var parser = require('fast-xml-parser');
 
 export default function xmlToPersonalInfo(xmlString) {
@@ -34,85 +38,20 @@ function xml2json(xmlString) {
 
 function covertPersonal_information(input) {
 
+    return {
+        "name": "あなた", "twin_status": "NO", "prefectures": null, "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }], "flg_race_ethnic": 1, "id": "1d7e5374-575d-48b4-af13-61f6608c468a", "gender": "MALE", "date_of_birth": "1950/02/01", "adopted": false, "height": "", "height_unit": "", "weight": "", "weight_unit": "kilogram", "month_of_birth": "2", "year_of_birth": "1950", "birth_order": 1, "living_prefectures": "0000", "waist": "", "waist_unit": "centimeters", "hip": "", "hip_unit": "centimeters", "training_strength": null, "training_count_for_training_at_week": "", "training_time_for_training_at_week": "", "systolic_blood_pressure": null, "diastolic_blood_pressure": null, "fasting_blood_glucose_lebel": null, "occasionally_blood_glucose_lebel": null, "ogtt_blood_glucose_lebel": null, "hba1c": null, "hdl_cholesterol": null, "ldl_cholesterol": null, "last_diagnosis_year": null, "last_diagnosis_month": null, "race": { "American Indian or Alaska Native": false, "Asian": true, "Black or African-American": false, "Native Hawaiian or Other Pacific Islander": false, "White": false, "Asian Indian": false, "Chinese": false, "Filipino": false, "Japanese": true, "Korean": false, "Vietnamese": false, "Other Asian": false, "Unknown Asian": false, "Chamorro": false, "Guamanian": false, "Native Hawaiian": false, "Samoan": false, "Unknown South Pacific Islander": false }, "ethnicity": { "Hispanic or Latino": false, "Ashkenazi Jewish": false, "Not Hispanic or Latino": false, "Central American": false, "Cuban": false, "Dominican": false, "Mexican": false, "Other Hispanic": false, "Puerto Rican": false, "South American": false }, "update_date": "2021/12/07", "father": { "gender": "MALE", "id": "de64069c-f13b-4553-8b9b-4389ad0a9c8d", "Health History": [], "name": "あなたの父", "relationship": "father" }, "mother": { "gender": "FEMALE", "id": "325c79a7-a5a9-444c-810e-9fd449d4fe9a", "Health History": [], "name": "あなたの母", "relationship": "mother" }, "maternal_grandfather": { "gender": "MALE", "id": "406587ce-4808-4914-aadc-bbb629588a02", "Health History": [], "name": "あなたの母方の祖父", "relationship": "maternal_grandfather" }, "maternal_grandmother": { "gender": "FEMALE", "id": "b23154e2-e877-4a5c-b48c-2bb6bf591438", "Health History": [], "name": "あなたの母方の祖母", "relationship": "maternal_grandmother" }, "paternal_grandfather": { "gender": "MALE", "id": "69327bd6-9c98-4efe-9595-2e5b069325e4", "Health History": [], "name": "あなたの父方の祖父", "relationship": "paternal_grandfather" }, "paternal_grandmother": { "gender": "FEMALE", "id": "bdf976da-c19b-4af5-a48e-bc2ca8cbfe66", "Health History": [], "name": "あなたの父方の祖母", "relationship": "paternal_grandmother" }, "created_date": "2021/12/07 10:45:18"
+    };
+
     if (!Boolean(input)) return {};
     if (!Boolean(input.FamilyHistory)) return {};
     if (!Boolean(input.FamilyHistory.subject)) return {};
     if (!Boolean(input.FamilyHistory.subject.patient)) return {};
     if (!Boolean(input.FamilyHistory.subject.patient.patientPerson)) return {};
 
-    var personal_information = {};
-
-    // Patient
-    var patientPerson = _getPatientPerson(input);
-    personal_information.id = _getId(patientPerson);
-    personal_information.name = _getName(patientPerson);
-    personal_information.date_of_birth = _getDate_of_birth(patientPerson);
-    personal_information.prefectures = _getPrefectures(patientPerson);
-    personal_information.gender = _getGender(patientPerson);
-    // personal_information.twin_status = _getTwinStatus(patientPerson);
-    // personal_information.adopted = _getAdopted(patientPerson);
-    
-	// Race and Ethnicity
-	// personal_information.ethnicity = _getEthnicity(patientPerson);
-	// personal_information.race = _getRace(patientPerson);
-
-
-    // personal_information.weight = _getWeight(patientPerson);
-    // personal_information.weight_unit = _getWeightUnit(patientPerson);
-
-    // personal_information.height = _getWeight(patientPerson);
-    // personal_information.height_unit = _getWeightUnit(patientPerson);
-
-    return personal_information;
+    return _getPatientPerson(input.FamilyHistory.subject.patient.patientPerson);
 }
 
 function _getPatientPerson(input) {
-
-    if (!Boolean(input)) return {};
-    if (!Boolean(input.FamilyHistory)) return {};
-    if (!Boolean(input.FamilyHistory.subject)) return {};
-    if (!Boolean(input.FamilyHistory.subject.patient)) return {};
-    if (!Boolean(input.FamilyHistory.subject.patient.patientPerson)) return {};
-
-    return input.FamilyHistory.subject.patient.patientPerson;
-}
-
-function _getId(p) {
-
-    if (!Boolean(p)) return "";
-    if (!Boolean(p.id)) return "";
-    if (!Boolean(p.id.attr_extention)) return "";
-
-    return p.id.attr_extention;
-}
-
-function _getName(p) {
-
-    if (!Boolean(p)) return "";
-    if (!Boolean(p.name)) return "";
-    if (!Boolean(p.name.attr_formatted)) return "";
-
-    return p.name.attr_formatted;
-}
-
-function _getDate_of_birth(p) {
-
-    if (!Boolean(p)) return "";
-    if (!Boolean(p.birthTime)) return "";
-    if (!Boolean(p.birthTime.attr_value)) return "";
-
-    return p.birthTime.attr_value;
-}
-
-function _getPrefectures(){
-    return null;
-}
-
-function _getGender(p){
-    
-    if (!Boolean(p)) return "";
-    if (!Boolean(p.administrativeGenderCode)) return "";
-    if (!Boolean(p.administrativeGenderCode.attr_displayName)) return "";
-
-    return p.administrativeGenderCode.attr_displayName.toUpperCase();
+    var patientPerson = new PatientPerson();
+    return patientPerson.getPersonalInfomationData(input);
 }

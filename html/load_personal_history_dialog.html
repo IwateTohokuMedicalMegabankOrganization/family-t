@@ -2,9 +2,9 @@
 <div style="text-align:right;">
 	<div class="inner">
 		<button style="display:none;" id="load-help" href="#"></button>
-			<label for="load-help">
+		<label for="load-help">
 			<div id="tt00" class="material-icons large-size green-text cursor_pointer icon_shadow">help_outline</div>
-			</label>
+		</label>
 		<div class="mdl-tooltip" for="tt00">家族歴ファイル読み込みに<br />関するヘルプを表示します</div>
 	</div>
 </div>
@@ -13,27 +13,28 @@
 	<div class="title-bar translate" data-i18n="fhh_load_save.load_from_file">デバイスから家族歴を読み込む</div>
 	<!-- PL Uploader -->
 	<div>
-		<P class='translate' style="margin: 0px;" data-i18n="fhh_load_save.load_file_instructions1">保存済みの家族歴ファイルを、コンピュータまたはポータブルストレージデバイス（USBドライブなど）から読み込みます。</P>
+		<P class='translate' style="margin: 0px;" data-i18n="fhh_load_save.load_file_instructions1">
+			保存済みの家族歴ファイルを、コンピュータまたはポータブルストレージデバイス（USBドライブなど）から読み込みます。</P>
 		<P>
 			<span class='translate' style="margin: 0px;" data-i18n="fhh_load_save.click_icon_note1">下の</span>
 			<span class="material-icons center green-text">open_in_browser</span>
 			<span class='translate' style="margin: 0px;" data-i18n="fhh_load_save.click_icon_note2">をクリックして</span>
-			<span class='translate' style="margin: 0px;" data-i18n="fhh_load_save.choose_a_file">保存済みのファイルを選択して開けます。</span>
+			<span class='translate' style="margin: 0px;"
+				data-i18n="fhh_load_save.choose_a_file">保存済みのファイルを選択して開けます。</span>
 		</P>
 		<div id="container">
 			<div class="center">
-				<button style="display:none;" id="pickfiles" href="javascript:;"></button><label for="pickfiles"><div id="tt10" class="material-icons center green-text large-size cursor_pointer icon_shadow">open_in_browser</div></label>
-				<div class="mdl-tooltip" for="tt10"><span class='translate' data-i18n="fhh_load_save.load_from_file">保存ファイルを開きます</span></div>
+				<label for="pedigree_file">
+					<input name="pedigree_file" type="file" id='pedigree_file' accept='text/xml'
+						style="display: none;" />
+					<div id="file_upload_button"
+						class="material-icons center green-text large-size cursor_pointer icon_shadow">open_in_browser
+					</div>
+				</label>
 			</div>
-			<hr>
-			<h3>Old Way</h3>
-			<form action="#" enctype="multipart/form-data" method="post"  >
-			  <input name="pedigree_file" type="file" id='pedigree_file' accept='text/xml' />
-			  <input type="submit" value="Load File" id='file_upload_button' />
-			</form>
 			<br />
 			<hr>
-			<div id="filelist">お使いのブラウザはFlash、Silverlight、またはHTML5がサポートされていません。</div>
+			<div id="filelist">お使いのブラウザはHTML5がサポートされていません。</div>
 			<pre id="console" style="color:red;"></pre>
 		</div>
 	</div>

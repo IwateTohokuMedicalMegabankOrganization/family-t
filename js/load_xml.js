@@ -19,7 +19,8 @@ function bind_load_xml() {
 
 function bind_load_file() {
 	$("#file_upload_button").val($.t("fhh_load_save.load_file_button"));
-	$("#file_upload_button").on("click", function () {
+	
+	$("#pedigree_file").on("change", function () {
 
 		if ($('#pedigree_file')[0].files[0] == null) {
 			alert ($.t("fhh_load_save.choose_a_file"));

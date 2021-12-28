@@ -813,7 +813,7 @@ function start()
 
 	$("#load_personal_history_dialog").dialog({
 		title:$.t("fhh_js.load_dialog_title"),
-		position: {my: "center", at: "center", of: window},
+		position: {my: "center", at: "top", of: window},
 		closeOnEscape: true,
 		autoOpen: false,
 		resizable: false,

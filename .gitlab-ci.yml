@@ -12,9 +12,12 @@ ut:
     - export http_proxy=http://172.20.1.246:12080/
     - export https_proxy=http://172.20.1.246:12080/
     - npm config set proxy http://172.20.1.246:12080
+    - npm config set http-proxy http://172.20.1.246:12080
     - npm config set https-proxy http://172.20.1.246:12080
+    - mkdir -p node_modules
     - npm install
     - npm run test -- --coverage
+  allow_failure: true
   artifacts:
     paths:
     - __tests__/__coverage__/
@@ -26,6 +29,14 @@ deploy_for_review:
     - review_deploy
   script:
     - echo "update family-t mss demo server contents"
+    - export http_proxy=http://172.20.1.246:12080/
+    - export https_proxy=http://172.20.1.246:12080/
+    - npm config set proxy http://172.20.1.246:12080
+    - npm config set http-proxy http://172.20.1.246:12080
+    - npm config set https-proxy http://172.20.1.246:12080
+    - mkdir -p node_modules
+    - npm install
+    - npm run dev
     - mkdir -p /var/www/html/$CI_COMMIT_REF_SLUG
     - cp -rf ./* /var/www/html/$CI_COMMIT_REF_SLUG/
     - echo "Deploy a review app"
