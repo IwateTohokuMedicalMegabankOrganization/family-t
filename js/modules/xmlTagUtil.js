@@ -1,4 +1,4 @@
-import { Note } from "./XmlTag";
+import { Note } from "./xmlTag";
 
 export class RaceUtil{
     static RACES = {
