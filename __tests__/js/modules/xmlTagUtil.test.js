@@ -1,4 +1,4 @@
-import { CodeUtil, RaceUtil, RelativeUtil } from '../../../js/modules/xmlTagUtil';
+import { CodeUtil, RaceUtil, RelativeUtil, ValueUtil } from '../../../js/modules/xmlTagUtil';
 
 test('RaceUtil_getRace', () => {
     var evalue = {
