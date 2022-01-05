@@ -2,11 +2,6 @@
  * this module defines xml tag classes what used in familiy-t
  */
 import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../../js/modules/xmlTagUtil';
-//import {relationToGroup} from '../../js//fhh';
-
-
-
-import { get } from "jquery";
 
 /**
  * base class 
