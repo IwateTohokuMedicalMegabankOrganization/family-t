@@ -548,14 +548,14 @@ class ClinicalObservation extends XmlTag {
 
         return personalInformation;
     }
-    
+
     _pushHealthHistory(healthHistory, obj) {
-        var history = this._getHealthHistory( obj );
-        if( !history ) return;
-        healthHistory.push( history );
+        var history = this._getHealthHistory(obj);
+        if (!history) return;
+        healthHistory.push(history);
     }
-    
-    _getHealthHistory( obj ){
+
+    _getHealthHistory(obj) {
 
         var ret = false;
         // コードがHealthHistory以外ならfalse
@@ -566,7 +566,7 @@ class ClinicalObservation extends XmlTag {
         Object.keys(CodeUtil.CODE).forEach(function (key) {
             if (CodeUtil.CODE[key].code == obj.code.attr_code && CodeUtil.CODE[key].codeSystemName == obj.code.attr_codeSystemName) {
                 var code = CodeUtil.CODE[key];
-                ret =  {
+                ret = {
                     "Disease Name": code.displayName,
                     "Detailed Disease Name": code.originText,
                     "Age At Diagnosis": 'blank',
@@ -574,11 +574,11 @@ class ClinicalObservation extends XmlTag {
                 };
             }
         });
-        
+
         return ret;
     }
 
-    _getAClinicalObservation(obj){
+    _getAClinicalObservation(obj) {
         var personalInformation = {};
 
         // Twin status
@@ -743,23 +743,35 @@ class Value extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(value);
     }
 
-    getPersonalInformationValue(persedXml){
-        var ret = "";
-        if (this.isUndefindOrNull(persedXml)) return ret;
-        if (
-            this.isUndefindOrNull(persedXml.attr_unit)
-            && this.isUndefindOrNull(persedXml.low)
-            && this.isUndefindOrNull(persedXml.high)
-        ){
+    getPersonalInfomationData(persedXml) {
+        return this._getPiValue(persedXml);
+    }
 
-            // TODO
-        }
+    _getPiValue(xmlParsedJsonValue) {
+        var defaultKey = 'unknown';
+        var retCode = defaultKey;
 
+        if (this.isUndefindOrNull(xmlParsedJsonValue)) return retCode;
 
-        function age( unit, low , high ){
+        Object.keys(ValueUtil.ESTIMATED_AGE_VALUE).forEach(function (key) {
+            if (ValueUtil.ESTIMATED_AGE_VALUE[key] === xmlParsedJsonValue) {
+                retCode = key;
+                return retCode;
+            }
+        });
 
+        if (this.isUndefindOrNull(xmlParsedJsonValue.attr_unit)) return retCode;
+        if (this.isUndefindOrNull(xmlParsedJsonValue.low)) return retCode;
 
-        }
+        Object.keys(ValueUtil.ESTIMATED_AGE_VALUE).forEach(function (key) {
+            if (ValueUtil.ESTIMATED_AGE_VALUE[key].unit == xmlParsedJsonValue.attr_unit) {
+                if (ValueUtil.ESTIMATED_AGE_VALUE[key].low.value == xmlParsedJsonValue.low.attr_value) {
+                    retCode = key;
+                    return retCode;
+                }
+            }
+        });
+        return retCode;
     }
 
 }

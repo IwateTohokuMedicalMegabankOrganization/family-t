@@ -1428,6 +1428,29 @@ test('Value_getXmlDataByJson', () => {
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
 
+
+test('Value.getPersonalInformationValue', () => {
+    expect((new Value()).getPersonalInfomationData("prebirth")).toStrictEqual("prebirth");
+    expect((new Value()).getPersonalInfomationData("unknown")).toStrictEqual("unknown");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "day", low: { attr_value: "0" } })).toStrictEqual("newborn");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "day", low: { attr_value: "29" } })).toStrictEqual("infant");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "10" } })).toStrictEqual("early_teen");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "15" } })).toStrictEqual("late_teen");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "20" } })).toStrictEqual("early_twenties");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "25" } })).toStrictEqual("late_twenties");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "30" } })).toStrictEqual("early_thirties");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "35" } })).toStrictEqual("late_thirties");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "40" } })).toStrictEqual("early_fourties");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "45" } })).toStrictEqual("late_fourties");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "50" } })).toStrictEqual("early_fifties");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "55" } })).toStrictEqual("late_fifties");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "60" } })).toStrictEqual("early_sixties");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "65" } })).toStrictEqual("late_sixties");
+    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "70" } })).toStrictEqual("senior");
+
+    expect((new Value()).getPersonalInfomationData({})).toStrictEqual("unknown");
+    expect((new Value()).getPersonalInfomationData()).toStrictEqual("unknown");
+});
 test('Subject_getXmlDataByJson', () => {
     var tag = new Subject();
     var evalue = "";
