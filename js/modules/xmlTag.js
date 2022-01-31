@@ -28,6 +28,7 @@ class XmlTag {
     getPersonalInfomationData(persedXml) {
         var personalInformation;
         return personalInformation;
+        
     }
 
     isUndefindOrNull(value) {
@@ -331,6 +332,8 @@ class BirthTime extends XmlTag {
     getPersonalInfomationData(persedXml) {
         var personalInformation = {};
         this.appendJsonElement(personalInformation, "date_of_birth", this._getYYYYMMDD(persedXml.attr_value));
+        this.appendJsonElement(personalInformation, "year_of_birth", this._getYYYY(persedXml.attr_value));
+        this.appendJsonElement(personalInformation, "month_of_birth", this._getMM(persedXml.attr_value));
         return personalInformation;
     }
 
@@ -338,6 +341,18 @@ class BirthTime extends XmlTag {
         var d = new Date(value);
         if (isNaN(d)) d = new Date();
         return String(d.getFullYear()) + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + d.getDate()).slice(-2);
+    }
+
+    _getYYYY(value) {
+        var d = new Date(value);
+        if (isNaN(d)) d = new Date();
+        return String(d.getFullYear());
+    }
+
+    _getMM(value) {
+        var d = new Date(value);
+        if (isNaN(d)) d = new Date();
+        return String( ('0' + (d.getMonth() + 1)).slice(-2) );
     }
 
 }
@@ -737,38 +752,64 @@ class Value extends XmlTag {
         this.appendJsonElement(value, "attr_unit", this.unit);
         return this.returnEmptyStringIfJsonLengthIsZero(value);
     }
+}
 
-    getPersonalInfomationData(persedXml) {
-        return this._getPiValue(persedXml);
+/**
+ * Estimated Age Code
+ * e.g. ) child 
+ */
+ class EstimatedAgeValue extends Code {
+
+    /**
+     * { personal_information value : xmlValue }
+     */
+     ESTIMATED_AGE_VALUE = {
+        "prebirth": "prebirth",
+        "unknown": "unknown",
+        "newborn": { unit: "day", low: { value: "0" }, high: { value: "28" } },
+        "infant": { unit: "day", low: { value: "29" }, high: { value: "730" } },
+        "child": { unit: "year", low: { value: "2" }, high: { value: "9" } },
+        "early_teen": { unit: "year", low: { value: "10" }, high: { value: "14" } },
+        "late_teen": { unit: "year", low: { value: "15" }, high: { value: "19" } },
+        "early_twenties": { unit: "year", low: { value: "20" }, high: { value: "24" } },
+        "late_twenties": { unit: "year", low: { value: "25" }, high: { value: "29" } },
+        "early_thirties": { unit: "year", low: { value: "30" }, high: { value: "34" } },
+        "late_thirties": { unit: "year", low: { value: "35" }, high: { value: "39" } },
+        "early_fourties": { unit: "year", low: { value: "40" }, high: { value: "44" } },
+        "late_fourties": { unit: "year", low: { value: "45" }, high: { value: "49" } },
+        "early_fifties": { unit: "year", low: { value: "50" }, high: { value: "54" } },
+        "late_fifties": { unit: "year", low: { value: "55" }, high: { value: "59" } },
+        "early_sixties": { unit: "year", low: { value: "60" }, high: { value: "64" } },
+        "late_sixties": { unit: "year", low: { value: "65" }, high: { value: 9 } },
+        "senior": { unit: "year", low: { value: "70" } }
     }
 
-    _getPiValue(xmlParsedJsonValue) {
+    getPersonalInfomationData(persedXml) {
         var defaultKey = 'unknown';
         var retCode = defaultKey;
 
-        if (this.isUndefindOrNull(xmlParsedJsonValue)) return retCode;
-
-        Object.keys(ValueUtil.ESTIMATED_AGE_VALUE).forEach(function (key) {
-            if (ValueUtil.ESTIMATED_AGE_VALUE[key] === xmlParsedJsonValue) {
+        if (this.isUndefindOrNull(persedXml)) return retCode;
+        for (const key in this.ESTIMATED_AGE_VALUE) {
+            if (this.ESTIMATED_AGE_VALUE[key] === persedXml) {
                 retCode = key;
                 return retCode;
             }
-        });
+        }
 
-        if (this.isUndefindOrNull(xmlParsedJsonValue.attr_unit)) return retCode;
-        if (this.isUndefindOrNull(xmlParsedJsonValue.low)) return retCode;
+        if (this.isUndefindOrNull(persedXml.attr_unit)) return retCode;
+        if (this.isUndefindOrNull(persedXml.low)) return retCode;
 
-        Object.keys(ValueUtil.ESTIMATED_AGE_VALUE).forEach(function (key) {
-            if (ValueUtil.ESTIMATED_AGE_VALUE[key].unit == xmlParsedJsonValue.attr_unit) {
-                if (ValueUtil.ESTIMATED_AGE_VALUE[key].low.value == xmlParsedJsonValue.low.attr_value) {
+        for (const key in this.ESTIMATED_AGE_VALUE) {
+            if (this.ESTIMATED_AGE_VALUE[key].unit == persedXml.attr_unit) {
+                if (this.ESTIMATED_AGE_VALUE[key].low.value == persedXml.low.attr_value) {
                     retCode = key;
                     return retCode;
                 }
             }
-        });
+        }
+
         return retCode;
     }
-
 }
 
 class SourceOf extends XmlTag {
@@ -834,8 +875,7 @@ class DataEstimatedAge extends XmlTag {
         if (this.isUndefindOrNull(persedXml.code)) return personalInformation;
         if (!CodeUtil.isEstimatedAge(persedXml.code.attr_code, persedXml.code.attr_codeSystemName)) return personalInformation;
 
-
-        return (new Code()).getPersonalInfomationData(persedXml.code);
+        return { "estimated_age": (new EstimatedAgeValue()).getPersonalInfomationData(persedXml.code.value) } ;
     }
 }
 
@@ -945,5 +985,5 @@ class Note extends XmlTag {
 export {
     AdministrativeGenderCode, BirthTime, Id, Name, RaceCode,
     SubjectOf2, ClinicalObservation, Code, Value, Subject, SourceOf, DataEstimatedAge,
-    PatientPerson, Relative, RelationshipHolder, Note, XmlTag
+    PatientPerson, Relative, RelationshipHolder, Note, XmlTag, EstimatedAgeValue
 };

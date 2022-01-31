@@ -41,3 +41,9 @@ test('CodeUtil_isHealthHistoryCode', () => {
     expect(CodeUtil.isHealthHistoryCode('55822004', "SNOMED_CT")).toStrictEqual(true);
     expect(CodeUtil.isHealthHistoryCode('HEALTHY', "FAMILY_T")).toStrictEqual(true);
 });
+
+test('CodeUtil_isEstimatedAge', () => {
+    expect(CodeUtil.isHealthHistoryCode('aaa', "bbb")).toStrictEqual(false);
+    expect(CodeUtil.isHealthHistoryCode('248153007', "SNOMED_CT")).toStrictEqual(false);
+    expect(CodeUtil.isHealthHistoryCode('21611-9', "LOINC")).toStrictEqual(true);
+});

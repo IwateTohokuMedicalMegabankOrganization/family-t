@@ -2,7 +2,7 @@ import { parse } from 'fast-xml-parser';
 import {
     AdministrativeGenderCode, BirthTime, Id, Name, RaceCode,
     SubjectOf2, ClinicalObservation, Code, Value, Subject, SourceOf, DataEstimatedAge,
-    PatientPerson, Relative, RelationshipHolder, Note, XmlTag
+    PatientPerson, Relative, RelationshipHolder, Note, XmlTag, EstimatedAgeValue
 } from '../../../js/modules/xmlTag';
 
 var personalInformation = {
@@ -467,7 +467,6 @@ test('PatientPerson_getRelatives', () => {
 });
 
 test('PatientPerson_getXmlDataByJson', () => {
-    var tag = new PatientPerson();
     var evalue = {
         "administrativeGenderCode": {
             "attr_code": "248153007",
@@ -575,7 +574,8 @@ test('PatientPerson_getXmlDataByJson', () => {
             ]
         }
     };
-    var actual = tag.getXmlDataByJson(personalInformation);
+    var tag = new PatientPerson(personalInformation);
+    var actual = tag.getXmlDataByJson();
     expect(actual.administrativeGenderCode).toStrictEqual(evalue.administrativeGenderCode);
     expect(actual.birthTime).toStrictEqual(evalue.birthTime);
     expect(actual.id).toStrictEqual(evalue.id);
@@ -671,18 +671,28 @@ test('BirthTime_getPersonalInfomationData', () => {
     var tag = new BirthTime();
     var parsedXml = {};
     var d = new Date();
-    var evalue = { "date_of_birth": String(d.getFullYear()) + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + d.getDate()).slice(-2) };
+    var evalue = { 
+        "date_of_birth": String(d.getFullYear()) + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + d.getDate()).slice(-2) 
+        ,"year_of_birth": String(d.getFullYear()) 
+        ,"month_of_birth": ('0' + (d.getMonth() + 1)).slice(-2)
+    };
 
     expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 
     var tag = new BirthTime();
     var parsedXml = { "attr_value": "1994/02/01" };
-    var evalue = { "date_of_birth": "1994/02/01" };
+    var evalue = { "date_of_birth": "1994/02/01"
+                    ,"month_of_birth": "02"
+                    ,"year_of_birth": "1994"
+};
     expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 
     var tag = new BirthTime();
     var parsedXml = { "attr_value": "02/01/1994" };
-    var evalue = { "date_of_birth": "1994/02/01" };
+    var evalue = { "date_of_birth": "1994/02/01" 
+    ,"month_of_birth": "02"
+    ,"year_of_birth": "1994"
+};
     expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 
 });
@@ -1429,27 +1439,27 @@ test('Value_getXmlDataByJson', () => {
 });
 
 
-test('Value.getPersonalInformationValue', () => {
-    expect((new Value()).getPersonalInfomationData("prebirth")).toStrictEqual("prebirth");
-    expect((new Value()).getPersonalInfomationData("unknown")).toStrictEqual("unknown");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "day", low: { attr_value: "0" } })).toStrictEqual("newborn");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "day", low: { attr_value: "29" } })).toStrictEqual("infant");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "10" } })).toStrictEqual("early_teen");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "15" } })).toStrictEqual("late_teen");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "20" } })).toStrictEqual("early_twenties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "25" } })).toStrictEqual("late_twenties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "30" } })).toStrictEqual("early_thirties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "35" } })).toStrictEqual("late_thirties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "40" } })).toStrictEqual("early_fourties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "45" } })).toStrictEqual("late_fourties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "50" } })).toStrictEqual("early_fifties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "55" } })).toStrictEqual("late_fifties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "60" } })).toStrictEqual("early_sixties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "65" } })).toStrictEqual("late_sixties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "70" } })).toStrictEqual("senior");
+test('EstimatedAgeValue.getPersonalInformationValue', () => {
+    expect((new EstimatedAgeValue()).getPersonalInfomationData("prebirth")).toStrictEqual("prebirth");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData("unknown")).toStrictEqual("unknown");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "day", low: { attr_value: "0" } })).toStrictEqual("newborn");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "day", low: { attr_value: "29" } })).toStrictEqual("infant");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "10" } })).toStrictEqual("early_teen");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "15" } })).toStrictEqual("late_teen");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "20" } })).toStrictEqual("early_twenties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "25" } })).toStrictEqual("late_twenties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "30" } })).toStrictEqual("early_thirties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "35" } })).toStrictEqual("late_thirties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "40" } })).toStrictEqual("early_fourties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "45" } })).toStrictEqual("late_fourties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "50" } })).toStrictEqual("early_fifties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "55" } })).toStrictEqual("late_fifties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "60" } })).toStrictEqual("early_sixties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "65" } })).toStrictEqual("late_sixties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "70" } })).toStrictEqual("senior");
 
-    expect((new Value()).getPersonalInfomationData({})).toStrictEqual("unknown");
-    expect((new Value()).getPersonalInfomationData()).toStrictEqual("unknown");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({})).toStrictEqual("unknown");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData()).toStrictEqual("unknown");
 });
 test('Subject_getXmlDataByJson', () => {
     var tag = new Subject();
@@ -1542,15 +1552,13 @@ test('DataEstimatedAge_getPersonalInfomationData', () => {
         }
     };
     var evalue = { "estimated_age": "child" };
-    return;
     expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 });
 test('Relative_getXmlDataByJson', () => {
     var tag = new Relative();
     var evalue = "";
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
-    var patientPerson = new PatientPerson();
-    patientPerson.getXmlDataByJson(personalInformation);
+    var patientPerson = new PatientPerson(personalInformation);
     var tag = patientPerson.relatives[0];
     var evalue = {
         "code": {
@@ -1627,8 +1635,8 @@ test('RelationshipHolder_getXmlDataByJson', () => {
     var evalue = "";
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
-    var pp = new PatientPerson();
-    pp.getXmlDataByJson(personalInformation);
+    var pp = new PatientPerson(personalInformation);
+    
     var evalue = {
         "administrativeGenderCode": {
             "attr_code": "248153007",
@@ -1688,8 +1696,8 @@ test('RelationshipHolder_getXmlDataByJson', () => {
         },
         "subjectOf2": "",
     };
-    
-    var tag = pp.relatives[0].relationshipHolder;
+    ;
+    var tag = pp.getXmlDataByJson().relationshipHolder;
     var actual = tag.getXmlDataByJson(personalInformation);
     expect(actual).toStrictEqual(evalue);
 });

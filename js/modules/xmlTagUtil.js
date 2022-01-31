@@ -536,7 +536,7 @@ export class CodeUtil{
     static isEstimatedAge(code, codeSystemName){
         var result = false;
         Object.keys(this.CODE).forEach(function (key) {
-            if (key.startsWith("SNOMED_CT") || key.startsWith("FAMILY_T-HEALTHY")) {
+            if (key.startsWith("ESTIMATED_AGE")) {
                 if( CodeUtil.CODE[key].code == code && CodeUtil.CODE[key].codeSystemName == codeSystemName){
                     result = true;
                     return;
@@ -603,47 +603,5 @@ export class NoteUtil{
             }
         });
         return notes;
-    }
-}
-
-
-export class ValueUtil {
-    /**
-     * { personal_information value : xmlValue }
-     */
-    static ESTIMATED_AGE_VALUE = {
-        "prebirth": "prebirth",
-        "unknown": "unknown",
-        "newborn": { unit: "day", low: { value: "0" }, high: { value: "28" } },
-        "infant": { unit: "day", low: { value: "29" }, high: { value: "730" } },
-        "child": { unit: "year", low: { value: "2" }, high: { value: "9" } },
-        "early_teen": { unit: "year", low: { value: "10" }, high: { value: "14" } },
-        "late_teen": { unit: "year", low: { value: "15" }, high: { value: "19" } },
-        "early_twenties": { unit: "year", low: { value: "20" }, high: { value: "24" } },
-        "late_twenties": { unit: "year", low: { value: "25" }, high: { value: "29" } },
-        "early_thirties": { unit: "year", low: { value: "30" }, high: { value: "34" } },
-        "late_thirties": { unit: "year", low: { value: "35" }, high: { value: "39" } },
-        "early_fourties": { unit: "year", low: { value: "40" }, high: { value: "44" } },
-        "late_fourties": { unit: "year", low: { value: "45" }, high: { value: "49" } },
-        "early_fifties": { unit: "year", low: { value: "50" }, high: { value: "54" } },
-        "late_fifties": { unit: "year", low: { value: "55" }, high: { value: "59" } },
-        "early_sixties": { unit: "year", low: { value: "60" }, high: { value: "64" } },
-        "late_sixties": { unit: "year", low: { value: "65" }, high: { value: 9 } },
-        "senior": { unit: "year", low: { value: "70" } }
-    }
-
-    static getPersonalInformationKey(parsedXml) {
-        var defaultKey = 'SNOMED_CT-null';
-        var retCode = defaultKey;
-
-        Object.keys(this.VALUE).forEach(function (key) {
-            if (ValueUtil.VALUE[key].attr_unit == parsedXml.attr_unit ){
-                if (ValueUtil.VALUE[key].low.attr_value == parsedXml.low.attr_value ){
-                    retCode = key;
-                    return;
-                }
-            }
-        });
-        return retCode;
     }
 }
