@@ -545,6 +545,10 @@ export class CodeUtil{
         });
         return result;
     }
+
+    static isFamilyTHealthyCode(code, codeSystemName){
+        return this.CODE["FAMILY_T-HEALTHY"].code == code && this.CODE["FAMILY_T-HEALTHY"].codeSystemName == codeSystemName;
+    }
 }
 
 export class NoteUtil{

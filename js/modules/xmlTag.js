@@ -352,7 +352,7 @@ class BirthTime extends XmlTag {
     _getMM(value) {
         var d = new Date(value);
         if (isNaN(d)) d = new Date();
-        return String( ('0' + (d.getMonth() + 1)).slice(-2) );
+        return String( (d.getMonth() + 1) );
     }
 
 }
@@ -509,7 +509,14 @@ class SubjectOf2 extends XmlTag {
     }
 
     getPersonalInfomationData(persedXml) {
-        var personalInformation;
+        var personalInformation = {};
+
+        if (this.isUndefindOrNull(persedXml)) return personalInformation;
+        if (this.isUndefindOrNull(persedXml.clinicalObservation)) return personalInformation;
+
+        var clinicalObservation = new ClinicalObservation();
+        Object.assign(personalInformation, clinicalObservation.getPersonalInfomationData(persedXml.clinicalObservation));
+
         return personalInformation;
     }
 }
@@ -568,6 +575,51 @@ class ClinicalObservation extends XmlTag {
     _getHealthHistory(obj) {
 
         var ret = false;
+
+        // {
+        //     "code": {
+        //         "attr_code": "HEALTHY",
+        //         "attr_codeSystemName": "FAMILY_T",
+        //         "attr_displayName": "Healthy",
+        //         "attr_originalText": "Healthy",
+        //     },
+        //     "sourceOf": "",
+        //     "subject": {
+        //         "dataEstimatedAge": {
+        //             "code": {
+        //                 "attr_code": "21611-9",
+        //                 "attr_codeSystemName": "LOINC",
+        //                 "attr_displayName": "Estimated Age",
+        //                 "attr_originalText": "blank",
+        //             },
+        //         },
+        //     },
+        //     "value": ""
+        // }
+        
+        // Family-T Healthy
+        console.log( obj );
+        console.log( CodeUtil.isFamilyTHealthyCode( obj.code.attr_code, obj.code.attr_codeSystemName) );
+
+        if( CodeUtil.isFamilyTHealthyCode( obj.code.attr_code, obj.code.attr_codeSystemName) ){
+            var code = CodeUtil.CODE['FAMILY_T-HEALTHY'];
+            console.log( 
+                {
+                    "Age At Diagnosis": 'blank',
+                    "Disease Name": code.displayName,
+                    "Detailed Disease Name": code.originText,
+                    "Disease Code": code.codeSystemName + "-" + code.code
+                }
+            );
+            return {
+                "Age At Diagnosis": 'blank',
+                "Disease Name": code.displayName,
+                "Detailed Disease Name": code.originText,
+                "Disease Code": code.codeSystemName + "-" + code.code
+            };
+        }
+
+
         // コードがHealthHistory以外ならfalse
         if (!CodeUtil.isHealthHistoryCode(obj.code.attr_code, obj.code.attr_codeSystemName)) {
             return ret;
