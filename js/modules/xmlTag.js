@@ -206,6 +206,7 @@ class PatientPerson extends XmlTag {
     getPersonalInfomationData(persedXml) {
 
         var personal_information = {};
+        console.log(persedXml);
 
         // Id
         if (this.isUndefindOrNull(persedXml.id)) return personal_information;
@@ -243,21 +244,15 @@ class PatientPerson extends XmlTag {
         Object.assign(personal_information, this.subjectOf2.getPersonalInfomationData(persedXml.subjectOf2));
 
         // relative
-        if (this.isUndefindOrNull(persedXml.relative)) return {};
-        for (let r in persedXml.relative) {
+        if (this.isUndefindOrNull(persedXml.relative)) return personal_information;
+        for (let r of persedXml.relative) {
             var relative = new Relative();
             Object.assign(personal_information, relative.getPersonalInfomationData(r));
         }
 
         // note
-        if (this.isUndefindOrNull(persedXml.note)) return {};
-        for (let r in persedXml.note) {
-            var note = new Note(
-                r.attr_code,
-                r.attr_text
-            );
-            Object.assign(personal_information, note.getPersonalInfomationData(r));
-        }
+        if (this.isUndefindOrNull(persedXml.note)) return personal_information;
+        _parse_note(persedXml.note, personal_information);
 
         return personal_information;
     }
@@ -422,11 +417,21 @@ class RaceCode extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(raceCode);
     }
 
-    getPersonalInfomationData(aryRaceCode) {
+    getPersonalInfomationData(persedXml) {
+        var personalInformation = {};
         var race = { "American Indian or Alaska Native": false, "Asian": false, "Black or African-American": false, "Native Hawaiian or Other Pacific Islander": false, "White": false, "Asian Indian": false, "Chinese": false, "Filipino": false, "Japanese": false, "Korean": false, "Vietnamese": false, "Other Asian": false, "Unknown Asian": false, "Chamorro": false, "Guamanian": false, "Native Hawaiian": false, "Samoan": false, "Unknown South Pacific Islander": false };
-        aryRaceCode.forEach(r => {
-            race[r.attr_displayName] = true;
-        });
+
+        if (this.isUndefindOrNull(persedXml)) return race;
+
+        if( Array.isArray( persedXml )){
+            persedXml.forEach(r => {
+                race[r.attr_displayName] = true;
+            });
+            return race;
+        }
+
+        if (this.isUndefindOrNull(persedXml.attr_displayName)) return personalInformation;
+        race[persedXml.attr_displayName] = true;
         return race;
     }
 }
@@ -1008,30 +1013,8 @@ class RelationshipHolder extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(relationshipHolder);
     }
 
-    //
-    //     <relationshipHolder>
-    //     <administrativeGenderCode code="248152002" codeSystemName="SNOMED_CT" displayName="female"></administrativeGenderCode>
-    //     <id extension="2dd8a10b-7c85-41b6-9da8-213744f19075"></id>
-    //     <name formatted="あなたの母方の祖母"></name>
-    //     <note code="relationship" text="maternal_grandmother"></note>
-    //     <relative>
-    //       <code code="PAR" codeSystemName="HL7 Family History Model" displayName="Parent"></code>
-    //       <relationshipHolder></relationshipHolder>
-    //     </relative>
-    //     <subjectOf2></subjectOf2>
-    //   </relationshipHolder>
-    // this.relationshipHolder = new RelationshipHolder();
-    // this.appendJsonElement(personalInformation, "relationshipHolder", this.relationshipHolder.getPersonalInfomationData(persedXml));
-
-    // administrativeGenderCode;   // XmlTag
-    // id;                         // XmlTag
-    // name;                       // XmlTag
-    // notes;                      // XmlTags
-    // relative;                   // XmlTag
-    // subjectOf2;                 // XmlTag
     getPersonalInfomationData(persedXml) {
         var personal_information = {};
-
         // Administrative Gender Code
         if (this.isUndefindOrNull(persedXml.administrativeGenderCode)) return {};
         this.administrativeGenderCode = new AdministrativeGenderCode();
@@ -1056,10 +1039,7 @@ class RelationshipHolder extends XmlTag {
 
         // note
         if (this.isUndefindOrNull(persedXml.note)) return personal_information;
-        for (let r of persedXml.note) {
-            var note = new Note();
-            Object.assign(personal_information, note.getPersonalInfomationData(r));
-        }
+        _parse_note(persedXml.note, personal_information);
 
         // subjectOf2
         if (this.isUndefindOrNull(persedXml.subjectOf2)) return personal_information;
@@ -1100,3 +1080,20 @@ export {
     SubjectOf2, ClinicalObservation, Code, Value, Subject, SourceOf, DataEstimatedAge,
     PatientPerson, Relative, RelationshipHolder, Note, XmlTag, EstimatedAgeValue
 };
+
+function _parse_note(note, personal_information) {
+
+    if( Array.isArray( note ) ){
+        for (let r of note) {
+            Object.assign(personal_information, _getNote(r));
+        }
+        return;
+    }
+
+    Object.assign(personal_information, _getNote(note));
+
+    function _getNote(r) {
+        var note = new Note();
+        return note.getPersonalInfomationData(r);
+    }
+}

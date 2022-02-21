@@ -1663,7 +1663,6 @@ test('load', () => {
         </patient>
     </subject>
 </FamilyHistory>`;
-	return;
     expect(personalInfoToXml(jsonData));
 });
 
