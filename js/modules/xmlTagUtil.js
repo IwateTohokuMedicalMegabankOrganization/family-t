@@ -594,6 +594,7 @@ export class NoteUtil{
         "ogtt_blood_glucose_lebel",
         "relationship",
         "smoker",
+        "number_of_cigarettes_per_day",
         "systolic_blood_pressure",
         "take_antihypertensive",
         "take_hypoglycemic",
@@ -605,6 +606,8 @@ export class NoteUtil{
         "waist",
         "waist_unit",
         "year_of_birth",
+        "date_of_birth",
+        "month_of_birth"
     ]
 
     static getNotes(personalInformation){
