@@ -388,6 +388,16 @@ export class RelativeUtil{
         });
         return rel;
     }
+
+    static getRelationByCode( code ){
+        var rel = undefined;
+        this.RELATION_TO_GROUP.forEach(function(relation){
+            if(code.startsWith(relation.code)){
+                rel = relation;
+            }
+        });
+        return rel;
+    }
 }
 
 export class CodeUtil{

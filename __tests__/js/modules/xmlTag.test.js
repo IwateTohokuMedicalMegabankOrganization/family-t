@@ -1578,6 +1578,7 @@ test('Code_getXmlDataByJson', () => {
 
     var tag = new Code("code", undefined, undefined, undefined);
     var evalue = {
+
         "attr_code": "code"
     };
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
@@ -1817,14 +1818,122 @@ test('Relative_getXmlDataByJson', () => {
     expect(actual).toStrictEqual(evalue);
 });
 
-test('RelationshipHolder_getXmlDataByJson', () => {
-    var tag = new RelationshipHolder();
-    var evalue = "";
-    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
-    var tag = new RelationshipHolder("father", personalInformation);
+test('Relative_getPersonalInfomationData', () => {
+    var tag = new Relative();
+    var parsedXml = {};
+    var evalue = {};
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 
+    var parsedXml = {
+        "code": {
+            "attr_code": "NFTH",
+            "attr_codeSystemName": "HL7 Family History Model",
+            "attr_displayName": "Father"
+        }
+    };
     var evalue = {
+        "father": {
+        }
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var parsedXml = {
+        "code": {
+            "attr_code": "NFTH",
+            "attr_codeSystemName": "HL7 Family History Model",
+            "attr_displayName": "Father"
+        },
+        "relationshipHolder": {
+            administrativeGenderCode: {
+                "attr_code": "248153007",
+                "attr_codeSystemName": "SNOMED_CT",
+                "attr_displayName": "male"
+            },
+            id: {
+                attr_extension: "7421ec0a-a1ba-4793-b9e4-675d59840e70"
+            },
+            "name": { "attr_formatted": "あなたの父", },
+            "note": [
+                {
+                    "attr_code": "age",
+                    "attr_text": 53,
+                },
+                {
+                    "attr_code": "birth_order",
+                    "attr_text": 1,
+                },
+                {
+                    "attr_code": "flg_race_ethnic",
+                    "attr_text": 1,
+                },
+                {
+                    "attr_code": "is_alive",
+                    "attr_text": "alive",
+                },
+                {
+                    "attr_code": "living_prefectures",
+                },
+                {
+                    "attr_code": "relationship",
+                    "attr_text": "father",
+                },
+                {
+                    "attr_code": "training_count_for_training_at_week",
+                    "attr_text": "",
+                },
+                {
+                    "attr_code": "training_strength",
+                    "attr_text": "空欄",
+                },
+                {
+                    "attr_code": "training_time_for_training_at_week",
+                    "attr_text": "",
+                },
+                {
+                    "attr_code": "update_date",
+                    "attr_text": "2021/11/02",
+                }
+            ],
+            "relative": {
+                "code": {
+                    "attr_code": "PAR",
+                    "attr_codeSystemName": "HL7 Family History Model",
+                    "attr_displayName": "Parent",
+                },
+                "relationshipHolder": ""
+            },
+            "subjectOf2": "",
+        }
+    };
+    var evalue = {
+        "father": {
+            "gender": "MALE",
+            "id": "7421ec0a-a1ba-4793-b9e4-675d59840e70",
+            "name": "あなたの父",
+            "relationship": "father",
+            "age": 53,
+            "birth_order": 1,
+            "flg_race_ethnic": 1,
+            "is_alive": "alive",
+            "relationship": "father",
+            "training_count_for_training_at_week": "",
+            "training_strength": "空欄",
+            "training_time_for_training_at_week": "",
+            "update_date": "2021/11/02"
+        }
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+});
+
+
+test('RelationshipHolder_getPersonalInfomationData', () => {
+    var tag = new RelationshipHolder();
+    var evalue = {};
+    expect(tag.getPersonalInfomationData({})).toStrictEqual(evalue);
+
+
+    var persedXml = {
         "administrativeGenderCode": {
             "attr_code": "248153007",
             "attr_codeSystemName": "SNOMED_CT",
@@ -1883,8 +1992,23 @@ test('RelationshipHolder_getXmlDataByJson', () => {
         },
         "subjectOf2": "",
     };
-    ;
-    var actual = tag.getXmlDataByJson();
+
+    var evalue = {
+        "id": "7421ec0a-a1ba-4793-b9e4-675d59840e70",
+        "gender": "MALE",
+        "name": "あなたの父",
+        "age": 53,
+        "birth_order": 1,
+        "flg_race_ethnic": 1,
+        "is_alive": "alive",
+        "relationship": "father",
+        "training_count_for_training_at_week": "",
+        "training_strength": "空欄",
+        "training_time_for_training_at_week": "",
+        "update_date": "2021/11/02"
+    }
+
+    var actual = tag.getPersonalInfomationData(persedXml);
     expect(actual).toStrictEqual(evalue);
 });
 
@@ -1917,19 +2041,28 @@ test('Note_getXmlDataByJson', () => {
 test('Note_getPersonalInfomationData', () => {
     var tag = new Note();
     var evalue = {};
-    expect(tag.getPersonalInfomationData()).toStrictEqual(evalue);
+    expect(tag.getPersonalInfomationData({})).toStrictEqual(evalue);
 
-    var tag = new Note("code", undefined);
+    var tag = new Note();
     var evalue = {};
-    expect(tag.getPersonalInfomationData()).toStrictEqual(evalue);
+    expect(tag.getPersonalInfomationData({
+        attr_code: 'testCode'
+    })).toStrictEqual(evalue);
 
-    var tag = new Note(undefined, "text");
+    var tag = new Note();
     var evalue = {};
-    expect(tag.getPersonalInfomationData()).toStrictEqual(evalue);
+    expect(tag.getPersonalInfomationData({
+        attr_text: 'testText'
+    })).toStrictEqual(evalue);
 
-    var tag = new Note("code", "text");
+    var tag = new Note();
     var evalue = {
-        "code": "text"
+        "testCode": "testText"
     };
-    expect(tag.getPersonalInfomationData()).toStrictEqual(evalue);
+    expect(tag.getPersonalInfomationData({
+        attr_code: 'testCode',
+        attr_text: 'testText'
+
+    })).toStrictEqual(evalue);
+
 });

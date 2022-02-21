@@ -28,7 +28,7 @@ class XmlTag {
     getPersonalInfomationData(persedXml) {
         var personalInformation;
         return personalInformation;
-        
+
     }
 
     isUndefindOrNull(value) {
@@ -352,7 +352,7 @@ class BirthTime extends XmlTag {
     _getMM(value) {
         var d = new Date(value);
         if (isNaN(d)) d = new Date();
-        return String( (d.getMonth() + 1) );
+        return String((d.getMonth() + 1));
     }
 
 }
@@ -596,14 +596,14 @@ class ClinicalObservation extends XmlTag {
         //     },
         //     "value": ""
         // }
-        
-        // Family-T Healthy
-        console.log( obj );
-        console.log( CodeUtil.isFamilyTHealthyCode( obj.code.attr_code, obj.code.attr_codeSystemName) );
 
-        if( CodeUtil.isFamilyTHealthyCode( obj.code.attr_code, obj.code.attr_codeSystemName) ){
+        // Family-T Healthy
+        console.log(obj);
+        console.log(CodeUtil.isFamilyTHealthyCode(obj.code.attr_code, obj.code.attr_codeSystemName));
+
+        if (CodeUtil.isFamilyTHealthyCode(obj.code.attr_code, obj.code.attr_codeSystemName)) {
             var code = CodeUtil.CODE['FAMILY_T-HEALTHY'];
-            console.log( 
+            console.log(
                 {
                     "Age At Diagnosis": 'blank',
                     "Disease Name": code.displayName,
@@ -810,12 +810,12 @@ class Value extends XmlTag {
  * Estimated Age Code
  * e.g. ) child 
  */
- class EstimatedAgeValue extends Code {
+class EstimatedAgeValue extends Code {
 
     /**
      * { personal_information value : xmlValue }
      */
-     ESTIMATED_AGE_VALUE = {
+    ESTIMATED_AGE_VALUE = {
         "prebirth": "prebirth",
         "unknown": "unknown",
         "newborn": { unit: "day", low: { value: "0" }, high: { value: "28" } },
@@ -927,7 +927,7 @@ class DataEstimatedAge extends XmlTag {
         if (this.isUndefindOrNull(persedXml.code)) return personalInformation;
         if (!CodeUtil.isEstimatedAge(persedXml.code.attr_code, persedXml.code.attr_codeSystemName)) return personalInformation;
 
-        return { "estimated_age": (new EstimatedAgeValue()).getPersonalInfomationData(persedXml.code.value) } ;
+        return { "estimated_age": (new EstimatedAgeValue()).getPersonalInfomationData(persedXml.code.value) };
     }
 }
 
@@ -955,12 +955,17 @@ class Relative extends XmlTag {
     }
 
     getPersonalInfomationData(persedXml) {
-        this.code = new Code(persedXml.attr_code, persedXml.attr_codeSystemName, persedXml.attr_displayName);
-        this.relationshipHolder = new RelationshipHolder();
-
         var personalInformation = {};
-        this.appendJsonElement(personalInformation, "code", this.code.getPersonalInfomationData(persedXml));
-        this.appendJsonElement(personalInformation, "relationshipHolder", this.relationshipHolder.getPersonalInfomationData(persedXml));
+        if (this.isUndefindOrNull(persedXml)) return personalInformation;
+        if (this.isUndefindOrNull(persedXml.code)) return personalInformation;
+
+        // TODO this.code = new Code(); ?
+        var relationship = RelativeUtil.getRelationByCode(persedXml.code.attr_code);
+        personalInformation[relationship.relation] = {};
+
+        if (this.isUndefindOrNull(persedXml.relationshipHolder)) return personalInformation;
+        this.relationshipHolder = new RelationshipHolder();
+        Object.assign(personalInformation[relationship.relation], this.relationshipHolder.getPersonalInfomationData(persedXml.relationshipHolder));
 
         return personalInformation;
     }
@@ -1003,9 +1008,65 @@ class RelationshipHolder extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(relationshipHolder);
     }
 
+    //
+    //     <relationshipHolder>
+    //     <administrativeGenderCode code="248152002" codeSystemName="SNOMED_CT" displayName="female"></administrativeGenderCode>
+    //     <id extension="2dd8a10b-7c85-41b6-9da8-213744f19075"></id>
+    //     <name formatted="あなたの母方の祖母"></name>
+    //     <note code="relationship" text="maternal_grandmother"></note>
+    //     <relative>
+    //       <code code="PAR" codeSystemName="HL7 Family History Model" displayName="Parent"></code>
+    //       <relationshipHolder></relationshipHolder>
+    //     </relative>
+    //     <subjectOf2></subjectOf2>
+    //   </relationshipHolder>
+    // this.relationshipHolder = new RelationshipHolder();
+    // this.appendJsonElement(personalInformation, "relationshipHolder", this.relationshipHolder.getPersonalInfomationData(persedXml));
+
+    // administrativeGenderCode;   // XmlTag
+    // id;                         // XmlTag
+    // name;                       // XmlTag
+    // notes;                      // XmlTags
+    // relative;                   // XmlTag
+    // subjectOf2;                 // XmlTag
     getPersonalInfomationData(persedXml) {
-        var personalInformation;
-        return personalInformation;
+        var personal_information = {};
+
+        // Administrative Gender Code
+        if (this.isUndefindOrNull(persedXml.administrativeGenderCode)) return {};
+        this.administrativeGenderCode = new AdministrativeGenderCode();
+        Object.assign(personal_information, this.administrativeGenderCode.getPersonalInfomationData(persedXml.administrativeGenderCode));
+
+        // Id
+        if (this.isUndefindOrNull(persedXml.id)) return personal_information;
+        this.id = new Id();
+        Object.assign(personal_information, this.id.getPersonalInfomationData(persedXml.id));
+
+        // Name
+        if (this.isUndefindOrNull(persedXml.name)) return personal_information;
+        this.name = new Name();
+        Object.assign(personal_information, this.name.getPersonalInfomationData(persedXml.name));
+
+        // relative
+        if (this.isUndefindOrNull(persedXml.relative)) return personal_information;
+        for (let r in persedXml.relative) {
+            var relative = new Relative();
+            Object.assign(personal_information, relative.getPersonalInfomationData(r));
+        }
+
+        // note
+        if (this.isUndefindOrNull(persedXml.note)) return personal_information;
+        for (let r of persedXml.note) {
+            var note = new Note();
+            Object.assign(personal_information, note.getPersonalInfomationData(r));
+        }
+
+        // subjectOf2
+        if (this.isUndefindOrNull(persedXml.subjectOf2)) return personal_information;
+        this.subjectOf2 = new SubjectOf2();
+        Object.assign(personal_information, this.subjectOf2.getPersonalInfomationData(persedXml.subjectOf2));
+
+        return personal_information;
     }
 }
 
@@ -1026,11 +1087,11 @@ class Note extends XmlTag {
         return this.returnEmptyStringIfJsonLengthIsZero(note);
     }
 
-    getPersonalInfomationData() {
+    getPersonalInfomationData(persedXml) {
         var personalInformation = {};
-        if (this.isUndefindOrNull(this.code)) return personalInformation;
-        if (this.isUndefindOrNull(this.text)) return personalInformation;
-        this.appendJsonElement(personalInformation, this.code, this.text);
+        if (this.isUndefindOrNull(persedXml.attr_code)) return personalInformation;
+        if (this.isUndefindOrNull(persedXml.attr_text)) return personalInformation;
+        this.appendJsonElement(personalInformation, persedXml.attr_code, persedXml.attr_text);
         return personalInformation;
     }
 }
