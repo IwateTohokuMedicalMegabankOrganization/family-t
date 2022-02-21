@@ -1669,7 +1669,58 @@ test('Relative_getXmlDataByJson', () => {
                 },
                 "relationshipHolder": ""
             },
-            "subjectOf2": "",
+            "subjectOf2": {
+                "clinicalObservation":  [
+                   {
+                    "code":  {
+                      "attr_code": "271603002",
+                      "attr_codeSystemName": "SNOMED_CT",
+                      "attr_displayName": "height",
+                    },
+                    "sourceOf": "",
+                    "subject": "",
+                    "value": "",
+                  },
+                   {
+                    "code":  {
+                      "attr_code": "107647005",
+                      "attr_codeSystemName": "SNOMED_CT",
+                      "attr_displayName": "weight",
+                    },
+                    "sourceOf": "",
+                    "subject": "",
+                    "value": "",
+                  },
+                   {
+                    "code":  {
+                      "attr_originalText": "Parental consanguinity indicated",
+                    },
+                    "sourceOf": "",
+                    "subject": "",
+                    "value": "",
+                  },
+                   {
+                    "code":  {
+                      "attr_code": "38341003",
+                      "attr_codeSystemName": "SNOMED_CT",
+                      "attr_displayName": "Hypertension/high blood pressure",
+                      "attr_originalText": "Hypertension/high blood pressure",
+                    },
+                    "sourceOf": "",
+                    "subject":  {
+                      "dataEstimatedAge":  {
+                        "code":  {
+                          "attr_code": "21611-9",
+                          "attr_codeSystemName": "LOINC",
+                          "attr_displayName": "Estimated Age",
+                          "attr_originalText": "early_fifties",
+                        },
+                      },
+                    },
+                    "value": "",
+                  },
+                ],
+              }
         }
     };
     var actual = tag.getXmlDataByJson(personalInformation);
@@ -1923,4 +1974,120 @@ test('Note_getPersonalInfomationData', () => {
 
     })).toStrictEqual(evalue);
 
+});
+
+test('SubjectOf2_father', () => {
+
+    var input = {
+        "gender": "MALE",
+        "id": "230eb2a0-50cc-4ada-92cf-c7f24e8eea6a",
+        "name": "あなたの父",
+        "birth_order": 1,
+        "flg_race_ethnic": "1",
+        "is_alive": "alive",
+        "month_of_birth": "2",
+        "relationship": "father",
+        "training_count_for_training_at_week": "",
+        "training_strength": "空欄",
+        "training_time_for_training_at_week": "",
+        "update_date": "2022/02/21",
+        "year_of_birth": "1951",
+        "adopted": false,
+        "prefectures": null,
+        "living_prefectures": null,
+        "Health History": [
+            {
+                "Disease Name": "Healthy",
+                "Detailed Disease Name": "健康",
+                "Age At Diagnosis": "blank",
+                "Disease Code": "FAMILY_T-HEALTHY"
+            }
+        ],
+        "race": {
+            "American Indian or Alaska Native": false,
+            "Asian": false,
+            "Black or African-American": false,
+            "Native Hawaiian or Other Pacific Islander": false,
+            "White": false,
+            "Asian Indian": false,
+            "Chinese": false,
+            "Filipino": false,
+            "Japanese": false,
+            "Korean": false,
+            "Vietnamese": false,
+            "Other Asian": false,
+            "Unknown Asian": false,
+            "Chamorro": false,
+            "Guamanian": false,
+            "Native Hawaiian": false,
+            "Samoan": false,
+            "Unknown South Pacific Islander": false
+        },
+        "ethnicity": {
+            "Hispanic or Latino": false,
+            "Ashkenazi Jewish": false,
+            "Not Hispanic or Latino": false,
+            "Central American": false,
+            "Cuban": false,
+            "Dominican": false,
+            "Mexican": false,
+            "Other Hispanic": false,
+            "Puerto Rican": false,
+            "South American": false
+        }
+    };
+    var tag = new SubjectOf2(input);
+    var evalue = {
+        "clinicalObservation":  [
+            {
+             "code":  {
+               "attr_code": "271603002",
+               "attr_codeSystemName": "SNOMED_CT",
+               "attr_displayName": "height",
+             },
+             "sourceOf": "",
+             "subject": "",
+             "value": "",
+           },
+            {
+             "code":  {
+               "attr_code": "107647005",
+               "attr_codeSystemName": "SNOMED_CT",
+               "attr_displayName": "weight",
+             },
+             "sourceOf": "",
+             "subject": "",
+             "value": "",
+           },
+            {
+             "code":  {
+               "attr_originalText": "Parental consanguinity indicated",
+             },
+             "sourceOf": "",
+             "subject": "",
+             "value": "",
+           },
+            {
+             "code":  {
+               "attr_code": "HEALTHY",
+               "attr_codeSystemName": "FAMILY_T",
+               "attr_displayName": "Healthy",
+               "attr_originalText": "Healthy",
+             },
+             "sourceOf": "",
+             "subject":  {
+               "dataEstimatedAge":  {
+                 "code":  {
+                   "attr_code": "21611-9",
+                   "attr_codeSystemName": "LOINC",
+                   "attr_displayName": "Estimated Age",
+                   "attr_originalText": "blank",
+                 },
+               },
+             },
+             "value": "",
+           },
+         ]
+    };
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });

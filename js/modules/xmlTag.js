@@ -479,6 +479,9 @@ class SubjectOf2 extends XmlTag {
 
     appendHealthHistory(clinicalObservations, personalInformation) {
         var healthHistory = this.getObjectProperty(personalInformation, "Health History");
+
+        if( this.isUndefindOrNull( healthHistory ) ) return;
+
         healthHistory.forEach(function (history) {
             // generate CodeTag for ClinicalObservationTag
             var diseas = CodeUtil.getCode(history["Disease Code"]);
@@ -995,7 +998,7 @@ class RelationshipHolder extends XmlTag {
         this.name = new Name(this.getObjectProperty(family, "name"));
         this.notes = NoteUtil.getNotes(family);
         this.relative = new Relative(undefined, relation);
-        this.subjectOf2 = new SubjectOf2(undefined);
+        this.subjectOf2 = new SubjectOf2(family);
     }
 
     getNotes(family) {
