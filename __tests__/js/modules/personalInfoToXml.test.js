@@ -10,6 +10,8 @@ var personalInformation = {
     "id":"310674d6-1b03-4a03-abe8-418d23c40296",
     "gender":"MALE",
     "date_of_birth":"1994/01/01",
+    "year_of_birth":"1994",
+    "month_of_birth":"01",
     "adopted":false,
     "height":175,
     "height_unit":"centimeters",
@@ -1661,7 +1663,6 @@ test('load', () => {
         </patient>
     </subject>
 </FamilyHistory>`;
-	return;
     expect(personalInfoToXml(jsonData));
 });
 

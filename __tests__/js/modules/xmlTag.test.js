@@ -2,7 +2,7 @@ import { parse } from 'fast-xml-parser';
 import {
     AdministrativeGenderCode, BirthTime, Id, Name, RaceCode,
     SubjectOf2, ClinicalObservation, Code, Value, Subject, SourceOf, DataEstimatedAge,
-    PatientPerson, Relative, RelationshipHolder, Note, XmlTag
+    PatientPerson, Relative, RelationshipHolder, Note, XmlTag, EstimatedAgeValue
 } from '../../../js/modules/xmlTag';
 
 var personalInformation = {
@@ -467,7 +467,6 @@ test('PatientPerson_getRelatives', () => {
 });
 
 test('PatientPerson_getXmlDataByJson', () => {
-    var tag = new PatientPerson();
     var evalue = {
         "administrativeGenderCode": {
             "attr_code": "248153007",
@@ -487,7 +486,7 @@ test('PatientPerson_getXmlDataByJson', () => {
             {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
             {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
             {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-            {}, {}, {}, {}, {}, {}, {},
+            {}, {}, {}, {}, {}, {}, {},{}, {},
         ],
         "raceCode": [
             {
@@ -575,7 +574,8 @@ test('PatientPerson_getXmlDataByJson', () => {
             ]
         }
     };
-    var actual = tag.getXmlDataByJson(personalInformation);
+    var tag = new PatientPerson(personalInformation);
+    var actual = tag.getXmlDataByJson();
     expect(actual.administrativeGenderCode).toStrictEqual(evalue.administrativeGenderCode);
     expect(actual.birthTime).toStrictEqual(evalue.birthTime);
     expect(actual.id).toStrictEqual(evalue.id);
@@ -671,18 +671,30 @@ test('BirthTime_getPersonalInfomationData', () => {
     var tag = new BirthTime();
     var parsedXml = {};
     var d = new Date();
-    var evalue = { "date_of_birth": String(d.getFullYear()) + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + d.getDate()).slice(-2) };
+    var evalue = {
+        "date_of_birth": String(d.getFullYear()) + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + d.getDate()).slice(-2)
+        , "year_of_birth": String(d.getFullYear())
+        , "month_of_birth": String((d.getMonth() + 1))
+    };
 
     expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 
     var tag = new BirthTime();
     var parsedXml = { "attr_value": "1994/02/01" };
-    var evalue = { "date_of_birth": "1994/02/01" };
+    var evalue = {
+        "date_of_birth": "1994/02/01"
+        , "month_of_birth": "2"
+        , "year_of_birth": "1994"
+    };
     expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 
     var tag = new BirthTime();
     var parsedXml = { "attr_value": "02/01/1994" };
-    var evalue = { "date_of_birth": "1994/02/01" };
+    var evalue = {
+        "date_of_birth": "1994/02/01"
+        , "month_of_birth": "2"
+        , "year_of_birth": "1994"
+    };
     expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 
 });
@@ -767,6 +779,12 @@ test('RaceCode_getXmlDataByJson', () => {
 });
 
 test('RaceCode_getPersonalInfomationData', () => {
+
+    var tag = new RaceCode();
+    var evalue = {};
+    expect(tag.getPersonalInfomationData({})).toStrictEqual(evalue);
+
+
     var xml = new RaceCode(
         'code',
         'codeSystemName',
@@ -794,154 +812,6 @@ test('RaceCode_getPersonalInfomationData', () => {
     expect(actual).toStrictEqual(evalue);
 });
 
-
-// test('SubjectOf2_appendByKey', () => {
-//     var tag = new SubjectOf2();
-//     var evalue = [
-//         {
-//             "code": {
-//                 "code": "313415001",
-//                 "codeSystemName": "SNOMED_CT",
-//                 "displayName": "Identical twin (person)",
-//                 "originalText": undefined
-//             },
-//             "sourceOf": undefined,
-//             "subject": undefined,
-//             "value": {
-//                 "value": undefined,
-//                 "unit": undefined
-//             }
-//         },
-//         {
-//             "code": {
-//                 "code": "271603002",
-//                 "codeSystemName": "SNOMED_CT",
-//                 "displayName": "height",
-//                 "originalText": undefined
-//             },
-//             "sourceOf": undefined,
-//             "subject": undefined,
-//             "value": {
-//                 "value": 175,
-//                 "unit": "centimeters"
-//             }
-//         },
-//         {
-//             "code": {
-//                 "code": "107647005",
-//                 "codeSystemName": "SNOMED_CT",
-//                 "displayName": "weight",
-//                 "originalText": undefined
-//             },
-//             "sourceOf": undefined,
-//             "subject": undefined,
-//             "value": {
-//                 "value": "60",
-//                 "unit": "kilogram"
-//             }
-//         }
-//     ];
-//     var actual = [];
-//     tag.appendByKey(actual, personalInformation, personalInformation.twin_status);
-//     tag.appendByKey(actual, personalInformation, "height");
-//     tag.appendByKey(actual, personalInformation, "weight");
-//     expect(actual.length).toEqual(evalue.length);
-//     expect(actual).toEqual(evalue);
-// });
-
-// test('SubjectOf2_appendParentalConsanguinity', () => {
-//     var tag = new SubjectOf2();
-//     var evalue = [{
-//         "code": {
-//             "code": undefined,
-//             "codeSystemName": undefined,
-//             "displayName": undefined,
-//             "originalText": "Parental consanguinity indicated"
-//         },
-//         "sourceOf": undefined,
-//         "subject": undefined,
-//         "value": undefined
-//     }];
-//     var actual = [];
-//     tag.appendParentalConsanguinity(actual);
-//     expect(actual.length).toEqual(evalue.length);
-//     expect(actual).toEqual(evalue);
-// });
-
-// test('SubjectOf2_appendHealthHistory', () => {
-//     var tag = new SubjectOf2();
-//     var evalue = [{
-//         "code": {
-//             "code": "38341003",
-//             "codeSystemName": "SNOMED_CT",
-//             "displayName": "Hypertension/high blood pressure",
-//             "originalText": "Hypertension/high blood pressure"
-//         },
-//         "sourceOf": undefined,
-//         "subject": {
-//             "dataEstimatedAge": {
-//                 "code": {
-//                     "code": "21611-9",
-//                     "codeSystemName": "LOINC",
-//                     "displayName": "Estimated Age",
-//                     "originalText": "late_fourties"
-//                 }
-//             }
-//         },
-//         "value": undefined
-//     },
-//     {
-//         "code": {
-//             "code": "55822004",
-//             "codeSystemName": "SNOMED_CT",
-//             "displayName": "High Cholesterol",
-//             "originalText": "High Cholesterol"
-//         },
-//         "sourceOf": undefined,
-//         "subject": {
-//             "dataEstimatedAge": {
-//                 "code": {
-//                     "code": "21611-9",
-//                     "codeSystemName": "LOINC",
-//                     "displayName": "Estimated Age",
-//                     "originalText": "late_fourties"
-//                 }
-//             }
-//         },
-//         "value": undefined
-//     }];
-//     var actual = [];
-//     tag.appendHealthHistory(actual, personalInformation.maternal_uncle_0);
-//     expect(actual.length).toEqual(evalue.length);
-//     expect(actual).toEqual(evalue);
-// });
-
-// test('SubjectOf2_appendCauseOfDeath', () => {
-//     var tag = new SubjectOf2();
-//     var evalue = [{
-//         "code": {
-//             "code": "363349007",
-//             "codeSystemName": "SNOMED_CT",
-//             "displayName": "Gastric Cancer",
-//             "originalText": "Gastric Cancer"
-//         },
-//         "sourceOf": {
-//             "code": {
-//                 "code": "419620001",
-//                 "codeSystemName": "SNOMED_CT",
-//                 "displayName": "death",
-//                 "originalText": undefined
-//             }
-//         },
-//         "subject": undefined,
-//         "value": undefined
-//     }];
-//     var actual = [];
-//     tag.appendCauseOfDeath(actual, personalInformation.maternal_uncle_0);
-//     tag.appendCauseOfDeath(actual, personalInformation.maternal_grandfather);
-//     expect(actual.length).toEqual(evalue.length);
-//     expect(actual).toEqual(evalue);
-// });
 
 test('SubjectOf2_getXmlDataByJson', () => {
     var tag = new SubjectOf2();
@@ -1009,6 +879,192 @@ test('SubjectOf2_getXmlDataByJson', () => {
     var actual = tag.getXmlDataByJson();
     expect(actual).toStrictEqual(evalue);
 });
+
+// var parsedXml = [
+//     {
+//         "code": {
+//             "attr_code": "HEALTHY",
+//             "attr_codeSystemName": "FAMILY_T",
+//             "attr_displayName": "Healthy",
+//             "attr_originalText": "Healthy",
+//         },
+//         "sourceOf": "",
+//         "subject": {
+//             "dataEstimatedAge": {
+//                 "code": {
+//                     "attr_code": "21611-9",
+//                     "attr_codeSystemName": "LOINC",
+//                     "attr_displayName": "Estimated Age",
+//                     "attr_originalText": "blank",
+//                 },
+//             },
+//         },
+//         "value": ""
+//     }
+// ];
+// var evalue = {
+//     twin_status: "NO",
+//     adopted: false,
+//     consanguinity: undefined,
+//     flg_race_ethnic: 1,
+//     "Health History": [ {"Disease Name": 'Healthy', "Detailed Disease Name": 'Healthy', "Age At Diagnosis": 'blank', "Disease Code": 'FAMILY_T-HEALTHY' } ]
+// };
+// "subjectOf2": {
+//     "clinicalObservation": [
+//         {
+//             "code": {
+//                 "attr_code": "313415001",
+//                 "attr_codeSystemName": "SNOMED_CT",
+//                 "attr_displayName": "Identical twin (person)",
+//             },
+//             "sourceOf": "",
+//             "subject": "",
+//             "value": ""
+//         },
+//         {
+//             "code": {
+//                 "attr_code": "271603002",
+//                 "attr_codeSystemName": "SNOMED_CT",
+//                 "attr_displayName": "height",
+//             },
+//             "sourceOf": "",
+//             "subject": "",
+//             "value": {
+//                 "attr_unit": "centimeters",
+//                 "attr_value": 175,
+//             },
+//         },
+//         {
+//             "code": {
+//                 "attr_code": "107647005",
+//                 "attr_codeSystemName": "SNOMED_CT",
+//                 "attr_displayName": "weight",
+//             },
+//             "sourceOf": "",
+//             "subject": "",
+//             "value": {
+//                 "attr_unit": "kilogram",
+//                 "attr_value": "60",
+//             },
+//         },
+//         {
+//             "code": {
+//                 "attr_originalText": "Parental consanguinity indicated",
+//             },
+//             "sourceOf": "",
+//             "subject": "",
+//             "value": ""
+//         },
+//         {
+//             "code": {
+//                 "attr_code": "HEALTHY",
+//                 "attr_codeSystemName": "FAMILY_T",
+//                 "attr_displayName": "Healthy",
+//                 "attr_originalText": "Healthy",
+//             },
+//             "sourceOf": "",
+//             "subject": {
+//                 "dataEstimatedAge": {
+//                     "code": {
+//                         "attr_code": "21611-9",
+//                         "attr_codeSystemName": "LOINC",
+//                         "attr_displayName": "Estimated Age",
+//                         "attr_originalText": "blank",
+//                     },
+//                 },
+//             },
+//             "value": ""
+//         },
+//     ]
+// }
+test('SubjectOf2_getPersonalInfomationData', () => {
+    var tag = new SubjectOf2();
+    var evalue = {};
+    expect(tag.getPersonalInfomationData()).toStrictEqual(evalue);
+
+    var parsedXml = {
+        "clinicalObservation": [
+            {
+                "code": {
+                    "attr_code": "313415001",
+                    "attr_codeSystemName": "SNOMED_CT",
+                    "attr_displayName": "Identical twin (person)",
+                },
+                "sourceOf": "",
+                "subject": "",
+                "value": ""
+            },
+            {
+                "code": {
+                    "attr_code": "271603002",
+                    "attr_codeSystemName": "SNOMED_CT",
+                    "attr_displayName": "height",
+                },
+                "sourceOf": "",
+                "subject": "",
+                "value": {
+                    "attr_unit": "centimeters",
+                    "attr_value": 175,
+                },
+            },
+            {
+                "code": {
+                    "attr_code": "107647005",
+                    "attr_codeSystemName": "SNOMED_CT",
+                    "attr_displayName": "weight"
+                },
+                "sourceOf": "",
+                "subject": "",
+                "value": {
+                    "attr_unit": "kilogram",
+                    "attr_value": "60"
+                },
+            },
+            {
+                "code": {
+                    "attr_originalText": "Parental consanguinity indicated",
+                },
+                "sourceOf": "",
+                "subject": "",
+                "value": ""
+            },
+            {
+                "code": {
+                    "attr_code": "HEALTHY",
+                    "attr_codeSystemName": "FAMILY_T",
+                    "attr_displayName": "Healthy",
+                    "attr_originalText": "Healthy",
+                },
+                "sourceOf": "",
+                "subject": {
+                    "dataEstimatedAge": {
+                        "code": {
+                            "attr_code": "21611-9",
+                            "attr_codeSystemName": "LOINC",
+                            "attr_displayName": "Estimated Age",
+                            "attr_originalText": "blank",
+                        },
+                    },
+                },
+                "value": ""
+            }
+        ]
+    };
+    var evalue = {
+        twin_status: "IDENTICAL",
+        adopted: false,
+        consanguinity: undefined,
+        flg_race_ethnic: 1,
+        "Health History": [{ "Disease Name": 'Healthy', "Detailed Disease Name": 'Healthy', "Age At Diagnosis": 'blank', "Disease Code": 'FAMILY_T-HEALTHY' }],
+        "height": 175,
+        "height_unit": "centimeters",
+        "twin_status": "IDENTICAL",
+        "weight": "60",
+        "weight_unit": "kilogram"
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+});
+
 
 test('ClinicalObservation_getXmlDataByJson', () => {
     var tag = new ClinicalObservation();
@@ -1165,6 +1221,37 @@ test('ClinicalObservation_getPersonalInfomationData', () => {
 
     var tag = new ClinicalObservation();
 
+    var parsedXml = [
+        {
+            "code": {
+                "attr_code": "HEALTHY",
+                "attr_codeSystemName": "FAMILY_T",
+                "attr_displayName": "Healthy",
+                "attr_originalText": "Healthy",
+            },
+            "sourceOf": "",
+            "subject": {
+                "dataEstimatedAge": {
+                    "code": {
+                        "attr_code": "21611-9",
+                        "attr_codeSystemName": "LOINC",
+                        "attr_displayName": "Estimated Age",
+                        "attr_originalText": "blank",
+                    },
+                },
+            },
+            "value": ""
+        }
+    ];
+    var evalue = {
+        twin_status: "NO",
+        adopted: false,
+        consanguinity: undefined,
+        flg_race_ethnic: 1,
+        "Health History": [{ "Disease Name": 'Healthy', "Detailed Disease Name": 'Healthy', "Age At Diagnosis": 'blank', "Disease Code": 'FAMILY_T-HEALTHY' }]
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
     var parsedXml = undefined;
     var evalue = {
         twin_status: "NO",
@@ -1215,7 +1302,7 @@ test('ClinicalObservation_getPersonalInfomationData', () => {
         "Health History": []
     };
     expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
-    
+
     var parsedXml = [
         {
             "code": {
@@ -1236,7 +1323,7 @@ test('ClinicalObservation_getPersonalInfomationData', () => {
         "Health History": []
     };
     expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
-    
+
     var parsedXml = [
         {
             "code": {
@@ -1332,10 +1419,10 @@ test('ClinicalObservation_getPersonalInfomationData', () => {
     var parsedXml = [
         {
             "code": {
-                "attr_code": "HEALTHY",
-                "attr_codeSystemName": "FAMILY_T",
-                "attr_displayName": "Healthy",
-                "attr_originalText": "Healthy",
+                "attr_code": "1000000",
+                "attr_codeSystemName": "SNOMED_CT",
+                "attr_displayName": "Brain Cancer",
+                "attr_originalText": "Brain Cancer"
             },
             "sourceOf": "",
             "subject": {
@@ -1344,7 +1431,7 @@ test('ClinicalObservation_getPersonalInfomationData', () => {
                         "attr_code": "21611-9",
                         "attr_codeSystemName": "LOINC",
                         "attr_displayName": "Estimated Age",
-                        "attr_originalText": "blank",
+                        "attr_originalText": "early_twenties",
                     },
                 },
             },
@@ -1356,9 +1443,15 @@ test('ClinicalObservation_getPersonalInfomationData', () => {
         adopted: false,
         consanguinity: undefined,
         flg_race_ethnic: 1,
-        "Health History": [ {"Disease Name": 'Healthy', "Detailed Disease Name": 'Healthy', "Age At Diagnosis": 'blank', "Disease Code": 'FAMILY_T-HEALTHY' } ]
+        "Health History": [
+            {
+                  "Age At Diagnosis": "early_twenties",
+                  "Detailed Disease Name": "Brain Cancer",
+                  "Disease Code": "SNOMED_CT-1000000",
+                  "Disease Name": "Brain Cancer",
+            }
+        ]
     };
-    return;
     expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 
 });
@@ -1380,6 +1473,7 @@ test('Code_getXmlDataByJson', () => {
 
     var tag = new Code("code", undefined, undefined, undefined);
     var evalue = {
+
         "attr_code": "code"
     };
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
@@ -1429,27 +1523,27 @@ test('Value_getXmlDataByJson', () => {
 });
 
 
-test('Value.getPersonalInformationValue', () => {
-    expect((new Value()).getPersonalInfomationData("prebirth")).toStrictEqual("prebirth");
-    expect((new Value()).getPersonalInfomationData("unknown")).toStrictEqual("unknown");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "day", low: { attr_value: "0" } })).toStrictEqual("newborn");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "day", low: { attr_value: "29" } })).toStrictEqual("infant");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "10" } })).toStrictEqual("early_teen");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "15" } })).toStrictEqual("late_teen");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "20" } })).toStrictEqual("early_twenties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "25" } })).toStrictEqual("late_twenties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "30" } })).toStrictEqual("early_thirties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "35" } })).toStrictEqual("late_thirties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "40" } })).toStrictEqual("early_fourties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "45" } })).toStrictEqual("late_fourties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "50" } })).toStrictEqual("early_fifties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "55" } })).toStrictEqual("late_fifties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "60" } })).toStrictEqual("early_sixties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "65" } })).toStrictEqual("late_sixties");
-    expect((new Value()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "70" } })).toStrictEqual("senior");
+test('EstimatedAgeValue.getPersonalInformationValue', () => {
+    expect((new EstimatedAgeValue()).getPersonalInfomationData("prebirth")).toStrictEqual("prebirth");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData("unknown")).toStrictEqual("unknown");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "day", low: { attr_value: "0" } })).toStrictEqual("newborn");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "day", low: { attr_value: "29" } })).toStrictEqual("infant");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "10" } })).toStrictEqual("early_teen");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "15" } })).toStrictEqual("late_teen");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "20" } })).toStrictEqual("early_twenties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "25" } })).toStrictEqual("late_twenties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "30" } })).toStrictEqual("early_thirties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "35" } })).toStrictEqual("late_thirties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "40" } })).toStrictEqual("early_fourties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "45" } })).toStrictEqual("late_fourties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "50" } })).toStrictEqual("early_fifties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "55" } })).toStrictEqual("late_fifties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "60" } })).toStrictEqual("early_sixties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "65" } })).toStrictEqual("late_sixties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "70" } })).toStrictEqual("senior");
 
-    expect((new Value()).getPersonalInfomationData({})).toStrictEqual("unknown");
-    expect((new Value()).getPersonalInfomationData()).toStrictEqual("unknown");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({})).toStrictEqual("unknown");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData()).toStrictEqual("unknown");
 });
 test('Subject_getXmlDataByJson', () => {
     var tag = new Subject();
@@ -1496,7 +1590,6 @@ test('Subject_getPersonalInfomationData', () => {
         }
     };
     var evalue = { "estimated_age": "child" };
-    return;
     expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 });
 
@@ -1542,15 +1635,13 @@ test('DataEstimatedAge_getPersonalInfomationData', () => {
         }
     };
     var evalue = { "estimated_age": "child" };
-    return;
     expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 });
 test('Relative_getXmlDataByJson', () => {
     var tag = new Relative();
     var evalue = "";
     expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
-    var patientPerson = new PatientPerson();
-    patientPerson.getXmlDataByJson(personalInformation);
+    var patientPerson = new PatientPerson(personalInformation);
     var tag = patientPerson.relatives[0];
     var evalue = {
         "code": {
@@ -1615,21 +1706,180 @@ test('Relative_getXmlDataByJson', () => {
                 },
                 "relationshipHolder": ""
             },
-            "subjectOf2": "",
+            "subjectOf2": {
+                "clinicalObservation":  [
+                   {
+                    "code":  {
+                      "attr_code": "271603002",
+                      "attr_codeSystemName": "SNOMED_CT",
+                      "attr_displayName": "height",
+                    },
+                    "sourceOf": "",
+                    "subject": "",
+                    "value": "",
+                  },
+                   {
+                    "code":  {
+                      "attr_code": "107647005",
+                      "attr_codeSystemName": "SNOMED_CT",
+                      "attr_displayName": "weight",
+                    },
+                    "sourceOf": "",
+                    "subject": "",
+                    "value": "",
+                  },
+                   {
+                    "code":  {
+                      "attr_originalText": "Parental consanguinity indicated",
+                    },
+                    "sourceOf": "",
+                    "subject": "",
+                    "value": "",
+                  },
+                   {
+                    "code":  {
+                      "attr_code": "38341003",
+                      "attr_codeSystemName": "SNOMED_CT",
+                      "attr_displayName": "Hypertension/high blood pressure",
+                      "attr_originalText": "Hypertension/high blood pressure",
+                    },
+                    "sourceOf": "",
+                    "subject":  {
+                      "dataEstimatedAge":  {
+                        "code":  {
+                          "attr_code": "21611-9",
+                          "attr_codeSystemName": "LOINC",
+                          "attr_displayName": "Estimated Age",
+                          "attr_originalText": "early_fifties",
+                        },
+                      },
+                    },
+                    "value": "",
+                  },
+                ],
+              }
         }
     };
     var actual = tag.getXmlDataByJson(personalInformation);
     expect(actual).toStrictEqual(evalue);
 });
 
-test('RelationshipHolder_getXmlDataByJson', () => {
-    var tag = new RelationshipHolder();
-    var evalue = "";
-    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 
-    var pp = new PatientPerson();
-    pp.getXmlDataByJson(personalInformation);
+test('Relative_getPersonalInfomationData', () => {
+    var tag = new Relative();
+    var parsedXml = {};
+    var evalue = {};
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var parsedXml = {
+        "code": {
+            "attr_code": "NFTH",
+            "attr_codeSystemName": "HL7 Family History Model",
+            "attr_displayName": "Father"
+        }
+    };
     var evalue = {
+        "father": {
+        }
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var parsedXml = {
+        "code": {
+            "attr_code": "NFTH",
+            "attr_codeSystemName": "HL7 Family History Model",
+            "attr_displayName": "Father"
+        },
+        "relationshipHolder": {
+            administrativeGenderCode: {
+                "attr_code": "248153007",
+                "attr_codeSystemName": "SNOMED_CT",
+                "attr_displayName": "male"
+            },
+            id: {
+                attr_extension: "7421ec0a-a1ba-4793-b9e4-675d59840e70"
+            },
+            "name": { "attr_formatted": "あなたの父", },
+            "note": [
+                {
+                    "attr_code": "age",
+                    "attr_text": 53,
+                },
+                {
+                    "attr_code": "birth_order",
+                    "attr_text": 1,
+                },
+                {
+                    "attr_code": "flg_race_ethnic",
+                    "attr_text": 1,
+                },
+                {
+                    "attr_code": "is_alive",
+                    "attr_text": "alive",
+                },
+                {
+                    "attr_code": "living_prefectures",
+                },
+                {
+                    "attr_code": "relationship",
+                    "attr_text": "father",
+                },
+                {
+                    "attr_code": "training_count_for_training_at_week",
+                    "attr_text": "",
+                },
+                {
+                    "attr_code": "training_strength",
+                    "attr_text": "空欄",
+                },
+                {
+                    "attr_code": "training_time_for_training_at_week",
+                    "attr_text": "",
+                },
+                {
+                    "attr_code": "update_date",
+                    "attr_text": "2021/11/02",
+                }
+            ],
+            "relative": {
+                "code": {
+                    "attr_code": "PAR",
+                    "attr_codeSystemName": "HL7 Family History Model",
+                    "attr_displayName": "Parent",
+                },
+                "relationshipHolder": ""
+            },
+            "subjectOf2": "",
+        }
+    };
+    var evalue = {
+        "father": {
+            "gender": "MALE",
+            "id": "7421ec0a-a1ba-4793-b9e4-675d59840e70",
+            "name": "あなたの父",
+            "relationship": "father",
+            "age": 53,
+            "birth_order": 1,
+            "flg_race_ethnic": 1,
+            "is_alive": "alive",
+            "relationship": "father",
+            "training_count_for_training_at_week": "",
+            "training_strength": "空欄",
+            "training_time_for_training_at_week": "",
+            "update_date": "2021/11/02"
+        }
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+});
+
+
+test('RelationshipHolder_getPersonalInfomationData', () => {
+    var tag = new RelationshipHolder();
+    var evalue = {};
+    expect(tag.getPersonalInfomationData({})).toStrictEqual(evalue);
+
+
+    var persedXml = {
         "administrativeGenderCode": {
             "attr_code": "248153007",
             "attr_codeSystemName": "SNOMED_CT",
@@ -1688,9 +1938,23 @@ test('RelationshipHolder_getXmlDataByJson', () => {
         },
         "subjectOf2": "",
     };
-    
-    var tag = pp.relatives[0].relationshipHolder;
-    var actual = tag.getXmlDataByJson(personalInformation);
+
+    var evalue = {
+        "id": "7421ec0a-a1ba-4793-b9e4-675d59840e70",
+        "gender": "MALE",
+        "name": "あなたの父",
+        "age": 53,
+        "birth_order": 1,
+        "flg_race_ethnic": 1,
+        "is_alive": "alive",
+        "relationship": "father",
+        "training_count_for_training_at_week": "",
+        "training_strength": "空欄",
+        "training_time_for_training_at_week": "",
+        "update_date": "2021/11/02"
+    }
+
+    var actual = tag.getPersonalInfomationData(persedXml);
     expect(actual).toStrictEqual(evalue);
 });
 
@@ -1723,19 +1987,144 @@ test('Note_getXmlDataByJson', () => {
 test('Note_getPersonalInfomationData', () => {
     var tag = new Note();
     var evalue = {};
-    expect(tag.getPersonalInfomationData()).toStrictEqual(evalue);
+    expect(tag.getPersonalInfomationData({})).toStrictEqual(evalue);
 
-    var tag = new Note("code", undefined);
+    var tag = new Note();
     var evalue = {};
-    expect(tag.getPersonalInfomationData()).toStrictEqual(evalue);
+    expect(tag.getPersonalInfomationData({
+        attr_code: 'testCode'
+    })).toStrictEqual(evalue);
 
-    var tag = new Note(undefined, "text");
+    var tag = new Note();
     var evalue = {};
-    expect(tag.getPersonalInfomationData()).toStrictEqual(evalue);
+    expect(tag.getPersonalInfomationData({
+        attr_text: 'testText'
+    })).toStrictEqual(evalue);
 
-    var tag = new Note("code", "text");
+    var tag = new Note();
     var evalue = {
-        "code": "text"
+        "testCode": "testText"
     };
-    expect(tag.getPersonalInfomationData()).toStrictEqual(evalue);
+    expect(tag.getPersonalInfomationData({
+        attr_code: 'testCode',
+        attr_text: 'testText'
+
+    })).toStrictEqual(evalue);
+
+});
+
+test('SubjectOf2_father', () => {
+
+    var input = {
+        "gender": "MALE",
+        "id": "230eb2a0-50cc-4ada-92cf-c7f24e8eea6a",
+        "name": "あなたの父",
+        "birth_order": 1,
+        "flg_race_ethnic": "1",
+        "is_alive": "alive",
+        "month_of_birth": "2",
+        "relationship": "father",
+        "training_count_for_training_at_week": "",
+        "training_strength": "空欄",
+        "training_time_for_training_at_week": "",
+        "update_date": "2022/02/21",
+        "year_of_birth": "1951",
+        "adopted": false,
+        "prefectures": null,
+        "living_prefectures": null,
+        "Health History": [
+            {
+                "Disease Name": "Healthy",
+                "Detailed Disease Name": "健康",
+                "Age At Diagnosis": "blank",
+                "Disease Code": "FAMILY_T-HEALTHY"
+            }
+        ],
+        "race": {
+            "American Indian or Alaska Native": false,
+            "Asian": false,
+            "Black or African-American": false,
+            "Native Hawaiian or Other Pacific Islander": false,
+            "White": false,
+            "Asian Indian": false,
+            "Chinese": false,
+            "Filipino": false,
+            "Japanese": false,
+            "Korean": false,
+            "Vietnamese": false,
+            "Other Asian": false,
+            "Unknown Asian": false,
+            "Chamorro": false,
+            "Guamanian": false,
+            "Native Hawaiian": false,
+            "Samoan": false,
+            "Unknown South Pacific Islander": false
+        },
+        "ethnicity": {
+            "Hispanic or Latino": false,
+            "Ashkenazi Jewish": false,
+            "Not Hispanic or Latino": false,
+            "Central American": false,
+            "Cuban": false,
+            "Dominican": false,
+            "Mexican": false,
+            "Other Hispanic": false,
+            "Puerto Rican": false,
+            "South American": false
+        }
+    };
+    var tag = new SubjectOf2(input);
+    var evalue = {
+        "clinicalObservation":  [
+            {
+             "code":  {
+               "attr_code": "271603002",
+               "attr_codeSystemName": "SNOMED_CT",
+               "attr_displayName": "height",
+             },
+             "sourceOf": "",
+             "subject": "",
+             "value": "",
+           },
+            {
+             "code":  {
+               "attr_code": "107647005",
+               "attr_codeSystemName": "SNOMED_CT",
+               "attr_displayName": "weight",
+             },
+             "sourceOf": "",
+             "subject": "",
+             "value": "",
+           },
+            {
+             "code":  {
+               "attr_originalText": "Parental consanguinity indicated",
+             },
+             "sourceOf": "",
+             "subject": "",
+             "value": "",
+           },
+            {
+             "code":  {
+               "attr_code": "HEALTHY",
+               "attr_codeSystemName": "FAMILY_T",
+               "attr_displayName": "Healthy",
+               "attr_originalText": "Healthy",
+             },
+             "sourceOf": "",
+             "subject":  {
+               "dataEstimatedAge":  {
+                 "code":  {
+                   "attr_code": "21611-9",
+                   "attr_codeSystemName": "LOINC",
+                   "attr_displayName": "Estimated Age",
+                   "attr_originalText": "blank",
+                 },
+               },
+             },
+             "value": "",
+           },
+         ]
+    };
+    expect(tag.getXmlDataByJson()).toStrictEqual(evalue);
 });
