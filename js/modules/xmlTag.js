@@ -584,31 +584,7 @@ class ClinicalObservation extends XmlTag {
 
         var ret = false;
 
-        // {
-        //     "code": {
-        //         "attr_code": "HEALTHY",
-        //         "attr_codeSystemName": "FAMILY_T",
-        //         "attr_displayName": "Healthy",
-        //         "attr_originalText": "Healthy",
-        //     },
-        //     "sourceOf": "",
-        //     "subject": {
-        //         "dataEstimatedAge": {
-        //             "code": {
-        //                 "attr_code": "21611-9",
-        //                 "attr_codeSystemName": "LOINC",
-        //                 "attr_displayName": "Estimated Age",
-        //                 "attr_originalText": "blank",
-        //             },
-        //         },
-        //     },
-        //     "value": ""
-        // }
-
         // Family-T Healthy
-        console.log(obj);
-        console.log(CodeUtil.isFamilyTHealthyCode(obj.code.attr_code, obj.code.attr_codeSystemName));
-
         if (CodeUtil.isFamilyTHealthyCode(obj.code.attr_code, obj.code.attr_codeSystemName)) {
             var code = CodeUtil.CODE['FAMILY_T-HEALTHY'];
             console.log(
@@ -627,22 +603,20 @@ class ClinicalObservation extends XmlTag {
             };
         }
 
-
-        // コードがHealthHistory以外ならfalse
-        if (!CodeUtil.isHealthHistoryCode(obj.code.attr_code, obj.code.attr_codeSystemName)) {
-            return ret;
-        }
-
         Object.keys(CodeUtil.CODE).forEach(function (key) {
-            if (CodeUtil.CODE[key].code == obj.code.attr_code && CodeUtil.CODE[key].codeSystemName == obj.code.attr_codeSystemName) {
-                var code = CodeUtil.CODE[key];
-                ret = {
-                    "Disease Name": code.displayName,
-                    "Detailed Disease Name": code.originText,
-                    "Age At Diagnosis": 'blank',
-                    "Disease Code": code.codeSystemName + "-" + code.code
-                };
+
+            if( key.startsWith("SNOMED_CT-")){
+                if (CodeUtil.CODE[key].code == obj.code.attr_code && CodeUtil.CODE[key].codeSystemName == obj.code.attr_codeSystemName) {
+                    var code = CodeUtil.CODE[key];
+                    ret = {
+                        "Disease Name": code.displayName,
+                        "Detailed Disease Name": code.originText,
+                        "Age At Diagnosis": obj.subject.dataEstimatedAge.code.attr_originalText,
+                        "Disease Code": code.codeSystemName + "-" + code.code
+                    };
+                }
             }
+
         });
 
         return ret;

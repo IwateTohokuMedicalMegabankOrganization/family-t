@@ -486,7 +486,7 @@ test('PatientPerson_getXmlDataByJson', () => {
             {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
             {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
             {}, {}, {}, {}, {}, {}, {}, {}, {}, {},
-            {}, {}, {}, {}, {}, {}, {},
+            {}, {}, {}, {}, {}, {}, {},{}, {},
         ],
         "raceCode": [
             {
@@ -1416,6 +1416,43 @@ test('ClinicalObservation_getPersonalInfomationData', () => {
     };
     expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 
+    var parsedXml = [
+        {
+            "code": {
+                "attr_code": "1000000",
+                "attr_codeSystemName": "SNOMED_CT",
+                "attr_displayName": "Brain Cancer",
+                "attr_originalText": "Brain Cancer"
+            },
+            "sourceOf": "",
+            "subject": {
+                "dataEstimatedAge": {
+                    "code": {
+                        "attr_code": "21611-9",
+                        "attr_codeSystemName": "LOINC",
+                        "attr_displayName": "Estimated Age",
+                        "attr_originalText": "early_twenties",
+                    },
+                },
+            },
+            "value": ""
+        }
+    ];
+    var evalue = {
+        twin_status: "NO",
+        adopted: false,
+        consanguinity: undefined,
+        flg_race_ethnic: 1,
+        "Health History": [
+            {
+                  "Age At Diagnosis": "early_twenties",
+                  "Detailed Disease Name": "Brain Cancer",
+                  "Disease Code": "SNOMED_CT-1000000",
+                  "Disease Name": "Brain Cancer",
+            }
+        ]
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 
 });
 
