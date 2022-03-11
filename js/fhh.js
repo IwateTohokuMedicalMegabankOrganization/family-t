@@ -1075,6 +1075,7 @@ function start()
 		// ダイアログを開く前に、リスク計算に最低限必要な情報が登録されているかチェック
 		var checkResult = checkNecessaryItemsForLifestyleScore();
 
+		LifeStyleScoreDetailDialogController.refresh();
 		// 不足していれば(=false)、その項目の入力フォームを表示
 		if(checkResult) {
 			$("#lifestylescore_compensation_block").hide();
