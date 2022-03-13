@@ -1056,34 +1056,24 @@ function start()
 		}
 	});
 
-	$("#navLifeStyleScoreCalculator").on("click", function() {
-		// ダイアログを開く前に、リスク計算に最低限必要な情報が登録されているかチェック
+	// Calc and Open LifestyleScoreDialog
+	const openLifeStyleScoreDialog = function () {
 		var checkResult = checkNecessaryItemsForLifestyleScore();
 
 		LifeStyleScoreDetailDialogController.refresh();
 		// 不足していれば(=false)、その項目の入力フォームを表示
-		if(checkResult) {
+		if (checkResult) {
 			$("#lifestylescore_compensation_block").hide();
 		} else {
 			$("#lifestylescore_compensation_block").show();
 		}
 
 		openDialog("#lifestyle_score_calculator_dialog", "center top");
-	});
-
-	$("#showLifeStyleScoreDetail").on("click", function() {
-		// ダイアログを開く前に、リスク計算に最低限必要な情報が登録されているかチェック
-		var checkResult = checkNecessaryItemsForLifestyleScore();
-
-		// 不足していれば(=false)、その項目の入力フォームを表示
-		if(checkResult) {
-			$("#lifestylescore_compensation_block").hide();
-		} else {
-			$("#lifestylescore_compensation_block").show();
-		}
-
-		openDialog("#lifestyle_score_calculator_dialog", "center top");
-	});
+	};
+	// nav lifestyleScore
+	$("#navLifeStyleScoreCalculator").on("click", openLifeStyleScoreDialog);
+	// detailed lifestyleScore
+	$("#showLifeStyleScoreDetail").on("click", openLifeStyleScoreDialog);
 
 	// リスク計算不足要素入力ダイアログ
 	// $("#compensate_information_dialog").load ("compensate_information_dialog.html", function () {
