@@ -195,7 +195,7 @@ class LifeStyleScoreCalculator extends RiskCalculatorBase{
 
 		//	・ナッツ類を週に1品目以上
 		if(typeof dietary_frequency_to_eat_nuts_in_week != 'undefined'){
-			if( dietary_frequency_to_eat_nuts_in_week == '5times' ){
+			if( dietary_frequency_to_eat_nuts_in_week != 'zero' ){
 				point ++;
 			}
 		}
