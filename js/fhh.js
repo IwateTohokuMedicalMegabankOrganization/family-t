@@ -1362,10 +1362,27 @@ function checkNecessaryItemsForLifestyleScore(){
 															personal_information.training_count_for_training_at_week == "" ||
 															personal_information.training_time_for_training_at_week == "")
 			) ) {
-		$("#compensate_training").show();
+		$("#lifestylescore_compensate_training").show();
 		cond = false;
 	} else {
-		$("#compensate_training").hide();
+		$("#lifestylescore_compensate_training").hide();
+	}
+
+	// 食生活
+	if(typeof personal_information.dietary_frequency_to_eat_fruits_in_day == null ||
+				personal_information.dietary_frequency_to_eat_vegetables_in_day == null ||
+				personal_information.dietary_frequency_to_eat_nuts_in_week == null ||
+				personal_information.dietary_frequency_to_eat_whole_grains_in_day == null ||
+				personal_information.dietary_frequency_to_eat_fishes_in_week == null ||
+				personal_information.dietary_frequency_to_eat_dairy_products_in_day == null ||
+				personal_information.dietary_frequency_to_eat_processed_meat_in_week == null ||
+				personal_information.dietary_frequency_to_eat_unprocessed_meat_in_week == null ||
+				personal_information.dietary_frequency_to_drink_suger_drin_in_week == null
+				){
+		$("#lifestylescore_eating_habits").show();
+		cond = false;
+	}else{
+		$("#lifestylescore_eating_habits").hide();
 	}
 
 	return cond;
