@@ -1679,6 +1679,17 @@ function preparate_lifestyle_score_dialog(){
 			personal_information['training_strength'] = $(`#lifestylescore_${key}_training_strength`).val();
 			personal_information['training_count_for_training_at_week'] = $(`#lifestylescore_${key}_count_for_training_at_week`).val();
 			personal_information['training_time_for_training_at_week'] = $(`#lifestylescore_${key}_time_for_training_at_week`).val();
+
+			// 食習慣
+			personal_information['dietary_frequency_to_eat_fruits_in_day'] = $(`input[name="lifestylescore_${key}_frequency_to_eat_fruits_in_day"]:checked`).val();
+			personal_information['dietary_frequency_to_eat_vegetables_in_day'] = $(`input[name="lifestylescore_${key}_frequency_to_eat_vegetables_in_day"]:checked`).val();
+			personal_information['dietary_frequency_to_eat_nuts_in_week'] = $(`input[name="lifestylescore_${key}_frequency_to_eat_nuts_in_week"]:checked`).val();
+			personal_information['dietary_frequency_to_eat_whole_grains_in_day'] = $(`input[name="lifestylescore_${key}_frequency_to_eat_whole_grains_in_day"]:checked`).val();
+			personal_information['dietary_frequency_to_eat_fishes_in_week'] = $(`input[name="lifestylescore_${key}_frequency_to_eat_fishes_in_week"]:checked`).val();
+			personal_information['dietary_frequency_to_eat_dairy_products_in_day'] = $(`input[name="lifestylescore_${key}_frequency_to_eat_dairy_products_in_day"]:checked`).val();
+			personal_information['dietary_frequency_to_eat_processed_meat_in_week'] = $(`input[name="lifestylescore_${key}_frequency_to_eat_processed_meat_in_week"]:checked`).val();
+			personal_information['dietary_frequency_to_eat_unprocessed_meat_in_week'] = $(`input[name="lifestylescore_${key}_frequency_to_eat_unprocessed_meat_in_week"]:checked`).val();
+			personal_information['dietary_frequency_to_drink_suger_drin_in_week'] = $(`input[name="lifestylescore_${key}_frequency_to_drink_suger_drin_in_week"]:checked`).val();
 		});
 	}
 }
