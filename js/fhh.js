@@ -1053,6 +1053,7 @@ function start()
 		},
 		beforeClose: function(){
 			personal_information = temporarilyHoldCareTaker.paste('personal_informaiton');
+			LifeStyleScoreDetailDialogController.clear('simuration');
 		}
 	});
 
@@ -3294,6 +3295,42 @@ class LifeStyleScoreDetailDialogController{
 	static _showCompensationalBlock(){
 		$('#lifestylescore_compensation_block').show();
 		$('#lifestylescore_simuration_block').hide();
+	}
+
+	// ライフスタイルスコアの要素を初期化する。
+	static clear(key){
+		// 身長
+		$(`#lifestylescore_${key}_height_centimeters`).val('');
+
+		// 体重
+		$(`#lifestylescore_${key}_weight`).val('');
+
+		// 喫煙
+		var elem = $(`#lifestylescore_${key}_smoker1`);
+		$(`#lifestylescore_${key}_smoker1`).prop('checked', false);
+		$(`#lifestylescore_${key}_smoker2`).prop('checked', false);
+		$(`#lifestylescore_${key}_smoker3`).prop('checked', false);
+		$(`#lifestylescore_${key}_smoker4`).prop('checked', false);
+		$(`#lifestylescore_${key}_smoker5`).prop('checked', false);
+		$(`#lifestylescore_${key}_number_of_cigarettes_per_day_1_to_9`).prop('checked', false);
+		$(`#lifestylescore_${key}_number_of_cigarettes_per_day_10_or_more`).prop('checked', false);
+
+		// 運動
+		$(`#lifestylescore_${key}_training`).prop('checked', false);
+		$(`#lifestylescore_${key}_training_strength`).prop('checked', false);
+		$(`#lifestylescore_${key}_count_for_training_at_week`).prop('checked', false);
+		$(`#lifestylescore_${key}_time_for_training_at_week`).prop('checked', false);
+
+		// 食習慣
+		$(`#lifestylescore_${key}_frequency_to_eat_fruits_in_day`).prop('checked', false);
+		$(`#lifestylescore_${key}_frequency_to_eat_vegetables_in_day`).prop('checked', false);
+		$(`#lifestylescore_${key}_frequency_to_eat_nuts_in_week`).prop('checked', false);
+		$(`#lifestylescore_${key}_frequency_to_eat_whole_grains_in_day`).prop('checked', false);
+		$(`#lifestylescore_${key}_frequency_to_eat_fishes_in_week`).prop('checked', false);
+		$(`#lifestylescore_${key}_frequency_to_eat_dairy_products_in_day`).prop('checked', false);
+		$(`#lifestylescore_${key}_frequency_to_eat_processed_meat_in_week`).prop('checked', false);
+		$(`#lifestylescore_${key}_frequency_to_eat_unprocessed_meat_in_week`).prop('checked', false);
+		$(`#lifestylescore_${key}_frequency_to_drink_suger_drin_in_week`).prop('checked', false);
 	}
 }
 
