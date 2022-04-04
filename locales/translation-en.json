@@ -1172,5 +1172,31 @@
 		"how_to_display_download_and_install_ftree": "Download and install f-tree.",
 		"how_to_display_download_csv": "Download CSV.",
 		"how_to_display_load_csv": "Read CSV with f-tree."
+	},
+	"family-t_about": {
+		"about": "About family-t",
+		"background": "Background",
+		"background_sentence1": "In 2017, Iwate Medical University carried out 'Study on risk understanding of multifactorial diseases (Pilot study ④)' for the purpoes of 'Elucidation of multifactorial disease risk prediction by integrating environmental information and genetic information'",
+		"background_sentence2": "In this pilot study (4), the tool for verification of safety of genetic information circulation and selection of target diseases was developed. The purpose of this tool are safety confirmation by general psychological anxiety scale and selection of multifactorial diseases to be targeted for genetic information circulation by scenario comparison.",
+		"background_sentence3": "This tool is called for 'family-t' and developed by Iwate Medical University as original tool based on My-Family-Health-Portrait which are developed by United States Public Health Service.",
+		"background_sentence4": "From 2021 to 2025, Iwate Medical University is envisioning 'Circulation of genetic information for multifactorial diseases: Social implementation of stroke risk prediction by genomic information'.",
+		"background_sentence5": "In this concept, Iwate Medical University plan to use family-t to circulate the risk of stroke to 2,400 people.",
+		"purpose": "Purpose",
+		"purpose_sentence": "The purpose of family-t is to inform you the reference value of risk of developing a disease and your lifestyle score",
+		"service": "Service",
+		"service_sentence": "Family-t can calculate reference value of your health.",
+		"service_lifestyle": "Lifestyle Score",
+		"service_diabetes": "Type 2 Diabetes (within 5 years)",
+		"service_coronary_heart_disease": "Coronary Heart Disease",
+		"service_stroke": "Stroke (within 10 years)"
+	},
+	"family-t_contact": {
+
+	},
+	"family-t_site_update": {
+
+	},
+	"family-t_privacy": {
+
 	}
 }
