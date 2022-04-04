@@ -1191,12 +1191,21 @@
 		"service_stroke": "Stroke (within 10 years)"
 	},
 	"family-t_contact": {
-
+		"contact": "Contact us",
+		"sentence": "Please send us your opinions, questions and suggestions.",
+		"email": "Email : ",
+		"phone": "Phone : ",
+		"phone_number": "+81 19-651-5110 (internal #3258)"
 	},
 	"family-t_site_update": {
-
+		"site_update": "Site update",
+		"2021-11": "The beta version has been released."
 	},
 	"family-t_privacy": {
-
+		"privacy": "Privacy policy",
+		"privacy_sentence1": "This service does not collect personal information.",
+		"privacy_sentence2": "We may ask you to provide personal information according to inquiries from users and their contents.",
+		"privacy_sentence3": "Family history information entered and saved by this service will not be saved by this service.",
+		"privacy_sentence4": "Please keep your family history data on your PC and manage it."
 	}
 }
