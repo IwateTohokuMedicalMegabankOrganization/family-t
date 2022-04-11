@@ -759,6 +759,10 @@
 		"maternal_grandparents": "Maternal Grandparents",
 		"about": "About the Tohoku Medical Megabank Project",
 		"imm": "Iwate Tohoku Medical Megabank Organization",
+		"privacy": "Privacy policy",
+		"about_family-t": "About family-t",
+		"contact": "Contact us",
+		"update": "Site update",
 		"bo_you": "Enter the birth orders, including you.",
 		"bo_parent_brother": "Enter the birth orders of your parents, including their siblings (your uncles or aunts).",
 		"bo_father": "Enter the birth orders, including your father.",
@@ -848,11 +852,11 @@
 		"fasting_blood_glucose_(mg/dl)": "Fasting blood glucose (mg/dL)",
 		"a_blood_glucose_level_of_126_or_higher_is_regarded_as_“diabetic”": "A blood glucose level of 126 or higher is regarded as “diabetic”",
 		"casual_blood_glucose_(mg/dl)_(blood_glucose_tested_at_any_time_of_the_day)": "Casual blood glucose (mg/dL) (blood glucose tested at any time of the day)",
-		"a_casual_blood_glucose_level_of_200_or_higher_is_regarded_as_“diabetic”.": "A casual blood glucose level of 200 or higher is regarded as “diabetic”.",
+		"a_casual_blood_glucose_level_of_200_or_higher_is_regarded_as_“diabetic”": "A casual blood glucose level of 200 or higher is regarded as “diabetic”.",
 		"oral_glucose_tolerance_test_(ogtt)_two-hour_blood_glucose_(mg/dl)": "Oral glucose tolerance test (OGTT) two-hour blood glucose (mg/dL)",
 		"ogtt_two-hour_blood_glucose_level_of_200_or_higher_is_regarded_as_“diabetic”": "OGTT two-hour blood glucose level of 200 or higher is regarded as “diabetic”",
 		"hba1c_(%)": "HbA1c (%)",
-		"an_hba1c_level_of_6.5_or_higher_is_regarded_as_“diabetic”": "An HbA1c level of 6.5 or higher is regarded as “diabetic”",
+		"an_hba1c_level_of_6_point_5_or_higher_is_regarded_as_“diabetic”": "An HbA1c level of 6.5 or higher is regarded as “diabetic”",
 		"cholesterol": "Cholesterol",
 		"ldl_cholesterol_(mg/dl)": "LDL cholesterol (mg/dL)",
 		"hdl_cholesterol_(mg/dl)": "HDL cholesterol (mg/dL)",
@@ -1090,7 +1094,8 @@
 		"cannot_calculate_under35":"Cannot calculate for under 35 years old. It is not calculated because there is no basis based on the treatise or guidelines.",
 		"cannot_calculate_under40":"Cannot calculate for under 40 years old. It is not calculated because there is no basis based on the treatise or guidelines.",
 		"cannot_calculate_over70":"Cannot calculate for over 70 years old. It is not calculated because there is no basis based on the treatise or guidelines.",
-		"cannot_calculate_over80":"Cannot calculate for over 80 years old. It is not calculated because there is no basis based on the treatise or guidelines."
+		"cannot_calculate_over80":"Cannot calculate for over 80 years old. It is not calculated because there is no basis based on the treatise or guidelines.",
+		"simuration":"Simurate"
 	},
 	"family-t_number_of_families_by_generation": {
 		"title":"Number of families by Generations",
@@ -1167,5 +1172,40 @@
 		"how_to_display_download_and_install_ftree": "Download and install f-tree.",
 		"how_to_display_download_csv": "Download CSV.",
 		"how_to_display_load_csv": "Read CSV with f-tree."
+	},
+	"family-t_about": {
+		"about": "About family-t",
+		"background": "Background",
+		"background_sentence1": "In 2017, Iwate Medical University carried out 'Study on risk understanding of multifactorial diseases (Pilot study ④)' for the purpoes of 'Elucidation of multifactorial disease risk prediction by integrating environmental information and genetic information'",
+		"background_sentence2": "In this pilot study (4), the tool for verification of safety of genetic information circulation and selection of target diseases was developed. The purpose of this tool are safety confirmation by general psychological anxiety scale and selection of multifactorial diseases to be targeted for genetic information circulation by scenario comparison.",
+		"background_sentence3": "This tool is called for 'family-t' and developed by Iwate Medical University as original tool based on My-Family-Health-Portrait which are developed by United States Public Health Service.",
+		"background_sentence4": "From 2021 to 2025, Iwate Medical University is envisioning 'Circulation of genetic information for multifactorial diseases: Social implementation of stroke risk prediction by genomic information'.",
+		"background_sentence5": "In this concept, Iwate Medical University plan to use family-t to circulate the risk of stroke to 2,400 people.",
+		"purpose": "Purpose",
+		"purpose_sentence": "The purpose of family-t is to inform you the reference value of risk of developing a disease and your lifestyle score",
+		"service": "Service",
+		"service_sentence": "Family-t can calculate reference value of your health.",
+		"service_lifestyle": "Lifestyle Score",
+		"service_diabetes": "Type 2 Diabetes (within 5 years)",
+		"service_coronary_heart_disease": "Coronary Heart Disease",
+		"service_stroke": "Stroke (within 10 years)"
+	},
+	"family-t_contact": {
+		"contact": "Contact us",
+		"sentence": "Please send us your opinions, questions and suggestions.",
+		"email": "Email : ",
+		"phone": "Phone : ",
+		"phone_number": "+81 19-651-5110 (internal #3258)"
+	},
+	"family-t_site_update": {
+		"site_update": "Site update",
+		"2021-11": "The beta version has been released."
+	},
+	"family-t_privacy": {
+		"privacy": "Privacy policy",
+		"privacy_sentence1": "This service does not collect personal information.",
+		"privacy_sentence2": "We may ask you to provide personal information according to inquiries from users and their contents.",
+		"privacy_sentence3": "Family history information entered and saved by this service will not be saved by this service.",
+		"privacy_sentence4": "Please keep your family history data on your PC and manage it."
 	}
 }
