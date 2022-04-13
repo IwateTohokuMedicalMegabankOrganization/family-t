@@ -150,38 +150,51 @@ class QualityOfFamilyHistoryCalculator extends RiskCalculatorBase{
 
 	// 発症年齢の記入がある疾患数
 	_getNumberOfDiseaseAge(ids){
-
-		var pi = this.pi;
-
 		var retval = 0;
+		var pi = this.pi;
+		var that = this;
+		
 		ids.forEach( function(id){
-
-			if(typeof pi[id]["Health History"] == 'undefined' ) return ;
-			
+			if(typeof pi[id]["Health History"] == 'undefined' ) return ;			
 			if(pi[id]["Health History"].length <= 0 ) return;
 
 			pi[id]['Health History'].forEach( function(healthHistory){
-				if( typeof healthHistory['Age At Diagnosis'] == 'undefined') return;
-				if( healthHistory['Age At Diagnosis'] == '') return;
-				if( healthHistory['Age At Diagnosis'] == 'Unknown') return;
-				retval ++;
+				if( that._isAgeAtDiagnosisSelected(healthHistory) && that._notHealthy(healthHistory) ) retval ++;
 			});
 		});
 
 		return retval;
 	}
 
+	_isAgeAtDiagnosisSelected(healthHistory){
+		if( typeof healthHistory['Age At Diagnosis'] == 'undefined') return false;
+		if( healthHistory['Age At Diagnosis'] == '') return false;
+		if( healthHistory['Age At Diagnosis'] == 'Unknown') return false;
+		return true;
+	}
+
 	// 家系内の疾患数
 	_getNumberOfHealthHistory(ids){
 		var retval = 0;
 		var pi = this.pi;
+		var that = this;
 
 		ids.forEach( function(id){
 			if(typeof pi[id]["Health History"] == 'undefined' ) return;
-			retval += pi[id]["Health History"].length;
+
+			pi[id]["Health History"].forEach( function(healthHistory){
+				if( that._notHealthy(healthHistory) ) retval++;
+			});
 		});
 
 		return retval;
+	}
+	
+	_notHealthy(healthHistory){
+		if( typeof healthHistory['Disease Name'] == 'undefined') return false;
+		if( healthHistory['Disease Name'] == '') return false;
+		if( healthHistory['Disease Name'] == 'Healthy') return false;
+		return true;
 	}
 
 	// 家系内の死者数
