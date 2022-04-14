@@ -606,7 +606,10 @@ class ClinicalObservation extends XmlTag {
         Object.keys(CodeUtil.CODE).forEach(function (key) {
 
             if( key.startsWith("SNOMED_CT-")){
-                if (CodeUtil.CODE[key].code == obj.code.attr_code && CodeUtil.CODE[key].codeSystemName == obj.code.attr_codeSystemName) {
+                if (CodeUtil.CODE[key].code == obj.code.attr_code 
+                    && CodeUtil.CODE[key].codeSystemName == obj.code.attr_codeSystemName
+                    && obj.subject != 'undefined'   // 病歴（subject）が無いのに上記2条件を満たす場合がある。
+                    && obj.subject != '') {
                     var code = CodeUtil.CODE[key];
                     ret = {
                         "Disease Name": code.displayName,
