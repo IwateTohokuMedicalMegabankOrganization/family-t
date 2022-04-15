@@ -4765,9 +4765,11 @@ function add_disease() {
 	                          "Age At Diagnosis": age_at_diagnosis,
 	                          "Disease Code": disease_code};
 
-	// ここで必ず、current_health_historyの参照先を更新する。
+	// 家族歴の質計算画面において必須。current_health_historyの参照先を更新する。
+	// これが無いと、登録したいデータが家族歴の質計算画面に遷移する直前のcurrent_health_historyのままとなってしまう。
 	var pi_id = $(this).parent().parent().parent().parent().parent().find('input').first().attr('pi_id');
-	current_health_history=PersonalInformationUtil.getRelationshipPiByPersonId(pi_id)["Health History"];
+	if( pi_id!=undefined && pi_id != '') current_health_history=PersonalInformationUtil.getRelationshipPiByPersonId(pi_id)["Health History"]; 
+
 	current_health_history.push(specific_health_issue);
 
 	// 「登録」ボタンが押され、未入力チェックに通り病歴が配列にpushされたタイミングで、
@@ -4800,9 +4802,6 @@ function add_disease() {
 		$(this).parent().parent().parent().find("#health_data_entry_row").hide();
 	}
 	toggleHealthyOption( $(this).parent().parent().parent() );
-
-	// グローバルな一時変数として利用されているためクリアする。
-	current_health_history = [];
 
 	return false;
 }
@@ -4873,9 +4872,11 @@ function remove_disease() {
 	}
 
 	// row_number starts at 1, the array starts at 0 so we need to subtract 1
-	// ここで必ず、current_health_historyの参照先を更新する。
+	// 家族歴の質計算画面において必須。current_health_historyの参照先を更新する。
+	// これが無いと、登録したいデータが家族歴の質計算画面に遷移する直前のcurrent_health_historyのままとなってしまう。
 	var pi_id = $(this).parent().parent().parent().parent().parent().find('input').first().attr('pi_id');
-	current_health_history=PersonalInformationUtil.getRelationshipPiByPersonId(pi_id)["Health History"];
+	if( pi_id!=undefined && pi_id != '') current_health_history=PersonalInformationUtil.getRelationshipPiByPersonId(pi_id)["Health History"]; 
+
 	current_health_history.splice(disease_row_number, 1);
 
 	$(this).parent().parent().parent().find("#health_data_entry_row").show();
@@ -4904,9 +4905,6 @@ function remove_disease() {
 			$("#family_health_information").find("#alert_age_at_diagnosis").hide();
 		}
 	}
-
-	// グローバルな一時変数として利用されているためクリアする。
-	current_health_history = [];
 
 	return false;
 }
