@@ -196,7 +196,7 @@
 		"disease_or_condition": "健康または病気の状態",
 		"age_at_diagnosis": "診断時の年齢",
 		"action": "操作",
-		"age_at_diagnosis_select": "診断時の年齢を選択",
+		"age_at_diagnosis_select": "診断時の年齢を選択してください。",
 		"blank": "",
 		"prebirth": "出生前",
 		"newborn": "新生児期",
