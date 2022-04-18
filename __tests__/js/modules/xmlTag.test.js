@@ -5,6 +5,8 @@ import {
     PatientPerson, Relative, RelationshipHolder, Note, XmlTag, EstimatedAgeValue
 } from '../../../js/modules/xmlTag';
 
+import $ from 'jquery';
+
 var personalInformation = {
     "name": "あなた",
     "twin_status": "IDENTICAL",
@@ -1451,6 +1453,38 @@ test('ClinicalObservation_getPersonalInfomationData', () => {
                   "Disease Name": "Brain Cancer",
             }
         ]
+    };
+    expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
+
+    var parsedXml = [
+        {
+            "code": {
+                "attr_code": "1000000",
+                "attr_codeSystemName": "SNOMED_CT",
+                "attr_displayName": "Brain Cancer",
+                "attr_originalText": "Brain Cancer"
+            },
+            "sourceOf": {
+                "code": {
+                    "attr_code": "419620001",
+                    "attr_codeSystemName": "SNOMED_CT",
+                    "attr_displayName": "death"
+                },
+            },
+            "subject": "",
+            "value": ""
+        }
+    ];
+    var evalue = {
+        twin_status: "NO",
+        adopted: false,
+        consanguinity: undefined,
+        is_alive: "dead",
+        cause_of_death: "Cancer",
+        cause_of_death_code: "SNOMED_CT-1000000",
+        detailed_cause_of_death:"Brain Cancer",
+        flg_race_ethnic: 1,
+        "Health History": []
     };
     expect(tag.getPersonalInfomationData(parsedXml)).toStrictEqual(evalue);
 

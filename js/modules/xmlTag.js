@@ -534,6 +534,7 @@ class ClinicalObservation extends XmlTag {
     sourceOf;   // XmlTag
     subject;    // XmlTag
     value;      // XmlTag
+    diseases;   // needs for cause of death
 
     constructor(code, sourceOf, subject, value) {
         super();
@@ -541,6 +542,9 @@ class ClinicalObservation extends XmlTag {
         this.sourceOf = sourceOf;
         this.subject = subject;
         this.value = value;
+
+        this.diseases = require("../../data/diseases.json");
+
     }
 
     getXmlDataByJson() {
@@ -581,7 +585,6 @@ class ClinicalObservation extends XmlTag {
     }
 
     _getHealthHistory(obj) {
-
         var ret = false;
 
         // Family-T Healthy
@@ -606,7 +609,10 @@ class ClinicalObservation extends XmlTag {
         Object.keys(CodeUtil.CODE).forEach(function (key) {
 
             if( key.startsWith("SNOMED_CT-")){
-                if (CodeUtil.CODE[key].code == obj.code.attr_code && CodeUtil.CODE[key].codeSystemName == obj.code.attr_codeSystemName) {
+                if (CodeUtil.CODE[key].code == obj.code.attr_code 
+                    && CodeUtil.CODE[key].codeSystemName == obj.code.attr_codeSystemName
+                    && obj.subject != 'undefined'   // 病歴（subject）が無いのに上記2条件を満たす場合がある。
+                    && obj.subject != '') {
                     var code = CodeUtil.CODE[key];
                     ret = {
                         "Disease Name": code.displayName,
@@ -634,6 +640,9 @@ class ClinicalObservation extends XmlTag {
         // Height and Weight and actvity
         Object.assign(personalInformation, this._getHeight(obj));
         Object.assign(personalInformation, this._getWeight(obj));
+
+        // Cause of Death
+        Object.assign(personalInformation, this._getCauseOfDeath(obj));        
 
         return personalInformation;
     }
@@ -702,6 +711,36 @@ class ClinicalObservation extends XmlTag {
         }
 
         return personalInformation;
+    }
+
+    _getCauseOfDeath(obj) {
+        var personalInformation = {};
+        
+
+        if (this.isUndefindOrNull(obj.sourceOf.code)) {
+            return personalInformation;
+        }
+
+        if (!this.isUndefindOrNull(obj.sourceOf.code.attr_displayName)) {
+            this.appendJsonElement(personalInformation, "is_alive", 'dead');
+        }
+        
+        this.appendJsonElement(personalInformation, "cause_of_death", this._getCauseOfDeathName(obj.code.attr_code));
+        this.appendJsonElement(personalInformation, "cause_of_death_code", obj.code.attr_codeSystemName + '-' + obj.code.attr_code);
+        this.appendJsonElement(personalInformation, "detailed_cause_of_death", obj.code.attr_originalText);
+
+        return personalInformation;        
+    }
+
+    _getCauseOfDeathName(diseaseCode) {
+        var highLevelDiseaseList = Object.keys(this.diseases);
+        for (var i=0; i<highLevelDiseaseList.length;i++) {
+            var detailedDiseaseList = this.diseases[highLevelDiseaseList[i]];
+            for (var j=0;j<detailedDiseaseList.length;j++) {
+                if (detailedDiseaseList[j].code == diseaseCode) return highLevelDiseaseList[i];
+            }
+        }
+        return 'other';
     }
 
     // twin status
