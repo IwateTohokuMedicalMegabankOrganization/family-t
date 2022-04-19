@@ -67,6 +67,13 @@ $(window).on("load", function(){
 	$('#contents').append($( window.opener.document ).find('#disease_risk_calculator_dialog').clone() );
 	$('#risk_calculator_dialog_title').text(window.opener.printWindowTitle);
 
+	var temp = $('#contents').find('#disease_risk_calculator_dialog').clone();
+	var imgs = temp.find('img');
+	imgs.each(function(index,element){
+		var str = element.src.replace('http://localhost/','../');
+		$(element).attr('src', str);
+	});
+
 	$("#disp_toggle_diabetes").show();
 	$("#disp_toggle_chd").show();
 	$("#disp_toggle_stroke").show();
@@ -79,13 +86,16 @@ $(window).on("load", function(){
 
 	$('button').remove();
 	$('#risk_printer').remove();
-	$('#disease_risk_calculator_dialog').removeClass('ui-dialog-content');
-	$('#disease_risk_calculator_dialog').removeClass('ui-widget-content');
-	print();
+	//$('#disease_risk_calculator_dialog').removeClass('ui-dialog-content');
+	//$('#disease_risk_calculator_dialog').removeClass('ui-widget-content');
+	
+
+	//print();
 });
+/*
 window.onafterprint = function(){
 	window.opener.printWindow.close();
-}
+}*/
 </script>
 
 </body>
