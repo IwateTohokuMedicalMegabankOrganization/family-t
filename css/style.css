@@ -254,7 +254,7 @@ table#history_summary_table .small{
 }
 
 .for_print {
-	font-size: 200%;
+	font-size: 90%;
 	size: A4;
 	margin: auto;
 }
