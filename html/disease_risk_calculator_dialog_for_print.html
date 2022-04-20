@@ -54,6 +54,9 @@
 	document.addEventListener('DOMContentLoaded', (event) => {
 		console.log(`DOMContentLoadedイベントが発生しました。`);
 		var originDialog = $( window.opener.document ).find('#disease_risk_calculator_dialog').clone(false);
+
+		// cloneしたHTML要素をそのままappendすると、コールバック関数内でエラーとなり、
+		// 読込完了時にappendしたはずの要素が消えるため、必要なものだけappendする。
 		$('#contents').append(originDialog.find('#risk_caution_for_pring'));
 		if(originDialog.find('#compensational_block').css('display')!='none'){
 			$('#contents').append(originDialog.find('#compensational_block'));
