@@ -8,7 +8,10 @@ function bind_add_another_family_member_button_action() {
 			position:['middle',0],
 			title:$.t("fhh_js.define_family_relationship_dialog_title"),
 			height:'auto',
-			width:500
+			width:500,
+			open: function(){
+				$("#ui-id-23").attr('class', 'ui-dialog-title translate').attr('data-i18n','fhh_js.define_family_relationship_dialog_title');
+			}
 		});
 	} else {
 		new_family_member_dialog = $("#new_family_member_dialog");
