@@ -3843,20 +3843,24 @@ function add_family_history_header_row(table) {
 	var header_row = $("<tr>");
 	var head = $('<thead>');
 
-	header_row.append("<th class='center nowrap'>" + $.t("family-t.bo") + "</th>");
-	header_row.append("<th class='center nowrap'>" + $.t("family-t.name") + "</th>");
-	header_row.append("<th class='center nowrap'>" + $.t("family-t.gender") + "</th>");
-	header_row.append("<th abbr='Living' class='center nowrap'>" + $.t("family-t.still_living") + "</th>");
-	header_row.append("<th abbr='Age' class='center nowrap'>" + $.t("family-t.age") + "</th>");
-	header_row.append("<th class='nowrap'>" + $.t("family-t.health_information") + "</th>");
-	header_row.append("<th abbr='Update' class='center nowrap'>" + $.t("fhh_js.update_history") + "</th>");
-	header_row.append("<th abbr='Remove' class='center nowrap'>" + $.t("fhh_js.remove_relative") + "</th>");
-	header_row.append("<th abbr='UpdateDate' class='center nowrap'>" + $.t("family-t.update_date") + "</th>");
+	header_row.append("<th class='center nowrap'>" + getSpanForFamilyHistoryHeader("family-t.bo") + "</th>");
+	header_row.append("<th class='center nowrap'>" + getSpanForFamilyHistoryHeader("family-t.name") + "</th>");
+	header_row.append("<th class='center nowrap'>" + getSpanForFamilyHistoryHeader("family-t.gender") + "</th>");
+	header_row.append("<th abbr='Living' class='center nowrap'>" + getSpanForFamilyHistoryHeader("family-t.still_living") + "</th>");
+	header_row.append("<th abbr='Age' class='center nowrap'>" + getSpanForFamilyHistoryHeader("family-t.age") + "</th>");
+	header_row.append("<th class='nowrap'>" + getSpanForFamilyHistoryHeader("family-t.health_information") + "</th>");
+	header_row.append("<th abbr='Update' class='center nowrap'>" + getSpanForFamilyHistoryHeader("fhh_js.update_history") + "</th>");
+	header_row.append("<th abbr='Remove' class='center nowrap'>" + getSpanForFamilyHistoryHeader("fhh_js.remove_relative") + "</th>");
+	header_row.append("<th abbr='UpdateDate' class='center nowrap'>" + getSpanForFamilyHistoryHeader("family-t.update_date") + "</th>");
 	header_row.append("");
 
 	head.append( header_row );
 
 	table.empty().append(head);
+}
+
+function getSpanForFamilyHistoryHeader(key){
+	return createTranslationSpanAsString(key, $.t(key));
 }
 
 function getBirthOrderElement(pi){
@@ -7131,4 +7135,27 @@ function getWarekiYear(year){
 	}
 	
 	return year + '年';
+}
+
+function chngeLanguage(lng){
+	window.i18n.setLng(lng);
+	console.log('設定された値 : '+ window.i18n.lng());
+
+	// 言語を変換する。
+	var option = {
+		resGetPath: '../locales/__ns__-__lng__.json',
+		ns: {
+			namespaces: ['translation', 'diseases'],
+			defaultNs: 'translation'
+		}
+	};
+	i18n.init(option, function () {
+		$(".translate").i18n();
+	});
+}
+
+function createTranslationSpanAsString(translatKey, contents){
+	var span = "<span class='translate' data-i18n='" + translatKey + "'>" 
+		+  contents + "</span>";
+	return span;
 }
