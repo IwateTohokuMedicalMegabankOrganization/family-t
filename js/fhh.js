@@ -694,8 +694,8 @@ function start()
 		$("#age_determination_text").hide();
 		$("#estimated_age_select").hide();
 
-		set_age_at_diagnosis_pulldown( $.t("fhh_js.select_age"), $("#estimated_age_select"));
-		set_age_at_diagnosis_pulldown( $.t("fhh_js.select_age_death"), $("#estimated_death_age_select"));
+		set_age_at_diagnosis_pulldown( getSpanForTranslate("fhh_js.select_age"), $("#estimated_age_select"));
+		set_age_at_diagnosis_pulldown( getSpanForTranslate("fhh_js.select_age_death"), $("#estimated_death_age_select"));
 
 		set_disease_choice_select($("#cause_of_death_select"), $("#detailed_cause_of_death_select"), "cod");
 
@@ -855,6 +855,8 @@ function start()
 		$('#saved_leave_this_site').on('click', function(){
 			window.open('about:blank','_self').close();
 		});
+
+		$("#ui-id-10").attr('class', 'ui-dialog-title translate').attr('data-i18n','fhh_js.save_dialog_title');
 
 	});
 
@@ -1154,8 +1156,12 @@ function start()
 		position: {my: "center", at: "center", of: window},
 		autoOpen: false,
 		height:'auto',
-		width: ['96%']
+		width: ['96%'],
+		open: function(){
+			$("#ui-id-18").attr('class', 'ui-dialog-title translate').attr('data-i18n','fhh_js.help_dialog_title');
+		}
 	});
+	
 
 	$("#update_help_dialog").load ("update-help.html", function () {});
 	$("#update_help_dialog").dialog({
@@ -1875,7 +1881,10 @@ function bind_add_another_family_member_button_action() {
 				position: {my: "center", at: "center", of: window},
 				title:$.t("fhh_js.define_family_relationship_dialog_title"),
 				height:'auto',
-				width:500
+				width:500,
+				open: function(){
+					$("#ui-id-23").attr('class', 'ui-dialog-title translate').attr('data-i18n','fhh_js.define_family_relationship_dialog_title');
+				}
 			});
 		} else {
 			new_family_member_dialog = $("#new_family_member_dialog");
@@ -3710,14 +3719,14 @@ function build_family_history_data_table () {
 
 	// Self title
 	var tbody = $('<tbody>');
-	add_new_family_history_row_title(tbody, $.t("family-t.self") + " <span class='small'>* " + $.t("family-t.your_siblings") + "</span>");
+	add_new_family_history_row_title(tbody, "family-t.self", " <span class='small'>* " + getSpanForTranslate("family-t.your_siblings") + "</span>");
 	add_personal_history_row(tbody, false);
 	table.append(tbody);
 
 	// Brother and sister
 	if( hasRelations( [ 'brother', 'sister' ], personal_information ) ){
 		var tbody = $('<tbody>');
-		add_new_family_history_row_title(tbody, $.t("family-t.sibling") + " <span class='small'>* " + $.t("family-t.bo_you") + "</span>");
+		add_new_family_history_row_title(tbody, "family-t.sibling", " <span class='small'>* " + getSpanForTranslate("family-t.bo_you") + "</span>");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'brother', 'sister' ], personal_information, true );
@@ -3727,7 +3736,7 @@ function build_family_history_data_table () {
 
 	// parents
 	var tbody = $('<tbody>');
-	add_new_family_history_row_title(tbody, $.t("family-t.parents") + " <span class='small'>* " + $.t("family-t.bo_parent_brother") + "</span>");
+	add_new_family_history_row_title(tbody, "family-t.parents", " <span class='small'>* " + getSpanForTranslate("family-t.bo_parent_brother") + "</span>");
 
 	if( typeof personal_information.father != "undefined")
 		add_new_family_history_row(tbody, personal_information.father, $.t("fhh_js.father"), "father", false);
@@ -3740,7 +3749,7 @@ function build_family_history_data_table () {
 	// children
 	if( hasRelations( [ 'son', 'daughter' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, $.t("family-t.child"));
+		add_new_family_history_row_title(tbody, "family-t.child", "");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'son', 'daughter' ], personal_information, true );
@@ -3750,7 +3759,7 @@ function build_family_history_data_table () {
 	// おい（甥）・めい（姪）
 	if( hasRelations( [ 'niece', 'nephew' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, "おい（甥）・めい（姪） <span class='small'>* 親（あなたの兄弟姉妹）の出生順も書いてください。</span>");
+		add_new_family_history_row_title(tbody, "family-t.niece_and_nephew", "<span class='small'>* " + getSpanForTranslate("family-t.niece_and_nephew_parents") + "</span>");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'niece', 'nephew' ], personal_information, true );
@@ -3760,7 +3769,7 @@ function build_family_history_data_table () {
 	// 父方 おじ・おば
 	if( hasRelations( [ 'paternal_uncle', 'paternal_aunt' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, $.t("family-t.paternal_uncle_and_aunt") + " <span class='small'>* " + $.t("family-t.bo_father") + "</span>");
+		add_new_family_history_row_title(tbody, "family-t.paternal_uncle_and_aunt", " <span class='small'>* " + getSpanForTranslate("family-t.bo_father") + "</span>");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'paternal_uncle', 'paternal_aunt' ], personal_information, true );
@@ -3771,7 +3780,7 @@ function build_family_history_data_table () {
 	// 母方 おじ・おば
 	if( hasRelations( [ 'maternal_uncle', 'maternal_aunt' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, $.t("family-t.maternal_uncle_and_aunt") + " <span class='small'>* " + $.t("family-t.bo_mother") + "</span>");
+		add_new_family_history_row_title(tbody, "family-t.maternal_uncle_and_aunt", " <span class='small'>* " + getSpanForTranslate("family-t.bo_mother") + "</span>");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'maternal_uncle', 'maternal_aunt' ], personal_information, true );
@@ -3782,7 +3791,7 @@ function build_family_history_data_table () {
 	// 父方 祖父母
 	if( hasRelations( [ 'paternal_grandfather', 'paternal_grandmother' ], personal_information ) ){
 		var tbody = $('<tbody>');
-		add_new_family_history_row_title(tbody, $.t("family-t.paternal_grandparents"));
+		add_new_family_history_row_title(tbody, "family-t.paternal_grandparents", "");
 		add_new_family_history_row(tbody, personal_information.paternal_grandfather, $.t("fhh_js.paternal_grandfather"), "paternal_grandfather", false);
 		add_new_family_history_row(tbody, personal_information.paternal_grandmother, $.t("fhh_js.paternal_grandmother"), "paternal_grandmother", false);
 		table.append(tbody);
@@ -3791,7 +3800,7 @@ function build_family_history_data_table () {
 	// 母方 祖父母
 	if( hasRelations( [ 'maternal_grandfather', 'maternal_grandmother' ], personal_information ) ){
 		var tbody = $('<tbody>');
-		add_new_family_history_row_title(tbody, $.t("family-t.maternal_grandparents"));
+		add_new_family_history_row_title(tbody, "family-t.maternal_grandparents", "");
 		add_new_family_history_row(tbody, personal_information.maternal_grandfather, $.t("fhh_js.maternal_grandfather"), "maternal_grandfather", false);
 		add_new_family_history_row(tbody, personal_information.maternal_grandmother, $.t("fhh_js.maternal_grandmother"), "maternal_grandmother", false);
 		table.append(tbody);
@@ -3800,7 +3809,7 @@ function build_family_history_data_table () {
 	// 父方 いとこ
 	if( hasRelations( [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, $.t("family-t.maternal_uncle_and_aunt"));
+		add_new_family_history_row_title(tbody, "family-t.maternal_uncle_and_aunt", "");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information, true );
@@ -3810,7 +3819,7 @@ function build_family_history_data_table () {
 	// 母方 いとこ
 	if( hasRelations( [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, $.t("family-t.maternal_uncle_and_aunt"));
+		add_new_family_history_row_title(tbody, "family-t.maternal_uncle_and_aunt", "");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information, true );
@@ -3820,7 +3829,7 @@ function build_family_history_data_table () {
 	// 孫
 	if( hasRelations( [ 'grandson', 'granddaughter' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, "孫");
+		add_new_family_history_row_title(tbody, "family-t.grandchild", "");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'grandson', 'granddaughter' ], personal_information, true );
@@ -3828,7 +3837,7 @@ function build_family_history_data_table () {
 	}
 	// 書ききれなかった方
 	var tbody = $('<tbody>');
-	add_new_family_history_row_title(tbody, $.t("fhh_js.recently_added"));
+	add_new_family_history_row_title(tbody, "fhh_js.recently_added", "");
 	table.append(tbody);
 
 	// $("#history_summary_table").find('tbody').addClass('list-group ui-sortable')
@@ -3843,15 +3852,15 @@ function add_family_history_header_row(table) {
 	var header_row = $("<tr>");
 	var head = $('<thead>');
 
-	header_row.append("<th class='center nowrap'>" + $.t("family-t.bo") + "</th>");
-	header_row.append("<th class='center nowrap'>" + $.t("family-t.name") + "</th>");
-	header_row.append("<th class='center nowrap'>" + $.t("family-t.gender") + "</th>");
-	header_row.append("<th abbr='Living' class='center nowrap'>" + $.t("family-t.still_living") + "</th>");
-	header_row.append("<th abbr='Age' class='center nowrap'>" + $.t("family-t.age") + "</th>");
-	header_row.append("<th class='nowrap'>" + $.t("family-t.health_information") + "</th>");
-	header_row.append("<th abbr='Update' class='center nowrap'>" + $.t("fhh_js.update_history") + "</th>");
-	header_row.append("<th abbr='Remove' class='center nowrap'>" + $.t("fhh_js.remove_relative") + "</th>");
-	header_row.append("<th abbr='UpdateDate' class='center nowrap'>" + $.t("family-t.update_date") + "</th>");
+	header_row.append("<th class='center nowrap'>" + getSpanForTranslate("family-t.bo") + "</th>");
+	header_row.append("<th class='center nowrap'>" + getSpanForTranslate("family-t.name") + "</th>");
+	header_row.append("<th class='center nowrap'>" + getSpanForTranslate("family-t.gender") + "</th>");
+	header_row.append("<th abbr='Living' class='center nowrap'>" + getSpanForTranslate("family-t.still_living") + "</th>");
+	header_row.append("<th abbr='Age' class='center nowrap'>" + getSpanForTranslate("family-t.age") + "</th>");
+	header_row.append("<th class='nowrap'>" + getSpanForTranslate("family-t.health_information") + "</th>");
+	header_row.append("<th abbr='Update' class='center nowrap'>" + getSpanForTranslate("fhh_js.update_history") + "</th>");
+	header_row.append("<th abbr='Remove' class='center nowrap'>" + getSpanForTranslate("fhh_js.remove_relative") + "</th>");
+	header_row.append("<th abbr='UpdateDate' class='center nowrap'>" + getSpanForTranslate("family-t.update_date") + "</th>");
 	header_row.append("");
 
 	head.append( header_row );
@@ -3859,12 +3868,16 @@ function add_family_history_header_row(table) {
 	table.empty().append(head);
 }
 
+function getSpanForTranslate(key){
+	return createTranslationSpanAsString(key, $.t(key));
+}
+
 function getBirthOrderElement(pi){
 	return getBirthOrderElement(pi, false );
 }
 function getBirthOrderElement(pi, sortable){
 	var retval = $("<td class='inforamtion center birthOrder'>");
-	retval.text(getDisplayBirthOrder(pi));
+	retval.append(getDisplayBirthOrder(pi));
 	if( sortable ){
 		$(retval).append(getSortableIcon());
 	}
@@ -3884,7 +3897,7 @@ function getDisplayBirthOrder( pi ){
 	if( typeof pi.birth_order == "undefined")
 		return '';
 
-	return pi.birth_order + $.t("family-t.birth_order_annotation");
+	return pi.birth_order + getSpanForTranslate("family-t.birth_order_annotation");
 }
 
 function getTdElement(name, className){
@@ -3913,13 +3926,13 @@ function getHealthHistories( histories ){
 	histories.forEach( function( h ){
 		var row = $('<div>');
 
-		var text = $.t("diseases:" + h["Disease Code"]);
+		var text = getSpanForTranslate("diseases:" + h["Disease Code"]);
 		if( text.length == 0 ) text = h["Detailed Disease Name"];
 		
 		if( h["Age At Diagnosis"] != "blank")
-			text += "(" + $.t("fhh_js." + h["Age At Diagnosis"] ) + ")" ;
+			text += "(" + getSpanForTranslate("fhh_js." + h["Age At Diagnosis"] ) + ")" ;
 
-		row.text(text);
+		row.append(text);
 		rows.append( row );
 	});
 	return rows;
@@ -3954,7 +3967,7 @@ function getDisplayAge(pi){
 		if( typeof pi.estimated_death_age != "undefined" )
 			if( pi.estimated_death_age != "")
 				if( $.t( "fhh_js." + pi.estimated_death_age ).length > 0 )
-					return $.t( "fhh_js." + pi.estimated_death_age ) ;
+					return getSpanForTranslate( "fhh_js." + pi.estimated_death_age ) ;
 
 	return "";
 }
@@ -3981,12 +3994,12 @@ function add_personal_history_row(table, is_sort_only) {
 	nameColumn_td.append(nameColumn_text);
 	new_row.append(nameColumn_td);
 
-	new_row.append(getTdElement( $.t("fhh_js." + ( ( typeof personal_information.gender == 'undefined' )? "Unknown" : personal_information.gender )) , 'gender') );
+	new_row.append(getTdElement( getSpanForTranslate("fhh_js." + ( ( typeof personal_information.gender == 'undefined' )? "Unknown" : personal_information.gender )) , 'gender') );
 
 //	new_row.append("<td class='summary_td information'>" + $.t("fhh_js.self") + "</td>");
 
 //	new_row.append("<td class='information' id='still_living_main'>Yes</td>");
-	new_row.append("<td class='information center' id='still_living_main'>"+ $.t("fhh_family_pedigree.alive") +"</td>");
+	new_row.append("<td class='information center' id='still_living_main'>"+ getSpanForTranslate("fhh_family_pedigree.alive") +"</td>");
 
 	// 年齢
 	new_row.append(getTdElement(getDisplayAge(personal_information), 'age'));
@@ -4020,10 +4033,10 @@ function add_personal_history_row(table, is_sort_only) {
 	table.append(new_row);
 }
 
-function add_new_family_history_row_title(table, name) {
+function add_new_family_history_row_title(table, key, additionalContents) {
 
 	var new_row = $("<tr style='height: 70px; overflow:auto;'>");
-	new_row.append("<td colspan='8' class='subsection'>" + name + "</td>");
+	new_row.append("<td colspan='8' class='subsection'>" + getSpanForTranslate(key) + additionalContents + "</td>");
 	table.append(new_row);
 
 }
@@ -4064,7 +4077,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 
 	new_row.append(nameColumn_td);
 
-	new_row.append(getTdElement( $.t("fhh_js." + family_member.gender) , 'gender' ));
+	new_row.append(getTdElement( getSpanForTranslate("fhh_js." + family_member.gender) , 'gender' ));
 
 	nameColumn_text.on("click", function() {
 		current_relationship = $(this).attr('relationship_id');
@@ -4086,7 +4099,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		if (family_member.is_alive=="alive") {
 			status = "Yes";
 		}
-		status = $.t("fhh_family_pedigree." + family_member.is_alive);
+		status = getSpanForTranslate("fhh_family_pedigree." + family_member.is_alive);
 
 	}
 
@@ -4386,24 +4399,30 @@ function build_family_health_information_section() {
 	var information = $("#family_health_information");
 	// First put up accordion entry
 	var bar = $("<div class='title-bar' id='hi-title'>");
-	bar.append($.t("fhh_js.family_subtitle"));
+	bar.append(getSpanForTranslate("fhh_js.family_subtitle"));
 	information.empty().append(bar);
 	var inner_information = $("<div class='instruction_box'>");
-	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_1") + "</li>"));
-	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_2") + "</li>"));
-	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_3") + "</li>"));
-	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_4") + "</li>"));
-	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_5") + "</li>"));
+	inner_information.append($("<li class='instructions'>" +  getSpanForTranslate("fhh_js.add_disease_instructions_1_1") 
+								+ "<B>" + getSpanForTranslate("fhh_js.add_disease_instructions_1_2") +  "</B>"
+								+ getSpanForTranslate("fhh_js.add_disease_instructions_1_3") + "</li>"));
+	inner_information.append($("<li class='instructions'>" +  getSpanForTranslate("fhh_js.add_disease_instructions_2_1") 
+								+ "<B>" + getSpanForTranslate("fhh_js.add_disease_instructions_2_2") + "</B>" 
+								+ getSpanForTranslate("fhh_js.add_disease_instructions_2_3")
+								+ "<B>" + getSpanForTranslate("fhh_js.add_disease_instructions_2_4") + "</B>" 
+								+ getSpanForTranslate("fhh_js.add_disease_instructions_2_5") + "</li>"));
+	inner_information.append($("<li class='instructions'>" +  getSpanForTranslate("fhh_js.add_disease_instructions_3") + "</li>"));
+	inner_information.append($("<li class='instructions'>" +  getSpanForTranslate("fhh_js.add_disease_instructions_4") + "</li>"));
+	inner_information.append($("<li class='instructions'>" +  getSpanForTranslate("fhh_js.add_disease_instructions_5") + "</li>"));
 	information.append(inner_information);
 	information.append($("<span class='left' id='alert_age_at_diagnosis' style='display:none; color:red; padding-left: 2em;'>実年齢または死亡年齢を超えています。</span>"));
-	information.append($("<span class='left require_health_history' style='display:none; color:red; padding-left: 2em;'>" + $.t("family-t.mandatory_health_history_family") + "</span>"));
+	information.append($("<span class='left require_health_history' style='display:none; color:red; padding-left: 2em;'>" + getSpanForTranslate("family-t.mandatory_health_history_family") + "</span>"));
 
 	var hi_health_history_table = $("<table class='disease_table col s12'>");
 	var hi_header_row = $("<tr class='md_tr'>");
-	hi_header_row.append("<th class='md_tr' style='width:35%;text-align:center'><span class='required'>*</span>" + $.t("fhh_js.disease_or_condition") + "</th>");
-	hi_header_row.append("<th class='md_tr' style='width:35%;text-align:center'>" + $.t("") + "</th>");
-	hi_header_row.append("<th class='md_tr' style='width:20%;text-align:center'>" + $.t("fhh_js.age_at_diagnosis") + "</th>");
-	hi_header_row.append("<th class='md_tr' style='width:10%;text-align:center'>" + $.t("fhh_js.action") + "</th>");
+	hi_header_row.append("<th class='md_tr' style='width:35%;text-align:center'><span class='required'>*</span>" + getSpanForTranslate("fhh_js.disease_or_condition") + "</th>");
+	hi_header_row.append("<th class='md_tr' style='width:35%;text-align:center'>" + getSpanForTranslate("") + "</th>");
+	hi_header_row.append("<th class='md_tr' style='width:20%;text-align:center'>" + getSpanForTranslate("fhh_js.age_at_diagnosis") + "</th>");
+	hi_header_row.append("<th class='md_tr' style='width:10%;text-align:center'>" + getSpanForTranslate("fhh_js.action") + "</th>");
 	hi_health_history_table.append(hi_header_row);
 	var hi_data_entry_row = $("<tr class='md_tr' id='health_data_entry_row'>");
 	var disease_select_label = $("<label for='disease_choice_select'></label>");
@@ -4417,10 +4436,10 @@ function build_family_health_information_section() {
 	var age_at_diagnosis_select_label = $("");
 	var age_at_diagnosis_select = $("<select tabindex='19' name='age_at_diagnosis_select' id='age_at_diagnosis_select' style='margin: auto;'></select>");
 
-	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);
+	set_age_at_diagnosis_pulldown(getSpanForTranslate("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);
 	hi_data_entry_row.append($("<td>").append(age_at_diagnosis_select_label).append(age_at_diagnosis_select));
 
-	var add_new_disease_button = $("<button id='family_add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1 '>" + $.t("fhh_js.add")  + "</button>");
+	var add_new_disease_button = $("<button id='family_add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1 '>" + getSpanForTranslate("fhh_js.add")  + "</button>");
 	add_new_disease_button.on('click', add_disease);
 
 	hi_data_entry_row.append($("<td style='text-align:center;'>").append(add_new_disease_button) );
@@ -4478,24 +4497,30 @@ function build_personal_health_information_section() {
 	var information = $("#personal_health_information");
 	// First put up accordion entry
 	var bar = $("<div class='title-bar' id='hi-title'>");
-	bar.append($.t("fhh_js.personal_health_subtitle"));
+	bar.append(getSpanForTranslate("fhh_js.personal_health_subtitle"));
 	information.empty().append(bar);
 	var inner_information = $("<div class='instruction_box'>");
-	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_1") + "</li>"));
-	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_2") + "</li>"));
-	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_3") + "</li>"));
-	inner_information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_5") + "</li>"));
+	inner_information.append($("<li class='instructions'>" +  getSpanForTranslate("fhh_js.add_disease_instructions_1_1") 
+								+ "<B>" + getSpanForTranslate("fhh_js.add_disease_instructions_1_2") +  "</B>"
+								+ getSpanForTranslate("fhh_js.add_disease_instructions_1_3") + "</li>"));
+	inner_information.append($("<li class='instructions'>" +  getSpanForTranslate("fhh_js.add_disease_instructions_2_1") 
+								+ "<B>" + getSpanForTranslate("fhh_js.add_disease_instructions_2_2") + "</B>" 
+								+ getSpanForTranslate("fhh_js.add_disease_instructions_2_3")
+								+ "<B>" + getSpanForTranslate("fhh_js.add_disease_instructions_2_4") + "</B>" 
+								+ getSpanForTranslate("fhh_js.add_disease_instructions_2_5") + "</li>"));
+	inner_information.append($("<li class='instructions'>" +  getSpanForTranslate("fhh_js.add_disease_instructions_3") + "</li>"));
+	inner_information.append($("<li class='instructions'>" +  getSpanForTranslate("fhh_js.add_disease_instructions_5") + "</li>"));
 	information.append(inner_information);
 	information.append($("<span class='left' id='alert_age_at_diagnosis' style='display:none; color:red; padding-left: 2em;'>実年齢または死亡年齢を超えています。</span>"));
-	information.append($("<span class='left require_health_history' style='display:none; color:red; padding-left: 2em;'>" + $.t("family-t.mandatory_health_history_self") + "</span>"));
+	information.append($("<span class='left require_health_history' style='display:none; color:red; padding-left: 2em;'>" + getSpanForTranslate("family-t.mandatory_health_history_self") + "</span>"));
 
 
 	var hi_health_history_table = $("<table class='disease_table col s12'>");
 	var hi_header_row = $("<tr class='md_tr'></tr>");
-	hi_header_row.append("<th class='md_tr' style='width:35%;text-align:center'>" + $.t("fhh_js.disease_or_condition") + "</th>");
-	hi_header_row.append("<th class='md_tr' style='width:35%;text-align:center'>" + $.t("") + "</th>");
-	hi_header_row.append("<th class='md_tr' style='width:20%;text-align:center'>" + $.t("fhh_js.age_at_diagnosis") + "</th>");
-	hi_header_row.append("<th class='md_tr' style='width:10%;text-align:center'>" + $.t("fhh_js.action") + "</th>");
+	hi_header_row.append("<th class='md_tr' style='width:35%;text-align:center'>" + getSpanForTranslate("fhh_js.disease_or_condition") + "</th>");
+	hi_header_row.append("<th class='md_tr' style='width:35%;text-align:center'>" + getSpanForTranslate("") + "</th>");
+	hi_header_row.append("<th class='md_tr' style='width:20%;text-align:center'>" + getSpanForTranslate("fhh_js.age_at_diagnosis") + "</th>");
+	hi_header_row.append("<th class='md_tr' style='width:10%;text-align:center'>" + getSpanForTranslate("fhh_js.action") + "</th>");
 	hi_health_history_table.append(hi_header_row);
 
 	var hi_data_entry_row = build_hi_data_entry_row();
@@ -4518,9 +4543,9 @@ function build_hi_data_entry_row() {
 
 	var age_at_diagnosis_select = $("<select class='col s12' tabindex='19' name='age_at_diagnosis_select' id='age_at_diagnosis_select' style='margin: auto;'></select>");
 
-	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);
+	set_age_at_diagnosis_pulldown(getSpanForTranslate("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);
 	hi_data_entry_row.append($("<td></td>").append(age_at_diagnosis_select));
-	var add_new_disease_button = $("<button id='add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1'>" + $.t("fhh_js.add") + "</button>");
+	var add_new_disease_button = $("<button id='add_new_disease_button' name='Add' value='Add' class='btn-small waves-effect waves-light teal lighten-1'>" + getSpanForTranslate("fhh_js.add") + "</button>");
 
 	add_new_disease_button.on('click', add_disease);
 
@@ -4531,18 +4556,18 @@ function build_hi_data_entry_row() {
 
 function set_disease_choice_select (disease_select, detailed_disease_select, cod, skip_Unknown) {
 	//detailed_disease_select.hide();
-	disease_select.append("<option value='not_picked'>" + $.t("fhh_js.disease_select") + "</option>");
-	detailed_disease_select.append("<option value='not_picked'>" + $.t("fhh_js.disease_subtype_select") + "</option>");
+	disease_select.append("<option value='not_picked'>" + getSpanForTranslate("fhh_js.disease_select") + "</option>");
+	detailed_disease_select.append("<option value='not_picked'>" + getSpanForTranslate("fhh_js.disease_subtype_select") + "</option>");
 	$('.ddcs').prop('disabled',true);
 	for (disease_name in diseases) {
 		if( skip_Unknown ) {
 			if( disease_name != 'Unknown')
-				disease_select.append("<option value='" + disease_name + "'> " + $.t("diseases:" + disease_name) + " </option>");
+				disease_select.append("<option value='" + disease_name + "'> " + getSpanForTranslate("diseases:" + disease_name) + " </option>");
 		}else{
-			disease_select.append("<option value='" + disease_name + "'> " + $.t("diseases:" + disease_name) + " </option>");
+			disease_select.append("<option value='" + disease_name + "'> " + getSpanForTranslate("diseases:" + disease_name) + " </option>");
 		}
 	}
-	disease_select.append("<option value='other'>" + $.t("fhh_js.add_new") + "</option>");
+	disease_select.append("<option value='other'>" + getSpanForTranslate("fhh_js.add_new") + "</option>");
 
 	disease_select.on('change', function() {
 
@@ -4602,7 +4627,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 				} else {
 					$(this).parent().find($('.ddcs')).prop('disabled',false);
 					$(this).parent().parent().find('#age_at_diagnosis_select').prop('disabled',false);
-					detailed_disease_select.show().append("<option value='not_picked'>" + $.t("fhh_js.disease_subtype_select") + "</option>");
+					detailed_disease_select.show().append("<option value='not_picked'>" + getSpanForTranslate("fhh_js.disease_subtype_select") + "</option>");
 
 					for (var i = 0; i < detailed_disease.length;i++) {
 						detailed_disease_select.append("<option value='" + detailed_disease[i].system + "-" + detailed_disease[i].code + "'> "
@@ -4620,7 +4645,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 					if ($(this).find("option:selected" ).val() != "not_picked" ) {
 						detailed_disease_select.append("<option value='other_details'>" + $(this).find("option:selected" ).val() + "</option>");
 					} else {
-						detailed_disease_select.append("<option value='not_picked'>" + $.t("fhh_js.disease_subtype_select") + "</option>");
+						detailed_disease_select.append("<option value='not_picked'>" + getSpanForTranslate("fhh_js.disease_subtype_select") + "</option>");
 					}
 			}
 		}
@@ -4635,24 +4660,24 @@ function get_detailed_disease (disease_name) {
 
 function set_age_at_diagnosis_pulldown(instructions, age_at_diagnosis_select) {
 	age_at_diagnosis_select.append("<option value='not_picked'> "+instructions+"  </option>");
-	age_at_diagnosis_select.append("<option value='Unknown'>" + $.t("fhh_js.unknown") + "</option>");
-	age_at_diagnosis_select.append("<option value='prebirth'>" + $.t("fhh_js.prebirth") + "</option>");
-	age_at_diagnosis_select.append("<option value='newborn'>" + $.t("fhh_js.newborn") + "</option>");
-	age_at_diagnosis_select.append("<option value='infant'>" + $.t("fhh_js.infant") + "</option>");
-	age_at_diagnosis_select.append("<option value='child'>" + $.t("fhh_js.child") + "</option>");
-	age_at_diagnosis_select.append("<option value='early_teens'>" + $.t("fhh_js.early_teens") + "</option>");
-	age_at_diagnosis_select.append("<option value='late_teens'>" + $.t("fhh_js.late_teens") + "</option>");
-	age_at_diagnosis_select.append("<option value='early_twenties'>" + $.t("fhh_js.early_twenties") + "</option>");
-	age_at_diagnosis_select.append("<option value='late_twenties'>" + $.t("fhh_js.late_twenties") + "</option>");
-	age_at_diagnosis_select.append("<option value='early_thirties'>" + $.t("fhh_js.early_thirties") + "</option>");
-	age_at_diagnosis_select.append("<option value='late_thirties'>" + $.t("fhh_js.late_thirties") + "</option>");
-	age_at_diagnosis_select.append("<option value='early_fourties'>" + $.t("fhh_js.early_fourties") + "</option>");
-	age_at_diagnosis_select.append("<option value='late_fourties'>" + $.t("fhh_js.late_fourties") + "</option>");
-	age_at_diagnosis_select.append("<option value='early_fifties'>" + $.t("fhh_js.early_fifties") + "</option>");
-	age_at_diagnosis_select.append("<option value='late_fifties'>" + $.t("fhh_js.late_fifties") + "</option>");
-	age_at_diagnosis_select.append("<option value='early_sixties'>" + $.t("fhh_js.early_sixties") + "</option>");
-	age_at_diagnosis_select.append("<option value='late_sixties'>" + $.t("fhh_js.late_sixties") + "</option>");
-	age_at_diagnosis_select.append("<option value='senior'>" + $.t("fhh_js.senior") + "</option>");
+	age_at_diagnosis_select.append("<option value='Unknown'>" + getSpanForTranslate("fhh_js.unknown") + "</option>");
+	age_at_diagnosis_select.append("<option value='prebirth'>" + getSpanForTranslate("fhh_js.prebirth") + "</option>");
+	age_at_diagnosis_select.append("<option value='newborn'>" + getSpanForTranslate("fhh_js.newborn") + "</option>");
+	age_at_diagnosis_select.append("<option value='infant'>" + getSpanForTranslate("fhh_js.infant") + "</option>");
+	age_at_diagnosis_select.append("<option value='child'>" + getSpanForTranslate("fhh_js.child") + "</option>");
+	age_at_diagnosis_select.append("<option value='early_teens'>" + getSpanForTranslate("fhh_js.early_teens") + "</option>");
+	age_at_diagnosis_select.append("<option value='late_teens'>" + getSpanForTranslate("fhh_js.late_teens") + "</option>");
+	age_at_diagnosis_select.append("<option value='early_twenties'>" + getSpanForTranslate("fhh_js.early_twenties") + "</option>");
+	age_at_diagnosis_select.append("<option value='late_twenties'>" + getSpanForTranslate("fhh_js.late_twenties") + "</option>");
+	age_at_diagnosis_select.append("<option value='early_thirties'>" + getSpanForTranslate("fhh_js.early_thirties") + "</option>");
+	age_at_diagnosis_select.append("<option value='late_thirties'>" + getSpanForTranslate("fhh_js.late_thirties") + "</option>");
+	age_at_diagnosis_select.append("<option value='early_fourties'>" + getSpanForTranslate("fhh_js.early_fourties") + "</option>");
+	age_at_diagnosis_select.append("<option value='late_fourties'>" + getSpanForTranslate("fhh_js.late_fourties") + "</option>");
+	age_at_diagnosis_select.append("<option value='early_fifties'>" + getSpanForTranslate("fhh_js.early_fifties") + "</option>");
+	age_at_diagnosis_select.append("<option value='late_fifties'>" + getSpanForTranslate("fhh_js.late_fifties") + "</option>");
+	age_at_diagnosis_select.append("<option value='early_sixties'>" + getSpanForTranslate("fhh_js.early_sixties") + "</option>");
+	age_at_diagnosis_select.append("<option value='late_sixties'>" + getSpanForTranslate("fhh_js.late_sixties") + "</option>");
+	age_at_diagnosis_select.append("<option value='senior'>" + getSpanForTranslate("fhh_js.senior") + "</option>");
 	return age_at_diagnosis_select;
 }
 
@@ -4824,12 +4849,12 @@ function create_disease_row(row_number, disease_name, disease_detail, age_at_dia
 	} else {
 		new_row.append("<td class='disease_name hi-add'>" + escape_html(disease_name) + "</td>");
 	}
-	new_row.append("<td class='age_at_diagnosis hi-add'>" + $.t("fhh_js." + age_at_diagnosis) + "</td>");
+	new_row.append("<td class='age_at_diagnosis hi-add'>" + getSpanForTranslate("fhh_js." + age_at_diagnosis) + "</td>");
 //	new_row.append("<td>" +  age_at_diagnosis + "</td>");
 
-	var remove_disease_button = $("<button id='remove_disease_button'>" + $.t("fhh_js.remove") + "</button>");
+	var remove_disease_button = $("<button id='remove_disease_button'>" + getSpanForTranslate("fhh_js.remove") + "</button>");
 	var remove_disease_button = $("<div class='inner'><button style='display:none;' id='remove_disease_button' href='#'></button><div class='material-icons large-size green-text cursor_pointer icon_shadow'>delete</div></div>");
-	var remove_disease_button = $("<button id='remove_disease_button' class='btn-small waves-effect waves-light teal lighten-1 '>" + $.t("fhh_js.remove") + "</button>");
+	var remove_disease_button = $("<button id='remove_disease_button' class='btn-small waves-effect waves-light teal lighten-1 '>" + getSpanForTranslate("fhh_js.remove") + "</button>");
 
 	remove_disease_button.attr("row_number", row_number+1);
 
@@ -4933,73 +4958,73 @@ function build_race_ethnicity_section(race_ethnicity, personal_flag) {
 
 	var race_checkboxes = $("<td class='race_checkbox'>" +
 			"<input tabindex='21' name='selectedRaces' value='1' id='" + races_id_text + "-1'  type='checkbox' class='filled-in' />" +
-			"<label for='" + races_id_text + "-1' class='checkboxLabel'>" + $.t("fhh_js.race_native_american") + "　</label>" +
+			"<label for='" + races_id_text + "-1' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_native_american") + "　</label>" +
 			"<input tabindex='21' name='selectedRaces' value='2' id='" + races_id_text + "-2' type='checkbox' class='filled-in' />" +
-			"<label for='" + races_id_text + "-2' class='checkboxLabel'>" + $.t("fhh_js.race_asian") + "　</label>" +
+			"<label for='" + races_id_text + "-2' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_asian") + "　</label>" +
 			"<input tabindex='21' name='selectedRaces' value='3' id='" + races_id_text + "-3' type='checkbox' class='filled-in' />" +
-			"<label for='" + races_id_text + "-3' class='checkboxLabel'>" + $.t("fhh_js.race_black") + "　</label>" +
+			"<label for='" + races_id_text + "-3' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_black") + "　</label>" +
 			"<input tabindex='21' name='selectedRaces' value='4' id='" + races_id_text + "-4'  type='checkbox' class='filled-in' />" +
-			"<label for='" + races_id_text + "-4' class='checkboxLabel'>" + $.t("fhh_js.race_south_pacific") + "　</label>" +
+			"<label for='" + races_id_text + "-4' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_south_pacific") + "　</label>" +
 			"<input tabindex='21' name='selectedRaces' value='5' id='" + races_id_text + "-5'  type='checkbox' class='filled-in' />" +
-			"<label for='" + races_id_text + "-5' class='checkboxLabel'>" + $.t("fhh_js.race_white") + "　</label>" +
+			"<label for='" + races_id_text + "-5' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_white") + "　</label>" +
 			"</td>");
 
 	var asian_race_checkboxes = $("<td class='race_checkbox'>" +
 			"<input tabindex='22' name='selectedRaces' value='11' id='" + races_id_text + "-11'  type='checkbox' class='filled-in' />" +
-			"<label for='" + races_id_text + "-11' class='checkboxLabel'>" + $.t("fhh_js.race_asian_indian") + "　</label>" +
+			"<label for='" + races_id_text + "-11' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_asian_indian") + "　</label>" +
 			"<input tabindex='22' name='selectedRaces' value='12' id='" + races_id_text + "-12' type='checkbox' class='filled-in' />" +
-			"<label for='" + races_id_text + "-12' class='checkboxLabel'>" + $.t("fhh_js.race_chinese") + "　</label>" +
+			"<label for='" + races_id_text + "-12' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_chinese") + "　</label>" +
 			"<input tabindex='22' name='selectedRaces' value='13' id='" + races_id_text + "-13' type='checkbox' class='filled-in' />" +
-			"<label for='" + races_id_text + "-13' class='checkboxLabel'>" + $.t("fhh_js.race_filipino") + "　</label>" +
+			"<label for='" + races_id_text + "-13' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_filipino") + "　</label>" +
 			"<input tabindex='22' name='selectedRaces' value='14' id='" + races_id_text + "-14' type='checkbox' class='filled-in' />" +
-			"<label for='" + races_id_text + "-14' class='checkboxLabel'>" + $.t("fhh_js.race_japanese") + "　</label>" +
+			"<label for='" + races_id_text + "-14' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_japanese") + "　</label>" +
 			"<input tabindex='22' name='selectedRaces' value='15' id='" + races_id_text + "-15' type='checkbox' class='filled-in' />" +
-			"<label for='" + races_id_text + "-15' class='checkboxLabel'>" + $.t("fhh_js.race_korean") + "　</label>" +
+			"<label for='" + races_id_text + "-15' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_korean") + "　</label>" +
 			"<input tabindex='22' name='selectedRaces' value='16' id='" + races_id_text + "-16' type='checkbox' class='filled-in' />" +
-			"<label for='" + races_id_text + "-16' class='checkboxLabel'>" + $.t("fhh_js.race_vietnamese") + "　</label>" +
+			"<label for='" + races_id_text + "-16' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_vietnamese") + "　</label>" +
 			"<input tabindex='22' name='selectedRaces' value='17' id='" + races_id_text + "-17' type='checkbox' class='filled-in' />" +
-			"<label for='" + races_id_text + "-17' class='checkboxLabel'>" + $.t("fhh_js.race_other_asian") + "　</label>" +
+			"<label for='" + races_id_text + "-17' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_other_asian") + "　</label>" +
 			"<input tabindex='22' name='selectedRaces' value='18' id='" + races_id_text + "-18' type='checkbox' class='filled-in' />" +
-			"<label for='" + races_id_text + "-18' class='checkboxLabel'>" + $.t("fhh_js.race_unknown_asian") + "　</label>" +
+			"<label for='" + races_id_text + "-18' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_unknown_asian") + "　</label>" +
 			"</td>");
 
 	var south_pacific_race_checkboxes = $("<td class='race_checkbox'>" +
 			"<input tabindex='23' name='selectedRaces' value='21' id='" + races_id_text + "-21'  type='checkbox' class='filled-in' >" +
-			"<label for='" + races_id_text + "-21' class='checkboxLabel'>" + $.t("fhh_js.race_chamorro") + "　</label>" +
+			"<label for='" + races_id_text + "-21' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_chamorro") + "　</label>" +
 			"<input tabindex='23' name='selectedRaces' value='22' id='" + races_id_text + "-22' type='checkbox' class='filled-in' >" +
-			"<label for='" + races_id_text + "-22' class='checkboxLabel'>" + $.t("fhh_js.race_guamanian") + "　</label>" +
+			"<label for='" + races_id_text + "-22' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_guamanian") + "　</label>" +
 			"<input tabindex='23' name='selectedRaces' value='23' id='" + races_id_text + "-23' type='checkbox' class='filled-in' >" +
-			"<label for='" + races_id_text + "-23' class='checkboxLabel'>" + $.t("fhh_js.race_hawaiian") + "　</label>" +
+			"<label for='" + races_id_text + "-23' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_hawaiian") + "　</label>" +
 			"<input tabindex='23' name='selectedRaces' value='24' id='" + races_id_text + "-24' type='checkbox' class='filled-in' >" +
-			"<label for='" + races_id_text + "-24' class='checkboxLabel'>" + $.t("fhh_js.race_samoan") + "　</label>" +
+			"<label for='" + races_id_text + "-24' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_samoan") + "　</label>" +
 			"<input tabindex='23' name='selectedRaces' value='25' id='" + races_id_text + "-25' type='checkbox' class='filled-in' >" +
-			"<label for='" + races_id_text + "-25' class='checkboxLabel'>" + $.t("fhh_js.race_unknown_south_pacific") + "　</label>" +
+			"<label for='" + races_id_text + "-25' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.race_unknown_south_pacific") + "　</label>" +
 			"</td>");
 
 	var ethnicity_checkboxes = $("<td class='race_checkbox'>" +
 			"<input tabindex='24' name='selectedEthnicities' value='1' id='" + ethn_id_text + "-1' type='checkbox' class='filled-in' >" +
-			"<label for='" + ethn_id_text + "-1' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_hispanic") + "　</label>" +
+			"<label for='" + ethn_id_text + "-1' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.ethnicity_hispanic") + "　</label>" +
 			"<input tabindex='24' name='selectedEthnicities' value='2' id='" + ethn_id_text + "-2' type='checkbox' class='filled-in' >" +
-			"<label for='" + ethn_id_text + "-2' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_jewish") + "　</label>" +
+			"<label for='" + ethn_id_text + "-2' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.ethnicity_jewish") + "　</label>" +
 			"<input tabindex='24' name='selectedEthnicities' value='3' id='" + ethn_id_text + "-3' type='checkbox' class='filled-in' >" +
-			"<label for='" + ethn_id_text + "-3' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_nothispanic") + "　</label>" +
+			"<label for='" + ethn_id_text + "-3' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.ethnicity_nothispanic") + "　</label>" +
 			"</td>");
 
 	var hispanic_ethnicity_checkboxes = $("<td class='race_checkbox'>" +
 			"<input tabindex='24' name='selectedEthnicities' value='11' id='" + ethn_id_text + "-11' type='checkbox' class='filled-in' >" +
-			"<label for='" + ethn_id_text + "-11' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_central_american") + "　</label>" +
+			"<label for='" + ethn_id_text + "-11' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.ethnicity_central_american") + "　</label>" +
 			"<input tabindex='24' name='selectedEthnicities' value='12' id='" + ethn_id_text + "-12' type='checkbox' class='filled-in' >" +
-			"<label for='" + ethn_id_text + "-12' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_cuban") + "　</label>" +
+			"<label for='" + ethn_id_text + "-12' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.ethnicity_cuban") + "　</label>" +
 			"<input tabindex='24' name='selectedEthnicities' value='13' id='" + ethn_id_text + "-13' type='checkbox' class='filled-in' >" +
-			"<label for='" + ethn_id_text + "-13' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_dominican") + "　</label>" +
+			"<label for='" + ethn_id_text + "-13' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.ethnicity_dominican") + "　</label>" +
 			"<input tabindex='24' name='selectedEthnicities' value='14' id='" + ethn_id_text + "-14' type='checkbox' class='filled-in' >" +
-			"<label for='" + ethn_id_text + "-14' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_mexican") + "　</label>" +
+			"<label for='" + ethn_id_text + "-14' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.ethnicity_mexican") + "　</label>" +
 			"<input tabindex='24' name='selectedEthnicities' value='15' id='" + ethn_id_text + "-15' type='checkbox' class='filled-in' >" +
-			"<label for='" + ethn_id_text + "-15' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_other_hispanic") + "　</label>" +
+			"<label for='" + ethn_id_text + "-15' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.ethnicity_other_hispanic") + "　</label>" +
 			"<input tabindex='24' name='selectedEthnicities' value='16' id='" + ethn_id_text + "-16' type='checkbox' class='filled-in' >" +
-			"<label for='" + ethn_id_text + "-16' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_puerto_rican") + "　</label>" +
+			"<label for='" + ethn_id_text + "-16' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.ethnicity_puerto_rican") + "　</label>" +
 			"<input tabindex='24' name='selectedEthnicities' value='17' id='" + ethn_id_text + "-17' type='checkbox' class='filled-in' >" +
-			"<label for='" + ethn_id_text + "-17' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_south_american") + "　</label>" +
+			"<label for='" + ethn_id_text + "-17' class='checkboxLabel'>" + getSpanForTranslate("fhh_js.ethnicity_south_american") + "　</label>" +
 			"</td>");
 
 	var table = $("<table>");
@@ -5012,21 +5037,21 @@ function build_race_ethnicity_section(race_ethnicity, personal_flag) {
 	*							+ "<input name='person.consanguinity' value='true' tabindex='20' id='person_consanguinity' type='checkbox' class='filled-in' /></td>"));
 	*}
 	*/
-	table.append($("<tr class='md_tr'>").append("<td colspan='2'>" + $.t("fhh_js.multiple_races_selectable") + "<span id='warn_japanese' style='display:none;'>" + $.t( "fhh_js.default_is_japanese_asia" ) + "</span></td>") );
+	table.append($("<tr class='md_tr'>").append("<td colspan='2'>" + getSpanForTranslate("fhh_js.multiple_races_selectable") + "<span id='warn_japanese' style='display:none;'>" + $.t( "fhh_js.default_is_japanese_asia" ) + "</span></td>") );
 	table.append($("<tr class='md_tr'>")
-						.append("<td style='width:150px;'>" + $.t("fhh_js.race") + "</td>")
+						.append("<td style='width:150px;'>" + getSpanForTranslate("fhh_js.race") + "</td>")
 						.append(race_checkboxes) );
 	table.append($("<tr class='md_tr' id='" + asian_text + "'>")
-						.append("<td>" + $.t("fhh_js.more_race") + "</td>")
+						.append("<td>" + getSpanForTranslate("fhh_js.more_race") + "</td>")
 						.append(asian_race_checkboxes) );
 	table.append($("<tr class='md_tr' id='south_pacific_checkboxes'>")
-						.append("<td>" + $.t("fhh_js.more_race") + "</td>")
+						.append("<td>" + getSpanForTranslate("fhh_js.more_race") + "</td>")
 						.append(south_pacific_race_checkboxes) );
 	table.append($("<tr class='md_tr'>")
-						.append("<td>" + $.t("fhh_js.ethnicity") + "</td>")
+						.append("<td>" + getSpanForTranslate("fhh_js.ethnicity") + "</td>")
 						.append(ethnicity_checkboxes) );
 	table.append($("<tr class='md_tr' id='hispanic_checkboxes'>")
-						.append("<td>" + $.t("fhh_js.more_ethnicity") + "</td>")
+						.append("<td>" + getSpanForTranslate("fhh_js.more_ethnicity") + "</td>")
 						.append(hispanic_ethnicity_checkboxes) );
 /*
 	var why_ask_ashkenazi_link = $("<div class='why_necessary button_color_normal'><a tabindex='29' href='#' id='why_ask_ashkenazi_link'>" + $.t("fhh_js.ashkezani_q") + "</a></div>");
@@ -5134,7 +5159,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	$("#new_disease_name_cod").remove();
 	var relationship_name = get_relationship_from_relationship_id(family_member.relationship);
 	$("#family_member_parent_id").val(family_member.parent_id);
-	$("#family_member_relationship").empty().append($.t("fhh_js." + relationship_name));
+	$("#family_member_relationship").empty().append(getSpanForTranslate("fhh_js." + relationship_name));
 	if (family_member.name == null || family_member.name == "") family_member.name = get_defaultname(relationship_name);
 	$("#family_member_info_form_name").val(family_member.name);
 
@@ -5167,14 +5192,14 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 		
 	var person_name_or_relationship;
 	if (!(family_member.name == "")) person_name_or_relationship = family_member.name;
-	else person_name_or_relationship = $.t("info_dialog.your") + " " + $.t("fhh_js." + relationship_name);
+	else person_name_or_relationship = $.t("info_dialog.your") + " " + getSpanForTranslate("fhh_js." + relationship_name);
 
-	$("#update_family_member_health_history_dialog").find("#family-title")
-		.text($.t("info_dialog.personal_information_for") + " " + person_name_or_relationship);
-	$("#update_family_member_health_history_dialog").find("#hi-title")
-		.text($.t("info_dialog.health_information_for") + " " + person_name_or_relationship);
-	$("#update_family_member_health_history_dialog").find("#bi-title")
-		.text($.t("info_dialog.race_ethnicity_information_for") + " " + person_name_or_relationship);
+	$("#update_family_member_health_history_dialog").find("#family-title").empty()
+		.append(getSpanForTranslate("info_dialog.personal_information_for") + " " + person_name_or_relationship);
+	$("#update_family_member_health_history_dialog").find("#hi-title").empty()
+		.append(getSpanForTranslate("info_dialog.health_information_for") + " " + person_name_or_relationship);
+	$("#update_family_member_health_history_dialog").find("#bi-title").empty()
+		.append(getSpanForTranslate("info_dialog.race_ethnicity_information_for") + " " + person_name_or_relationship);
 
 
 	if (family_member.gender == "MALE") $('#family_member_info_form_gender_male').prop('checked',true);
@@ -7087,20 +7112,15 @@ function getYearOptions(min, max){
 	for( let i = min; i <= max ; i++ ){
 	
 		var opt = $('<option>');
-		opt.val( i )
-			.html(
-				( getLang() == 'ja' ) ?
-					getWarekiYear( i )
-					: i 
-				)
-			.css( 'translate' );
-
+		opt.val( i ).append(getSpanForTranslate("family-t.yyyy."+i)).css( 'translate' );
 		options.push( opt );
 	}
 
 	return options;
 }
 
+// this is dead coad
+/* 
 function getWarekiYear(year){
 	
 	if( 1925 < year && year <= 1988 ){
@@ -7131,4 +7151,28 @@ function getWarekiYear(year){
 	}
 	
 	return year + '年';
+}
+*/
+
+function chngeLanguage(lng){
+	window.i18n.setLng(lng);
+	console.log('設定された値 : '+ window.i18n.lng());
+
+	// 言語を変換する。
+	var option = {
+		resGetPath: '../locales/__ns__-__lng__.json',
+		ns: {
+			namespaces: ['translation', 'diseases'],
+			defaultNs: 'translation'
+		}
+	};
+	i18n.init(option, function () {
+		$(".translate").i18n();
+	});
+}
+
+function createTranslationSpanAsString(translatKey, contents){
+	var span = "<span class='translate' data-i18n='" + translatKey + "'>" 
+		+  contents + "</span>";
+	return span;
 }

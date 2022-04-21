@@ -1190,9 +1190,12 @@ $(document).ready(function(){
 
 
 	for (var i=0; i<3; i++) {
-		$('#last_diagnosis_year').append($('<option>').val(thisyear-i).text($.t("family-t.yyyy." + ( thisyear-i ) )));
+		$('#last_diagnosis_year').append($('<option>').val(thisyear-i).append(getSpanForTranslate("family-t.yyyy." + ( thisyear-i ) )));
 	}
-	$('#last_diagnosis_year').append($('<option>').val("-1").text($.t("family-t.optionlabel.unknown")));
+	$('#last_diagnosis_year').append($('<option>').val("-1").append(getSpanForTranslate("family-t.optionlabel.unknown")));
+
+
+	$("#ui-id-7").attr('class', 'ui-dialog-title translate').attr('data-i18n','fhh_js.pi');
 });
 
 </script>
