@@ -3710,14 +3710,14 @@ function build_family_history_data_table () {
 
 	// Self title
 	var tbody = $('<tbody>');
-	add_new_family_history_row_title(tbody, $.t("family-t.self") + " <span class='small'>* " + $.t("family-t.your_siblings") + "</span>");
+	add_new_family_history_row_title(tbody, "family-t.self", " <span class='small'>* " + getSpanForFamilyHistoryTable("family-t.your_siblings") + "</span>");
 	add_personal_history_row(tbody, false);
 	table.append(tbody);
 
 	// Brother and sister
 	if( hasRelations( [ 'brother', 'sister' ], personal_information ) ){
 		var tbody = $('<tbody>');
-		add_new_family_history_row_title(tbody, $.t("family-t.sibling") + " <span class='small'>* " + $.t("family-t.bo_you") + "</span>");
+		add_new_family_history_row_title(tbody, "family-t.sibling", " <span class='small'>* " + getSpanForFamilyHistoryTable("family-t.bo_you") + "</span>");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'brother', 'sister' ], personal_information, true );
@@ -3727,7 +3727,7 @@ function build_family_history_data_table () {
 
 	// parents
 	var tbody = $('<tbody>');
-	add_new_family_history_row_title(tbody, $.t("family-t.parents") + " <span class='small'>* " + $.t("family-t.bo_parent_brother") + "</span>");
+	add_new_family_history_row_title(tbody, "family-t.parents", " <span class='small'>* " + getSpanForFamilyHistoryTable("family-t.bo_parent_brother") + "</span>");
 
 	if( typeof personal_information.father != "undefined")
 		add_new_family_history_row(tbody, personal_information.father, $.t("fhh_js.father"), "father", false);
@@ -3740,7 +3740,7 @@ function build_family_history_data_table () {
 	// children
 	if( hasRelations( [ 'son', 'daughter' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, $.t("family-t.child"));
+		add_new_family_history_row_title(tbody, "family-t.child", "");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'son', 'daughter' ], personal_information, true );
@@ -3750,7 +3750,7 @@ function build_family_history_data_table () {
 	// おい（甥）・めい（姪）
 	if( hasRelations( [ 'niece', 'nephew' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, "おい（甥）・めい（姪） <span class='small'>* 親（あなたの兄弟姉妹）の出生順も書いてください。</span>");
+		add_new_family_history_row_title(tbody, "family-t.niece_and_nephew", "<span class='small'>* " + getSpanForFamilyHistoryTable("family-t.niece_and_nephew_parents") + "</span>");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'niece', 'nephew' ], personal_information, true );
@@ -3760,7 +3760,7 @@ function build_family_history_data_table () {
 	// 父方 おじ・おば
 	if( hasRelations( [ 'paternal_uncle', 'paternal_aunt' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, $.t("family-t.paternal_uncle_and_aunt") + " <span class='small'>* " + $.t("family-t.bo_father") + "</span>");
+		add_new_family_history_row_title(tbody, "family-t.paternal_uncle_and_aunt", " <span class='small'>* " + getSpanForFamilyHistoryTable("family-t.bo_father") + "</span>");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'paternal_uncle', 'paternal_aunt' ], personal_information, true );
@@ -3771,7 +3771,7 @@ function build_family_history_data_table () {
 	// 母方 おじ・おば
 	if( hasRelations( [ 'maternal_uncle', 'maternal_aunt' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, $.t("family-t.maternal_uncle_and_aunt") + " <span class='small'>* " + $.t("family-t.bo_mother") + "</span>");
+		add_new_family_history_row_title(tbody, "family-t.maternal_uncle_and_aunt", " <span class='small'>* " + getSpanForFamilyHistoryTable("family-t.bo_mother") + "</span>");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'maternal_uncle', 'maternal_aunt' ], personal_information, true );
@@ -3782,7 +3782,7 @@ function build_family_history_data_table () {
 	// 父方 祖父母
 	if( hasRelations( [ 'paternal_grandfather', 'paternal_grandmother' ], personal_information ) ){
 		var tbody = $('<tbody>');
-		add_new_family_history_row_title(tbody, $.t("family-t.paternal_grandparents"));
+		add_new_family_history_row_title(tbody, "family-t.paternal_grandparents", "");
 		add_new_family_history_row(tbody, personal_information.paternal_grandfather, $.t("fhh_js.paternal_grandfather"), "paternal_grandfather", false);
 		add_new_family_history_row(tbody, personal_information.paternal_grandmother, $.t("fhh_js.paternal_grandmother"), "paternal_grandmother", false);
 		table.append(tbody);
@@ -3791,7 +3791,7 @@ function build_family_history_data_table () {
 	// 母方 祖父母
 	if( hasRelations( [ 'maternal_grandfather', 'maternal_grandmother' ], personal_information ) ){
 		var tbody = $('<tbody>');
-		add_new_family_history_row_title(tbody, $.t("family-t.maternal_grandparents"));
+		add_new_family_history_row_title(tbody, "family-t.maternal_grandparents", "");
 		add_new_family_history_row(tbody, personal_information.maternal_grandfather, $.t("fhh_js.maternal_grandfather"), "maternal_grandfather", false);
 		add_new_family_history_row(tbody, personal_information.maternal_grandmother, $.t("fhh_js.maternal_grandmother"), "maternal_grandmother", false);
 		table.append(tbody);
@@ -3800,7 +3800,7 @@ function build_family_history_data_table () {
 	// 父方 いとこ
 	if( hasRelations( [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, $.t("family-t.maternal_uncle_and_aunt"));
+		add_new_family_history_row_title(tbody, "family-t.maternal_uncle_and_aunt", "");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information, true );
@@ -3810,7 +3810,7 @@ function build_family_history_data_table () {
 	// 母方 いとこ
 	if( hasRelations( [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, $.t("family-t.maternal_uncle_and_aunt"));
+		add_new_family_history_row_title(tbody, "family-t.maternal_uncle_and_aunt", "");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information, true );
@@ -3820,7 +3820,7 @@ function build_family_history_data_table () {
 	// 孫
 	if( hasRelations( [ 'grandson', 'granddaughter' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, "孫");
+		add_new_family_history_row_title(tbody, "family-t.grandchild", "");
 		table.append(tbody);
 		var tbody = getSortableTbody();
 		displayRelationships(tbody, [ 'grandson', 'granddaughter' ], personal_information, true );
@@ -3828,7 +3828,7 @@ function build_family_history_data_table () {
 	}
 	// 書ききれなかった方
 	var tbody = $('<tbody>');
-	add_new_family_history_row_title(tbody, $.t("fhh_js.recently_added"));
+	add_new_family_history_row_title(tbody, "fhh_js.recently_added", "");
 	table.append(tbody);
 
 	// $("#history_summary_table").find('tbody').addClass('list-group ui-sortable')
@@ -3843,15 +3843,15 @@ function add_family_history_header_row(table) {
 	var header_row = $("<tr>");
 	var head = $('<thead>');
 
-	header_row.append("<th class='center nowrap'>" + getSpanForFamilyHistoryHeader("family-t.bo") + "</th>");
-	header_row.append("<th class='center nowrap'>" + getSpanForFamilyHistoryHeader("family-t.name") + "</th>");
-	header_row.append("<th class='center nowrap'>" + getSpanForFamilyHistoryHeader("family-t.gender") + "</th>");
-	header_row.append("<th abbr='Living' class='center nowrap'>" + getSpanForFamilyHistoryHeader("family-t.still_living") + "</th>");
-	header_row.append("<th abbr='Age' class='center nowrap'>" + getSpanForFamilyHistoryHeader("family-t.age") + "</th>");
-	header_row.append("<th class='nowrap'>" + getSpanForFamilyHistoryHeader("family-t.health_information") + "</th>");
-	header_row.append("<th abbr='Update' class='center nowrap'>" + getSpanForFamilyHistoryHeader("fhh_js.update_history") + "</th>");
-	header_row.append("<th abbr='Remove' class='center nowrap'>" + getSpanForFamilyHistoryHeader("fhh_js.remove_relative") + "</th>");
-	header_row.append("<th abbr='UpdateDate' class='center nowrap'>" + getSpanForFamilyHistoryHeader("family-t.update_date") + "</th>");
+	header_row.append("<th class='center nowrap'>" + getSpanForFamilyHistoryTable("family-t.bo") + "</th>");
+	header_row.append("<th class='center nowrap'>" + getSpanForFamilyHistoryTable("family-t.name") + "</th>");
+	header_row.append("<th class='center nowrap'>" + getSpanForFamilyHistoryTable("family-t.gender") + "</th>");
+	header_row.append("<th abbr='Living' class='center nowrap'>" + getSpanForFamilyHistoryTable("family-t.still_living") + "</th>");
+	header_row.append("<th abbr='Age' class='center nowrap'>" + getSpanForFamilyHistoryTable("family-t.age") + "</th>");
+	header_row.append("<th class='nowrap'>" + getSpanForFamilyHistoryTable("family-t.health_information") + "</th>");
+	header_row.append("<th abbr='Update' class='center nowrap'>" + getSpanForFamilyHistoryTable("fhh_js.update_history") + "</th>");
+	header_row.append("<th abbr='Remove' class='center nowrap'>" + getSpanForFamilyHistoryTable("fhh_js.remove_relative") + "</th>");
+	header_row.append("<th abbr='UpdateDate' class='center nowrap'>" + getSpanForFamilyHistoryTable("family-t.update_date") + "</th>");
 	header_row.append("");
 
 	head.append( header_row );
@@ -3859,7 +3859,7 @@ function add_family_history_header_row(table) {
 	table.empty().append(head);
 }
 
-function getSpanForFamilyHistoryHeader(key){
+function getSpanForFamilyHistoryTable(key){
 	return createTranslationSpanAsString(key, $.t(key));
 }
 
@@ -3868,7 +3868,7 @@ function getBirthOrderElement(pi){
 }
 function getBirthOrderElement(pi, sortable){
 	var retval = $("<td class='inforamtion center birthOrder'>");
-	retval.text(getDisplayBirthOrder(pi));
+	retval.append(getDisplayBirthOrder(pi));
 	if( sortable ){
 		$(retval).append(getSortableIcon());
 	}
@@ -3888,7 +3888,7 @@ function getDisplayBirthOrder( pi ){
 	if( typeof pi.birth_order == "undefined")
 		return '';
 
-	return pi.birth_order + $.t("family-t.birth_order_annotation");
+	return pi.birth_order + getSpanForFamilyHistoryTable("family-t.birth_order_annotation");
 }
 
 function getTdElement(name, className){
@@ -3917,13 +3917,13 @@ function getHealthHistories( histories ){
 	histories.forEach( function( h ){
 		var row = $('<div>');
 
-		var text = $.t("diseases:" + h["Disease Code"]);
+		var text = getSpanForFamilyHistoryTable("diseases:" + h["Disease Code"]);
 		if( text.length == 0 ) text = h["Detailed Disease Name"];
 		
 		if( h["Age At Diagnosis"] != "blank")
-			text += "(" + $.t("fhh_js." + h["Age At Diagnosis"] ) + ")" ;
+			text += "(" + getSpanForFamilyHistoryTable("fhh_js." + h["Age At Diagnosis"] ) + ")" ;
 
-		row.text(text);
+		row.append(text);
 		rows.append( row );
 	});
 	return rows;
@@ -3958,7 +3958,7 @@ function getDisplayAge(pi){
 		if( typeof pi.estimated_death_age != "undefined" )
 			if( pi.estimated_death_age != "")
 				if( $.t( "fhh_js." + pi.estimated_death_age ).length > 0 )
-					return $.t( "fhh_js." + pi.estimated_death_age ) ;
+					return getSpanForFamilyHistoryTable( "fhh_js." + pi.estimated_death_age ) ;
 
 	return "";
 }
@@ -3985,12 +3985,12 @@ function add_personal_history_row(table, is_sort_only) {
 	nameColumn_td.append(nameColumn_text);
 	new_row.append(nameColumn_td);
 
-	new_row.append(getTdElement( $.t("fhh_js." + ( ( typeof personal_information.gender == 'undefined' )? "Unknown" : personal_information.gender )) , 'gender') );
+	new_row.append(getTdElement( getSpanForFamilyHistoryTable("fhh_js." + ( ( typeof personal_information.gender == 'undefined' )? "Unknown" : personal_information.gender )) , 'gender') );
 
 //	new_row.append("<td class='summary_td information'>" + $.t("fhh_js.self") + "</td>");
 
 //	new_row.append("<td class='information' id='still_living_main'>Yes</td>");
-	new_row.append("<td class='information center' id='still_living_main'>"+ $.t("fhh_family_pedigree.alive") +"</td>");
+	new_row.append("<td class='information center' id='still_living_main'>"+ getSpanForFamilyHistoryTable("fhh_family_pedigree.alive") +"</td>");
 
 	// 年齢
 	new_row.append(getTdElement(getDisplayAge(personal_information), 'age'));
@@ -4024,10 +4024,10 @@ function add_personal_history_row(table, is_sort_only) {
 	table.append(new_row);
 }
 
-function add_new_family_history_row_title(table, name) {
+function add_new_family_history_row_title(table, key, additionalContents) {
 
 	var new_row = $("<tr style='height: 70px; overflow:auto;'>");
-	new_row.append("<td colspan='8' class='subsection'>" + name + "</td>");
+	new_row.append("<td colspan='8' class='subsection'>" + getSpanForFamilyHistoryTable(key) + additionalContents + "</td>");
 	table.append(new_row);
 
 }
@@ -4068,7 +4068,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 
 	new_row.append(nameColumn_td);
 
-	new_row.append(getTdElement( $.t("fhh_js." + family_member.gender) , 'gender' ));
+	new_row.append(getTdElement( getSpanForFamilyHistoryTable("fhh_js." + family_member.gender) , 'gender' ));
 
 	nameColumn_text.on("click", function() {
 		current_relationship = $(this).attr('relationship_id');
@@ -4090,7 +4090,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		if (family_member.is_alive=="alive") {
 			status = "Yes";
 		}
-		status = $.t("fhh_family_pedigree." + family_member.is_alive);
+		status = getSpanForFamilyHistoryTable("fhh_family_pedigree." + family_member.is_alive);
 
 	}
 
