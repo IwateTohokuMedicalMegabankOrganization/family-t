@@ -839,7 +839,7 @@
 		"intensive": "重度",
 		"number_of_times_you_exercise_per_week": "1週間で行う運動の回数：",
 		"select_a_number_between_1_and_30": "1回以上、30回以下で入力してください。",
-		"total_minutes_per_week": "1週間で行う運動の合計時間：",
+		"total_minutes_per_week": "、合計：",
 		"minites": "分",
 		"enter_a_value_between_10_and_10000": "10分以上、10000分以下で入力してください。",
 		"do_you_walk_more_than_60_minutes": "1日のうち、家事、通勤、仕事や運動などで平均60分（6,000歩）以上歩いていますか？",
