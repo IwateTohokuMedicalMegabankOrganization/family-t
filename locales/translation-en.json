@@ -817,7 +817,7 @@
 		"intensive": "Intensive",
 		"number_of_times_you_exercise_per_week": "Number of times you exercise per week",
 		"select_a_number_between_1_and_30": "Select a number between 1 and 30.",
-		"total_minutes_per_week": "Total minutes per week: ",
+		"total_minutes_per_week": ", Total minutes: ",
 		"minites": "minites",
 		"enter_a_value_between_10_and_10000": "Enter a value between 10 and 10000.",
 		"do_you_walk_more_than_60_minutes": "Do you walk more than 60 minutes (6,000 steps) a day on average when considering housework, commuting, work, and/or exercise?",
