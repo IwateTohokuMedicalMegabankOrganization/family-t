@@ -16,7 +16,7 @@ class GenerationalFamilyMembers {
     draw(targetId = '#graph', displayText = false) {
         $(targetId).empty();
         // 祖父母世代
-        $(targetId).append(this._draw('祖父母世代', this._getNumberOfRelationship(['maternal_grandfather', 'maternal_grandmother', 'paternal_grandfather',  'paternal_grandmother'] ) ));
+        $(targetId).append(this._draw('祖父母世代', this._getNumberOfRelationship(['paternal_grandfather',  'paternal_grandmother', 'maternal_grandfather', 'maternal_grandmother'] ) ));
 
         // 親世代
         $(targetId).append(this._draw('親世代', this._getNumberOfRelationship(['paternal_uncle', 'paternal_aunt', 'father',  'maternal_uncle', 'maternal_aunt', 'mother'] ) ) );
@@ -88,13 +88,25 @@ class GenerationalFamilyMembers {
     _getChildNodes(relations) {
 		var ret = [];
 		if (hasRelations(relations, this.pi)) {
-			var relationshipIds = getRelationshipIds(relations, this.pi);
+			var relationshipIds = this._getRelationshipIds(relations, this.pi);
 			relationshipIds.forEach(function (rid) {
 				ret.push(this._getChildNode(rid));
 			}, this);
 		}
 		return ret;
 	}
+
+    _getRelationshipIds(relations, pi){
+        var relationships = [];
+        relations.forEach( function( relations ) {
+            Object.keys( pi ).forEach(function( key ) {
+                if( key.startsWith( relations ) )
+                relationships.push( key );
+            });
+        });
+        return relationships;
+    }
+
 	_getChildNode(relationship_id){
 		var node = this._getNode( relationship_id );
 		node.no_parent = false;
