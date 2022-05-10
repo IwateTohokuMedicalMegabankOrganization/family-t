@@ -30,7 +30,7 @@ function saveToPCPost(){
 
 
 function downloadXML(content) {
-	const filename = "family-t.xml";
+	const filename = "family-t_" + getDate() + ".xml";
 	const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
 	var blob = new Blob([ bom, content ], { "type" : "text/xml" });
 
@@ -62,6 +62,17 @@ function downloadXML(content) {
 	    '_blank'
 	  );
 	}
+}
+
+function getDate(){
+	var date = new Date();
+	var YYYY = date.getFullYear().toString();
+	var MM = (date.getMonth() + 1).toString();
+	var DD = date.getDate().toString();
+	var hh = date.getHours().toString();
+	var mm = date.getMinutes().toString();
+	var ss = date.getSeconds().toString();
+	return YYYY + MM + DD + '_' + hh + mm + ss;
 }
 
 
