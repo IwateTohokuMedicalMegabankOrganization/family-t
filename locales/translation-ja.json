@@ -797,6 +797,10 @@
 		"maternal_grandparents": "母方 祖父母",
 		"about": "東北メディカル・メガバンク計画について",
 		"imm": "いわて東北メディカル・メガバンク機構",
+		"privacy": "個人情報について",
+		"about_family-t": "family-tについて",
+		"contact": "お問合せ",
+		"update": "更新履歴",
 		"bo_you": "出生順はご本人（あなた）を含んだ順を書いてください",
 		"bo_parent_brother": "出生順はご両親それぞれの兄弟姉妹（おじ・おば）を含んだ順を書いてください",
 		"bo_father": "出生順はお父様を含んだ順を書いてください。",
@@ -1026,6 +1030,7 @@
 		"leave_this_site":"このサイトを離れる",
 		"mandatory_health_history_self": "健康または病気の状態を登録してください。健康の場合は、健康を選択して登録ボタンを押してください。",
 		"mandatory_health_history_family": "健康または病気の状態を登録してください。健康の場合は、健康を選択して登録ボタンを押してください。",
+		"nav_help": "家族歴に関するヘルプを表示します。",
 		"update_date": "更新日",
 		"current_date": "現　　　在",
 		"last_update_date": "最終更新日",
@@ -1096,7 +1101,7 @@
 		"cannot_calculate_under40":"40歳以下については、論文・ガイドラインによる根拠がないため計算を行いません。",
 		"cannot_calculate_over70":"70歳以上については、論文・ガイドラインによる根拠がないため計算を行いません。",
 		"cannot_calculate_over80":"80歳以上については、論文・ガイドラインによる根拠がないため計算しません。",
-		"simuration":"Simurate"
+		"simuration":"この情報でシミュレーション"
 	},
 	"family-t_number_of_families_by_generation": {
 		"title":"世代別家系構成人数",
