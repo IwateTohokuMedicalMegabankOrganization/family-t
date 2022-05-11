@@ -249,12 +249,25 @@
 			<div class="col s3">
 				<select name="compensation_training_status1" id="compensation_training_strength" disabled>
 						<option value="空欄"></option>
-						<option value="中程度"><span class='translate' data-i18n="family-t.moderate">Moderate</span></option>
-						<option value="重度"><span class='translate' data-i18n="family-t.intensive">Intensive</span></option>
+						<option value="中程度"><span id='aaaa' class='translate' data-i18n="family-t.moderate">中程度Moderate</span></option>
+						<option value="重度"><span id='bbbb' class='translate' data-i18n="family-t.intensive">重度Intensive</span></option>
 				</select>
 			</div>
+			<div class='row'></div>
+				<div class="col s12 ">
+					<span class='translate' data-i18n="family-t.number_of_times_you_exercise_per_week">Number of times you exercise per week</span>
+					<input class="number" id="compensation_count_for_training_at_week" min="1" max="30" maxlength="2" name="compensation_training_status2"
+					style="width:60px; height:85%;" type="number" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" disabled/>
+					<span class='translate' data-i18n='family-t.label.times'> times </span>
+					<span class='translate' data-i18n="family-t.total_minutes_per_week">
+					Total minutes per week:
+					</span>
+					<input class="number" id="compensation_time_for_training_at_week" min="10" max="10000" maxlength="5" name="compensation_training_status3"
+					style="width:90px; height:85%;" type="number" onkeyup="if(event.keyCode==9||event.keyCode==16) return; this.value=this.value.replace(/[^0-9]+/i,'')" disabled/>
+					<span class='translate' data-i18n="family-t.label.minutes">分</span>
+				</div>
 		</div>
-
+		<!--
 		<div class="col s5" style="padding-bottom: 5px;">
 			<span class='translate' data-i18n="family-t.moderate">Number of times you exercise per week</span>
 		</div>
@@ -278,6 +291,7 @@
 				<span class='translate' data-i18n="family-t.label.minutes">分</span>
 			</div>
 		</div>
+		-->
 	</div>
 
 	<div id="compensate_antihypertensive" class="col s12 compensation">
