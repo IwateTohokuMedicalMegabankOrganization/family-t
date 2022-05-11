@@ -2686,7 +2686,7 @@ video.responsive-video {
 .pagination li a {
   color: #444;
   display: inline-block;
-  font-size: 1.2rem;
+  font-size: 1.0em;
   padding: 0 10px;
   line-height: 30px;
 }
@@ -4380,7 +4380,7 @@ nav .input-field {
 
 nav .input-field input {
   height: 100%;
-  font-size: 1.2rem;
+  font-size: 1.0em;
   border: none;
   padding-left: 2rem;
 }
@@ -4559,7 +4559,7 @@ small {
 
 @media only screen and (min-width: 360px) {
   .flow-text {
-    font-size: 1.2rem;
+    font-size: 1.0em;
   }
 }
 
@@ -4685,7 +4685,7 @@ small {
 
 @media only screen and (max-width: 360px) {
   .flow-text {
-    font-size: 1.2rem;
+    font-size: 1.0em;
   }
 }
 
@@ -6553,7 +6553,7 @@ textarea.materialize-textarea.validate + label:not(.label-icon).active {
   display: inline-block;
   height: 25px;
   line-height: 25px;
-  font-size: 1.2rem;
+  font-size: 1.0em;
   -webkit-transition: .28s ease;
   transition: .28s ease;
   -webkit-user-select: none;
@@ -6690,7 +6690,7 @@ form p:last-child {
   display: inline-block;
   height: 25px;
   line-height: 25px;
-  font-size: 1.2rem;
+  font-size: 1.0em;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;

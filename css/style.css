@@ -212,7 +212,8 @@ table th{
 }
 
 table td{
-	font-size: large;
+	/**font-size: large;*/
+	font-size: 1em;
 	vertical-align: middle;
 }
 
