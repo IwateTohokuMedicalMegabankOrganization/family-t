@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+
 <script type="text/javascript" src="../js/save_personal_history_button.js"></script>
 <script>
 	function getNowDate(){
@@ -20,15 +22,24 @@
 	</div>
 	<div class="row">
 		
-		<div class="col s12 ">
+		<div class="col s12 " id="save_file_instructions">
 			<P class='translate' data-i18n='fhh_load_save.save_file_instructions1'>In this step, you can save your family health history to your computer or portable storage device as an XML data file. This data file can be opened in this website later to update your family health history.</P>
 			<P class='translate' data-i18n='fhh_load_save.save_file_instructions2'>Press 'Save to Computer' and your browser will put the file in your preferred download location</P>
+		</div>
+
+		<div class="col s12 " id="before_you_leave"  style="display: none;">
+			<P class='translate' data-i18n='fhh_load_save.save_file_before_you_leave'>Save family health history before you leave this page</P>
 		</div>
 		
 		<div class="col s12 ">
 			<a id='download_xml_new' class="cursor_pointer">
 				<span class="material-icons large-size green-text cursor_pointer ">save</span>
-				<span class="translate" data-i18n="family-t.download_xml">ダウンロード</span>
+				<span class="material-symbols-outlined medium green-text cursor_pointer ">cloud_download</span>
+				<span class="material-symbols-outlined medium green-text cursor_pointer ">file_download</span>
+				<span class="material-symbols-outlined medium green-text cursor_pointer ">install_desktop</span>
+				<span class="material-symbols-outlined medium green-text cursor_pointer ">install_mobile</span>
+				<span class="material-symbols-outlined medium green-text cursor_pointer ">save_alt</span>
+				<span class="translate" data-i18n="family-t.download_xml">家族歴を保存する</span>
 				<!-- <img class="icon_shadow2" width="200" src='../images/ico_open_local.gif' alt='Open from Computer Icon'> -->
 			</a>
 		</div>
@@ -36,9 +47,12 @@
 	
 	<div class="row">
 		<div class="col s12 ">
-			<a id="saved_leave_this_site" class="cursor_pointer">
+			<a id="saved_leave_this_site" class="cursor_pointer" href="../html/index.html">
 				<span class="material-icons large-size red-text cursor_pointer ">delete_forever</span>
-				<span class="translate" data-i18n="family-t.leave_this_site">このサイトを離れる</span>
+				<span class="material-symbols-outlined medium red-text cursor_pointer ">logout</span>
+				<span class="material-symbols-outlined medium red-text cursor_pointer ">home</span>
+				<span class="material-symbols-outlined medium red-text cursor_pointer ">exit_to_app</span>
+				<span class="translate" data-i18n="family-t.leave_this_site">編集画面を離れる</span>
 			</a>
 		</div>
 	</div>

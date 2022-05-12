@@ -439,6 +439,7 @@
 		"save_to_file": "Save Your Personal Information to a File",
 		"save_file_instructions1": "In this step, you can save your family health history to your computer or portable storage device as an XML data file. This data file can be opened in this website later to update your family health history.",
 		"save_file_instructions2": "Press 'Save to a File' and your browser will put the file in your preferred download location",
+		"save_file_before_you_leave":"Save family health history before you leave this page.",
 		"save_file_button": "Save to a File",
 		"save_health_vault": "Save Your Personal Information to Microsoft's Health Vault",
 		"save_health_vault_instructions": "Microsoft HealthVault lets you gather, store, and share health information online. If you choose to copy your family health history information to HealthVault, this website will copy data to your HealthVault account and need you to sign in.",
