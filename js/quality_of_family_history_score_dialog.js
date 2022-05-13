@@ -20,10 +20,6 @@ class QoFSupplementForm {
 		var tbody = $("#qof_compensational_block");
 		tbody.empty();
 		
-		// あなた
-		// var selfForm = this._getSelfForm(this.pi);
-		// tbody.append( selfForm );
-
 		// 家族
 		var familyForm = this._getFamilyForm(this.pi, tbody);
 
@@ -117,8 +113,8 @@ class QoFSupplementForm {
 		var prefix_id = QoFSupplementForm._getId(QoFSupplementForm.QOF_HAS_DESEASE_PREFIX, pi.id );
 		var name = this._getName(QoFSupplementForm.QOF_HAS_DESEASE_PREFIX, pi.id );
 
-		var values = [ 'with', 'without', 'unknown'];
-		var translations = { with: "family-t.with", without: "family-t.without" , unknown: 'info_dialog.unknown'};
+		var values = [ 'without', 'unknown', 'with'];
+		var translations = { without: "family-t.without" , unknown: 'info_dialog.unknown', with: "family-t.with"};
 
 		for( const v of values ){
 
@@ -236,16 +232,42 @@ class QoFSupplementForm {
 		pi.detailed_cause_of_death_code = $(`select[name="${this._getName(QoFSupplementForm.QOF_DETAILED_CAUSE_OF_DEATH_PREFIX, pi.id )}"]`).text();
 
 		// 疾患有無
-		pi.has_desease = $(`input[name="${this._getName(QoFSupplementForm.QOF_HAS_DESEASE_PREFIX, pi.id )}"]:checked`).val();
-		
-		// TODO 病歴
+		var checkedRadioButton = $(`input[name="${this._getName(QoFSupplementForm.QOF_HAS_DESEASE_PREFIX, pi.id )}"]:checked`);
+		var has_disease = checkedRadioButton.val();
+		if(has_disease=='without'){
+			// 健康をpiに追加する
+			var specific_health_issue = {
+				"Age At Diagnosis":'blank',
+				"Detailed Disease Name":'Healthy',
+				"Disease Code":'FAMILY_T-HEALTHY',
+				"Disease Name":'Healthy'
+			};
+			// 健康で更新するため、病歴の配列を空にしてから追加する。
+			pi["Health History"].length = 0;
+			pi["Health History"].push(specific_health_issue);
+			
+			// 表示の初期化
+			this._refreshPersonalHealthHistory(checkedRadioButton, pi);
+		}
+		if(has_disease=='unknown'){		
+			// 病歴を初期化	
+			pi["Health History"].length = 0;
+			// 表示の初期化
+			this._refreshPersonalHealthHistory(checkedRadioButton, pi);
+		}
+
+		// 病歴
+		// 病歴は、登録ボタンのイベントadd_diseaseで登録されているのでここでは実装しない。fhh.jsのfunction add_disease()
 
 		// 差分表示
 
-		
-
 	}
 
+	_refreshPersonalHealthHistory(checkedRadioButton, pi){
+		var healthHistories = checkedRadioButton.parent().parent().parent().find(".health_data_entry_row");
+		var parentsOfhealthHistories = healthHistories.parent().empty();
+		parentsOfhealthHistories.append(this._getHealthHistoriesTable(pi));
+	}
 
 	_getFamilyForm(pi, tbody) {
 
@@ -309,27 +331,6 @@ class QoFSupplementForm {
 		}
 	}
 
-
-	_getSelfForm(pi) {
-		var row = $("<tr>");
-		// 	お名前
-		row.append("<td class='center nowrap'>" + pi.name + "</td>");
-		// 存命
-		row.append("<td class='center nowrap'>-</td>");
-		// 死亡年齢
-		row.append("<td class='center nowrap'>-</td>");
-		// 死因
-		row.append("<td class='center nowrap'>-</td>");
-		// TODO: 疾患有無
-		row.append("<td class='center nowrap'>-</td>");
-
-		// 病歴
-		var healthHistories = $("<td class='center nowrap'></td>");
-		healthHistories.append(this._getHealthHistoriesTable(pi));
-		row.append(healthHistories);
-		return row;
-	}
-
 	_getHealthHistoriesTable(pi) {
 		var table = $("<table class='health_histories'>");
 		table.append(build_hi_data_entry_row());
@@ -345,6 +346,9 @@ class QoFSupplementForm {
 					current_health_history[i]['Age At Diagnosis'],
 					current_health_history[i]['Disease Code']);
 				data_entry_row.before(new_row);
+			}
+			if(current_health_history.length != 0 && current_health_history[0]["Disease Name"]=='Healthy'){
+				table.find(".health_data_entry_row").last().hide();
 			}
 		}	
 		return table;

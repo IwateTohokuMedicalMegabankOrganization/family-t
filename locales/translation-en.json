@@ -754,7 +754,7 @@
 		"gender": "Gender",
 		"still_living": "Still living",
 		"age": "Age",
-		"presence_or_absence_of_disease": "Disease",
+		"presence_or_absence_of_disease": "Healty or Disease",
 		"health_information": "Health Information",
 		"self": "Self",
 		"your_siblings": "Enter your birth order, including your siblings.",
@@ -983,8 +983,8 @@
 				"0049": "Unknown"
 			}
 		},
-		"with" : "with",
-		"without" : "without",
+		"with" : "Disease",
+		"without" : "Healthy",
 		"maternal_grandfather":"your maternal grandfather",
 		"paternal_grandfather":"your paternal grandfather",
 		"father":"your father",
