@@ -67,12 +67,20 @@ function downloadXML(content) {
 function getDate(){
 	var date = new Date();
 	var YYYY = date.getFullYear().toString();
-	var MM = (date.getMonth() + 1).toString();
-	var DD = date.getDate().toString();
-	var hh = date.getHours().toString();
-	var mm = date.getMinutes().toString();
-	var ss = date.getSeconds().toString();
+	var MM = twodigitAsString((date.getMonth() + 1));
+	var DD = twodigitAsString(date.getDate());
+	var hh = twodigitAsString(date.getHours());
+	var mm = twodigitAsString(date.getMinutes());
+	var ss = twodigitAsString(date.getSeconds());
 	return YYYY + MM + DD + '_' + hh + mm + ss;
+}
+
+function twodigitAsString(digit){
+	if(digit<10){
+		return '0' + digit.toString();
+	}else{
+		return digit.toString();
+	}
 }
 
 
