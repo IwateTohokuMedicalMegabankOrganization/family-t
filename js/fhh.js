@@ -852,9 +852,9 @@ function start()
 			closeDialog("#save_personal_history_dialog");
 		});
 		
-		$('#saved_leave_this_site').on('click', function(){
-			window.open('about:blank','_self').close();
-		});
+		//$('#saved_leave_this_site').on('click', function(){
+		//	window.open('about:blank','_self').close();
+		//});
 
 		$("#ui-id-10").attr('class', 'ui-dialog-title translate').attr('data-i18n','fhh_js.save_dialog_title');
 
@@ -867,10 +867,14 @@ function start()
 		height:'auto',
 		width:800,
 		open : function( event , ui ){
+			$( "#save_file_instructions").show();
+			$( "#before_you_leave").hide();
 			$( "#saved_leave_this_site").hide();
 		},
 		close : function( event , ui ){
-			$( "#saved_leave_this_site").hide();
+			$( "#save_file_instructions").hide();
+			$( "#before_you_leave").hide();
+			$( "#saved_leave_this_site").show();
 		}
 	});
 
@@ -1322,6 +1326,8 @@ function start()
 	$('#leave_this_site').on('click', function(){
 		openDialog("#save_personal_history_dialog");
 		$( "#saved_leave_this_site").show();
+		$( "#before_you_leave").show();
+		$( "#save_file_instructions").hide();
 	});
 	// questionnaire
 	// $('#lead_to_questionaire').on('click', function(){

@@ -9623,6 +9623,12 @@ select {
 .material-icons.large-size {
 	font-size: 48px;
 }
+.material-symbols-outlined.large-size {
+	font-size: 48px;
+}
+span.medium {
+  font-size: 4rem;
+}
 .inner {
 	display: inline-block;
 	text-align: center;
@@ -9766,6 +9772,12 @@ a.action {
 }
 .icon_shadow:hover {
 	filter: drop-shadow(3px 3px 3px rgba(56,155,60,0.6));
+}
+.icon_shadow_red {
+	filter: drop-shadow(2px 2px 2px rgba(250,128,114,0.6));
+}
+.icon_shadow_red:hover {
+	filter: drop-shadow(3px 3px 3px rgba(250,128,114,0.6));
 }
 .icon_shadow2 {
 	filter: drop-shadow(1px 1px 1px rgba(56,155,60,0.6));
