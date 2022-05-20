@@ -834,6 +834,10 @@ function start()
 		bind_save_xml();
 			
 		$("#download_xml_new").on("click", function () {
+			// for logging to the apache access log
+			var current = location.href;
+			var url = current.substring(0,current.lastIndexOf("/")) + '/static/save_file.html';
+			ajaxOnBackground(url);
 
 			downloadXML(convertXml(personal_information));
 		});
