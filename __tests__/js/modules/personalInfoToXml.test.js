@@ -434,6 +434,14 @@ var patientPerson = {
 		{
 			"attr_code": "year_of_birth",
 			"attr_text": "1994"
+		},
+		{
+			"attr_code": "date_of_birth",
+			"attr_text": "1994/01/01",
+		},
+		{
+			"attr_code": "month_of_birth",
+			"attr_text": "1",
 		}
 	],
 	"raceCode": [
@@ -448,7 +456,7 @@ var patientPerson = {
 			"attr_codeSystemName": "HL7",
 			"attr_displayName": "Japanese",
 			"attr_id": "14"
-		}
+		},
 	],
 	"relative": [
 		{
@@ -513,14 +521,65 @@ var patientPerson = {
 				"relative": {
 					"code": {
 						"attr_code": "PAR",
-						"attr_codeSystemName": "HL7 Family History Model",
-						"attr_displayName": "Parent"
+					"attr_codeSystemName": "HL7 Family History Model",
+					"attr_displayName": "Parent",
 					},
-					"relationshipHolder": ""
+					"relationshipHolder": "",
 				},
-				"subjectOf2": ""
-			}
-		},
+				"subjectOf2":  {
+					"clinicalObservation":  [
+						{
+							"code":  {
+								"attr_code": "271603002",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "height",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code":  {
+								"attr_code": "107647005",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "weight",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code":  {
+								"attr_originalText": "Parental consanguinity indicated",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code":  {
+								"attr_code": "38341003",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "Hypertension/high blood pressure",
+								"attr_originalText": "Hypertension/high blood pressure",
+							},
+							"sourceOf": "",
+							"subject":  {
+								"dataEstimatedAge":  {
+									"code":  {
+										"attr_code": "21611-9",
+										"attr_codeSystemName": "LOINC",
+										"attr_displayName": "Estimated Age",
+										"attr_originalText": "early_fifties",
+									},
+								},
+							},
+							"value": "",
+						},
+					],
+    			},
+            },
+        },
 		{
 			"code": {
 				"attr_code": "NMTH",
@@ -584,18 +643,69 @@ var patientPerson = {
 					"code": {
 						"attr_code": "PAR",
 						"attr_codeSystemName": "HL7 Family History Model",
-						"attr_displayName": "Parent"
+						"attr_displayName": "Parent",
 					},
-					"relationshipHolder": ""
-				},
-				"subjectOf2": ""
-			}
-		},
-		{
-			"code": {
-				"attr_code": "MGRFTH",
-				"attr_codeSystemName": "HL7 Family History Model",
-				"attr_displayName": "Maternal Grandfather"
+					"relationshipHolder": "",
+        		},
+    			"subjectOf2":  {
+					"clinicalObservation":  [
+						{
+							"code":  {
+								"attr_code": "271603002",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "height",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code":  {
+								"attr_code": "107647005",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "weight",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code":  {
+								"attr_originalText": "Parental consanguinity indicated",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code":  {
+								"attr_code": "HEALTHY",
+								"attr_codeSystemName": "FAMILY_T",
+								"attr_displayName": "Healthy",
+								"attr_originalText": "Healthy",
+							},
+							"sourceOf": "",
+							"subject":  {
+								"dataEstimatedAge":  {
+									"code":  {
+										"attr_code": "21611-9",
+										"attr_codeSystemName": "LOINC",
+										"attr_displayName": "Estimated Age",
+										"attr_originalText": "blank",
+									},
+								},
+							},
+							"value": "",
+						},
+					],
+   				},
+    		},
+    	},
+        {
+            "code":  {
+            	"attr_code": "MGRFTH",
+            	"attr_codeSystemName": "HL7 Family History Model",
+            	"attr_displayName": "Maternal Grandfather",
 			},
 			"relationshipHolder": {
 				"administrativeGenderCode": {
@@ -654,15 +764,83 @@ var patientPerson = {
 					"code": {
 						"attr_code": "PAR",
 						"attr_codeSystemName": "HL7 Family History Model",
-						"attr_displayName": "Parent"
-					},
-					"relationshipHolder": ""
-				},
-				"subjectOf2": ""
-			}
-		},
-		{
-			"code": {
+						"attr_displayName": "Parent",
+                	},
+                	"relationshipHolder": "",
+    			},
+    			"subjectOf2":  {
+    				"clinicalObservation":  [
+    					{
+    						"code":  {
+    							"attr_code": "271603002",
+    							"attr_codeSystemName": "SNOMED_CT",
+    							"attr_displayName": "height",
+    						},
+    						"sourceOf": "",
+    						"subject": "",
+    						"value": "",
+    					},
+    					{
+    						"code":  {
+    							"attr_code": "107647005",
+    							"attr_codeSystemName": "SNOMED_CT",
+    							"attr_displayName": "weight",
+							},
+    						"sourceOf": "",
+							"subject": "",
+    						"value": "",
+						},
+    					{
+    						"code":  {
+								"attr_originalText": "Parental consanguinity indicated",
+    						},
+    						"sourceOf": "",
+    						"subject": "",
+    						"value": "",
+    					},
+    					{
+    						"code":  {
+								"attr_code": "363349007",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "Gastric Cancer",
+								"attr_originalText": "Gastric Cancer",
+							},
+    						"sourceOf": "",
+    						"subject":  {
+    							"dataEstimatedAge":  {
+    								"code":  {
+										"attr_code": "21611-9",
+										"attr_codeSystemName": "LOINC",
+										"attr_displayName": "Estimated Age",
+										"attr_originalText": "late_fifties",
+    								},
+    							},
+							},
+    						"value": "",
+						},
+						{
+    						"code":  {
+    							"attr_code": "363349007",
+    							"attr_codeSystemName": "SNOMED_CT",
+    							"attr_displayName": "Gastric Cancer",
+    							"attr_originalText": "Gastric Cancer",
+    						},
+    						"sourceOf":  {
+    							"code":  {
+    								"attr_code": "419620001",
+    								"attr_codeSystemName": "SNOMED_CT",
+    								"attr_displayName": "death",
+								},
+							},
+							"subject": "",
+							"value": "",
+						},
+					],
+				}
+            }
+        },
+		 {
+			"code":  {
 				"attr_code": "MGRMTH",
 				"attr_codeSystemName": "HL7 Family History Model",
 				"attr_displayName": "Maternal Grandmother"
@@ -723,19 +901,87 @@ var patientPerson = {
 				"relative": {
 					"code": {
 						"attr_code": "PAR",
-						"attr_codeSystemName": "HL7 Family History Model",
-						"attr_displayName": "Parent"
+				  		"attr_codeSystemName": "HL7 Family History Model",
+				  		"attr_displayName": "Parent",
 					},
-					"relationshipHolder": ""
-				},
-				"subjectOf2": ""
+					"relationshipHolder": "",
+			  	},
+			  	"subjectOf2": {
+					"clinicalObservation": [
+						{
+							"code": {
+								"attr_code": "271603002",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "height",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code": {
+								"attr_code": "107647005",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "weight",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code": {
+								"attr_originalText": "Parental consanguinity indicated",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code": {
+								"attr_code": "261665006",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "Unknown",
+								"attr_originalText": "Unknown",
+							},
+							"sourceOf": "",
+							"subject": {
+								"dataEstimatedAge": {
+									"code": {
+										"attr_code": "21611-9",
+										"attr_codeSystemName": "LOINC",
+										"attr_displayName": "Estimated Age",
+										"attr_originalText": "Unknown",
+									},
+								},
+							},
+							"value": "",
+						},
+						{
+							"code": {
+							"attr_code": "261665006",
+							"attr_codeSystemName": "SNOMED_CT",
+							"attr_displayName": "Unknown",
+							"attr_originalText": "Unknown",
+							},
+							"sourceOf": {
+								"code": {
+									"attr_code": "419620001",
+									"attr_codeSystemName": "SNOMED_CT",
+									"attr_displayName": "death",
+								},
+							},
+							"subject": "",
+							"value": "",
+						},
+					],
+				}
 			}
 		},
 		{
 			"code": {
 				"attr_code": "PGRFTH",
 				"attr_codeSystemName": "HL7 Family History Model",
-				"attr_displayName": "Paternal Grandfather"
+				"attr_displayName": "Paternal Grandfather",
 			},
 			"relationshipHolder": {
 				"administrativeGenderCode": {
@@ -794,18 +1040,69 @@ var patientPerson = {
 					"code": {
 						"attr_code": "PAR",
 						"attr_codeSystemName": "HL7 Family History Model",
-						"attr_displayName": "Parent"
+						"attr_displayName": "Parent",
 					},
-					"relationshipHolder": ""
+					"relationshipHolder": "",
 				},
-				"subjectOf2": ""
+				"subjectOf2": {
+					"clinicalObservation": [
+						{
+						"code": {
+							"attr_code": "271603002",
+							"attr_codeSystemName": "SNOMED_CT",
+							"attr_displayName": "height",
+						},
+						"sourceOf": "",
+						"subject": "",
+						"value": "",
+						},
+						{
+						"code": {
+							"attr_code": "107647005",
+							"attr_codeSystemName": "SNOMED_CT",
+							"attr_displayName": "weight",
+						},
+						"sourceOf": "",
+						"subject": "",
+						"value": "",
+						},
+						{
+						"code": {
+							"attr_originalText": "Parental consanguinity indicated",
+						},
+						"sourceOf": "",
+						"subject": "",
+						"value": "",
+						},
+						{
+						"code": {
+							"attr_code": "261665006",
+							"attr_codeSystemName": "SNOMED_CT",
+							"attr_displayName": "Unknown",
+							"attr_originalText": "Unknown",
+						},
+						"sourceOf": "",
+						"subject": {
+							"dataEstimatedAge": {
+							"code": {
+								"attr_code": "21611-9",
+								"attr_codeSystemName": "LOINC",
+								"attr_displayName": "Estimated Age",
+								"attr_originalText": "Unknown",
+							},
+							},
+						},
+						"value": "",
+						},
+					],
+				}
 			}
 		},
 		{
 			"code": {
 				"attr_code": "PGRMTH",
 				"attr_codeSystemName": "HL7 Family History Model",
-				"attr_displayName": "Paternal Grandmother"
+				"attr_displayName": "Paternal Grandmother",
 			},
 			"relationshipHolder": {
 				"administrativeGenderCode": {
@@ -864,18 +1161,69 @@ var patientPerson = {
 					"code": {
 						"attr_code": "PAR",
 						"attr_codeSystemName": "HL7 Family History Model",
-						"attr_displayName": "Parent"
+						"attr_displayName": "Parent",
 					},
-					"relationshipHolder": ""
+				"relationshipHolder": "",
 				},
-				"subjectOf2": ""
+				"subjectOf2": {
+					"clinicalObservation": [
+						{
+							"code": {
+								"attr_code": "271603002",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "height",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code": {
+								"attr_code": "107647005",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "weight",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code": {
+								"attr_originalText": "Parental consanguinity indicated",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code": {
+								"attr_code": "46635009",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "Type 1 Diabetes",
+								"attr_originalText": "Type 1 Diabetes",
+							},
+							"sourceOf": "",
+							"subject": {
+								"dataEstimatedAge": {
+									"code": {
+										"attr_code": "21611-9",
+										"attr_codeSystemName": "LOINC",
+										"attr_displayName": "Estimated Age",
+										"attr_originalText": "early_fifties",
+									},
+								},
+							},
+							"value": "",
+						},
+					],
+				}
 			}
 		},
 		{
 			"code": {
 				"attr_code": "NBRO",
 				"attr_codeSystemName": "HL7 Family History Model",
-				"attr_displayName": "Brother"
+				"attr_displayName": "Brother",
 			},
 			"relationshipHolder": {
 				"administrativeGenderCode": {
@@ -927,22 +1275,81 @@ var patientPerson = {
 					},
 					{
 						"attr_code": "update_date",
-						"attr_text": "2021/11/02"
+						"attr_text": "2021/11/02",
 					},
 					{
 						"attr_code": "year_of_birth",
-						"attr_text": "1993"
-					}
+						"attr_text": "1993",
+					},
+					{
+						"attr_code": "date_of_birth",
+						"attr_text": "1993/10/01",
+					},
+					{
+						"attr_code": "month_of_birth",
+						"attr_text": "10",
+					},
 				],
 				"relative": {
 					"code": {
 						"attr_code": "PAR",
 						"attr_codeSystemName": "HL7 Family History Model",
-						"attr_displayName": "Parent"
+						"attr_displayName": "Parent",
 					},
-					"relationshipHolder": ""
+					"relationshipHolder": "",
 				},
-				"subjectOf2": ""
+				"subjectOf2": {
+					"clinicalObservation": [
+						{
+							"code": {
+								"attr_code": "271603002",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "height",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code": {
+								"attr_code": "107647005",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "weight",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code": {
+								"attr_originalText": "Parental consanguinity indicated",
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code": {
+								"attr_code": "HEALTHY",
+								"attr_codeSystemName": "FAMILY_T",
+								"attr_displayName": "Healthy",
+								"attr_originalText": "Healthy",
+							},
+							"sourceOf": "",
+							"subject": {
+								"dataEstimatedAge": {
+									"code": {
+										"attr_code": "21611-9",
+										"attr_codeSystemName": "LOINC",
+										"attr_displayName": "Estimated Age",
+										"attr_originalText": "blank"
+									},
+								},
+							},
+							"value": "",
+						},
+					],
+				}
 			}
 		},
 		{
@@ -1006,7 +1413,15 @@ var patientPerson = {
 					{
 						"attr_code": "year_of_birth",
 						"attr_text": "1994"
-					}
+					},
+					{
+						"attr_code": "date_of_birth",
+						"attr_text": "1994/10/01"
+					},
+					{
+						"attr_code": "month_of_birth",
+						"attr_text": "10"
+					},
 				],
 				"relative": {
 					"code": {
@@ -1014,9 +1429,70 @@ var patientPerson = {
 						"attr_codeSystemName": "HL7 Family History Model",
 						"attr_displayName": "Parent"
 					},
-					"relationshipHolder": ""
+					"relationshipHolder": "",
 				},
-				"subjectOf2": ""
+				"subjectOf2": {
+					"clinicalObservation": [
+						{
+							"code": {
+								"attr_code": "313415001",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "Identical twin (person)"
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": ""
+						},
+						{
+							"code": {
+								"attr_code": "271603002",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "height"
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": ""
+						},
+						{
+							"code": {
+								"attr_code": "107647005",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "weight"
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": ""
+						},
+						{
+							"code": {
+								"attr_originalText": "Parental consanguinity indicated"
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": ""
+						},
+						{
+							"code": {
+								"attr_code": "HEALTHY",
+								"attr_codeSystemName": "FAMILY_T",
+								"attr_displayName": "Healthy",
+								"attr_originalText": "Healthy"
+							},
+							"sourceOf": "",
+							"subject": {
+								"dataEstimatedAge": {
+									"code": {
+										"attr_code": "21611-9",
+										"attr_codeSystemName": "LOINC",
+										"attr_displayName": "Estimated Age",
+										"attr_originalText": "blank"
+									},
+								},
+							},
+							"value": "",
+						},
+					],
+				}
 			}
 		},
 		{
@@ -1086,7 +1562,78 @@ var patientPerson = {
 					},
 					"relationshipHolder": ""
 				},
-				"subjectOf2": ""
+				"subjectOf2": {
+					"clinicalObservation": [
+						{
+							"code": {
+								"attr_code": "271603002",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "height"
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": ""
+						},
+						{
+							"code": {
+								"attr_code": "107647005",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "weight"
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": ""
+						},
+						{
+							"code": {
+								"attr_originalText": "Parental consanguinity indicated"
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": ""
+						},
+						{
+							"code": {
+								"attr_code": "38341003",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "Hypertension/high blood pressure",
+								"attr_originalText": "Hypertension/high blood pressure"
+							},
+							"sourceOf": "",
+							"subject": {
+								"dataEstimatedAge": {
+									"code": {
+										"attr_code": "21611-9",
+										"attr_codeSystemName": "LOINC",
+										"attr_displayName": "Estimated Age",
+										"attr_originalText": "late_fourties"
+									}
+								}
+							},
+							"value": "",
+						},
+						{
+							"code": {
+								"attr_code": "55822004",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "High Cholesterol",
+								"attr_originalText": "High Cholesterol"
+							},
+							"sourceOf": "",
+							"subject": {
+								"dataEstimatedAge": {
+									"code": {
+										"attr_code": "21611-9",
+										"attr_codeSystemName": "LOINC",
+										"attr_displayName": "Estimated Age",
+										"attr_originalText": "late_fourties"
+									}
+								}
+							},
+							"value": "",
+						},
+					],
+				}
 			}
 		},
 		{
@@ -1150,9 +1697,60 @@ var patientPerson = {
 						"attr_codeSystemName": "HL7 Family History Model",
 						"attr_displayName": "Parent"
 					},
-					"relationshipHolder": ""
+					"relationshipHolder": "",
 				},
-				"subjectOf2": ""
+				"subjectOf2": {
+					"clinicalObservation": [
+						{
+							"code": {
+								"attr_code": "271603002",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "height"
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": ""
+						},
+						{
+							"code": {
+								"attr_code": "107647005",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "weight"
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": ""
+						},
+						{
+							"code": {
+								"attr_originalText": "Parental consanguinity indicated"
+							},
+							"sourceOf": "",
+							"subject": "",
+							"value": "",
+						},
+						{
+							"code": {
+								"attr_code": "261665006",
+								"attr_codeSystemName": "SNOMED_CT",
+								"attr_displayName": "Unknown",
+								"attr_originalText": "Unknown"
+							},
+							"sourceOf": "",
+							"subject": {
+								"dataEstimatedAge": {
+									"code": {
+										"attr_code": "21611-9",
+										"attr_codeSystemName": "LOINC",
+										"attr_displayName": "Estimated Age",
+										"attr_originalText": "Unknown"
+									}
+								}
+							},
+							"value": "",
+						}
+					]
+				}
 			}
 		}
 	],
