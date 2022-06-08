@@ -840,7 +840,7 @@ class EstimatedAgeValue extends Code {
     /**
      * { personal_information value : xmlValue }
      */
-    ESTIMATED_AGE_VALUE = {
+    static ESTIMATED_AGE_VALUE = {
         "prebirth": "prebirth",
         "unknown": "unknown",
         "newborn": { unit: "day", low: { value: "0" }, high: { value: "28" } },
@@ -857,7 +857,7 @@ class EstimatedAgeValue extends Code {
         "early_fifties": { unit: "year", low: { value: "50" }, high: { value: "54" } },
         "late_fifties": { unit: "year", low: { value: "55" }, high: { value: "59" } },
         "early_sixties": { unit: "year", low: { value: "60" }, high: { value: "64" } },
-        "late_sixties": { unit: "year", low: { value: "65" }, high: { value: 9 } },
+        "late_sixties": { unit: "year", low: { value: "65" }, high: { value: "69" } },
         "senior": { unit: "year", low: { value: "70" } }
     }
 
