@@ -3340,6 +3340,7 @@ class LifeStyleScoreDetailDialogController{
 		$(`#lifestylescore_${key}_training_yes`).prop('checked', false);
 		$(`#lifestylescore_${key}_training_no`).prop('checked', false);
 		$(`#lifestylescore_${key}_training_strength`).val('');
+		$(`select[name="lifestylescore_${key}_training_status1"] option`).first().prop('selected', true);
 		$(`#lifestylescore_${key}_count_for_training_at_week`).val('');
 		$(`#lifestylescore_${key}_time_for_training_at_week`).val('');
 
