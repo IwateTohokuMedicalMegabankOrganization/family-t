@@ -1670,6 +1670,7 @@ function preparate_lifestyle_score_dialog(){
 				document.getElementById(`lifestylescore_${key}_count_for_training_at_week`).value = "";
 				document.getElementById(`lifestylescore_${key}_time_for_training_at_week`).value = "";
 				$(`select[name="lifestylescore_${key}_training_status1"]`).prop('disabled', true);
+				$(`select[name="lifestylescore_${key}_training_status1"] option`).first().prop('selected', true);
 				$(`input[name="lifestylescore_${key}_training_status2"]`).prop('disabled', true);
 				$(`input[name="lifestylescore_${key}_training_status3"]`).prop('disabled', true);
 				$(`.lifestylescore_${key}_training_status_yes`).hide('slow');
@@ -1734,6 +1735,7 @@ function preparate_compensation_dialog(){
         	document.getElementById("compensation_count_for_training_at_week").value = "";
         	document.getElementById("compensation_time_for_training_at_week").value = "";
         	$('select[name="compensation_training_status1"]').prop('disabled',true);
+			$(`select[name="compensation_training_status1"] option`).first().prop('selected', true);
         	$('input[name="compensation_training_status2"]').prop('disabled',true);
         	$('input[name="compensation_training_status3"]').prop('disabled',true);
         }
@@ -5873,6 +5875,7 @@ function clear_and_set_personal_health_history_dialog() {
         	document.getElementById("count_for_training_at_week").value = "";
         	document.getElementById("time_for_training_at_week").value = "";
     		$('select[name="training_status1"]').prop('disabled',true);
+			$('select[name="training_status1"] option').first().prop('selected', true);
     		$('input[name="training_status2"]').prop('disabled',true);
     		$('input[name="training_status3"]').prop('disabled',true);
         }
