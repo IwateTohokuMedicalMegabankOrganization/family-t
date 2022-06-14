@@ -839,6 +839,7 @@
 		"do_you_exercise_regularly": "定期的な運動をしていますか？",
 		"yes": "はい",
 		"no": "いいえ",
+		"training_strength":"運動の強さの程度を選択してください",
 		"blank": "空欄",
 		"moderate": "中程度",
 		"intensive": "重度",

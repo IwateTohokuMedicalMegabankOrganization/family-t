@@ -5794,6 +5794,7 @@ function clear_and_set_personal_health_history_dialog() {
         	document.getElementById("count_for_training_at_week").value = "";
         	document.getElementById("time_for_training_at_week").value = "";
     		$('select[name="training_status1"]').prop('disabled',true);
+			$('select[name="training_status1"] option').first().prop('selected', true);
     		$('input[name="training_status2"]').prop('disabled',true);
     		$('input[name="training_status3"]').prop('disabled',true);
 		}
@@ -5803,6 +5804,7 @@ function clear_and_set_personal_health_history_dialog() {
     	document.getElementById("count_for_training_at_week").value = "";
     	document.getElementById("time_for_training_at_week").value = "";
 		$('select[name="training_status1"]').prop('disabled',true);
+		$('select[name="training_status1"] option').first().prop('selected', true);
 		$('input[name="training_status2"]').prop('disabled',true);
 		$('input[name="training_status3"]').prop('disabled',true);
 	}
