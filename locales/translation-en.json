@@ -813,6 +813,7 @@
 		"do_you_exercise_regularly": "Do you exercise regularly?",
 		"yes": "Yes",
 		"no": "No",
+		"training_strength":"Select training strength",
 		"blank": "blank",
 		"moderate": "Moderate",
 		"intensive": "Intensive",
