@@ -39,7 +39,7 @@ class QoFSupplementForm {
 
 		// フォームの生成
 		// 	お名前
-		row.append("<td class='left'>" + pi.name + "</td>");
+		row.append("<td style='border-top: dashed 1px gray;'>" + pi.name + "</td>");
 		// 存命
 		row.append(this._getIsAliveForm(pi));
 		// 死亡年齢
@@ -49,7 +49,7 @@ class QoFSupplementForm {
 		// 疾患有無
 		row.append(this._getHasDeseaseForm(pi));
 		// 病歴
-		var healthHistories = $("<td class='center'></td>");
+		var healthHistories = $("<td class='center' style='border-top: dashed 1px gray;'></td>");
 		healthHistories.append(this._getHealthHistoriesTable(pi));
 		row.append(healthHistories);
 
@@ -355,13 +355,13 @@ class QoFSupplementForm {
 	}
 
 	_getTD(contents) {
-		var td = $("<td>");
+		var td = $("<td style='border-top: dashed 1px gray;'>");
 		td.append(contents);
 		return td;
 	}
 
 	_getLeftTD(contents) {
-		var td = $("<td>");
+		var td = $("<td style='border-top: dashed 1px gray;'>");
 		td.append(contents);
 		return td;
 	}
