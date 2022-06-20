@@ -2472,7 +2472,7 @@ function check_date_of_birth_in_correct_format (date_of_birth) {
   var this_month =  today.getMonth()+1;
   var this_day = today.getDate();
 
-  if (date_info[0] < 1890 || date_info[0] > this_year) return false;
+  if (date_info[0] < 1880 || date_info[0] > this_year) return false;
   if (date_info[0] == this_year && date_info[1] > this_month) return false;
   if (date_info[0] == this_year && date_info[1] == this_month && date_info[1] > this_day) return false;
 
