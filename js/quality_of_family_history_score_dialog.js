@@ -248,12 +248,17 @@ class QoFSupplementForm {
 			
 			// 表示の初期化
 			this._refreshPersonalHealthHistory(checkedRadioButton, pi);
+			checkedRadioButton.parent().parent().parent().find(".health_histories").hide();
 		}
 		if(has_disease=='unknown'){		
 			// 病歴を初期化	
 			pi["Health History"].length = 0;
 			// 表示の初期化
 			this._refreshPersonalHealthHistory(checkedRadioButton, pi);
+			checkedRadioButton.parent().parent().parent().find(".health_histories").hide();
+		}
+		if(has_disease=='with'){
+			checkedRadioButton.parent().parent().parent().find(".health_histories").show();
 		}
 
 		// 病歴
@@ -265,7 +270,7 @@ class QoFSupplementForm {
 
 	_refreshPersonalHealthHistory(checkedRadioButton, pi){
 		var healthHistories = checkedRadioButton.parent().parent().parent().find(".health_data_entry_row");
-		var parentsOfhealthHistories = healthHistories.parent().empty();
+		var parentsOfhealthHistories = healthHistories.parent().parent().empty();
 		parentsOfhealthHistories.append(this._getHealthHistoriesTable(pi));
 	}
 
