@@ -4841,6 +4841,9 @@ function add_disease() {
 	}
 	toggleHealthyOption( $(this).parent().parent().parent() );
 
+	// 2022/07/04 追加。病歴を登録した時点でエラー表記を非表示にする。
+	$('.require_health_history').hide();
+
 	return false;
 }
 
