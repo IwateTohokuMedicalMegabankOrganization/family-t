@@ -4595,6 +4595,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 				if ( $("#new_disease_name").length == 0) {
 					$(this).after($("<div id='new_disease' class='col s6'><INPUT id='new_disease_name' class='ddcs' type='text' size='40' value='' placeholder='" + $.t('fhh_js.disease_name_enter') + "' style='height:40px;width:100%;'></INPUT></div>"));
 					detailed_disease_select.empty().hide();
+					$(this).parent().parent().find('#age_at_diagnosis_select').show();
 				}
 			}
 		} else {
@@ -4639,6 +4640,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 					}
 				} else {
 					$(this).parent().find($('.ddcs')).prop('disabled',false);
+					$(this).parent().parent().find('#age_at_diagnosis_select').show();
 					$(this).parent().parent().find('#age_at_diagnosis_select').prop('disabled',false);
 					detailed_disease_select.show().append("<option value='not_picked'>" + getSpanForTranslate("fhh_js.disease_subtype_select") + "</option>");
 
@@ -4651,6 +4653,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 			else {
 					detailed_disease_select.show();
 					$(this).parent().find($('.ddcs')).prop('disabled',true);
+					$(this).parent().parent().find('#age_at_diagnosis_select').show();
 					$(this).parent().parent().find('#age_at_diagnosis_select').prop('disabled',false);
 					//detailed_disease_select.append("<option value='" + new_disease_selected.replace(/\"/g,'&quot;') + "'>" +  "" + "</option>");
 					//detailed_disease_select.append("<option value='" + detailed_disease[0].system + "-" + detailed_disease[0].code + "'> "
