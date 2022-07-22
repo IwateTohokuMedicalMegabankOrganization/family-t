@@ -4639,6 +4639,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 					}
 				} else {
 					$(this).parent().find($('.ddcs')).prop('disabled',false);
+					$(this).parent().parent().find('#age_at_diagnosis_select').show();
 					$(this).parent().parent().find('#age_at_diagnosis_select').prop('disabled',false);
 					detailed_disease_select.show().append("<option value='not_picked'>" + getSpanForTranslate("fhh_js.disease_subtype_select") + "</option>");
 
