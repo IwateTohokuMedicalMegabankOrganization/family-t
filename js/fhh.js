@@ -7135,7 +7135,7 @@ function getYearOptions(min, max){
 	
 		var opt = $('<option>');
 		opt.val( i ).append(getSpanForTranslate("family-t.yyyy."+i)).css( 'translate' );
-		options.push( opt );
+		options.unshift( opt );
 	}
 
 	return options;
