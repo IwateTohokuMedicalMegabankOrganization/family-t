@@ -4693,6 +4693,9 @@ function set_age_at_diagnosis_pulldown(instructions, age_at_diagnosis_select) {
 	age_at_diagnosis_select.append("<option value='late_fifties'>" + getSpanForTranslate("fhh_js.late_fifties") + "</option>");
 	age_at_diagnosis_select.append("<option value='early_sixties'>" + getSpanForTranslate("fhh_js.early_sixties") + "</option>");
 	age_at_diagnosis_select.append("<option value='late_sixties'>" + getSpanForTranslate("fhh_js.late_sixties") + "</option>");
+	age_at_diagnosis_select.append("<option value='seventies'>" + getSpanForTranslate("fhh_js.seventies") + "</option>");
+	age_at_diagnosis_select.append("<option value='eighties'>" + getSpanForTranslate("fhh_js.eighties") + "</option>");
+	age_at_diagnosis_select.append("<option value='nineties'>" + getSpanForTranslate("fhh_js.nineties") + "</option>");
 	age_at_diagnosis_select.append("<option value='senior'>" + getSpanForTranslate("fhh_js.senior") + "</option>");
 	return age_at_diagnosis_select;
 }
@@ -6041,33 +6044,6 @@ function clear_and_set_personal_health_history_dialog() {
 		toggleHealthyOption( $(data_entry_row).parent() );
 	}
 
-	/*
-	$("age_at_diagnosis_select").on('click',function() {
-		$('select#age_at_diagnosis_select option').remove();
-
-		age_at_diagnosis_select.append("<option value='not_picked'>" + $.t("fhh_js.age_at_diagnosis_select") + "</option>");
-		age_at_diagnosis_select.append("<option value='prebirth'>" + $.t("fhh_js.prebirth") + "</option>");
-		age_at_diagnosis_select.append("<option value='newborn'>" + $.t("fhh_js.newborn") + "</option>");
-		age_at_diagnosis_select.append("<option value='infant'>" + $.t("fhh_js.infant") + "</option>");
-		age_at_diagnosis_select.append("<option value='child'>" + $.t("fhh_js.child") + "</option>");
-		age_at_diagnosis_select.append("<option value='early_teens'>" + $.t("fhh_js.early_teens") + "</option>");
-		age_at_diagnosis_select.append("<option value='late_teens'>" + $.t("fhh_js.late_teens") + "</option>");
-		age_at_diagnosis_select.append("<option value='early_twenties'>" + $.t("fhh_js.early_twenties") + "</option>");
-		age_at_diagnosis_select.append("<option value='late_twenties'>" + $.t("fhh_js.late_twenties") + "</option>");
-		age_at_diagnosis_select.append("<option value='early_thirties'>" + $.t("fhh_js.early_thirties") + "</option>");
-		age_at_diagnosis_select.append("<option value='late_thirties'>" + $.t("fhh_js.late_thirties") + "</option>");
-		age_at_diagnosis_select.append("<option value='early_fourties'>" + $.t("fhh_js.early_fourties") + "</option>");
-		age_at_diagnosis_select.append("<option value='late_fourties'>" + $.t("fhh_js.late_fourties") + "</option>");
-		age_at_diagnosis_select.append("<option value='early_fifties'>" + $.t("fhh_js.early_fifties") + "</option>");
-		age_at_diagnosis_select.append("<option value='late_fifties'>" + $.t("fhh_js.late_fifties") + "</option>");
-		age_at_diagnosis_select.append("<option value='early_sixties'>" + $.t("fhh_js.early_sixties") + "</option>");
-		age_at_diagnosis_select.append("<option value='late_sixties'>" + $.t("fhh_js.late_sixties") + "</option>");
-		age_at_diagnosis_select.append("<option value='senior'>" + $.t("fhh_js.senior") + "</option>");
-		age_at_diagnosis_select.append("<option value='Unknown'>" + $.t("fhh_js.unknown") + "</option>");
-
-	});
-	*/
-
 	$("#personal_health_information").find("#disease_choice_select").val($("#disease_choice_select").find('option').first().val());
 	$("#personal_health_information").find("#detailed_disease_choice_select").val($("#detailed_disease_choice_select").find('option').first().val());
 	$("#personal_health_information").find("#age_at_diagnosis_select").val($("#age_at_diagnosis_select").find('option').first().val());
@@ -6237,7 +6213,10 @@ function check_age_diagage_validity(personal_age, diag_age) {
 			|| ( diag_age == "late_fifties" && personal_age < 55 )
 			|| ( diag_age == "early_sixties" && personal_age < 60 )
 			|| ( diag_age == "late_sixties" && personal_age < 65 )
-			|| ( diag_age == "senior" && personal_age < 70 )
+			|| ( diag_age == "seventies" && personal_age < 70 )
+			|| ( diag_age == "eighties" && personal_age < 80 )
+			|| ( diag_age == "nineties" && personal_age < 90 )
+			|| ( diag_age == "senior" && personal_age < 100 )
 		) {
 		return true;
 	} else {
@@ -6336,6 +6315,15 @@ function calc_family_age() {
 				case "late_sixties":
 					family_age = 69;
 					break;
+				case "seventies":
+					family_age = 79;
+					break;
+				case "eighties":
+					family_age = 89;
+					break;
+				case "nineties":
+					family_age = 99;
+					break;
 				default:
 					family_age = 999;
 					break;
@@ -6395,6 +6383,15 @@ function calc_family_age() {
 			break;
 		case "late_sixties":
 			family_age = 69;
+			break;
+		case "seventies":
+			family_age = 79;
+			break;
+		case "eighties":
+			family_age = 89;
+			break;
+		case "nineties":
+			family_age = 99;
 			break;
 		default:
 			family_age = 999;
@@ -6738,9 +6735,9 @@ function getEstimatedAgeLabel( value ) {
 const dicEstimatedAge = [
 	{ "value" : "not_picked", "label" : "選択されていません" },
 	{ "value" : "prebirth", "label" : "出生前" },
-	{ "value" : "newborn", "label" : "新生児期" },
-	{ "value" : "infant", "label" : "乳児期" },
-	{ "value" : "child", "label" : "小児期" },
+	{ "value" : "newborn", "label" : "新生児" },
+	{ "value" : "infant", "label" : "乳児" },
+	{ "value" : "child", "label" : "小児" },
 	{ "value" : "early_teens", "label" : "10～14歳" },
 	{ "value" : "late_teens", "label" : "15～19歳" },
 	{ "value" : "early_twenties", "label" : "20～24歳" },
@@ -6753,7 +6750,10 @@ const dicEstimatedAge = [
 	{ "value" : "late_fifties", "label" : "55～59歳" },
 	{ "value" : "early_sixties", "label" : "60～64歳" },
 	{ "value" : "late_sixties", "label" : "65～69歳" },
-	{ "value" : "senior", "label" : "70歳以上" },
+	{ "value" : "seventies", "label" : "70～79歳" },
+	{ "value" : "eighties", "label" : "80～89歳" },
+	{ "value" : "nineties", "label" : "90～99歳" },
+	{ "value" : "senior", "label" : "100歳以上" },
 	{ "value" : "Unknown", "label" : "不明" }
 ];
 

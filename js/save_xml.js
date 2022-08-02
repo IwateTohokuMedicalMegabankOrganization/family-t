@@ -972,7 +972,11 @@ function get_age_values_from_estimated_age(age_at_diagnosis) {
 		case "early_sixties": return {unit:"year", low:"60", high:"64"};
 		case "late_sixties": return {unit:"year", low:"65", high:"59"};
 
-		case "senior": return {unit:"year", low:"70", high:null};
+		case "seventies": return {unit:"year", low:"70", high:"79"};
+		case "eighties": return {unit:"year", low:"80", high:"89"};
+		case "nineties": return {unit:"year", low:"90", high:"99"};
+		case "senior": return {unit:"year", low:"100", high:null};
+		
 		case "unknown": return null;
 	}
 	return null;

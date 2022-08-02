@@ -957,9 +957,10 @@ function get_age_at_diagnosis (xml_snippet) {
 
 		if (estimated_age.indexOf('value="60"') > -1) return "early_sixties";
 		if (estimated_age.indexOf('value="65"') > -1) return "late_sixties";
-		if (estimated_age.indexOf('value="70"') > -1) return "senior";
-
-		if (estimated_age.indexOf('value="70"') > -1) return "senior";
+		if (estimated_age.indexOf('value="70"') > -1) return "seventies";
+		if (estimated_age.indexOf('value="80"') > -1) return "eighties";
+		if (estimated_age.indexOf('value="90"') > -1) return "nineties";
+		if (estimated_age.indexOf('value="100"') > -1) return "senior";
 
 
 	}

@@ -853,8 +853,11 @@ class EstimatedAgeValue extends Code {
         "early_fifties": { unit: "year", low: { value: "50" }, high: { value: "54" } },
         "late_fifties": { unit: "year", low: { value: "55" }, high: { value: "59" } },
         "early_sixties": { unit: "year", low: { value: "60" }, high: { value: "64" } },
-        "late_sixties": { unit: "year", low: { value: "65" }, high: { value: 9 } },
-        "senior": { unit: "year", low: { value: "70" } }
+        "late_sixties": { unit: "year", low: { value: "65" }, high: { value: "69" } },
+        "seventies": { unit: "year", low: { value: "70" }, high: { value: "79" } },
+        "eighties": { unit: "year", low: { value: "80" }, high: { value: "89" } },
+        "nineties": { unit: "year", low: { value: "90" }, high: { value: "99" } },
+        "senior": { unit: "year", low: { value: "100" } }
     }
 
     getPersonalInfomationData(persedXml) {
