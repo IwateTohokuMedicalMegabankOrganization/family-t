@@ -47,7 +47,8 @@
 		"li28": "The Service does not collect personal information. Personal information may be disclosed by Users depending on the content of inquiries made by Users.",
 		"li29": "I hereby accept the above Terms of Service and begin my use of family-t.",
 		"li30": "Create new family history",
-		"li31": "Read family history"
+		"li31": "Read family history",
+		"li32": ""
 	},
 	"fhh_js": {
 		"invalid_cause_of_death": "Please Select Cause of Death",
