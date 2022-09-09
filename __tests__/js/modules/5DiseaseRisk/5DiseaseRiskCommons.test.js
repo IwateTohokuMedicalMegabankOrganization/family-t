@@ -519,7 +519,7 @@ test('isDiesaseMatch', () => {
             { "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }
         ]
     };
-    expect(FiveDiseaseRiskCommons.isDiesaseMatch(健康, pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.isDiesaseMatch('FAMILY_T-HEALTHY', pi)).toEqual(true);
 
     // falseの場合
     pi = {
@@ -527,7 +527,7 @@ test('isDiesaseMatch', () => {
             { "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }
         ]
     };
-    expect(FiveDiseaseRiskCommons.isAgeLessThan(高血圧, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeLessThan('SNOMED_CT-38341003', pi)).toEqual(false);
 
     // falseの場合 disease_nameが空文字の場合
     expect(FiveDiseaseRiskCommons.isAgeLessThan('', pi)).toEqual(false);
@@ -539,25 +539,25 @@ test('isDiesaseMatch', () => {
     expect(FiveDiseaseRiskCommons.isAgeLessThan(null, pi)).toEqual(false);
     
     // falseの場合 piが空文字の場合
-    expect(FiveDiseaseRiskCommons.isAgeLessThan(高血圧, '')).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeLessThan('SNOMED_CT-38341003', '')).toEqual(false);
     
     // falseの場合 piがundefiendの場合
-    expect(FiveDiseaseRiskCommons.isAgeLessThan(高血圧, undefined)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeLessThan('SNOMED_CT-38341003', undefined)).toEqual(false);
     
     // falseの場合 piがnullの場合
-    expect(FiveDiseaseRiskCommons.isAgeLessThan(高血圧, null)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeLessThan('SNOMED_CT-38341003', null)).toEqual(false);
     
     // falseの場合 piのHealth Historyが空文字の場合
     pi = {"Health History":''};
-    expect(FiveDiseaseRiskCommons.isAgeLessThan(高血圧, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeLessThan('SNOMED_CT-38341003', pi)).toEqual(false);
     
     // falseの場合 piのHealth Historyundefiendの場合
     pi = {"Health History":undefined};
-    expect(FiveDiseaseRiskCommons.isAgeLessThan(高血圧, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeLessThan('SNOMED_CT-38341003', pi)).toEqual(false);
     
     // falseの場合 piのHealth Historynullの場合
     pi = {"Health History":null};
-    expect(FiveDiseaseRiskCommons.isAgeLessThan(高血圧, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeLessThan('SNOMED_CT-38341003', pi)).toEqual(false);
 });
 
 test('isGenderMatch', () => {
