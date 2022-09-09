@@ -297,11 +297,11 @@ test('getHealthHistory', () => {
 
     // fatherのHealthHistory
     var expect2 = [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }];
-    expect(FiveDiseaseRiskCommons.getHealthHistory('father', personalInformation)).toEqual(expect1);
+    expect(FiveDiseaseRiskCommons.getHealthHistory('father', personalInformation)).toEqual(expect2);
 
-    // grandsonのHealthHistory
+    // grandson(存在しない)のHealthHistory
     var expect3 = null;
-    expect(FiveDiseaseRiskCommons.getHealthHistory('grandson', personalInformation)).toEqual(expect1);
+    expect(FiveDiseaseRiskCommons.getHealthHistory('grandson', personalInformation)).toEqual(expect3);
 
     // nullのHealthHistory
     var param = null;

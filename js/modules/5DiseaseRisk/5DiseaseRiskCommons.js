@@ -38,7 +38,20 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
      * @param {*} pi 
      */
     static getHealthHistory(relatives, pi) {
+        if(relatives == null) return null;
+        if(relatives == undefined) return null;
 
+        // 本人の場合
+        if(relatives == '') return pi['Health History'];
+        
+        // 家族の場合
+        var ret = null;
+        Object.keys(pi).forEach(function (key) {
+            if (key == relatives) {
+                ret = pi[key]['Health History'];
+            }
+        });
+        return ret;
     }
 
     /**
