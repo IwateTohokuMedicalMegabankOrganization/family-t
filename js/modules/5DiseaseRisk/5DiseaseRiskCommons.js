@@ -54,6 +54,26 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
         return ret;
     }
 
+    static _isParamCorrect(age, pi){
+        if(age == null || age == undefined || age == '') return false;
+        if(pi == null || pi == undefined || pi == '') return false;
+        return true;
+    }
+
+    static _canUseAge(pi){
+        return pi.age != null && pi.age != undefined;
+    }
+
+    static _canUseBirth(pi){
+        return (pi.date_of_birth != null && pi.date_of_birth != undefined)
+        && (pi.year_of_birth != null && pi.year_of_birth != undefined)
+        && (pi.month_of_birth != null && pi.month_of_birth != undefined);
+    }
+
+    static _canUseEstimatedAge(pi){
+        return pi.estimated_age != null && pi.estimated_age != undefined;
+    }
+
     /**
      * Personal Informationの年齢がage以上かどうか判定する。
      * 厳密な判定ははどうする？
@@ -61,7 +81,27 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
      * @param {*} pi 
      */
     static isAgeGreaterThanOrEqualTo(age, pi) {
+        // 引数チェック
+        if(!this._isParamCorrect(age, pi)) return false;
 
+        // 年齢の場合
+        if(this._canUseAge(pi)){
+            return age <= Number(pi.age);
+        }
+
+        // 生年月の場合
+        if(this._canUseBirth(pi)){
+            var thisYear = (new Date()).getFullYear();
+            return age <= (Number(thisYear) - Number(pi.year_of_birth));
+        }
+
+        // 年齢幅の場合
+        if(this._canUseEstimatedAge(pi)){
+            const eav = (new EstimatedAgeValue()).ESTIMATED_AGE_VALUE;
+            var low_age = eav[pi.estimated_age].low.value;
+            return age <= Number(low_age);
+        }
+        return false;
     }
 
     /**
@@ -70,7 +110,27 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
      * @param {*} pi 
      */
     static isAgeGreaterThan(age, pi) {
+        // 引数チェック
+        if(!this._isParamCorrect(age, pi)) return false;
 
+        // 年齢の場合
+        if(this._canUseAge(pi)){
+            return age < Number(pi.age);
+        }
+
+        // 生年月の場合
+        if(this._canUseBirth(pi)){
+            var thisYear = (new Date()).getFullYear();
+            return age < (Number(thisYear) - Number(pi.year_of_birth));
+        }
+
+        // 年齢幅の場合
+        if(this._canUseEstimatedAge(pi)){
+            const eav = (new EstimatedAgeValue()).ESTIMATED_AGE_VALUE;
+            var low_age = eav[pi.estimated_age].low.value;
+            return age < Number(low_age);
+        }
+        return false;
     }
 
     /**
@@ -79,7 +139,27 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
      * @param {*} pi 
      */
     static isAgeLessThanOrEquaTo(age, pi) {
+        // 引数チェック
+        if(!this._isParamCorrect(age, pi)) return false;
 
+        // 年齢の場合
+        if(this._canUseAge(pi)){
+            return age >= Number(pi.age);
+        }
+
+        // 生年月の場合
+        if(this._canUseBirth(pi)){
+            var thisYear = (new Date()).getFullYear();
+            return age >= (Number(thisYear) - Number(pi.year_of_birth));
+        }
+
+        // 年齢幅の場合
+        if(this._canUseEstimatedAge(pi)){
+            const eav = (new EstimatedAgeValue()).ESTIMATED_AGE_VALUE;
+            var high_age = eav[pi.estimated_age].high.value;
+            return age >= Number(high_age);
+        }
+        return false;
     }
 
     /**
@@ -88,7 +168,27 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
      * @param {*} pi 
      */
     static isAgeLessThan(age, pi) {
+        // 引数チェック
+        if(!this._isParamCorrect(age, pi)) return false;
 
+        // 年齢の場合
+        if(this._canUseAge(pi)){
+            return age > Number(pi.age);
+        }
+
+        // 生年月の場合
+        if(this._canUseBirth(pi)){
+            var thisYear = (new Date()).getFullYear();
+            return age > (Number(thisYear) - Number(pi.year_of_birth));
+        }
+
+        // 年齢幅の場合
+        if(this._canUseEstimatedAge(pi)){
+            const eav = (new EstimatedAgeValue()).ESTIMATED_AGE_VALUE;
+            var high_age = eav[pi.estimated_age].high.value;
+            return age > Number(high_age);
+        }
+        return false;
     }
 
     /**
