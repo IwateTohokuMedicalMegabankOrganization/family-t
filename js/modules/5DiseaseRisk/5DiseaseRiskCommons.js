@@ -4,20 +4,30 @@
  * 5疾患リスク計算の基底クラス
  */
 import { EstimatedAgeValue } from  '../xmlTag';
+import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
 
  export class FiveDiseaseRiskCommons {
 
-    constructor(){
+    diseases;   // 疾患関連で必要になる可能性が高い。
 
+    constructor(){
+        this.diseases = require("../../../data/diseases.json");
     }
 
     /**
-     * 健康歴から疾患名を取得する。取得できない場合はnullを返す。
-     * @param {*} disease_name 
+     * 健康歴から任意の疾患を取得する。取得できない場合はnullを返す。
+     * Detailed Disease Nameは日本語と英語があるため、任意の疾患名に該当するかどうかは、
+     * pi[Health History]のDisease Codeとdata/disease.jsonのデータを用いる
+     * @param {*} disease_code 
      * @param {*} pi 
      */
-    static getDisease(disease_name, pi) {
-
+    static getDisease(disease_code, pi) {
+        for(const history of pi['Health History']){
+            if(history['Disease Code'] == disease_code){
+                return CodeUtil.getCode(history['Disease Code']);
+            }
+        }        
+        return null;
     }
 
     /**
