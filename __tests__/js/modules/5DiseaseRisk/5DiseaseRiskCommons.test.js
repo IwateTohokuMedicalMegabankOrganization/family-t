@@ -315,15 +315,15 @@ test('getHealthHistory', () => {
 test('isAgeGreaterThanOrEqualTo', () => {
     // tureの場合 piにageがある場合
     var pi = {"age":"30"};
-    expect(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(20, pi)).toEqual(ture);
+    expect(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(20, pi)).toEqual(true);
 
     // tureの場合　piに生年月日がある場合
     pi = {"date_of_birth": "1993/10/01", "year_of_birth": "1993", "month_of_birth": "10"};
-    expect(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(20, pi)).toEqual(ture);
+    expect(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(20, pi)).toEqual(true);
 
     // tureの場合  piに年齢幅がある場合
     pi = {"estimated_age": "late_twenties"};
-    expect(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(20, pi)).toEqual(ture);
+    expect(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(20, pi)).toEqual(true);
 
     // falseの場合
     pi = {"age":"30"};
@@ -365,15 +365,15 @@ test('isAgeGreaterThanOrEqualTo', () => {
 test('isAgeGreaterThan', () => {
     // tureの場合 piにageがある場合
     var pi = {"age":"30"};
-    expect(FiveDiseaseRiskCommons.isAgeGreaterThan(20, pi)).toEqual(ture);
+    expect(FiveDiseaseRiskCommons.isAgeGreaterThan(20, pi)).toEqual(true);
 
     // tureの場合　piに生年月日がある場合
     pi = {"date_of_birth": "1993/10/01", "year_of_birth": "1993", "month_of_birth": "10"};
-    expect(FiveDiseaseRiskCommons.isAgeGreaterThan(20, pi)).toEqual(ture);
+    expect(FiveDiseaseRiskCommons.isAgeGreaterThan(20, pi)).toEqual(true);
 
     // tureの場合  piに年齢幅がある場合
     pi = {"estimated_age": "late_twenties"};
-    expect(FiveDiseaseRiskCommons.isAgeGreaterThan(20, pi)).toEqual(ture);
+    expect(FiveDiseaseRiskCommons.isAgeGreaterThan(20, pi)).toEqual(true);
 
     // falseの場合
     pi = {"age":"30"};
@@ -415,15 +415,15 @@ test('isAgeGreaterThan', () => {
 test('isAgeLessThanOrEquaTo', () => {
     // tureの場合 piにageがある場合
     var pi = {"age":"30"};
-    expect(FiveDiseaseRiskCommons.isAgeLessThanOrEquaTo(50, pi)).toEqual(ture);
+    expect(FiveDiseaseRiskCommons.isAgeLessThanOrEquaTo(50, pi)).toEqual(true);
 
     // tureの場合　piに生年月日がある場合
     pi = {"date_of_birth": "1993/10/01", "year_of_birth": "1993", "month_of_birth": "10"};
-    expect(FiveDiseaseRiskCommons.isAgeLessThanOrEquaTo(50, pi)).toEqual(ture);
+    expect(FiveDiseaseRiskCommons.isAgeLessThanOrEquaTo(50, pi)).toEqual(true);
 
     // tureの場合  piに年齢幅がある場合
     pi = {"estimated_age": "late_twenties"};
-    expect(FiveDiseaseRiskCommons.isAgeLessThanOrEquaTo(50, pi)).toEqual(ture);
+    expect(FiveDiseaseRiskCommons.isAgeLessThanOrEquaTo(50, pi)).toEqual(true);
 
     // falseの場合
     pi = {"age":"30"};
@@ -465,15 +465,15 @@ test('isAgeLessThanOrEquaTo', () => {
 test('isAgeLessThan', () => {
     // tureの場合 piにageがある場合
     var pi = {"age":"30"};
-    expect(FiveDiseaseRiskCommons.isAgeLessThan(50, pi)).toEqual(ture);
+    expect(FiveDiseaseRiskCommons.isAgeLessThan(50, pi)).toEqual(true);
 
     // tureの場合　piに生年月日がある場合
     pi = {"date_of_birth": "1993/10/01", "year_of_birth": "1993", "month_of_birth": "10"};
-    expect(FiveDiseaseRiskCommons.isAgeLessThan(50, pi)).toEqual(ture);
+    expect(FiveDiseaseRiskCommons.isAgeLessThan(50, pi)).toEqual(true);
 
     // tureの場合  piに年齢幅がある場合
     pi = {"estimated_age": "late_twenties"};
-    expect(FiveDiseaseRiskCommons.isAgeLessThan(50, pi)).toEqual(ture);
+    expect(FiveDiseaseRiskCommons.isAgeLessThan(50, pi)).toEqual(true);
 
     // falseの場合
     pi = {"age":"30"};
