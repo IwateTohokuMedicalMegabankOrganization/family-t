@@ -717,6 +717,10 @@ class ClinicalObservation extends XmlTag {
         var personalInformation = {};
         
 
+        if (this.isUndefindOrNull(obj.sourceOf)) {
+            return personalInformation;
+        }
+
         if (this.isUndefindOrNull(obj.sourceOf.code)) {
             return personalInformation;
         }

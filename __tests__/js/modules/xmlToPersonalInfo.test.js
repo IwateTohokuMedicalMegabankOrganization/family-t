@@ -131,311 +131,82 @@ test('load', () => {
     </subject>
 </FamilyHistory>`;
     var output = {
-        "FamilyHistory": {
-            "attr_classCode": "OBS",
-            "attr_moodCode": "EVN",
-            "effectiveTime": {
-                "attr_value": "10/1/2021",
+        "American Indian or Alaska Native": false,
+        "Asian": true,
+        "Asian Indian": false,
+        "Black or African-American": false,
+        "Chamorro": false,
+        "Chinese": false,
+        "Filipino": false,
+        "Guamanian": false,
+        "Health History": [
+            {
+                "Age At Diagnosis": "pre-birth",
+                "Detailed Disease Name": "Bone Cancer",
+                "Disease Code": "SNOMED_CT-269466003",
+                "Disease Name": "Bone Cancer",
             },
-            "id": {
-                "attr_extention": "gov.hhs.fhh:718163810183",
+        ],
+        "Japanese": true,
+        "Korean": false,
+        "Native Hawaiian": false,
+        "Native Hawaiian or Other Pacific Islander": false,
+        "Other Asian": false,
+        "Samoan": false,
+        "Unknown Asian": false,
+        "Unknown South Pacific Islander": false,
+        "Vietnamese": false,
+        "White": false,
+        "adopted": false,
+        "brother":  {
+        "gender": "MALE",
+        "id": "98edd975-d38c-40be-bdae-13a5deedab13",
+        "name": "",
             },
-            "methodCode": {
-                "attr_displayName": "Surgeon General's Family Heath History Tool",
-            },
-            "subject": {
-                "attr_typeCode": "SBJ",
-                "patient": {
-                    "attr_classCode": "PAT",
-                    "patientPerson": {
-                        "administrativeGenderCode": {
-                            "attr_code": "248153007",
-                            "attr_codeSystemName": "SNOMED_CT",
-                            "attr_displayName": "male",
-                        },
-                        "birthTime": {
-                            "attr_value": "10/01/1981",
-                        },
-                        "id": {
-                            "attr_extension": "c95f399c-c3e7-4d46-aabf-0d721f639965",
-                        },
-                        "name": {
-                            "attr_formatted": "testName",
-                        },
-                        "raceCode": [
-                            {
-                                "attr_code": "1000000",
-                                "attr_codeSystemName": "TBD",
-                                "attr_displayName": "Asian",
-                                "attr_id": "2",
-                            },
-                            {
-                                "attr_code": "2039-6",
-                                "attr_codeSystemName": "HL7",
-                                "attr_displayName": "Japanese",
-                                "attr_id": "14",
-                            },
-                        ],
-                        "relative": [
-                            {
-                                "code": {
-                                    "attr_code": "NMTH",
-                                    "attr_codeSystemName": "HL7 Family History Model",
-                                    "attr_displayName": "Mother",
-                                },
-                                "relationshipHolder": {
-                                    "administrativeGenderCode": {
-                                        "attr_code": "248152002",
-                                        "attr_codeSystemName": "SNOMED_CT",
-                                        "attr_displayName": "female",
-                                    },
-                                    "id": {
-                                        "attr_extension": "ceb26763-458f-4133-802e-bcb9e49f031d",
-                                    },
-                                    "name": {
-                                        "attr_formatted": "",
-                                    },
-                                    "relative": {
-                                        "code": {
-                                            "attr_code": "PAR",
-                                            "attr_codeSystemName": "HL7 Family History Model",
-                                            "attr_displayName": "Parent",
-                                        },
-                                        "relationshipHolder": "",
-                                    },
-                                    "subjectOf2": "",
-                                },
-                            },
-                            {
-                                "code": {
-                                    "attr_code": "NFTH",
-                                    "attr_codeSystemName": "HL7 Family History Model",
-                                    "attr_displayName": "Father",
-                                },
-                                "relationshipHolder": {
-                                    "administrativeGenderCode": {
-                                        "attr_code": "248153007",
-                                        "attr_codeSystemName": "SNOMED_CT",
-                                        "attr_displayName": "male",
-                                    },
-                                    "id": {
-                                        "attr_extension": "56a783a6-0424-43ae-8248-589653fcaa9b",
-                                    },
-                                    "name": {
-                                        "attr_formatted": "",
-                                    },
-                                    "relative": {
-                                        "code": {
-                                            "attr_code": "PAR",
-                                            "attr_codeSystemName": "HL7 Family History Model",
-                                            "attr_displayName": "Parent",
-                                        },
-                                        "relationshipHolder": "",
-                                    },
-                                    "subjectOf2": "",
-                                },
-                            },
-                            {
-                                "code": {
-                                    "attr_code": "MGRMTH",
-                                    "attr_codeSystemName": "HL7 Family History Model",
-                                    "attr_displayName": "Maternal Grandmother",
-                                },
-                                "relationshipHolder": {
-                                    "administrativeGenderCode": {
-                                        "attr_code": "248152002",
-                                        "attr_codeSystemName": "SNOMED_CT",
-                                        "attr_displayName": "female",
-                                    },
-                                    "id": {
-                                        "attr_extension": "7187c3af-5ebd-4d12-b3a8-48e323d5409b",
-                                    },
-                                    "name": {
-                                        "attr_formatted": "",
-                                    },
-                                    "relative": {
-                                        "code": {
-                                            "attr_code": "PAR",
-                                            "attr_codeSystemName": "HL7 Family History Model",
-                                            "attr_displayName": "Parent",
-                                        },
-                                        "relationshipHolder": "",
-                                    },
-                                    "subjectOf2": "",
-                                },
-                            },
-                            {
-                                "code": {
-                                    "attr_code": "MGRFTH",
-                                    "attr_codeSystemName": "HL7 Family History Model",
-                                    "attr_displayName": "Maternal Grandfather",
-                                },
-                                "relationshipHolder": {
-                                    "administrativeGenderCode": {
-                                        "attr_code": "248153007",
-                                        "attr_codeSystemName": "SNOMED_CT",
-                                        "attr_displayName": "male",
-                                    },
-                                    "id": {
-                                        "attr_extension": "7cdc7a5a-0bb7-4f84-9fe7-0450da0f3639",
-                                    },
-                                    "name": {
-                                        "attr_formatted": "",
-                                    },
-                                    "relative": {
-                                        "code": {
-                                            "attr_code": "PAR",
-                                            "attr_codeSystemName": "HL7 Family History Model",
-                                            "attr_displayName": "Parent",
-                                        },
-                                        "relationshipHolder": "",
-                                    },
-                                    "subjectOf2": "",
-                                },
-                            },
-                            {
-                                "code": {
-                                    "attr_code": "PGRMTH",
-                                    "attr_codeSystemName": "HL7 Family History Model",
-                                    "attr_displayName": "Paternal Grandmother",
-                                },
-                                "relationshipHolder": {
-                                    "administrativeGenderCode": {
-                                        "attr_code": "248152002",
-                                        "attr_codeSystemName": "SNOMED_CT",
-                                        "attr_displayName": "female",
-                                    },
-                                    "id": {
-                                        "attr_extension": "c35b2ee2-afe8-4ba3-a3c3-928bd3e767c1",
-                                    },
-                                    "name": {
-                                        "attr_formatted": "",
-                                    },
-                                    "relative": {
-                                        "code": {
-                                            "attr_code": "PAR",
-                                            "attr_codeSystemName": "HL7 Family History Model",
-                                            "attr_displayName": "Parent",
-                                        },
-                                        "relationshipHolder": "",
-                                    },
-                                    "subjectOf2": "",
-                                },
-                            },
-                            {
-                                "code": {
-                                    "attr_code": "PGRFTH",
-                                    "attr_codeSystemName": "HL7 Family History Model",
-                                    "attr_displayName": "Paternal Grandfather",
-                                },
-                                "relationshipHolder": {
-                                    "administrativeGenderCode": {
-                                        "attr_code": "248153007",
-                                        "attr_codeSystemName": "SNOMED_CT",
-                                        "attr_displayName": "male",
-                                    },
-                                    "id": {
-                                        "attr_extension": "9f5e6464-cd70-4625-995c-c9f5047e974b",
-                                    },
-                                    "name": {
-                                        "attr_formatted": "",
-                                    },
-                                    "relative": {
-                                        "code": {
-                                            "attr_code": "PAR",
-                                            "attr_codeSystemName": "HL7 Family History Model",
-                                            "attr_displayName": "Parent",
-                                        },
-                                        "relationshipHolder": "",
-                                    },
-                                    "subjectOf2": "",
-                                },
-                            },
-                            {
-                                "code": {
-                                    "attr_code": "NBRO",
-                                    "attr_codeSystemName": "HL7 Family History Model",
-                                    "attr_displayName": "Brother",
-                                },
-                                "relationshipHolder": {
-                                    "administrativeGenderCode": {
-                                        "attr_code": "248153007",
-                                        "attr_codeSystemName": "SNOMED_CT",
-                                        "attr_displayName": "male",
-                                    },
-                                    "id": {
-                                        "attr_extension": "98edd975-d38c-40be-bdae-13a5deedab13",
-                                    },
-                                    "name": {
-                                        "attr_formatted": "",
-                                    },
-                                    "relative": {
-                                        "code": {
-                                            "attr_code": "PAR",
-                                            "attr_codeSystemName": "HL7 Family History Model",
-                                            "attr_displayName": "Parent",
-                                        },
-                                        "relationshipHolder": "",
-                                    },
-                                    "subjectOf2": "",
-                                },
-                            },
-                        ],
-                        "subjectOf2": {
-                            "clinicalObservation": [
-                                {
-                                    "code": {
-                                        "attr_code": "271603002",
-                                        "attr_codeSystemName": "SNOMED_CT",
-                                        "attr_displayName": "height",
-                                    },
-                                    "value": {
-                                        "attr_unit": "centimeters",
-                                        "attr_value": "180",
-                                    },
-                                },
-                                {
-                                    "code": {
-                                        "attr_code": "107647005",
-                                        "attr_codeSystemName": "SNOMED_CT",
-                                        "attr_displayName": "weight",
-                                    },
-                                    "value": {
-                                        "attr_unit": "kilogram",
-                                        "attr_value": "70",
-                                    },
-                                },
-                                {
-                                    "code": {
-                                        "attr_originalText": "Parental consanguinity indicated",
-                                    },
-                                },
-                                {
-                                    "code": {
-                                        "attr_code": "269466003",
-                                        "attr_codeSystemName": "SNOMED_CT",
-                                        "attr_displayName": "Bone Cancer",
-                                        "attr_originalText": "Bone Cancer",
-                                    },
-                                    "subject": {
-                                        "dataEstimatedAge": {
-                                            "code": {
-                                                "attr_code": "21611-9",
-                                                "attr_codeSystemName": "LOINC",
-                                                "attr_displayName": "Estimated Age",
-                                                "attr_originalText": "pre-birth",
-                                            },
-                                        },
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                },
-            },
+        "consanguinity": undefined,
+        "date_of_birth": "1981/10/01",
+        "father":  {
+            "gender": "MALE",
+            "id": "56a783a6-0424-43ae-8248-589653fcaa9b",
+            "name": "",
         },
+        "flg_race_ethnic": 1,
+        "gender": "MALE",
+        "height": "180",
+        "height_unit": "centimeters",
+        "id": "c95f399c-c3e7-4d46-aabf-0d721f639965",
+        "maternal_grandfather":  {
+            "gender": "MALE",
+            "id": "7cdc7a5a-0bb7-4f84-9fe7-0450da0f3639",
+            "name": "",
+        },
+        "maternal_grandmother":  {
+            "gender": "FEMALE",
+            "id": "7187c3af-5ebd-4d12-b3a8-48e323d5409b",
+            "name": "",
+        },
+        "month_of_birth": "10",
+        "mother":  {
+            "gender": "FEMALE",
+            "id": "ceb26763-458f-4133-802e-bcb9e49f031d",
+            "name": "",
+        },
+        "name": "testName",
+        "paternal_grandfather":  {
+            "gender": "MALE",
+            "id": "9f5e6464-cd70-4625-995c-c9f5047e974b",
+            "name": "",
+        },
+        "paternal_grandmother":  {
+            "gender": "FEMALE",
+            "id": "c35b2ee2-afe8-4ba3-a3c3-928bd3e767c1",
+            "name": "",
+        },
+        "twin_status": "NO",
+        "weight": "70",
+        "weight_unit": "kilogram",
+        "year_of_birth": "1981",
     };
-
     expect(xmlToPersonalInfo(input)).toEqual( output);
 
 });
