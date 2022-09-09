@@ -410,11 +410,11 @@ class PersonalInformationUtil {
 
 function getLang(){
 
-	if( 'en' == getParameterByName('setLng') ) return 'en';
-	if( 'ja' == getParameterByName('setLng') ) return 'ja';
-
 	if( 'en' == window.i18n.lng() ) return 'en';
 	if( 'en-US' == window.i18n.lng() ) return 'en';
+
+	if( 'en' == getParameterByName('setLng') ) return 'en';
+	if( 'ja' == getParameterByName('setLng') ) return 'ja';
 
 	return 'ja';
 }
@@ -7134,47 +7134,57 @@ function getYearOptions(min, max){
 	for( let i = min; i <= max ; i++ ){
 	
 		var opt = $('<option>');
-		opt.val( i ).append(getSpanForTranslate("family-t.yyyy."+i)).css( 'translate' );
+		//静的ファイルによるoptionの生成
+		//opt.val( i ).append(getSpanForTranslate("family-t.yyyy."+i)).css( 'translate' );
+		
+		//動的なoptionの生成
+		opt.val( i )
+			.html(( getLang() == 'ja' ) ? getWarekiYear( i ) : i )
+			.css( 'translate' );
 		options.unshift( opt );
 	}
 
 	return options;
 }
 
-// this is dead coad
-/* 
+
 function getWarekiYear(year){
 	
-	if( 1925 < year && year <= 1988 ){
-		var warekiYear = year - 1925;
-		
-		if( warekiYear < 2 )
-			return '昭和元年' + '（' + year + '）';
-	
-		return '昭和' + warekiYear + '年' + '（' + year + '）';
+	// 明治の場合
+	if( 1867 < year && year <= 1911 ){
+		return calcWareki(year, 1867, '明治');
 	}
 
+	// 大正の場合
+	if( 1911 < year && year <= 1925 ){
+		return calcWareki(year, 1925, '大正');
+	}
+
+	// 昭和の場合
+	if( 1925 < year && year <= 1988 ){
+		return calcWareki(year, 1925, '昭和');
+	}
+
+	// 平成の場合
 	if( 1988 < year && year <= 2018 ){
-		var warekiYear = year - 1988;
-		
-		if( warekiYear < 2 )
-			return '平成元年' + '（' + year + '）';
-	
-		return '平成' + warekiYear + '年' + '（' + year + '）';
+		return calcWareki(year, 1988, '平成');
 	}
 	
+	// 令和の場合
 	if( 2018 < year  ){
-		var warekiYear = year - 2018;
-		
-		if( warekiYear < 2 )
-			return '令和元年' + '（' + year + '）';
-	
-		return '令和' + warekiYear + '年' + '（' + year + '）';
+		return calcWareki(year, 2018, '令和');
 	}
 	
 	return year + '年';
 }
-*/
+
+function calcWareki(year, eraYear, eraName){
+	var warekiYear = year - eraYear;
+	if( warekiYear < 2 ){
+		return eraName + '元年' + '（' + year + '）';
+	}
+	return eraName + warekiYear + '年' + '（' + year + '）';
+}
 
 function chngeLanguage(lng){
 	window.i18n.setLng(lng);
@@ -7191,6 +7201,12 @@ function chngeLanguage(lng){
 	i18n.init(option, function () {
 		$(".translate").i18n();
 	});
+
+	// 生年月のプルダウンだけ再実行の必要がある
+	var thisdate = new Date();
+	var thisyear = thisdate.getFullYear();
+	$('#personal_info_form_year_of_birth').empty().append( getYearOptions( 1880, thisyear ) );
+	$('#family_info_form_year_of_birth').empty().append( getYearOptions( 1880, thisyear ) );
 }
 
 function createTranslationSpanAsString(translatKey, contents){
