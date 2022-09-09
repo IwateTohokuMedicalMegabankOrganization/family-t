@@ -3,7 +3,7 @@
  * 
  * HBOC疾患リスク
  */
-class HbocRisk extends FiveDiseaseRiskBase {
+ export class HbocRisk extends FiveDiseaseRiskBase {
 
     recomendBrcaGenericInspection() {
 

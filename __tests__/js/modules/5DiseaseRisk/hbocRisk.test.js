@@ -1,7 +1,7 @@
 /**
  * 遺伝性乳がん卵巣がん症候群 HBOC リスク計算のテストクラス
  */
-import {  } from '../../../../js/modules/5DiseaseRisk/hbocRisk';
+import { HbocRisk } from '../../../../js/modules/5DiseaseRisk/hbocRisk';
 
  var personalInformation = {
     "name": "あなた",
