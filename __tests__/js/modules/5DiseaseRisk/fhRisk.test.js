@@ -1,5 +1,5 @@
 /**
- * リンチ症候群（遺伝性非ポリポーシス大腸がん）HNPCC疾患リスク計算のテストクラス
+ * 家族性高コレステロール血症FH疾患リスク計算のテストクラス
  */
  import { FhRisk } from '../../../../js/modules/5DiseaseRisk/fhRisk';
 
