@@ -840,7 +840,7 @@ class EstimatedAgeValue extends Code {
     /**
      * { personal_information value : xmlValue }
      */
-    static ESTIMATED_AGE_VALUE = {
+    ESTIMATED_AGE_VALUE = {
         "prebirth": "prebirth",
         "unknown": "unknown",
         "newborn": { unit: "day", low: { value: "0" }, high: { value: "28" } },
