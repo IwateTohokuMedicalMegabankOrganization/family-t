@@ -562,7 +562,7 @@ test('isDiesaseMatch', () => {
 
 test('isGenderMatch', () => {
     // trueの場合
-    pi = {"gender": "MALE"};
+    var pi = {"gender": "MALE"};
     expect(FiveDiseaseRiskCommons.isGenderMatch("MALE", pi)).toEqual(true);
     
     // falseの場合

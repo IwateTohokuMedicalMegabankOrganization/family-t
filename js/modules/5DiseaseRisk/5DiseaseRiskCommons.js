@@ -54,8 +54,8 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
         return ret;
     }
 
-    static _isParamCorrect(age, pi){
-        if(age == null || age == undefined || age == '') return false;
+    static _isParamCorrect(param, pi){
+        if(param == null || param == undefined || param == '') return false;
         if(pi == null || pi == undefined || pi == '') return false;
         return true;
     }
@@ -192,12 +192,19 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
     }
 
     /**
-     * Personal Informationにdisease_nameと合致する疾患があるか判定する。
-     * @param {*} disease_name 
+     * Personal Informationにdisease_codeと合致する疾患があるか判定する。
+     * @param {*} disease_code 
      * @param {*} pi 
      */
-    static isDiesaseMatch(disease_name, pi) {
+    static isDiesaseMatch(disease_code, pi) {
+        // 引数チェック
+        if(!this._isParamCorrect(disease_code, pi)) return false;
 
+        // 該当する疾患があるかどうか判断する。
+        if(this.getDisease(disease_code, pi) != null){
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -206,6 +213,13 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
      * @param {*} pi 
      */
     static isGenderMatch(gender, pi) {
+        // 引数チェック
+        if(!this._isParamCorrect(gender, pi)) return false;
 
+        // 性別が該当するか判断する。
+        if(pi.gender == gender){
+            return true;
+        }
+        return false;
     }
 }
