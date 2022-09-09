@@ -278,12 +278,12 @@
 test('getDisease', () => {
     var pi = personalInformation.father;
     // 取得できる場合
-    var disease = FiveDiseaseRiskCommons.getDisease('高血圧', pi);
+    var disease = FiveDiseaseRiskCommons.getDisease('SNOMED_CT-38341003', pi);
     if(disease != null) expect(true).toEqual(true);
     else expect(true).toEqual(false);
 
     // 取得できない場合
-    var disease = FiveDiseaseRiskCommons.getDisease('高血圧', pi);
+    var disease = FiveDiseaseRiskCommons.getDisease('高SNOMED_CT-XXXXXXXX', pi);
     if(disease == null) expect(true).toEqual(true);
     else expect(true).toEqual(false);
 });
