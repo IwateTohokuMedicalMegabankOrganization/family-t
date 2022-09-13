@@ -277,4 +277,115 @@
  * ◆CQ4. 日本での疫学調査により「第1度近親者に1人の前立腺癌患者がいる場合の罹患リスクは5.6倍（95％CI：1.5〜20.5）と有意差を認めた」
  */
  test('isMatchToP1', () => {
+    var pi = null;
+    var pcRisk = new PcRisk();
+
+    // 該当する(本人が男で40歳以上かつ第1度近親者に前立腺がんの病歴無し)
+    pi = {
+        "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        "gender": "MALE",
+        "date_of_birth": "1980/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "1980",
+        "birth_order": 3,
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "mother": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_0": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_1": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+    };
+    expect(true).toEqual(pcRisk.recomendInspectProstateCancer(pi));
+
+    // 該当する(本人が男で40歳以下かつ第1度近親者に前立腺がんの病歴あり)
+    pi = {
+        "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        "gender": "MALE",
+        "date_of_birth": "1999/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "1999",
+        "birth_order": 3,
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Cancer", "Detailed Disease Name": "前立腺がん", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-399068003" }],
+        },
+        "mother": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_0": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_1": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+    };
+    expect(true).toEqual(pcRisk.recomendInspectProstateCancer(pi));
+
+    // 該当しない(本人が男で40歳以下かつ第1度近親者に前立腺がんの病歴なし)
+    pi = {
+        "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        "gender": "MALE",
+        "date_of_birth": "1999/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "1999",
+        "birth_order": 3,
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "mother": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_0": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_1": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+    };
+    expect(false).toEqual(pcRisk.recomendInspectProstateCancer(pi));
+
+    // 該当しない(本人が女性)
+    pi = {
+        "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        "gender": "FEMALE",
+        "date_of_birth": "1980/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "1980",
+        "birth_order": 3,
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Cancer", "Detailed Disease Name": "前立腺がん", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-399068003" }],
+        },
+        "mother": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_0": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_1": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+    };
+    expect(false).toEqual(pcRisk.recomendInspectProstateCancer(pi));
+
 });
