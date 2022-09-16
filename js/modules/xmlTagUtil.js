@@ -398,6 +398,89 @@ export class RelativeUtil{
         });
         return rel;
     }
+
+    static getALLRelatives(){
+        var relatives = [];
+        relatives = relatives.concat(this.getFirstDegreeRelatives());
+        relatives = relatives.concat(this.getSecondDegreeRelatives());
+        relatives = relatives.concat(this.getThirdDegreeRelatives());
+        return relatives;
+    }
+
+    /**
+     * 第一度近親者の配列を取得する
+     * 父、母、兄弟、姉妹、息子、娘
+     */
+     static getFirstDegreeRelatives(){
+        var relatives = ['father','mother'];
+
+        // 兄弟
+        relatives = relatives.concat(this.getMiltipleRelative('brother'));
+
+        // 姉妹
+        relatives = relatives.concat(this.getMiltipleRelative('sister'));
+
+        // 息子
+        relatives = relatives.concat(this.getMiltipleRelative('son'));
+
+        // 娘
+        relatives = relatives.concat(this.getMiltipleRelative('daughter'));
+
+        return relatives;
+    }
+
+    /**
+     * 第二度近親者の配列を取得する
+     * 父方の祖父母、母方の祖父母、父方の叔父叔母、母方の叔父叔母
+     */
+    static getSecondDegreeRelatives(){
+        var relatives = [
+            'paternal_grandfather','paternal_grandmother',
+            'maternal_grandfather','maternal_grandmother',
+        ];
+
+        // 父方の叔父
+        relatives = relatives.concat(this.getMiltipleRelative('paternal_uncle'));
+
+        // 父方の叔母
+        relatives = relatives.concat(this.getMiltipleRelative('paternal_aunt'));
+
+        // 母方の叔父
+        relatives = relatives.concat(this.getMiltipleRelative('maternal_uncle'));
+
+        // 母方の叔母
+        relatives = relatives.concat(this.getMiltipleRelative('maternal_aunt'));
+
+        return relatives;
+    }
+
+    /**
+     * 第三度近親者の配列を取得する
+     * 父方の曾祖父母、母方の曾祖父母、父方のいとこ、母方のいとこ
+     */
+    static getThirdDegreeRelatives(){
+        var relatives = [
+            'paternal_greatgrandfather','paternal_greatgrandmother',
+            'maternal_greatgrandfather','maternal_greatgrandmother',
+        ];
+
+        // 父方のいとこ
+        relatives = relatives.concat(this.getMiltipleRelative('paternal_cousin'));
+
+        // 母方のいとこ
+        relatives = relatives.concat(this.getMiltipleRelative('maternal_cousin'));
+
+        return relatives;
+    }
+
+    static getMiltipleRelative(strRelative){
+        var ret = [];
+
+        for(var i=0;i<10;i++){
+            ret.push(strRelative + '_' + i.toString());
+        }
+        return ret;
+    }
 }
 
 export class CodeUtil{

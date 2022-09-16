@@ -2,6 +2,7 @@
  * 
  */
  import { FiveDiseaseRiskCommons } from '../../../../js/modules/5DiseaseRisk/5DiseaseRiskCommons';
+ import { RelativeUtil } from  '../../../../js/modules/xmlTagUtil';
 
 
  var personalInformation = {
@@ -605,4 +606,114 @@ test('isGenderMatch', () => {
     pi = {"gender": null};
     expect(FiveDiseaseRiskCommons.isGenderMatch("MALE", pi)).toEqual(false);
     
+});
+
+
+test('countDiseasePersonInRelatives', () => {
+    // 正常系
+    var pi = personalInformation;
+    var relatives = RelativeUtil.getALLRelatives();
+    expect(FiveDiseaseRiskCommons.countDiseasePersonInRelatives(relatives, 'FAMILY_T-HEALTHY', pi)).toEqual(3);
+    expect(FiveDiseaseRiskCommons.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-38341003', pi)).toEqual(2);
+    expect(FiveDiseaseRiskCommons.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-46635009', pi)).toEqual(1);
+    expect(FiveDiseaseRiskCommons.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-XXXXXXXX', pi)).toEqual(0);
+
+    // 異常系
+    expect(FiveDiseaseRiskCommons.countDiseasePersonInRelatives(null, 'SNOMED_CT-38341003', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseasePersonInRelatives(undefined, 'SNOMED_CT-38341003', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseasePersonInRelatives('', 'SNOMED_CT-38341003', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseasePersonInRelatives(relatives, null, pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseasePersonInRelatives(relatives, undefined, pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseasePersonInRelatives(relatives, '', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-38341003', null)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-38341003', undefined)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-38341003', '')).toEqual(0);
+});
+
+test('isAgeAtDiagnosisGreaterThanOrEqualTo', () => {
+    // 正常系
+    var pi = {
+        "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-38341003" }, { "Disease Name": "High Cholesterol", "Detailed Disease Name": "高コレステロール", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-55822004" }],
+    };
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-38341003', 44, pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-38341003', 45, pi)).toEqual(true);    
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-38341003', 46, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-38341003', 50, pi)).toEqual(false);
+
+    // 異常系
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo(null, 50, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo(undefined, 50, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo('', 50, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-38341003', null, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-38341003', undefined, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-38341003', '', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-38341003', 50, null)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-38341003', 50, undefined)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-38341003', 50, '')).toEqual(false);
+});
+
+test('isAgeAtDiagnosisGreaterThan', () => {
+    // 正常系
+    var pi = {
+        "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-38341003" }, { "Disease Name": "High Cholesterol", "Detailed Disease Name": "高コレステロール", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-55822004" }],
+    };
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan('SNOMED_CT-38341003', 44, pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan('SNOMED_CT-38341003', 45, pi)).toEqual(false);    
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan('SNOMED_CT-38341003', 46, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan('SNOMED_CT-38341003', 50, pi)).toEqual(false);
+
+    // 異常系
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan(null, 50, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan(undefined, 50, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan('', 50, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan('SNOMED_CT-38341003', null, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan('SNOMED_CT-38341003', undefined, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan('SNOMED_CT-38341003', '', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan('SNOMED_CT-38341003', 50, null)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan('SNOMED_CT-38341003', 50, undefined)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan('SNOMED_CT-38341003', 50, '')).toEqual(false);
+});
+
+test('isAgeAtDiagnosisLessThanOrEquaTo', () => {
+    // 正常系
+    var pi = {
+        "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-38341003" }, { "Disease Name": "High Cholesterol", "Detailed Disease Name": "高コレステロール", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-55822004" }],
+    };
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo('SNOMED_CT-38341003', 50, pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo('SNOMED_CT-38341003', 49, pi)).toEqual(true);    
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo('SNOMED_CT-38341003', 48, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo('SNOMED_CT-38341003', 47, pi)).toEqual(false);
+
+    // 異常系
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo(null, 50, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo(undefined, 50, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo('', 50, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo('SNOMED_CT-38341003', null, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo('SNOMED_CT-38341003', undefined, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo('SNOMED_CT-38341003', '', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo('SNOMED_CT-38341003', 50, null)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo('SNOMED_CT-38341003', 50, undefined)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo('SNOMED_CT-38341003', 50, '')).toEqual(false);
+});
+
+test('isAgeAtDiagnosisLessThan', () => {
+    // 正常系
+    var pi = {
+        "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-38341003" }, { "Disease Name": "High Cholesterol", "Detailed Disease Name": "高コレステロール", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-55822004" }],
+    };
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan('SNOMED_CT-38341003', 50, pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan('SNOMED_CT-38341003', 49, pi)).toEqual(false);    
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan('SNOMED_CT-38341003', 48, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan('SNOMED_CT-38341003', 47, pi)).toEqual(false);
+
+    // 異常系
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan(null, 50, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan(undefined, 50, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan('', 50, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan('SNOMED_CT-38341003', null, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan('SNOMED_CT-38341003', undefined, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan('SNOMED_CT-38341003', '', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan('SNOMED_CT-38341003', 50, null)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan('SNOMED_CT-38341003', 50, undefined)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan('SNOMED_CT-38341003', 50, '')).toEqual(false);
 });
