@@ -276,4 +276,178 @@
  * A1~A3：65歳以上の男性や65歳以上の喫煙女性，第一度近親者に家族歴を有する者
  */
  test('isMatchToA1-A3', () => {
+    var pi = null;
+    var aaaRisk = new AaaRisk();
+
+    // 正常系
+    // 本人が65歳以上の男性で第一度近親者に腹部大動脈瘤の病歴なし
+    pi = {
+        "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        "gender": "MALE",
+        "date_of_birth": "1955/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "1955",
+        "birth_order": 3,
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "mother": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_0": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_1": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+    };
+    expect(true).toEqual(aaaRisk.recommendScreeningByAbdominalEchography(pi));
+
+    // 本人が65歳以上の女性喫煙者（現在）で第一度近親者に腹部大動脈瘤の病歴なし
+    pi = {
+        "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        "gender": "FEMALE",
+        "date_of_birth": "1955/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "1955",
+        "birth_order": 3,
+        "smoker": "5",
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "mother": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_0": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_1": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+    };
+    expect(true).toEqual(aaaRisk.recommendScreeningByAbdominalEchography(pi));
+
+    // 第一度近親者に腹部大動脈瘤の病歴
+    pi = {
+        "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        "gender": "FEMALE",
+        "date_of_birth": "1980/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "1980",
+        "birth_order": 3,
+        "smoker": "3",
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "mother": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_0": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_1": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Cardiovascular Disease", "Detailed Disease Name": "腹部大動脈瘤", "Age At Diagnosis": "late_sixties", "Disease Code": "SNOMED_CT-75878002" }],
+        },
+    };
+    expect(true).toEqual(aaaRisk.recommendScreeningByAbdominalEchography(pi));
+
+    // 本人が65際未満の男性で第一度近親者に腹部大動脈瘤の病歴なし
+    pi = {
+        "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        "gender": "MALE",
+        "date_of_birth": "1980/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "1980",
+        "birth_order": 3,
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "mother": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_0": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_1": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+    };
+    expect(false).toEqual(aaaRisk.recommendScreeningByAbdominalEchography(pi));
+
+    // 本人が65際以上の女性で第一度近親者に腹部大動脈瘤の病歴なし
+    pi = {
+        "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        "gender": "FEMALE",
+        "date_of_birth": "1940/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "1940",
+        "birth_order": 3,
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "mother": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_0": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_1": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+    };
+    expect(false).toEqual(aaaRisk.recommendScreeningByAbdominalEchography(pi));
+
+    // 本人が65際未満の女性喫煙者で第一度近親者に腹部大動脈瘤の病歴なし
+    pi = {
+        "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        "gender": "FEMALE",
+        "date_of_birth": "1980/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "1980",
+        "birth_order": 3,
+        "smoker": "5",
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "mother": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_0": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "brother_1": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+    };
+    expect(false).toEqual(aaaRisk.recommendScreeningByAbdominalEchography(pi));
+
+
+    // 不正系
+    expect(false).toEqual(aaaRisk.recommendScreeningByAbdominalEchography(null));
+    expect(false).toEqual(aaaRisk.recommendScreeningByAbdominalEchography(undefined));
+    expect(false).toEqual(aaaRisk.recommendScreeningByAbdominalEchography(''));
 });
