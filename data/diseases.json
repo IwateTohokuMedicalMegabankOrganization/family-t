@@ -56,9 +56,10 @@
 		{"name":"Other Gastrointestinal Disorder","abbr":"OGI","code":"OTGASDIS","system":"SNOMED_CT"},
 		{"name":"Unknown Gastrointestinal Disorder","abbr":"UGI","code":"UNGASDIS","system":"SNOMED_CT"}
 	],
-	"Heart Disease": [
+	"Cardiovascular Disease": [
 		{"name":"Angina(Colonary Artery Disease)","abbr":"AP","code":"194828000","system":"SNOMED_CT"},
 		{"name":"Heart Attack","abbr":"HA","code":"22298006","system":"SNOMED_CT"},
+		{"name":"Abdominal Aortic Aneurysm","abbr":"AAA","code":"75878002","system":"SNOMED_CT"},
 		{"name":"Other Heart Disease","abbr":"OHD","code":"OTHEADIS","system":"SNOMED_CT"},
 		{"name":"Unknown Heart Disease","abbr":"UHD","code":"UNHEADIS","system":"SNOMED_CT"}
 	],
