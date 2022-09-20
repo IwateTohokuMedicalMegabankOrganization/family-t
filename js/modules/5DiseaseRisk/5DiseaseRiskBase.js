@@ -4,7 +4,7 @@
  * 5疾患リスク計算の基底クラス
  */
 
-class FiveDiseaseRiskBase {
+ export class FiveDiseaseRiskBase {
 
     constructor(){
 
