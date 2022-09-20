@@ -388,4 +388,8 @@
     };
     expect(false).toEqual(pcRisk.recomendInspectProstateCancer(pi));
 
+    // 不正入力
+    expect(false).toEqual(pcRisk.recomendInspectProstateCancer(null));
+    expect(false).toEqual(pcRisk.recomendInspectProstateCancer(undefined));
+    expect(false).toEqual(pcRisk.recomendInspectProstateCancer(''));
 });
