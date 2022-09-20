@@ -566,6 +566,7 @@ export class CodeUtil{
         "SNOMED_CT-119292006" : {"code":"119292006","codeSystemName":"SNOMED_CT","displayName":"Gastrointestinal (GI) Disorder","originText":"Gastrointestinal (GI) Disorder"},
         "SNOMED_CT-56265001" : {"code":"56265001","codeSystemName":"SNOMED_CT","displayName":"Heart Disease","originText":"Heart Disease"},
         "SNOMED_CT-22298006" : {"code":"22298006","codeSystemName":"SNOMED_CT","displayName":"Heart Attack","originText":"Heart Attack"},
+        "SNOMED_CT-75878002" : {"code":"75878002","codeSystemName":"SNOMED_CT","displayName":"Abdominal Aortic Aneurysm","originText":"Abdominal Aortic Aneurysm"},
         "SNOMED_CT-53741008" : {"code":"53741008","codeSystemName":"SNOMED_CT","displayName":"Coronary Artery Disease","originText":"Coronary Artery Disease"},
         "SNOMED_CT-194828000" : {"code":"194828000","codeSystemName":"SNOMED_CT","displayName":"Angina","originText":"Angina"},
         "SNOMED_CT-128053003" : {"code":"128053003","codeSystemName":"SNOMED_CT","displayName":"Deep Vein Thrombosis (DVT)","originText":"Deep Vein Thrombosis (DVT)"},
