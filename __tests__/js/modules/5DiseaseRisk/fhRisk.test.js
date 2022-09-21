@@ -277,6 +277,50 @@
  * 1. 高LDL-C血症（未治療時のLDL-C値180 mg/dL以上）
  */
  test('isMatchToF1', () => {
+    var pi = null;
+    var fhRisk = new FhRisk();
+    
+    // 正常系
+    // 本人が15歳以上で中性脂肪・コレステロール値が180mgdL以上
+    pi = {
+        "date_of_birth": "2007/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "2007",
+        "ldl_cholesterol": "over180"
+    };
+    expect(true).toEqual(fhRisk._isHyperLDLC(pi));
+
+    // 本人が15歳以上で中性脂肪・コレステロール値が180mgdL未満
+    pi = {
+        "date_of_birth": "2007/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "2007",
+        "ldl_cholesterol": "140-159"
+    };
+    expect(false).toEqual(fhRisk._isHyperLDLC(pi));
+
+    // 本人が15歳未満で中性脂肪・コレステロール値が180mgdL以上
+    pi = {
+        "date_of_birth": "2013/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "2013",
+        "ldl_cholesterol": "over180"
+    };
+    expect(false).toEqual(fhRisk._isHyperLDLC(pi));
+
+    // 本人が15歳未満で中性脂肪・コレステロール値が180mgdL未満
+    pi = {
+        "date_of_birth": "2013/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "2013",
+        "ldl_cholesterol": "140-159"
+    };
+    expect(false).toEqual(fhRisk._isHyperLDLC(pi));
+
+    // 不正系
+    expect(false).toEqual(fhRisk._isHyperLDLC(null));
+    expect(false).toEqual(fhRisk._isHyperLDLC(undefined));
+    expect(false).toEqual(fhRisk._isHyperLDLC(''));
 });
 
 /**
@@ -285,6 +329,119 @@
  * ※「2項目以上でFHと診断する。FHヘテロ接合体疑いは遺伝子検査による診断が望ましい」
  */
  test('isMatchToF3', () => {
+    var pi = null;
+    var fhRisk = new FhRisk();
+
+    // 正常系
+    // 第一度から第二度近親者の中に狭心症が55歳未満で診断された男性が1人以上いる。
+    pi = {
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Angina(Colonary Artery Disease)", "Detailed Disease Name": "狭心症（冠動脈疾患）", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-194828000" }],
+        },
+        "maternal_aunt_5": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }],
+        }
+    }
+    expect(true).toEqual(fhRisk._isFhOrHvingPersonWhoOnsetOfCoronaryHeartDiseaseWithinSecondDegreeRelatives(pi));
+
+    // 第一度から第二度近親者の中に心筋梗塞が55歳未満で診断された男性が1人以上いる。
+    pi = {
+        "brother_8": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Heart Attack", "Detailed Disease Name": "心筋梗塞（冠動脈疾患）", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-22298006" }],
+        },
+        "maternal_aunt_5": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }],
+        }
+    }
+    expect(true).toEqual(fhRisk._isFhOrHvingPersonWhoOnsetOfCoronaryHeartDiseaseWithinSecondDegreeRelatives(pi));
+
+    // 第一度から第二度近親者の中に狭心症が65歳未満で診断された女性が1人以上いる。
+    pi = {
+        "mother": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Angina(Colonary Artery Disease)", "Detailed Disease Name": "狭心症（冠動脈疾患）", "Age At Diagnosis": "early_sixties", "Disease Code": "SNOMED_CT-194828000" }],
+        },
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }],
+        }
+    }
+    expect(true).toEqual(fhRisk._isFhOrHvingPersonWhoOnsetOfCoronaryHeartDiseaseWithinSecondDegreeRelatives(pi));
+
+    // 第一度から第二度近親者の中に心筋梗塞が65歳未満で診断された女性が1人以上いる。
+    pi = {
+        "maternal_aunt_5": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Heart Attack", "Detailed Disease Name": "心筋梗塞（冠動脈疾患）", "Age At Diagnosis": "early_sixties", "Disease Code": "SNOMED_CT-22298006" }],
+        },
+        "brother_8": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }],
+        }
+    }
+    expect(true).toEqual(fhRisk._isFhOrHvingPersonWhoOnsetOfCoronaryHeartDiseaseWithinSecondDegreeRelatives(pi));
+
+    // 第一度から第二度近親者の中に狭心症が55歳以上で診断された男性が1人以上いる。
+    pi = {
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Angina(Colonary Artery Disease)", "Detailed Disease Name": "狭心症（冠動脈疾患）", "Age At Diagnosis": "late_fifties", "Disease Code": "SNOMED_CT-194828000" }],
+        },
+        "maternal_aunt_5": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }],
+        }
+    }
+    expect(false).toEqual(fhRisk._isFhOrHvingPersonWhoOnsetOfCoronaryHeartDiseaseWithinSecondDegreeRelatives(pi));
+
+    // 第一度から第二度近親者の中に心筋梗塞が55歳以上で診断された男性が1人以上いる。
+    pi = {
+        "brother_8": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Heart Attack", "Detailed Disease Name": "心筋梗塞（冠動脈疾患）", "Age At Diagnosis": "late_fifties", "Disease Code": "SNOMED_CT-22298006" }],
+        },
+        "maternal_aunt_5": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }],
+        }
+    }
+    expect(false).toEqual(fhRisk._isFhOrHvingPersonWhoOnsetOfCoronaryHeartDiseaseWithinSecondDegreeRelatives(pi));
+
+    // 第一度から第二度近親者の中に狭心症が65歳以上で診断された女性が1人以上いる。
+    pi = {
+        "mother": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Angina(Colonary Artery Disease)", "Detailed Disease Name": "狭心症（冠動脈疾患）", "Age At Diagnosis": "late_sixties", "Disease Code": "SNOMED_CT-194828000" }],
+        },
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }],
+        }
+    }
+    expect(false).toEqual(fhRisk._isFhOrHvingPersonWhoOnsetOfCoronaryHeartDiseaseWithinSecondDegreeRelatives(pi));
+
+    // 第一度から第二度近親者の中に心筋梗塞が65歳以上で診断された女性が1人以上いる。
+    pi = {
+        "maternal_aunt_5": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Heart Attack", "Detailed Disease Name": "心筋梗塞（冠動脈疾患）", "Age At Diagnosis": "late_sixties", "Disease Code": "SNOMED_CT-22298006" }],
+        },
+        "brother_8": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }],
+        }
+    }
+    expect(false).toEqual(fhRisk._isFhOrHvingPersonWhoOnsetOfCoronaryHeartDiseaseWithinSecondDegreeRelatives(pi));
+    
+
+    // 不正系
+    expect(false).toEqual(fhRisk._isFhOrHvingPersonWhoOnsetOfCoronaryHeartDiseaseWithinSecondDegreeRelatives(null));
+    expect(false).toEqual(fhRisk._isFhOrHvingPersonWhoOnsetOfCoronaryHeartDiseaseWithinSecondDegreeRelatives(undefined));
+    expect(false).toEqual(fhRisk._isFhOrHvingPersonWhoOnsetOfCoronaryHeartDiseaseWithinSecondDegreeRelatives(''));
 });
 
 /**
@@ -293,4 +450,37 @@
  * ※「2項目以上でFHと診断する。FHヘテロ接合体疑いは遺伝子検査による診断が望ましい」
  */
  test('isMatchToF4', () => {
+    var pi = null;
+    var fhRisk = new FhRisk();
+
+    // 正常系
+    // 第一度から第二度近親者の中に家族性高コレステロール血症が診断された人が1人以上いる。
+    pi = {
+        "maternal_aunt_5": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Familial hyperlipoproteinemia", "Detailed Disease Name": "家族性高コレステロール血症", "Age At Diagnosis": "late_sixties", "Disease Code": "SNOMED_CT-238038003" }],
+        },
+        "brother_8": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }],
+        }
+    }
+    expect(true).toEqual(fhRisk._isFhOrHvingPersonWhoOnsetOfCoronaryHeartDiseaseWithinSecondDegreeRelatives(pi));
+
+    // 第一度から第二度近親者の中に冠動脈疾患、家族性高コレステロール血症以外の疾患もしく健全者しかいない場合。
+    pi = {
+        "father": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
+        },
+        "maternal_aunt_5": {
+            "gender": "FEMALE",
+            "Health History": [{ "Disease Name": "Cancer", "Detailed Disease Name": "胃がん", "Age At Diagnosis": "late_fifties", "Disease Code": "SNOMED_CT-363349007" }],
+        },
+        "paternal_uncle_0": {
+            "gender": "MALE",
+            "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }],
+        }
+    }
+    expect(false).toEqual(fhRisk._isFhOrHvingPersonWhoOnsetOfCoronaryHeartDiseaseWithinSecondDegreeRelatives(pi));
 });
