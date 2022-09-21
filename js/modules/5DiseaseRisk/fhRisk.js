@@ -3,6 +3,10 @@
  * 
  * 家族性高コレステロール血症FH疾患リスク
  */
+import { FiveDiseaseRiskCommons } from '../5DiseaseRisk/5DiseaseRiskCommons';
+import { FiveDiseaseRiskBase } from '../5DiseaseRisk/5DiseaseRiskBase';
+import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
+
 export class FhRisk extends FiveDiseaseRiskBase {
     inspectionAndRiskManagementAccordingToFH() {
 
@@ -21,6 +25,7 @@ export class FhRisk extends FiveDiseaseRiskBase {
 
     /**
      * F1-F4-1：1. 高LDL-C血症（未治療時のLDL-C値180 mg/dL以上）
+     * 本人が15歳以上で高LDL-C血症
      */
     _isHyperLDLC() {
         
@@ -28,6 +33,7 @@ export class FhRisk extends FiveDiseaseRiskBase {
 
     /**
      * F1-F4-2：2. 腱黄色腫（手背，肘，膝等またはアキレス腱肥厚）あるいは皮膚結節性黄色腫
+     * 実装しない。利用しないこと
      */
     _isTendonXanthomaOrCutaneousNodularXanthoma() {
         
