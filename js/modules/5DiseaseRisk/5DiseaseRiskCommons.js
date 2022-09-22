@@ -270,8 +270,12 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
     static isAgeAtDiagnosisGreaterThanOrEqualTo(disease_code, age, pi){
         if(!this._isParamCorrect(disease_code, age, pi)) return false;
 
+        var ageAtDiagnosis = this.getAgeAtDiagnosis(disease_code, pi);
+        if(!this._isParamCorrect(ageAtDiagnosis) || ageAtDiagnosis == 'prebirth' || ageAtDiagnosis == 'unknown'){
+            return false;
+        }
         const eav = (new EstimatedAgeValue()).ESTIMATED_AGE_VALUE;
-        var low_age = eav[this.getAgeAtDiagnosis(disease_code, pi)].low.value;
+        var low_age = eav[ageAtDiagnosis].low.value;
         return age <= Number(low_age);
     }
 
@@ -284,8 +288,12 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
     static isAgeAtDiagnosisGreaterThan(disease_code, age, pi){
         if(!this._isParamCorrect(disease_code, age, pi)) return false;
 
+        var ageAtDiagnosis = this.getAgeAtDiagnosis(disease_code, pi);
+        if(!this._isParamCorrect(ageAtDiagnosis) || ageAtDiagnosis == 'prebirth' || ageAtDiagnosis == 'unknown'){
+            return false;
+        }
         const eav = (new EstimatedAgeValue()).ESTIMATED_AGE_VALUE;
-        var low_age = eav[this.getAgeAtDiagnosis(disease_code, pi)].low.value;
+        var low_age = eav[ageAtDiagnosis].low.value;
         return age < Number(low_age);
     }
 
@@ -298,8 +306,12 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
     static isAgeAtDiagnosisLessThanOrEquaTo(disease_code, age, pi){
         if(!this._isParamCorrect(disease_code, age, pi)) return false;
 
+        var ageAtDiagnosis = this.getAgeAtDiagnosis(disease_code, pi);
+        if(!this._isParamCorrect(ageAtDiagnosis) || ageAtDiagnosis == 'prebirth' || ageAtDiagnosis == 'unknown'){
+            return false;
+        }
         const eav = (new EstimatedAgeValue()).ESTIMATED_AGE_VALUE;
-        var high_age = eav[this.getAgeAtDiagnosis(disease_code, pi)].high.value;
+        var high_age = eav[ageAtDiagnosis].high.value;
         return age >= Number(high_age);
     }
 
@@ -312,8 +324,92 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
     static isAgeAtDiagnosisLessThan(disease_code, age, pi){
         if(!this._isParamCorrect(disease_code, age, pi)) return false;
 
+        var ageAtDiagnosis = this.getAgeAtDiagnosis(disease_code, pi);
+        if(!this._isParamCorrect(ageAtDiagnosis) || ageAtDiagnosis == 'prebirth' || ageAtDiagnosis == 'unknown'){
+            return false;
+        }
         const eav = (new EstimatedAgeValue()).ESTIMATED_AGE_VALUE;
-        var high_age = eav[this.getAgeAtDiagnosis(disease_code, pi)].high.value;
+        var high_age = eav[ageAtDiagnosis].high.value;
         return age > Number(high_age);
+    }
+
+    /**
+     * 近親者で任意の病歴を任意の年齢以上で有する人数を数える。
+     * @param {*} relatives 近親者(文字列の配列)
+     * @param {*} disease_code SNOMEDコード(文字列)
+     * @param {*} age 診断時の年齢
+     * @param {*} pi 本人のpersonalinfomation
+     */
+     static countDiseasePersonInRelativesGreaterThanOrEqualTo(relatives, disease_code, age, pi){
+        if(!this._isParamCorrect(relatives, disease_code, age, pi)) return 0;
+
+        var count = 0;
+
+        for(const relative of relatives){
+            if(this.isAgeAtDiagnosisGreaterThanOrEqualTo(disease_code, age, pi[relative])){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 近親者で任意の病歴を任意の年齢よりも上で有する人数を数える。
+     * @param {*} relatives 近親者(文字列の配列)
+     * @param {*} disease_code SNOMEDコード(文字列)
+     * @param {*} age 診断時の年齢
+     * @param {*} pi 本人のpersonalinfomation
+     */
+     static countDiseasePersonInRelativesGreaterThan(relatives, disease_code, age, pi){
+        if(!this._isParamCorrect(relatives, disease_code, age, pi)) return 0;
+
+        var count = 0;
+
+        for(const relative of relatives){
+            if(this.isAgeAtDiagnosisGreaterThan(disease_code, age, pi[relative])){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 近親者で任意の病歴を任意の年齢以下で有する人数を数える。
+     * @param {*} relatives 近親者(文字列の配列)
+     * @param {*} disease_code SNOMEDコード(文字列)
+     * @param {*} age 診断時の年齢
+     * @param {*} pi 本人のpersonalinfomation
+     */
+     static countDiseasePersonInRelativesLessThanOrEqualTo(relatives, disease_code, age, pi){
+        if(!this._isParamCorrect(relatives, disease_code, age, pi)) return 0;
+
+        var count = 0;
+
+        for(const relative of relatives){
+            if(this.isAgeAtDiagnosisLessThanOrEquaTo(disease_code, age, pi[relative])){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 近親者で任意の病歴を任意の年齢未満で有する人数を数える。
+     * @param {*} relatives 近親者(文字列の配列)
+     * @param {*} disease_code SNOMEDコード(文字列)
+     * @param {*} age 診断時の年齢
+     * @param {*} pi 本人のpersonalinfomation
+     */
+     static countDiseasePersonInRelativesLessThan(relatives, disease_code, age, pi){
+        if(!this._isParamCorrect(relatives, disease_code, age, pi)) return 0;
+
+        var count = 0;
+
+        for(const relative of relatives){
+            if(this.isAgeAtDiagnosisLessThan(disease_code, age, pi[relative])){
+                count++;
+            }
+        }
+        return count;
     }
 }
