@@ -608,7 +608,6 @@ test('isGenderMatch', () => {
     
 });
 
-
 test('countDiseasePersonInRelatives', () => {
     // 正常系
     var pi = personalInformation;
@@ -848,4 +847,342 @@ test('countDiseasePersonInRelativesLessThan', () => {
     expect(FiveDiseaseRiskCommons.countDiseasePersonInRelativesLessThan(relatives, 'SNOMED_CT-38341003', 50, null)).toEqual(0);
     expect(FiveDiseaseRiskCommons.countDiseasePersonInRelativesLessThan(relatives, 'SNOMED_CT-38341003', 50, undefined)).toEqual(0);
     expect(FiveDiseaseRiskCommons.countDiseasePersonInRelativesLessThan(relatives, 'SNOMED_CT-38341003', 50, '')).toEqual(0);
+});
+
+test('areDiseaseAndGenderMatch', () => {
+    // 正常系
+    var pi = null;
+    pi = {
+        "gender": "MALE",
+        "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }]
+    }
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch('FAMILY_T-HEALTHY', 'MALE', pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch('FAMILY_T-HEALTHY', 'FEMALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch('SNOMED_CT-46635009', 'MALE', pi)).toEqual(false);
+    pi = {
+        "gender": "FEMALE",
+        "Health History": [{ "Disease Name": "Diabetes", "Detailed Disease Name": "1型糖尿病", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-46635009" }],
+    }
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch('SNOMED_CT-46635009', 'FEMALE', pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch('SNOMED_CT-46635009', 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch('FAMILY_T-HEALTHY', 'MALE', pi)).toEqual(false);
+
+    //　不正系
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch(null, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch(undefined, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch('', 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch('FAMILY_T-HEALTHY', null, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch('FAMILY_T-HEALTHY', undefined, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch('FAMILY_T-HEALTHY', '', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch('FAMILY_T-HEALTHY', 'MALE', null)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch('FAMILY_T-HEALTHY', 'MALE', undefined)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch('FAMILY_T-HEALTHY', 'MALE', '')).toEqual(false);
+});
+
+test('areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo', () => {
+    // 正常系
+    var pi = null;
+    pi = {
+        "gender": "MALE",
+        "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }],
+    }
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-38341003', 49, 'MALE', pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-38341003', 50, 'MALE', pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-38341003', 51, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-38341003', 49, 'FEMALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-46635009', 49, 'MALE', pi)).toEqual(false);
+    pi = {
+        "gender": "FEMALE",
+        "Health History": [{ "Disease Name": "Diabetes", "Detailed Disease Name": "1型糖尿病", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-46635009" }],
+    }
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-46635009', 49, 'FEMALE', pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-46635009', 50, 'FEMALE', pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-46635009', 51, 'FEMALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('SNOMED_CT-46635009', 49, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('FAMILY_T-HEALTHY', 49, 'FEMALE', pi)).toEqual(false);
+
+    //　不正系
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo(null, 49, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo(undefined, 49, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('', 49, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('FAMILY_T-HEALTHY', null, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('FAMILY_T-HEALTHY', undefined, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('FAMILY_T-HEALTHY', '', 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('FAMILY_T-HEALTHY', 49, null, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('FAMILY_T-HEALTHY', 49, undefined, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('FAMILY_T-HEALTHY', 49, '', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('FAMILY_T-HEALTHY', 49, 'MALE', null)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('FAMILY_T-HEALTHY', 49, 'MALE', undefined)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo('FAMILY_T-HEALTHY', 49, 'MALE', '')).toEqual(false);
+});
+
+test('areGenderMatchAndAgeAtDiagnosisGreaterThan', () => {
+    // 正常系
+    var pi = null;
+    pi = {
+        "gender": "MALE",
+        "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }],
+    }
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('SNOMED_CT-38341003', 49, 'MALE', pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('SNOMED_CT-38341003', 50, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('SNOMED_CT-38341003', 51, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('SNOMED_CT-38341003', 49, 'FEMALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('SNOMED_CT-46635009', 49, 'MALE', pi)).toEqual(false);
+    pi = {
+        "gender": "FEMALE",
+        "Health History": [{ "Disease Name": "Diabetes", "Detailed Disease Name": "1型糖尿病", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-46635009" }],
+    }
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('SNOMED_CT-46635009', 49, 'FEMALE', pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('SNOMED_CT-46635009', 50, 'FEMALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('SNOMED_CT-46635009', 51, 'FEMALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('SNOMED_CT-46635009', 49, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('FAMILY_T-HEALTHY', 49, 'FEMALE', pi)).toEqual(false);
+
+    //　不正系
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan(null, 49, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan(undefined, 49, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('', 49, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('FAMILY_T-HEALTHY', null, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('FAMILY_T-HEALTHY', undefined, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('FAMILY_T-HEALTHY', '', 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('FAMILY_T-HEALTHY', 49, null, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('FAMILY_T-HEALTHY', 49, undefined, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('FAMILY_T-HEALTHY', 49, '', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('FAMILY_T-HEALTHY', 49, 'MALE', null)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('FAMILY_T-HEALTHY', 49, 'MALE', undefined)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisGreaterThan('FAMILY_T-HEALTHY', 49, 'MALE', '')).toEqual(false);
+});
+
+test('areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo', () => {
+    // 正常系
+    var pi = null;
+    pi = {
+        "gender": "MALE",
+        "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }],
+    }
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('SNOMED_CT-38341003', 53, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('SNOMED_CT-38341003', 54, 'MALE', pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('SNOMED_CT-38341003', 55, 'MALE', pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('SNOMED_CT-38341003', 55, 'FEMALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('SNOMED_CT-46635009', 55, 'MALE', pi)).toEqual(false);
+    pi = {
+        "gender": "FEMALE",
+        "Health History": [{ "Disease Name": "Diabetes", "Detailed Disease Name": "1型糖尿病", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-46635009" }],
+    }
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('SNOMED_CT-46635009', 53, 'FEMALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('SNOMED_CT-46635009', 54, 'FEMALE', pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('SNOMED_CT-46635009', 55, 'FEMALE', pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('SNOMED_CT-46635009', 55, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('FAMILY_T-HEALTHY', 55, 'FEMALE', pi)).toEqual(false);
+
+    //　不正系
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo(null, 55, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo(undefined, 55, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('', 55, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('FAMILY_T-HEALTHY', null, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('FAMILY_T-HEALTHY', undefined, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('FAMILY_T-HEALTHY', '', 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('FAMILY_T-HEALTHY', 55, null, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('FAMILY_T-HEALTHY', 55, undefined, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('FAMILY_T-HEALTHY', 55, '', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('FAMILY_T-HEALTHY', 55, 'MALE', null)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('FAMILY_T-HEALTHY', 55, 'MALE', undefined)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo('FAMILY_T-HEALTHY', 55, 'MALE', '')).toEqual(false);
+});
+
+test('areGenderMatchAndAgeAtDiagnosisLessThan', () => {
+    // 正常系
+    var pi = null;
+    pi = {
+        "gender": "MALE",
+        "Health History": [{ "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }],
+    }
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('SNOMED_CT-38341003', 53, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('SNOMED_CT-38341003', 54, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('SNOMED_CT-38341003', 55, 'MALE', pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('SNOMED_CT-38341003', 55, 'FEMALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('SNOMED_CT-46635009', 55, 'MALE', pi)).toEqual(false);
+    pi = {
+        "gender": "FEMALE",
+        "Health History": [{ "Disease Name": "Diabetes", "Detailed Disease Name": "1型糖尿病", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-46635009" }],
+    }
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('SNOMED_CT-46635009', 53, 'FEMALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('SNOMED_CT-46635009', 54, 'FEMALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('SNOMED_CT-46635009', 55, 'FEMALE', pi)).toEqual(true);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('SNOMED_CT-46635009', 55, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('FAMILY_T-HEALTHY', 55, 'FEMALE', pi)).toEqual(false);
+
+    //　不正系
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan(null, 55, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan(undefined, 55, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('', 55, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('FAMILY_T-HEALTHY', null, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('FAMILY_T-HEALTHY', undefined, 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('FAMILY_T-HEALTHY', '', 'MALE', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('FAMILY_T-HEALTHY', 55, null, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('FAMILY_T-HEALTHY', 55, undefined, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('FAMILY_T-HEALTHY', 55, '', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('FAMILY_T-HEALTHY', 55, 'MALE', null)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('FAMILY_T-HEALTHY', 55, 'MALE', undefined)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.areGenderMatchAndAgeAtDiagnosisLessThan('FAMILY_T-HEALTHY', 55, 'MALE', '')).toEqual(false);
+});
+
+test('countDiseaseGenderInRelatives', () => {
+     // 正常系
+     var pi = personalInformation;
+     var relatives = RelativeUtil.getALLRelatives();
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, 'FAMILY_T-HEALTHY', 'MALE', pi)).toEqual(2);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, 'SNOMED_CT-38341003', 'MALE', pi)).toEqual(2);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, 'SNOMED_CT-46635009', 'MALE', pi)).toEqual(0);     
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, 'SNOMED_CT-XXXXXXXX', 'MALE', pi)).toEqual(0);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, 'FAMILY_T-HEALTHY', 'FEMALE', pi)).toEqual(1);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, 'SNOMED_CT-55822004', 'FEMALE', pi)).toEqual(0);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, 'SNOMED_CT-46635009', 'FEMALE', pi)).toEqual(1);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, 'SNOMED_CT-XXXXXXXX', 'FEMALE', pi)).toEqual(0);
+ 
+     // 異常系
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(null, 'SNOMED_CT-38341003', 'MALE', pi)).toEqual(0);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(undefined, 'SNOMED_CT-38341003', 'MALE', pi)).toEqual(0);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives('', 'SNOMED_CT-38341003', 'MALE', pi)).toEqual(0);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, null, 'MALE', pi)).toEqual(0);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, undefined, 'MALE', pi)).toEqual(0);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, '', 'MALE', pi)).toEqual(0);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, 'SNOMED_CT-38341003', null, pi)).toEqual(0);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, 'SNOMED_CT-38341003', undefined, pi)).toEqual(0);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, 'SNOMED_CT-38341003', '', pi)).toEqual(0);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, 'SNOMED_CT-38341003', 'MALE', null)).toEqual(0);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, 'SNOMED_CT-38341003', 'MALE', undefined)).toEqual(0);
+     expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelatives(relatives, 'SNOMED_CT-38341003', 'MALE', '')).toEqual(0);
+});
+
+test('countDiseaseGenderInRelativesGreaterThanOrEqualTo', () => {
+    // 正常系
+    var pi = personalInformation;
+    var relatives = RelativeUtil.getALLRelatives();
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 44, 'MALE', pi)).toEqual(2);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 45, 'MALE', pi)).toEqual(2);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 46, 'MALE', pi)).toEqual(1);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-46635009', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-XXXXXXXX', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 49, 'FEMALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-46635009', 49, 'FEMALE', pi)).toEqual(1);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-46635009', 50, 'FEMALE', pi)).toEqual(1);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-46635009', 51, 'FEMALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-XXXXXXXX', 50, 'FEMALE', pi)).toEqual(0);
+
+    // 異常系
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(null, 'SNOMED_CT-38341003', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(undefined, 'SNOMED_CT-38341003', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo('', 'SNOMED_CT-38341003', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, null, 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, undefined, 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, '', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-38341003', null, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-38341003', undefined, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-38341003', '', 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 50, null, pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 50, undefined, pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 50, '', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 50, 'MALE', null)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 50, 'MALE', undefined)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 50, 'MALE', '')).toEqual(0);
+});
+
+test('countDiseaseGenderInRelativesGreaterThan', () => {
+    // 正常系
+    var pi = personalInformation;
+    var relatives = RelativeUtil.getALLRelatives();
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-38341003', 44, 'MALE', pi)).toEqual(2);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-38341003', 45, 'MALE', pi)).toEqual(1);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-38341003', 46, 'MALE', pi)).toEqual(1);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-46635009', 49, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-XXXXXXXX', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-38341003', 49, 'FEMALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-46635009', 49, 'FEMALE', pi)).toEqual(1);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-46635009', 50, 'FEMALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-46635009', 51, 'FEMALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-XXXXXXXX', 50, 'FEMALE', pi)).toEqual(0);
+
+    // 異常系
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(null, 'SNOMED_CT-38341003', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(undefined, 'SNOMED_CT-38341003', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan('', 'SNOMED_CT-38341003', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, null, 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, undefined, 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, '', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-38341003', null, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-38341003', undefined, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-38341003', '', 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-38341003', 50, null, pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-38341003', 50, undefined, pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-38341003', 50, '', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-38341003', 50, 'MALE', null)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-38341003', 50, 'MALE', undefined)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesGreaterThan(relatives, 'SNOMED_CT-38341003', 50, 'MALE', '')).toEqual(0);
+});
+
+test('countDiseaseGenderInRelativesLessThanOrEqualTo', () => {
+    // 正常系
+    var pi = personalInformation;
+    var relatives = RelativeUtil.getALLRelatives();
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 55, 'MALE', pi)).toEqual(2);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 54, 'MALE', pi)).toEqual(2);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 53, 'MALE', pi)).toEqual(1);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-46635009', 55, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-XXXXXXXX', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 53, 'FEMALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-46635009', 53, 'FEMALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-46635009', 54, 'FEMALE', pi)).toEqual(1);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-46635009', 55, 'FEMALE', pi)).toEqual(1);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-XXXXXXXX', 50, 'FEMALE', pi)).toEqual(0);
+
+    // 異常系
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(null, 'SNOMED_CT-38341003', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(undefined, 'SNOMED_CT-38341003', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo('', 'SNOMED_CT-38341003', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, null, 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, undefined, 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, '', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-38341003', null, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-38341003', undefined, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-38341003', '', 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 50, null, pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 50, undefined, pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 50, '', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 50, 'MALE', null)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 50, 'MALE', undefined)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, 'SNOMED_CT-38341003', 50, 'MALE', '')).toEqual(0);
+});
+
+test('countDiseaseGenderInRelativesLessThan', () => {
+    // 正常系
+    var pi = personalInformation;
+    var relatives = RelativeUtil.getALLRelatives();
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-38341003', 55, 'MALE', pi)).toEqual(2);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-38341003', 54, 'MALE', pi)).toEqual(1);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-38341003', 53, 'MALE', pi)).toEqual(1);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-46635009', 56, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-XXXXXXXX', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-38341003', 53, 'FEMALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-46635009', 53, 'FEMALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-46635009', 54, 'FEMALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-46635009', 55, 'FEMALE', pi)).toEqual(1);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-XXXXXXXX', 50, 'FEMALE', pi)).toEqual(0);
+
+    // 異常系
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(null, 'SNOMED_CT-38341003', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(undefined, 'SNOMED_CT-38341003', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan('', 'SNOMED_CT-38341003', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, null, 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, undefined, 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, '', 50, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-38341003', null, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-38341003', undefined, 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-38341003', '', 'MALE', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-38341003', 50, null, pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-38341003', 50, undefined, pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-38341003', 50, '', pi)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-38341003', 50, 'MALE', null)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-38341003', 50, 'MALE', undefined)).toEqual(0);
+    expect(FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-38341003', 50, 'MALE', '')).toEqual(0);
 });

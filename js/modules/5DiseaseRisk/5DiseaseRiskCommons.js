@@ -412,4 +412,179 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
         }
         return count;
     }
+
+    /**
+     * 任意の性別で任意の病気に該当するかどうか
+     * @param {*} disease_code SNOMEDコード(文字列)
+     * @param {*} gender 性別
+     * @param {*} pi personalinformation
+     */
+    static areDiseaseAndGenderMatch(disease_code, gender, pi){
+        // 引数チェック
+        if(!this._isParamCorrect(disease_code, gender, pi)) return false;
+
+        // 性別と病歴が合致するか判定する。
+        return this.isGenderMatch(gender, pi) && this.isDiesaseMatch(disease_code, pi);
+    }
+
+    /**
+     * 任意の性別で任意の病歴を任意の年齢以上で有するかどうか
+     * @param {*} disease_code SNOMEDコード(文字列)
+     * @param {*} age 診断時の年齢
+     * @param {*} gender 性別
+     * @param {*} pi personalinformation
+     */
+    static areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo(disease_code, age, gender, pi){
+        // 引数チェック
+        if(!this._isParamCorrect(disease_code, age, gender, pi)) return false;
+
+        // 性別と病歴および診断時の年齢が合致するか判定する。
+        return this.isGenderMatch(gender, pi) && this.isAgeAtDiagnosisGreaterThanOrEqualTo(disease_code, age, pi);
+    }
+
+    /**
+     * 任意の性別で任意の病歴を任意の年齢より上で有するかどうか
+     * @param {*} disease_code SNOMEDコード(文字列)
+     * @param {*} age 診断時の年齢
+     * @param {*} gender 性別
+     * @param {*} pi personalinformation
+     */
+     static areGenderMatchAndAgeAtDiagnosisGreaterThan(disease_code, age, gender, pi){
+        // 引数チェック
+        if(!this._isParamCorrect(disease_code, age, gender, pi)) return false;
+
+        // 性別と病歴および診断時の年齢が合致するか判定する。
+        return this.isGenderMatch(gender, pi) && this.isAgeAtDiagnosisGreaterThan(disease_code, age, pi);
+    }
+
+    /**
+     * 任意の性別で任意の病歴を任意の年齢以下で有するかどうか
+     * @param {*} disease_code SNOMEDコード(文字列)
+     * @param {*} age 診断時の年齢
+     * @param {*} gender 性別
+     * @param {*} pi personalinformation
+     */
+     static areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo(disease_code, age, gender, pi){
+        // 引数チェック
+        if(!this._isParamCorrect(disease_code, age, gender, pi)) return false;
+
+        // 性別と病歴および診断時の年齢が合致するか判定する。
+        return this.isGenderMatch(gender, pi) && this.isAgeAtDiagnosisLessThanOrEquaTo(disease_code, age, pi);
+    }
+
+    /**
+     * 任意の性別で任意の病歴を任意の年齢未満で有するかどうか
+     * @param {*} disease_code SNOMEDコード(文字列)
+     * @param {*} age 診断時の年齢
+     * @param {*} gender 性別
+     * @param {*} pi personalinformation
+     */
+     static areGenderMatchAndAgeAtDiagnosisLessThan(disease_code, age, gender, pi){
+        // 引数チェック
+        if(!this._isParamCorrect(disease_code, age, gender, pi)) return false;
+
+        // 性別と病歴および診断時の年齢が合致するか判定する。
+        return this.isGenderMatch(gender, pi) && this.isAgeAtDiagnosisLessThan(disease_code, age, pi);
+    }
+
+
+    /**
+     * 近親者のうち、任意の性別で任意の病歴を持つ人数を数える。
+     * @param {*} relatives 近親者(文字列の配列)
+     * @param {*} disease_code SNOMEDコード(文字列)
+     * @param {*} gender 性別
+     * @param {*} pi 本人のpersonalinfomation
+     */
+    static countDiseaseGenderInRelatives(relatives, disease_code, gender, pi){
+        if(!this._isParamCorrect(relatives, disease_code, gender, pi)) return 0;
+
+        var count = 0;
+
+        for(const relative of relatives){
+            if(this.areDiseaseAndGenderMatch(disease_code, gender, pi[relative])){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 近親者のうち、任意の性別で任意の病歴を任意の年齢以上で有する人数を数える。
+     * @param {*} relatives 近親者(文字列の配列)
+     * @param {*} disease_code SNOMEDコード(文字列)
+     * @param {*} age 診断時の年齢
+     * @param {*} pi 本人のpersonalinfomation
+     */
+    static countDiseaseGenderInRelativesGreaterThanOrEqualTo(relatives, disease_code, age, gender, pi){
+        if(!this._isParamCorrect(relatives, disease_code, age, gender, pi)) return 0;
+
+        var count = 0;
+
+        for(const relative of relatives){
+            if(this.areGenderMatchAndAgeAtDiagnosisGreaterThanOrEqualTo(disease_code, age, gender, pi[relative])){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 近親者のうち、任意の性別で任意の病歴を任意の年齢より上で有する人数を数える。
+     * @param {*} relatives 近親者(文字列の配列)
+     * @param {*} disease_code SNOMEDコード(文字列)
+     * @param {*} age 診断時の年齢
+     * @param {*} pi 本人のpersonalinfomation
+     */
+     static countDiseaseGenderInRelativesGreaterThan(relatives, disease_code, age, gender, pi){
+        if(!this._isParamCorrect(relatives, disease_code, age, gender, pi)) return 0;
+
+        var count = 0;
+
+        for(const relative of relatives){
+            if(this.areGenderMatchAndAgeAtDiagnosisGreaterThan(disease_code, age, gender, pi[relative])){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 近親者のうち、任意の性別で任意の病歴を任意の年齢以下で有する人数を数える。
+     * @param {*} relatives 近親者(文字列の配列)
+     * @param {*} disease_code SNOMEDコード(文字列)
+     * @param {*} age 診断時の年齢
+     * @param {*} pi 本人のpersonalinfomation
+     */
+     static countDiseaseGenderInRelativesLessThanOrEqualTo(relatives, disease_code, age, gender, pi){
+        if(!this._isParamCorrect(relatives, disease_code, age, gender, pi)) return 0;
+
+        var count = 0;
+
+        for(const relative of relatives){
+            if(this.areGenderMatchAndAgeAtDiagnosisLessThanOrEqualTo(disease_code, age, gender, pi[relative])){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 近親者のうち、任意の性別で任意の病歴を任意の年齢未満で有する人数を数える。
+     * @param {*} relatives 近親者(文字列の配列)
+     * @param {*} disease_code SNOMEDコード(文字列)
+     * @param {*} age 診断時の年齢
+     * @param {*} pi 本人のpersonalinfomation
+     */
+     static countDiseaseGenderInRelativesLessThan(relatives, disease_code, age, gender, pi){
+        if(!this._isParamCorrect(relatives, disease_code, age, gender, pi)) return 0;
+
+        var count = 0;
+
+        for(const relative of relatives){
+            if(this.areGenderMatchAndAgeAtDiagnosisLessThan(disease_code, age, gender, pi[relative])){
+                count++;
+            }
+        }
+        return count;
+    }
 }
