@@ -63,7 +63,7 @@
 		{"name":"Other Heart Disease","abbr":"OHD","code":"OTHEADIS","system":"SNOMED_CT"},
 		{"name":"Unknown Heart Disease","abbr":"UHD","code":"UNHEADIS","system":"SNOMED_CT"}
 	],
-	"High Cholesterol" : [
+	"Abnormal Blood Lipids" : [
 		{"name":"High Cholesterol","abbr":"HCH","code":"55822004","system":"SNOMED_CT"},
 		{"name":"Familial hyperlipoproteinemia","abbr":"FH","code":"238038003","system":"SNOMED_CT"}
 	],
