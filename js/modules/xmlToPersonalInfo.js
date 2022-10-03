@@ -4,7 +4,7 @@ import {
 
 var parser = require('fast-xml-parser');
 
-export default function xmlToPersonalInfo(xmlString) {
+export function xmlToPersonalInfo(xmlString) {
     return covertPersonal_information(xml2json(xmlString));
 }
 

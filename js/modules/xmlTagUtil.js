@@ -497,6 +497,7 @@ export class CodeUtil{
         "ESTIMATED_AGE" : {"code":"21611-9","codeSystemName":"LOINC","displayName":"Estimated Age","originText":""},
         "AGE_AT_DEATH" : {"code":"39016-1","codeSystemName":"LOINC","displayName":"Age at Death","originText":""},
         "SNOMED_CT-55822004" : {"code":"55822004","codeSystemName":"SNOMED_CT","displayName":"High Cholesterol","originText":"High Cholesterol"},
+        "SNOMED_CT-238038003" : {"code":"238038003","codeSystemName":"SNOMED_CT","displayName":"Familial hyperlipoproteinemia","originText":"Familial hyperlipoproteinemia"},
         "SNOMED_CT-38341003" : {"code":"38341003","codeSystemName":"SNOMED_CT","displayName":"Hypertension/high blood pressure","originText":"Hypertension/high blood pressure"},
         "SNOMED_CT-19829001" : {"code":"19829001","codeSystemName":"SNOMED_CT","displayName":"Lung Disease","originText":"Lung Disease"},
         "SNOMED_CT-26929004" : {"code":"26929004","codeSystemName":"SNOMED_CT","displayName":"Dementia/Alzheimer's","originText":"Dementia/Alzheimer's"},

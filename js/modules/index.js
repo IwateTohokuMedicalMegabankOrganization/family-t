@@ -1,6 +1,6 @@
 // Modularize and import
-import xmlToPersonalInfo from './xmlToPersonalInfo.js';
-import personalInfoToXml from './personalInfoToXml.js';
+import {xmlToPersonalInfo} from './xmlToPersonalInfo.js';
+import {personalInfoToXml} from './personalInfoToXml.js';
 import $ from 'jquery';
 
 function component() {
