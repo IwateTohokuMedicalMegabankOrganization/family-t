@@ -20,6 +20,7 @@
   "other-undefined": "Other",
 
 	"SNOMED_CT-55822004": "High Cholesterol",
+	"SNOMED_CT-238038003": "Familial hyperlipoproteinemia",
 	"SNOMED_CT-38341003": "Hypertension/high blood pressure",
 	"SNOMED_CT-19829001": "Lung Disease",
 	"SNOMED_CT-26929004": "Dementia/Alzheimer's",

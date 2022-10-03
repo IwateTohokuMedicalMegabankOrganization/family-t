@@ -318,6 +318,12 @@
     expect(false).toEqual(fhRisk._isHyperLDLC(pi));
 
     // 不正系
+    pi = {
+        "date_of_birth": "2007/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "2007"
+    };
+    expect(false).toEqual(fhRisk._isHyperLDLC(pi));
     expect(false).toEqual(fhRisk._isHyperLDLC(null));
     expect(false).toEqual(fhRisk._isHyperLDLC(undefined));
     expect(false).toEqual(fhRisk._isHyperLDLC(''));

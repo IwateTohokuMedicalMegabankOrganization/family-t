@@ -64,7 +64,8 @@
 		{"name":"Unknown Heart Disease","abbr":"UHD","code":"UNHEADIS","system":"SNOMED_CT"}
 	],
 	"High Cholesterol" : [
-		{"name":"High Cholesterol","abbr":"HCH","code":"55822004","system":"SNOMED_CT"}
+		{"name":"High Cholesterol","abbr":"HCH","code":"55822004","system":"SNOMED_CT"},
+		{"name":"Familial hyperlipoproteinemia","abbr":"FH","code":"238038003","system":"SNOMED_CT"}
 	],
 	"Hypertension": [
 		{"name":"Hypertension","abbr":"HYP","code":"38341003","system":"SNOMED_CT"}
