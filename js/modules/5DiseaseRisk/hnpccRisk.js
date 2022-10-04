@@ -3,16 +3,27 @@
  * 
  * リンチ症候群（遺伝性非ポリポーシス大腸がん）HNPCC疾患リスク
  */
+ import { FiveDiseaseRiskCommons } from '../5DiseaseRisk/5DiseaseRiskCommons';
+ import { FiveDiseaseRiskBase } from '../5DiseaseRisk/5DiseaseRiskBase';
+ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
+
 export class HnpccRisk extends FiveDiseaseRiskBase {
-    appliesToAmsterdamStanderd2() {
+    appliesToAmsterdamStanderd2(pi) {
+        // 疾患に該当する人を配列で取得する
+        var piArray = FiveDiseaseRiskCommons.getDiseasePerson(diseaseCodeArray, pi);
+        if(piArray.length < 3){
+            return false;
+        }
+
+        // アムステルダム基準Ⅱ（1999）に該当するか判定する
+        return this._areOver3PersonOnsetOfHnpcc(piArray);
+    }
+
+    appliesToTheRevisedBethesdaGuideline2004(pi) {
 
     }
 
-    appliesToTheRevisedBethesdaGuideline2004() {
-
-    }
-
-    appliesToUniversalScreening() {
+    appliesToUniversalScreening(pi) {
 
     }
 
@@ -24,43 +35,47 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
      *  4．腫瘍は病理学的に癌であることが確認されている。
      *  5．FAPが除外されている。
      */
-    _areOver3PersonOnsetOfHnpcc() {
-
+    _areOver3PersonOnsetOfHnpcc(piArray) {
+        return this._isOnePersonBelongToFirstDegreeRelatives(piArray)
+            && this._isOnsetFor2ConsecutiveGenerations(piArray)
+            && this._isOnePersonOnsetOfHnpccAtlessThan50YearsOlds(piArray)
+            && this._isPolypDetectedAsCanser(piArray)
+            && this._isFapExcluded(piArray);
     }
 
     /**
      * C1-1：1．1人の罹患者はその他の2人に対して第1度近親者である。
      */
-     _isOnePersonBelongToFirstDegreeRelatives() {
+     _isOnePersonBelongToFirstDegreeRelatives(piArray) {
 
     }
 
     /**
      * C1-2：2．少なくとも連続する2世代で罹患している。
      */
-     _isOnsetFor2ConsecutiveGenerations() {
+     _isOnsetFor2ConsecutiveGenerations(piArray) {
 
     }
 
     /**
      * C1-3：3．少なくとも1人の癌は50歳未満で診断されている。
      */
-     _isOnePersonOnsetOfHnpccAtlessThan50YearsOlds() {
+     _isOnePersonOnsetOfHnpccAtlessThan50YearsOlds(piArray) {
 
     }
 
     /**
-     * C1-4：4．腫瘍は病理学的に癌であることが確認されている。
+     * C1-4：4．腫瘍は病理学的に癌であることが確認されている。※実装無のため常にtrueを返す。
      */
-     _isPolypDetectedAsCanser() {
-
+     _isPolypDetectedAsCanser(piArray) {
+        return true;
     }
 
     /**
-     * C1-5：5．FAPが除外されている。
+     * C1-5：5．FAPが除外されている。※実装無のため常にtrueを返す。
      */
-     _isFapExcluded() {
-
+     _isFapExcluded(piArray) {
+        return true;
     }
 
     /**
