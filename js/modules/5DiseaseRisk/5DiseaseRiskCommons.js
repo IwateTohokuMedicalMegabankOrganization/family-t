@@ -203,6 +203,8 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
     static isDiesaseMatch(snomedCode, pi) {
         // 引数チェック
         if(!this._isParamCorrect(snomedCode, pi)) return false;
+        if(pi["Health History"]==null) return false;
+        if(pi["Health History"]==undefined) return false;
 
         // 該当する疾患があるかどうか判断する。
         if(this.getDisease(snomedCode, pi) != null){
@@ -216,12 +218,14 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
      * @param {*} snomedCode SNOMEDコード(文字列)の配列
      * @param {*} pi personalinformation
      */
-    static isDiesaseMatchOr(snomedCode, pi) {
+    static isDiesaseMatchOr(snomedCodArray, pi) {
         // 引数チェック
-        if(!this._isParamCorrect(snomedCode, pi)) return false;
+        if(!this._isParamCorrect(snomedCodArray, pi)) return false;
+        if(pi["Health History"]==null) return false;
+        if(pi["Health History"]==undefined) return false;
 
         // 該当する疾患があるかどうか判断する。
-        for(const snomedCode in snomedCodArray){
+        for(const snomedCode of snomedCodArray){
             if(this.getDisease(snomedCode, pi) != null){
                 return true;
             }
@@ -237,9 +241,11 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
     static isDiesaseMatchAnd(snomedCodArray, pi) {
         // 引数チェック
         if(!this._isParamCorrect(snomedCodArray, pi)) return false;
+        if(pi["Health History"]==null) return false;
+        if(pi["Health History"]==undefined) return false;
 
         // 全ての疾患が該当するかどうか判断する。
-        for(const snomedCode in snomedCodArray){
+        for(const snomedCode of snomedCodArray){
             if(this.getDisease(snomedCode, pi) == null){
                 return false;
             }

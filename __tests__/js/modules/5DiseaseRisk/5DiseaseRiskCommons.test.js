@@ -528,37 +528,180 @@ test('isDiesaseMatch', () => {
             { "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }
         ]
     };
-    expect(FiveDiseaseRiskCommons.isAgeLessThan('SNOMED_CT-38341003', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isDiesaseMatch('SNOMED_CT-38341003', pi)).toEqual(false);
 
     // falseの場合 disease_nameが空文字の場合
-    expect(FiveDiseaseRiskCommons.isAgeLessThan('', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isDiesaseMatch('', pi)).toEqual(false);
 
     // falseの場合 disease_nameがundefinedの場合
-    expect(FiveDiseaseRiskCommons.isAgeLessThan(undefined, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isDiesaseMatch(undefined, pi)).toEqual(false);
     
     // falseの場合 disease_nameがnullの場合
-    expect(FiveDiseaseRiskCommons.isAgeLessThan(null, pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isDiesaseMatch(null, pi)).toEqual(false);
     
     // falseの場合 piが空文字の場合
-    expect(FiveDiseaseRiskCommons.isAgeLessThan('SNOMED_CT-38341003', '')).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isDiesaseMatch('SNOMED_CT-38341003', '')).toEqual(false);
     
     // falseの場合 piがundefiendの場合
-    expect(FiveDiseaseRiskCommons.isAgeLessThan('SNOMED_CT-38341003', undefined)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isDiesaseMatch('SNOMED_CT-38341003', undefined)).toEqual(false);
     
     // falseの場合 piがnullの場合
-    expect(FiveDiseaseRiskCommons.isAgeLessThan('SNOMED_CT-38341003', null)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isDiesaseMatch('SNOMED_CT-38341003', null)).toEqual(false);
     
     // falseの場合 piのHealth Historyが空文字の場合
     pi = {"Health History":''};
-    expect(FiveDiseaseRiskCommons.isAgeLessThan('SNOMED_CT-38341003', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isDiesaseMatch('SNOMED_CT-38341003', pi)).toEqual(false);
     
     // falseの場合 piのHealth Historyundefiendの場合
     pi = {"Health History":undefined};
-    expect(FiveDiseaseRiskCommons.isAgeLessThan('SNOMED_CT-38341003', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isDiesaseMatch('SNOMED_CT-38341003', pi)).toEqual(false);
     
     // falseの場合 piのHealth Historynullの場合
     pi = {"Health History":null};
-    expect(FiveDiseaseRiskCommons.isAgeLessThan('SNOMED_CT-38341003', pi)).toEqual(false);
+    expect(FiveDiseaseRiskCommons.isDiesaseMatch('SNOMED_CT-38341003', pi)).toEqual(false);
+});
+
+test('isDiesaseMatchOr', () => {
+    // trueの場合
+    var pi = {
+        "Health History":[
+            { "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" },
+            { "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }
+        ]
+    };
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchOr(['FAMILY_T-HEALTHY'], pi)).toEqual(true);
+    pi = {
+        "Health History":[
+            { "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" },
+            { "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }
+        ]
+    };
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchOr(['SNOMED_CT-38341003'], pi)).toEqual(true);
+    pi = {
+        "Health History":[
+            { "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" },
+            { "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }
+        ]
+    };
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchOr(['FAMILY_T-HEALTHY','SNOMED_CT-38341003'], pi)).toEqual(true);
+    pi = {
+        "Health History":[
+            { "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" },
+            { "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }
+        ]
+    };
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchOr(['FAMILY_T-HEALTHY','SNOMED_CT-38399003'], pi)).toEqual(true);
+
+    // falseの場合
+    pi = {
+        "Health History":[
+            { "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" },
+            { "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }
+        ]
+    };
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchOr(['FAMILY_T-XXXXXX','SNOMED_CT-30000003'], pi)).toEqual(false);
+    
+
+    // falseの場合 disease_nameが空文字の場合
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchOr('', pi)).toEqual(false);
+
+    // falseの場合 disease_nameがundefinedの場合
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchOr(undefined, pi)).toEqual(false);
+    
+    // falseの場合 disease_nameがnullの場合
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchOr(null, pi)).toEqual(false);
+    
+    // falseの場合 piが空文字の場合
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchOr('SNOMED_CT-38341003', '')).toEqual(false);
+    
+    // falseの場合 piがundefiendの場合
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchOr('SNOMED_CT-38341003', undefined)).toEqual(false);
+    
+    // falseの場合 piがnullの場合
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchOr('SNOMED_CT-38341003', null)).toEqual(false);
+    
+    // falseの場合 piのHealth Historyが空文字の場合
+    pi = {"Health History":''};
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchOr('SNOMED_CT-38341003', pi)).toEqual(false);
+    
+    // falseの場合 piのHealth Historyundefiendの場合
+    pi = {"Health History":undefined};
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchOr('SNOMED_CT-38341003', pi)).toEqual(false);
+    
+    // falseの場合 piのHealth Historynullの場合
+    pi = {"Health History":null};
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchOr('SNOMED_CT-38341003', pi)).toEqual(false);
+});
+
+test('isDiesaseMatchAnd', () => {
+    // trueの場合
+    var pi = {
+        "Health History":[
+            { "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" },
+            { "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }
+        ]
+    };
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchAnd(['FAMILY_T-HEALTHY'], pi)).toEqual(true);
+    pi = {
+        "Health History":[
+            { "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" },
+            { "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }
+        ]
+    };
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchAnd(['SNOMED_CT-38341003'], pi)).toEqual(true);
+    pi = {
+        "Health History":[
+            { "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" },
+            { "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }
+        ]
+    };
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchAnd(['FAMILY_T-HEALTHY','SNOMED_CT-38341003'], pi)).toEqual(true);
+    
+    // falseの場合
+    pi = {
+        "Health History":[
+            { "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" },
+            { "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }
+        ]
+    };
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchAnd(['FAMILY_T-HEALTHY','SNOMED_CT-38399003'], pi)).toEqual(false);
+    pi = {
+        "Health History":[
+            { "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" },
+            { "Disease Name": "Hypertension", "Detailed Disease Name": "高血圧", "Age At Diagnosis": "early_fifties", "Disease Code": "SNOMED_CT-38341003" }
+        ]
+    };
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchAnd(['FAMILY_T-XXXXXX','SNOMED_CT-30000003'], pi)).toEqual(false);
+
+    // falseの場合 disease_nameが空文字の場合
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchAnd('', pi)).toEqual(false);
+
+    // falseの場合 disease_nameがundefinedの場合
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchAnd(undefined, pi)).toEqual(false);
+    
+    // falseの場合 disease_nameがnullの場合
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchAnd(null, pi)).toEqual(false);
+    
+    // falseの場合 piが空文字の場合
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchAnd('SNOMED_CT-38341003', '')).toEqual(false);
+    
+    // falseの場合 piがundefiendの場合
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchAnd('SNOMED_CT-38341003', undefined)).toEqual(false);
+    
+    // falseの場合 piがnullの場合
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchAnd('SNOMED_CT-38341003', null)).toEqual(false);
+    
+    // falseの場合 piのHealth Historyが空文字の場合
+    pi = {"Health History":''};
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchAnd('SNOMED_CT-38341003', pi)).toEqual(false);
+    
+    // falseの場合 piのHealth Historyundefiendの場合
+    pi = {"Health History":undefined};
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchAnd('SNOMED_CT-38341003', pi)).toEqual(false);
+    
+    // falseの場合 piのHealth Historynullの場合
+    pi = {"Health History":null};
+    expect(FiveDiseaseRiskCommons.isDiesaseMatchAnd('SNOMED_CT-38341003', pi)).toEqual(false);
 });
 
 test('isGenderMatch', () => {
