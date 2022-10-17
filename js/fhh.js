@@ -1924,14 +1924,14 @@ function bind_add_another_family_member_button_action() {
 		new_family_member_select =
 		$("<SELECT id='new_family_member_relationship' name='new_family_member_relationship'>")
 			.append("<OPTION value=''> " + $.t("fhh_js.select_relationship") + " </OPTION>")
-			.append("<OPTION value='aunt'> " + $.t("fhh_js.aunt") + " </OPTION>")
 			.append("<OPTION value='uncle'> " + $.t("fhh_js.uncle") + " </OPTION>")
-			.append("<OPTION value='daughter'> " + $.t("fhh_js.daughter") + " </OPTION>")
+			.append("<OPTION value='aunt'> " + $.t("fhh_js.aunt") + " </OPTION>")
 			.append("<OPTION value='son'> " + $.t("fhh_js.son") + " </OPTION>")
+			.append("<OPTION value='daughter'> " + $.t("fhh_js.daughter") + " </OPTION>")
 			.append("<OPTION value='brother'> " + $.t("fhh_js.brother") + " </OPTION>")
 			.append("<OPTION value='sister'> " + $.t("fhh_js.sister") + " </OPTION>")
-			.append("<OPTION value='halfsister'> " + $.t("fhh_js.half_sister") + " </OPTION>")
-			.append("<OPTION value='halfbrother'> " + $.t("fhh_js.half_brother") + " </OPTION>");
+			.append("<OPTION value='halfbrother'> " + $.t("fhh_js.half_brother") + " </OPTION>")
+			.append("<OPTION value='halfsister'> " + $.t("fhh_js.half_sister") + " </OPTION>");
 
 		if (any_relatives(personal_information, 'maternal_aunt') || any_relatives(personal_information, 'maternal_uncle')
 				|| any_relatives(personal_information, 'paternal_aunt') || any_relatives(personal_information,'paternal_uncle')) {
@@ -1943,14 +1943,14 @@ function bind_add_another_family_member_button_action() {
 			personal_information.paternal_halfbrother_0 != null || personal_information.paternal_halfsister_0 != null
 		) {
 			new_family_member_select
-				.append("<OPTION value='niece'> " + $.t("fhh_js.niece") + " </OPTION>")
-				.append("<OPTION value='nephew'> " + $.t("fhh_js.nephew") + " </OPTION>");
+				.append("<OPTION value='nephew'> " + $.t("fhh_js.nephew") + " </OPTION>")
+				.append("<OPTION value='niece'> " + $.t("fhh_js.niece") + " </OPTION>");
 		}
 
 		if (personal_information.son_0 != null || personal_information.daughter_0 != null) {
 			new_family_member_select
-				.append("<OPTION value='granddaughter'> " + $.t("fhh_js.granddaughter") + " </OPTION>")
 				.append("<OPTION value='grandson'> " + $.t("fhh_js.grandson") + " </OPTION>")
+				.append("<OPTION value='granddaughter'> " + $.t("fhh_js.granddaughter") + " </OPTION>");
 		}
 
 		new_family_member_select.on("change", new_family_member_relationship_selection_change_action);
