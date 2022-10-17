@@ -7157,7 +7157,7 @@ function getWarekiYear(year){
 
 	// 大正の場合
 	if( 1911 < year && year <= 1925 ){
-		return calcWareki(year, 1925, '大正');
+		return calcWareki(year, 1911, '大正');
 	}
 
 	// 昭和の場合
