@@ -29,8 +29,25 @@ export class FiveDiseaseRiskCommonsCounter {
     }
 
     static countAllDiseasePersonInRelatives(relatives, snomedCodeArray, pi){}
-    static countAnyDiseasePersonInRelatives(relatives, snomedCodeArray, pi){}
 
+    /**
+     * 近親者で任意の疾患のいづれかに該当する人数
+     * @param {*} relatives 近親者(文字列の配列)
+     * @param {*} snomedCodeArray SNOMEDコード(文字列)の配列
+     * @param {*} pi 本人のpersonalinfomation
+     */
+    static countAnyDiseasePersonInRelatives(relatives, snomedCodeArray, pi){
+        if(!FiveDiseaseRiskCommons._isParamCorrect(relatives, snomedCodeArray, age, pi)) return 0;
+
+        var count = 0;
+
+        for(const relative of relatives){
+            if(FiveDiseaseRiskCommons.isDiesaseMatchOr(snomedCodeArray, pi[relative])){
+                count++;
+            }
+        }
+        return count;
+    }
     
     /**
      * 近親者で任意の病歴を任意の年齢以上で有する人数を数える。
