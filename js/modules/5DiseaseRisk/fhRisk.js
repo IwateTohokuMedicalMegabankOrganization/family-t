@@ -4,6 +4,7 @@
  * 家族性高コレステロール血症FH疾患リスク
  */
 import { FiveDiseaseRiskCommons } from '../5DiseaseRisk/5DiseaseRiskCommons';
+import { FiveDiseaseRiskCommonsCounter } from '../5DiseaseRisk/5DiseaseRiskCommonsCounter';
 import { FiveDiseaseRiskBase } from '../5DiseaseRisk/5DiseaseRiskBase';
 import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
 
@@ -63,15 +64,15 @@ export class FhRisk extends FiveDiseaseRiskBase {
         // 冠動脈疾患があるか
         // 55歳未満の男性
         var numberOfAnginaMale = 
-            FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-194828000', 55, 'MALE', pi);
+            FiveDiseaseRiskCommonsCounter.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-194828000', 55, 'MALE', pi);
         var numberOfHeartAttackMale = 
-            FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-22298006', 55, 'MALE', pi);
+            FiveDiseaseRiskCommonsCounter.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-22298006', 55, 'MALE', pi);
 
         // 65歳未満の女性
         var numberOfAnginaFemale = 
-            FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-194828000', 65, 'FEMALE', pi);
+            FiveDiseaseRiskCommonsCounter.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-194828000', 65, 'FEMALE', pi);
         var numberOfHeartAttackFemale = 
-            FiveDiseaseRiskCommons.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-22298006', 65, 'FEMALE', pi);
+            FiveDiseaseRiskCommonsCounter.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-22298006', 65, 'FEMALE', pi);
 
         var numberOfCoronaryArteryDisease = numberOfAnginaMale 
             + numberOfHeartAttackMale 
@@ -83,7 +84,7 @@ export class FhRisk extends FiveDiseaseRiskBase {
         }
 
         // 家族性高コレステロール血症があるかどうか
-        var numberOfFh = FiveDiseaseRiskCommons.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-238038003', pi);
+        var numberOfFh = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-238038003', pi);
         if(numberOfFh > 0){
             return true;
         }

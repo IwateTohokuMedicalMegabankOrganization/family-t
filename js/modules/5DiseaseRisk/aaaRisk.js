@@ -4,6 +4,7 @@
  * 腹部大動脈瘤AAA疾患リスク
  */
  import { FiveDiseaseRiskCommons } from '../5DiseaseRisk/5DiseaseRiskCommons';
+ import { FiveDiseaseRiskCommonsCounter } from '../5DiseaseRisk/5DiseaseRiskCommonsCounter';
  import { FiveDiseaseRiskBase } from '../5DiseaseRisk/5DiseaseRiskBase';
  import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
 
@@ -31,7 +32,7 @@ export class AaaRisk extends FiveDiseaseRiskBase {
 
         // 第一度近親者に腹部大動脈瘤の病歴がある
         var relatives = RelativeUtil.getFirstDegreeRelatives();
-        var numberOfPerson = FiveDiseaseRiskCommons.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-75878002', pi);
+        var numberOfPerson = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-75878002', pi);
 
         if(numberOfPerson >= 1){
             return true;

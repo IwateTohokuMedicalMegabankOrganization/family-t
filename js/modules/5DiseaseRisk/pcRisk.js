@@ -5,6 +5,7 @@
  */
 
 import { FiveDiseaseRiskCommons } from '../5DiseaseRisk/5DiseaseRiskCommons';
+import { FiveDiseaseRiskCommonsCounter } from '../5DiseaseRisk/5DiseaseRiskCommonsCounter';
 import { FiveDiseaseRiskBase } from '../5DiseaseRisk/5DiseaseRiskBase';
 import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
 
@@ -31,7 +32,7 @@ export class PcRisk extends FiveDiseaseRiskBase {
     _hasPersonOnsetOfProstateCanserWithinFirstDegreeRelaives(pi) {
         // 第一
         var relative = RelativeUtil.getFirstDegreeRelatives();
-        var numberOfPerson = FiveDiseaseRiskCommons.countDiseasePersonInRelatives(relative, 'SNOMED_CT-399068003', pi);
+        var numberOfPerson = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relative, 'SNOMED_CT-399068003', pi);
 
         if(numberOfPerson >= 1){
             return true;
