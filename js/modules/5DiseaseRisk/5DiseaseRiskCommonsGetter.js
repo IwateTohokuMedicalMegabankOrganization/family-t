@@ -75,20 +75,21 @@ export class FiveDiseaseRiskCommonsGetter {
      * @param {*} relatives 近親者(文字列の配列)
      * @param {*} snomedCode SNOMEDコード
      * @param {*} pi 本人のpersonalInformation
+     * @returns 近親度の配列
      */
-     static getPersonMatcheDiseaseInRelative(relatives,snomedCode, pi){
-        var persons = {};
+     static getPersonMatcheDisInRelativeIncludeSelf(relatives,snomedCode, pi){
+        var persons = [];
         if(!FiveDiseaseRiskCommons._isParamCorrect(relatives, snomedCode, pi)) return persons;
 
         // 本人がマッチするか
         if(FiveDiseaseRiskCommons.isDiesaseMatch(snomedCode, pi)){
-            persons["self"] = pi;
+            persons.concat('self');
         }
 
         // 家族がマッチするか
         for(const relative of relatives){
             if(FiveDiseaseRiskCommons.isDiesaseMatch(snomedCode, pi[relative])){
-                persons[relative] = pi[relative];
+                persons.concat(relative);
             }
         }
         return persons;
@@ -99,20 +100,21 @@ export class FiveDiseaseRiskCommonsGetter {
      * @param {*} relatives 近親者(文字列の配列)
      * @param {*} snomedCodeArray SNOMEDコードの配列
      * @param {*} pi 本人のpersonalInformation
+     * @returns 近親度の配列
      */
-    static getPersonMatcheDiseaseAndInRelative(relatives,snomedCodeArray, pi){
-        var persons = {};
+    static getPersonMatcheAllDiseInRelativeIncludeSelf(relatives, snomedCodeArray, pi){
+        var persons = [];
         if(!FiveDiseaseRiskCommons._isParamCorrect(relatives, snomedCodeArray, pi)) return persons;
 
         // 本人がマッチするか
         if(FiveDiseaseRiskCommons.isDiesaseMatchAnd(snomedCodeArray, pi)){
-            persons["self"] = pi;
+            persons.concat('self');
         }
 
         // 家族がマッチするか
         for(const relative of relatives){
             if(FiveDiseaseRiskCommons.isDiesaseMatchAnd(snomedCodeArray, pi[relative])){
-                persons[relative] = pi[relative];
+                persons.concat(relative);
             }
         }
         return persons;
@@ -123,20 +125,50 @@ export class FiveDiseaseRiskCommonsGetter {
      * @param {*} relatives 近親者(文字列の配列)
      * @param {*} snomedCodeArray SNOMEDコードの配列
      * @param {*} pi 本人のpersonalInformation
+     * @returns 近親度の配列
      */
-    static getPersonMatcheDiseaseOrInRelative(relatives,snomedCodeArray, pi){
-        var persons = {};
+    static getPersonMatcheAnyDisInRelativeIncludeSelf(relatives, snomedCodeArray, pi){
+        var persons = [];
         if(!FiveDiseaseRiskCommons._isParamCorrect(relatives, snomedCodeArray, pi)) return persons;
 
         // 本人がマッチするか
         if(FiveDiseaseRiskCommons.isDiesaseMatchOr(snomedCodeArray, pi)){
-            persons["self"] = pi;
+            persons.concat('self');
         }
 
         // 家族がマッチするか
         for(const relative of relatives){
             if(FiveDiseaseRiskCommons.isDiesaseMatchAnd(snomedCodeArray, pi[relative])){
-                persons[relative] = pi[relative];
+                persons.concat(relative);
+            }
+        }
+        return persons;
+    }
+
+    /**
+     * 任意の疾患(snomedCodeArray)のいずれかに、任意の年齢で該当し、任意の疾患(snomedCode)に該当しない人を取得する
+     * @param {*} relatives 近親者(文字列の配列)
+     * @param {*} snomedCodeArray SNOMEDコードの配列
+     * @param {*} snomedCode SNOMEDコード
+     * @param {*} age 診断時の年齢
+     * @param {*} pi 本人のpersonalInformation
+     * @returns 近親度の配列
+     */
+    static getPersonMatcheAnyDisNotDisAadLessThan(relatives, snomedCodeArray, snomedCode, age, pi){
+        var persons = [];
+        if(!FiveDiseaseRiskCommons._isParamCorrect(relatives, snomedCodeArray, snomedCode, age, pi)) return persons;
+
+        // 本人がマッチするか
+        if(FiveDiseaseRiskCommons.areAnyDisAgadLessThan(snomedCodeArray, age, pi)
+            && !FiveDiseaseRiskCommons.isDiesaseMatch(snomedCode, pi)){
+                persons.concat('self');
+        }
+
+        // 家族がマッチするか
+        for(const relative of relatives){
+            if(FiveDiseaseRiskCommons.areAnyDisAgadLessThan(snomedCodeArray, age, pi[relative])
+                && !FiveDiseaseRiskCommons.isDiesaseMatch(snomedCode, pi[relative])){
+                    persons.concat(relative);
             }
         }
         return persons;

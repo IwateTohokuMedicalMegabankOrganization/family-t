@@ -213,4 +213,66 @@ export class FiveDiseaseRiskCommonsCounter {
         return count;
     }
 
+    /**
+     * 近親者のうち、任意の疾患Aに該当かつ任意の疾患Bのいづれかに該当する
+     * @param {*} relatives 近親者(文字列の配列)
+     * @param {*} snomedCode SNOMEDコード(文字列)
+     * @param {*} snomedCodeArray SNOMEDコード(文字列)の配列
+     * @param {*} pi 本人のpersonalinfomation
+     * @returns 
+     */
+    static countDiseaseAndAnyDisease(relatives, snomedCode, snomedCodeArray, pi){
+        if(!FiveDiseaseRiskCommons._isParamCorrect(relatives, snomedCode, snomedCodeArray, pi)) return 0;
+
+        var count = 0;
+        for(const relative of relatives){
+            var a = false;
+            // 任意の疾患A(snomedCode)があるかどうか。無い場合はスキップ
+            if(!FiveDiseaseRiskCommons.isDiesaseMatch(snomedCode, pi[relative])){
+                continue;
+            }
+
+            // 任意の疾患B(snomedCodeArray)いづれかに該当するかどうか。
+            if(FiveDiseaseRiskCommons.isDiesaseMatchOr(snomedCodeArray, pi[relative])){
+                count++;
+            }
+        }
+        return count
+    }
+
+    /**
+     * 近親者のうち、任意の疾患Aに該当かつ任意の疾患Bのいづれかに該当し、そのうちどれか一つは任意の年齢未満である
+     * @param {*} relatives 近親者(文字列の配列)
+     * @param {*} snomedCode SNOMEDコード(文字列)
+     * @param {*} snomedCodeArray SNOMEDコード(文字列)の配列
+     * @param {*} age 診断時の年齢
+     * @param {*} pi 本人のpersonalinfomation
+     * @returns 
+     */
+    static countDisAndAnyDisAadLessThan(relatives, snomedCode, snomedCodeArray, age, pi){
+        if(!FiveDiseaseRiskCommons._isParamCorrect(relatives, snomedCode, snomedCodeArray, age, pi)) return 0;
+
+        var count = 0;
+        for(const relative of relatives){
+            var a = false;
+            // 大腸がんがあるかどうか。無い場合はスキップ
+            if(!FiveDiseaseRiskCommons.isDiesaseMatch(snomedCode, pi[relative])){
+                continue;
+            }
+
+            // 大腸がんが50歳未満かどうかで分岐する。
+            if(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan(snomedCode, age, pi[relative])){
+                // 大腸がんが50歳未満の場合、SNOMED_CODE_ARRAYに該当するか
+                if(FiveDiseaseRiskCommons.isDiesaseMatchOr(snomedCodeArray,pi[relative])){
+                    count++;
+                }
+            }else{
+                // 大腸がんが50歳未満出ない場合、SNOMED_CODE_ARRAYに50歳未満で該当するか
+                if(FiveDiseaseRiskCommons.areAnyDisAgadLessThan(snomedCodeArray, age, pi[relative])){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
 }

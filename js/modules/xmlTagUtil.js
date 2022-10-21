@@ -451,6 +451,12 @@ export class RelativeUtil{
         // 母方の叔母
         relatives = relatives.concat(this.getMiltipleRelative('maternal_aunt'));
 
+        // 孫息子
+        relatives = relatives.concat(this.getMiltipleRelative('grandson'));
+
+        // 孫娘
+        relatives = relatives.concat(this.getMiltipleRelative('granddaughter'));
+
         return relatives;
     }
 
@@ -537,6 +543,12 @@ export class CodeUtil{
         "SNOMED_CT-90708001" : {"code":"90708001","codeSystemName":"SNOMED_CT","displayName":"Kidney Nephrosis/Nephrotic syndrome","originText":"Kidney Nephrosis/Nephrotic syndrome"},
         "SNOMED_CT-52254009" : {"code":"52254009","codeSystemName":"SNOMED_CT","displayName":"Nephrotic Syndrome","originText":"Nephrotic Syndrome"},
         "SNOMED_CT-82525005" : {"code":"82525005","codeSystemName":"SNOMED_CT","displayName":"Kidney Disease Present from Birth","originText":"Kidney Disease Present from Birth"},
+        "SNOMED_CT-363492001" : {"code":"363492001","codeSystemName":"SNOMED_CT","displayName":"Peritoneum Cancer","originText":"Peritoneum Cancer"},
+        "SNOMED_CT-188192002" : {"code":"188192002","codeSystemName":"SNOMED_CT","displayName":"Endometrium Of Corpus Uteri Cancer","originText":"Endometrium Of Corpus Uteri Cancer"},
+        "SNOMED_CT-363509000" : {"code":"363509000","codeSystemName":"SNOMED_CT","displayName":"Small Intestine Cancer","originText":"Small Intestine Cancer"},
+        "SNOMED_CT-448215006" : {"code":"448215006","codeSystemName":"SNOMED_CT","displayName":"Renal Pelvis Cancer","originText":"Renal Pelvis Cancer"},
+        "SNOMED_CT-363458004" : {"code":"363458004","codeSystemName":"SNOMED_CT","displayName":"Ureter Cancer","originText":"Ureter Cancer"},
+        "SNOMED_CT-363415003" : {"code":"363415003","codeSystemName":"SNOMED_CT","displayName":"Biliary Tract Cancer","originText":"Biliary Tract Cancer"},
         "SNOMED_CT-269466003" : {"code":"269466003","codeSystemName":"SNOMED_CT","displayName":"Bone Cancer","originText":"Bone Cancer"},
         "SNOMED_CT-254837009" : {"code":"254837009","codeSystemName":"SNOMED_CT","displayName":"Breast Cancer","originText":"Breast Cancer"},
         "SNOMED_CT-363406005" : {"code":"363406005","codeSystemName":"SNOMED_CT","displayName":"Colon Cancer","originText":"Colon Cancer"},
