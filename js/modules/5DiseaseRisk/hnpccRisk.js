@@ -49,7 +49,7 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
 
     /**
      * 改訂ベセスダガイドライン（2004）にがいとうするかどうか
-     * @param {*} pi 
+     * @param {*} pi 本人のpersonalInformation
      */
     appliesToTheRevisedBethesdaGuideline2004(pi) {
         return this._isOnsetOfColorectalCancerAtLessThanOrEqualTo45YearsOld(pi)
@@ -60,6 +60,7 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
 
     /**
      * C2：本人が大腸がん患者かつ、50歳未満で診断された大腸癌
+     * @param {*} pi 本人のpersonalInformation
      */
     _isOnsetOfColorectalCancerAtLessThan50YearsOld(pi) {
         // 引数チェック
@@ -72,6 +73,7 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
     /**
      * C3：本人が大腸がん患者かつ、年齢に関わりなく，同時性あるいは異時性大腸癌あるいはその他のリンチ症候群関連腫瘍＊がある。
      * ＊：大腸癌，子宮内膜癌，胃癌，卵巣癌，膵癌，胆道癌，小腸癌，腎盂・尿管癌，脳腫瘍（通常はターコット症候群にみられるglioblastoma），ムア・トレ症候群の皮脂腺腫や角化棘細胞腫
+     * @param {*} pi 本人のpersonalInformation
      */
     _isOnsetOfColorectalCancerAndHnpcc(pi) {
         // 引数チェック
@@ -86,6 +88,7 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
 
     /**
      * C5：本人が大腸がん患者かつ、第1度近親者が1人以上リンチ症候群関連腫瘍に罹患しており，そのうち一つは50歳未満で診断された大腸癌
+     * @param {*} pi 本人のpersonalInformation
      */
     _isOnsetOfColorectalCancerAndOnePersonOnsetOfHnpccAtLessThan50YearsOld(pi) {
         // 引数チェック
@@ -104,6 +107,7 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
 
     /**
      * C6：本人が大腸がん患者かつ、年齢に関わりなく，第1度あるいは第2度近親者の2人以上がリンチ症候群関連腫瘍と診断されている患者の大腸癌
+     * @param {*} pi 本人のpersonalInformation
      */
     _isOnsetOfColorectalCancer(pi) {
         // 引数チェック
@@ -123,7 +127,7 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
 
     /**
      * ユニバーサルスケーリングに該当するかどうか
-     * @param {*} pi 
+     * @param {*} pi 本人のpersonalInformation
      * @returns 
      */
     appliesToUniversalScreening(pi) {
@@ -132,6 +136,7 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
 
     /**
      * C7：全て（あるいは 70 歳以下）の大腸癌、子宮内膜がん
+     * @param {*} pi 本人のpersonalInformation
      */
     _isOnsetOfColorectalOrEndometrialCancer(pi) {
         return FiveDiseaseRiskCommons.isDiesaseMatchOr(this.SNOMED_CODE_C7, pi);
