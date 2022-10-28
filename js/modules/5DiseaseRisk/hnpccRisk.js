@@ -48,65 +48,6 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
     ];
 
     /**
-     * C1：少なくとも3人の血縁者がHNPCC（リンチ症候群）関連腫瘍（大腸癌，子宮内膜癌，腎盂・尿管癌，小腸癌）に罹患しており，以下のすべてを満たしている。
-     *  1．1人の罹患者はその他の2人に対して第1度近親者である。
-     *  2．少なくとも連続する2世代で罹患している。
-     *  3．少なくとも1人の癌は50歳未満で診断されている。
-     *  4．腫瘍は病理学的に癌であることが確認されている。
-     *  5．FAPが除外されている。
-     */
-    appliesToAmsterdamStanderd2(pi) {
-        // 疾患に該当する人を配列で取得する
-        var relatives = RelativeUtil.getALLRelatives();
-        var persons = FiveDiseaseRiskCommons.getPersonMatcheAnyDisNotDisAadLessThan(relatives, this.SNOMED_CODE_C1, this.FAP, 50, pi);
-        if(persons.length < 3){
-            return false;
-        }
-
-        // アムステルダム基準Ⅱ（1999）に該当するか判定する
-        return this._isOnePersonBelongToFirstDegreeRelatives(persons)
-            && this._isOnsetFor2ConsecutiveGenerations(persons)
-            && this._isOnePersonOnsetOfHnpccAtlessThan50YearsOlds(persons)
-            && this._isPolypDetectedAsCanser(persons)
-            && this._isFapExcluded(persons);
-    }
-
-    /**
-     * C1-1：1．1人の罹患者はその他の2人に対して第1度近親者である。
-     */
-    _isOnePersonBelongToFirstDegreeRelatives(persons) {
-        // 世代のつながりをデータとして持っていないため、判定できない。要改修
-    }
-
-    /**
-     * C1-2：2．少なくとも連続する2世代で罹患している。
-     */
-    _isOnsetFor2ConsecutiveGenerations(persons) {
-        // 世代のつながりをデータとして持っていないため、判定できない。要改修
-    }
-
-    /**
-     * C1-3：3．少なくとも1人の癌は50歳未満で診断されている。
-     */
-    _isOnePersonOnsetOfHnpccAtlessThan50YearsOlds(persons) {
-        return true;
-    }
-
-    /**
-     * C1-4：4．腫瘍は病理学的に癌であることが確認されている。※実装無のため常にtrueを返す。
-     */
-    _isPolypDetectedAsCanser(persons) {
-        return true;
-    }
-
-    /**
-     * C1-5：5．FAPが除外されている。※実装無のため常にtrueを返す。
-     */
-    _isFapExcluded(persons) {
-        return true;
-    }
-
-    /**
      * 改訂ベセスダガイドライン（2004）にがいとうするかどうか
      * @param {*} pi 
      */
