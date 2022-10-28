@@ -75,6 +75,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
 
     /**
      * B1：発症、未発症に関わらず（本人以外に）すでに家系内でBRCAバリアント保持者が確認されている場合
+     * @param {*} pi 本人のpersonalInformation
      */
     _isBrcaVariantDetectedRegardlessOfWhetherOnset(pi) {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
@@ -85,14 +86,16 @@ export class HbocRisk extends FiveDiseaseRiskBase {
 
     /**
      * B2：本人が乳がんを発症かつ、45歳以下で発症
+     * @param {*} pi 本人のpersonalInformation
      */
     _isOnsetOfBreastCancerAtLessThanOrEqualTo45YearsOld(pi) {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
-        return FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo(this.BREAST_CANCER, pi);
+        return FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo(this.BREAST_CANCER, 45, pi);
     }
 
     /**
      * B5：本人が乳がんを発症かつ、第3度近親者内に乳癌または卵巣癌発症者が1名以上いる
+     * @param {*} pi 本人のpersonalInformation
      */
     _isOnsetOfBreastCancerAndHavingPersonWhoHasBreastOrOvarianCancerWithinThirdDegreeRelatives(pi) {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
@@ -107,6 +110,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
 
     /**
      * B6：本人が前立腺がんを発症かつ、血縁者の中で2名以上にHBOC関連（乳癌・卵巣癌・膵癌・悪性黒色腫等）の発がんが確認されている
+     * @param {*} pi 本人のpersonalInformation
      */
     _isPostateCancerAndTwoORMoreHBOC(pi){
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
@@ -121,6 +125,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
 
     /**
      * B7：本人が膵がんを発症かつ、血縁者の中で2名以上にHBOC関連（乳癌・卵巣癌・前立腺癌・膵癌・悪性黒色腫等）の発癌が確認されている
+     * @param {*} pi 本人のpersonalInformation
      */
     _isPancreaticCancerAndTwoORMoreHBOC(pi){
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
@@ -135,6 +140,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
 
     /**
      * B8：卵巣癌、卵管癌および腹膜癌を発症
+     * @param {*} pi 本人のpersonalInformation
      */
     _isOnsetOfOvarianOrFallopianTubeOrPeritonealCancer(pi) {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
@@ -143,14 +149,16 @@ export class HbocRisk extends FiveDiseaseRiskBase {
 
     /**
      * B9：男性乳癌を発症
+     * @param {*} pi 本人のpersonalInformation
      */
     _isOnsetOfMaleBreastCancer(pi) {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
-        return FiveDiseaseRiskCommons.isDiesaseMatchOr(this.BREAST_CANCER, pi);
+        return FiveDiseaseRiskCommons.areDiseaseAndGenderMatch(this.BREAST_CANCER, 'MALE', pi);
     }
 
     /**
      * B15：40歳未満で乳がんを発症した人がいる
+     * @param {*} pi 本人のpersonalInformation
      */
     _hasPersonOnsetOfBreastCancerAtLessThanOrEqualTo40YearsOldInFHH(pi) {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
@@ -165,6 +173,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
 
     /**
      * B16：年齢を問わず卵巣癌（卵管癌・腹膜癌を含む）の人がいる
+     * @param {*} pi 本人のpersonalInformation
      */
     _hasPersonOnsetOfOvarianCancerInFHH(pi) {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
@@ -179,6 +188,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
 
     /**
      * B18：男性の乳がん発症者がいる
+     * @param {*} pi 本人のpersonalInformation
      */
     _hasPersonOnsetOfMaleOvarianCancerInFHH(pi) {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
@@ -193,6 +203,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
 
     /**
      * B19：自身を含め乳がん発症者が3人以上いる
+     * @param {*} pi 本人のpersonalInformation
      */
     _hasOver3PersonOnsetOfBreastCanserInFHH(pi) {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
@@ -208,6 +219,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
 
     /**
      * B21：BRCAの遺伝子変異が確認された人がいる
+     * @param {*} pi 本人のpersonalInformation
      */
     _hasPersonOnsetOfGeneticAlterationInFHH(pi) {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
