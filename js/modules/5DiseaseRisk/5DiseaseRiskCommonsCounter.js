@@ -37,7 +37,7 @@ export class FiveDiseaseRiskCommonsCounter {
      * @param {*} pi 本人のpersonalinfomation
      */
     static countAnyDiseasePersonInRelatives(relatives, snomedCodeArray, pi){
-        if(!FiveDiseaseRiskCommons._isParamCorrect(relatives, snomedCodeArray, age, pi)) return 0;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(relatives, snomedCodeArray, pi)) return 0;
 
         var count = 0;
 
