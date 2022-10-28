@@ -305,7 +305,7 @@
             "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
         },
     };
-    expect(true).toEqual(pcRisk.recomendInspectProstateCancer(pi));
+    expect(true).toEqual(pcRisk._hasPersonOnsetOfProstateCanserWithinFirstDegreeRelaives(pi));
 
     // 該当する(本人が男で40歳以下かつ第1度近親者に前立腺がんの病歴あり)
     pi = {
@@ -332,7 +332,7 @@
             "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
         },
     };
-    expect(true).toEqual(pcRisk.recomendInspectProstateCancer(pi));
+    expect(true).toEqual(pcRisk._hasPersonOnsetOfProstateCanserWithinFirstDegreeRelaives(pi));
 
     // 該当しない(本人が男で40歳以下かつ第1度近親者に前立腺がんの病歴なし)
     pi = {
@@ -359,7 +359,7 @@
             "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
         },
     };
-    expect(false).toEqual(pcRisk.recomendInspectProstateCancer(pi));
+    expect(false).toEqual(pcRisk._hasPersonOnsetOfProstateCanserWithinFirstDegreeRelaives(pi));
 
     // 該当しない(本人が女性)
     pi = {
@@ -386,10 +386,10 @@
             "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
         },
     };
-    expect(false).toEqual(pcRisk.recomendInspectProstateCancer(pi));
+    expect(false).toEqual(pcRisk._hasPersonOnsetOfProstateCanserWithinFirstDegreeRelaives(pi));
 
     // 不正入力
-    expect(false).toEqual(pcRisk.recomendInspectProstateCancer(null));
-    expect(false).toEqual(pcRisk.recomendInspectProstateCancer(undefined));
-    expect(false).toEqual(pcRisk.recomendInspectProstateCancer(''));
+    expect(false).toEqual(pcRisk._hasPersonOnsetOfProstateCanserWithinFirstDegreeRelaives(null));
+    expect(false).toEqual(pcRisk._hasPersonOnsetOfProstateCanserWithinFirstDegreeRelaives(undefined));
+    expect(false).toEqual(pcRisk._hasPersonOnsetOfProstateCanserWithinFirstDegreeRelaives(''));
 });

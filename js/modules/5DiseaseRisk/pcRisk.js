@@ -11,17 +11,6 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
 
 export class PcRisk extends FiveDiseaseRiskBase {
     recomendInspectProstateCancer(pi) {
-        // 本人が女性かどうか判断する。
-        if(FiveDiseaseRiskCommons.isGenderMatch("FEMALE", pi)){
-            return false;
-        }
-
-        // 本人が40歳以上
-        if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(40, pi)){
-            return true;
-        }
-
-        // 第一度近親者に前立腺がん
         return this._hasPersonOnsetOfProstateCanserWithinFirstDegreeRelaives(pi);
     }
 
@@ -30,13 +19,16 @@ export class PcRisk extends FiveDiseaseRiskBase {
      * ◆CQ4. 日本での疫学調査により「第1度近親者に1人の前立腺癌患者がいる場合の罹患リスクは5.6倍（95％CI：1.5〜20.5）と有意差を認めた」
      */
     _hasPersonOnsetOfProstateCanserWithinFirstDegreeRelaives(pi) {
+        if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
+
+        // 本人が女性かどうか判断する。
+        if(FiveDiseaseRiskCommons.isGenderMatch("FEMALE", pi)) return false;
+
+        // 本人が40歳以上
+        if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(40, pi)) return true;
+
         // 第一
         var relative = RelativeUtil.getFirstDegreeRelatives();
-        var numberOfPerson = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relative, 'SNOMED_CT-399068003', pi);
-
-        if(numberOfPerson >= 1){
-            return true;
-        }
-        return false;
+        return FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relative, 'SNOMED_CT-399068003', pi) >= 1;
     }
 }
