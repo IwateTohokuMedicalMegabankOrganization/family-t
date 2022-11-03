@@ -1,15 +1,15 @@
-/**
- * 2022/-6/06
- * 
- * 家族性高コレステロール血症FH疾患リスク
- */
 import { FiveDiseaseRiskCommons } from '../5DiseaseRisk/5DiseaseRiskCommons';
 import { FiveDiseaseRiskCommonsCounter } from '../5DiseaseRisk/5DiseaseRiskCommonsCounter';
 import { FiveDiseaseRiskBase } from '../5DiseaseRisk/5DiseaseRiskBase';
 import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
 
+/**
+ * 2022/-6/06
+ * 
+ * 家族性高コレステロール血症FH疾患リスク
+ */
 export class FhRisk extends FiveDiseaseRiskBase {
-    inspectionAndRiskManagementAccordingToFH(pi) {
+    findOutRisk(pi) {
         return this._isAppliesToAdultFhHeterozygotesDiagnosticCriteria(pi);
     }
 

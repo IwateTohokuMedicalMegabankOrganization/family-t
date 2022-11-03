@@ -1,13 +1,13 @@
+import { FiveDiseaseRiskCommons } from '../5DiseaseRisk/5DiseaseRiskCommons';
+import { FiveDiseaseRiskBase } from '../5DiseaseRisk/5DiseaseRiskBase';
+import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
+import { FiveDiseaseRiskCommonsCounter } from './5DiseaseRiskCommonsCounter';
+
 /**
  * 2022/06/06
  * 
  * リンチ症候群（遺伝性非ポリポーシス大腸がん）HNPCC疾患リスク
  */
- import { FiveDiseaseRiskCommons } from '../5DiseaseRisk/5DiseaseRiskCommons';
- import { FiveDiseaseRiskBase } from '../5DiseaseRisk/5DiseaseRiskBase';
- import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
-import { FiveDiseaseRiskCommonsCounter } from './5DiseaseRiskCommonsCounter';
-
 export class HnpccRisk extends FiveDiseaseRiskBase {
 
     // 大腸がん
@@ -46,6 +46,10 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
         'SNOMED_CT-1000001',
         'SNOMED_CT-188192002'
     ];
+
+    findOutRisk(pi){
+
+    }
 
     /**
      * 改訂ベセスダガイドライン（2004）にがいとうするかどうか

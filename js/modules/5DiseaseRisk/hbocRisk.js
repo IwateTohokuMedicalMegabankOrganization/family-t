@@ -65,7 +65,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         'SNOMED_CT-363492001'
     ];
 
-    recomendBrcaGenericInspection() {
+    findOutRisk(pi) {
 
     }
 

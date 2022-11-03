@@ -1,17 +1,27 @@
-/**
- * 2022/06/06
- * 
- * 前立腺がん疾患リスク
- */
-
 import { FiveDiseaseRiskCommons } from '../5DiseaseRisk/5DiseaseRiskCommons';
 import { FiveDiseaseRiskCommonsCounter } from '../5DiseaseRisk/5DiseaseRiskCommonsCounter';
 import { FiveDiseaseRiskBase } from '../5DiseaseRisk/5DiseaseRiskBase';
 import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
 
+/**
+ * 2022/06/06
+ * 
+ * 前立腺がん疾患リスク
+ */
 export class PcRisk extends FiveDiseaseRiskBase {
-    recomendInspectProstateCancer(pi) {
-        return this._hasPersonOnsetOfProstateCanserWithinFirstDegreeRelaives(pi);
+
+    ALERT = '以下に該当する場合、ガイドライン等で前立腺がんである可能性や、診断のための遺伝学的検査が考慮または推奨されています。';
+    NO_RISK = '前立腺がんのリスクは低いと考えられます。';
+
+    findOutRisk(pi) {
+        // 前立腺がん疾患リスクを判定する
+        if(this._hasPersonOnsetOfProstateCanserWithinFirstDegreeRelaives(pi)){            
+            // 該当する場合のアラート文を設定する
+            this.MESSAGE = this.ALERT;
+        } else {
+            // 該当しない場合のアラート文を設定する
+            this.MESSAGE = this.NO_RISK;
+        }        
     }
 
     /**
