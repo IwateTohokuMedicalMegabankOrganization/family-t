@@ -17,8 +17,13 @@
 
     }
 
+    /**
+     * クラス変数の初期化を行う
+     */
     init(){
-
+        this.MESSAGE = '';
+        this.APPLICABLE_INFO = [];
+        this.CRITERIA= [];
     }
 
     findOutRisk(pi){

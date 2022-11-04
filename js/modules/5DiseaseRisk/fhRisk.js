@@ -10,6 +10,7 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
  */
 export class FhRisk extends FiveDiseaseRiskBase {
     findOutRisk(pi) {
+        this.init();
         return this._isAppliesToAdultFhHeterozygotesDiagnosticCriteria(pi);
     }
 

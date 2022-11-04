@@ -14,6 +14,7 @@ export class PcRisk extends FiveDiseaseRiskBase {
     NO_RISK = '前立腺がんのリスクは低いと考えられます。';
 
     findOutRisk(pi) {
+        this.init();
         // 前立腺がん疾患リスクを判定する
         if(this._hasPersonOnsetOfProstateCanserWithinFirstDegreeRelaives(pi)){            
             // 該当する場合のアラート文を設定する

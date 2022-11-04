@@ -10,6 +10,7 @@
  */
 export class AaaRisk extends FiveDiseaseRiskBase {
     findOutRisk(pi) {
+        this.init();
         return this._isSmokingOrHavingPersonWhoHasAaaWithinFirstDegreeRelatives(pi);
     }
 

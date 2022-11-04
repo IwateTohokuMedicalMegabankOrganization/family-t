@@ -48,7 +48,7 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
     ];
 
     findOutRisk(pi){
-
+        this.init();
     }
 
     /**

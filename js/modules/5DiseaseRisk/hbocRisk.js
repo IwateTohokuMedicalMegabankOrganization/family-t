@@ -66,7 +66,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
     ];
 
     findOutRisk(pi) {
-
+        this.init();
     }
 
     highPossibilityOfHboc() {
