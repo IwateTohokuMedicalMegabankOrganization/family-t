@@ -310,7 +310,3 @@ test('getHealthHistory', () => {
     expect(FiveDiseaseRiskCommonsGetter.getHealthHistory( param, param)).toEqual(expect3);
 });
 
-
-test('getPersonMatcheDiseaseInRelative',() => {});
-test('getPersonMatcheDiseaseAndInRelative',() => {});
-test('getPersonMatcheDiseaseOrInRelative',() => {});
