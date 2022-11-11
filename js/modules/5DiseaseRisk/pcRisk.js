@@ -1,5 +1,6 @@
 import { FiveDiseaseRiskCommons } from '../5DiseaseRisk/5DiseaseRiskCommons';
 import { FiveDiseaseRiskCommonsCounter } from '../5DiseaseRisk/5DiseaseRiskCommonsCounter';
+import { FiveDiseaseRiskCommonsGetter } from '../5DiseaseRisk/5DiseaseRiskCommonsGetter';
 import { FiveDiseaseRiskBase } from '../5DiseaseRisk/5DiseaseRiskBase';
 import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
 
@@ -36,10 +37,20 @@ export class PcRisk extends FiveDiseaseRiskBase {
         if(FiveDiseaseRiskCommons.isGenderMatch("FEMALE", pi)) return false;
 
         // 本人が40歳以上
-        if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(40, pi)) return true;
+        if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(40, pi)){
+            var applicableInfo = {'relative' : 'self', 'gender':'FEMALE', 'age':'greater_than_or_equal_to_40'};
+            this.pushApplicableInfo(applicableInfo);
+            return true;
+        }
 
         // 第一
-        var relative = RelativeUtil.getFirstDegreeRelatives();
-        return FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relative, 'SNOMED_CT-399068003', pi) >= 1;
+        var relatives = RelativeUtil.getFirstDegreeRelatives();
+        var count = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-399068003', pi);
+        if(count >= 1){
+            var applicableInfoArray = FiveDiseaseRiskCommonsGetter.getMHHInRelatives(relatives, 'SNOMED_CT-399068003', pi)
+            this.concatApplicableInfo(applicableInfoArray);
+            return true;
+        }
+        return false;
     }
 }

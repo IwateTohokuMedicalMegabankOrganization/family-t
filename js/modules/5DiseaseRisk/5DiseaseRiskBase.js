@@ -10,7 +10,7 @@
     MESSAGE = '';
     /** リスク判定に該当した情報(オブジェクトの配列)
      * 
-     *  APPLICABLE_INFO = [{'relative' : {'gender' : gender, 'disease' : disease}},...]
+     *  APPLICABLE_INFO = [{'relative' : relative, gender' : gender, 'disease' : disease},...]
     */
     APPLICABLE_INFO = [];
     /** リスク判定基準 */
@@ -66,11 +66,19 @@
     }
 
     /**
-     * 配列を末尾に追加する
+     * 配列を末尾に結合する
      * @param {*} applicableInfo リスク判定に該当した情報(オブジェクトの配列)
      */
-     addApplicableInfo(applicableInfo){
-        this.APPLICABLE_INFO = this.APPLICABLE_INFO.concat(applicableInfo);
+    pushApplicableInfo(applicableInfo){
+        this.APPLICABLE_INFO.push(applicableInfo);
+    }
+
+    /**
+     * 配列を末尾に結合する
+     * @param {*} applicableInfo リスク判定に該当した情報(オブジェクトの配列)
+     */
+    concatApplicableInfo(applicableInfoArray){
+        this.APPLICABLE_INFO = this.APPLICABLE_INFO.concat(applicableInfoArray);
     }
 
     /**

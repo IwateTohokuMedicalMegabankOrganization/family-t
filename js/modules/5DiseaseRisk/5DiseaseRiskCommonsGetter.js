@@ -62,6 +62,12 @@ export class FiveDiseaseRiskCommonsGetter {
      */
     static getMatchedHealthHistory(snomedCode, pi){
         var ret = null; 
+        // 引数チェック
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCode, pi)) return ret;
+        if(pi["Health History"]==null) return ret;
+        if(pi["Health History"]==undefined) return ret;
+
+        // 該当する疾患を取得する。
         for(const history of pi['Health History']){
             if(history['Disease Code'] == snomedCode){
                 ret = history;
@@ -78,13 +84,13 @@ export class FiveDiseaseRiskCommonsGetter {
      * @returns 疾患の配列
      */
      static getAnyMatchedHealthHistory(snomedCodeArray, pi){
-        // 引数チェック
-        if(!this._isParamCorrect(snomedCodArray, pi)) return false;
-        if(pi["Health History"]==null) return false;
-        if(pi["Health History"]==undefined) return false;
-
-        // 該当する全ての疾患を取得する。
         var disease = [];
+        // 引数チェック
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCodArray, pi)) return disease;
+        if(pi["Health History"]==null) return disease;
+        if(pi["Health History"]==undefined) return disease;
+
+        // 該当する全ての疾患を取得する。        
         for(const snomedCode of snomedCodArray){
             if(this.getMatchedHealthHistory(snomedCode, pi) != null){
                 disease = disease.concat(this.getMatchedHealthHistory(snomedCode, pi));
@@ -101,12 +107,13 @@ export class FiveDiseaseRiskCommonsGetter {
      * @returns 
      */
     static getAllMatchedHealthHistory(snomedCodeArray, pi){
-        if(!this._isParamCorrect(snomedCodeArray, pi)) return false;
-        if(pi["Health History"]==null) return false;
-        if(pi["Health History"]==undefined) return false;
+        var disease = [];
+        // 引数チェック
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCodeArray, pi)) return disease;
+        if(pi["Health History"]==null) return disease;
+        if(pi["Health History"]==undefined) return disease;
 
         // 全ての疾患を取得する。
-        var disease = [];
         for(const snomedCode of snomedCodeArray){
             if(this.getMatchedHealthHistory(snomedCode, pi) == null){
                 return disease;
@@ -142,7 +149,7 @@ export class FiveDiseaseRiskCommonsGetter {
      */
     static getMHHGreaterThanOrEqualTo(snomedCode, age, pi){
         // 引数チェック
-        if(!this._isParamCorrect(snomedCode, age, pi)) return null;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCode, age, pi)) return null;
 
         // 判定
         if(!FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo(snomedCode, age, pi)) return null;   
@@ -161,7 +168,7 @@ export class FiveDiseaseRiskCommonsGetter {
      */
     static getMHHGreaterThan(snomedCode, age, pi){
         // 引数チェック
-        if(!this._isParamCorrect(snomedCode, age, pi)) return null;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCode, age, pi)) return null;
 
         // 判定
         if(!FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan(snomedCode, age, pi)) return null;   
@@ -180,7 +187,7 @@ export class FiveDiseaseRiskCommonsGetter {
      */
     static getMHHLessThanOrEqualTo(snomedCode, age, pi){
         // 引数チェック
-        if(!this._isParamCorrect(snomedCode, age, pi)) return null;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCode, age, pi)) return null;
 
         // 判定
         if(!FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo(snomedCode, age, pi)) return null;   
@@ -199,7 +206,7 @@ export class FiveDiseaseRiskCommonsGetter {
      */
     static getMHHLessThan(snomedCode, age, pi){
         // 引数チェック
-        if(!this._isParamCorrect(snomedCode, age, pi)) return null;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCode, age, pi)) return null;
 
         // 判定
         if(!FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan(snomedCode, age, pi)) return null;   
@@ -219,7 +226,7 @@ export class FiveDiseaseRiskCommonsGetter {
     static getAllMHHGreaterThanOrEqualTo(snomedCodeArray, age, pi){
         var ret = [];
         // 引数チェック
-        if(!this._isParamCorrect(snomedCode, age, pi)) return ret;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCode, age, pi)) return ret;
 
         // 該当する疾患情報を取得する
         for(const snomedCode of snomedCodeArray){
@@ -244,7 +251,7 @@ export class FiveDiseaseRiskCommonsGetter {
     static getAllMHHGreaterThan(snomedCodeArray, age, pi){
         var ret = [];
         // 引数チェック
-        if(!this._isParamCorrect(snomedCode, age, pi)) return ret;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCode, age, pi)) return ret;
 
         // 該当する疾患情報を取得する
         for(const snomedCode of snomedCodeArray){
@@ -269,7 +276,7 @@ export class FiveDiseaseRiskCommonsGetter {
     static getAllMHHLessThanOrEqualTo(snomedCodeArray, age, pi){
         var ret = [];
         // 引数チェック
-        if(!this._isParamCorrect(snomedCode, age, pi)) return ret;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCode, age, pi)) return ret;
 
         // 該当する疾患情報を取得する
         for(const snomedCode of snomedCodeArray){
@@ -294,7 +301,7 @@ export class FiveDiseaseRiskCommonsGetter {
     static getAllMHHLessThan(snomedCodeArray, age, pi){
         var ret = [];
         // 引数チェック
-        if(!this._isParamCorrect(snomedCode, age, pi)) return ret;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCode, age, pi)) return ret;
 
         // 該当する疾患情報を取得する
         for(const snomedCode of snomedCodeArray){
@@ -319,7 +326,7 @@ export class FiveDiseaseRiskCommonsGetter {
     static getAnyMHHGreaterThanOrEqualTo(snomedCodeArray, age, pi){
         var ret = [];
         // 引数チェック
-        if(!this._isParamCorrect(snomedCode, age, pi)) return ret;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCode, age, pi)) return ret;
 
         // 該当する疾患情報を取得する
         for(const snomedCode of snomedCodeArray){
@@ -342,7 +349,7 @@ export class FiveDiseaseRiskCommonsGetter {
     static getAnyMHHGreaterThan(snomedCodeArray, age, pi){
         var ret = [];
         // 引数チェック
-        if(!this._isParamCorrect(snomedCode, age, pi)) return ret;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCode, age, pi)) return ret;
 
         // 該当する疾患情報を取得する
         for(const snomedCode of snomedCodeArray){
@@ -365,7 +372,7 @@ export class FiveDiseaseRiskCommonsGetter {
     static getAnyMHHLessThanOrEqualTo(snomedCodeArray, age, pi){
         var ret = [];
         // 引数チェック
-        if(!this._isParamCorrect(snomedCode, age, pi)) return ret;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCode, age, pi)) return ret;
 
         // 該当する疾患情報を取得する
         for(const snomedCode of snomedCodeArray){
@@ -388,7 +395,7 @@ export class FiveDiseaseRiskCommonsGetter {
     static getAnyMHHLessThan(snomedCodeArray, age, pi){
         var ret = [];
         // 引数チェック
-        if(!this._isParamCorrect(snomedCode, age, pi)) return ret;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCode, age, pi)) return ret;
 
         // 該当する疾患情報を取得する
         for(const snomedCode of snomedCodeArray){
@@ -417,7 +424,7 @@ export class FiveDiseaseRiskCommonsGetter {
         for(const relative of relatives){
             var disease = this.getMatchedHealthHistory(snomedCode, pi[relative]);
             if(disease != null){
-                var obj = {relative : {'disease' : disease}};
+                var obj = {'relative' : relative, 'disease' : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -441,7 +448,7 @@ export class FiveDiseaseRiskCommonsGetter {
         for(const relative of relatives){
             var disease = this.getAnyMatchedHealthHistory(snomedCode, pi[relative]);
             if(disease.length > 0){
-                var obj = {relative : {'disease' : disease}};
+                var obj = {'relative' : relative, 'disease' : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -466,7 +473,7 @@ export class FiveDiseaseRiskCommonsGetter {
         for(const relative of relatives){
             var disease = this.getAllMatchedHealthHistory(snomedCode, pi[relative]);
             if(disease.length > 0){
-                var obj = {relative : {'disease' : disease}};
+                var obj = {'relative' : relative, 'disease' : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -491,7 +498,7 @@ export class FiveDiseaseRiskCommonsGetter {
         for(const relative of relatives){
             var disease = this.getMHHGreaterThanOrEqualTo(snomedCode, pi[relative]);
             if(disease != null){
-                var obj = {relative : {'disease' : disease}};
+                var obj = {'relative' : relative, 'disease' : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -516,7 +523,7 @@ export class FiveDiseaseRiskCommonsGetter {
         for(const relative of relatives){
             var disease = this.getMHHGreaterThan(snomedCode, pi[relative]);
             if(disease != null){
-                var obj = {relative : {'disease' : disease}};
+                var obj = {'relative' : relative, 'disease' : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -541,7 +548,7 @@ export class FiveDiseaseRiskCommonsGetter {
         for(const relative of relatives){
             var disease = this.getMHHLessThanOrEqualTo(snomedCode, pi[relative]);
             if(disease != null){
-                var obj = {relative : {'disease' : disease}};
+                var obj = {'relative' : relative, 'disease' : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -566,7 +573,7 @@ export class FiveDiseaseRiskCommonsGetter {
         for(const relative of relatives){
             var disease = this.getMHHLessThan(snomedCode, pi[relative]);
             if(disease != null){
-                var obj = {relative : {'disease' : disease}};
+                var obj = {'relative' : relative, 'disease' : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -594,7 +601,7 @@ export class FiveDiseaseRiskCommonsGetter {
 
             var disease = this.getMatchedHealthHistory(snomedCode, pi[relative]);
             if(disease != null){
-                var obj = {relative : {'gender' : gender, 'disease' : disease}};
+                var obj = {'relative': relative, 'gender' : gender, 'disease' : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -621,7 +628,7 @@ export class FiveDiseaseRiskCommonsGetter {
 
             var disease = this.getMHHGreaterThanOrEqualTo(snomedCode, pi[relative]);
             if(disease != null){
-                var obj = {relative : {'gender' : gender, 'disease' : disease}};
+                var obj = {'relative': relative, 'gender' : gender, 'disease' : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -648,7 +655,7 @@ export class FiveDiseaseRiskCommonsGetter {
 
             var disease = this.getMHHGreaterThan(snomedCode, pi[relative]);
             if(disease != null){
-                var obj = {relative : {'gender' : gender, 'disease' : disease}};
+                var obj = {'relative': relative, 'gender' : gender, 'disease' : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -675,7 +682,7 @@ export class FiveDiseaseRiskCommonsGetter {
 
             var disease = this.getMHHLessThanOrEqualTo(snomedCode, pi[relative]);
             if(disease != null){
-                var obj = {relative : {'gender' : gender, 'disease' : disease}};
+                var obj = {'relative': relative, 'gender' : gender, 'disease' : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -702,7 +709,7 @@ export class FiveDiseaseRiskCommonsGetter {
 
             var disease = this.getMHHLessThan(snomedCode, pi[relative]);
             if(disease != null){
-                var obj = {relative : {'gender' : gender, 'disease' : disease}};
+                var obj = {'relative': relative, 'gender' : gender, 'disease' : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -735,7 +742,7 @@ export class FiveDiseaseRiskCommonsGetter {
             disease = disease.concat(this.getAnyMatchedHealthHistory(snomedCodeArray, pi[relative]));
 
             if(disease.length > 1){
-                var obj = {relative : {'disease' : disease}};
+                var obj = {'relative' : relative ,'disease' : disease};
                 ret = ret.concat(obj);
             }
         }
