@@ -11,19 +11,19 @@ import { FiveDiseaseRiskCommonsGetter } from '../5DiseaseRisk/5DiseaseRiskCommon
  */
 export class HbocRisk extends FiveDiseaseRiskBase {
 
-    // HBOC
+    /** HBOC */
     HBOC = '';
 
-    // 乳がん
+    /** 乳がん */
     BREAST_CANCER = 'SNOMED_CT-254837009';
 
-    // 前立腺がん
+    /** 前立腺がん */
     PROSTATE_CANCER = 'SNOMED_CT-399068003';
 
-    // 膵がん
+    /** 膵がん */
     PANCREATIC_CANCER = 'SNOMED_CT-363418001';
 
-    // 乳がん OR 卵巣がん OR 卵管がん OR 腹膜がん OR 膵がん
+    /** 乳がん OR 卵巣がん OR 卵管がん OR 腹膜がん OR 膵がん */
     SNOMED_CODE_B5 = [
         'SNOMED_CT-254837009',
         'SNOMED_CT-363443007',
@@ -32,7 +32,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         'SNOMED_CT-363418001'
     ];
 
-    // 乳がん OR 卵巣がん OR 卵管がん OR 腹膜がん OR 膵がん OR 悪性黒色腫
+    /** 乳がん OR 卵巣がん OR 卵管がん OR 腹膜がん OR 膵がん OR 悪性黒色腫 */
     SNOMED_CODE_B6 = [
         'SNOMED_CT-254837009',
         'SNOMED_CT-363443007',
@@ -42,7 +42,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         'SNOMED_CT-akuseikokusyoku'
     ];
 
-    // 乳がん OR 卵巣がん OR 卵管がん OR 腹膜がん OR 前立腺がん OR 膵がん OR 悪性黒色腫
+    /** 乳がん OR 卵巣がん OR 卵管がん OR 腹膜がん OR 前立腺がん OR 膵がん OR 悪性黒色腫 */
     SNOMED_CODE_B7 = [
         'SNOMED_CT-254837009',
         'SNOMED_CT-363443007',
@@ -53,26 +53,126 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         'SNOMED_CT-akuseikokusyoku'
     ];
 
-    // 卵管がん OR 腹膜がん
+    /** 卵管がん OR 腹膜がん */ 
     SNOMED_CODE_B8 = [
         'SNOMED_CT-rankangan',
         'SNOMED_CT-363492001'
     ];
 
-    // 卵巣がん OR 卵管がん OR 腹膜がん
+    /** 卵巣がん OR 卵管がん OR 腹膜がん */
     SNOMED_CODE_B16 = [
         'SNOMED_CT-363443007',
         'SNOMED_CT-rankangan',
         'SNOMED_CT-363492001'
     ];
 
+    /** リスク判定基準B1からB12。推奨のトーンが「推奨」 */
+    CRITERIA_B1B12 = [
+        '検査を検討している本人の乳癌の罹患状況を問わず，血縁者がすでにBRCA1/2に病的バリアントをもっていることがわかっている ',
+        '本人が乳がんを発症かつ、45歳以下で診断された乳癌',
+        '本人が乳がんを発症かつ、第血縁者（第三度近親者以内＊）に乳癌または卵巣癌，膵癌患者がいる',
+        '本人が前立腺がんを発症かつ、血縁者の中で2名以上にHBOC関連（乳癌・卵巣癌・膵癌・悪性黒色腫等）の発がんが確認されている',
+        '本人が膵がんを発症かつ、血縁者の中で2名以上にHBOC関連（乳癌・卵巣癌・前立腺癌・膵癌・悪性黒色腫等）の発癌が確認されている',
+        '卵巣癌、卵管癌および腹膜癌を発症',
+        '男性で乳癌と診断された'
+    ];
+
+    /** リスク判定基準B13からB21。推奨のトーンが「考慮」 */
+    CRITERIA_B13B21 = [
+        '40歳未満で乳がんを発症した人がいる',
+        '年齢を問わず卵巣癌（卵管癌・腹膜癌を含む）の人がいる',
+        '男性の乳がん発症者がいる',
+        '自身を含め乳がん発症者が3人以上いる',
+        'BRCAの遺伝子変異が確認された人がいる',
+    ];
+
+    /** リスク判定基準B1からB12の出典 */
+    SOURCE_B1B12 = [
+        '1)遺伝性乳癌卵巣癌症候群（HBOC）診療ガイドライン 2021年版、一般社団法人 日本遺伝性乳癌卵巣癌総合診療制度機構、2021年7月',
+        '2)遺伝性乳がん卵巣がん（HBOC）をご理解いただくために ver.2022_1、一般社団法人 日本遺伝性乳癌卵巣癌総合診療制度機構、2022年1月'
+    ];
+
+    /** リスク判定基準B12からB21の出典 */
+    SOURCE_B13B21 = [
+        '日本HBOCコンソーシアムチェックリスト'
+    ];
+
+    /** リスク判定が考慮のメッセージ */
+    MSG_CONSIDER = '';
+
+    /** リスク判定が推奨のメッセージ */
+    MSG_RECOMMEND = ''
+
+    /**
+     * HBOCリスク判定を行う。
+     * @param {*} pi 
+     */
     findOutRisk(pi) {
+        // 考慮に該当する場合
+        if(consider(pi)){
+            // 
+            if(!Recommend(pi)){
+                // 実装上仕方がない
+                consider(pi);
+            }            
+        }
+    }
+
+    /**
+     * 推奨のトーンが考慮の場合
+     * @param {*} pi 
+     */
+    consider(pi){
+        // 実装上仕方がない
         this.init();
+
+        // 疾患リスクが考慮に該当するか判定する
+        var ret = false;
+        ret = ret || this._hasPersonOnsetOfBreastCancerAtLessThanOrEqualTo40YearsOldInFHH(pi);
+        ret = ret || this._hasPersonOnsetOfOvarianCancerInFHH(pi);
+        ret = ret || this._hasPersonOnsetOfMaleOvarianCancerInFHH(pi);
+        ret = ret || this._hasOver3PersonOnsetOfBreastCanserInFHH(pi);
+        ret = ret || this._hasPersonOnsetOfGeneticAlterationInFHH(pi);
+
+        // 該当する場合
+        if(ret){
+            this.setCriteria(this.CRITERIA_B13B21);
+            this.setSource(this.SOURCE_B13B21);
+            this.setMessage(this.MSG_CONSIDER);
+        }
+
+        return ret;
     }
 
-    highPossibilityOfHboc() {
+    /**
+     * 推奨のトーンが推奨の場合
+     * @param {*} pi 
+     */
+    Recommend(pi) {
+        // 実装上仕方がない
+        this.init();
 
+        // 疾患リスクが推奨に該当するか判定する
+        var ret = false;
+        ret = ret || this._isBrcaVariantDetectedRegardlessOfWhetherOnset(pi);
+        ret = ret || this._isOnsetOfBreastCancerAtLessThanOrEqualTo45YearsOld(pi);
+        ret = ret || this._isOnsetOfBreastCancerAndHavingPersonWhoHasBreastOrOvarianCancerWithinThirdDegreeRelatives(pi);
+        ret = ret || this._isPostateCancerAndTwoORMoreHBOC(pi);
+        ret = ret || this._isPancreaticCancerAndTwoORMoreHBOC(pi);
+        ret = ret || this._isOnsetOfOvarianOrFallopianTubeOrPeritonealCancer(pi);
+        ret = ret || this._isOnsetOfMaleBreastCancer(pi);
+
+        // 該当する場合
+        if(ret){
+            this.setCriteria(this.CRITERIA_B1B12);
+            this.setSource(this.SOURCE_B1B12);
+            this.setMessage(this.MSG_RECOMMEND);
+        }
+
+        return ret;
     }
+
+    
 
     /**
      * B1：発症、未発症に関わらず（本人以外に）すでに家系内でBRCAバリアント保持者が確認されている場合
