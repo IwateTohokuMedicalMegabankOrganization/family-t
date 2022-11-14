@@ -37,8 +37,13 @@ export class PcRisk extends FiveDiseaseRiskBase {
         if(FiveDiseaseRiskCommons.isGenderMatch("FEMALE", pi)) return false;
 
         // 本人が40歳以上
-        if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(40, pi)){
-            var applicableInfo = {'relative' : 'self', 'gender':'FEMALE', 'age':'greater_than_or_equal_to_40'};
+        var age = 40;
+        if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(age, pi)){
+            var applicableInfo = {
+                'relative' : 'self',
+                'gender':'FEMALE',
+                'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age)
+            };
             this.pushApplicableInfo(applicableInfo);
             return true;
         }

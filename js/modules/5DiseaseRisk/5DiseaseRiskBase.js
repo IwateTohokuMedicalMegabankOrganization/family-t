@@ -15,7 +15,7 @@
     APPLICABLE_INFO = [];
     /** リスク判定基準 */
     CRITERIA = [];
-
+    
     constructor(){
 
     }

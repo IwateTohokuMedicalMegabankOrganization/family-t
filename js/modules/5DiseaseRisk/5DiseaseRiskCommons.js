@@ -11,10 +11,38 @@ import { FiveDiseaseRiskCommonsGetter } from './5DiseaseRiskCommonsGetter';
 
     diseases;   // 疾患関連で必要になる可能性が高い。
 
+    /** 年齢判定 */
+    static JUDGE_AGE = {
+        gtoet : 'greater_than_or_equal_to',
+        gt : 'greater_than',
+        ltoet : 'less_than_or_equal_to',
+        lt : 'less_than',
+    };
+
     constructor(){
         this.diseases = require("../../../data/diseases.json");
     }
 
+    /**
+     * AとBを文字列として結合する
+     * @param {*} A object
+     * @param {*} B object
+     * @returns 
+     */
+    static bindAsString(A, B){
+        return A + '' +  B;
+    }
+
+    /**
+     * JudgedAge:age の文字列として結合する
+     * @param {*} JudgedAge 
+     * @param {*} age 
+     * @returns 
+     */
+    static bindJudgedAgeAsString(JudgedAge, age){
+        return JudgedAge + ':' + age;
+    }
+    
     static _isParamCorrect(param1,  ...params){
         if(param1 == null || param1 == undefined || param1 == '') return false;
 
@@ -687,4 +715,6 @@ import { FiveDiseaseRiskCommonsGetter } from './5DiseaseRiskCommonsGetter';
         }    
         return false;
     }
+
+
 }

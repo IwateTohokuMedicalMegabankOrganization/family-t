@@ -13,7 +13,7 @@ export class FiveDiseaseRiskCommonsGetter {
     constructor(){
         this.diseases = require("../../../data/diseases.json");
     }
-    
+
     /**
      * 健康歴から任意の疾患を取得する。取得できない場合はnullを返す。
      * Detailed Disease Nameは日本語と英語があるため、任意の疾患名に該当するかどうかは、
@@ -155,7 +155,7 @@ export class FiveDiseaseRiskCommonsGetter {
         if(!FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThanOrEqualTo(snomedCode, age, pi)) return null;   
         
         // データの取得
-        return this.getMatchedHealthHistory(snomedCode, age, pi);
+        return this.getMatchedHealthHistory(snomedCode, pi);
     }
 
     /**
@@ -174,7 +174,7 @@ export class FiveDiseaseRiskCommonsGetter {
         if(!FiveDiseaseRiskCommons.isAgeAtDiagnosisGreaterThan(snomedCode, age, pi)) return null;   
         
         // データの取得
-        return this.getMatchedHealthHistory(snomedCode, age, pi);
+        return this.getMatchedHealthHistory(snomedCode, pi);
     }
 
     /**
@@ -193,7 +193,7 @@ export class FiveDiseaseRiskCommonsGetter {
         if(!FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo(snomedCode, age, pi)) return null;   
         
         // データの取得
-        return this.getMatchedHealthHistory(snomedCode, age, pi);
+        return this.getMatchedHealthHistory(snomedCode, pi);
     }
 
     /**
@@ -212,7 +212,7 @@ export class FiveDiseaseRiskCommonsGetter {
         if(!FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan(snomedCode, age, pi)) return null;   
         
         // データの取得
-        return this.getMatchedHealthHistory(snomedCode, age, pi);
+        return this.getMatchedHealthHistory(snomedCode, pi);
     }
 
     /**
@@ -626,9 +626,14 @@ export class FiveDiseaseRiskCommonsGetter {
         for(const relative of relatives){
             if(!FiveDiseaseRiskCommons.isGenderMatch(gender, pi[relative])) continue;
 
-            var disease = this.getMHHGreaterThanOrEqualTo(snomedCode, pi[relative]);
+            var disease = this.getMHHGreaterThanOrEqualTo(snomedCode, age, pi[relative]);
             if(disease != null){
-                var obj = {'relative': relative, 'gender' : gender, 'disease' : disease};
+                var obj = {
+                    'relative': relative,
+                    'gender' : gender,
+                    'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age),
+                    'disease' : disease
+                };
                 ret = ret.concat(obj);
             }
         }
@@ -653,9 +658,14 @@ export class FiveDiseaseRiskCommonsGetter {
         for(const relative of relatives){
             if(!FiveDiseaseRiskCommons.isGenderMatch(gender, pi[relative])) continue;
 
-            var disease = this.getMHHGreaterThan(snomedCode, pi[relative]);
+            var disease = this.getMHHGreaterThan(snomedCode, age, pi[relative]);
             if(disease != null){
-                var obj = {'relative': relative, 'gender' : gender, 'disease' : disease};
+                var obj = {
+                    'relative': relative,
+                    'gender' : gender,
+                    'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gt, age),
+                    'disease' : disease
+                };
                 ret = ret.concat(obj);
             }
         }
@@ -680,9 +690,14 @@ export class FiveDiseaseRiskCommonsGetter {
         for(const relative of relatives){
             if(!FiveDiseaseRiskCommons.isGenderMatch(gender, pi[relative])) continue;
 
-            var disease = this.getMHHLessThanOrEqualTo(snomedCode, pi[relative]);
+            var disease = this.getMHHLessThanOrEqualTo(snomedCode, age, pi[relative]);
             if(disease != null){
-                var obj = {'relative': relative, 'gender' : gender, 'disease' : disease};
+                var obj = {
+                    'relative': relative,
+                    'gender' : gender,
+                    'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.ltoet, age),
+                    'disease' : disease
+                };
                 ret = ret.concat(obj);
             }
         }
@@ -707,9 +722,14 @@ export class FiveDiseaseRiskCommonsGetter {
         for(const relative of relatives){
             if(!FiveDiseaseRiskCommons.isGenderMatch(gender, pi[relative])) continue;
 
-            var disease = this.getMHHLessThan(snomedCode, pi[relative]);
+            var disease = this.getMHHLessThan(snomedCode, age, pi[relative]);
             if(disease != null){
-                var obj = {'relative': relative, 'gender' : gender, 'disease' : disease};
+                var obj = {
+                    'relative': relative,
+                    'gender' : gender,
+                    'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.lt, age),
+                    'disease' : disease
+                };
                 ret = ret.concat(obj);
             }
         }
