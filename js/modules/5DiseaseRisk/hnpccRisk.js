@@ -48,8 +48,86 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
         'SNOMED_CT-188192002'
     ];
 
-    findOutRisk(pi){
+    /** リスク判定基準C1からC6。推奨のトーンが「推奨」 */
+    CRITERIA_C1C6 = [
+        '本人が大腸がん患者かつ、50歳未満で診断された大腸癌',
+        '本人が大腸がん患者かつ、年齢に関わりなく，同時性あるいは異時性大腸癌あるいはその他のリンチ症候群関連腫瘍＊がある。'
+            + '＊：大腸癌，子宮内膜癌，胃癌，卵巣癌，膵癌，胆道癌，小腸癌，腎盂・尿管癌，脳腫瘍（通常はターコット症候群にみられるglioblastoma），ムア・トレ症候群の皮脂腺腫や角化棘細胞腫',
+        '本人が大腸がん患者かつ、第1度近親者が1人以上リンチ症候群関連腫瘍に罹患しており，そのうち一つは50歳未満で診断された大腸癌',
+        '本人が大腸がん患者かつ、年齢に関わりなく，第1度あるいは第2度近親者の2人以上がリンチ症候群関連腫瘍と診断されている患者の大腸癌'
+    ];
+
+    /** リスク判定基準B13からB21。推奨のトーンが「考慮」 */
+    CRITERIA_C7 = [
+        '全て（あるいは 70 歳以下）の大腸癌、子宮内膜がん'
+    ];
+
+    /** リスク判定基準B12からB21の出典 */
+    SOURCE = [
+        '遺伝性大腸癌診療ガイドライン2020年版'
+    ];
+
+    /** リスク判定が考慮のメッセージ */
+    MSG_CONSIDER = '';
+
+    /** リスク判定が推奨のメッセージ */
+    MSG_RECOMMEND = '';
+
+    /**
+     * リンチ症候群（遺伝性非ポリポーシス大腸がん）リスク判定を行う。
+     * @param {*} pi 
+     */
+     findOutRisk(pi) {
+        // 考慮に該当する場合
+        if(consider(pi)){
+            // 
+            if(!Recommend(pi)){
+                // 実装上仕方がない
+                consider(pi);
+            }            
+        }
+    }
+
+    /**
+     * 推奨のトーンが考慮の場合
+     * @param {*} pi 
+     */
+    consider(pi){
+        // 実装上仕方がない
         this.init();
+
+        // 疾患リスクが考慮に該当するか判定する
+        var ret = this.appliesToUniversalScreening(pi);
+
+        // 該当する場合
+        if(ret){
+            this.setCriteria(this.CRITERIA_C7);
+            this.setSource(this.SOURCE);
+            this.setMessage(this.MSG_CONSIDER);
+        }
+
+        return ret;
+    }
+
+    /**
+     * 推奨のトーンが推奨の場合
+     * @param {*} pi 
+     */
+    Recommend(pi) {
+        // 実装上仕方がない
+        this.init();
+
+        // 疾患リスクが推奨に該当するか判定する
+        var ret = this.appliesToTheRevisedBethesdaGuideline2004(pi);
+
+        // 該当する場合
+        if(ret){
+            this.setCriteria(this.CRITERIA_C1C6);
+            this.setSource(this.SOURCE);
+            this.setMessage(this.MSG_RECOMMEND);
+        }
+
+        return ret;
     }
 
     /**
