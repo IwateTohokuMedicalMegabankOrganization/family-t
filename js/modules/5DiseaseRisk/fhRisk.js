@@ -1,5 +1,6 @@
 import { FiveDiseaseRiskCommons } from '../5DiseaseRisk/5DiseaseRiskCommons';
 import { FiveDiseaseRiskCommonsCounter } from '../5DiseaseRisk/5DiseaseRiskCommonsCounter';
+import { FiveDiseaseRiskCommonsGetter } from '../5DiseaseRisk/5DiseaseRiskCommonsGetter';
 import { FiveDiseaseRiskBase } from '../5DiseaseRisk/5DiseaseRiskBase';
 import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
 
@@ -39,6 +40,11 @@ export class FhRisk extends FiveDiseaseRiskBase {
         // 15際以上で高LDL-C血症
         if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(15,pi)){
             if(pi.ldl_cholesterol == 'over180'){
+                var applicableInfo = {
+                    'relative' : 'self',
+                    'ldl_cholesterol':'over180'
+                };
+                this.pushApplicableInfo(applicableInfo);
                 return true;
             }
         }
@@ -81,12 +87,25 @@ export class FhRisk extends FiveDiseaseRiskBase {
             + numberOfHeartAttackFemale;
         
         if(numberOfCoronaryArteryDisease > 0){
+            var applicableInfoArray = FiveDiseaseRiskCommonsGetter.getMHHGenderInRelativesLessThan(relatives, 'SNOMED_CT-194828000', 55, 'MALE', pi);
+            applicableInfoArray = applicableInfoArray.concat(
+                    FiveDiseaseRiskCommonsGetter.getMHHGenderInRelativesLessThan(relatives, 'SNOMED_CT-22298006', 55, 'MALE', pi)
+                );
+            applicableInfoArray = applicableInfoArray.concat(
+                    FiveDiseaseRiskCommonsGetter.getMHHGenderInRelativesLessThan(relatives, 'SNOMED_CT-194828000', 65, 'FEMALE', pi)
+                );
+            applicableInfoArray = applicableInfoArray.concat(
+                    FiveDiseaseRiskCommonsGetter.getMHHGenderInRelativesLessThan(relatives, 'SNOMED_CT-22298006', 65, 'FEMALE', pi)
+                );
+            this.concatApplicableInfo(applicableInfoArray);
             return true;
         }
 
         // 家族性高コレステロール血症があるかどうか
         var numberOfFh = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-238038003', pi);
         if(numberOfFh > 0){
+            var applicableInfoArray = FiveDiseaseRiskCommonsGetter.getMHHInRelatives(relatives, 'SNOMED_CT-238038003', pi);
+            this.concatApplicableInfo(applicableInfoArray);
             return true;
         }
 
