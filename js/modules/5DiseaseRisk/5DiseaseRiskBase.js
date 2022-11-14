@@ -15,6 +15,17 @@
     APPLICABLE_INFO = [];
     /** リスク判定基準 */
     CRITERIA = [];
+    /** リスク判定基準の出典 */
+    SOURCE = [];
+    /** 注意書き */
+    NOTE = [
+        'family-tで表示するリスクアラートは、家族歴に関する推奨やスクリーニング基準であり、その他の危険因子（年齢、生化学検査値など）をすべて網羅するものではないことを記載する',
+        'family-tの疾患リストに含まれない稀少な疾患の家族歴はスクリーニング基準に含まれていても、family-tではアラートの対象外となること（例：リンチ症候群のターコット症候群、ムア・トレ症候群）',
+        'family-tでは判別不能な条件については、別枠で判別可能な条件も一緒に「以下に該当する場合は一般よりもリスクが高いことが考えられる」ということを表示するリスク情報提供画面を作る',
+        'これらに該当しないからと言ってそうではないとは限らないことを記載する「これに該当しない家系の方でも、原因遺伝子に変異が見つかる場合もありますので注意が必要です。」',
+        'アラートを表示する根拠となった本人の家族歴をアラートと一緒に表示する（理由：①家族歴に対する意識づけ・教育効果、②入力ミスに気づける）',
+        '病歴で「その他」から自由記述で入力されたら判定外になること',
+    ];
     
     constructor(){
 
@@ -26,7 +37,8 @@
     init(){
         this.MESSAGE = '';
         this.APPLICABLE_INFO = [];
-        this.CRITERIA= [];
+        this.CRITERIA = [];
+        this.SOURCE = [];
     }
 
     findOutRisk(pi){
@@ -85,7 +97,7 @@
      * 
      * @returns リスク判定基準
      */
-    getCRITERIA() {
+    getCriteria() {
         return this.CRITERIA;
     }
 
@@ -95,5 +107,21 @@
      */
     setCriteria(criteria){
         this.CRITERIA = criteria;
+    }
+
+    /**
+     * 
+     * @returns 出典
+     */
+    getSource(){
+        return this.SOURCE;
+    }
+
+    /**
+     * 
+     * @param {*} source 出典
+     */
+    setSource(source){
+        this.SOURCE = source;
     }
 }
