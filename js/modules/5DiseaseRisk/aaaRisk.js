@@ -1,5 +1,6 @@
  import { FiveDiseaseRiskCommons } from '../5DiseaseRisk/5DiseaseRiskCommons';
  import { FiveDiseaseRiskCommonsCounter } from '../5DiseaseRisk/5DiseaseRiskCommonsCounter';
+ import { FiveDiseaseRiskCommonsGetter } from '../5DiseaseRisk/5DiseaseRiskCommonsGetter';
  import { FiveDiseaseRiskBase } from '../5DiseaseRisk/5DiseaseRiskBase';
  import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
 
@@ -21,6 +22,12 @@ export class AaaRisk extends FiveDiseaseRiskBase {
         // 65歳以上の男性
         if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(65, pi)
             && FiveDiseaseRiskCommons.isGenderMatch("MALE", pi)){
+            var applicableInfo = {
+                'relative': 'self',
+                'gender' : 'MALE',
+                'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, 65)
+            };
+            this.pushApplicableInfo(applicableInfo);
             return true;
         }
 
@@ -28,6 +35,13 @@ export class AaaRisk extends FiveDiseaseRiskBase {
         if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(65, pi)
             && FiveDiseaseRiskCommons.isGenderMatch("FEMALE", pi)
             && pi.smoker=="5"){
+            var applicableInfo = {
+                'relative': 'self',
+                'gender' : 'FEMALE',
+                'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, 65),
+                'smoker' : 'current_smoker'
+            };
+            this.pushApplicableInfo(applicableInfo);
             return true;
         }
 
@@ -36,6 +50,8 @@ export class AaaRisk extends FiveDiseaseRiskBase {
         var numberOfPerson = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-75878002', pi);
 
         if(numberOfPerson >= 1){
+            var applicableInfoArray = FiveDiseaseRiskCommonsGetter.getMHHInRelatives(relatives, 'SNOMED_CT-75878002', pi);
+            this.concatApplicableInfo(applicableInfoArray);
             return true;
         }
         return false;
