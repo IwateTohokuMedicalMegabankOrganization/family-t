@@ -86,12 +86,12 @@ export class FiveDiseaseRiskCommonsGetter {
      static getAnyMatchedHealthHistory(snomedCodeArray, pi){
         var disease = [];
         // 引数チェック
-        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCodArray, pi)) return disease;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCodeArray, pi)) return disease;
         if(pi["Health History"]==null) return disease;
         if(pi["Health History"]==undefined) return disease;
 
         // 該当する全ての疾患を取得する。        
-        for(const snomedCode of snomedCodArray){
+        for(const snomedCode of snomedCodeArray){
             if(this.getMatchedHealthHistory(snomedCode, pi) != null){
                 disease = disease.concat(this.getMatchedHealthHistory(snomedCode, pi));
             }
@@ -395,7 +395,7 @@ export class FiveDiseaseRiskCommonsGetter {
     static getAnyMHHLessThan(snomedCodeArray, age, pi){
         var ret = [];
         // 引数チェック
-        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCode, age, pi)) return ret;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(snomedCodeArray, age, pi)) return ret;
 
         // 該当する疾患情報を取得する
         for(const snomedCode of snomedCodeArray){

@@ -2,6 +2,7 @@ import { FiveDiseaseRiskCommons } from '../5DiseaseRisk/5DiseaseRiskCommons';
 import { FiveDiseaseRiskBase } from '../5DiseaseRisk/5DiseaseRiskBase';
 import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
 import { FiveDiseaseRiskCommonsCounter } from './5DiseaseRiskCommonsCounter';
+import { FiveDiseaseRiskCommonsGetter } from '../5DiseaseRisk/5DiseaseRiskCommonsGetter';
 
 /**
  * 2022/06/06
@@ -71,7 +72,16 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
 
         // 大腸がん OR 結腸がん OR 直腸がん
-        return FiveDiseaseRiskCommons.areAnyDisAgadLessThan(this.SNOMED_CODE_C2, 50, pi);
+        if(FiveDiseaseRiskCommons.areAnyDisAgadLessThan(this.SNOMED_CODE_C2, 50, pi)){
+            var applicableInfo = {
+                'relative' : 'self',
+                'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.lt, 50),
+                'disease' : FiveDiseaseRiskCommonsGetter.getAnyMHHLessThan(this.SNOMED_CODE_C2, 50, pi)
+            };            
+            this.pushApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -85,7 +95,17 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
 
         // 大腸がん
         if(FiveDiseaseRiskCommons.isDiesaseMatch(this.COLORECTAL_CANCER, pi)){
-            return FiveDiseaseRiskCommons.isDiesaseMatchOr(this.SNOMED_CODE_C3C5C6, pi);
+            if(FiveDiseaseRiskCommons.isDiesaseMatchOr(this.SNOMED_CODE_C3C5C6, pi)){
+                var disease = [];
+                disease = disease.concat(FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.COLORECTAL_CANCER, pi));
+                disease = disease.concat(FiveDiseaseRiskCommonsGetter.getAnyMatchedHealthHistory(this.SNOMED_CODE_C3C5C6, pi))
+                var applicableInfo = {
+                    'relative' : 'self',
+                    'disease' : disease
+                };            
+                this.pushApplicableInfo(applicableInfo);
+                return true;
+            }
         }
         return false;        
     }
@@ -106,7 +126,17 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
         // 家族歴の判定
         var relatives = RelativeUtil.getFirstDegreeRelatives();
         var count = FiveDiseaseRiskCommonsCounter.countDisAndAnyDisAadLessThan(relatives, this.COLORECTAL_CANCER, this.SNOMED_CODE_C3C5C6, 50, pi)
-        return count >= 1;
+        if(count >= 1){
+            var applicableInfo = {
+                'relative' : 'self',
+                'disease' : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.COLORECTAL_CANCER, pi)
+            };   
+            this.pushApplicableInfo(applicableInfo);
+            applicableInfo =FiveDiseaseRiskCommonsGetter.getMHHAndAnyMHH(relatives, this.COLORECTAL_CANCER, this.SNOMED_CODE_C3C5C6, pi);
+            this.concatApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -126,7 +156,17 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
         var relatives = RelativeUtil.getFirstDegreeRelatives();
         relatives = relatives.concat(RelativeUtil.getSecondDegreeRelatives());
         var count = FiveDiseaseRiskCommonsCounter.countDiseaseAndAnyDisease(relatives, this.COLORECTAL_CANCER, this.SNOMED_CODE_C3C5C6, pi);
-        return count >= 2;
+        if(count >= 2){
+            var applicableInfo = {
+                'relative' : 'self',
+                'disease' : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.COLORECTAL_CANCER, pi)
+            }; 
+            this.pushApplicableInfo(applicableInfo);
+            applicableInfo =FiveDiseaseRiskCommonsGetter.getMHHAndAnyMHH(relatives, this.COLORECTAL_CANCER, this.SNOMED_CODE_C3C5C6, pi);
+            this.concatApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -143,6 +183,14 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
      * @param {*} pi 本人のpersonalInformation
      */
     _isOnsetOfColorectalOrEndometrialCancer(pi) {
-        return FiveDiseaseRiskCommons.isDiesaseMatchOr(this.SNOMED_CODE_C7, pi);
+        if(FiveDiseaseRiskCommons.isDiesaseMatchOr(this.SNOMED_CODE_C7, pi)){
+            var applicableInfo = {
+                'relative' : 'self',
+                'disease' : FiveDiseaseRiskCommonsGetter.getAnyMatchedHealthHistory(this.SNOMED_CODE_C7, pi)
+            };            
+            this.pushApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
     }
 }
