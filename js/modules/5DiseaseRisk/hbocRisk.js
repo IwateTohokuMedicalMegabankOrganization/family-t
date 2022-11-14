@@ -2,6 +2,7 @@ import { FiveDiseaseRiskCommons } from '../5DiseaseRisk/5DiseaseRiskCommons';
 import { FiveDiseaseRiskBase } from '../5DiseaseRisk/5DiseaseRiskBase';
 import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTagUtil';
 import { FiveDiseaseRiskCommonsCounter } from './5DiseaseRiskCommonsCounter';
+import { FiveDiseaseRiskCommonsGetter } from '../5DiseaseRisk/5DiseaseRiskCommonsGetter';
 
 /**
  * 2022/06/06
@@ -81,7 +82,13 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
 
         var relatives = RelativeUtil.getALLRelatives();
-        return FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, this.HBOC, pi);
+        var count = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, this.HBOC, pi);
+        if(count > 0){
+            var applicableInfo = FiveDiseaseRiskCommonsGetter.getMHHInRelatives(relatives, this.HBOC, pi);
+            this.concatApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -90,7 +97,16 @@ export class HbocRisk extends FiveDiseaseRiskBase {
      */
     _isOnsetOfBreastCancerAtLessThanOrEqualTo45YearsOld(pi) {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
-        return FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo(this.BREAST_CANCER, 45, pi);
+        if(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo(this.BREAST_CANCER, 45, pi)){
+            var applicableInfo = {
+                'relative' : 'self',
+                'age' : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, 45),
+                'disease' : FiveDiseaseRiskCommonsGetter.getMHHLessThanOrEqualTo(this.BREAST_CANCER, 45, pi)
+            };
+            this.pushApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -105,7 +121,18 @@ export class HbocRisk extends FiveDiseaseRiskBase {
 
         // 家族
         var relatives = RelativeUtil.getALLRelatives();
-        return FiveDiseaseRiskCommonsCounter.countAnyDiseasePersonInRelatives(relatives, this.SNOMED_CODE_B5, pi) >= 1;
+        var count = FiveDiseaseRiskCommonsCounter.countAnyDiseasePersonInRelatives(relatives, this.SNOMED_CODE_B5, pi);
+        if(count >= 1){
+            var applicableInfo = {
+                'relative' : 'self',
+                'disease' : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.BREAST_CANCER, pi)
+            };
+            this.pushApplicableInfo(applicableInfo);
+            applicableInfo = FiveDiseaseRiskCommonsGetter.getAnyMHHInRelatives(relatives, this.SNOMED_CODE_B5, pi);
+            this.concatApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -120,7 +147,18 @@ export class HbocRisk extends FiveDiseaseRiskBase {
 
         // 家族
         var relatives = RelativeUtil.getALLRelatives();
-        return FiveDiseaseRiskCommonsCounter.countAnyDiseasePersonInRelatives(relatives, this.SNOMED_CODE_B6, pi) >= 2;
+        var count = FiveDiseaseRiskCommonsCounter.countAnyDiseasePersonInRelatives(relatives, this.SNOMED_CODE_B6, pi);
+        if(count >= 2){
+            var applicableInfo = {
+                'relative' : 'self',
+                'disease' : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.PROSTATE_CANCER, pi)
+            };
+            this.pushApplicableInfo(applicableInfo);
+            applicableInfo = FiveDiseaseRiskCommonsGetter.getAnyMHHInRelatives(relatives, this.SNOMED_CODE_B6, pi);
+            this.concatApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false
     }
 
     /**
@@ -135,7 +173,18 @@ export class HbocRisk extends FiveDiseaseRiskBase {
 
         // 家族
         var relatives = RelativeUtil.getALLRelatives();
-        return FiveDiseaseRiskCommonsCounter.countAnyDiseasePersonInRelatives(relatives, this.SNOMED_CODE_B7, pi) >= 2;
+        var count = FiveDiseaseRiskCommonsCounter.countAnyDiseasePersonInRelatives(relatives, this.SNOMED_CODE_B7, pi);
+        if(count >= 2){
+            var applicableInfo = {
+                'relative' : 'self',
+                'disease' : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.PANCREATIC_CANCER, pi)
+            };
+            this.pushApplicableInfo(applicableInfo);
+            applicableInfo = FiveDiseaseRiskCommonsGetter.getAnyMHHInRelatives(relatives, this.SNOMED_CODE_B7, pi);
+            this.concatApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -144,7 +193,15 @@ export class HbocRisk extends FiveDiseaseRiskBase {
      */
     _isOnsetOfOvarianOrFallopianTubeOrPeritonealCancer(pi) {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
-        return FiveDiseaseRiskCommons.isDiesaseMatchOr(this.SNOMED_CODE_B8, pi);
+        if(FiveDiseaseRiskCommons.isDiesaseMatchOr(this.SNOMED_CODE_B8, pi)){
+            var applicableInfo = {
+                'relative' : 'self',
+                'disease' : FiveDiseaseRiskCommonsGetter.getAnyMatchedHealthHistory(this.SNOMED_CODE_B8, pi)
+            };            
+            this.pushApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -153,7 +210,16 @@ export class HbocRisk extends FiveDiseaseRiskBase {
      */
     _isOnsetOfMaleBreastCancer(pi) {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
-        return FiveDiseaseRiskCommons.areDiseaseAndGenderMatch(this.BREAST_CANCER, 'MALE', pi);
+        if(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch(this.BREAST_CANCER, 'MALE', pi)){
+            var applicableInfo = {
+                'relative' : 'self',
+                'gender' : 'MALE',
+                'disease' : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.BREAST_CANCER, pi)
+            };            
+            this.pushApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -164,11 +230,25 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
         
         // 本人
-        if(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan(this.BREAST_CANCER, 40, pi)) return true;
+        if(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan(this.BREAST_CANCER, 40, pi)){
+            var applicableInfo = {
+                'relative' : 'self',
+                'age' : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.lt, 40),
+                'disease' : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.BREAST_CANCER, pi)
+            };            
+            this.pushApplicableInfo(applicableInfo);
+            return true;
+        }
 
         // 家族
         var relatives = RelativeUtil.getALLRelatives();
-        return FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelativesLessThan(relatives, this.BREAST_CANCER, pi) > 0;
+        var count = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelativesLessThan(relatives, this.BREAST_CANCER, 40, pi);
+        if(count > 0){
+            var applicableInfo = FiveDiseaseRiskCommonsGetter.getMHHInRelativesLessThan(relatives, this.BREAST_CANCER, 40, pi);
+            this.concatApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -179,11 +259,24 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
 
         // 本人
-        if(FiveDiseaseRiskCommons.isDiesaseMatchOr(this.SNOMED_CODE_B16, pi)) return true;
+        if(FiveDiseaseRiskCommons.isDiesaseMatchOr(this.SNOMED_CODE_B16, pi)){
+            var applicableInfo = {
+                'relative' : 'self',
+                'disease' : FiveDiseaseRiskCommonsGetter.getAnyMatchedHealthHistory(this.SNOMED_CODE_B16, pi)
+            };            
+            this.pushApplicableInfo(applicableInfo);
+            return true;
+        }
 
         // 家族
         var relatives = RelativeUtil.getALLRelatives();
-        return FiveDiseaseRiskCommonsCounter.countAnyDiseasePersonInRelatives(relatives, this.SNOMED_CODE_B16, pi) > 0;
+        var count = FiveDiseaseRiskCommonsCounter.countAnyDiseasePersonInRelatives(relatives, this.SNOMED_CODE_B16, pi);
+        if(count > 0){
+            var applicableInfo = FiveDiseaseRiskCommonsGetter.getAnyMHHInRelatives(relatives, this.SNOMED_CODE_B16, pi);
+            this.concatApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -194,11 +287,25 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
 
         // 本人
-        if(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch(this.BREAST_CANCER, 'MALE', pi)) return true;
+        if(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch(this.BREAST_CANCER, 'MALE', pi)){
+            var applicableInfo = {
+                'relative' : 'self',
+                'gender' : 'MALE',
+                'disease' : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.BREAST_CANCER, pi)
+            };            
+            this.pushApplicableInfo(applicableInfo);
+            return true;
+        }
 
         // 家族
         var relatives = RelativeUtil.getALLRelatives();
-        return FiveDiseaseRiskCommonsCounter.countDiseaseGenderInRelatives(relatives, this.BREAST_CANCER, 'MALE', pi) > 0;
+        var count = FiveDiseaseRiskCommonsCounter.countDiseaseGenderInRelatives(relatives, this.BREAST_CANCER, 'MALE', pi);
+        if(count > 0){
+            var applicableInfo = FiveDiseaseRiskCommonsGetter.getMHHGenderInRelatives(relatives, this.BREAST_CANCER, 'MALE', pi);
+            this.concatApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -214,7 +321,17 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         // 家族
         var relatives = RelativeUtil.getALLRelatives();
         var count = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, this.BREAST_CANCER, pi) + 1;
-        return count >= 3;
+        if(count >= 3){
+            var applicableInfo = {
+                'relative' : 'self',
+                'disease' : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.BREAST_CANCER, pi)
+            };            
+            this.pushApplicableInfo(applicableInfo);
+            applicableInfo = FiveDiseaseRiskCommonsGetter.getMHHInRelatives(relatives, this.BREAST_CANCER, pi);
+            this.concatApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -225,11 +342,24 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
 
         // 本人
-        if(FiveDiseaseRiskCommons.isDiesaseMatch(this.HBOC, pi)) return true;
+        if(FiveDiseaseRiskCommons.isDiesaseMatch(this.HBOC, pi)){
+            var applicableInfo = {
+                'relative' : 'self',
+                'disease' : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.HBOC, pi)
+            };            
+            this.pushApplicableInfo(applicableInfo);
+            return true;
+        }
 
         // 家族
         var relatives = RelativeUtil.getALLRelatives();
-        return FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, this.HBOC, pi) > 0;
+        var count = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, this.HBOC, pi);
+        if(count > 0){
+            var applicableInfo = FiveDiseaseRiskCommonsGetter.getMHHInRelatives(relatives, this.HBOC, pi);
+            this.concatApplicableInfo(applicableInfo);
+            return true;
+        }
+        return false;
 
     }
 }

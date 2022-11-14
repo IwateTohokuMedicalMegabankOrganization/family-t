@@ -496,9 +496,13 @@ export class FiveDiseaseRiskCommonsGetter {
 
         // 各relativeにおいて該当する疾患情報を取得する
         for(const relative of relatives){
-            var disease = this.getMHHGreaterThanOrEqualTo(snomedCode, pi[relative]);
+            var disease = this.getMHHGreaterThanOrEqualTo(snomedCode, age, pi[relative]);
             if(disease != null){
-                var obj = {'relative' : relative, 'disease' : disease};
+                var obj = {
+                    'relative' : relative,
+                    'age' : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age),
+                    'disease' : disease
+                };
                 ret = ret.concat(obj);
             }
         }
@@ -521,9 +525,13 @@ export class FiveDiseaseRiskCommonsGetter {
 
         // 各relativeにおいて該当する疾患情報を取得する
         for(const relative of relatives){
-            var disease = this.getMHHGreaterThan(snomedCode, pi[relative]);
+            var disease = this.getMHHGreaterThan(snomedCode, age, pi[relative]);
             if(disease != null){
-                var obj = {'relative' : relative, 'disease' : disease};
+                var obj = {
+                    'relative' : relative,
+                    'age' : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gt, age),
+                    'disease' : disease
+                };
                 ret = ret.concat(obj);
             }
         }
@@ -546,9 +554,13 @@ export class FiveDiseaseRiskCommonsGetter {
 
         // 各relativeにおいて該当する疾患情報を取得する
         for(const relative of relatives){
-            var disease = this.getMHHLessThanOrEqualTo(snomedCode, pi[relative]);
+            var disease = this.getMHHLessThanOrEqualTo(snomedCode, age, pi[relative]);
             if(disease != null){
-                var obj = {'relative' : relative, 'disease' : disease};
+                var obj = {
+                    'relative' : relative,
+                    'age' : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.ltoet, age),
+                    'disease' : disease
+                };
                 ret = ret.concat(obj);
             }
         }
@@ -571,9 +583,13 @@ export class FiveDiseaseRiskCommonsGetter {
 
         // 各relativeにおいて該当する疾患情報を取得する
         for(const relative of relatives){
-            var disease = this.getMHHLessThan(snomedCode, pi[relative]);
+            var disease = this.getMHHLessThan(snomedCode, age, pi[relative]);
             if(disease != null){
-                var obj = {'relative' : relative, 'disease' : disease};
+                var obj = {
+                    'relative' : relative,
+                    'age' : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.lt, age),
+                    'disease' : disease
+                };
                 ret = ret.concat(obj);
             }
         }
@@ -590,7 +606,7 @@ export class FiveDiseaseRiskCommonsGetter {
      * @param {*} pi 本人のpersonalinfomation
      * @returns 疾患情報の配列
      */
-    static countDiseaseGenderInRelatives(relatives, snomedCode, gender, pi){
+    static getMHHGenderInRelatives(relatives, snomedCode, gender, pi){
         var ret = [];
         // 引数チェック
         if(!FiveDiseaseRiskCommons._isParamCorrect(relatives, snomedCode, gender, pi)) return ret;
