@@ -101,7 +101,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
     MSG_CONSIDER = '';
 
     /** リスク判定が推奨のメッセージ */
-    MSG_RECOMMEND = ''
+    MSG_RECOMMEND = '';
 
     /**
      * HBOCリスク判定を行う。
