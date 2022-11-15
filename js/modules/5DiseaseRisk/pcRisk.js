@@ -11,6 +11,9 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
  */
 export class PcRisk extends FiveDiseaseRiskBase {
 
+    /** 前立腺がん */
+    PROSTATE_CANCER = 'SNOMED_CT-399068003';
+
     ALERT = '以下に該当する場合、ガイドライン等で前立腺がんである可能性や、診断のための遺伝学的検査が考慮または推奨されています。';
     NO_RISK = '前立腺がんのリスクは低いと考えられます。';
 
@@ -34,15 +37,15 @@ export class PcRisk extends FiveDiseaseRiskBase {
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi)) return false;
 
         // 本人が女性かどうか判断する。
-        if(FiveDiseaseRiskCommons.isGenderMatch("FEMALE", pi)) return false;
+        if(FiveDiseaseRiskCommons.isGenderMatch(this.FEMALE, pi)) return false;
 
         // 本人が40歳以上
         var age = 40;
         if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(age, pi)){
             var applicableInfo = {
-                'relative' : 'self',
-                'gender':'FEMALE',
-                'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age)
+                relative : this.SELF,
+                gender: this.MALE,
+                age: FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age)
             };
             this.pushApplicableInfo(applicableInfo);
             return true;
@@ -50,9 +53,9 @@ export class PcRisk extends FiveDiseaseRiskBase {
 
         // 第一
         var relatives = RelativeUtil.getFirstDegreeRelatives();
-        var count = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-399068003', pi);
+        var count = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, this.PROSTATE_CANCER, pi);
         if(count >= 1){
-            var applicableInfoArray = FiveDiseaseRiskCommonsGetter.getMHHInRelatives(relatives, 'SNOMED_CT-399068003', pi)
+            var applicableInfoArray = FiveDiseaseRiskCommonsGetter.getMHHInRelatives(relatives, this.PROSTATE_CANCER, pi)
             this.concatApplicableInfo(applicableInfoArray);
             return true;
         }

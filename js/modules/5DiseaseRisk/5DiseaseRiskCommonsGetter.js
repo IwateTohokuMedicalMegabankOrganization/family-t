@@ -424,7 +424,7 @@ export class FiveDiseaseRiskCommonsGetter {
         for(const relative of relatives){
             var disease = this.getMatchedHealthHistory(snomedCode, pi[relative]);
             if(disease != null){
-                var obj = {'relative' : relative, 'disease' : disease};
+                var obj = {relative : relative, disease : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -448,7 +448,7 @@ export class FiveDiseaseRiskCommonsGetter {
         for(const relative of relatives){
             var disease = this.getAnyMatchedHealthHistory(snomedCode, pi[relative]);
             if(disease.length > 0){
-                var obj = {'relative' : relative, 'disease' : disease};
+                var obj = {relative : relative, disease : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -473,7 +473,7 @@ export class FiveDiseaseRiskCommonsGetter {
         for(const relative of relatives){
             var disease = this.getAllMatchedHealthHistory(snomedCode, pi[relative]);
             if(disease.length > 0){
-                var obj = {'relative' : relative, 'disease' : disease};
+                var obj = {relative : relative, disease : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -499,9 +499,9 @@ export class FiveDiseaseRiskCommonsGetter {
             var disease = this.getMHHGreaterThanOrEqualTo(snomedCode, age, pi[relative]);
             if(disease != null){
                 var obj = {
-                    'relative' : relative,
-                    'age' : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age),
-                    'disease' : disease
+                    relative : relative,
+                    age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age),
+                    disease : disease
                 };
                 ret = ret.concat(obj);
             }
@@ -528,9 +528,9 @@ export class FiveDiseaseRiskCommonsGetter {
             var disease = this.getMHHGreaterThan(snomedCode, age, pi[relative]);
             if(disease != null){
                 var obj = {
-                    'relative' : relative,
-                    'age' : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gt, age),
-                    'disease' : disease
+                    relative : relative,
+                    age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gt, age),
+                    disease : disease
                 };
                 ret = ret.concat(obj);
             }
@@ -557,9 +557,9 @@ export class FiveDiseaseRiskCommonsGetter {
             var disease = this.getMHHLessThanOrEqualTo(snomedCode, age, pi[relative]);
             if(disease != null){
                 var obj = {
-                    'relative' : relative,
-                    'age' : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.ltoet, age),
-                    'disease' : disease
+                    relative : relative,
+                    age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.ltoet, age),
+                    disease : disease
                 };
                 ret = ret.concat(obj);
             }
@@ -586,9 +586,9 @@ export class FiveDiseaseRiskCommonsGetter {
             var disease = this.getMHHLessThan(snomedCode, age, pi[relative]);
             if(disease != null){
                 var obj = {
-                    'relative' : relative,
-                    'age' : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.lt, age),
-                    'disease' : disease
+                    relative : relative,
+                    age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.lt, age),
+                    disease : disease
                 };
                 ret = ret.concat(obj);
             }
@@ -617,7 +617,7 @@ export class FiveDiseaseRiskCommonsGetter {
 
             var disease = this.getMatchedHealthHistory(snomedCode, pi[relative]);
             if(disease != null){
-                var obj = {'relative': relative, 'gender' : gender, 'disease' : disease};
+                var obj = {relative: relative, gender : gender, disease : disease};
                 ret = ret.concat(obj);
             }
         }
@@ -645,10 +645,10 @@ export class FiveDiseaseRiskCommonsGetter {
             var disease = this.getMHHGreaterThanOrEqualTo(snomedCode, age, pi[relative]);
             if(disease != null){
                 var obj = {
-                    'relative': relative,
-                    'gender' : gender,
-                    'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age),
-                    'disease' : disease
+                    relative: relative,
+                    gender : gender,
+                    age: FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age),
+                    disease : disease
                 };
                 ret = ret.concat(obj);
             }
@@ -677,10 +677,10 @@ export class FiveDiseaseRiskCommonsGetter {
             var disease = this.getMHHGreaterThan(snomedCode, age, pi[relative]);
             if(disease != null){
                 var obj = {
-                    'relative': relative,
-                    'gender' : gender,
-                    'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gt, age),
-                    'disease' : disease
+                    relative: relative,
+                    gender : gender,
+                    age: FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gt, age),
+                    disease : disease
                 };
                 ret = ret.concat(obj);
             }
@@ -709,10 +709,10 @@ export class FiveDiseaseRiskCommonsGetter {
             var disease = this.getMHHLessThanOrEqualTo(snomedCode, age, pi[relative]);
             if(disease != null){
                 var obj = {
-                    'relative': relative,
-                    'gender' : gender,
-                    'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.ltoet, age),
-                    'disease' : disease
+                    relative: relative,
+                    gender : gender,
+                    age: FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.ltoet, age),
+                    disease : disease
                 };
                 ret = ret.concat(obj);
             }
@@ -741,10 +741,10 @@ export class FiveDiseaseRiskCommonsGetter {
             var disease = this.getMHHLessThan(snomedCode, age, pi[relative]);
             if(disease != null){
                 var obj = {
-                    'relative': relative,
-                    'gender' : gender,
-                    'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.lt, age),
-                    'disease' : disease
+                    relative: relative,
+                    gender : gender,
+                    age: FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.lt, age),
+                    disease : disease
                 };
                 ret = ret.concat(obj);
             }
@@ -778,7 +778,7 @@ export class FiveDiseaseRiskCommonsGetter {
             disease = disease.concat(this.getAnyMatchedHealthHistory(snomedCodeArray, pi[relative]));
 
             if(disease.length > 1){
-                var obj = {'relative' : relative ,'disease' : disease};
+                var obj = {relative : relative ,disease : disease};
                 ret = ret.concat(obj);
             }
         }

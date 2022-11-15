@@ -10,6 +10,10 @@
  * 腹部大動脈瘤AAA疾患リスク
  */
 export class AaaRisk extends FiveDiseaseRiskBase {
+
+    /** 腹部大動脈瘤 */
+    ABDOMINAL_AORTIC_ANEURYSM = 'SNOMED_CT-75878002';
+
     findOutRisk(pi) {
         this.init();
         return this._isSmokingOrHavingPersonWhoHasAaaWithinFirstDegreeRelatives(pi);
@@ -20,12 +24,13 @@ export class AaaRisk extends FiveDiseaseRiskBase {
      */
     _isSmokingOrHavingPersonWhoHasAaaWithinFirstDegreeRelatives(pi) {
         // 65歳以上の男性
-        if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(65, pi)
-            && FiveDiseaseRiskCommons.isGenderMatch("MALE", pi)){
+        var age = 65;
+        if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(age, pi)
+            && FiveDiseaseRiskCommons.isGenderMatch(this.MALE, pi)){
             var applicableInfo = {
-                'relative': 'self',
-                'gender' : 'MALE',
-                'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, 65)
+                relative : this.SELF,
+                gender : this.MALE,
+                age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age)
             };
             this.pushApplicableInfo(applicableInfo);
             return true;
@@ -33,13 +38,13 @@ export class AaaRisk extends FiveDiseaseRiskBase {
 
         // 65歳以上で現在喫煙中の女性
         if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(65, pi)
-            && FiveDiseaseRiskCommons.isGenderMatch("FEMALE", pi)
+            && FiveDiseaseRiskCommons.isGenderMatch(this.FEMALE, pi)
             && pi.smoker=="5"){
             var applicableInfo = {
-                'relative': 'self',
-                'gender' : 'FEMALE',
-                'age': FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, 65),
-                'smoker' : 'current_smoker'
+                relative : this.SELF,
+                gender : this.FEMALE,
+                age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age),
+                smoker : 'current_smoker'
             };
             this.pushApplicableInfo(applicableInfo);
             return true;
@@ -47,10 +52,10 @@ export class AaaRisk extends FiveDiseaseRiskBase {
 
         // 第一度近親者に腹部大動脈瘤の病歴がある
         var relatives = RelativeUtil.getFirstDegreeRelatives();
-        var numberOfPerson = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-75878002', pi);
+        var numberOfPerson = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, this.ABDOMINAL_AORTIC_ANEURYSM, pi);
 
         if(numberOfPerson >= 1){
-            var applicableInfoArray = FiveDiseaseRiskCommonsGetter.getMHHInRelatives(relatives, 'SNOMED_CT-75878002', pi);
+            var applicableInfoArray = FiveDiseaseRiskCommonsGetter.getMHHInRelatives(relatives, this.ABDOMINAL_AORTIC_ANEURYSM, pi);
             this.concatApplicableInfo(applicableInfoArray);
             return true;
         }

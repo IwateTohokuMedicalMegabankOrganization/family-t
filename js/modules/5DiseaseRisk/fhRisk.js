@@ -10,6 +10,18 @@ import { RaceUtil, RelativeUtil, CodeUtil, NoteUtil, ValueUtil } from '../xmlTag
  * 家族性高コレステロール血症FH疾患リスク
  */
 export class FhRisk extends FiveDiseaseRiskBase {
+
+    /** 狭心症（冠動脈疾患） */
+    ANGINA = 'SNOMED_CT-194828000';
+    /** 心筋梗塞（冠動脈疾患） */
+    HEART_ATTACK = 'SNOMED_CT-22298006';
+    /** 家族性高コレステロール血症 */
+    FH = 'SNOMED_CT-238038003';
+    /** LDLコレステロールのkey名 */
+    KEY_NAME_LDL_CHOLESTEROL = 'ldl_cholesterol';
+    /** LDLコレステロールの値 */
+    LDL_CHOLESTEROL = 'over180';
+
     findOutRisk(pi) {
         this.init();
         return this._isAppliesToAdultFhHeterozygotesDiagnosticCriteria(pi);
@@ -33,16 +45,16 @@ export class FhRisk extends FiveDiseaseRiskBase {
     _isHyperLDLC(pi) {
         // 引数チェック
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi) 
-            || (Object.keys(pi).indexOf('ldl_cholesterol')==-1)){
+            || (Object.keys(pi).indexOf(this.KEY_NAME_LDL_CHOLESTEROL)==-1)){
                 return false;
         }
 
         // 15際以上で高LDL-C血症
         if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(15,pi)){
-            if(pi.ldl_cholesterol == 'over180'){
+            if(pi.ldl_cholesterol == this.LDL_CHOLESTEROL){
                 var applicableInfo = {
-                    'relative' : 'self',
-                    'ldl_cholesterol':'over180'
+                    relative : this.SELF,
+                    ldlCholesterol :this.LDL_CHOLESTEROL
                 };
                 this.pushApplicableInfo(applicableInfo);
                 return true;
@@ -70,16 +82,18 @@ export class FhRisk extends FiveDiseaseRiskBase {
 
         // 冠動脈疾患があるか
         // 55歳未満の男性
+        var age55 = 55;
         var numberOfAnginaMale = 
-            FiveDiseaseRiskCommonsCounter.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-194828000', 55, 'MALE', pi);
+            FiveDiseaseRiskCommonsCounter.countDiseaseGenderInRelativesLessThan(relatives, this.ANGINA, age55, this.MALE, pi);
         var numberOfHeartAttackMale = 
-            FiveDiseaseRiskCommonsCounter.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-22298006', 55, 'MALE', pi);
+            FiveDiseaseRiskCommonsCounter.countDiseaseGenderInRelativesLessThan(relatives, this.HEART_ATTACK, age55, this.MALE, pi);
 
         // 65歳未満の女性
+        var age65 = 65;
         var numberOfAnginaFemale = 
-            FiveDiseaseRiskCommonsCounter.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-194828000', 65, 'FEMALE', pi);
+            FiveDiseaseRiskCommonsCounter.countDiseaseGenderInRelativesLessThan(relatives, this.ANGINA, age65, this.FEMALE, pi);
         var numberOfHeartAttackFemale = 
-            FiveDiseaseRiskCommonsCounter.countDiseaseGenderInRelativesLessThan(relatives, 'SNOMED_CT-22298006', 65, 'FEMALE', pi);
+            FiveDiseaseRiskCommonsCounter.countDiseaseGenderInRelativesLessThan(relatives, this.HEART_ATTACK, age65, this.FEMALE, pi);
 
         var numberOfCoronaryArteryDisease = numberOfAnginaMale 
             + numberOfHeartAttackMale 
@@ -87,24 +101,24 @@ export class FhRisk extends FiveDiseaseRiskBase {
             + numberOfHeartAttackFemale;
         
         if(numberOfCoronaryArteryDisease > 0){
-            var applicableInfoArray = FiveDiseaseRiskCommonsGetter.getMHHGenderInRelativesLessThan(relatives, 'SNOMED_CT-194828000', 55, 'MALE', pi);
+            var applicableInfoArray = FiveDiseaseRiskCommonsGetter.getMHHGenderInRelativesLessThan(relatives, this.ANGINA, age55, this.MALE, pi);
             applicableInfoArray = applicableInfoArray.concat(
-                    FiveDiseaseRiskCommonsGetter.getMHHGenderInRelativesLessThan(relatives, 'SNOMED_CT-22298006', 55, 'MALE', pi)
+                    FiveDiseaseRiskCommonsGetter.getMHHGenderInRelativesLessThan(relatives, this.HEART_ATTACK, age55, this.MALE, pi)
                 );
             applicableInfoArray = applicableInfoArray.concat(
-                    FiveDiseaseRiskCommonsGetter.getMHHGenderInRelativesLessThan(relatives, 'SNOMED_CT-194828000', 65, 'FEMALE', pi)
+                    FiveDiseaseRiskCommonsGetter.getMHHGenderInRelativesLessThan(relatives, this.ANGINA, age65, this.FEMALE, pi)
                 );
             applicableInfoArray = applicableInfoArray.concat(
-                    FiveDiseaseRiskCommonsGetter.getMHHGenderInRelativesLessThan(relatives, 'SNOMED_CT-22298006', 65, 'FEMALE', pi)
+                    FiveDiseaseRiskCommonsGetter.getMHHGenderInRelativesLessThan(relatives, this.HEART_ATTACK, age65, this.FEMALE, pi)
                 );
             this.concatApplicableInfo(applicableInfoArray);
             return true;
         }
 
         // 家族性高コレステロール血症があるかどうか
-        var numberOfFh = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, 'SNOMED_CT-238038003', pi);
+        var numberOfFh = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, this.FH, pi);
         if(numberOfFh > 0){
-            var applicableInfoArray = FiveDiseaseRiskCommonsGetter.getMHHInRelatives(relatives, 'SNOMED_CT-238038003', pi);
+            var applicableInfoArray = FiveDiseaseRiskCommonsGetter.getMHHInRelatives(relatives, this.FH, pi);
             this.concatApplicableInfo(applicableInfoArray);
             return true;
         }
