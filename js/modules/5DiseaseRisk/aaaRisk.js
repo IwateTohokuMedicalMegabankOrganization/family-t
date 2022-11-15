@@ -13,6 +13,10 @@ export class AaaRisk extends FiveDiseaseRiskBase {
 
     /** 腹部大動脈瘤 */
     ABDOMINAL_AORTIC_ANEURYSM = 'SNOMED_CT-75878002';
+    /** 喫煙者状況インデックス */
+    SMOKER_INDEX = "5";
+    /** 現在も喫煙している */
+    CURRENT_SMOKER = 'current_smoker';
 
     findOutRisk(pi) {
         this.init();
@@ -39,12 +43,12 @@ export class AaaRisk extends FiveDiseaseRiskBase {
         // 65歳以上で現在喫煙中の女性
         if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(65, pi)
             && FiveDiseaseRiskCommons.isGenderMatch(this.FEMALE, pi)
-            && pi.smoker=="5"){
+            && pi.smoker==this.SMOKER_INDEX){
             var applicableInfo = {
                 relative : this.SELF,
                 gender : this.FEMALE,
                 age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age),
-                smoker : 'current_smoker'
+                smoker : this.CURRENT_SMOKER
             };
             this.pushApplicableInfo(applicableInfo);
             return true;
