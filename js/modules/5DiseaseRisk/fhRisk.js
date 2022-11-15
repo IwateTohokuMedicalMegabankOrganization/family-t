@@ -21,10 +21,33 @@ export class FhRisk extends FiveDiseaseRiskBase {
     KEY_NAME_LDL_CHOLESTEROL = 'ldl_cholesterol';
     /** LDLコレステロールの値 */
     LDL_CHOLESTEROL = 'over180';
+    /** 家族性高コレステロール血症リスク判定基準 */
+    CRITERIA_F1F4 = [
+        '高LDL-C血症（未治療時のLDL-C値180 mg/dL以上）',
+        '腱黄色腫（手背，肘，膝等またはアキレス腱肥厚）あるいは皮膚結節性黄色腫',
+        'FH あるいは早発性冠動脈疾患の家族歴（2親等以内）※ 早発性冠動脈疾患は男性55歳未満，女性65歳未満と定義する．',
+        '※「2項目以上でFHと診断する。FHヘテロ接合体疑いは遺伝子検査による診断が望ましい」'
+    ];
+    /** 家族性高コレステロール血症リスク判定基準の出典 */
+    SOURCE_F1F4 = [
+        '慢性冠動脈疾患診断ガイドライン（2018年改訂版） https://www.j-circ.or.jp/cms/wp-content/uploads/2020/02/JCS2018_yamagishi_tamaki.pdf'
+    ];
+    /** リスク計算対象の疾患名 */
+    DISEASE_NAME = '家族性高コレステロール血症';
 
+    /**
+     * 家族性高コレステロール血症リスクを計算する。
+     * 戻り値はない。
+     * リスク計算クラスの内部変数に結果が格納される。
+     * @param {*} pi 本人のpersonalInformation
+     */
     findOutRisk(pi) {
         this.init();
-        return this._isAppliesToAdultFhHeterozygotesDiagnosticCriteria(pi);
+        if(this._isAppliesToAdultFhHeterozygotesDiagnosticCriteria(pi)){
+            this.setCriteria(this.CRITERIA_F1F4);
+            this.setSource(this.SOURCE_F1F4);
+            this.setMessage(this.getRecommendMessage(this.DISEASE_NAME));
+        }
     }
 
     /**

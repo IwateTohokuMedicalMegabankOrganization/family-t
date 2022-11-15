@@ -17,10 +17,31 @@ export class AaaRisk extends FiveDiseaseRiskBase {
     SMOKER_INDEX = "5";
     /** 現在も喫煙している */
     CURRENT_SMOKER = 'current_smoker';
+    /** 腹部大動脈瘤リスク判定基準 */
+    CRITERIA_A1A3 = [
+        '65歳以上の男性や65歳以上の喫煙女性，第一度近親者に家族歴を有する者'
+    ];
+    /** 腹部大動脈瘤リスク判定基準の出典 */
+    SOURCE_A1A3 = [
+        '2020年改訂版 大動脈瘤・大動脈解離診療ガイドライン https://www.j-circ.or.jp/cms/wp-content/uploads/2020/07/JCS2020_Ogino.pdf',
+        '2020年改訂版　大動脈瘤・大動脈解離診療ガイドライン—腹部— https://www.jstage.jst.go.jp/article/jsvs/30/4/30_21-00018/_pdf/-char/ja'
+    ];
+    /** リスク計算対象の疾患名 */
+    DISEASE_NAME = '腹部大動脈瘤';
 
+    /**
+     * 腹部大動脈瘤リスクを計算する。
+     * 戻り値はない。
+     * リスク計算クラスの内部変数に結果が格納される。
+     * @param {*} pi 本人のpersonalInformation
+     */
     findOutRisk(pi) {
         this.init();
-        return this._isSmokingOrHavingPersonWhoHasAaaWithinFirstDegreeRelatives(pi);
+        if(this._isSmokingOrHavingPersonWhoHasAaaWithinFirstDegreeRelatives(pi)){
+            this.setCriteria(this.CRITERIA_A1A3);
+            this.setSource(this.SOURCE_A1A3);
+            this.setMessage(this.getConsiderMessage(this.DISEASE_NAME));
+        }
     }
 
     /**

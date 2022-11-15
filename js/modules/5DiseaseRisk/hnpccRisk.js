@@ -13,10 +13,8 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
 
     /** 大腸がん */
     COLORECTAL_CANCER = 'SNOMED_CT-1000001';
-
     /** 家族性大腸腺腫症（FAP） */
     FAP = 'SNOMED_CT-72900001';
-
     /** 大腸がん OR 子宮内膜がん OR 小腸がん OR 腎盂がん OR 尿管がん */
     SNOMED_CODE_C1 = [
         'SNOMED_CT-1000001',
@@ -25,14 +23,12 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
         'SNOMED_CT-448215006',
         'SNOMED_CT-363458004'
     ];
-
     /** 大腸がん OR 結腸がん OR 直腸がん */
     SNOMED_CODE_C2 = [
         'SNOMED_CT-1000001',
         'SNOMED_CT-363406005',
         'SNOMED_CT-254582000'
     ];
-
     /** 胃がん OR 卵巣がん OR 膵がん OR 脳腫瘍 OR 胆道がん */
     SNOMED_CODE_C3C5C6 = [
         'SNOMED_CT-363349007',
@@ -41,13 +37,11 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
         'SNOMED_CT-1000000',
         'SNOMED_CT-363415003'
     ];
-
     /** 大腸がん OR 子宮内膜癌 */
     SNOMED_CODE_C7 = [
         'SNOMED_CT-1000001',
         'SNOMED_CT-188192002'
     ];
-
     /** リスク判定基準C1からC6。推奨のトーンが「推奨」 */
     CRITERIA_C1C6 = [
         '本人が大腸がん患者かつ、50歳未満で診断された大腸癌',
@@ -56,26 +50,22 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
         '本人が大腸がん患者かつ、第1度近親者が1人以上リンチ症候群関連腫瘍に罹患しており，そのうち一つは50歳未満で診断された大腸癌',
         '本人が大腸がん患者かつ、年齢に関わりなく，第1度あるいは第2度近親者の2人以上がリンチ症候群関連腫瘍と診断されている患者の大腸癌'
     ];
-
-    /** リスク判定基準B13からB21。推奨のトーンが「考慮」 */
+    /** リスク判定基準C7。推奨のトーンが「考慮」 */
     CRITERIA_C7 = [
         '全て（あるいは 70 歳以下）の大腸癌、子宮内膜がん'
     ];
-
-    /** リスク判定基準B12からB21の出典 */
-    SOURCE = [
+    /** リスク判定基準C1からC7の出典 */
+    SOURCE_C1C7 = [
         '遺伝性大腸癌診療ガイドライン2020年版'
     ];
-
-    /** リスク判定が考慮のメッセージ */
-    MSG_CONSIDER = '';
-
-    /** リスク判定が推奨のメッセージ */
-    MSG_RECOMMEND = '';
+    /** リスク計算対象の疾患名 */
+    DISEASE_NAME = 'リンチ症候群（遺伝性非ポリポーシス大腸がん）';
 
     /**
-     * リンチ症候群（遺伝性非ポリポーシス大腸がん）リスク判定を行う。
-     * @param {*} pi 
+     * リンチ症候群（遺伝性非ポリポーシス大腸がん）リスクを計算する。
+     * 戻り値はない。
+     * リスク計算クラスの内部変数に結果が格納される。
+     * @param {*} pi 本人のpersonalInformation
      */
      findOutRisk(pi) {
         // 考慮に該当する場合
@@ -102,8 +92,8 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
         // 該当する場合
         if(ret){
             this.setCriteria(this.CRITERIA_C7);
-            this.setSource(this.SOURCE);
-            this.setMessage(this.MSG_CONSIDER);
+            this.setSource(this.SOURCE_C1C7);
+            this.setMessage(this.getConsiderMessage(this.DISEASE_NAME));
         }
 
         return ret;
@@ -123,8 +113,8 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
         // 該当する場合
         if(ret){
             this.setCriteria(this.CRITERIA_C1C6);
-            this.setSource(this.SOURCE);
-            this.setMessage(this.MSG_RECOMMEND);
+            this.setSource(this.SOURCE_C1C7);
+            this.setMessage(this.getRecommendMessage(this.DISEASE_NAME));
         }
 
         return ret;

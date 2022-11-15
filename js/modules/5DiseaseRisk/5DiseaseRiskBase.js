@@ -60,6 +60,18 @@
         return this.MESSAGE;
     }
 
+    getConsiderMessage(disease){
+        var str1 = '以下に該当する場合、ガイドライン等で';
+        var str2 = 'である可能性が考慮されています。';
+        return str1 + disease + str2;
+    }
+
+    getRecommendMessage(disease){
+        var str1 = '以下に該当する場合、ガイドライン等で';
+        var str2 = 'である可能性があり、診断のための遺伝学的検査が推奨されています。';
+        return str1 + disease + str2;
+    }
+
     /**
      * 
      * @param {*} message アラート文

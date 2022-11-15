@@ -7,22 +7,18 @@ import { FiveDiseaseRiskCommonsGetter } from '../5DiseaseRisk/5DiseaseRiskCommon
 /**
  * 2022/06/06
  * 
- * HBOC疾患リスク
+ * 遺伝性乳がん卵巣がん症候群HBOC疾患リスク
  */
 export class HbocRisk extends FiveDiseaseRiskBase {
 
     /** HBOC */
     HBOC = '';
-
     /** 乳がん */
     BREAST_CANCER = 'SNOMED_CT-254837009';
-
     /** 前立腺がん */
     PROSTATE_CANCER = 'SNOMED_CT-399068003';
-
     /** 膵がん */
     PANCREATIC_CANCER = 'SNOMED_CT-363418001';
-
     /** 乳がん OR 卵巣がん OR 卵管がん OR 腹膜がん OR 膵がん */
     SNOMED_CODE_B5 = [
         'SNOMED_CT-254837009',
@@ -31,7 +27,6 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         'SNOMED_CT-363492001',
         'SNOMED_CT-363418001'
     ];
-
     /** 乳がん OR 卵巣がん OR 卵管がん OR 腹膜がん OR 膵がん OR 悪性黒色腫 */
     SNOMED_CODE_B6 = [
         'SNOMED_CT-254837009',
@@ -41,7 +36,6 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         'SNOMED_CT-363418001',
         'SNOMED_CT-akuseikokusyoku'
     ];
-
     /** 乳がん OR 卵巣がん OR 卵管がん OR 腹膜がん OR 前立腺がん OR 膵がん OR 悪性黒色腫 */
     SNOMED_CODE_B7 = [
         'SNOMED_CT-254837009',
@@ -52,20 +46,17 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         'SNOMED_CT-363418001',
         'SNOMED_CT-akuseikokusyoku'
     ];
-
     /** 卵管がん OR 腹膜がん */ 
     SNOMED_CODE_B8 = [
         'SNOMED_CT-rankangan',
         'SNOMED_CT-363492001'
     ];
-
     /** 卵巣がん OR 卵管がん OR 腹膜がん */
     SNOMED_CODE_B16 = [
         'SNOMED_CT-363443007',
         'SNOMED_CT-rankangan',
         'SNOMED_CT-363492001'
     ];
-
     /** リスク判定基準B1からB12。推奨のトーンが「推奨」 */
     CRITERIA_B1B12 = [
         '検査を検討している本人の乳癌の罹患状況を問わず，血縁者がすでにBRCA1/2に病的バリアントをもっていることがわかっている ',
@@ -76,7 +67,6 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         '卵巣癌、卵管癌および腹膜癌を発症',
         '男性で乳癌と診断された'
     ];
-
     /** リスク判定基準B13からB21。推奨のトーンが「考慮」 */
     CRITERIA_B13B21 = [
         '40歳未満で乳がんを発症した人がいる',
@@ -85,27 +75,23 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         '自身を含め乳がん発症者が3人以上いる',
         'BRCAの遺伝子変異が確認された人がいる',
     ];
-
     /** リスク判定基準B1からB12の出典 */
     SOURCE_B1B12 = [
         '1)遺伝性乳癌卵巣癌症候群（HBOC）診療ガイドライン 2021年版、一般社団法人 日本遺伝性乳癌卵巣癌総合診療制度機構、2021年7月',
         '2)遺伝性乳がん卵巣がん（HBOC）をご理解いただくために ver.2022_1、一般社団法人 日本遺伝性乳癌卵巣癌総合診療制度機構、2022年1月'
     ];
-
     /** リスク判定基準B12からB21の出典 */
     SOURCE_B13B21 = [
         '日本HBOCコンソーシアムチェックリスト'
     ];
-
-    /** リスク判定が考慮のメッセージ */
-    MSG_CONSIDER = '';
-
-    /** リスク判定が推奨のメッセージ */
-    MSG_RECOMMEND = '';
+    /** リスク計算対象の疾患名 */
+    DISEASE_NAME = '遺伝性乳がん卵巣がん症候群（HBOC）';
 
     /**
-     * HBOCリスク判定を行う。
-     * @param {*} pi 
+     * 遺伝性乳がん卵巣がん症候群（HBOC）リスクを計算する。
+     * 戻り値はない。
+     * リスク計算クラスの内部変数に結果が格納される。
+     * @param {*} pi 本人のpersonalInformation
      */
     findOutRisk(pi) {
         // 考慮に該当する場合
@@ -138,7 +124,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(ret){
             this.setCriteria(this.CRITERIA_B13B21);
             this.setSource(this.SOURCE_B13B21);
-            this.setMessage(this.MSG_CONSIDER);
+            this.setMessage(this.getConsiderMessage(this.DISEASE_NAME));
         }
 
         return ret;
@@ -166,7 +152,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(ret){
             this.setCriteria(this.CRITERIA_B1B12);
             this.setSource(this.SOURCE_B1B12);
-            this.setMessage(this.MSG_RECOMMEND);
+            this.setMessage(this.getRecommendMessage(this.DISEASE_NAME));
         }
 
         return ret;
