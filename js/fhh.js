@@ -1125,28 +1125,63 @@ function start()
 		});
 	});
 
+	/**
+	 * 家族歴に基づく疾患発症リスクのダイアログを読み込む
+	 */
+	$("#5disease_risk_dialog").load ("5disease_risk_dialog.html", function () {
+		/*
+		if (isiPad) {
+			$(".savePersonalInfoFromFile").remove();
+		};
+		preparate_5disease_risk_dialog();
+		bind_5disease_risk_submit_button_action();
+		*/
+
+		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
+		
+		// 閉じるボタン
+		$('.close5diseaseRiskButton').on('click', function(){
+			closeDialog("#5disease_risk_dialog");
+		});
+	});
+
+	/**
+	 * 家族歴に基づく疾患発症リスクのダイアログを定義する。
+	 */
+	$("#5disease_risk_dialog").dialog({
+		title:$.t("fhh_js.5disease_risk_dialog_dialog_title"),
+		position: {my: "center", at: "center", of: window},
+		resizable: false,
+		autoOpen: false,
+		height:'auto',
+		width:['95%'],
+		open: function(){
+			temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
+		},
+		beforeClose: function(){
+			personal_information = temporarilyHoldCareTaker.paste( 'personal_informaiton');
+		}
+	});
+
+	/**
+	 * 家族歴に基づく疾患発症リスクのダイアログを開く
+	 */
+	$("#show5diseaseRiskDetail").on("click", function() {
+		openDialog("#5disease_risk_dialog", "center top");
+	});
+
 	$("#navViewDiagram").on("click", function() {
 		openDialog("#familyTable");
 	});
 
-	// compensation dialog
-	// $("#compensate_information_dialog").dialog({
-	// 	title: "リスク計算不足項目入力",
-	// 	position: ['top',0],
-	// 	autoOpen: false,
-	// 	resizable: false,
-	// 	height: 'auto',
-	// 	width: ['96%']
-	// });
-
-//	 Dead Code
-//     family pedigree diagram dialog
-//    $("#family_pedigree").load ("family_pedigree.html", function () {});
 
 	$("#navCopyFamily").on("click", function() {
 	 openDialog("#copy_for_family_member");
      build_copy_for_family_member_dialog();
-  });
+    });
 
 
 

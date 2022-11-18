@@ -1209,5 +1209,33 @@
 		"privacy_sentence2": "We may ask you to provide personal information according to inquiries from users and their contents.",
 		"privacy_sentence3": "Family history information entered and saved by this service will not be saved by this service.",
 		"privacy_sentence4": "Please keep your family history data on your PC and manage it."
+	},
+	"family-t_5disease_risk": {
+		"5disease_risk":"Disease risk based on family health history",
+		"HBOC": "Hereditary Breast and Ovarian Cancer Syndrome (HBOC)",
+		"HNPCC": "Lynch Syndrome/Hereditary Non-polyposis Colorectal Cancer (HNPCC)",
+		"AAA": "Abdominal Aortic Aneurysm",
+		"FH": "Familial Hyperlipoproteinemia",
+		"PC": "Prostate Cancer",
+		"AAA()": "(Abdominal Aortic Aneurysm)",
+		"FH()": "(Familial Hyperlipoproteinemia)",
+		"all_disease":"(Hereditary Breast and Ovarian Cancer Syndrome (HBOC), Lynch Syndrome/Hereditary Non-polyposis Colorectal Cancer (HNPCC), Abdominal Aortic Aneurysm, Familial Hyperlipoproteinemia, Prostate Cancer)",
+		"no_item": "There are no items required to calculate disease risk. ",
+		"has_risk": "There are family health histories which indicate higher risk than general. ",
+		"has_no_risk": "There are no family health histories which indicate higher risk than general. ",
+		"exp1":"By your family health history, the risk of disease which related with gene can be figured out. ",
+		"exp2":"In this section, the risk factor which has possibility of onset those disease is shown using your family health history. ",
+		"exp3":"You can use this section as reference. ",
+		"exp4":"( Disease which are not include in disease list of family-t will not show in this page. ",
+		"exp5":"Moreover, disease which are input as free text will not show in this page, even if that disease include in disease list of family-t.)",
+		"applicable":"It is not possible to say for certain whether or not you have the disease, but the following risk factors have been identified.",
+		"applicable_info":"[Applicable information]",
+		"criteria_of_hboc":"If your health history applicable to the following criteria, your Hereditary Breast and Ovarian Cancer Syndrome (HBOC) risk is concerned as higher than general.",
+		"criteria_of_hnpcc":"If your health history applicable to the following criteria, your Lynch Syndrome/Hereditary Non-polyposis Colorectal Cancer (HNPCC) risk is concerned as higher than general.",
+		"criteria_of_aaa":"If your health history applicable to the following criteria, your Abdominal Aortic Aneurysm risk is concerned as higher than general.",
+		"criteria_of_fh":"If your health history applicable to the following criteria, your Familial Hyperlipoproteinemia risk is concerned as higher than general.",
+		"criteria_of_pc":"If your health history applicable to the following criteria, your Prostate Cancer risk is concerned as higher than general.",
+		"criteria":"[criteria]",
+		"reference":"This risk estimation is based on following research, criteria and guideline."
 	}
 }
