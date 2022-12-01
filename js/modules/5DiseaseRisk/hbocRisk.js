@@ -12,7 +12,7 @@ import { FiveDiseaseRiskCommonsGetter } from '../5DiseaseRisk/5DiseaseRiskCommon
 export class HbocRisk extends FiveDiseaseRiskBase {
 
     /** HBOC */
-    HBOC = '';
+    HBOC = 'SNOMED_CT-718220008';
     /** 乳がん */
     BREAST_CANCER = 'SNOMED_CT-254837009';
     /** 前立腺がん */
@@ -23,7 +23,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
     SNOMED_CODE_B5 = [
         'SNOMED_CT-254837009',
         'SNOMED_CT-363443007',
-        'SNOMED_CT-rankangan',
+        'SNOMED_CT-363444001',
         'SNOMED_CT-363492001',
         'SNOMED_CT-363418001'
     ];
@@ -31,30 +31,30 @@ export class HbocRisk extends FiveDiseaseRiskBase {
     SNOMED_CODE_B6 = [
         'SNOMED_CT-254837009',
         'SNOMED_CT-363443007',
-        'SNOMED_CT-rankangan',
+        'SNOMED_CT-363444001',
         'SNOMED_CT-363492001',
         'SNOMED_CT-363418001',
-        'SNOMED_CT-akuseikokusyoku'
+        'SNOMED_CT-372244006'
     ];
     /** 乳がん OR 卵巣がん OR 卵管がん OR 腹膜がん OR 前立腺がん OR 膵がん OR 悪性黒色腫 */
     SNOMED_CODE_B7 = [
         'SNOMED_CT-254837009',
         'SNOMED_CT-363443007',
-        'SNOMED_CT-rankangan',
+        'SNOMED_CT-363444001',
         'SNOMED_CT-363492001',
         'SNOMED_CT-399068003',
         'SNOMED_CT-363418001',
-        'SNOMED_CT-akuseikokusyoku'
+        'SNOMED_CT-372244006'
     ];
     /** 卵管がん OR 腹膜がん */ 
     SNOMED_CODE_B8 = [
-        'SNOMED_CT-rankangan',
+        'SNOMED_CT-363444001',
         'SNOMED_CT-363492001'
     ];
     /** 卵巣がん OR 卵管がん OR 腹膜がん */
     SNOMED_CODE_B16 = [
         'SNOMED_CT-363443007',
-        'SNOMED_CT-rankangan',
+        'SNOMED_CT-363444001',
         'SNOMED_CT-363492001'
     ];
     /** リスク判定基準B1からB12。推奨のトーンが「推奨」 */

@@ -281,15 +281,15 @@ test('isMatchToB1', () => {
 
     // 正常系
     pi = {
-        "Health History": [{ "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-" }]
+        "Health History": [{ "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-718220008" }]
     };
-    expect(true).toEqual(hbocRisk._isBrcaVariantDetectedRegardlessOfWhetherOnset(pi));
+    expect(false).toEqual(hbocRisk._isBrcaVariantDetectedRegardlessOfWhetherOnset(pi));
     pi = {
         "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
         "father": {
             "gender": "MALE",
             "Health History": [
-                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-" }
+                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-718220008" }
             ]
         }
     };
@@ -299,7 +299,7 @@ test('isMatchToB1', () => {
         "mother": {
             "gender": "FEMALE",
             "Health History": [
-                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-" }
+                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-718220008" }
             ]
         }
     };
@@ -309,7 +309,7 @@ test('isMatchToB1', () => {
         "maternal_grandfather": {
             "gender": "MALE",
             "Health History": [
-                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-" }
+                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-718220008" }
             ]
         }
     };
@@ -319,7 +319,7 @@ test('isMatchToB1', () => {
         "maternal_aunt_0": {
             "gender": "FEMALE",
             "Health History": [
-                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-" }
+                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-718220008" }
             ]
         }
     };
@@ -362,7 +362,7 @@ test('isMatchToB1', () => {
     };
     expect(false).toEqual(hbocRisk._isOnsetOfBreastCancerAtLessThanOrEqualTo45YearsOld(pi));
     pi = {
-        "Health History": [{ "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-" }]
+        "Health History": [{ "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-718220008" }]
     };
     expect(false).toEqual(hbocRisk._isOnsetOfBreastCancerAtLessThanOrEqualTo45YearsOld(pi));
 
@@ -415,7 +415,7 @@ test('isMatchToB1', () => {
         "maternal_uncle_0": {
             "gender": "FEMALE",
             "Health History": [
-                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "卵管がん", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-rankangan" }
+                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "卵管がん", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-363444001" }
             ]
         }
     };
@@ -526,13 +526,13 @@ test('isMatchToB1', () => {
         "mother": {
             "gender": "FEMALE",
             "Health History": [
-                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "卵管がん", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-rankangan" }
+                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "卵管がん", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-363444001" }
             ]
         },
         "maternal_aunt_0": {
             "gender": "FEMALE",
             "Health History": [
-                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "悪性黒色腫", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-akuseikokusyoku" }
+                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "悪性黒色腫", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-372244006" }
             ]
         }
     };
@@ -642,13 +642,13 @@ test('isMatchToB1', () => {
         "mother": {
             "gender": "FEMALE",
             "Health History": [
-                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "卵管がん", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-rankangan" }
+                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "卵管がん", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-363444001" }
             ]
         },
         "maternal_aunt_0": {
             "gender": "FEMALE",
             "Health History": [
-                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "悪性黒色腫", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-akuseikokusyoku" }
+                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "悪性黒色腫", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-372244006" }
             ]
         }
     };
@@ -737,7 +737,7 @@ test('isMatchToB1', () => {
 
     // 正常系
     pi = {
-        "Health History": [{ "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "卵管がん", "Age At Diagnosis": "early_fourties", "Disease Code": "SNOMED_CT-rankangan" }],
+        "Health History": [{ "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "卵管がん", "Age At Diagnosis": "early_fourties", "Disease Code": "SNOMED_CT-363444001" }],
     };
     expect(true).toEqual(hbocRisk._isOnsetOfOvarianOrFallopianTubeOrPeritonealCancer(pi));
     pi = {
@@ -810,7 +810,7 @@ test('isMatchToB1', () => {
             ]
         },
     };
-    expect(false).toEqual(hbocRisk._hasPersonOnsetOfBreastCancerAtLessThanOrEqualTo40YearsOldInFHH(pi));
+    expect(true).toEqual(hbocRisk._hasPersonOnsetOfBreastCancerAtLessThanOrEqualTo40YearsOldInFHH(pi));
     pi = {
         "Health History": [{ "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "腹膜がん", "Age At Diagnosis": "early_fourties", "Disease Code": "SNOMED_CT-363492001" }],
         "father": {
@@ -820,7 +820,7 @@ test('isMatchToB1', () => {
             ]
         },
     };
-    expect(false).toEqual(hbocRisk._hasPersonOnsetOfBreastCancerAtLessThanOrEqualTo40YearsOldInFHH(pi));
+    expect(true).toEqual(hbocRisk._hasPersonOnsetOfBreastCancerAtLessThanOrEqualTo40YearsOldInFHH(pi));
     pi = {
         "Health History": [{ "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "乳がん", "Age At Diagnosis": "early_fourties", "Disease Code": "SNOMED_CT-254837009" }],
     };
@@ -856,7 +856,7 @@ test('isMatchToB1', () => {
     };
     expect(true).toEqual(hbocRisk._hasPersonOnsetOfOvarianCancerInFHH(pi));
     pi = {
-        "Health History": [{ "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "卵管がん", "Age At Diagnosis": "early_sixties", "Disease Code": "SNOMED_CT-rankangan" }],
+        "Health History": [{ "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "卵管がん", "Age At Diagnosis": "early_sixties", "Disease Code": "SNOMED_CT-363444001" }],
     };
     expect(true).toEqual(hbocRisk._hasPersonOnsetOfOvarianCancerInFHH(pi));
     pi = {
@@ -878,7 +878,7 @@ test('isMatchToB1', () => {
         "maternal_aunt_0": {
             "gender": "FEMALE",
             "Health History": [
-                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "卵管がん", "Age At Diagnosis": "early_sixties", "Disease Code": "SNOMED_CT-rankangan" }
+                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "卵管がん", "Age At Diagnosis": "early_sixties", "Disease Code": "SNOMED_CT-363444001" }
             ]
         }
     };
@@ -1077,14 +1077,14 @@ test('isMatchToB1', () => {
 
     // 正常系
     pi = {
-        "Health History": [{ "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-" }],
+        "Health History": [{ "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-718220008" }],
     };
     expect(true).toEqual(hbocRisk._hasPersonOnsetOfGeneticAlterationInFHH(pi));
     pi = {
         "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
-        "sister": {
+        "sister_0": {
             "Health History": [
-                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-" }
+                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-718220008" }
             ]
         }
     };
@@ -1093,7 +1093,7 @@ test('isMatchToB1', () => {
         "Health History": [{ "Disease Name": "Healthy", "Detailed Disease Name": "健康", "Age At Diagnosis": "blank", "Disease Code": "FAMILY_T-HEALTHY" }],
         "maternal_aunt_0": {
             "Health History": [
-                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-" }
+                { "Disease Name": "Colorectal Cancer", "Detailed Disease Name": "遺伝性乳がん卵巣がん症候群（HBOC）", "Age At Diagnosis": "late_fourties", "Disease Code": "SNOMED_CT-718220008" }
             ]
         }
     };

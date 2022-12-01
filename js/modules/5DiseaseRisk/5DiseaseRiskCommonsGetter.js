@@ -446,7 +446,7 @@ export class FiveDiseaseRiskCommonsGetter {
 
         // 各relativeにおいて該当する疾患情報を取得する
         for(const relative of relatives){
-            var disease = this.getAnyMatchedHealthHistory(snomedCode, pi[relative]);
+            var disease = this.getAnyMatchedHealthHistory(snomedCodeArray, pi[relative]);
             if(disease.length > 0){
                 var obj = {relative : relative, disease : disease};
                 ret = ret.concat(obj);
@@ -467,7 +467,7 @@ export class FiveDiseaseRiskCommonsGetter {
     static getAllMHHInRelatives(relatives, snomedCode, age, pi){
         var ret = [];
         // 引数チェック
-        if(!FiveDiseaseRiskCommons._isParamCorrect(relatives, snomedCodeArray, pi)) return ret;
+        if(!FiveDiseaseRiskCommons._isParamCorrect(relatives, snomedCode, pi)) return ret;
 
         // 各relativeにおいて該当する疾患情報を取得する
         for(const relative of relatives){
