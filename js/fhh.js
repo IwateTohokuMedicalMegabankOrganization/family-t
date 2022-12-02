@@ -256,7 +256,11 @@ class PersonalInformationUtil {
 	}
 
 	static getRelationshipPiByPersonId( id ){
-		return personal_information[PersonalInformationUtil.getRelationshipIdByPersonId(id)];
+		var relation = PersonalInformationUtil.getRelationshipIdByPersonId(id)
+		if(relation != ""){
+			return personal_information[relation];
+		}
+		return personal_information;
 	}
 
 	static getCurrentDate(){
@@ -1129,14 +1133,6 @@ function start()
 	 * 家族歴に基づく疾患発症リスクのダイアログを読み込む
 	 */
 	$("#5disease_risk_dialog").load ("5disease_risk_dialog.html", function () {
-		/*
-		if (isiPad) {
-			$(".savePersonalInfoFromFile").remove();
-		};
-		preparate_5disease_risk_dialog();
-		bind_5disease_risk_submit_button_action();
-		*/
-
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
 		i18n.init(option, function () {
 			$(".translate").i18n();
@@ -1170,7 +1166,9 @@ function start()
 	 * 家族歴に基づく疾患発症リスクのダイアログを開く
 	 */
 	$("#show5diseaseRiskDetail").on("click", function() {
+		preparate_fdr_score_dialog();
 		openDialog("#5disease_risk_dialog", "center top");
+		FiveDiseaseRiskController.refresh()
 	});
 
 	$("#navViewDiagram").on("click", function() {
@@ -1642,7 +1640,9 @@ function bind_compensate_information_submit_button_action(){
 	});
 }
 
-//不足項目入力フォームのchangeイベント、ボタンclickイベント準備
+/**
+ * 家族歴の質で不足項目入力フォームのchangeイベント、ボタンclickイベント準備
+ */
 function preparate_qof_score_dialog(){
 	var qoFSupplementForm = new QoFSupplementForm( personal_information );
 
@@ -1665,7 +1665,9 @@ function preparate_qof_score_dialog(){
 
 	QualityOfFamilyHistoryScoreController.hideDifferenceScore();
 }
-//不足項目入力フォームのchangeイベント、ボタンclickイベント準備
+/**
+ * ライフスタイルスコアで不足項目入力フォームのchangeイベント、ボタンclickイベント準備
+ */
 function preparate_lifestyle_score_dialog(){
 
 	// 再計算ボタン
@@ -1745,6 +1747,43 @@ function preparate_lifestyle_score_dialog(){
 			personal_information['dietary_frequency_to_drink_suger_drin_in_week'] = $(`input[name="lifestylescore_${key}_frequency_to_drink_suger_drin_in_week"]:checked`).val();
 		});
 	}
+}
+
+/**
+ * 家族歴の質で不足項目入力フォームのchangeイベント、ボタンclickイベント準備
+ */
+ function preparate_fdr_score_dialog(){
+	var fdrSupplementForm = new FdrSupplementForm( personal_information );
+
+	// 再計算ボタン
+	$("#reCalculateFdrScore").on("click", function() {
+		FiveDiseaseRiskController.refresh();
+		temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
+		build_family_history_data_table_include_own();
+		FiveDiseaseRiskController.hideDifferenceScore();
+	});
+
+	// 本人
+	$('#5dr_compensational_block_own input').on('change',function(){
+		fdrSupplementForm.updatePersonalInformation( this );
+		FiveDiseaseRiskController.showDifferenceScore ( personal_information );
+	});
+	$('#5dr_compensational_block_own select').on('change',function(){
+		fdrSupplementForm.updatePersonalInformation( this );
+		FiveDiseaseRiskController.showDifferenceScore ( personal_information );
+	});
+
+	// 家族
+	$('#5dr_compensational_block input').on('change',function(){
+		fdrSupplementForm.updatePersonalInformation( this );
+		FiveDiseaseRiskController.showDifferenceScore ( personal_information );
+	});
+	$('#5dr_compensational_block select').on('change',function(){
+		fdrSupplementForm.updatePersonalInformation( this );
+		FiveDiseaseRiskController.showDifferenceScore ( personal_information );
+	});
+
+	FiveDiseaseRiskController.hideDifferenceScore();
 }
 
 // 不足項目入力フォームのchangeイベント、ボタンclickイベント準備
@@ -3616,6 +3655,53 @@ function showScoreDetail(stroke_score_class) {
 	$("#stroke_score_total").text(stroke_score_class.totalScore);
 
 }
+class FiveDiseaseRiskController{
+
+	// 再計算
+	static refresh(){
+
+		this.calculator = new FiveDiseaseRiskCalculator( personal_information );
+
+		// サマリ
+		FiveDiseaseRiskController._showScore();
+
+		// ダイアログ
+		FiveDiseaseRiskController._showDetail();
+	}
+
+	static _showScore(){
+		ScoreCardController._qualityOfFamilyHistoryScore();
+	}
+
+	static _showDetail(){
+		
+		var calculator = new FiveDiseaseRiskCalculator( personal_information );
+
+		$('#DialogRateOfHelthHistory').text( calculator.qualityOfFamilyHistoryScore.rateOfHelthHistory );
+		$('#DialogRateOfAgeAtDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDeath );
+		$('#DialogRateOfCauseOfDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfCauseOfDeath );
+		$('#DialogRateOfAgeAtDisease').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDisease );
+	}
+
+	static hideDifferenceScore(pi){
+		$('.DisplayDiffereOfQof').hide();
+	}
+	static showDifferenceScore(pi){
+
+		var calculator = new FiveDiseaseRiskCalculator( pi );
+		$('#UpdateRateOfHelthHistory').text( calculator.qualityOfFamilyHistoryScore.rateOfHelthHistory );
+		$('#UpdateRateOfAgeAtDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDeath );
+		$('#UpdateRateOfCauseOfDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfCauseOfDeath );
+		$('#UpdateRateOfAgeAtDisease').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDisease );
+		$('.DisplayDiffereOfQof').show('slow');
+	}
+
+	static hideCompensationalBlock(){
+		$('.compensational_block').hide();
+	}
+
+}
+
 
 //  Need to do a deep copy of the PI data to support IE10 dropping data when window closes
 function set_pi_information(data) {
@@ -3894,6 +3980,16 @@ function build_family_history_data_table () {
 
 	// $( "#list01" ).disableSelection();
 	ScoreCardController.refresh();
+}
+
+/**
+ * 5大疾患リスク計算の再計算時に家族歴データを再構築する
+ */
+function build_family_history_data_table_include_own(){
+	// 本人
+
+	// 家族
+	build_family_history_data_table();
 }
 
 function add_family_history_header_row(table) {
@@ -4577,7 +4673,6 @@ function build_personal_health_information_section() {
 	information.append(hi_health_history_table);
 	information.append("<br />");
 }
-
 
 function build_hi_data_entry_row() {
 	var hi_data_entry_row = $("<tr class='md_tr health_data_entry_row' id='health_data_entry_row'></tr>");
