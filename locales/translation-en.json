@@ -1237,5 +1237,72 @@
 		"criteria_of_pc":"If your health history applicable to the following criteria, your Prostate Cancer risk is concerned as higher than general.",
 		"criteria":"[criteria]",
 		"reference":"This risk estimation is based on following research, criteria and guideline."
+	},
+	"family-t_5dr_hboc":{
+		"criteria1":"Hereditary Breast and Ovarian Cancer Syndrome (HBOC) Practice Guidelines 2021",
+		"criteria1-1":"・Already have a BRCA1/2 pathogenic variant, regardless of the breast cancer status of the person under consideration for testing",
+		"criteria1-2":"・Breast cancer diagnosed at age 45 or younger with self-onset breast cancer",
+		"criteria1-3":"・Patients who developed breast cancer and were diagnosed with subtype triple-negative at age 60 or younger",
+		"criteria1-4":"・Patient had breast cancer and was diagnosed with 2 or more primary breast cancers bilaterally or unilaterally",
+		"criteria1-5":"・Patient with breast cancer and a first blood relative (within third-degree relatives*) with breast cancer, ovarian cancer, or pancreatic cancer",
+		"criteria1-6":"・The patient has developed prostate cancer, and 2 or more relatives have been confirmed to have HBOC-related cancer (breast cancer, ovarian cancer, pancreatic cancer, malignant melanoma, etc.)",
+		"criteria1-7":"・The patient has developed pancreatic cancer, and 2 or more relatives have been confirmed to have HBOC-related cancer (breast cancer, ovarian cancer, prostate cancer, pancreatic cancer, malignant melanoma, etc.)",
+		"criteria1-8":"・Develop ovarian, fallopian tube and peritoneal cancers",
+		"criteria1-9":"・Diagnosed with male breast cancer",
+		"criteria1-10":"・Olaparib being considered for HER2-negative inoperable or metastatic recurrent breast cancer",
+		"criteria1-11":"・Patients with cancer who meet eligibility criteria for companion diagnostics to PARP inhibitors Patients with breast cancer suspected of carrying a BRCA1/2 germline pathogenic variant by tumor tissue profiling",
+		"criteria1-12":"・Metastatic prostate cancer with distant metastases or lymph node metastases",
+		"criteria1-13":"・Pancreatic cancer patients with distant metastasis or postoperative recurrence",
+		"criteria1-14":"・BRCA genetic testing may be considered in all patients with ovarian, fallopian tube, or primary peritoneal cancer, regardless of family history",
+		"criteria2":"Japan HBOC Consortium Checklist",
+		"criteria2-1":"・Have had breast cancer before the age of 40",
+		"criteria2-2":"・Ovarian cancer (including fallopian tube cancer and peritoneal cancer) in people of all ages",
+		"criteria2-3":"・Anyone of any age who has had two or more primary breast cancers",
+		"criteria2-4":"・Have male breast cancer patients",
+		"criteria2-5":"・3 or more breast cancer survivors including yourself",
+		"criteria2-6":"・Some people call it triple-negative breast cancer.",
+		"criteria2-7":"・Someone with a confirmed BRCA gene mutation",
+		"reference1":"・Hereditary Breast and Ovarian Cancer Syndrome (HBOC) Clinical Practice Guidelines 2021 Edition, Japan Hereditary Breast and Ovarian Cancer Care System Organization, July 2021",
+		"reference2":"・Understanding Hereditary Breast and Ovarian Cancer (HBOC) ver.2022_1, Japan Hereditary Breast and Ovarian Cancer Comprehensive Medical Care System Organization, January 2022",
+		"reference3":"・Japan HBOC Consortium Checklist"
+	},
+	"family-t_5dr_hnpcc":{
+		"criteria1":"Amsterdam Standard II (1999)",
+		"criteria1-1":"・At least 3 relatives with HNPCC (Lynch syndrome)-related tumors (colorectal cancer, endometrial cancer, renal pelvic/ureteral cancer, small bowel cancer) and all of the following:",
+		"criteria1-2":"　1. One affected person is a first-degree relative to the other two",
+		"criteria1-3":"　2. Affected in at least 2 consecutive generations",
+		"criteria1-4":"　3. At least one cancer diagnosed before age 50",
+		"criteria1-5":"　4. Tumor is pathologically confirmed to be cancer",
+		"criteria1-6":"　5. FAP is excluded",
+		"criteria2":"Revised Bethesda Guidelines (2004)",
+		"criteria2-1":"・Patient with colorectal cancer and diagnosed with colorectal cancer under the age of 50",
+		"criteria2-2":"・Patient with colorectal cancer, regardless of age, with synchronous or metachronous colorectal cancer or other Lynch syndrome-related tumors*",
+		"criteria2-3":"・Patient with colorectal cancer and colorectal cancer with MSI-H histological findings** diagnosed before age 60",
+		"criteria2-4":"・Patient with colorectal cancer and at least one first-degree relative with a Lynch syndrome-related tumor, one of whom was diagnosed with colorectal cancer before age 50 years",
+		"criteria2-5":"・Colorectal cancer in patients with colorectal cancer who have two or more first- or second-degree relatives diagnosed with Lynch syndrome-related tumors, regardless of age",
+		"criteria3":"Universal Screening",
+		"criteria3-1":"・All (or age 70 or younger) colorectal cancer, endometrial cancer",
+		"note1":"　 * : Colorectal cancer, endometrial cancer, gastric cancer, ovarian cancer, pancreatic cancer, biliary tract cancer, small bowel cancer, renal pelvic and ureteral cancer, brain tumor (glioblastoma, usually seen in Turcotte syndrome), sebaceous adenoma and keratinous spines in Muir-Torre syndrome cell tumor",
+		"note2":"　** : Intratumor lymphocyte infiltration, Crohn-like lymphocyte reaction, mucinous carcinoma/signet ring cell carcinoma-like differentiation, medullary proliferation",
+		"reference1":"・Hereditary Colorectal Cancer Practice Guidelines 2020"
+	},
+	"family-t_5dr_aaa":{
+		"criteria1":"・Men aged 65 and older, smoking women aged 65 and older, and those with a family history in a first-degree relative",
+		"reference1":"・2020 Revised Aortic Aneurysm/Aortic Dissection Guidelines https://www.j-circ.or.jp/cms/wp-content/uploads/2020/07/JCS2020_Ogino.pdf",
+		"reference2":"・2020 Revised Guidelines for Aortic Aneurysm/Aortic Dissection -Abdomen- https://www.jstage.jst.go.jp/article/jsvs/30/4/30_21-00018/_pdf/-char/ja"
+	},
+	"family-t_5dr_fh":{
+		"criteria1":"・Hyperemia of LDL-C (untreated LDL-C level ≥180 mg/dL)",
+		"criteria2":"・Tendon xanthoma (dorsal hand, elbow, knee, etc. or Achilles tendon thickening) or cutaneous nodular xanthoma",
+		"criteria3":"・Family history of FH or premature coronary artery disease (within the second degree)",
+		"criteria4":"・Family members (parents, grandparents, children, uncles, aunts) with LDL cholesterol greater than 180 mg/dL",
+		"reference1":"・Chronic Coronary Artery Disease Diagnosis Guidelines (2018 Revised Edition) https://www.j-circ.or.jp/cms/wp-content/uploads/2020/02/JCS2018_yamagishi_tamaki.pdf",
+		"reference2":"・Japan Atherosclerosis Society HP general page https://www.j-athero.org/jp/general/6_fh"
+	},
+	"family-t_5dr_pc":{
+		"criteria1":"・Have a family history of prostate cancer",
+		"criteria2":"・One 1st-degree relative with prostate cancer",
+		"reference1":"・Prostate Cancer Screening Guidelines 2018 Edition, edited by the Japanese Urological Association https://www.urol.or.jp/lib/files/other/guideline/32_prostate_cancer_screening_2018.pdf",
+		"reference2":"・Suzuki T, Matsuo K, Wakai K, et al. Effect of familial history and smoking on common cancer risks in Japan. Cancer. 2007;109(10):2116-2123. doi:10.1002/cncr.22685"
 	}
 }
