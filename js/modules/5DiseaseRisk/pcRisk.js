@@ -57,8 +57,10 @@ export class PcRisk extends FiveDiseaseRiskBase {
         if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(age, pi)){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 gender: this.MALE,
-                age: FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age)
+                //age: FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age)
+                age: FiveDiseaseRiskCommons.getAge(pi)
             };
             this.pushApplicableInfo(applicableInfo);
             return true;

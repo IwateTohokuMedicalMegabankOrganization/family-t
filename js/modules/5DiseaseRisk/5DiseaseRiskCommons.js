@@ -68,6 +68,36 @@ import { FiveDiseaseRiskCommonsGetter } from './5DiseaseRiskCommonsGetter';
     }
 
     /**
+     * 年齢を返却する。計算できなかった場合はnullを返却する。
+     * @param {*} pi 
+     * @returns 
+     */
+    static getAge(pi){
+        
+        // 引数チェック
+        if(!this._isParamCorrect(pi)) return null;
+
+        // 年齢の場合
+        if(this._canUseAge(pi)){
+            return Number(pi.age);
+        }
+
+        // 生年月の場合
+        if(this._canUseBirth(pi)){
+            var thisYear = (new Date()).getFullYear();
+            return (Number(thisYear) - Number(pi.year_of_birth));
+        }
+
+        // 年齢幅の場合
+        if(this._canUseEstimatedAge(pi)){
+            const eav = (new EstimatedAgeValue()).ESTIMATED_AGE_VALUE;
+            var low_age = eav[pi.estimated_age].low.value;
+            return Number(low_age);
+        }
+        return null;
+    }
+
+    /**
      * Personal Informationの年齢がage以上かどうか判定する。
      * 厳密な判定ははどうする？
      * @param {*} age 

@@ -54,8 +54,10 @@ export class AaaRisk extends FiveDiseaseRiskBase {
             && FiveDiseaseRiskCommons.isGenderMatch(this.MALE, pi)){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 gender : this.MALE,
-                age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age)
+                //age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age)
+                age : FiveDiseaseRiskCommons.getAge(pi)
             };
             this.pushApplicableInfo(applicableInfo);
             return true;
@@ -67,8 +69,10 @@ export class AaaRisk extends FiveDiseaseRiskBase {
             && pi.smoker==this.SMOKER_INDEX){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 gender : this.FEMALE,
-                age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age),
+                //age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age),
+                age : FiveDiseaseRiskCommons.getAge(pi),
                 smoker : this.CURRENT_SMOKER
             };
             this.pushApplicableInfo(applicableInfo);

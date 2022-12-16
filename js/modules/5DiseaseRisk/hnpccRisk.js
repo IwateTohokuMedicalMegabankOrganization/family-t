@@ -69,11 +69,11 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
      */
      findOutRisk(pi) {
         // 考慮に該当する場合
-        if(consider(pi)){
+        if(this.consider(pi)){
             // 
-            if(!Recommend(pi)){
+            if(!this.Recommend(pi)){
                 // 実装上仕方がない
-                consider(pi);
+                this.consider(pi);
             }            
         }
     }
@@ -125,7 +125,7 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
      * @param {*} pi 本人のpersonalInformation
      */
     appliesToTheRevisedBethesdaGuideline2004(pi) {
-        return this._isOnsetOfColorectalCancerAtLessThanOrEqualTo45YearsOld(pi)
+        return this._isOnsetOfColorectalCancerAtLessThan50YearsOld(pi)
             || this._isOnsetOfColorectalCancerAndHnpcc(pi)
             || this._isOnsetOfColorectalCancerAndOnePersonOnsetOfHnpccAtLessThan50YearsOld(pi)
             || this._isOnsetOfColorectalCancer(pi);
@@ -144,7 +144,8 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
         if(FiveDiseaseRiskCommons.areAnyDisAgadLessThan(this.SNOMED_CODE_C2, age, pi)){
             var applicableInfo = {
                 relative : this.SELF,
-                age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.lt, age),
+                name : pi.name,
+                //age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.lt, age),
                 disease : FiveDiseaseRiskCommonsGetter.getAnyMHHLessThan(this.SNOMED_CODE_C2, age, pi)
             };            
             this.pushApplicableInfo(applicableInfo);
@@ -170,6 +171,7 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
                 disease = disease.concat(FiveDiseaseRiskCommonsGetter.getAnyMatchedHealthHistory(this.SNOMED_CODE_C3C5C6, pi))
                 var applicableInfo = {
                     relative : this.SELF,
+                    name : pi.name,
                     disease : disease
                 };            
                 this.pushApplicableInfo(applicableInfo);
@@ -199,6 +201,7 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
         if(count >= 1){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 disease : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.COLORECTAL_CANCER, pi)
             };   
             this.pushApplicableInfo(applicableInfo);
@@ -229,6 +232,7 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
         if(count >= 2){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 disease : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.COLORECTAL_CANCER, pi)
             }; 
             this.pushApplicableInfo(applicableInfo);
@@ -256,6 +260,7 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
         if(FiveDiseaseRiskCommons.isDiesaseMatchOr(this.SNOMED_CODE_C7, pi)){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 disease : FiveDiseaseRiskCommonsGetter.getAnyMatchedHealthHistory(this.SNOMED_CODE_C7, pi)
             };            
             this.pushApplicableInfo(applicableInfo);

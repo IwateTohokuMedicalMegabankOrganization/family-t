@@ -77,6 +77,7 @@ export class FhRisk extends FiveDiseaseRiskBase {
             if(pi.ldl_cholesterol == this.LDL_CHOLESTEROL){
                 var applicableInfo = {
                     relative : this.SELF,
+                    name : pi.name,
                     ldlCholesterol :this.LDL_CHOLESTEROL
                 };
                 this.pushApplicableInfo(applicableInfo);

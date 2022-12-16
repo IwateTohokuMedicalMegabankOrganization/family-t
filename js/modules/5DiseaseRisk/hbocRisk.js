@@ -95,11 +95,11 @@ export class HbocRisk extends FiveDiseaseRiskBase {
      */
     findOutRisk(pi) {
         // 考慮に該当する場合
-        if(consider(pi)){
+        if(this.consider(pi)){
             // 
-            if(!Recommend(pi)){
+            if(!this.Recommend(pi)){
                 // 実装上仕方がない
-                consider(pi);
+                this.consider(pi);
             }            
         }
     }
@@ -188,7 +188,8 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThanOrEquaTo(this.BREAST_CANCER, age, pi)){
             var applicableInfo = {
                 relative : this.SELF,
-                age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age),
+                name : pi.name,
+                //age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age),
                 disease : FiveDiseaseRiskCommonsGetter.getMHHLessThanOrEqualTo(this.BREAST_CANCER, age, pi)
             };
             this.pushApplicableInfo(applicableInfo);
@@ -213,6 +214,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(count >= 1){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 disease : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.BREAST_CANCER, pi)
             };
             this.pushApplicableInfo(applicableInfo);
@@ -239,6 +241,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(count >= 2){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 disease : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.PROSTATE_CANCER, pi)
             };
             this.pushApplicableInfo(applicableInfo);
@@ -265,6 +268,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(count >= 2){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 disease : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.PANCREATIC_CANCER, pi)
             };
             this.pushApplicableInfo(applicableInfo);
@@ -284,6 +288,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(FiveDiseaseRiskCommons.isDiesaseMatchOr(this.SNOMED_CODE_B8, pi)){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 disease : FiveDiseaseRiskCommonsGetter.getAnyMatchedHealthHistory(this.SNOMED_CODE_B8, pi)
             };            
             this.pushApplicableInfo(applicableInfo);
@@ -301,6 +306,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch(this.BREAST_CANCER, this.MALE, pi)){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 gender : this.MALE,
                 disease : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.BREAST_CANCER, pi)
             };            
@@ -322,7 +328,8 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(FiveDiseaseRiskCommons.isAgeAtDiagnosisLessThan(this.BREAST_CANCER, age, pi)){
             var applicableInfo = {
                 relative : this.SELF,
-                age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.lt, age),
+                name : pi.name,
+                //age : FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.lt, age),
                 disease : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.BREAST_CANCER, pi)
             };            
             this.pushApplicableInfo(applicableInfo);
@@ -351,6 +358,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(FiveDiseaseRiskCommons.isDiesaseMatchOr(this.SNOMED_CODE_B16, pi)){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 disease : FiveDiseaseRiskCommonsGetter.getAnyMatchedHealthHistory(this.SNOMED_CODE_B16, pi)
             };            
             this.pushApplicableInfo(applicableInfo);
@@ -379,6 +387,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(FiveDiseaseRiskCommons.areDiseaseAndGenderMatch(this.BREAST_CANCER, this.MALE, pi)){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 gender : this.MALE,
                 disease : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.BREAST_CANCER, pi)
             };            
@@ -413,6 +422,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(count >= 3){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 disease : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.BREAST_CANCER, pi)
             };            
             this.pushApplicableInfo(applicableInfo);
@@ -434,6 +444,7 @@ export class HbocRisk extends FiveDiseaseRiskBase {
         if(FiveDiseaseRiskCommons.isDiesaseMatch(this.HBOC, pi)){
             var applicableInfo = {
                 relative : this.SELF,
+                name : pi.name,
                 disease : FiveDiseaseRiskCommonsGetter.getMatchedHealthHistory(this.HBOC, pi)
             };            
             this.pushApplicableInfo(applicableInfo);
