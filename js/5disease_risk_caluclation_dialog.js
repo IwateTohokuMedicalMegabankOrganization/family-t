@@ -173,44 +173,7 @@ class FdrSupplementForm {
 
 		return ret;
 	}
-	_getEstimatedDeathAge(pi){
-		var ret = this._getTD("");
-		var id = FdrSupplementForm._getId(FdrSupplementForm.FDR_ESTIMATED_DEATH_AGE_PREFIX, pi.id );
-		var name = this._getName(FdrSupplementForm.FDR_ESTIMATED_DEATH_AGE_PREFIX, pi.id );
-		
-		var estimated_death_age_select = $("<select>")
-											.attr('id', id)
-											.attr('name', name)
-											.attr('pi_id', pi.id);
-		
-		set_age_at_diagnosis_pulldown( $.t("fhh_js.select_age_death"), estimated_death_age_select);
-
-		estimated_death_age_select.val( ( typeof pi.estimated_death_age == 'undefined' )? 'unknown' : pi.estimated_death_age  );
-
-		return ret.append(estimated_death_age_select);
-	}
-
-	_getCauseOfDeathForm(pi){
-		var ret = this._getTD("");
-		var disease_select = $("<select>")
-								.attr('id', FdrSupplementForm._getId(FdrSupplementForm.FDR_CAUSE_OF_DEATH_PREFIX, pi.id ))
-								.attr('name', this._getName(FdrSupplementForm.FDR_CAUSE_OF_DEATH_PREFIX, pi.id ))
-								.attr('pi_id', pi.id);
-
-		var detailed_disease_select = $("<select>")
-								.attr('id', FdrSupplementForm._getId(FdrSupplementForm.FDR_DETAILED_CAUSE_OF_DEATH_PREFIX, pi.id ))
-								.attr('name', this._getName(FdrSupplementForm.FDR_DETAILED_CAUSE_OF_DEATH_PREFIX, pi.id ))
-								.attr('pi_id', pi.id);
-		
-		var ds = set_disease_choice_select(disease_select, detailed_disease_select, "cod");
-		disease_select.val( pi.cause_of_death);
-		disease_select.trigger('change');
-		detailed_disease_select.val( pi.cause_of_death_code);
-		ret.append( $('<div>').append(ds) );
-		ret.append( $('<div>').append(detailed_disease_select) );
-		return ret ;
-	}
-
+	
 	static _getId( prefix, id ){
 		return prefix + '_id_' + id ;
 	}
@@ -219,54 +182,9 @@ class FdrSupplementForm {
 	}
 
 	static FDR_HAS_DESEASE_PREFIX = "has_desease_select"
-	static FDR_DETAILED_CAUSE_OF_DEATH_PREFIX = "detailed_cause_of_death_select";
-	static FDR_CAUSE_OF_DEATH_PREFIX = "cause_of_death_select";
-	static FDR_ESTIMATED_DEATH_AGE_PREFIX = "estimated_death_age_select";
-	static FDR_IS_ALIVE_PREFIX = "qof_is_alive_select";
-
-	_getIsAliveForm(pi){
-		var ret = this._getLeftTD("");
-		var prefix_id = FdrSupplementForm._getId(FdrSupplementForm.FDR_IS_ALIVE_PREFIX, pi.id );
-		var name = this._getName(FdrSupplementForm.FDR_IS_ALIVE_PREFIX, pi.id );
-
-		var values = [ 'alive', 'dead', 'unknown'];
-		var translations = { alive: "info_dialog.yes", dead: "info_dialog.no" , unknown: 'info_dialog.unknown'};
-
-		for( const v of values ){
-
-			ret.append( 
-					$("<div>").append(
-						 $("<input type='radio'>")
-								.attr('id', FdrSupplementForm._getId( prefix_id, v))
-								.attr('name', name)
-								.attr('value', v)
-								.attr('pi_id', pi.id)
-							)
-						.append(
-							$("<label>")
-								.attr('for', FdrSupplementForm._getId( prefix_id, v) )
-								.text( $.t(translations[ v ] ) )
-							)
-					);
-		}
-
-
-		return ret;
-	}
-
+	
 	updatePersonalInformation( info ){
 		var pi = PersonalInformationUtil.getRelationshipPiByPersonId( $(info).attr('pi_id') );
-
-		// 存命
-		pi.is_alive = $(`input[name="${this._getName(FdrSupplementForm.FDR_IS_ALIVE_PREFIX, pi.id )}"]:checked`).val();
-
-		// 死亡年齢
-		pi.estimated_death_age = $(`select[name="${this._getName(FdrSupplementForm.FDR_ESTIMATED_DEATH_AGE_PREFIX, pi.id )}"]`).val();
-
-		// 死因
-		pi.cause_of_death = $(`select[name="${this._getName(FdrSupplementForm.FDR_CAUSE_OF_DEATH_PREFIX, pi.id )}"]`).val();
-		pi.cause_of_death_code = $(`select[name="${this._getName(FdrSupplementForm.FDR_DETAILED_CAUSE_OF_DEATH_PREFIX, pi.id )}"]`).val();
-		pi.detailed_cause_of_death_code = $(`select[name="${this._getName(FdrSupplementForm.FDR_DETAILED_CAUSE_OF_DEATH_PREFIX, pi.id )}"]`).text();
 
 		// 疾患有無
 		var checkedRadioButton = $(`input[name="${this._getName(FdrSupplementForm.FDR_HAS_DESEASE_PREFIX, pi.id )}"]:checked`);
