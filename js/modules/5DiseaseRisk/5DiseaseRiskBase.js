@@ -7,7 +7,7 @@
  export class FiveDiseaseRiskBase {
 
     /** アラート文 */
-    MESSAGE = '';
+    MESSAGE = '発症の可能性が一般よりも高いことを示すリスク因子は認められませんでした。';
     /** リスク判定に該当した情報(オブジェクトの配列)
      * 
      *  APPLICABLE_INFO = [{'relative' : relative, gender' : gender, 'disease' : disease},...]
@@ -46,6 +46,17 @@
         this.APPLICABLE_INFO = [];
         this.CRITERIA = [];
         this.SOURCE = [];
+    }
+
+    judge( pi ){
+        var ret = {
+            applicableInfo : [],
+            judge : false
+        };
+        this.findOutRisk(pi);
+        ret.applicableInfo = this.APPLICABLE_INFO;
+        ret.judge = this.APPLICABLE_INFO.length != 0;
+        return ret;
     }
 
     findOutRisk(pi){
