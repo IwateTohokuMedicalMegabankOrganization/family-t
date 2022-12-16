@@ -1760,7 +1760,6 @@ function preparate_lifestyle_score_dialog(){
 		FiveDiseaseRiskController.refresh();
 		temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
 		build_family_history_data_table_include_own();
-		FiveDiseaseRiskController.hideDifferenceScore();
 	});
 
 	// 本人

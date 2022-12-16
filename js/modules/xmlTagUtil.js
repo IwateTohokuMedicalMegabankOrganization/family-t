@@ -482,6 +482,7 @@ export class RelativeUtil{
     static getMiltipleRelative(strRelative){
         var ret = [];
 
+        ret.push(strRelative);
         for(var i=0;i<10;i++){
             ret.push(strRelative + '_' + i.toString());
         }

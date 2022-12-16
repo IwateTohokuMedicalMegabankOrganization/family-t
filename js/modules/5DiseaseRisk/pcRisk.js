@@ -52,24 +52,23 @@ export class PcRisk extends FiveDiseaseRiskBase {
         // 本人が女性かどうか判断する。
         if(FiveDiseaseRiskCommons.isGenderMatch(this.FEMALE, pi)) return false;
 
-        // 本人が40歳以上
-        var age = 40;
-        if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(age, pi)){
-            var applicableInfo = {
-                relative : this.SELF,
-                name : pi.name,
-                gender: this.MALE,
-                //age: FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age)
-                age: FiveDiseaseRiskCommons.getAge(pi)
-            };
-            this.pushApplicableInfo(applicableInfo);
-            return true;
-        }
-
-        // 第一
+        // 第一近親者
         var relatives = RelativeUtil.getFirstDegreeRelatives();
         var count = FiveDiseaseRiskCommonsCounter.countDiseasePersonInRelatives(relatives, this.PROSTATE_CANCER, pi);
         if(count >= 1){
+            // 本人が40歳以上
+            var age = 40;
+            if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(age, pi)){
+                var applicableInfo = {
+                    relative : this.SELF,
+                    name : pi.name,
+                    gender: this.MALE,
+                    //age: FiveDiseaseRiskCommons.bindJudgedAgeAsString(FiveDiseaseRiskCommons.JUDGE_AGE.gtoet, age)
+                    age: FiveDiseaseRiskCommons.getAge(pi)
+                };
+                this.pushApplicableInfo(applicableInfo);
+            }
+
             var applicableInfoArray = FiveDiseaseRiskCommonsGetter.getMHHInRelatives(relatives, this.PROSTATE_CANCER, pi)
             this.concatApplicableInfo(applicableInfoArray);
             return true;
