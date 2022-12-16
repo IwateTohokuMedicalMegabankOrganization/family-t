@@ -395,7 +395,8 @@
 		"btn1_fam_hist": "Next",
 		"btn2_fam_hist": "Cancel",
 		"done": "done",
-		"unit_of_age":"years"
+		"unit_of_age":"years",
+		"at_present": " (At Present) "
 	},
 	"fhh_add_family": {
 		"instructions": "Now we will build your family.",
@@ -1300,7 +1301,7 @@
 		"reference2":"・Japan Atherosclerosis Society HP general page https://www.j-athero.org/jp/general/6_fh"
 	},
 	"family-t_5dr_pc":{
-		"criteria1":"・Have a family history of prostate cancer",
+		"criteria1":"・You are older than 40 years old and have a family history of prostate cancer",
 		"criteria2":"・One 1st-degree relative with prostate cancer",
 		"reference1":"・Prostate Cancer Screening Guidelines 2018 Edition, edited by the Japanese Urological Association https://www.urol.or.jp/lib/files/other/guideline/32_prostate_cancer_screening_2018.pdf",
 		"reference2":"・Suzuki T, Matsuo K, Wakai K, et al. Effect of familial history and smoking on common cancer risks in Japan. Cancer. 2007;109(10):2116-2123. doi:10.1002/cncr.22685"

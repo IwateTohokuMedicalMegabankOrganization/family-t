@@ -400,7 +400,8 @@
 		"btn2_fam_hist": "キャンセル",
 		"done": "完了",
 		"select_the_age_input_method": "年齢入力方法の選択",
-		"unit_of_age": "歳"
+		"unit_of_age": "歳",
+		"at_present": "（現在）"
 	},
 	"fhh_add_family": {
 		"instructions": "家族構成の情報を入力します。",
@@ -1286,7 +1287,7 @@
 		"reference2":"・日本動脈硬化学会HP一般向けページ https://www.j-athero.org/jp/general/6_fh"
 	},
 	"family-t_5dr_pc":{
-		"criteria1":"・前立腺癌の家族歴を有する",
+		"criteria1":"・本人が40歳以上で、前立腺癌の家族歴を有する",
 		"criteria2":"・第1度近親者に1人の前立腺癌患者がいる",
 		"reference1":"・「前立腺がん検診ガイドライン 2018年版」、日本泌尿器科学会　編 https://www.urol.or.jp/lib/files/other/guideline/32_prostate_cancer_screening_2018.pdf",
 		"reference2":"　　根拠論文）Suzuki T, Matsuo K, Wakai K, et al. Effect of familial history and smoking on common cancer risks in Japan. Cancer. 2007;109(10):2116-2123. doi:10.1002/cncr.22685"

@@ -1783,7 +1783,38 @@ function preparate_lifestyle_score_dialog(){
 		FiveDiseaseRiskController.showDifferenceScore ( personal_information );
 	});
 
-	FiveDiseaseRiskController.hideDifferenceScore();
+	$("#disp_toggle_hboc").hide();
+	$("#disp_toggle_hnpcc").hide();
+	$("#disp_toggle_aaa").hide();
+	$("#disp_toggle_fh").hide();
+	$("#disp_toggle_pc").hide();
+
+	if(typeof toggleflg == "undefined" || toggleflg != 1) {
+		var speed = 1000;
+		var effect_type = "blind";
+
+		$("#btn_toggle_hboc").on("click", function() {
+			$("#disp_toggle_hboc").toggle(effect_type, speed);
+		});
+
+		$("#btn_toggle_hnpcc").on("click", function() {
+			$("#disp_toggle_hnpcc").toggle(effect_type, speed);
+		});
+
+		$("#btn_toggle_aaa").on("click", function() {
+			$("#disp_toggle_aaa").toggle(effect_type, speed);
+		});
+
+		$("#btn_toggle_fh").on("click", function() {
+			$("#disp_toggle_fh").toggle(effect_type, speed);
+		});
+
+		$("#btn_toggle_pc").on("click", function() {
+			$("#disp_toggle_pc").toggle(effect_type, speed);
+		});
+
+		toggleflg = 1;
+	}
 }
 
 // 不足項目入力フォームのchangeイベント、ボタンclickイベント準備
@@ -3517,6 +3548,9 @@ class ScoreCardController{
 		// 脳卒中（10年間）
 		ScoreCardController._strokeRiskScore();
 
+		// 5疾患リスク判定
+		ScoreCardController._fiveDiseaseRiskScore();
+
 		(new GenerationalFamilyMembers( personal_information ) ).draw();
 	}
 
@@ -3571,6 +3605,54 @@ class ScoreCardController{
 		
 	}
 
+	static _fiveDiseaseRiskScore(){
+		var calculator = new FiveDiseaseRiskCalculator(personal_information);
+		
+		$(".hbocScoreResult").hide();
+		$(".hnpccScoreResult").hide();
+		$(".aaaScoreResult").hide();
+		$(".fhScoreResult").hide();
+		$(".pcScoreResult").hide();
+		// 計算できる場合
+		if(calculator.isCalculatable()){
+			if(calculator.hboc.judge){
+				$("#hboc_has_risk").show();
+			}else{
+				$("#hboc_has_no_risk").show();
+			}
+
+			if(calculator.hnpcc.judge){
+				$("#hnpcc_has_risk").show();
+			}else{
+				$("#hnpcc_has_no_risk").show();
+			}
+
+			if(calculator.aaa.judge){
+				$("#aaa_has_risk").show();
+			}else{
+				$("#aaa_has_no_risk").show();
+			}
+
+			if(calculator.fh.judge){
+				$("#fh_has_risk").show();
+			}else{
+				$("#fh_has_no_risk").show();
+			}
+
+			if(calculator.pc.judge){
+				$("#pc_has_risk").show();
+			}else{
+				$("#pc_has_no_risk").show();
+			}
+		}// 計算できない場合
+		else{
+			$("#hboc_no_item").show();
+			$("#hnpcc_no_item").show();
+			$("#aaa_no_item").show();
+			$("#fh_no_item").show();
+			$("#pc_no_item").show();
+		}
+	}
 }
 
 function cannot_calculate( baseId, lower , upper ){
@@ -3670,30 +3752,234 @@ class FiveDiseaseRiskController{
 	}
 
 	static _showScore(){
-		ScoreCardController._qualityOfFamilyHistoryScore();
+		ScoreCardController._fiveDiseaseRiskScore();
 	}
 
 	static _showDetail(){
 		
 		var calculator = new FiveDiseaseRiskCalculator( personal_information );
 
-		$('#DialogRateOfHelthHistory').text( calculator.qualityOfFamilyHistoryScore.rateOfHelthHistory );
-		$('#DialogRateOfAgeAtDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDeath );
-		$('#DialogRateOfCauseOfDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfCauseOfDeath );
-		$('#DialogRateOfAgeAtDisease').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDisease );
+		// 計算できる場合
+		if(calculator.isCalculatable()){
+			this._createApplicableInfo(calculator.hboc.applicableInfo, "hboc");
+			this._createApplicableInfo(calculator.hnpcc.applicableInfo, "hnpcc");
+			this._createApplicableInfo(calculator.aaa.applicableInfo, "aaa");
+			this._createApplicableInfo(calculator.fh.applicableInfo, "fh");
+			this._createApplicableInfo(calculator.pc.applicableInfo, "pc");
+		}// 計算できない場合
+		else{
+			this._cannotCalculate("hboc");
+			this._cannotCalculate("hnpcc");
+			this._cannotCalculate("aaa");
+			this._cannotCalculate("fh");
+			this._cannotCalculate("pc");
+		}
+
+		// data-i18nの再実行
+		var option = {
+			resGetPath: '../locales/__ns__-__lng__.json',
+			ns: {
+				namespaces: ['translation', 'diseases'],
+				defaultNs: 'translation'
+			}
+		};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
 	}
 
-	static hideDifferenceScore(pi){
-		$('.DisplayDiffereOfQof').hide();
+	static _createApplicableInfo(applicableInfo, disease_name){
+
+		this._initApplicableInfo(disease_name);
+
+		var elem = $('<div>');
+		elem.css({'text-align':'left', 'display':'block'});
+
+		if(applicableInfo.length > 0){
+			// メインの結果
+			this._showHasRisk(disease_name);
+
+			// 該当するあなたと家族の健康情報
+			for(const info of applicableInfo){
+				// 要素の作成
+				var child = this._createFhhElem(info);
+
+				// 要素の追加
+				elem.append(child);
+			}
+		}else{
+			// メインの結果
+			this._showHasNoRisk(disease_name);
+
+			// 該当するあなたと家族の健康情報
+			var child = $('<div>').attr('data-i18n', 'family-t_5disease_risk.applicable_info_none').text("なし");
+			elem.append(child);
+		}
+		// 要素の追加
+		this._appendApplicableInfo(elem, disease_name);
 	}
+
+	static _initApplicableInfo(disease_name){
+		var fdr_has_risk = '#' + 'fdr_has_risk_' + disease_name;
+		var fdr_has_no_risk = '#' + 'fdr_has_no_risk_' + disease_name;
+		var fdr_no_item = '#' + 'fdr_no_item_' + disease_name;
+		var applicable_info = '#' + 'applicable_info_' + disease_name;
+		$(fdr_has_risk).hide();
+		$(fdr_has_no_risk).hide();
+		$(fdr_no_item).hide();
+		$(applicable_info).empty();
+	}
+
+	static _createFhhElem(applicableInfo){
+		var elem = $('<div>');
+
+		// disease
+		if(this._hasKeyValue(applicableInfo, 'disease')){
+			if(Array.isArray(applicableInfo.disease)){
+				elem.css({'text-align':'left', 'display':'block'});
+				for(const disease of applicableInfo.disease){
+					var child = $('<div>');
+					// name
+					this._appendName(child, applicableInfo);
+
+					// disease
+					this._appendDisease(disease, child);
+					elem.append(child);
+				}
+			}else{
+				// name
+				this._appendName(elem, applicableInfo);
+
+				// disease
+				this._appendDisease(applicableInfo.disease, elem);
+			}
+		}else{
+			// name
+			this._appendName(elem, applicableInfo);
+			
+			// age
+			this._appendAge(elem, applicableInfo);
+
+			// gender
+			this._appendGender(elem, applicableInfo);
+			
+			// smoker
+			this._appendSmoker(elem, applicableInfo);
+
+			// ldlCholesterol
+			this._appendLdlCholesterol(elem, applicableInfo);
+		}
+
+		return elem;
+	}
+
+	static _appendName(elem, applicableInfo){
+		if(this._hasKeyValue(applicableInfo, 'name')){
+			var name = $('<span>').text(applicableInfo.name).css({'margin-right':'30px'});
+			elem.append(name);
+		}
+	}
+
+	static _appendAge(elem, applicableInfo){
+		if(this._hasKeyValue(applicableInfo, 'age')){
+			var unitOfage = $('<span>');
+			unitOfage.attr('class','translate').attr('data-i18n','info_dialog.unit_of_age').text('歳');
+			var atPresent = $('<span>');
+			atPresent.attr('class','translate').attr('data-i18n','info_dialog.at_present').text('（現在）');
+			
+			var age = $('<span>');
+			age.text(applicableInfo.age).append(unitOfage).append(atPresent);
+			age.css({'margin-right':'30px'});
+			elem.append(age);
+		}
+	}
+
+	static _appendGender(elem, applicableInfo){
+		if(this._hasKeyValue(applicableInfo, 'gender')){
+			var gender = $('<span>');
+			gender.attr('class','translate').attr('data-i18n','fhh_js.' + applicableInfo.gender).text(applicableInfo.gender);
+			gender.css({'margin-right':'30px'});
+			elem.append(gender);
+		}
+	}
+
+	static _appendSmoker(elem, applicableInfo){
+		if(this._hasKeyValue(applicableInfo, 'smoker')){
+			var smoker = $('<span>');
+			smoker.attr('class','translate').attr('data-i18n', 'family-t.current_smoker').text(applicableInfo.smoker);
+			smoker.css({'margin-right':'30px'});
+			elem.append(smoker);
+		}
+	}
+
+	static _appendLdlCholesterol(elem, applicableInfo){
+		if(this._hasKeyValue(applicableInfo, 'ldlCholesterol')){
+			var label = $('<span>');
+			label.attr('class','translate').attr('data-i18n', 'family-t.ldl_cholesterol_(mg/dl)').text("ldl_cholesterol_(mg/dl)");
+			label.css({'margin-right':'15px'});
+			elem.append(label);
+
+			var ldlCholesterol = $('<span>');
+			ldlCholesterol.attr('class','translate').attr('data-i18n', 'family-t.optionlabel.over180').text(applicableInfo.ldlCholesterol);
+			ldlCholesterol.css({'margin-right':'30px'});
+			elem.append(ldlCholesterol);
+		}
+	}
+
+	static _hasKeyValue(object, key){
+		return (object[key] != null && object[key] != undefined && object[key] != '');
+	}
+
+	static _appendDisease(disease, elem){
+		// 疾患の抽出
+		var detailedDiseaseName = disease['Detailed Disease Name'];
+		var snomedCode = disease['Disease Code'];
+		var ageAtDiagnosis = disease['Age At Diagnosis'];
+
+		var diseaseName = $('<span>').attr('class','translate').attr('data-i18n', 'diseases:' + snomedCode).text(detailedDiseaseName).css({'margin-right':'30px'});;
+		var ageAtDiagnosis = $('<span>').attr('class','translate').attr('data-i18n', 'fhh_js.' + ageAtDiagnosis).text(ageAtDiagnosis).css({'margin-right':'30px'});;
+
+		elem.append(diseaseName);
+		elem.append(ageAtDiagnosis);
+	}
+
+	static _showHasRisk(disease_name){
+		var fdr_has_risk = '#' + 'fdr_has_risk_' + disease_name;
+		$(fdr_has_risk).show();
+	}
+
+	static _showHasNoRisk(disease_name){
+		var fdr_has_risk = '#' + 'fdr_has_no_risk_' + disease_name;
+		$(fdr_has_risk).show();
+	}
+
+	static _appendApplicableInfo(elem, disease_name){
+		var applicable_info = '#' + 'applicable_info_' + disease_name;
+		$(applicable_info).append(elem);
+	}
+
+	static _cannotCalculate(disease_name){
+		this._initApplicableInfo(disease_name);
+
+		// メインの結果
+		this._showHasNoItem(disease_name);
+
+		// 該当するあなたと家族の健康情報
+		var elem = $('<div>');
+		var none = $('<div>').attr('class','translate').attr('data-i18n', 'family-t_5disease_risk.applicable_info_none').text("なし");
+		elem.css({'text-align':'left', 'display':'block'});
+		elem.append(none);
+		this._appendApplicableInfo(elem, disease_name);
+	}
+
+	static _showHasNoItem(disease_name){
+		var fdr_no_item = '#' + 'applicable_fdr_no_item_' + disease_name;
+		$(fdr_no_item).show();
+	}
+
 	static showDifferenceScore(pi){
 
 		var calculator = new FiveDiseaseRiskCalculator( pi );
-		$('#UpdateRateOfHelthHistory').text( calculator.qualityOfFamilyHistoryScore.rateOfHelthHistory );
-		$('#UpdateRateOfAgeAtDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDeath );
-		$('#UpdateRateOfCauseOfDeath').text( calculator.qualityOfFamilyHistoryScore.rateOfCauseOfDeath );
-		$('#UpdateRateOfAgeAtDisease').text( calculator.qualityOfFamilyHistoryScore.rateOfAgeAtDisease );
-		$('.DisplayDiffereOfQof').show('slow');
 	}
 
 	static hideCompensationalBlock(){
