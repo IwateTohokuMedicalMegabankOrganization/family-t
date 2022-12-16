@@ -68,14 +68,17 @@ export class HnpccRisk extends FiveDiseaseRiskBase {
      * @param {*} pi 本人のpersonalInformation
      */
      findOutRisk(pi) {
-        // 考慮に該当する場合
+        /* 考慮に該当する場合
         if(this.consider(pi)){
             // 
             if(!this.Recommend(pi)){
                 // 実装上仕方がない
                 this.consider(pi);
             }            
-        }
+        }*/
+
+        // 推奨のみ
+        this.Recommend(pi);
     }
 
     /**
