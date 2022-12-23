@@ -281,38 +281,82 @@
     var fhRisk = new FhRisk();
     
     // 正常系
-    // 本人が15歳以上で中性脂肪・コレステロール値が180mgdL以上
+    // 本人が15歳以上で薬を服用せず中性脂肪・コレステロール値が180mgdL以上
     pi = {
         "date_of_birth": "2007/01/01",
         "month_of_birth": "1",
         "year_of_birth": "2007",
+        "cholesterol_medicine": "0",
         "ldl_cholesterol": "over180"
     };
     expect(true).toEqual(fhRisk._isHyperLDLC(pi));
 
-    // 本人が15歳以上で中性脂肪・コレステロール値が180mgdL未満
+    // 本人が15歳以上で薬を服用せず中性脂肪・コレステロール値が180mgdL未満
     pi = {
         "date_of_birth": "2007/01/01",
         "month_of_birth": "1",
         "year_of_birth": "2007",
+        "cholesterol_medicine": "0",
         "ldl_cholesterol": "140-159"
     };
     expect(false).toEqual(fhRisk._isHyperLDLC(pi));
 
-    // 本人が15歳未満で中性脂肪・コレステロール値が180mgdL以上
+    // 本人が15歳以上で薬を服用して中性脂肪・コレステロール値が180mgdL以上
     pi = {
-        "date_of_birth": "2013/01/01",
+        "date_of_birth": "2007/01/01",
         "month_of_birth": "1",
-        "year_of_birth": "2013",
+        "year_of_birth": "2007",
+        "cholesterol_medicine": "1",
         "ldl_cholesterol": "over180"
     };
     expect(false).toEqual(fhRisk._isHyperLDLC(pi));
 
-    // 本人が15歳未満で中性脂肪・コレステロール値が180mgdL未満
+    // 本人が15歳以上で薬を服用して中性脂肪・コレステロール値が180mgdL未満
+    pi = {
+        "date_of_birth": "2007/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "2007",
+        "cholesterol_medicine": "1",
+        "ldl_cholesterol": "140-159"
+    };
+    expect(false).toEqual(fhRisk._isHyperLDLC(pi));
+
+    // 本人が15歳未満で薬を服用せず中性脂肪・コレステロール値が180mgdL以上
     pi = {
         "date_of_birth": "2013/01/01",
         "month_of_birth": "1",
         "year_of_birth": "2013",
+        "cholesterol_medicine": "0",
+        "ldl_cholesterol": "over180"
+    };
+    expect(false).toEqual(fhRisk._isHyperLDLC(pi));
+
+    // 本人が15歳未満で薬を服用せず中性脂肪・コレステロール値が180mgdL未満
+    pi = {
+        "date_of_birth": "2013/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "2013",
+        "cholesterol_medicine": "0",
+        "ldl_cholesterol": "140-159"
+    };
+    expect(false).toEqual(fhRisk._isHyperLDLC(pi));
+
+    // 本人が15歳未満で薬を服用して中性脂肪・コレステロール値が180mgdL以上
+    pi = {
+        "date_of_birth": "2013/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "2013",
+        "cholesterol_medicine": "1",
+        "ldl_cholesterol": "over180"
+    };
+    expect(false).toEqual(fhRisk._isHyperLDLC(pi));
+
+    // 本人が15歳未満で薬を服用して中性脂肪・コレステロール値が180mgdL未満
+    pi = {
+        "date_of_birth": "2013/01/01",
+        "month_of_birth": "1",
+        "year_of_birth": "2013",
+        "cholesterol_medicine": "1",
         "ldl_cholesterol": "140-159"
     };
     expect(false).toEqual(fhRisk._isHyperLDLC(pi));

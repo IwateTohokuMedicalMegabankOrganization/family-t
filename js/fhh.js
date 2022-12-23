@@ -3961,6 +3961,11 @@ class FiveDiseaseRiskController{
 			label.css({'margin-right':'15px'});
 			elem.append(label);
 
+			var cholesterolMedicine = $('<span>');
+			cholesterolMedicine.attr('class','translate').attr('data-i18n', 'family-t.optionlabel.use_no_medicine').text(applicableInfo.cholesterolMedicine);
+			cholesterolMedicine.css({'margin-right':'30px'});
+			elem.append(cholesterolMedicine);
+
 			var ldlCholesterol = $('<span>');
 			ldlCholesterol.attr('class','translate').attr('data-i18n', 'family-t.optionlabel.over180').text(applicableInfo.ldlCholesterol);
 			ldlCholesterol.css({'margin-right':'30px'});

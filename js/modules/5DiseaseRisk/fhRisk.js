@@ -17,6 +17,10 @@ export class FhRisk extends FiveDiseaseRiskBase {
     HEART_ATTACK = 'SNOMED_CT-22298006';
     /** 家族性高コレステロール血症 */
     FH = 'SNOMED_CT-238038003';
+    /** コレステロールを下げる薬のkey名 */
+    KEY_NAME_CHOLESTEROL_MEDICINE = 'cholesterol_medicine';
+    /** コレステロールを下げる薬の値 */
+    CHOLESTEROL_MEDICINE = '0';
     /** LDLコレステロールのkey名 */
     KEY_NAME_LDL_CHOLESTEROL = 'ldl_cholesterol';
     /** LDLコレステロールの値 */
@@ -68,17 +72,19 @@ export class FhRisk extends FiveDiseaseRiskBase {
     _isHyperLDLC(pi) {
         // 引数チェック
         if(!FiveDiseaseRiskCommons._isParamCorrect(pi) 
+            || (Object.keys(pi).indexOf(this.KEY_NAME_CHOLESTEROL_MEDICINE)==-1)
             || (Object.keys(pi).indexOf(this.KEY_NAME_LDL_CHOLESTEROL)==-1)){
                 return false;
         }
 
         // 15際以上で高LDL-C血症
         if(FiveDiseaseRiskCommons.isAgeGreaterThanOrEqualTo(15,pi)){
-            if(pi.ldl_cholesterol == this.LDL_CHOLESTEROL){
+            if(pi.cholesterol_medicine == this.CHOLESTEROL_MEDICINE && pi.ldl_cholesterol == this.LDL_CHOLESTEROL){
                 var applicableInfo = {
                     relative : this.SELF,
                     name : pi.name,
-                    ldlCholesterol :this.LDL_CHOLESTEROL
+                    cholesterolMedicine : this.CHOLESTEROL_MEDICINE,
+                    ldlCholesterol : this.LDL_CHOLESTEROL
                 };
                 this.pushApplicableInfo(applicableInfo);
                 return true;
