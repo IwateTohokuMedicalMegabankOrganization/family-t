@@ -1750,17 +1750,52 @@ function preparate_lifestyle_score_dialog(){
 }
 
 /**
- * 家族歴の質で不足項目入力フォームのchangeイベント、ボタンclickイベント準備
+ * 5疾患リスク判定で不足項目入力フォームのchangeイベント、ボタンclickイベント準備
  */
- function preparate_fdr_score_dialog(){
+function preparate_fdr_score_dialog(){
 	var fdrSupplementForm = new FdrSupplementForm( personal_information );
 
-	// 再計算ボタン
-	$("#reCalculateFdrScore").on("click", function() {
-		FiveDiseaseRiskController.refresh();
-		temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
-		build_family_history_data_table_include_own();
+	// 喫煙状況
+	$('input[name="5dr_compensation_smoker"]').on('change',function() {
+		if ($('input[name="5dr_compensation_smoker"]:checked').val() != "5") {
+			$('input[name="5dr_compensation_number_of_cigarettes_per_day"]').prop('checked',false);
+			$('input[name="5dr_compensation_number_of_cigarettes_per_day"]').prop('disabled',true);
+		} else {
+			$('input[name="5dr_compensation_number_of_cigarettes_per_day"]').prop('disabled',false);
+		}
 	});
+
+	// 喫煙
+	$("#5dr_compensate_smoker").on('change',function() {
+		personal_information['smoker'] = $('input[name="5dr_compensation_smoker"]:checked').val();
+		personal_information['number_of_cigarettes_per_day'] = $('input[name="5dr_compensation_number_of_cigarettes_per_day"]:checked').val();
+    });
+	$('input[name="5dr_compensation_smoker"]').each(function(i,elem){
+		$(elem).prop('checked',($(elem).val() == personal_information['smoker']));
+	});
+	$('input[name="5dr_compensation_number_of_cigarettes_per_day"]').each(function(i,elem){
+		$(elem).prop('checked',($(elem).val() == personal_information['number_of_cigarettes_per_day']));
+	});
+	if ($('input[name="5dr_compensation_smoker"]:checked').val() != "5") {
+		$('input[name="5dr_compensation_number_of_cigarettes_per_day"]').prop('checked',false);
+		$('input[name="5dr_compensation_number_of_cigarettes_per_day"]').prop('disabled',true);
+	} else {
+		$('input[name="5dr_compensation_number_of_cigarettes_per_day"]').prop('disabled',false);
+	}
+
+	// 中性脂肪、コレステロールを下げる薬
+	$('input[name="5dr_compensation_cholesterol_medicine"]').on('change',function() {
+		personal_information['cholesterol_medicine'] = $('input[name="5dr_compensation_cholesterol_medicine"]:checked').val();
+    });
+	$('input[name="5dr_compensation_cholesterol_medicine"]').each(function(i,elem){
+		$(elem).prop('checked',($(elem).val() == personal_information['cholesterol_medicine']));
+	});
+
+	// LDLコレステロール
+	$("#5dr_compensate_ldl").on('change',function() {
+		personal_information['ldl_cholesterol'] = $('#5dr_compensation_ldl_cholesterol').val();
+    });
+	$('#5dr_compensation_ldl_cholesterol').val(personal_information['ldl_cholesterol']);
 
 	// 本人
 	$('#5dr_compensational_block_own input').on('change',function(){
@@ -1782,13 +1817,20 @@ function preparate_lifestyle_score_dialog(){
 		FiveDiseaseRiskController.showDifferenceScore ( personal_information );
 	});
 
+	// 再計算ボタン
+	$("#reCalculateFdrScore").on("click", function() {
+		FiveDiseaseRiskController.refresh();
+		temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
+		build_family_history_data_table_include_own();
+	});
+
 	$("#disp_toggle_hboc").hide();
 	$("#disp_toggle_hnpcc").hide();
 	$("#disp_toggle_aaa").hide();
 	$("#disp_toggle_fh").hide();
 	$("#disp_toggle_pc").hide();
 
-	if(typeof toggleflg == "undefined" || toggleflg != 1) {
+	//if(typeof toggleflg == "undefined" || toggleflg != 1) {
 		var speed = 1000;
 		var effect_type = "blind";
 
@@ -1813,7 +1855,7 @@ function preparate_lifestyle_score_dialog(){
 		});
 
 		toggleflg = 1;
-	}
+	//}
 }
 
 // 不足項目入力フォームのchangeイベント、ボタンclickイベント準備
@@ -2462,6 +2504,7 @@ function bind_personal_submit_button_action () {
 
 		personal_information['hdl_cholesterol'] = $('#additional_information_hdl_cholesterol').val();
 		personal_information['ldl_cholesterol'] = $('#additional_information_ldl_cholesterol').val();
+		personal_information['cholesterol_medicine'] = $('input[name="additional_information.cholesterol_medicine"]:checked').val();
 
 		// 最終診断年月の情報保存
 		personal_information['last_diagnosis_year'] = $('#last_diagnosis_year').val();
@@ -3320,7 +3363,7 @@ function load_risk_links() {
 	$("#disp_toggle_stroke").hide();
 	$("#disp_toggle_scoreDetail").hide();
 
-	if(typeof toggleflg == "undefined" || toggleflg != 1) {
+	//if(typeof toggleflg == "undefined" || toggleflg != 1) {
 		var speed = 1000;
 		var effect_type = "blind";
 
@@ -3341,7 +3384,7 @@ function load_risk_links() {
 		});
 
 		toggleflg = 1;
-	}
+	//}
 }
 
 class LifeStyleScoreDetailDialogController{
@@ -6263,7 +6306,7 @@ function clear_and_set_personal_health_history_dialog() {
 	$('input[name="additional_information.take_antihypertensive"]').val([personal_information.take_antihypertensive]);
 	$('select[name="additional_information.systolic_blood_pressure"]').val([personal_information.systolic_blood_pressure]);
 	$('select[name="additional_information.diastolic_blood_pressure"]').val([personal_information.diastolic_blood_pressure]);
-
+	
 	$('input[name="additional_information.take_hypoglycemic"]').val([personal_information.take_hypoglycemic]);
 	$('select[name="additional_information.fasting_blood_glucose_lebel"]').val([personal_information.fasting_blood_glucose_lebel]);
 	$('select[name="additional_information.occasionally_blood_glucose_lebel"]').val([personal_information.occasionally_blood_glucose_lebel]);
@@ -6272,6 +6315,7 @@ function clear_and_set_personal_health_history_dialog() {
 
 	$('select[name="additional_information.hdl_cholesterol"]').val([personal_information.hdl_cholesterol]);
 	$('select[name="additional_information.ldl_cholesterol"]').val([personal_information.ldl_cholesterol]);
+	$('input[name="additional_information.cholesterol_medicine"]').val([personal_information.cholesterol_medicine]);
 
 	// 最終診断年月の情報取得
 	$('#last_diagnosis_year').val([personal_information.last_diagnosis_year]);

@@ -667,6 +667,7 @@ export class NoteUtil{
         "age",
         "birth_order",
         "created_date",
+        "cholesterol_medicine",
         "diastolic_blood_pressure",
         "dietary_frequency_to_drink_suger_drin_in_week",
         "dietary_frequency_to_eat_dairy_products_in_day",
