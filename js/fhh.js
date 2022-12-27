@@ -1686,8 +1686,24 @@ function preparate_lifestyle_score_dialog(){
 	setChangeEvent('simuration');
 
 	function setChangeEvent(key) {
-		$(`#lifestylescore_${key}_block input`).change(function () {
+		// 値の更新
+		// 身長
+		$(`#lifestylescore_${key}_height`).on('change',function() {
+			if (!isNaN(parseInt($(`#lifestylescore_${key}_height_centimeters`).val()))) {
+				personal_information['height'] = parseInt($(`#lifestylescore_${key}_height_centimeters`).val());
+				personal_information['height_unit'] = "centimeters";
+			}
+		});
 
+		// 体重
+		$(`#lifestylescore_${key}_weight`).on('change',function() {
+			if (!isNaN(parseInt($(`#lifestylescore_${key}_weight_kg`).val()))) {
+				personal_information['weight'] = $(`#lifestylescore_${key}_weight_kg`).val();
+			};
+		});
+
+		// 喫煙
+		$(`#lifestylescore_${key}_smoker`).on('change',function() {
 			// 喫煙状況
 			if ($(`input[name="lifestylescore_${key}_smoker"]:checked`).val() != "5") {
 				$(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]`).prop('checked', false);
@@ -1696,6 +1712,13 @@ function preparate_lifestyle_score_dialog(){
 				$(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]`).prop('disabled', false);
 			}
 
+			// 値の反映
+			personal_information['smoker'] = $(`input[name="lifestylescore_${key}_smoker"]:checked`).val();
+			personal_information['number_of_cigarettes_per_day'] = $(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]:checked`).val();
+		});
+
+		// 運動
+		$(`#lifestylescore_${key}_training`).on('change',function() {
 			// 運動状況
 			if ($(`input[name="lifestylescore_${key}_training"]:checked`).val() == 1) {
 				$(`select[name="lifestylescore_${key}_training_status1"]`).prop('disabled', false);
@@ -1713,29 +1736,15 @@ function preparate_lifestyle_score_dialog(){
 				$(`.lifestylescore_${key}_training_status_yes`).hide('slow');
 			}
 
-			// 値の更新
-			// 身長
-			if (!isNaN(parseInt($(`#lifestylescore_${key}_height_centimeters`).val()))) {
-				personal_information['height'] = parseInt($(`#lifestylescore_${key}_height_centimeters`).val());
-				personal_information['height_unit'] = "centimeters";
-			}
-
-			// 体重
-			if (!isNaN(parseInt($(`#lifestylescore_${key}_weight`).val()))) {
-				personal_information['weight'] = $(`#lifestylescore_${key}_weight`).val();
-			};
-
-			// 喫煙
-			personal_information['smoker'] = $(`input[name="lifestylescore_${key}_smoker"]:checked`).val();
-			personal_information['number_of_cigarettes_per_day'] = $(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]:checked`).val();
-
-			// 運動
+			// 値の反映
 			personal_information['training_family'] = $(`input[name="lifestylescore_${key}_training"]:checked`).val();
 			personal_information['training_strength'] = $(`#lifestylescore_${key}_training_strength`).val();
 			personal_information['training_count_for_training_at_week'] = $(`#lifestylescore_${key}_count_for_training_at_week`).val();
 			personal_information['training_time_for_training_at_week'] = $(`#lifestylescore_${key}_time_for_training_at_week`).val();
+		});
 
-			// 食習慣
+		// 食習慣
+		$(`#lifestylescore_${key}_eating_habits`).on('change',function() {
 			personal_information['dietary_frequency_to_eat_fruits_in_day'] = $(`input[name="lifestylescore_${key}_frequency_to_eat_fruits_in_day"]:checked`).val();
 			personal_information['dietary_frequency_to_eat_vegetables_in_day'] = $(`input[name="lifestylescore_${key}_frequency_to_eat_vegetables_in_day"]:checked`).val();
 			personal_information['dietary_frequency_to_eat_nuts_in_week'] = $(`input[name="lifestylescore_${key}_frequency_to_eat_nuts_in_week"]:checked`).val();
@@ -3478,7 +3487,7 @@ class LifeStyleScoreDetailDialogController{
 		$(`#lifestylescore_${key}_height_centimeters`).val('');
 
 		// 体重
-		$(`#lifestylescore_${key}_weight`).val('');
+		$(`#lifestylescore_${key}_weight_kg`).val('');
 
 		// 喫煙
 		var elem = $(`#lifestylescore_simuration_smoker1`);
