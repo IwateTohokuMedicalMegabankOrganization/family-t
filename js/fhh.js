@@ -1824,38 +1824,42 @@ function preparate_fdr_score_dialog(){
 		build_family_history_data_table_include_own();
 	});
 
+	// 詳細はデフォルト非表示
 	$("#disp_toggle_hboc").hide();
 	$("#disp_toggle_hnpcc").hide();
 	$("#disp_toggle_aaa").hide();
 	$("#disp_toggle_fh").hide();
 	$("#disp_toggle_pc").hide();
 
-	//if(typeof toggleflg == "undefined" || toggleflg != 1) {
-		var speed = 1000;
-		var effect_type = "blind";
+	// onclickイベント重複解除
+	$("#btn_toggle_hboc").off('click');
+	$("#btn_toggle_hnpcc").off('click');
+	$("#btn_toggle_aaa").off('click');
+	$("#btn_toggle_fh").off('click');
+	$("#btn_toggle_pc").off('click');
 
-		$("#btn_toggle_hboc").on("click", function() {
-			$("#disp_toggle_hboc").toggle(effect_type, speed);
-		});
+	var speed = 1000;
+	var effect_type = "blind";
 
-		$("#btn_toggle_hnpcc").on("click", function() {
-			$("#disp_toggle_hnpcc").toggle(effect_type, speed);
-		});
+	$("#btn_toggle_hboc").on("click", function() {
+		$("#disp_toggle_hboc").toggle(effect_type, speed);
+	});
 
-		$("#btn_toggle_aaa").on("click", function() {
-			$("#disp_toggle_aaa").toggle(effect_type, speed);
-		});
+	$("#btn_toggle_hnpcc").on("click", function() {
+		$("#disp_toggle_hnpcc").toggle(effect_type, speed);
+	});
 
-		$("#btn_toggle_fh").on("click", function() {
-			$("#disp_toggle_fh").toggle(effect_type, speed);
-		});
+	$("#btn_toggle_aaa").on("click", function() {
+		$("#disp_toggle_aaa").toggle(effect_type, speed);
+	});
 
-		$("#btn_toggle_pc").on("click", function() {
-			$("#disp_toggle_pc").toggle(effect_type, speed);
-		});
+	$("#btn_toggle_fh").on("click", function() {
+		$("#disp_toggle_fh").toggle(effect_type, speed);
+	});
 
-		toggleflg = 1;
-	//}
+	$("#btn_toggle_pc").on("click", function() {
+		$("#disp_toggle_pc").toggle(effect_type, speed);
+	});
 }
 
 // 不足項目入力フォームのchangeイベント、ボタンclickイベント準備
@@ -3358,33 +3362,36 @@ function load_risk_links() {
 	// リスク計算および結果・範囲・表示画像制御
 	riskCalcAndShow();
 
+	// 詳細はデフォルト非表示
 	$("#disp_toggle_diabetes").hide();
 	$("#disp_toggle_chd").hide();
 	$("#disp_toggle_stroke").hide();
 	$("#disp_toggle_scoreDetail").hide();
 
-	//if(typeof toggleflg == "undefined" || toggleflg != 1) {
-		var speed = 1000;
-		var effect_type = "blind";
+	// onclickイベントの重複回避
+	$("#btn_toggle_diabetes").off('click');
+	$("#btn_toggle_chd").off('click');
+	$("#btn_toggle_stroke").off('click');
+	$("#btn_toggle_scoreDetail").off('click');
 
-		$("#btn_toggle_diabetes").on("click", function() {
-			$("#disp_toggle_diabetes").toggle(effect_type, speed);
-		});
+	var speed = 1000;
+	var effect_type = "blind";
 
-		$("#btn_toggle_chd").on("click", function() {
-			$("#disp_toggle_chd").toggle(effect_type, speed);
-		});
+	$("#btn_toggle_diabetes").on("click", function() {
+		$("#disp_toggle_diabetes").toggle(effect_type, speed);
+	});
 
-		$("#btn_toggle_stroke").on("click", function() {
-			$("#disp_toggle_stroke").toggle(effect_type, speed);
-		});
+	$("#btn_toggle_chd").on("click", function() {
+		$("#disp_toggle_chd").toggle(effect_type, speed);
+	});
 
-		$("#btn_toggle_scoreDetail").on("click", function() {
-			$("#disp_toggle_scoreDetail").toggle(effect_type, speed);
-		});
+	$("#btn_toggle_stroke").on("click", function() {
+		$("#disp_toggle_stroke").toggle(effect_type, speed);
+	});
 
-		toggleflg = 1;
-	//}
+	$("#btn_toggle_scoreDetail").on("click", function() {
+		$("#disp_toggle_scoreDetail").toggle(effect_type, speed);
+	});
 }
 
 class LifeStyleScoreDetailDialogController{
