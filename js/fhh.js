@@ -1383,27 +1383,27 @@ function checkNecessaryItemsForLifestyleScore(){
 
 	// 身長
 	if(typeof(personal_information.height) == "undefined" || personal_information.height == "" || personal_information.height == 0){
-		$("#lifestylescore__height").show();
+		$("#lifestylescore_compensation_height").show();
 		cond = false;
 	} else {
-		$("#lifestylescore__height").hide();
+		$("#lifestylescore_compensation_height").hide();
 	}
 
 	// 体重
 	if(typeof(personal_information.weight) == "undefined" || personal_information.weight == ""){
-		$("#lifestylescore__weight").show();
+		$("#lifestylescore_compensation_weight").show();
 		cond = false;
 	} else {
-		$("#lifestylescore__weight").hide();
+		$("#lifestylescore_compensation_weight").hide();
 	}
 
 	// 喫煙
 	if(typeof personal_information.smoker == "undefined" ||
 			(personal_information.smoker == "5" && typeof personal_information.number_of_cigarettes_per_day == "undefined") ){
-		$("#lifestylescore__smoker").show();
+		$("#lifestylescore_compensation_smoker").show();
 		cond = false;
 	} else {
-		$("#lifestylescore__smoker").hide();
+		$("#lifestylescore_compensation_smoker").hide();
 	}
 
 	// 運動
@@ -1412,10 +1412,10 @@ function checkNecessaryItemsForLifestyleScore(){
 															personal_information.training_count_for_training_at_week == "" ||
 															personal_information.training_time_for_training_at_week == "")
 			) ) {
-		$("#lifestylescore_compensate_training").show();
+		$("#lifestylescore_compensation_training").show();
 		cond = false;
 	} else {
-		$("#lifestylescore_compensate_training").hide();
+		$("#lifestylescore_compensation_training").hide();
 	}
 
 	// 食生活
@@ -1429,10 +1429,10 @@ function checkNecessaryItemsForLifestyleScore(){
 				personal_information.dietary_frequency_to_eat_unprocessed_meat_in_week == null ||
 				personal_information.dietary_frequency_to_drink_suger_drin_in_week == null
 				){
-		$("#lifestylescore_eating_habits").show();
+		$("#lifestylescore_compensation_eating_habits").show();
 		cond = false;
 	}else{
-		$("#lifestylescore_eating_habits").hide();
+		$("#lifestylescore_compensation_eating_habits").hide();
 	}
 
 	return cond;
