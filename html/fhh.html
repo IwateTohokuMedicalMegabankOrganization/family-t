@@ -62,6 +62,7 @@
 	<script type="text/javascript" src="../risk/stroke/stroke.js"></script>
 	<script type="text/javascript" src="../risk/lifestyle/lifestyle.js"></script>
 	<script type="text/javascript" src="../risk/history/history.js"></script>
+	<script type="text/javascript" src="../risk/fiveDisease/fiveDisease.js"></script>
 
 	<!--<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.amber-pink.min.css" />-->
 	<link rel="stylesheet" href="../css/mdl/material.min.css">
@@ -76,6 +77,7 @@
 	<link href="../css/family-t.css" type="text/css" rel="stylesheet" media="screen,projection,print"/>
 	<script type="text/javascript" src="../js/keys.js"></script>
 	<script type="text/javascript" src="../js/quality_of_family_history_score_dialog.js"></script>
+	<script type="text/javascript" src="../js/5disease_risk_caluclation_dialog.js"></script>
 	<!--	<script type="text/javascript" src="../js/materialize.min.js"></script>-->
 	<!--
 	<script type="text/javascript">
@@ -460,7 +462,68 @@ body {
 							</div>
 						</div>
 					</div>
-					
+					<div class="row">
+						<div class="card light-green lighten-5">
+						   <div class="card-content black-text">
+							   <div class="card-title"><span class='translate' data-i18n='family-t_5disease_risk.5disease_risk'>家族歴に基づく疾患発症リスク</span></div>
+							   <div class="calculatable"> 
+								   <div class="row">
+									   <div class="col s12">
+										   <span class='translate' style="color: darkgreen; font-weight: bold;" data-i18n='family-t_5disease_risk.HBOC'>遺伝性乳がん卵巣がん症候群</span>
+									   </div>
+									   <div class="col s12">
+											<span class="translate hbocScoreResult" id="hboc_has_risk" data-i18n="family-t_5disease_risk.has_risk">一般よりリスクが高い可能性を示す家族歴があります。</span>
+											<span class="translate hbocScoreResult" id="hboc_has_no_risk" data-i18n="family-t_5disease_risk.has_no_risk">一般よりリスクが高い可能性を示す家族歴はありませんでした。</span>
+											<span class="translate hbocScoreResult" id="hboc_no_item" data-i18n="family-t_5disease_risk.no_item">リスク因子の検証に必要な項目が登録されてません。</span>
+									   </div>
+								   </div>
+								   <div class="row">
+									   <div class="col s12">
+										   <span class='translate' style="color: darkgreen; font-weight: bold;" data-i18n='family-t_5disease_risk.HNPCC'>リンチ症候群（遺伝性非ポリポーシス性大腸がん）</span>
+									   </div>
+									   <div class="col s12">
+											<span class="translate hnpccScoreResult" id="hnpcc_has_risk" data-i18n="family-t_5disease_risk.has_risk">一般よりリスクが高い可能性を示す家族歴があります。</span>
+											<span class="translate hnpccScoreResult" id="hnpcc_has_no_risk" data-i18n="family-t_5disease_risk.has_no_risk">一般よりリスクが高い可能性を示す家族歴はありませんでした。</span>
+											<span class="translate hnpccScoreResult" id="hnpcc_no_item" data-i18n="family-t_5disease_risk.no_item">リスク因子の検証に必要な項目が登録されてません。</span>
+									   </div>
+								   </div>
+								   <div class="row">
+										<div class="col s12">
+											<span class='translate' style="color: darkgreen; font-weight: bold;" data-i18n='family-t_5disease_risk.AAA'>腹部大動脈瘤</span>
+										</div>
+										<div class="col s12">
+											<span class="translate aaaScoreResult" id="aaa_has_risk" data-i18n="family-t_5disease_risk.has_risk">一般よりリスクが高い可能性を示す家族歴があります。</span>
+											<span class="translate aaaScoreResult" id="aaa_has_no_risk" data-i18n="family-t_5disease_risk.has_no_risk">一般よりリスクが高い可能性を示す家族歴はありませんでした。</span>
+											<span class="translate aaaScoreResult" id="aaa_no_item" data-i18n="family-t_5disease_risk.no_item">リスク因子の検証に必要な項目が登録されてません。</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col s12">
+											<span class='translate' style="color: darkgreen; font-weight: bold;" data-i18n='family-t_5disease_risk.FH'>家族性高コレステロール血症</span>
+										</div>
+										<div class="col s12">
+											<span class="translate fhScoreResult" id="fh_has_risk" data-i18n="family-t_5disease_risk.has_risk">一般よりリスクが高い可能性を示す家族歴があります。</span>
+											<span class="translate fhScoreResult" id="fh_has_no_risk" data-i18n="family-t_5disease_risk.has_no_risk">一般よりリスクが高い可能性を示す家族歴はありませんでした。</span>
+											<span class="translate fhScoreResult" id="fh_no_item" data-i18n="family-t_5disease_risk.no_item">リスク因子の検証に必要な項目が登録されてません。</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col s12">
+											<span class='translate' style="color: darkgreen; font-weight: bold;" data-i18n='family-t_5disease_risk.PC'>前立腺がん</span>
+										</div>
+										<div class="col s12">
+											<span class="translate pcScoreResult" id="pc_has_risk" data-i18n="family-t_5disease_risk.has_risk">一般よりリスクが高い可能性を示す家族歴があります。</span>
+											<span class="translate pcScoreResult" id="pc_has_no_risk" data-i18n="family-t_5disease_risk.has_no_risk">一般よりリスクが高い可能性を示す家族歴はありませんでした。</span>
+											<span class="translate pcScoreResult" id="pc_no_item" data-i18n="family-t_5disease_risk.no_item">リスク因子の検証に必要な項目が登録されてません。</span>
+										</div>
+									</div>
+							   </div>
+						   </div>
+						   <div class="card-action cursor_pointer">
+							   <span class="blue-text" style="text-decoration: underline;" id="show5diseaseRiskDetail"><span class='translate' data-i18n='family-t.show_detail'>詳細へ</span></span>
+						   </div>
+					   </div>
+				   </div>
 				</div>
 
 
@@ -541,6 +604,7 @@ body {
 							<div id='lifestyle_score_calculator_dialog' style="background: #ffffff !important;"></div>
 							<div id='quality_of_family_history_score_dialog' style="background: #ffffff !important;"></div>
 							<div id='family-t_qof_history_score_help_dialog' style="background: #ffffff !important;"></div>
+							<div id='5disease_risk_dialog' style="background: #ffffff !important;"></div>
 							<div id='familyTable'></div>
 							<div style="display:none;">
 								<div id='risk_section'> <i>Loading Risk Assessment Tools...</i> </div>

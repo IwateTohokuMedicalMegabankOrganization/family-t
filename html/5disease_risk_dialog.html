@@ -1,0 +1,530 @@
+<html>
+    <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection,print" />
+    <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection,print"/>
+    <link href="../css/material-icons.css" rel="stylesheet">
+
+    <div class="row">
+        <div class="right">
+            <button class="close5diseaseRiskButton btn-large waves-effect waves-light teal lighten-1 translate" data-i18n='fhh_family_pedigree.close'>Close</button>
+        </div>
+    </div>
+    <div class="row risk_caution" id="risk_caution_for_pring">
+        <div class="col s11">
+
+            <span class='translate' data-i18n='family-t_5disease_risk.exp1'>
+                遺伝が関わる疾患の中には、家族の病歴（家族歴）から発症リスクを推定するものがあります。
+            </span>
+            <span class='translate' data-i18n='family-t_5disease_risk.exp2'>
+                ここではそのような疾患について、あなたの家族歴の中から発症にかかわると考えられるリスク因子を表示します。
+            </span>
+            <span class='translate' data-i18n='family-t_5disease_risk.exp3'>
+                あなたの健康管理の参考としてご利用ください。
+            </span>
+            <span class='translate' data-i18n='family-t_5disease_risk.exp4'>
+                （family-tの疾患リストに含まれていない稀少な疾患は、表示の対象外となっています。
+            </span>
+            <span class='translate' data-i18n='family-t_5disease_risk.exp5'>
+                また、family-tの疾患リストに含まれている疾患であっても、リストから選択せず、自由記述で入力した場合も表示の対象外になります。）
+            </span>
+        </div>
+    </div>
+
+
+    <div class="row compensational_block" id="compensational_block">
+        <!-- 冒頭の説明 -->
+        <div class="col s12 compensation_start">
+            <div class="col s12 left">
+                <span class='translate' data-i18n='family-t_risk.exp6'>
+                    リスク計算に必要な以下の項目が未入力です。（）内はその項目の情報が計算に必要となる病名です。
+                </span>
+                <br>
+                <span class='translate' data-i18n='family-t_risk.exp7'>
+                    各項目の情報を入力することで、より精度の高い計算を行います。<br>
+                </span>
+            </div>
+        </div>
+
+        <div class="col s12 compensation">
+            <!-- 本人 -->
+            <table class="table" style="border-spacing: 0px 20px;border-collapse: separate;">
+                <thead>
+                    <tr>
+                        <th width="10%"></th>
+                        <th width="90%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3">
+                            <span class='col s6 text-left translate' data-i18n='fhh_js.self'>あなた</span>
+                        </td>
+                        <td>
+                            <!-- 喫煙状況 -->
+                            <div id="5dr_compensate_smoker" class="col s12 compensation">
+                                <div class="col s5" style="padding-bottom: 5px;">
+                                    <span class='translate' data-i18n='family-t.smoking_status'>喫煙状況</span>
+                                    <div class="disease_guide"><span class='translate' data-i18n='family-t_5disease_risk.AAA()'>（腹部大動脈瘤）</span></div>
+                                </div>
+                                <div class="col s7" style="padding-bottom: 5px;">
+                                    <div class="col s12">
+                                        <input id="5dr_compensation_smoker1" name="5dr_compensation_smoker" value="1" type="radio" />
+                                        <label for="5dr_compensation_smoker1">
+                                            <span class='translate' data-i18n="family-t.never_smoked" >Never smoked</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col s12">
+                                        <input id="5dr_compensation_smoker2" name="5dr_compensation_smoker" value="2" type="radio" />
+                                        <label for="5dr_compensation_smoker2">
+                                            <span class='translate' data-i18n="family-t.former_smoker_quit_more_than_fifteen_years_ago." >Former smoker: quit more than fifteen years ago.</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col s12">
+                                        <input id="5dr_compensation_smoker3" name="5dr_compensation_smoker" value="3" type="radio" />
+                                        <label for="5dr_compensation_smoker3">
+                                            <span class='translate' data-i18n="family-t.former_smoker_quit_between_one_and_fifteen_years_ago." >
+                                                Former smoker: quit between one and fifteen years ago.
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col s12">
+                                        <input id="5dr_compensation_smoker4" name="5dr_compensation_smoker" value="4" type="radio" />
+                                        <label for="5dr_compensation_smoker4">
+                                        <span class='translate' data-i18n="family-t.former_smoker_quit_less_than_one_year_ago" >
+                                            Former smoker: quit less than one year ago
+                                        </span>
+                                        </label>
+                                    </div>
+
+                                    <div class="col s12">
+                                        <input id="5dr_compensation_smoker5" name="5dr_compensation_smoker" value="5" type="radio" />
+                                        <label for="5dr_compensation_smoker5">
+                                        <span class='translate' data-i18n="family-t.current_smoker" >Current smoker</span></label>
+                                    </div>
+                                </div>
+                                <div class="col s5">
+                                    <span class='translate' data-i18n="family-t.select_the_number_of_cigarettes_you_smoke_per_day_on_average" >
+                                    Select the number of cigarettes you smoke per day (on average).
+                                    </span>
+                                </div>
+                                <div class="col s7">
+                                    <div class="col s6">
+                                        <input id="5dr_compensation_number_of_cigarettes_per_day_1_to_9" name="5dr_compensation_number_of_cigarettes_per_day" value="1_to_9" type="radio" disabled/>
+                                        <label for="5dr_compensation_number_of_cigarettes_per_day_1_to_9">
+                                            <span class='translate' data-i18n="family-t.1_-_9_cigarettes_per_day" >1 - 9 cigarettes per day</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s6">
+                                        <input id="5dr_compensation_number_of_cigarettes_per_day_10_or_more" name="5dr_compensation_number_of_cigarettes_per_day" value="10_or_more" type="radio" disabled/>
+                                        <label for="5dr_compensation_number_of_cigarettes_per_day_10_or_more">
+                                            <span class='translate' data-i18n="family-t.more_than_10_cigarettes_per_day" >More than 10 cigarettes per day</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!-- コレステロール -->
+                            <div id="5dr_compensate_cholesterol_medicine" class="col s12 compensation">
+                                <div class="col s5">
+                                    <span class='translate' data-i18n='family-t.hdl_cholesterol_medicine'>中性脂肪、コレステロールを下げる薬を服用していますか？</span>
+                                    <div class="disease_guide"><span class='translate' data-i18n='family-t_5disease_risk.FH()'>（家族性コレステロール血症）</span></div>
+                                </div>
+                                <div class="col s7">
+                                    <div class="col s12">
+                                        <input id="5dr_compensation_cholesterol_medicine1" name="5dr_compensation_cholesterol_medicine" value="1" type="radio" />
+                                        <label for="5dr_compensation_cholesterol_medicine1">
+                                            <span class='translate' data-i18n="fhh_js.yes" >はい</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s12">
+                                        <input id="5dr_compensation_cholesterol_medicine2" name="5dr_compensation_cholesterol_medicine" value="0" type="radio" />
+                                        <label for="5dr_compensation_cholesterol_medicine2">
+                                            <span class='translate' data-i18n="fhh_js.no" >いいえ</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>                    
+                            <div id="5dr_compensate_ldl" class="col s12 compensation">
+                                <div class="col s5">
+                                    <span class='translate' data-i18n='family-t.ldl_cholesterol_(mg/dl)'>LDL cholesterol (mg/dL)</span>
+                                    <div class="disease_guide"><span class='translate' data-i18n='family-t_5disease_risk.FH()'>（家族性コレステロール血症）</span></div>
+                                </div>
+                                <div class="col s7">
+                                    <div class="col s5">
+                                        <select id='5dr_compensation_ldl_cholesterol' name='5dr_compensation_ldl_cholesterol'>
+                                            <option value="" disabled selected class='translate' data-i18n='family-t.optionlabel.pleaseselect'></option>
+                                            <option value='less_than_100' class='translate' data-i18n='family-t.optionlabel.under100'>100未満</option>
+                                            <option value='100-139' class='translate' data-i18n='family-t.optionlabel.100_139'>100～139</option>
+                                            <option value='140-159' class='translate' data-i18n='family-t.optionlabel.140_159'>140～159</option>
+                                            <option value='160-179' class='translate' data-i18n='family-t.optionlabel.160_179'>160～179</option>
+                                            <option value='over180' class='translate' data-i18n='family-t.optionlabel.over180'>180以上  </option>
+                                            <option value='unknown' class='translate' data-i18n='family-t.optionlabel.unknown'>分からない</option>
+                                            <option value='not_inspected' class='translate' data-i18n='family-t.optionlabel.not_inspected'>検査していない</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!-- 本人の病歴 -->
+                            <table class="table" style="border-spacing: 0px 20px;border-collapse: separate;">
+                                <thead>
+                                    <tr>
+                                        <th width="10%">
+                                            <span class="translate" data-i18n="family-t.presence_or_absence_of_disease"></span>
+                                            
+                                        </th>
+                                        <th>
+                                            <span class="translate" data-i18n=""></span>
+                                            <span class="translate disease_guide" data-i18n="family-t_5disease_risk.all_disease"></span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list-group ui-sortable" id="5dr_compensational_block_own">
+                                    <tr class="center information proband">
+                                        <td class="inforamtion center"></td>
+                                        <td class="inforamtion center"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col s12 compensation">
+            <!-- 家族 -->
+            <table class="table" style="border-spacing: 0px 20px;border-collapse: separate;">
+                <thead>
+                    <tr>
+                        <th width="10%"></th>
+                        <th width="10%">
+                            <span class="translate" data-i18n="family-t.presence_or_absence_of_disease"></span>
+                            
+                        </th>
+                        <th>
+                            <span class="translate" data-i18n=""></span>
+                            <span class="translate disease_guide" data-i18n="family-t_5disease_risk.all_disease"></span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="list-group ui-sortable" id="5dr_compensational_block">
+                    <tr class="center information proband">
+                        <td class="inforamtion center"></td>
+                        <td class="inforamtion center"></td>
+                        <td class="inforamtion center"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="col s12 compensation">
+            <div class="col s12 center">
+                <button id="reCalculateFdrScore" class="btn-small waves-effect waves-light teal lighten-1">
+                    <i class="material-icons left">refresh</i>
+                    <span class="translate" data-i18n="family-t_risk.recalculate">再計算</span>
+                </button>
+            </div>
+        </div>	
+    </div>
+
+
+    <!---------------------------------------------------------------------------------------- 
+            リスク判定結果
+    ---------------------------------------------------------------------------------------->
+    <div class="row risk_box result_block page_breaker_for_print" id="">
+        <div class="col s12 risk_title">
+            <span class='translate' data-i18n='family-t_5disease_risk.HBOC'>遺伝性乳がん卵巣がん症候群</span>
+        </div>
+        <div class="col s12 risk_container">
+            <div class="ScoreResult ">
+                <div class="col s12 risk_result">
+                    <div class="col s12 5disease_risk_result" style="text-align: center;margin-top: 50px;">
+                        <div class='translate' id="fdr_has_risk_hboc" data-i18n='family-t_5disease_risk.applicable'>確定的ではありませんが、以下のリスク因子が認められます。</div>
+                        <div class='translate' id="fdr_has_no_risk_hboc" data-i18n='family-t_5disease_risk.has_no_risk'>一般よりリスクが高い可能性を示す家族歴はありませんでした。</div>
+                        <div class='translate' id="fdr_no_item_hboc" data-i18n='family-t_5disease_risk.no_item'>リスク因子の検証に必要な項目が登録されてません。</div>
+                    </div>
+                    <div id="disp_toggle_hboc" style="height: 750px;">
+                        <div class="col s10 offset-s1" style="display: block;">
+                            <div class="5disease_risk_applicable" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left; font-weight: bold;" data-i18n='family-t_5disease_risk.applicable_info'>
+                                    【該当するあなたと家族の健康情報】
+                                </div>
+                                <div id="applicable_info_hboc" style="text-align: left; font-size: larger;">
+                                    <!-- データバインドする -->
+                                </div>
+                            </div>
+
+                            <div class="5disease_risk_criteria" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left;" data-i18n='family-t_5disease_risk.criteria_of_hboc'>
+                                    以下に該当する場合、遺伝性乳がん卵巣がん症候群(HBOC)のリスクが一般よりも高いと考えられます。
+                                </div>
+                                <div class='translate' style="text-align: left; display: block; margin-top: 50px;">
+                                    <div class='translate' style="font-weight: bold;" data-i18n='family-t_5disease_risk.criteria'>【基準】</div>
+                                    <div class='translate' style="font-weight: bold;" data-i18n='family-t_5dr_hboc.criteria1'>遺伝性乳癌卵巣癌症候群（HBOC）診療ガイドライン 2021年版</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria1-1'>・検査を検討している本人の乳癌の罹患状況を問わず，血縁者がすでにBRCA1/2に病的バリアントをもっていることがわかっている </div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria1-2'>・本人が乳がんを発症かつ、45歳以下で診断された乳癌	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria1-3'>・本人が乳がんを発症かつ、60歳以下でサブタイプがトリプルネガティブと診断された乳癌	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria1-4'>・本人が乳がんを発症かつ、両側または片側に2個以上の原発性乳癌を診断された	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria1-5'>・本人が乳がんを発症かつ、第血縁者（第三度近親者以内＊）に乳癌または卵巣癌，膵癌患者がいる	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria1-6'>・本人が前立腺がんを発症かつ、血縁者の中で2名以上にHBOC関連（乳癌・卵巣癌・膵癌・悪性黒色腫等）の発がんが確認されている	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria1-7'>・本人が膵がんを発症かつ、血縁者の中で2名以上にHBOC関連（乳癌・卵巣癌・前立腺癌・膵癌・悪性黒色腫等）の発癌が確認されている	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria1-8'>・卵巣癌、卵管癌および腹膜癌を発症	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria1-9'>・男性で乳癌と診断された	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria1-10'>・HER2陰性の手術不能または転移再発乳癌でオラパリブの投与が検討されている	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria1-11'>・がん発症者でPARP阻害薬に対するコンパニオン診断の適格基準を満たす場合腫瘍組織プロファイリング検査で、BRCA1/2の生殖細胞系列病的バリアント保持が疑われる乳がん患者	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria1-12'>・遠隔転移またはリンパ節転移を有する転移性前立腺癌	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria1-13'>・遠隔転移を有する，または術後再発の膵がん患者	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria1-14'>・すべての卵巣癌・卵管癌・原発性腹膜癌患者には家族歴に関係なくBRCA遺伝学的検査を考慮してもよい</div>
+                                    <br>
+                                    <div class='translate' style="font-weight: bold;" data-i18n='family-t_5dr_hboc.criteria2'>日本HBOCコンソーシアムチェックリスト</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria2-1'>・40歳未満で乳がんを発症した人がいる	自身を含めた家族の中に該当する人がいる場合、HBOCである可能性は一般よりも高いと考えられる</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria2-2'>・年齢を問わず卵巣癌（卵管癌・腹膜癌を含む）の人がいる	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria2-3'>・年齢を問わず、原発性乳癌を2個以上発症した人がいる	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria2-4'>・男性の乳がん発症者がいる	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria2-5'>・自身を含め乳がん発症者が3人以上いる	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria2-6'>・トリプルネガティブの乳がんといわれた人がいる	</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hboc.criteria2-7'>・BRCAの遺伝子変異が確認された人がいる	</div>    
+                                </div>
+                            </div>
+                            <div class="col s12 5disease_risk_reference" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left; display: block;">
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5disease_risk.reference'>このリスク推定は以下に基づいています。</div>
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5dr_hboc.reference1'>・遺伝性乳癌卵巣癌症候群（HBOC）診療ガイドライン 2021年版、一般社団法人 日本遺伝性乳癌卵巣癌総合診療制度機構、2021年7月</div>
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5dr_hboc.reference2'>・遺伝性乳がん卵巣がん（HBOC）をご理解いただくために ver.2022_1、一般社団法人 日本遺伝性乳癌卵巣癌総合診療制度機構、2022年1月</div>
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5dr_hboc.reference3'>・日本HBOCコンソーシアムチェックリスト</div>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                    <div class="col s12 center" style="margin-top: 50px;"><span id="btn_toggle_hboc" class="material-icons large-size orange-text cursor_pointer icon_shadow_o">swap_vertical_circle</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row risk_box result_block page_breaker_for_print" id="">
+        <div class="col s12 risk_title">
+            <span class='translate' data-i18n='family-t_5disease_risk.HNPCC'>リンチ症候群（遺伝性非ポリポーシス大腸がん）</span>
+        </div>
+        <div class="col s12 risk_container">
+            <div class="ScoreResult ">
+                <div class="col s12 risk_result">
+                    <div class="col s12 5disease_risk_result" style="text-align: center;margin-top: 50px;">
+                        <div class='translate' id="fdr_has_risk_hnpcc" data-i18n='family-t_5disease_risk.applicable'>確定的ではありませんが、以下のリスク因子が認められます。</div>
+                        <div class='translate' id="fdr_has_no_risk_hnpcc" data-i18n='family-t_5disease_risk.has_no_risk'>一般よりリスクが高い可能性を示す家族歴はありませんでした。</div>
+                        <div class='translate' id="fdr_no_item_hnpcc" data-i18n='family-t_5disease_risk.no_item'>リスク因子の検証に必要な項目が登録されてません。</div>
+                    </div>               
+                    <div id="disp_toggle_hnpcc" style="height: 750px;">
+                        <div class="col s10 offset-s1" style="display: block;">
+                            <div class="5disease_risk_applicable" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left; font-weight: bold;" data-i18n='family-t_5disease_risk.applicable_info'>
+                                    【該当するあなたと家族の健康情報】
+                                </div>
+                                <div id="applicable_info_hnpcc" style="text-align: left; font-size: larger;">
+                                    <!-- データバインドする -->
+                                </div>
+                            </div>
+                            
+                            <div class="5disease_risk_criteria" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left;" data-i18n='family-t_5disease_risk.criteria_of_hvpcc'>
+                                    以下に該当する場合、リンチ症候群（遺伝性非ポリポーシス大腸がん：HNPCC）のリスクが一般よりも高いと考えられます。
+                                </div>
+                                <div class='translate' style="text-align: left; display: block; margin-top: 50px;">
+                                    <div class='translate' style="font-weight: bold;" data-i18n='family-t_5disease_risk.criteria'>【基準】</div>
+                                    <div class='translate' style="font-weight: bold;" data-i18n='family-t_5dr_hnpcc.criteria1'>アムステルダム基準Ⅱ（1999）</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hnpcc.criteria1-1'>・少なくとも3人の血縁者がHNPCC（リンチ症候群）関連腫瘍（大腸癌，子宮内膜癌，腎盂・尿管癌，小腸癌）に罹患しており，以下のすべてを満たしている。</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hnpcc.criteria1-2'>　1．1人の罹患者はその他の2人に対して第1度近親者である。</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hnpcc.criteria1-3'>　2．少なくとも連続する2世代で罹患している。</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hnpcc.criteria1-4'>　3．少なくとも1人の癌は50歳未満で診断されている。</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hnpcc.criteria1-5'>　4．腫瘍は病理学的に癌であることが確認されている。</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hnpcc.criteria1-6'>　5．FAPが除外されている。"</div>
+                                    <br>
+                                    <div class='translate' style="font-weight: bold;" data-i18n='family-t_5dr_hnpcc.criteria2'>改訂ベセスダガイドライン（2004）</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hnpcc.criteria2-1'>・本人が大腸がん患者かつ、50歳未満で診断された大腸癌</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hnpcc.criteria2-2'>・本人が大腸がん患者かつ、年齢に関わりなく，同時性あるいは異時性大腸癌あるいはその他のリンチ症候群関連腫瘍*がある。</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hnpcc.criteria2-3'>・本人が大腸がん患者かつ、60歳未満で診断されたMSI-Hの組織学的所見**を有する大腸癌。</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hnpcc.criteria2-4'>・本人が大腸がん患者かつ、第1度近親者が1人以上リンチ症候群関連腫瘍に罹患しており，そのうち一つは50歳未満で診断された大腸癌</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hnpcc.criteria2-5'>・本人が大腸がん患者かつ、年齢に関わりなく，第1度あるいは第2度近親者の2人以上がリンチ症候群関連腫瘍と診断されている患者の大腸癌</div>
+                                    <br>
+                                    <div class='translate' style="font-weight: bold;" data-i18n='family-t_5dr_hnpcc.criteria3'>ユニバーサルスクリーニング</div>
+                                    <div class='translate' data-i18n='family-t_5dr_hnpcc.criteria3-1'>・全て（あるいは 70 歳以下）の大腸癌、子宮内膜がん</div>
+                                </div>
+                            </div>
+
+                            <div class="col s12 5disease_risk_criteria_note" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left; display: block;">
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5dr_hnpcc.note1'>　 *：大腸癌，子宮内膜癌，胃癌，卵巣癌，膵癌，胆道癌，小腸癌，腎盂・尿管癌，脳腫瘍（通常はターコット症候群にみられるglioblastoma），ムア・トレ症候群の皮脂腺腫や角化棘細胞腫</div>
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5dr_hnpcc.note2'>　**：腫瘍内リンパ球浸潤，クローン様リンパ球反応，粘液癌・印環細胞癌様分化，髄様増殖</div>
+                                </div>
+                            </div>
+
+                            <div class="col s12 5disease_risk_reference" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left; display: block;">
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5disease_risk.reference'>このリスク推定は以下に基づいています。</div>
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5dr_hnpcc.reference1'>・遺伝性大腸癌診療ガイドライン2020年版</div>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                    <div class="col s12 center" style="margin-top: 50px;"><span id="btn_toggle_hnpcc" class="material-icons large-size orange-text cursor_pointer icon_shadow_o">swap_vertical_circle</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row risk_box result_block page_breaker_for_print" id="">
+        <div class="col s12 risk_title">
+            <span class='translate' data-i18n='family-t_5disease_risk.AAA'>腹部大動脈瘤</span>
+        </div>
+        <div class="col s12 risk_container">
+            <div class="ScoreResult ">
+                <div class="col s12 risk_result">
+                    <div class="col s12 5disease_risk_result" style="text-align: center;margin-top: 50px;">
+                        <div class='translate' id="fdr_has_risk_aaa" data-i18n='family-t_5disease_risk.applicable'>確定的ではありませんが、以下のリスク因子が認められます。</div>
+                        <div class='translate' id="fdr_has_no_risk_aaa" data-i18n='family-t_5disease_risk.has_no_risk'>一般よりリスクが高い可能性を示す家族歴はありませんでした。</div>
+                        <div class='translate' id="fdr_no_item_aaa" data-i18n='family-t_5disease_risk.no_item'>リスク因子の検証に必要な項目が登録されてません。</div>
+                    </div>
+                    <div id="disp_toggle_aaa" style="height: 750px;">
+                        <div class="col s10 offset-s1" style="display: block;">
+                            <div class="5disease_risk_applicable" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left; font-weight: bold;" data-i18n='family-t_5disease_risk.applicable_info'>
+                                    【該当するあなたと家族の健康情報】
+                                </div>
+                                <div id="applicable_info_aaa" style="text-align: left; font-size: larger;">
+                                    <!-- データバインドする -->
+                                </div>
+                            </div>
+
+                            <div class="5disease_risk_criteria" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left;" data-i18n='family-t_5disease_risk.criteria_of_aaa'>
+                                    以下に該当する場合、腹部大動脈瘤のリスクが一般よりも高いと考えられます。
+                                </div>
+                                <div class='translate' style="text-align: left; display: block; margin-top: 50px;">
+                                    <div class='translate' style="font-weight: bold;" data-i18n='family-t_5disease_risk.criteria'>【基準】</div>
+                                    <div class='translate' data-i18n='family-t_5dr_aaa.criteria1'>・65歳以上の男性や65歳以上の喫煙女性，第一度近親者に家族歴を有する者</div>
+                                </div>
+                            </div>
+                            <div class="col s12 5disease_risk_reference" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left; display: block;">
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5disease_risk.reference'>このリスク推定は以下に基づいています。</div>
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5dr_aaa.reference1'>・「2020年改訂版 大動脈瘤・大動脈解離診療ガイドライン」https://www.j-circ.or.jp/cms/wp-content/uploads/2020/07/JCS2020_Ogino.pdf</div>
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5dr_aaa.reference2'>・「2020年改訂版　大動脈瘤・大動脈解離診療ガイドライン—腹部—」https://www.jstage.jst.go.jp/article/jsvs/30/4/30_21-00018/_pdf/-char/ja</div>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                    <div class="col s12 center" style="margin-top: 50px;"><span id="btn_toggle_aaa" class="material-icons large-size orange-text cursor_pointer icon_shadow_o">swap_vertical_circle</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row risk_box result_block page_breaker_for_print" id="">
+        <div class="col s12 risk_title">
+            <span class='translate' data-i18n='family-t_5disease_risk.FH'>家族性高コレステロール血症</span>
+        </div>
+        <div class="col s12 risk_container">
+            <div class="ScoreResult ">
+                <div class="col s12 risk_result">
+                    <div class="col s12 5disease_risk_result" style="text-align: center;margin-top: 50px;">
+                        <div class='translate' id="fdr_has_risk_fh" data-i18n='family-t_5disease_risk.applicable'>確定的ではありませんが、以下のリスク因子が認められます。</div>
+                        <div class='translate' id="fdr_has_no_risk_fh" data-i18n='family-t_5disease_risk.has_no_risk'>一般よりリスクが高い可能性を示す家族歴はありませんでした。</div>
+                        <div class='translate' id="fdr_no_item_fh" data-i18n='family-t_5disease_risk.no_item'>リスク因子の検証に必要な項目が登録されてません。</div>
+                    </div>
+                    <div id="disp_toggle_fh" style="height: 750px;">
+                        <div class="col s10 offset-s1" style="display: block;">
+                            <div class="5disease_risk_applicable" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left; font-weight: bold;" data-i18n='family-t_5disease_risk.applicable_info'>
+                                    【該当するあなたと家族の健康情報】
+                                </div>
+                                <div id="applicable_info_fh" style="text-align: left; font-size: larger;">
+                                    <!-- データバインドする -->
+                                </div>
+                            </div>
+
+                            <div class="5disease_risk_criteria" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left;" data-i18n='family-t_5disease_risk.criteria_of_fh'>
+                                    以下に該当する場合、家族性高コレステロール血症のリスクが一般よりも高いと考えられます。
+                                </div>
+                                <div class='translate' style="text-align: left; display: block; margin-top: 50px;">
+                                    <div class='translate' style="font-weight: bold;" data-i18n='family-t_5disease_risk.criteria'>【基準】</div>
+                                    <div class='translate' data-i18n='family-t_5dr_fh.criteria1'>・高LDL-C血症（未治療時のLDL-C値180 mg/dL以上）</div>
+                                    <div class='translate' data-i18n='family-t_5dr_fh.criteria2'>・腱黄色腫（手背，肘，膝等またはアキレス腱肥厚）あるいは皮膚結節性黄色腫</div>
+                                    <div class='translate' data-i18n='family-t_5dr_fh.criteria3'>・FH あるいは早発性冠動脈疾患の家族歴（2親等以内）※ 早発性冠動脈疾患は男性55歳未満，女性65歳未満と定義する．</div>
+                                    <div class='translate' data-i18n='family-t_5dr_fh.criteria4'>・家族（両親、祖父母、子供、叔父、叔母）でLDLコレステロールが180mg/dL以上の人がいる</div>
+                                </div>
+                            </div>
+                            <div class="col s12 5disease_risk_reference" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left; display: block;">
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5disease_risk.reference'>このリスク推定は以下に基づいています。</div>
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5dr_fh.reference1'>・「慢性冠動脈疾患診断ガイドライン（2018年改訂版）」https://www.j-circ.or.jp/cms/wp-content/uploads/2020/02/JCS2018_yamagishi_tamaki.pdf</div>
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5dr_fh.reference2'>・日本動脈硬化学会HP一般向けページ https://www.j-athero.org/jp/general/6_fh</div>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                    <div class="col s12 center" style="margin-top: 50px;"><span id="btn_toggle_fh" class="material-icons large-size orange-text cursor_pointer icon_shadow_o">swap_vertical_circle</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row risk_box result_block page_breaker_for_print" id="">
+        <div class="col s12 risk_title">
+            <span class='translate' data-i18n='family-t_5disease_risk.PC'>前立腺がん</span>
+        </div>
+        <div class="col s12 risk_container">
+            <div class="ScoreResult ">
+                <div class="col s12 risk_result">
+                    <div class="col s12 5disease_risk_result" style="text-align: center;margin-top: 50px;">
+                        <div class='translate' id="fdr_has_risk_pc" data-i18n='family-t_5disease_risk.applicable'>確定的ではありませんが、以下のリスク因子が認められます。</div>
+                        <div class='translate' id="fdr_has_no_risk_pc" data-i18n='family-t_5disease_risk.has_no_risk'>一般よりリスクが高い可能性を示す家族歴はありませんでした。</div>
+                        <div class='translate' id="fdr_no_item_pc" data-i18n='family-t_5disease_risk.no_item'>リスク因子の検証に必要な項目が登録されてません。</div>
+                    </div>
+                    <div id="disp_toggle_pc" style="height: 750px;">
+                        <div class="col s10 offset-s1" style="display: block;">
+                            <div class="5disease_risk_applicable" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left; font-weight: bold;" data-i18n='family-t_5disease_risk.applicable_info'>
+                                    【該当するあなたと家族の健康情報】
+                                </div>
+                                <div id="applicable_info_pc" style="text-align: left; font-size: larger;">
+                                    <!-- データバインドする -->
+                                </div>
+                            </div>
+
+                            <div class="5disease_risk_criteria" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left;" data-i18n='family-t_5disease_risk.criteria_of_pc'>
+                                    以下に該当する場合、前立腺がんのリスクが一般よりも高いと考えられます。
+                                </div>
+                                <div class='translate' style="text-align: left; display: block; margin-top: 50px;">
+                                    <div class='translate' style="font-weight: bold;" data-i18n='family-t_5disease_risk.criteria'>【基準】</div>
+                                    <div class='translate' data-i18n='family-t_5dr_pc.criteria1'>・前立腺癌の家族歴を有する</div>
+                                    <div class='translate' data-i18n='family-t_5dr_pc.criteria2'>・第1度近親者に1人の前立腺癌患者がいる</div>
+                                </div>
+                            </div>
+                            <div class="col s12 5disease_risk_reference" style="margin-top: 50px;">
+                                <div class='translate' style="text-align: left; display: block;">
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5disease_risk.reference'>このリスク推定は以下に基づいています。</div>
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5dr_pc.reference1'>・「前立腺がん検診ガイドライン 2018年版」、日本泌尿器科学会　編 https://www.urol.or.jp/lib/files/other/guideline/32_prostate_cancer_screening_2018.pdf</div>
+                                    <div class='translate' style="font-size:smaller;" data-i18n='family-t_5dr_pc.reference2'>　　根拠論文）Suzuki T, Matsuo K, Wakai K, et al. Effect of familial history and smoking on common cancer risks in Japan. Cancer. 2007;109(10):2116-2123. doi:10.1002/cncr.22685</div>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                    <div class="col s12 center" style="margin-top: 50px;"><span id="btn_toggle_pc" class="material-icons large-size orange-text cursor_pointer icon_shadow_o">swap_vertical_circle</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript'>
+        $(document).ready(function(){
+            $("#ui-id-17").attr('class', 'ui-dialog-title translate').attr('data-i18n','family-t_5disease_risk.5disease_risk');
+        });
+    </script>
+</html>

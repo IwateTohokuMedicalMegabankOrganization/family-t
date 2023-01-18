@@ -398,6 +398,96 @@ export class RelativeUtil{
         });
         return rel;
     }
+
+    static getALLRelatives(){
+        var relatives = [];
+        relatives = relatives.concat(this.getFirstDegreeRelatives());
+        relatives = relatives.concat(this.getSecondDegreeRelatives());
+        relatives = relatives.concat(this.getThirdDegreeRelatives());
+        return relatives;
+    }
+
+    /**
+     * 第一度近親者の配列を取得する
+     * 父、母、兄弟、姉妹、息子、娘
+     */
+     static getFirstDegreeRelatives(){
+        var relatives = ['father','mother'];
+
+        // 兄弟
+        relatives = relatives.concat(this.getMiltipleRelative('brother'));
+
+        // 姉妹
+        relatives = relatives.concat(this.getMiltipleRelative('sister'));
+
+        // 息子
+        relatives = relatives.concat(this.getMiltipleRelative('son'));
+
+        // 娘
+        relatives = relatives.concat(this.getMiltipleRelative('daughter'));
+
+        return relatives;
+    }
+
+    /**
+     * 第二度近親者の配列を取得する
+     * 父方の祖父母、母方の祖父母、父方の叔父叔母、母方の叔父叔母
+     */
+    static getSecondDegreeRelatives(){
+        var relatives = [
+            'paternal_grandfather','paternal_grandmother',
+            'maternal_grandfather','maternal_grandmother',
+        ];
+
+        // 父方の叔父
+        relatives = relatives.concat(this.getMiltipleRelative('paternal_uncle'));
+
+        // 父方の叔母
+        relatives = relatives.concat(this.getMiltipleRelative('paternal_aunt'));
+
+        // 母方の叔父
+        relatives = relatives.concat(this.getMiltipleRelative('maternal_uncle'));
+
+        // 母方の叔母
+        relatives = relatives.concat(this.getMiltipleRelative('maternal_aunt'));
+
+        // 孫息子
+        relatives = relatives.concat(this.getMiltipleRelative('grandson'));
+
+        // 孫娘
+        relatives = relatives.concat(this.getMiltipleRelative('granddaughter'));
+
+        return relatives;
+    }
+
+    /**
+     * 第三度近親者の配列を取得する
+     * 父方の曾祖父母、母方の曾祖父母、父方のいとこ、母方のいとこ
+     */
+    static getThirdDegreeRelatives(){
+        var relatives = [
+            'paternal_greatgrandfather','paternal_greatgrandmother',
+            'maternal_greatgrandfather','maternal_greatgrandmother',
+        ];
+
+        // 父方のいとこ
+        relatives = relatives.concat(this.getMiltipleRelative('paternal_cousin'));
+
+        // 母方のいとこ
+        relatives = relatives.concat(this.getMiltipleRelative('maternal_cousin'));
+
+        return relatives;
+    }
+
+    static getMiltipleRelative(strRelative){
+        var ret = [];
+
+        ret.push(strRelative);
+        for(var i=0;i<10;i++){
+            ret.push(strRelative + '_' + i.toString());
+        }
+        return ret;
+    }
 }
 
 export class CodeUtil{
@@ -414,6 +504,7 @@ export class CodeUtil{
         "ESTIMATED_AGE" : {"code":"21611-9","codeSystemName":"LOINC","displayName":"Estimated Age","originText":""},
         "AGE_AT_DEATH" : {"code":"39016-1","codeSystemName":"LOINC","displayName":"Age at Death","originText":""},
         "SNOMED_CT-55822004" : {"code":"55822004","codeSystemName":"SNOMED_CT","displayName":"High Cholesterol","originText":"High Cholesterol"},
+        "SNOMED_CT-238038003" : {"code":"238038003","codeSystemName":"SNOMED_CT","displayName":"Familial hyperlipoproteinemia","originText":"Familial hyperlipoproteinemia"},
         "SNOMED_CT-38341003" : {"code":"38341003","codeSystemName":"SNOMED_CT","displayName":"Hypertension/high blood pressure","originText":"Hypertension/high blood pressure"},
         "SNOMED_CT-19829001" : {"code":"19829001","codeSystemName":"SNOMED_CT","displayName":"Lung Disease","originText":"Lung Disease"},
         "SNOMED_CT-26929004" : {"code":"26929004","codeSystemName":"SNOMED_CT","displayName":"Dementia/Alzheimer's","originText":"Dementia/Alzheimer's"},
@@ -453,8 +544,15 @@ export class CodeUtil{
         "SNOMED_CT-90708001" : {"code":"90708001","codeSystemName":"SNOMED_CT","displayName":"Kidney Nephrosis/Nephrotic syndrome","originText":"Kidney Nephrosis/Nephrotic syndrome"},
         "SNOMED_CT-52254009" : {"code":"52254009","codeSystemName":"SNOMED_CT","displayName":"Nephrotic Syndrome","originText":"Nephrotic Syndrome"},
         "SNOMED_CT-82525005" : {"code":"82525005","codeSystemName":"SNOMED_CT","displayName":"Kidney Disease Present from Birth","originText":"Kidney Disease Present from Birth"},
+        "SNOMED_CT-363492001" : {"code":"363492001","codeSystemName":"SNOMED_CT","displayName":"Peritoneum Cancer","originText":"Peritoneum Cancer"},
+        "SNOMED_CT-188192002" : {"code":"188192002","codeSystemName":"SNOMED_CT","displayName":"Endometrium Of Corpus Uteri Cancer","originText":"Endometrium Of Corpus Uteri Cancer"},
+        "SNOMED_CT-363509000" : {"code":"363509000","codeSystemName":"SNOMED_CT","displayName":"Small Intestine Cancer","originText":"Small Intestine Cancer"},
+        "SNOMED_CT-448215006" : {"code":"448215006","codeSystemName":"SNOMED_CT","displayName":"Renal Pelvis Cancer","originText":"Renal Pelvis Cancer"},
+        "SNOMED_CT-363458004" : {"code":"363458004","codeSystemName":"SNOMED_CT","displayName":"Ureter Cancer","originText":"Ureter Cancer"},
+        "SNOMED_CT-363415003" : {"code":"363415003","codeSystemName":"SNOMED_CT","displayName":"Biliary Tract Cancer","originText":"Biliary Tract Cancer"},
         "SNOMED_CT-269466003" : {"code":"269466003","codeSystemName":"SNOMED_CT","displayName":"Bone Cancer","originText":"Bone Cancer"},
         "SNOMED_CT-254837009" : {"code":"254837009","codeSystemName":"SNOMED_CT","displayName":"Breast Cancer","originText":"Breast Cancer"},
+        "SNOMED_CT-718220008" : {"code":"718220008","codeSystemName":"SNOMED_CT","displayName":"Hereditary breast and ovarian cancer syndrome (HBOC)","originText":"Hereditary breast and ovarian cancer syndrome (HBOC)"},
         "SNOMED_CT-363406005" : {"code":"363406005","codeSystemName":"SNOMED_CT","displayName":"Colon Cancer","originText":"Colon Cancer"},
         "SNOMED_CT-363402007" : {"code":"363402007","codeSystemName":"SNOMED_CT","displayName":"Esophageal Cancer","originText":"Esophageal Cancer"},
         "SNOMED_CT-363349007" : {"code":"363349007","codeSystemName":"SNOMED_CT","displayName":"Gastric Cancer","originText":"Gastric Cancer"},
@@ -464,8 +562,10 @@ export class CodeUtil{
         "SNOMED_CT-93880001" : {"code":"93880001","codeSystemName":"SNOMED_CT","displayName":"Lung Cancer","originText":"Lung Cancer"},
         "SNOMED_CT-363495004" : {"code":"363495004","codeSystemName":"SNOMED_CT","displayName":"Muscle Cancer","originText":"Muscle Cancer"},
         "SNOMED_CT-363443007" : {"code":"363443007","codeSystemName":"SNOMED_CT","displayName":"Ovarian Cancer","originText":"Ovarian Cancer"},
+        "SNOMED_CT-363444001" : {"code":"363444001","codeSystemName":"SNOMED_CT","displayName":"Fallopian Tube Cancer","originText":"Fallopian Tube Cancer"},
         "SNOMED_CT-399068003" : {"code":"399068003","codeSystemName":"SNOMED_CT","displayName":"Prostate Cancer","originText":"Prostate Cancer"},
         "SNOMED_CT-372130007" : {"code":"372130007","codeSystemName":"SNOMED_CT","displayName":"Skin Cancer","originText":"Skin Cancer"},
+        "SNOMED_CT-372244006" : {"code":"372244006","codeSystemName":"SNOMED_CT","displayName":"Melanoma","originText":"Melanoma"},        
         "SNOMED_CT-363478007" : {"code":"363478007","codeSystemName":"SNOMED_CT","displayName":"Thyroid Cancer","originText":"Thyroid Cancer"},
         "SNOMED_CT-371973000" : {"code":"371973000","codeSystemName":"SNOMED_CT","displayName":"Uterine Cancer","originText":"Uterine Cancer"},
         "SNOMED_CT-315058005" : {"code":"315058005","codeSystemName":"SNOMED_CT","displayName":"Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC)","originText":"Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC)"},
@@ -483,6 +583,7 @@ export class CodeUtil{
         "SNOMED_CT-119292006" : {"code":"119292006","codeSystemName":"SNOMED_CT","displayName":"Gastrointestinal (GI) Disorder","originText":"Gastrointestinal (GI) Disorder"},
         "SNOMED_CT-56265001" : {"code":"56265001","codeSystemName":"SNOMED_CT","displayName":"Heart Disease","originText":"Heart Disease"},
         "SNOMED_CT-22298006" : {"code":"22298006","codeSystemName":"SNOMED_CT","displayName":"Heart Attack","originText":"Heart Attack"},
+        "SNOMED_CT-75878002" : {"code":"75878002","codeSystemName":"SNOMED_CT","displayName":"Abdominal Aortic Aneurysm","originText":"Abdominal Aortic Aneurysm"},
         "SNOMED_CT-53741008" : {"code":"53741008","codeSystemName":"SNOMED_CT","displayName":"Coronary Artery Disease","originText":"Coronary Artery Disease"},
         "SNOMED_CT-194828000" : {"code":"194828000","codeSystemName":"SNOMED_CT","displayName":"Angina","originText":"Angina"},
         "SNOMED_CT-128053003" : {"code":"128053003","codeSystemName":"SNOMED_CT","displayName":"Deep Vein Thrombosis (DVT)","originText":"Deep Vein Thrombosis (DVT)"},
@@ -566,6 +667,7 @@ export class NoteUtil{
         "age",
         "birth_order",
         "created_date",
+        "cholesterol_medicine",
         "diastolic_blood_pressure",
         "dietary_frequency_to_drink_suger_drin_in_week",
         "dietary_frequency_to_eat_dairy_products_in_day",

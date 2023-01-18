@@ -1574,7 +1574,10 @@ test('EstimatedAgeValue.getPersonalInformationValue', () => {
     expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "55" } })).toStrictEqual("late_fifties");
     expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "60" } })).toStrictEqual("early_sixties");
     expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "65" } })).toStrictEqual("late_sixties");
-    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "70" } })).toStrictEqual("senior");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "70" } })).toStrictEqual("seventies");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "80" } })).toStrictEqual("eighties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "90" } })).toStrictEqual("nineties");
+    expect((new EstimatedAgeValue()).getPersonalInfomationData({ attr_unit: "year", low: { attr_value: "100" } })).toStrictEqual("senior");
 
     expect((new EstimatedAgeValue()).getPersonalInfomationData({})).toStrictEqual("unknown");
     expect((new EstimatedAgeValue()).getPersonalInfomationData()).toStrictEqual("unknown");

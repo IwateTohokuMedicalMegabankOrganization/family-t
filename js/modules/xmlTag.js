@@ -717,6 +717,10 @@ class ClinicalObservation extends XmlTag {
         var personalInformation = {};
         
 
+        if (this.isUndefindOrNull(obj.sourceOf)) {
+            return personalInformation;
+        }
+
         if (this.isUndefindOrNull(obj.sourceOf.code)) {
             return personalInformation;
         }
@@ -857,7 +861,7 @@ class EstimatedAgeValue extends Code {
         "seventies": { unit: "year", low: { value: "70" }, high: { value: "79" } },
         "eighties": { unit: "year", low: { value: "80" }, high: { value: "89" } },
         "nineties": { unit: "year", low: { value: "90" }, high: { value: "99" } },
-        "senior": { unit: "year", low: { value: "100" } }
+        "senior": { unit: "year", low: { value: "100" }, high: { value: "150" } }
     }
 
     getPersonalInfomationData(persedXml) {

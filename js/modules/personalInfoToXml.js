@@ -6,7 +6,7 @@ import {AdministrativeGenderCode,BirthTime,Id,Name,RaceCode,
 var Parser = require("fast-xml-parser").j2xParser;
 var he = require('he');
 
-export default function personalInfoToXml(personal_information) {
+export function personalInfoToXml(personal_information) {
     return json2xml(_convert(personal_information));
 }
 

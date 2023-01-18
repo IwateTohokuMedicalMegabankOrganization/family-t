@@ -256,7 +256,11 @@ class PersonalInformationUtil {
 	}
 
 	static getRelationshipPiByPersonId( id ){
-		return personal_information[PersonalInformationUtil.getRelationshipIdByPersonId(id)];
+		var relation = PersonalInformationUtil.getRelationshipIdByPersonId(id)
+		if(relation != ""){
+			return personal_information[relation];
+		}
+		return personal_information;
 	}
 
 	static getCurrentDate(){
@@ -1125,28 +1129,57 @@ function start()
 		});
 	});
 
+	/**
+	 * 家族歴に基づく疾患発症リスクのダイアログを読み込む
+	 */
+	$("#5disease_risk_dialog").load ("5disease_risk_dialog.html", function () {
+		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
+		
+		// 閉じるボタン
+		$('.close5diseaseRiskButton').on('click', function(){
+			closeDialog("#5disease_risk_dialog");
+		});
+	});
+
+	/**
+	 * 家族歴に基づく疾患発症リスクのダイアログを定義する。
+	 */
+	$("#5disease_risk_dialog").dialog({
+		title:$.t("fhh_js.5disease_risk_dialog_dialog_title"),
+		position: {my: "center", at: "center", of: window},
+		resizable: false,
+		autoOpen: false,
+		height:'auto',
+		width:['95%'],
+		open: function(){
+			temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
+		},
+		beforeClose: function(){
+			personal_information = temporarilyHoldCareTaker.paste( 'personal_informaiton');
+		}
+	});
+
+	/**
+	 * 家族歴に基づく疾患発症リスクのダイアログを開く
+	 */
+	$("#show5diseaseRiskDetail").on("click", function() {
+		preparate_fdr_score_dialog();
+		openDialog("#5disease_risk_dialog", "center top");
+		FiveDiseaseRiskController.refresh()
+	});
+
 	$("#navViewDiagram").on("click", function() {
 		openDialog("#familyTable");
 	});
 
-	// compensation dialog
-	// $("#compensate_information_dialog").dialog({
-	// 	title: "リスク計算不足項目入力",
-	// 	position: ['top',0],
-	// 	autoOpen: false,
-	// 	resizable: false,
-	// 	height: 'auto',
-	// 	width: ['96%']
-	// });
-
-//	 Dead Code
-//     family pedigree diagram dialog
-//    $("#family_pedigree").load ("family_pedigree.html", function () {});
 
 	$("#navCopyFamily").on("click", function() {
 	 openDialog("#copy_for_family_member");
      build_copy_for_family_member_dialog();
-  });
+    });
 
 
 
@@ -1350,27 +1383,27 @@ function checkNecessaryItemsForLifestyleScore(){
 
 	// 身長
 	if(typeof(personal_information.height) == "undefined" || personal_information.height == "" || personal_information.height == 0){
-		$("#lifestylescore__height").show();
+		$("#lifestylescore_compensation_height").show();
 		cond = false;
 	} else {
-		$("#lifestylescore__height").hide();
+		$("#lifestylescore_compensation_height").hide();
 	}
 
 	// 体重
 	if(typeof(personal_information.weight) == "undefined" || personal_information.weight == ""){
-		$("#lifestylescore__weight").show();
+		$("#lifestylescore_compensation_weight").show();
 		cond = false;
 	} else {
-		$("#lifestylescore__weight").hide();
+		$("#lifestylescore_compensation_weight").hide();
 	}
 
 	// 喫煙
 	if(typeof personal_information.smoker == "undefined" ||
 			(personal_information.smoker == "5" && typeof personal_information.number_of_cigarettes_per_day == "undefined") ){
-		$("#lifestylescore__smoker").show();
+		$("#lifestylescore_compensation_smoker").show();
 		cond = false;
 	} else {
-		$("#lifestylescore__smoker").hide();
+		$("#lifestylescore_compensation_smoker").hide();
 	}
 
 	// 運動
@@ -1379,10 +1412,10 @@ function checkNecessaryItemsForLifestyleScore(){
 															personal_information.training_count_for_training_at_week == "" ||
 															personal_information.training_time_for_training_at_week == "")
 			) ) {
-		$("#lifestylescore_compensate_training").show();
+		$("#lifestylescore_compensation_training").show();
 		cond = false;
 	} else {
-		$("#lifestylescore_compensate_training").hide();
+		$("#lifestylescore_compensation_training").hide();
 	}
 
 	// 食生活
@@ -1396,10 +1429,10 @@ function checkNecessaryItemsForLifestyleScore(){
 				personal_information.dietary_frequency_to_eat_unprocessed_meat_in_week == null ||
 				personal_information.dietary_frequency_to_drink_suger_drin_in_week == null
 				){
-		$("#lifestylescore_eating_habits").show();
+		$("#lifestylescore_compensation_eating_habits").show();
 		cond = false;
 	}else{
-		$("#lifestylescore_eating_habits").hide();
+		$("#lifestylescore_compensation_eating_habits").hide();
 	}
 
 	return cond;
@@ -1607,7 +1640,9 @@ function bind_compensate_information_submit_button_action(){
 	});
 }
 
-//不足項目入力フォームのchangeイベント、ボタンclickイベント準備
+/**
+ * 家族歴の質で不足項目入力フォームのchangeイベント、ボタンclickイベント準備
+ */
 function preparate_qof_score_dialog(){
 	var qoFSupplementForm = new QoFSupplementForm( personal_information );
 
@@ -1630,7 +1665,9 @@ function preparate_qof_score_dialog(){
 
 	QualityOfFamilyHistoryScoreController.hideDifferenceScore();
 }
-//不足項目入力フォームのchangeイベント、ボタンclickイベント準備
+/**
+ * ライフスタイルスコアで不足項目入力フォームのchangeイベント、ボタンclickイベント準備
+ */
 function preparate_lifestyle_score_dialog(){
 
 	// 再計算ボタン
@@ -1649,8 +1686,24 @@ function preparate_lifestyle_score_dialog(){
 	setChangeEvent('simuration');
 
 	function setChangeEvent(key) {
-		$(`#lifestylescore_${key}_block input`).change(function () {
+		// 値の更新
+		// 身長
+		$(`#lifestylescore_${key}_height`).on('change',function() {
+			if (!isNaN(parseInt($(`#lifestylescore_${key}_height_centimeters`).val()))) {
+				personal_information['height'] = parseInt($(`#lifestylescore_${key}_height_centimeters`).val());
+				personal_information['height_unit'] = "centimeters";
+			}
+		});
 
+		// 体重
+		$(`#lifestylescore_${key}_weight`).on('change',function() {
+			if (!isNaN(parseInt($(`#lifestylescore_${key}_weight_kg`).val()))) {
+				personal_information['weight'] = $(`#lifestylescore_${key}_weight_kg`).val();
+			};
+		});
+
+		// 喫煙
+		$(`#lifestylescore_${key}_smoker`).on('change',function() {
 			// 喫煙状況
 			if ($(`input[name="lifestylescore_${key}_smoker"]:checked`).val() != "5") {
 				$(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]`).prop('checked', false);
@@ -1659,6 +1712,13 @@ function preparate_lifestyle_score_dialog(){
 				$(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]`).prop('disabled', false);
 			}
 
+			// 値の反映
+			personal_information['smoker'] = $(`input[name="lifestylescore_${key}_smoker"]:checked`).val();
+			personal_information['number_of_cigarettes_per_day'] = $(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]:checked`).val();
+		});
+
+		// 運動
+		$(`#lifestylescore_${key}_training`).on('change',function() {
 			// 運動状況
 			if ($(`input[name="lifestylescore_${key}_training"]:checked`).val() == 1) {
 				$(`select[name="lifestylescore_${key}_training_status1"]`).prop('disabled', false);
@@ -1676,29 +1736,15 @@ function preparate_lifestyle_score_dialog(){
 				$(`.lifestylescore_${key}_training_status_yes`).hide('slow');
 			}
 
-			// 値の更新
-			// 身長
-			if (!isNaN(parseInt($(`#lifestylescore_${key}_height_centimeters`).val()))) {
-				personal_information['height'] = parseInt($(`#lifestylescore_${key}_height_centimeters`).val());
-				personal_information['height_unit'] = "centimeters";
-			}
-
-			// 体重
-			if (!isNaN(parseInt($(`#lifestylescore_${key}_weight`).val()))) {
-				personal_information['weight'] = $(`#lifestylescore_${key}_weight`).val();
-			};
-
-			// 喫煙
-			personal_information['smoker'] = $(`input[name="lifestylescore_${key}_smoker"]:checked`).val();
-			personal_information['number_of_cigarettes_per_day'] = $(`input[name="lifestylescore_${key}_number_of_cigarettes_per_day"]:checked`).val();
-
-			// 運動
+			// 値の反映
 			personal_information['training_family'] = $(`input[name="lifestylescore_${key}_training"]:checked`).val();
 			personal_information['training_strength'] = $(`#lifestylescore_${key}_training_strength`).val();
 			personal_information['training_count_for_training_at_week'] = $(`#lifestylescore_${key}_count_for_training_at_week`).val();
 			personal_information['training_time_for_training_at_week'] = $(`#lifestylescore_${key}_time_for_training_at_week`).val();
+		});
 
-			// 食習慣
+		// 食習慣
+		$(`#lifestylescore_${key}_eating_habits`).on('change',function() {
 			personal_information['dietary_frequency_to_eat_fruits_in_day'] = $(`input[name="lifestylescore_${key}_frequency_to_eat_fruits_in_day"]:checked`).val();
 			personal_information['dietary_frequency_to_eat_vegetables_in_day'] = $(`input[name="lifestylescore_${key}_frequency_to_eat_vegetables_in_day"]:checked`).val();
 			personal_information['dietary_frequency_to_eat_nuts_in_week'] = $(`input[name="lifestylescore_${key}_frequency_to_eat_nuts_in_week"]:checked`).val();
@@ -1710,6 +1756,119 @@ function preparate_lifestyle_score_dialog(){
 			personal_information['dietary_frequency_to_drink_suger_drin_in_week'] = $(`input[name="lifestylescore_${key}_frequency_to_drink_suger_drin_in_week"]:checked`).val();
 		});
 	}
+}
+
+/**
+ * 5疾患リスク判定で不足項目入力フォームのchangeイベント、ボタンclickイベント準備
+ */
+function preparate_fdr_score_dialog(){
+	var fdrSupplementForm = new FdrSupplementForm( personal_information );
+
+	// 喫煙状況
+	$('input[name="5dr_compensation_smoker"]').on('change',function() {
+		if ($('input[name="5dr_compensation_smoker"]:checked').val() != "5") {
+			$('input[name="5dr_compensation_number_of_cigarettes_per_day"]').prop('checked',false);
+			$('input[name="5dr_compensation_number_of_cigarettes_per_day"]').prop('disabled',true);
+		} else {
+			$('input[name="5dr_compensation_number_of_cigarettes_per_day"]').prop('disabled',false);
+		}
+	});
+
+	// 喫煙
+	$("#5dr_compensate_smoker").on('change',function() {
+		personal_information['smoker'] = $('input[name="5dr_compensation_smoker"]:checked').val();
+		personal_information['number_of_cigarettes_per_day'] = $('input[name="5dr_compensation_number_of_cigarettes_per_day"]:checked').val();
+    });
+	$('input[name="5dr_compensation_smoker"]').each(function(i,elem){
+		$(elem).prop('checked',($(elem).val() == personal_information['smoker']));
+	});
+	$('input[name="5dr_compensation_number_of_cigarettes_per_day"]').each(function(i,elem){
+		$(elem).prop('checked',($(elem).val() == personal_information['number_of_cigarettes_per_day']));
+	});
+	if ($('input[name="5dr_compensation_smoker"]:checked').val() != "5") {
+		$('input[name="5dr_compensation_number_of_cigarettes_per_day"]').prop('checked',false);
+		$('input[name="5dr_compensation_number_of_cigarettes_per_day"]').prop('disabled',true);
+	} else {
+		$('input[name="5dr_compensation_number_of_cigarettes_per_day"]').prop('disabled',false);
+	}
+
+	// 中性脂肪、コレステロールを下げる薬
+	$('input[name="5dr_compensation_cholesterol_medicine"]').on('change',function() {
+		personal_information['cholesterol_medicine'] = $('input[name="5dr_compensation_cholesterol_medicine"]:checked').val();
+    });
+	$('input[name="5dr_compensation_cholesterol_medicine"]').each(function(i,elem){
+		$(elem).prop('checked',($(elem).val() == personal_information['cholesterol_medicine']));
+	});
+
+	// LDLコレステロール
+	$("#5dr_compensate_ldl").on('change',function() {
+		personal_information['ldl_cholesterol'] = $('#5dr_compensation_ldl_cholesterol').val();
+    });
+	$('#5dr_compensation_ldl_cholesterol').val(personal_information['ldl_cholesterol']);
+
+	// 本人
+	$('#5dr_compensational_block_own input').on('change',function(){
+		fdrSupplementForm.updatePersonalInformation( this );
+		FiveDiseaseRiskController.showDifferenceScore ( personal_information );
+	});
+	$('#5dr_compensational_block_own select').on('change',function(){
+		fdrSupplementForm.updatePersonalInformation( this );
+		FiveDiseaseRiskController.showDifferenceScore ( personal_information );
+	});
+
+	// 家族
+	$('#5dr_compensational_block input').on('change',function(){
+		fdrSupplementForm.updatePersonalInformation( this );
+		FiveDiseaseRiskController.showDifferenceScore ( personal_information );
+	});
+	$('#5dr_compensational_block select').on('change',function(){
+		fdrSupplementForm.updatePersonalInformation( this );
+		FiveDiseaseRiskController.showDifferenceScore ( personal_information );
+	});
+
+	// 再計算ボタン
+	$("#reCalculateFdrScore").on("click", function() {
+		FiveDiseaseRiskController.refresh();
+		temporarilyHoldCareTaker.add( 'personal_informaiton', personal_information);
+		build_family_history_data_table_include_own();
+	});
+
+	// 詳細はデフォルト非表示
+	$("#disp_toggle_hboc").hide();
+	$("#disp_toggle_hnpcc").hide();
+	$("#disp_toggle_aaa").hide();
+	$("#disp_toggle_fh").hide();
+	$("#disp_toggle_pc").hide();
+
+	// onclickイベント重複解除
+	$("#btn_toggle_hboc").off('click');
+	$("#btn_toggle_hnpcc").off('click');
+	$("#btn_toggle_aaa").off('click');
+	$("#btn_toggle_fh").off('click');
+	$("#btn_toggle_pc").off('click');
+
+	var speed = 1000;
+	var effect_type = "blind";
+
+	$("#btn_toggle_hboc").on("click", function() {
+		$("#disp_toggle_hboc").toggle(effect_type, speed);
+	});
+
+	$("#btn_toggle_hnpcc").on("click", function() {
+		$("#disp_toggle_hnpcc").toggle(effect_type, speed);
+	});
+
+	$("#btn_toggle_aaa").on("click", function() {
+		$("#disp_toggle_aaa").toggle(effect_type, speed);
+	});
+
+	$("#btn_toggle_fh").on("click", function() {
+		$("#disp_toggle_fh").toggle(effect_type, speed);
+	});
+
+	$("#btn_toggle_pc").on("click", function() {
+		$("#disp_toggle_pc").toggle(effect_type, speed);
+	});
 }
 
 // 不足項目入力フォームのchangeイベント、ボタンclickイベント準備
@@ -2358,6 +2517,7 @@ function bind_personal_submit_button_action () {
 
 		personal_information['hdl_cholesterol'] = $('#additional_information_hdl_cholesterol').val();
 		personal_information['ldl_cholesterol'] = $('#additional_information_ldl_cholesterol').val();
+		personal_information['cholesterol_medicine'] = $('input[name="additional_information.cholesterol_medicine"]:checked').val();
 
 		// 最終診断年月の情報保存
 		personal_information['last_diagnosis_year'] = $('#last_diagnosis_year').val();
@@ -3211,33 +3371,36 @@ function load_risk_links() {
 	// リスク計算および結果・範囲・表示画像制御
 	riskCalcAndShow();
 
+	// 詳細はデフォルト非表示
 	$("#disp_toggle_diabetes").hide();
 	$("#disp_toggle_chd").hide();
 	$("#disp_toggle_stroke").hide();
 	$("#disp_toggle_scoreDetail").hide();
 
-	if(typeof toggleflg == "undefined" || toggleflg != 1) {
-		var speed = 1000;
-		var effect_type = "blind";
+	// onclickイベントの重複回避
+	$("#btn_toggle_diabetes").off('click');
+	$("#btn_toggle_chd").off('click');
+	$("#btn_toggle_stroke").off('click');
+	$("#btn_toggle_scoreDetail").off('click');
 
-		$("#btn_toggle_diabetes").on("click", function() {
-			$("#disp_toggle_diabetes").toggle(effect_type, speed);
-		});
+	var speed = 1000;
+	var effect_type = "blind";
 
-		$("#btn_toggle_chd").on("click", function() {
-			$("#disp_toggle_chd").toggle(effect_type, speed);
-		});
+	$("#btn_toggle_diabetes").on("click", function() {
+		$("#disp_toggle_diabetes").toggle(effect_type, speed);
+	});
 
-		$("#btn_toggle_stroke").on("click", function() {
-			$("#disp_toggle_stroke").toggle(effect_type, speed);
-		});
+	$("#btn_toggle_chd").on("click", function() {
+		$("#disp_toggle_chd").toggle(effect_type, speed);
+	});
 
-		$("#btn_toggle_scoreDetail").on("click", function() {
-			$("#disp_toggle_scoreDetail").toggle(effect_type, speed);
-		});
+	$("#btn_toggle_stroke").on("click", function() {
+		$("#disp_toggle_stroke").toggle(effect_type, speed);
+	});
 
-		toggleflg = 1;
-	}
+	$("#btn_toggle_scoreDetail").on("click", function() {
+		$("#disp_toggle_scoreDetail").toggle(effect_type, speed);
+	});
 }
 
 class LifeStyleScoreDetailDialogController{
@@ -3324,7 +3487,7 @@ class LifeStyleScoreDetailDialogController{
 		$(`#lifestylescore_${key}_height_centimeters`).val('');
 
 		// 体重
-		$(`#lifestylescore_${key}_weight`).val('');
+		$(`#lifestylescore_${key}_weight_kg`).val('');
 
 		// 喫煙
 		var elem = $(`#lifestylescore_simuration_smoker1`);
@@ -3443,6 +3606,9 @@ class ScoreCardController{
 		// 脳卒中（10年間）
 		ScoreCardController._strokeRiskScore();
 
+		// 5疾患リスク判定
+		ScoreCardController._fiveDiseaseRiskScore();
+
 		(new GenerationalFamilyMembers( personal_information ) ).draw();
 	}
 
@@ -3497,6 +3663,54 @@ class ScoreCardController{
 		
 	}
 
+	static _fiveDiseaseRiskScore(){
+		var calculator = new FiveDiseaseRiskCalculator(personal_information);
+		
+		$(".hbocScoreResult").hide();
+		$(".hnpccScoreResult").hide();
+		$(".aaaScoreResult").hide();
+		$(".fhScoreResult").hide();
+		$(".pcScoreResult").hide();
+		// 計算できる場合
+		if(calculator.isCalculatable()){
+			if(calculator.hboc.judge){
+				$("#hboc_has_risk").show();
+			}else{
+				$("#hboc_has_no_risk").show();
+			}
+
+			if(calculator.hnpcc.judge){
+				$("#hnpcc_has_risk").show();
+			}else{
+				$("#hnpcc_has_no_risk").show();
+			}
+
+			if(calculator.aaa.judge){
+				$("#aaa_has_risk").show();
+			}else{
+				$("#aaa_has_no_risk").show();
+			}
+
+			if(calculator.fh.judge){
+				$("#fh_has_risk").show();
+			}else{
+				$("#fh_has_no_risk").show();
+			}
+
+			if(calculator.pc.judge){
+				$("#pc_has_risk").show();
+			}else{
+				$("#pc_has_no_risk").show();
+			}
+		}// 計算できない場合
+		else{
+			$("#hboc_no_item").show();
+			$("#hnpcc_no_item").show();
+			$("#aaa_no_item").show();
+			$("#fh_no_item").show();
+			$("#pc_no_item").show();
+		}
+	}
 }
 
 function cannot_calculate( baseId, lower , upper ){
@@ -3581,6 +3795,262 @@ function showScoreDetail(stroke_score_class) {
 	$("#stroke_score_total").text(stroke_score_class.totalScore);
 
 }
+class FiveDiseaseRiskController{
+
+	// 再計算
+	static refresh(){
+
+		this.calculator = new FiveDiseaseRiskCalculator( personal_information );
+
+		// サマリ
+		FiveDiseaseRiskController._showScore();
+
+		// ダイアログ
+		FiveDiseaseRiskController._showDetail();
+	}
+
+	static _showScore(){
+		ScoreCardController._fiveDiseaseRiskScore();
+	}
+
+	static _showDetail(){
+		
+		var calculator = new FiveDiseaseRiskCalculator( personal_information );
+
+		// 計算できる場合
+		if(calculator.isCalculatable()){
+			this._createApplicableInfo(calculator.hboc.applicableInfo, "hboc");
+			this._createApplicableInfo(calculator.hnpcc.applicableInfo, "hnpcc");
+			this._createApplicableInfo(calculator.aaa.applicableInfo, "aaa");
+			this._createApplicableInfo(calculator.fh.applicableInfo, "fh");
+			this._createApplicableInfo(calculator.pc.applicableInfo, "pc");
+		}// 計算できない場合
+		else{
+			this._cannotCalculate("hboc");
+			this._cannotCalculate("hnpcc");
+			this._cannotCalculate("aaa");
+			this._cannotCalculate("fh");
+			this._cannotCalculate("pc");
+		}
+
+		// data-i18nの再実行
+		var option = {
+			resGetPath: '../locales/__ns__-__lng__.json',
+			ns: {
+				namespaces: ['translation', 'diseases'],
+				defaultNs: 'translation'
+			}
+		};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
+	}
+
+	static _createApplicableInfo(applicableInfo, disease_name){
+
+		this._initApplicableInfo(disease_name);
+
+		var elem = $('<div>');
+		elem.css({'text-align':'left', 'display':'block'});
+
+		if(applicableInfo.length > 0){
+			// メインの結果
+			this._showHasRisk(disease_name);
+
+			// 該当するあなたと家族の健康情報
+			for(const info of applicableInfo){
+				// 要素の作成
+				var child = this._createFhhElem(info);
+
+				// 要素の追加
+				elem.append(child);
+			}
+		}else{
+			// メインの結果
+			this._showHasNoRisk(disease_name);
+
+			// 該当するあなたと家族の健康情報
+			var child = $('<div>').attr('data-i18n', 'family-t_5disease_risk.applicable_info_none').text("なし");
+			elem.append(child);
+		}
+		// 要素の追加
+		this._appendApplicableInfo(elem, disease_name);
+	}
+
+	static _initApplicableInfo(disease_name){
+		var fdr_has_risk = '#' + 'fdr_has_risk_' + disease_name;
+		var fdr_has_no_risk = '#' + 'fdr_has_no_risk_' + disease_name;
+		var fdr_no_item = '#' + 'fdr_no_item_' + disease_name;
+		var applicable_info = '#' + 'applicable_info_' + disease_name;
+		$(fdr_has_risk).hide();
+		$(fdr_has_no_risk).hide();
+		$(fdr_no_item).hide();
+		$(applicable_info).empty();
+	}
+
+	static _createFhhElem(applicableInfo){
+		var elem = $('<div>');
+
+		// disease
+		if(this._hasKeyValue(applicableInfo, 'disease')){
+			if(Array.isArray(applicableInfo.disease)){
+				elem.css({'text-align':'left', 'display':'block'});
+				for(const disease of applicableInfo.disease){
+					var child = $('<div>');
+					// name
+					this._appendName(child, applicableInfo);
+
+					// disease
+					this._appendDisease(disease, child);
+					elem.append(child);
+				}
+			}else{
+				// name
+				this._appendName(elem, applicableInfo);
+
+				// disease
+				this._appendDisease(applicableInfo.disease, elem);
+			}
+		}else{
+			// name
+			this._appendName(elem, applicableInfo);
+			
+			// age
+			this._appendAge(elem, applicableInfo);
+
+			// gender
+			this._appendGender(elem, applicableInfo);
+			
+			// smoker
+			this._appendSmoker(elem, applicableInfo);
+
+			// ldlCholesterol
+			this._appendLdlCholesterol(elem, applicableInfo);
+		}
+
+		return elem;
+	}
+
+	static _appendName(elem, applicableInfo){
+		if(this._hasKeyValue(applicableInfo, 'name')){
+			var name = $('<span>').text(applicableInfo.name).css({'margin-right':'30px'});
+			elem.append(name);
+		}
+	}
+
+	static _appendAge(elem, applicableInfo){
+		if(this._hasKeyValue(applicableInfo, 'age')){
+			var unitOfage = $('<span>');
+			unitOfage.attr('class','translate').attr('data-i18n','info_dialog.unit_of_age').text('歳');
+			var atPresent = $('<span>');
+			atPresent.attr('class','translate').attr('data-i18n','info_dialog.at_present').text('（現在）');
+			
+			var age = $('<span>');
+			age.text(applicableInfo.age).append(unitOfage).append(atPresent);
+			age.css({'margin-right':'30px'});
+			elem.append(age);
+		}
+	}
+
+	static _appendGender(elem, applicableInfo){
+		if(this._hasKeyValue(applicableInfo, 'gender')){
+			var gender = $('<span>');
+			gender.attr('class','translate').attr('data-i18n','fhh_js.' + applicableInfo.gender).text(applicableInfo.gender);
+			gender.css({'margin-right':'30px'});
+			elem.append(gender);
+		}
+	}
+
+	static _appendSmoker(elem, applicableInfo){
+		if(this._hasKeyValue(applicableInfo, 'smoker')){
+			var smoker = $('<span>');
+			smoker.attr('class','translate').attr('data-i18n', 'family-t.current_smoker').text(applicableInfo.smoker);
+			smoker.css({'margin-right':'30px'});
+			elem.append(smoker);
+		}
+	}
+
+	static _appendLdlCholesterol(elem, applicableInfo){
+		if(this._hasKeyValue(applicableInfo, 'ldlCholesterol')){
+			var cholesterolMedicine = $('<span>');
+			cholesterolMedicine.attr('class','translate').attr('data-i18n', 'family-t.optionlabel.use_no_medicine').text(applicableInfo.cholesterolMedicine);
+			cholesterolMedicine.css({'margin-right':'30px'});
+			elem.append(cholesterolMedicine);
+
+			var label = $('<span>');
+			label.attr('class','translate').attr('data-i18n', 'family-t.ldl_cholesterol_(mg/dl)').text("ldl_cholesterol_(mg/dl)");
+			label.css({'margin-right':'15px'});
+			elem.append(label);
+			
+			var ldlCholesterol = $('<span>');
+			ldlCholesterol.attr('class','translate').attr('data-i18n', 'family-t.optionlabel.over180').text(applicableInfo.ldlCholesterol);
+			ldlCholesterol.css({'margin-right':'30px'});
+			elem.append(ldlCholesterol);
+		}
+	}
+
+	static _hasKeyValue(object, key){
+		return (object[key] != null && object[key] != undefined && object[key] != '');
+	}
+
+	static _appendDisease(disease, elem){
+		// 疾患の抽出
+		var detailedDiseaseName = disease['Detailed Disease Name'];
+		var snomedCode = disease['Disease Code'];
+		var ageAtDiagnosis = disease['Age At Diagnosis'];
+
+		var diseaseName = $('<span>').attr('class','translate').attr('data-i18n', 'diseases:' + snomedCode).text(detailedDiseaseName).css({'margin-right':'30px'});;
+		var ageAtDiagnosis = $('<span>').attr('class','translate').attr('data-i18n', 'fhh_js.' + ageAtDiagnosis).text(ageAtDiagnosis).css({'margin-right':'30px'});;
+
+		elem.append(diseaseName);
+		elem.append(ageAtDiagnosis);
+	}
+
+	static _showHasRisk(disease_name){
+		var fdr_has_risk = '#' + 'fdr_has_risk_' + disease_name;
+		$(fdr_has_risk).show();
+	}
+
+	static _showHasNoRisk(disease_name){
+		var fdr_has_risk = '#' + 'fdr_has_no_risk_' + disease_name;
+		$(fdr_has_risk).show();
+	}
+
+	static _appendApplicableInfo(elem, disease_name){
+		var applicable_info = '#' + 'applicable_info_' + disease_name;
+		$(applicable_info).append(elem);
+	}
+
+	static _cannotCalculate(disease_name){
+		this._initApplicableInfo(disease_name);
+
+		// メインの結果
+		this._showHasNoItem(disease_name);
+
+		// 該当するあなたと家族の健康情報
+		var elem = $('<div>');
+		var none = $('<div>').attr('class','translate').attr('data-i18n', 'family-t_5disease_risk.applicable_info_none').text("なし");
+		elem.css({'text-align':'left', 'display':'block'});
+		elem.append(none);
+		this._appendApplicableInfo(elem, disease_name);
+	}
+
+	static _showHasNoItem(disease_name){
+		var fdr_no_item = '#' + 'applicable_fdr_no_item_' + disease_name;
+		$(fdr_no_item).show();
+	}
+
+	static showDifferenceScore(pi){
+
+		var calculator = new FiveDiseaseRiskCalculator( pi );
+	}
+
+	static hideCompensationalBlock(){
+		$('.compensational_block').hide();
+	}
+
+}
+
 
 //  Need to do a deep copy of the PI data to support IE10 dropping data when window closes
 function set_pi_information(data) {
@@ -3859,6 +4329,16 @@ function build_family_history_data_table () {
 
 	// $( "#list01" ).disableSelection();
 	ScoreCardController.refresh();
+}
+
+/**
+ * 5大疾患リスク計算の再計算時に家族歴データを再構築する
+ */
+function build_family_history_data_table_include_own(){
+	// 本人
+
+	// 家族
+	build_family_history_data_table();
 }
 
 function add_family_history_header_row(table) {
@@ -4542,7 +5022,6 @@ function build_personal_health_information_section() {
 	information.append(hi_health_history_table);
 	information.append("<br />");
 }
-
 
 function build_hi_data_entry_row() {
 	var hi_data_entry_row = $("<tr class='md_tr health_data_entry_row' id='health_data_entry_row'></tr>");
@@ -5848,7 +6327,7 @@ function clear_and_set_personal_health_history_dialog() {
 	$('input[name="additional_information.take_antihypertensive"]').val([personal_information.take_antihypertensive]);
 	$('select[name="additional_information.systolic_blood_pressure"]').val([personal_information.systolic_blood_pressure]);
 	$('select[name="additional_information.diastolic_blood_pressure"]').val([personal_information.diastolic_blood_pressure]);
-
+	
 	$('input[name="additional_information.take_hypoglycemic"]').val([personal_information.take_hypoglycemic]);
 	$('select[name="additional_information.fasting_blood_glucose_lebel"]').val([personal_information.fasting_blood_glucose_lebel]);
 	$('select[name="additional_information.occasionally_blood_glucose_lebel"]').val([personal_information.occasionally_blood_glucose_lebel]);
@@ -5857,6 +6336,7 @@ function clear_and_set_personal_health_history_dialog() {
 
 	$('select[name="additional_information.hdl_cholesterol"]').val([personal_information.hdl_cholesterol]);
 	$('select[name="additional_information.ldl_cholesterol"]').val([personal_information.ldl_cholesterol]);
+	$('input[name="additional_information.cholesterol_medicine"]').val([personal_information.cholesterol_medicine]);
 
 	// 最終診断年月の情報取得
 	$('#last_diagnosis_year').val([personal_information.last_diagnosis_year]);
