@@ -4289,23 +4289,43 @@ function build_family_history_data_table () {
 		table.append(tbody);
 	}
 
-	// 父方 いとこ
-	if( hasRelations( [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information ) ){
+	// 父方 異父母兄弟・異父母姉妹
+	if( hasRelations( [ 'paternal_halfbrother', 'paternal_halfsister' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, "family-t.maternal_uncle_and_aunt", "");
+		add_new_family_history_row_title(tbody, "family-t.paternal_halfbrother_and_halfsister", "");
 		table.append(tbody);
 		var tbody = getSortableTbody();
-		displayRelationships(tbody, [ 'paternal_cousin', 'paternal_halfbrother', 'paternal_halfsister' ], personal_information, true );
+		displayRelationships(tbody, [ 'paternal_halfbrother', 'paternal_halfsister' ], personal_information, true );
 		table.append(sortTbody(tbody));
 	}
 
-	// 母方 いとこ
-	if( hasRelations( [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information ) ){
+	// 母方 異父母兄弟・異父母姉妹
+	if( hasRelations( [ 'maternal_halfbrother', 'maternal_halfsister' ], personal_information ) ){
 		var tbody = getSortableTbody();
-		add_new_family_history_row_title(tbody, "family-t.maternal_uncle_and_aunt", "");
+		add_new_family_history_row_title(tbody, "family-t.maternal_halfbrother_and_halfsister", "");
 		table.append(tbody);
 		var tbody = getSortableTbody();
-		displayRelationships(tbody, [ 'maternal_cousin', 'maternal_halfbrother', 'maternal_halfsister' ], personal_information, true );
+		displayRelationships(tbody, [ 'maternal_halfbrother', 'maternal_halfsister' ], personal_information, true );
+		table.append(sortTbody(tbody));
+	}
+
+	// 父方 いとこ
+	if( hasRelations( [ 'paternal_cousin' ], personal_information ) ){
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, "family-t.paternal_cousins", "");
+		table.append(tbody);
+		var tbody = getSortableTbody();
+		displayRelationships(tbody, [ 'paternal_cousin' ], personal_information, true );
+		table.append(sortTbody(tbody));
+	}
+	
+	// 母方 いとこ
+	if( hasRelations( [ 'maternal_cousin' ], personal_information ) ){
+		var tbody = getSortableTbody();
+		add_new_family_history_row_title(tbody, "family-t.maternal_cousins", "");
+		table.append(tbody);
+		var tbody = getSortableTbody();
+		displayRelationships(tbody, [ 'maternal_cousin' ], personal_information, true );
 		table.append(sortTbody(tbody));
 	}
 
