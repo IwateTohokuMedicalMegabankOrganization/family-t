@@ -158,11 +158,11 @@ test('load', () => {
         "Vietnamese": false,
         "White": false,
         "adopted": false,
-        "brother":  {
-        "gender": "MALE",
-        "id": "98edd975-d38c-40be-bdae-13a5deedab13",
-        "name": "",
-            },
+        "brother_0":  {
+            "gender": "MALE",
+            "id": "98edd975-d38c-40be-bdae-13a5deedab13",
+            "name": "",
+        },
         "consanguinity": undefined,
         "date_of_birth": "1981/10/01",
         "father":  {

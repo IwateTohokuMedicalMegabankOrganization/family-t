@@ -138,7 +138,7 @@ export class RelativeUtil{
         "self" : [ "brother", "sister", "self"]
         , "paternal" : [ "paternal_uncle", "paternal_aunt", "father" ]
         , "maternal" : [ "maternal_uncle", "maternal_aunt", "mother" ]
-        , "children" : [ "son", "daughter" ]
+        , "children" : [ "son", "daughter", "niece", "nephew", "grandson", "granddaughter" ]
     };
 
     static RELATION_TO_GROUP  = [
@@ -367,7 +367,159 @@ export class RelativeUtil{
                 ,"nestedRelation" : {}
             }
         },
+        {
+            "code" :  "MCOUSN"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Maternal Cousin"
+            ,"group" : "maternal"
+            ,"relation" : "maternal_cousin"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "PCOUSN"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Paternal Cousin"
+            ,"group" : "paternal"
+            ,"relation" : "paternal_cousin"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "NIECE"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Niece"
+            ,"group" : "children"
+            ,"relation" : "niece"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "NEPHEW"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Nephew"
+            ,"group" : "children"
+            ,"relation" : "nephew"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "GRNSON"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Grandson"
+            ,"group" : ""
+            ,"relation" : "grandson"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "GRNDAU"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "GrandDaughter"
+            ,"group" : ""
+            ,"relation" : "granddaughter"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "MHBRO"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Maternal Halfbrother"
+            ,"group" : "maternal"
+            ,"relation" : "maternal_halfbrother"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "MHSIS"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Maternal Halfsister"
+            ,"group" : "maternal"
+            ,"relation" : "maternal_halfsister"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "PHBRO"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Paternal Halfbrother"
+            ,"group" : "paternal"
+            ,"relation" : "paternal_halfbrother"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
+        {
+            "code" :  "PHSIS"
+            ,"codeSystemName" : "HL7 Family History Model"
+            ,"displayName" : "Paternal Halfsister"
+            ,"group" : "paternal"
+            ,"relation" : "paternal_halfsister"
+            ,"nestedRelation" : {
+                "code" :  "PAR"
+                ,"codeSystemName" : "HL7 Family History Model"
+                ,"displayName" : "Parent"
+                ,"group" : "parent"
+                ,"relation" : "parent"
+                ,"nestedRelation" : {}
+            }
+        },
     ];
+
+    static NEED_UNDER_BAR = ["mother","father","maternal_grandmother","maternal_grandfather","paternal_grandmother","paternal_grandfather"];
 
     static isMatchRelation(key){
         var isMatch = false;
@@ -399,6 +551,16 @@ export class RelativeUtil{
         return rel;
     }
 
+    static isNeedUnderBar(key){
+        var ret = true;
+        this.NEED_UNDER_BAR.forEach(function(relation){
+            if(key == relation){
+                ret = false;
+            }
+        });
+        return ret;
+    }
+
     static getALLRelatives(){
         var relatives = [];
         relatives = relatives.concat(this.getFirstDegreeRelatives());
@@ -412,18 +574,18 @@ export class RelativeUtil{
      * 父、母、兄弟、姉妹、息子、娘
      */
      static getFirstDegreeRelatives(){
-        var relatives = ['father','mother'];
+        var relatives = ['father','mother'];    // NMTH, NFTH
 
-        // 兄弟
+        // 兄弟 NBRO
         relatives = relatives.concat(this.getMiltipleRelative('brother'));
 
-        // 姉妹
+        // 姉妹 NSIS
         relatives = relatives.concat(this.getMiltipleRelative('sister'));
 
-        // 息子
+        // 息子 NSON
         relatives = relatives.concat(this.getMiltipleRelative('son'));
 
-        // 娘
+        // 娘 NDAU
         relatives = relatives.concat(this.getMiltipleRelative('daughter'));
 
         return relatives;
@@ -431,30 +593,30 @@ export class RelativeUtil{
 
     /**
      * 第二度近親者の配列を取得する
-     * 父方の祖父母、母方の祖父母、父方の叔父叔母、母方の叔父叔母
+     * 父方の祖父母、母方の祖父母、父方の叔父叔母、母方の叔父叔母、孫息子、孫娘
      */
     static getSecondDegreeRelatives(){
         var relatives = [
-            'paternal_grandfather','paternal_grandmother',
-            'maternal_grandfather','maternal_grandmother',
+            'paternal_grandfather','paternal_grandmother',  // PGRFTH, PGRMTH
+            'maternal_grandfather','maternal_grandmother',  // MGRFTH, MGRMTH
         ];
 
-        // 父方の叔父
+        // 父方の叔父 PUNC
         relatives = relatives.concat(this.getMiltipleRelative('paternal_uncle'));
 
-        // 父方の叔母
+        // 父方の叔母 PAUN
         relatives = relatives.concat(this.getMiltipleRelative('paternal_aunt'));
 
-        // 母方の叔父
+        // 母方の叔父 MUNC
         relatives = relatives.concat(this.getMiltipleRelative('maternal_uncle'));
 
-        // 母方の叔母
+        // 母方の叔母 MAUN
         relatives = relatives.concat(this.getMiltipleRelative('maternal_aunt'));
 
-        // 孫息子
+        // 孫息子 GRNSON
         relatives = relatives.concat(this.getMiltipleRelative('grandson'));
 
-        // 孫娘
+        // 孫娘 GRNDAU
         relatives = relatives.concat(this.getMiltipleRelative('granddaughter'));
 
         return relatives;
@@ -462,19 +624,34 @@ export class RelativeUtil{
 
     /**
      * 第三度近親者の配列を取得する
-     * 父方の曾祖父母、母方の曾祖父母、父方のいとこ、母方のいとこ
+     * 異父母兄弟、異父母姉妹、父方のいとこ、母方のいとこ、甥、姪
      */
     static getThirdDegreeRelatives(){
-        var relatives = [
-            'paternal_greatgrandfather','paternal_greatgrandmother',
-            'maternal_greatgrandfather','maternal_greatgrandmother',
-        ];
+        var relatives = [];
 
-        // 父方のいとこ
+        // 異父兄弟 PHBRO
+        relatives = relatives.concat(this.getMiltipleRelative('paternal_halfbrother'));
+
+        // 異母兄弟 MHBRO
+        relatives = relatives.concat(this.getMiltipleRelative('maternal_halfbrother'));
+
+        // 異父姉妹 PHSIS
+        relatives = relatives.concat(this.getMiltipleRelative('paternal_halfsister'));
+
+        // 異母姉妹 MHSIS
+        relatives = relatives.concat(this.getMiltipleRelative('maternal_halfsister'));
+
+        // 父方のいとこ PCOUSN
         relatives = relatives.concat(this.getMiltipleRelative('paternal_cousin'));
 
-        // 母方のいとこ
+        // 母方のいとこ MCOUSN
         relatives = relatives.concat(this.getMiltipleRelative('maternal_cousin'));
+
+        // 甥 NEPHEW
+        relatives = relatives.concat(this.getMiltipleRelative('nephew'));
+
+        // 姪 NIECE
+        relatives = relatives.concat(this.getMiltipleRelative('niece'));
 
         return relatives;
     }

@@ -247,7 +247,7 @@ class PatientPerson extends XmlTag {
         if (this.isUndefindOrNull(persedXml.relative)) return personal_information;
         for (let r of persedXml.relative) {
             var relative = new Relative();
-            Object.assign(personal_information, relative.getPersonalInfomationData(r));
+            Object.assign(personal_information, relative.getPersonalInfomationData(r, personal_information));  
         }
 
         // note
@@ -995,6 +995,31 @@ class Relative extends XmlTag {
         this.relationshipHolder = new RelationshipHolder();
         Object.assign(personalInformation[relationship.relation], this.relationshipHolder.getPersonalInfomationData(persedXml.relationshipHolder));
 
+        return personalInformation;
+    }
+
+    getPersonalInfomationData(persedXml, pi) {
+        var personalInformation = {};
+        if (this.isUndefindOrNull(persedXml)) return personalInformation;
+        if (this.isUndefindOrNull(persedXml.code)) return personalInformation;
+
+        // TODO this.code = new Code(); ?
+        var relationship = RelativeUtil.getRelationByCode(persedXml.code.attr_code);
+        var key = relationship.relation;
+        if(RelativeUtil.isNeedUnderBar(key)){
+            for(let i=0;i<100;i++){
+                var key_i = key + "_" + i;
+                if(!Object.keys(pi).includes(key_i)){
+                    key = key_i;
+                    break;
+                }
+            }
+        }
+        personalInformation[key] = {};
+
+        if (this.isUndefindOrNull(persedXml.relationshipHolder)) return personalInformation;
+        this.relationshipHolder = new RelationshipHolder();        
+        Object.assign(personalInformation[key], this.relationshipHolder.getPersonalInfomationData(persedXml.relationshipHolder));
         return personalInformation;
     }
 }
