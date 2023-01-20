@@ -113,7 +113,7 @@
 		"confirm_delete": "This will delete all data and restart,  Are you sure you want to do this?",
 		"file_save": "Saving File",
 		"add_relative_title": "Who would you like to add to your history?",
-		"add_relative_para": "Relatives in your immediate family who aren't listed here are probably on the previous page and can be reached by closing this window and selecting the plus sign image ('Add History') next to the relative's name. Spouses and second cousins are not listed because they don't impact your family health history.",
+		"add_relative_para": "Spouses and second cousins are not listed because they don't impact your family health history.",
 		"select_relationship": "Select Relationship",
 		"please_specify": "Please Specify",
 		"self": "Self",
