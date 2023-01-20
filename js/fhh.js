@@ -1289,13 +1289,11 @@ function start()
 	$("#save_personal_history_button1").on('click', function(){
 		bind_save_personal_history_button_action();
 	});
-//	$("#add_another_family_member_button").show().on("click", bind_add_another_family_member_button_action);
-	$("#add_another_family_member_button1").on('click', function(){
+
+	$(".add_another_family_member").on('click', function(){
 		bind_add_another_family_member_button_action();
 	});
-	$("#add_another_family_member_button2").on('click', function(){
-		bind_add_another_family_member_button_action();
-	});
+
 	$("#save_family_history_button").hide();
 //	$("#view_diagram_and_table_button").show().on("click", bind_view_diagram_and_table_button_action);
 //    $("#view_diagram_and_table_button").show().on("click",  readtable());
@@ -4548,10 +4546,40 @@ function add_personal_history_row(table, is_sort_only) {
 
 function add_new_family_history_row_title(table, key, additionalContents) {
 
+	// key で家族歴追加ボタンを表示するか判定する
+	var add_button = "";
+	if(not_stable_member(key)){
+		// 家族歴追加ボタンを生成する
+		var add_button = "<span class='nowrap cursor_pointer add_another_family_member' style='margin-right:10px;'>"
+		 + "<span class='material-icons green-text cursor_pointer icon_shadow'>group_add</span>" 
+		 + "</span>"
+	}
+
 	var new_row = $("<tr style='height: 70px; overflow:auto;'>");
-	new_row.append("<td colspan='8' class='subsection'>" + getSpanForTranslate(key) + additionalContents + "</td>");
+	new_row.append("<td colspan='8' class='subsection'>" + add_button + getSpanForTranslate(key) + additionalContents + "</td>");
 	table.append(new_row);
 
+	// clickイベントの設定
+	$(".add_another_family_member").off('click');
+	$(".add_another_family_member").on('click', function(){
+		bind_add_another_family_member_button_action();
+	});
+}
+
+function not_stable_member(key){
+	var stable_member = ["self","parents",
+						"paternal_grandparents","maternal_grandparents",
+						"recently_added"];
+	var strs = key.split('.');
+	var member = strs[1];
+
+	var ret = true;
+	stable_member.forEach(function(this_member){
+		if(member == this_member){
+			ret = false;
+		}
+	});
+	return ret;
 }
 
 function add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable) {
