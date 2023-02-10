@@ -4812,10 +4812,10 @@ function update_family_history_row(relationship_id, family_member_information) {
 	}
 
 	// 出生順
-	$("#" + relationship_id).find(".birthOrder").text( getDisplayBirthOrder(family_member_information) );
+	$("#" + relationship_id).find(".birthOrder").html( getDisplayBirthOrder(family_member_information) );
 
 	// 年齢
-	$("#" + relationship_id).find(".age").text(getDisplayAge(family_member_information));
+	$("#" + relationship_id).find(".age").html(getDisplayAge(family_member_information));
 
 	// 性別
 	$("#" + relationship_id).find(".gender").text( $.t("fhh_js." + family_member_information.gender ));
@@ -4890,10 +4890,9 @@ function update_birth_order_col(){
 		var target = $("#" + r).find(".birthOrder");
 
 		if( target.size() > 0 ){
-			target.text( getDisplayBirthOrder(personal_information[r] ) );
+			target.html( getDisplayBirthOrder(personal_information[r] ) );
 		}
 	});
-
 
 }
 
