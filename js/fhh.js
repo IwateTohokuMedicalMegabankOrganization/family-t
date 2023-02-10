@@ -4733,7 +4733,17 @@ function remove_family_member(relationship_id, confirm_flag) {
 	if (name == "") name = relationship_id;
 
 	var should_remove_family_member = true;
-	if (confirm_flag) should_remove_family_member = confirm($.t("fhh_js.remove_q") + " " + name + "?  " + $.t("fhh_js.remove_q2"));
+	// create warning statment
+	var warning = ""
+	if('ja' == getLang()){
+		// japanease
+		warning = name + $.t("fhh_js.remove_q") + $.t("fhh_js.remove_q2");
+	}else{
+		// english
+		warning = $.t("fhh_js.remove_q") + " " + name + "?  " + $.t("fhh_js.remove_q2");
+	}
+
+	if (confirm_flag) should_remove_family_member = confirm(warning);
 	if (should_remove_family_member == true) {
 		var children = check_for_children(personal_information[relationship_id].id);
 		for (i=0;i<children.length;i++) {
