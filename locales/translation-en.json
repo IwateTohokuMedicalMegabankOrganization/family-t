@@ -396,7 +396,8 @@
 		"btn2_fam_hist": "Cancel",
 		"done": "done",
 		"unit_of_age":"years",
-		"at_present": " (At Present) "
+		"at_present": " (At Present) ",
+		"enter_in_half_width": ""
 	},
 	"fhh_add_family": {
 		"instructions": "Now we will build your family.",
