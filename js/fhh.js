@@ -4733,7 +4733,17 @@ function remove_family_member(relationship_id, confirm_flag) {
 	if (name == "") name = relationship_id;
 
 	var should_remove_family_member = true;
-	if (confirm_flag) should_remove_family_member = confirm($.t("fhh_js.remove_q") + " " + name + "?  " + $.t("fhh_js.remove_q2"));
+	// create warning statment
+	var warning = ""
+	if('ja' == getLang()){
+		// japanease
+		warning = name + $.t("fhh_js.remove_q") + $.t("fhh_js.remove_q2");
+	}else{
+		// english
+		warning = $.t("fhh_js.remove_q") + " " + name + "?  " + $.t("fhh_js.remove_q2");
+	}
+
+	if (confirm_flag) should_remove_family_member = confirm(warning);
 	if (should_remove_family_member == true) {
 		var children = check_for_children(personal_information[relationship_id].id);
 		for (i=0;i<children.length;i++) {
@@ -4812,10 +4822,10 @@ function update_family_history_row(relationship_id, family_member_information) {
 	}
 
 	// 出生順
-	$("#" + relationship_id).find(".birthOrder").text( getDisplayBirthOrder(family_member_information) );
+	$("#" + relationship_id).find(".birthOrder").html( getDisplayBirthOrder(family_member_information) );
 
 	// 年齢
-	$("#" + relationship_id).find(".age").text(getDisplayAge(family_member_information));
+	$("#" + relationship_id).find(".age").html(getDisplayAge(family_member_information));
 
 	// 性別
 	$("#" + relationship_id).find(".gender").text( $.t("fhh_js." + family_member_information.gender ));
@@ -4890,10 +4900,9 @@ function update_birth_order_col(){
 		var target = $("#" + r).find(".birthOrder");
 
 		if( target.size() > 0 ){
-			target.text( getDisplayBirthOrder(personal_information[r] ) );
+			target.html( getDisplayBirthOrder(personal_information[r] ) );
 		}
 	});
-
 
 }
 
