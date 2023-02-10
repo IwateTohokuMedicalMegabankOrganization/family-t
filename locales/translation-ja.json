@@ -401,7 +401,8 @@
 		"done": "完了",
 		"select_the_age_input_method": "年齢入力方法の選択",
 		"unit_of_age": "歳",
-		"at_present": "（現在）"
+		"at_present": "（現在）",
+		"enter_in_half_width": "　※半角で入力してください"
 	},
 	"fhh_add_family": {
 		"instructions": "家族構成の情報を入力します。",
