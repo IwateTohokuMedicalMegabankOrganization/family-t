@@ -857,7 +857,13 @@ function start()
 		
 		// 閉じるボタン
 		$('.closeSavePersonalHistoryDialogButton').on('click', function(){
-			closeDialog("#save_personal_history_dialog");
+
+			var isClose  = window.confirm('家族一覧に戻ります。\nよろしいですか？');
+
+			if(isClose){
+
+				closeDialog("#save_personal_history_dialog");
+			}
 		});
 		
 		//$('#saved_leave_this_site').on('click', function(){
@@ -924,7 +930,12 @@ function start()
 		
 		// 閉じるボタン
 		$('.closeRiskScoreButton').on('click', function(){
-			closeDialog("#disease_risk_calculator_dialog");
+
+			var isClose  = window.confirm('家族一覧に戻ります。\nよろしいですか？');
+
+			if(isClose){
+				closeDialog("#disease_risk_calculator_dialog");
+			}
 		});
 	});
 
@@ -984,7 +995,12 @@ function start()
 		
 		// 閉じるボタン
 		$('.closeQofhScoreButton').on('click', function(){
-			closeDialog("#quality_of_family_history_score_dialog");
+
+			var isClose  = window.confirm('家族一覧に戻ります。\nよろしいですか？');
+
+			if(isClose){
+				closeDialog("#quality_of_family_history_score_dialog");
+			}
 		});
 	});
 
@@ -1019,7 +1035,12 @@ function start()
 		
 		// 閉じるボタン
 		$('.closeQofhScoreHelpButton').on('click', function(){
-			closeDialog("#family-t_qof_history_score_help_dialog");
+			var isClose  = window.confirm('家族一覧に戻ります。\nよろしいですか？');
+
+			if(isClose){
+
+				closeDialog("#family-t_qof_history_score_help_dialog");
+			}
 		});
 	});
 
@@ -1050,7 +1071,12 @@ function start()
 		
 		// 閉じるボタン
 		$('.closeLifestyleScoreButton').on('click', function(){
-			closeDialog("#lifestyle_score_calculator_dialog");
+			var isClose  = window.confirm('家族一覧に戻ります。\nよろしいですか？');
+
+			if(isClose){
+
+				closeDialog("#lifestyle_score_calculator_dialog");
+			}
 		});
 	});
 
@@ -1125,7 +1151,13 @@ function start()
 
 		// close buttons
 		$('.closeShowFamilyTableButton').on('click', function(){
-			closeDialog("#familyTable");
+
+			// 画面を閉じるかの確認
+			var isClose  = window.confirm('家族一覧に戻ります。\nよろしいですか？');
+
+			if(isClose){
+				closeDialog("#familyTable");
+			}
 		});
 	});
 
@@ -1140,7 +1172,13 @@ function start()
 		
 		// 閉じるボタン
 		$('.close5diseaseRiskButton').on('click', function(){
-			closeDialog("#5disease_risk_dialog");
+
+			var isClose  = window.confirm('家族一覧に戻ります。\nよろしいですか？');
+
+			if(isClose){
+
+				closeDialog("#5disease_risk_dialog");
+			}
 		});
 	});
 
@@ -1270,7 +1308,11 @@ function start()
 
 		// 閉じるボタン
 		$('.closeHelpDialogButton').on('click', function(){
-			closeDialog("#help_dialog");
+			var isClose  = window.confirm('家族一覧に戻ります。\nよろしいですか？');
+
+			if(isClose){
+				closeDialog("#help_dialog");
+			}
 		});
 
 	});
@@ -2727,7 +2769,12 @@ function bind_personal_help_button_action () {
 		
 		// 閉じるボタン
 		$('#closePersonalHelpDialogButton').on('click', function(){
-			closeDialog("#personal_help_dialog");
+			var isClose  = window.confirm('家族一覧に戻ります。\nよろしいですか？');
+
+			if(isClose){
+
+				closeDialog("#personal_help_dialog");
+			}
 		});
 	});
 }
@@ -2750,7 +2797,13 @@ function bind_immediate_help_button_action() {
 
 		// 閉じるボタン
 		$('#closeImmediateHelpDialogButton').on('click', function(){
-			$("#immediate_help_dialog").dialog('close'); // closeDialogを利用しない
+
+			var isClose  = window.confirm('家族一覧に戻ります。\nよろしいですか？');
+
+			if(isClose){
+
+				$("#immediate_help_dialog").dialog('close'); // closeDialogを利用しない
+			}
 		});
 	});
 }
