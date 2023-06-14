@@ -2113,7 +2113,12 @@ function bind_add_another_family_member_button_action() {
 			)
 		));
 		new_family_member_dialog.find('#closeNewFamilyMemberDialogButton').on("click",function(){
-			closeDialog("#new_family_member_dialog");
+
+			var isClose  = window.confirm('家族一覧に戻ります。\nよろしいですか？');
+
+			if(isClose){
+				closeDialog("#new_family_member_dialog");
+			}
 		} );
 
 		new_family_member_dialog.append("<div class='popup_title'> " + $.t("fhh_js.add_relative_title") + " </div>");
