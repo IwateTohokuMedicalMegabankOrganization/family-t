@@ -2726,7 +2726,7 @@ function bind_personal_help_button_action () {
 		
 		// 閉じるボタン
 		$('#closePersonalHelpDialogButton').on('click', function(){
-			confirmClose('#personal_help_dialog');
+			closeDialog('#personal_help_dialog');
 		});
 	});
 }
@@ -7754,17 +7754,15 @@ function createTranslationSpanAsString(translatKey, contents){
 /**
  * 閉じるボタンを押した際の確認ダイアログ表示
  */
-function confirmClose (dialogId){
-	lng = window.i18n.lng();
+function confirmClose(dialogId){
+	var lng = window.i18n.lng();
+	var isClose;
 	if(lng == 'ja') {
-		var isClose  = window.confirm('家族一覧に戻ります。\nよろしいですか？');
-		if(isClose){
-			closeDialog(dialogId);
-		}
+		isClose = window.confirm('家族一覧に戻ります。\nよろしいですか？');
 	} else {
-		var isClose  = window.confirm('Would you like to return to the family list?');
-		if(isClose){
-			closeDialog(dialogId);
-		}
+		isClose = window.confirm('Would you like to return to the family list?');
+	}
+	if(isClose){
+		closeDialog(dialogId);
 	}
 }
