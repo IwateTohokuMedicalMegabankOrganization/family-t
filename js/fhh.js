@@ -1268,9 +1268,12 @@ function start()
 			$(".computerOnly").remove();
 		};
 
+		//onclickイベントのリセット
+		$(".closeHelpDialogButton").off('click');
+
 		// 閉じるボタン
 		$('.closeHelpDialogButton').on('click', function(){
-			closeDialog('#help_dialog');
+			confirmClose('#help_dialog');
 		});
 	});
 
@@ -2724,9 +2727,12 @@ function bind_personal_help_button_action () {
 	$("#add-help").on("click", function() {
 		openDialog("#personal_help_dialog");
 		
+		//onclickイベントのリセット
+		$("#closePersonalHelpDialogButton").off('click');		
+
 		// 閉じるボタン
 		$('#closePersonalHelpDialogButton').on('click', function(){
-			closeDialog('#personal_help_dialog');
+			confirmClose('#personal_help_dialog');
 		});
 	});
 }
