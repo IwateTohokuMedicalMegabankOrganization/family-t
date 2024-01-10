@@ -2884,7 +2884,7 @@ function bind_family_member_submit_button_action () {
 
 		family_member_information['relationship'] = relationship;
 		if (family_member_information['id'] == null ) family_member_information['id'] = guid();
-		family_member_information['parent_id'] = $("#family_member_parent_id").val();
+		family_member_information['parent_id'] = $("#new_family_member_exact_relationship").val().split(":")[1]; //$("#family_member_parent_id").val();
 		family_member_information['name'] = $("#family_member_info_form_name").val();
 		family_member_information['gender'] = $('input[name="family.member.gender"]:checked').val();
 		family_member_information['twin_status'] = $('input[name="family.member.twin_status"]:checked').val();
