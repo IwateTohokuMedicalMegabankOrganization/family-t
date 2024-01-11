@@ -886,7 +886,8 @@ export class NoteUtil{
         "waist_unit",
         "year_of_birth",
         "date_of_birth",
-        "month_of_birth"
+        "month_of_birth",
+        "parent_id"
     ]
 
     static getNotes(personalInformation){
