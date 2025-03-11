@@ -16,7 +16,7 @@
     "babel-jest": "^27.0.6",
     "babel-plugin-rewire": "^1.2.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "chromedriver": "^92.0.0",
+    "chromedriver": "^134.0.0",
     "cross-env": "^7.0.3",
     "jest": "^27.0.6",
     "selenium-webdriver": "^4.0.0-beta.4",
